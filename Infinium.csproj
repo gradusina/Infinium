@@ -1,0 +1,3119 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{ECC5CB4D-89E5-49BB-A7D0-68A87EA99380}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Infinium</RootNamespace>
+    <AssemblyName>Infinium</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>
+    </ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup />
+  <PropertyGroup />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="BarcodeLib, Version=1.0.0.12, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\BarcodeLib.dll</HintPath>
+    </Reference>
+    <Reference Include="ComponentFactory.Krypton.Toolkit, Version=4.4.0.0, Culture=neutral, PublicKeyToken=a87e673e9ecb6e8e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>D:\Program Files (x86)\Component Factory\Krypton Toolkit 4.4.0\Bin\ComponentFactory.Krypton.Toolkit.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DevExpress.Charts.v12.1.Core, Version=12.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\InfiniumUpdate\DevExpress.Charts.v12.1.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Data.v12.1, Version=12.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\InfiniumUpdate\DevExpress.Data.v12.1.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Office.v12.1.Core, Version=12.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\InfiniumUpdate\DevExpress.Office.v12.1.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.RichEdit.v12.1.Core, Version=12.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\InfiniumUpdate\DevExpress.RichEdit.v12.1.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Utils.v12.1, Version=12.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\InfiniumUpdate\DevExpress.Utils.v12.1.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.XtraBars.v12.1, Version=12.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\InfiniumUpdate\DevExpress.XtraBars.v12.1.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.XtraCharts.v12.1, Version=12.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\InfiniumUpdate\DevExpress.XtraCharts.v12.1.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.XtraCharts.v12.1.UI, Version=12.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\InfiniumUpdate\DevExpress.XtraCharts.v12.1.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.XtraEditors.v12.1, Version=12.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\InfiniumUpdate\DevExpress.XtraEditors.v12.1.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.XtraLayout.v12.1, Version=12.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>D:\Coding\InfiniumUpdate\DevExpress.XtraLayout.v12.1.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.XtraRichEdit.v12.1, Version=12.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>D:\Coding\InfiniumUpdate\DevExpress.XtraRichEdit.v12.1.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <HintPath>packages\NLog.4.6.7\lib\net40-client\NLog.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI, Version=1.2.1.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\NPOI.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.DDF, Version=1.2.1.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\NPOI.DDF.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.HPSF, Version=1.2.1.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\NPOI.HPSF.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.HSSF, Version=1.2.1.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\NPOI.HSSF.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.POIFS, Version=1.2.1.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\NPOI.POIFS.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.Util, Version=1.2.1.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\NPOI.Util.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.DirectoryServices" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AccessDeniedForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AccessDeniedForm.designer.cs">
+      <DependentUpon>AccessDeniedForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Classes\Infinium.cs" />
+    <Compile Include="Classes\PictureToExcel.cs" />
+    <Compile Include="CoverWaitForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CoverWaitForm.designer.cs">
+      <DependentUpon>CoverWaitForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GlobalSuppressions2.cs" />
+    <Compile Include="InfiniumControls.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="InfiniumTipForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="InfiniumTipForm.designer.cs">
+      <DependentUpon>InfiniumTipForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Light\DayPlannerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Light\DayPlannerForm.designer.cs">
+      <DependentUpon>DayPlannerForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Light\EditTimeForm1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Light\EditTimeForm1.designer.cs">
+      <DependentUpon>EditTimeForm1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Light\LightMessageBoxForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Light\LightMessageBoxForm.designer.cs">
+      <DependentUpon>LightMessageBoxForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Light\AddBlogNewsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Light\AddBlogNewsForm.designer.cs">
+      <DependentUpon>AddBlogNewsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Light\AddContractorForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Light\AddContractorForm.designer.cs">
+      <DependentUpon>AddContractorForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Light\AddDocumentRecipientsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Light\AddDocumentRecipientsForm.designer.cs">
+      <DependentUpon>AddDocumentRecipientsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Light\AddItemForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Light\AddItemForm.designer.cs">
+      <DependentUpon>AddItemForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Light\AddMarketingNewsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Light\AddMarketingNewsForm.designer.cs">
+      <DependentUpon>AddMarketingNewsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Light\AddNewsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Light\AddNewsForm.designer.cs">
+      <DependentUpon>AddNewsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Light\AddNotesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Light\AddNotesForm.designer.cs">
+      <DependentUpon>AddNotesForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Light\AddProjectForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Light\AddProjectForm.designer.cs">
+      <DependentUpon>AddProjectForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Light\AddProjectNewsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Light\AddProjectNewsForm.designer.cs">
+      <DependentUpon>AddProjectNewsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Light\AddZOVNewsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Light\AddZOVNewsForm.designer.cs">
+      <DependentUpon>AddZOVNewsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Light\AttachDownloadForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Light\AttachDownloadForm.designer.cs">
+      <DependentUpon>AttachDownloadForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Light\AuthorizationForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Light\AuthorizationForm.designer.cs">
+      <DependentUpon>AuthorizationForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Light\CoderBlogForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Light\CoderBlogForm.designer.cs">
+      <DependentUpon>CoderBlogForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Light\ContractorContactsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Light\ContractorContactsForm.designer.cs">
+      <DependentUpon>ContractorContactsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Light\ContractorsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Light\ContractorsForm.designer.cs">
+      <DependentUpon>ContractorsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Light\CreateIncomeDocumentForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Light\CreateIncomeDocumentForm.designer.cs">
+      <DependentUpon>CreateIncomeDocumentForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Light\CreateInnerDocumentForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Light\CreateInnerDocumentForm.designer.cs">
+      <DependentUpon>CreateInnerDocumentForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Light\CreateFolderForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Light\CreateFolderForm.designer.cs">
+      <DependentUpon>CreateFolderForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Light\CreateOuterDocumentForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Light\CreateOuterDocumentForm.designer.cs">
+      <DependentUpon>CreateOuterDocumentForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Light\DateCorrectForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Light\DateCorrectForm.designer.cs">
+      <DependentUpon>DateCorrectForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Light\DocumentAttributesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Light\DocumentAttributesForm.designer.cs">
+      <DependentUpon>DocumentAttributesForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Light\DocumentsCommentsFilesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Light\DocumentsCommentsFilesForm.designer.cs">
+      <DependentUpon>DocumentsCommentsFilesForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Light\DocumentsConfirmationForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Light\DocumentsConfirmationForm.designer.cs">
+      <DependentUpon>DocumentsConfirmationForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Light\DocumentsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Light\DocumentsForm.designer.cs">
+      <DependentUpon>DocumentsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Light\DocumentsUploadForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Light\DocumentsUploadForm.designer.cs">
+      <DependentUpon>DocumentsUploadForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Light\FilesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Light\FilesForm.designer.cs">
+      <DependentUpon>FilesForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Light\EditTimeForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Light\EditTimeForm.designer.cs">
+      <DependentUpon>EditTimeForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Light\Light.cs" />
+    <Compile Include="Light\LightStartForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Light\LightStartForm.designer.cs">
+      <DependentUpon>LightStartForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Light\MarketingNewsAttachDownloadForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Light\MarketingNewsAttachDownloadForm.Designer.cs">
+      <DependentUpon>MarketingNewsAttachDownloadForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Light\MarketingNewsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Light\MarketingNewsForm.designer.cs">
+      <DependentUpon>MarketingNewsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Light\MessagesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Light\MessagesForm.designer.cs">
+      <DependentUpon>MessagesForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Light\NewToolsSellerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Light\NewToolsSellerForm.designer.cs">
+      <DependentUpon>NewToolsSellerForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Light\NotifyForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Light\NotifyForm.designer.cs">
+      <DependentUpon>NotifyForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Light\PermitsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Light\PermitsForm.designer.cs">
+      <DependentUpon>PermitsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Light\PicturesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Light\PicturesForm.designer.cs">
+      <DependentUpon>PicturesForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Light\PictureViewForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Light\PictureViewForm.Designer.cs">
+      <DependentUpon>PictureViewForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Light\ProjectAttachDownloadForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Light\ProjectAttachDownloadForm.designer.cs">
+      <DependentUpon>ProjectAttachDownloadForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Light\ProjectsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Light\ProjectsForm.designer.cs">
+      <DependentUpon>ProjectsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Light\ReadForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Light\ReadForm.designer.cs">
+      <DependentUpon>ReadForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Light\ToolsSellerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Light\ToolsSellerForm.designer.cs">
+      <DependentUpon>ToolsSellerForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Light\UploadFileForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Light\UploadFileForm.designer.cs">
+      <DependentUpon>UploadFileForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Light\UserInfoForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Light\UserInfoForm.designer.cs">
+      <DependentUpon>UserInfoForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Light\UsersForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Light\UsersForm.designer.cs">
+      <DependentUpon>UsersForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Light\ZOVMessagesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Light\ZOVMessagesForm.designer.cs">
+      <DependentUpon>ZOVMessagesForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Light\ZOVNewsAttachDownloadForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Light\ZOVNewsAttachDownloadForm.designer.cs">
+      <DependentUpon>ZOVNewsAttachDownloadForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Light\ZOVNewsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Light\ZOVNewsForm.designer.cs">
+      <DependentUpon>ZOVNewsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LoginForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LoginForm.designer.cs">
+      <DependentUpon>LoginForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\CabFurnitureAssignments\CabFurnitureOperationsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\CabFurnitureAssignments\CabFurnitureOperationsForm.designer.cs">
+      <DependentUpon>CabFurnitureOperationsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\CabFurnitureAssignments\CabFurnitureCoversForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\CabFurnitureAssignments\CabFurnitureCoversForm.designer.cs">
+      <DependentUpon>CabFurnitureCoversForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\CabFurnitureAssignments\CabFurSelectFactoryForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\CabFurnitureAssignments\CabFurSelectFactoryForm.designer.cs">
+      <DependentUpon>CabFurSelectFactoryForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\ClientCatalog\CatalogFinishedProductsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\ClientCatalog\CatalogFinishedProductsForm.designer.cs">
+      <DependentUpon>CatalogFinishedProductsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\ClientCatalog\ProductDescriptionForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\ClientCatalog\ProductDescriptionForm.designer.cs">
+      <DependentUpon>ProductDescriptionForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\ClientCatalog\CabFurLabelInfoMenu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\ClientCatalog\CabFurLabelInfoMenu.designer.cs">
+      <DependentUpon>CabFurLabelInfoMenu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Editors\AddFunctionsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Editors\AddFunctionsForm.designer.cs">
+      <DependentUpon>AddFunctionsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Admin\Admin.cs" />
+    <Compile Include="Modules\Admin\AdminClientsJournalDetailForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Admin\AdminClientsJournalDetailForm.designer.cs">
+      <DependentUpon>AdminClientsJournalDetailForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Admin\AdminJournalDetailForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Admin\AdminJournalDetailForm.designer.cs">
+      <DependentUpon>AdminJournalDetailForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Admin\AdminLoginJournalForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Admin\AdminLoginJournalForm.designer.cs">
+      <DependentUpon>AdminLoginJournalForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Admin\AdminManagersJournalDetailForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Admin\AdminManagersJournalDetailForm.designer.cs">
+      <DependentUpon>AdminManagersJournalDetailForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Admin\AdminModulesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Admin\AdminModulesForm.designer.cs">
+      <DependentUpon>AdminModulesForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Admin\AdminModulesJournalForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Admin\AdminModulesJournalForm.designer.cs">
+      <DependentUpon>AdminModulesJournalForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Admin\AdminOptionsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Admin\AdminOptionsForm.designer.cs">
+      <DependentUpon>AdminOptionsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Editors\FunctionsManagementForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Editors\FunctionsManagementForm.designer.cs">
+      <DependentUpon>FunctionsManagementForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Editors\LabelParamsManager.cs" />
+    <Compile Include="Modules\Editors\PositionsManagementForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Editors\PositionsManagementForm.designer.cs">
+      <DependentUpon>PositionsManagementForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Editors\DateRatesEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Editors\DateRatesEditForm.designer.cs">
+      <DependentUpon>DateRatesEditForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Editors\UsersResponsibilitiesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Editors\UsersResponsibilitiesForm.designer.cs">
+      <DependentUpon>UsersResponsibilitiesForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Editors\StaffListForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Editors\StaffListForm.designer.cs">
+      <DependentUpon>StaffListForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Admin\AdminRolesManagerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Admin\AdminRolesManagerForm.designer.cs">
+      <DependentUpon>AdminRolesManagerForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Admin\AdminUsersForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Admin\AdminUsersForm.designer.cs">
+      <DependentUpon>AdminUsersForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Admin\AdminModulesAccessForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Admin\AdminModulesAccessForm.designer.cs">
+      <DependentUpon>AdminModulesAccessForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Admin\ControlResponsibilitiesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Admin\ControlResponsibilitiesForm.designer.cs">
+      <DependentUpon>ControlResponsibilitiesForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Editors\DepartmentsManagementForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Editors\DepartmentsManagementForm.designer.cs">
+      <DependentUpon>DepartmentsManagementForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Editors\GroupPhotoEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Editors\GroupPhotoEditForm.designer.cs">
+      <DependentUpon>GroupPhotoEditForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Editors\UserProfilesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Editors\UserProfilesForm.designer.cs">
+      <DependentUpon>UserProfilesForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Admin\WebServiceForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Admin\WebServiceForm.designer.cs">
+      <DependentUpon>WebServiceForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Admin\WorkTimeRegisterForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Admin\WorkTimeRegisterForm.designer.cs">
+      <DependentUpon>WorkTimeRegisterForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\ClientCatalog\CatalogMarketingPriceForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\ClientCatalog\CatalogMarketingPriceForm.designer.cs">
+      <DependentUpon>CatalogMarketingPriceForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\ClientCatalog\ClientDecorPrice.cs" />
+    <Compile Include="Modules\ClientCatalog\ClientFrontsPrice.cs" />
+    <Compile Include="Modules\ClientCatalog\SamplesLabelsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\ClientCatalog\SamplesLabelsForm.designer.cs">
+      <DependentUpon>SamplesLabelsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\ClientCatalog\SampleFrontsManually.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\ClientCatalog\SampleFrontsManually.designer.cs">
+      <DependentUpon>SampleFrontsManually.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\ClientCatalog\SampleDecorManually.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\ClientCatalog\SampleDecorManually.designer.cs">
+      <DependentUpon>SampleDecorManually.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Dispatch\Dispatch.cs" />
+    <Compile Include="Modules\Dispatch\MarketingDispatchLabelCheckForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Dispatch\MarketingDispatchLabelCheckForm.designer.cs">
+      <DependentUpon>MarketingDispatchLabelCheckForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Dispatch\MarketingDispatchListForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Dispatch\MarketingDispatchListForm.designer.cs">
+      <DependentUpon>MarketingDispatchListForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Dispatch\ZOVDispatchLabelCheckForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Dispatch\ZOVDispatchLabelCheckForm.designer.cs">
+      <DependentUpon>ZOVDispatchLabelCheckForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\ExpeditionMarketing\InputNewDecorCountForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\ExpeditionMarketing\InputNewDecorCountForm.designer.cs">
+      <DependentUpon>InputNewDecorCountForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\ExpeditionMarketing\ReaddressMarketingDispatchMenu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\ExpeditionMarketing\ReaddressMarketingDispatchMenu.designer.cs">
+      <DependentUpon>ReaddressMarketingDispatchMenu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Marketing\Clients\ClientsManagers.cs" />
+    <Compile Include="Modules\Editors\LabelParamsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Editors\LabelParamsForm.designer.cs">
+      <DependentUpon>LabelParamsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Marketing\Clients\CountriesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Marketing\Clients\CountriesForm.designer.cs">
+      <DependentUpon>CountriesForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Marketing\Clients\ClientRatesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Marketing\Clients\ClientRatesForm.designer.cs">
+      <DependentUpon>ClientRatesForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Marketing\Clients\ClientDeleteForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Marketing\Clients\ClientDeleteForm.designer.cs">
+      <DependentUpon>ClientDeleteForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Marketing\Clients\ClientsManagersForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Marketing\Clients\ClientsManagersForm.designer.cs">
+      <DependentUpon>ClientsManagersForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Marketing\MutualSettlements\MuttlementDownloadForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Marketing\MutualSettlements\MuttlementDownloadForm.designer.cs">
+      <DependentUpon>MuttlementDownloadForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Marketing\MutualSettlements\MutualSettlements.cs" />
+    <Compile Include="Modules\Marketing\MutualSettlements\MutualSettlementsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Marketing\MutualSettlements\MutualSettlementsForm.designer.cs">
+      <DependentUpon>MutualSettlementsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Marketing\MutualSettlements\MutualSettlementsFilterMenu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Marketing\MutualSettlements\MutualSettlementsFilterMenu.designer.cs">
+      <DependentUpon>MutualSettlementsFilterMenu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Marketing\NewOrders\CalculateNewOrders.cs" />
+    <Compile Include="Modules\Marketing\NewOrders\MCupboardsExportForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Marketing\NewOrders\MCupboardsExportForm.designer.cs">
+      <DependentUpon>MCupboardsExportForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Marketing\NewOrders\MCupboardsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Marketing\NewOrders\MCupboardsForm.designer.cs">
+      <DependentUpon>MCupboardsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Marketing\NewOrders\MarketingDiscountManagementForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Marketing\NewOrders\MarketingDiscountManagementForm.designer.cs">
+      <DependentUpon>MarketingDiscountManagementForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Marketing\NewOrders\CopyMarketingOrderForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Marketing\NewOrders\CopyMarketingOrderForm.designer.cs">
+      <DependentUpon>CopyMarketingOrderForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Marketing\NewOrders\PrepareReport.cs" />
+    <Compile Include="Modules\Marketing\NewOrders\SetOrderStatusForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Marketing\NewOrders\SetOrderStatusForm.designer.cs">
+      <DependentUpon>SetOrderStatusForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Marketing\NewOrders\TestTechCatalogForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Marketing\NewOrders\TestTechCatalogForm.designer.cs">
+      <DependentUpon>TestTechCatalogForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Marketing\NewOrders\SaveDBFReportMenu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Marketing\NewOrders\SaveDBFReportMenu.designer.cs">
+      <DependentUpon>SaveDBFReportMenu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\ExpeditionMarketing\DispatchExportToDBF.cs" />
+    <Compile Include="Modules\Marketing\Orders\AddMarketingOrdersForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Marketing\Orders\AddMarketingOrdersForm.designer.cs">
+      <DependentUpon>AddMarketingOrdersForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Marketing\Orders\CalculateOrders.cs" />
+    <Compile Include="Modules\Marketing\Orders\InvoiceExportToDBF.cs" />
+    <Compile Include="Modules\Marketing\Orders\MarketingOrdersForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Marketing\Orders\MarketingOrdersForm.designer.cs">
+      <DependentUpon>MarketingOrdersForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Marketing\Orders\MarketingOrders.cs" />
+    <Compile Include="Modules\Marketing\Payments\AddContractForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Marketing\Payments\AddContractForm.designer.cs">
+      <DependentUpon>AddContractForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Marketing\ClientMessages\ClientMessages.cs" />
+    <Compile Include="Modules\Marketing\NewOrders\AddMarketingNewOrdersForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Marketing\NewOrders\AddMarketingNewOrdersForm.designer.cs">
+      <DependentUpon>AddMarketingNewOrdersForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Marketing\Payments\AddPaymentsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Marketing\Payments\AddPaymentsForm.designer.cs">
+      <DependentUpon>AddPaymentsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Marketing\Payments\ClientPayments.cs" />
+    <Compile Include="Modules\Marketing\Payments\ClientPaymentsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Marketing\Payments\ClientPaymentsForm.designer.cs">
+      <DependentUpon>ClientPaymentsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Marketing\NewOrders\ClientReportMenu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Marketing\NewOrders\ClientReportMenu.designer.cs">
+      <DependentUpon>ClientReportMenu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Marketing\ClientMessages\ClientsMessagesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Marketing\ClientMessages\ClientsMessagesForm.designer.cs">
+      <DependentUpon>ClientsMessagesForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Marketing\NewOrders\CurrencyForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Marketing\NewOrders\CurrencyForm.designer.cs">
+      <DependentUpon>CurrencyForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Marketing\NewOrders\DecorSizesExportForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Marketing\NewOrders\DecorSizesExportForm.designer.cs">
+      <DependentUpon>DecorSizesExportForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Marketing\NewOrders\NewInvoiceExportToDBF.cs" />
+    <Compile Include="Modules\Marketing\NewOrders\FrontsSizesExportForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Marketing\NewOrders\FrontsSizesExportForm.designer.cs">
+      <DependentUpon>FrontsSizesExportForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Marketing\WeeklyPlanning\MarketingBatchForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Marketing\WeeklyPlanning\MarketingBatchForm.designer.cs">
+      <DependentUpon>MarketingBatchForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Marketing\WeeklyPlanning\MarketingBatchSelectMenu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Marketing\WeeklyPlanning\MarketingBatchSelectMenu.designer.cs">
+      <DependentUpon>MarketingBatchSelectMenu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Marketing\NewOrders\MarketingNewOrders.cs" />
+    <Compile Include="Modules\Marketing\NewOrders\MarketingNewOrdersForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Marketing\NewOrders\MarketingNewOrdersForm.designer.cs">
+      <DependentUpon>MarketingNewOrdersForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Marketing\WeeklyPlanning\MarketingPickFrontsSelectForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Marketing\WeeklyPlanning\MarketingPickFrontsSelectForm.designer.cs">
+      <DependentUpon>MarketingPickFrontsSelectForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Marketing\ClientMessages\MenuClientsMessagesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Marketing\ClientMessages\MenuClientsMessagesForm.designer.cs">
+      <DependentUpon>MenuClientsMessagesForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Marketing\NewOrders\NewOrderSelectClientsMenu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Marketing\NewOrders\NewOrderSelectClientsMenu.designer.cs">
+      <DependentUpon>NewOrderSelectClientsMenu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Marketing\WeeklyPlanning\WeeklyPlanning.cs" />
+    <Compile Include="Modules\Packages\LabelCheck\ReAutorizationForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Packages\LabelCheck\ReAutorizationForm.designer.cs">
+      <DependentUpon>ReAutorizationForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Permits\MachinesPermitsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Permits\MachinesPermitsForm.designer.cs">
+      <DependentUpon>MachinesPermitsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Permits\HistoryScanPermitsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Permits\HistoryScanPermitsForm.designer.cs">
+      <DependentUpon>HistoryScanPermitsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Permits\MachinesPermits.cs" />
+    <Compile Include="Modules\Permits\NewMachinesPermitForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Permits\NewMachinesPermitForm.designer.cs">
+      <DependentUpon>NewMachinesPermitForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\TechnologyCatalog\AddTechStoreTermsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\TechnologyCatalog\AddTechStoreTermsForm.designer.cs">
+      <DependentUpon>AddTechStoreTermsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\TechnologyCatalog\TechnologyLabelInfoMenu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\TechnologyCatalog\TechnologyLabelInfoMenu.designer.cs">
+      <DependentUpon>TechnologyLabelInfoMenu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\TechnologyCatalog\InsetTypesEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\TechnologyCatalog\InsetTypesEditForm.designer.cs">
+      <DependentUpon>InsetTypesEditForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\TechnologyCatalog\NewToolsTypeForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\TechnologyCatalog\NewToolsTypeForm.Designer.cs">
+      <DependentUpon>NewToolsTypeForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\TechnologyCatalog\PatinaEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\TechnologyCatalog\PatinaEditForm.designer.cs">
+      <DependentUpon>PatinaEditForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\CabFurnitureAssignments\CabFurDocsDownloadForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\CabFurnitureAssignments\CabFurDocsDownloadForm.designer.cs">
+      <DependentUpon>CabFurDocsDownloadForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\CabFurnitureAssignments\CabFurnitureModule.cs" />
+    <Compile Include="Modules\CabFurnitureAssignments\CabFurnitureModuleForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\CabFurnitureAssignments\CabFurnitureModuleForm.designer.cs">
+      <DependentUpon>CabFurnitureModuleForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\StaticticsZOV\ZOVBatchStatisticsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\StaticticsZOV\ZOVBatchStatisticsForm.designer.cs">
+      <DependentUpon>ZOVBatchStatisticsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\TechnologyCatalog\PlannedWork.cs" />
+    <Compile Include="Modules\TechnologyCatalog\PlannedWorkForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\TechnologyCatalog\PlannedWorkForm.designer.cs">
+      <DependentUpon>PlannedWorkForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\TechnologyCatalog\TechnologyMaps.cs" />
+    <Compile Include="Modules\WorkAssignments\FrontsProdCapacityForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\WorkAssignments\FrontsProdCapacityForm.designer.cs">
+      <DependentUpon>FrontsProdCapacityForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\ZOV\ClientErrors\NewNotPaidOrderForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\ZOV\ClientErrors\NewNotPaidOrderForm.designer.cs">
+      <DependentUpon>NewNotPaidOrderForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\ZOV\Clients\Clients.cs" />
+    <Compile Include="Modules\ZOV\Clients\ZOVClientsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\ZOV\Clients\ZOVClientsForm.designer.cs">
+      <DependentUpon>ZOVClientsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\ZOV\Clients\NewZOVClientForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\ZOV\Clients\NewZOVClientForm.designer.cs">
+      <DependentUpon>NewZOVClientForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\ZOV\Complaints\Complaints.cs" />
+    <Compile Include="Modules\ZOV\Complaints\ZOVComplaintsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\ZOV\Complaints\ZOVComplaintsForm.designer.cs">
+      <DependentUpon>ZOVComplaintsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\ZOV\Orders\DailyReport.cs" />
+    <Compile Include="Modules\ZOV\Orders\MoveZOVOrdersToMarketing.cs" />
+    <Compile Include="Modules\ZOV\ReportToDBF\InvoiceToDBF.cs" />
+    <Compile Include="Modules\ZOV\ReportToDBF\ReportCalculationsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\ZOV\ReportToDBF\ReportCalculationsForm.designer.cs">
+      <DependentUpon>ReportCalculationsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\ZOV\ReportToDBF\ReportToDBF.cs" />
+    <Compile Include="Modules\ExpeditionMarketing\MarketingDispatchInfoMenu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\ExpeditionMarketing\MarketingDispatchInfoMenu.designer.cs">
+      <DependentUpon>MarketingDispatchInfoMenu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\ExpeditionMarketing\MarketingNewDispatchForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\ExpeditionMarketing\MarketingNewDispatchForm.designer.cs">
+      <DependentUpon>MarketingNewDispatchForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\ExpeditionMarketing\MarketingNewDispatchMenu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\ExpeditionMarketing\MarketingNewDispatchMenu.designer.cs">
+      <DependentUpon>MarketingNewDispatchMenu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Light\NewPermitMenu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Light\NewPermitMenu.designer.cs">
+      <DependentUpon>NewPermitMenu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Packages\LabelCheck\StorageLabelCheckForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Packages\LabelCheck\StorageLabelCheckForm.designer.cs">
+      <DependentUpon>StorageLabelCheckForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Permits\NewVisitorPermitForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Permits\NewVisitorPermitForm.designer.cs">
+      <DependentUpon>NewVisitorPermitForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Permits\Permits.cs" />
+    <Compile Include="Modules\Permits\VisitorsPermitsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Permits\VisitorsPermitsForm.designer.cs">
+      <DependentUpon>VisitorsPermitsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\TechnologyCatalog\AddOperationsTermsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\TechnologyCatalog\AddOperationsTermsForm.designer.cs">
+      <DependentUpon>AddOperationsTermsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\ClientCatalog\DecorPictureEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\ClientCatalog\DecorPictureEditForm.designer.cs">
+      <DependentUpon>DecorPictureEditForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\ClientCatalog\FrontsPictureEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\ClientCatalog\FrontsPictureEditForm.designer.cs">
+      <DependentUpon>FrontsPictureEditForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\TechnicalCatalog\MachinesCatalog.cs" />
+    <Compile Include="Modules\TechnicalCatalog\MachinesCatalogForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\TechnicalCatalog\MachinesCatalogForm.designer.cs">
+      <DependentUpon>MachinesCatalogForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\TechnicalCatalog\MachinesSummaryForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\TechnicalCatalog\MachinesSummaryForm.designer.cs">
+      <DependentUpon>MachinesSummaryForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\ClientCatalog\SampleDecorLabelInfoMenu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\ClientCatalog\SampleDecorLabelInfoMenu.designer.cs">
+      <DependentUpon>SampleDecorLabelInfoMenu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\ClientCatalog\SampleFrontsLabelInfoMenu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\ClientCatalog\SampleFrontsLabelInfoMenu.designer.cs">
+      <DependentUpon>SampleFrontsLabelInfoMenu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\TechnicalCatalog\TechnicalSpecificationForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\TechnicalCatalog\TechnicalSpecificationForm.designer.cs">
+      <DependentUpon>TechnicalSpecificationForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\TechnologyCatalog\TechnologyCatalog.cs" />
+    <Compile Include="Modules\StaticticsZOV\ZOVStorageStatisticsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\StaticticsZOV\ZOVStorageStatisticsForm.designer.cs">
+      <DependentUpon>ZOVStorageStatisticsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\StatisticsMarketing\MarketingBatchStatisticsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\StatisticsMarketing\MarketingBatchStatisticsForm.designer.cs">
+      <DependentUpon>MarketingBatchStatisticsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\ZOV\Orders\AddZOVMainOrdersForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\ZOV\Orders\AddZOVMainOrdersForm.designer.cs">
+      <DependentUpon>AddZOVMainOrdersForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\ZOV\ClientErrors\ClientErrorsWriteOffs.cs" />
+    <Compile Include="Modules\ZOV\ClientErrors\ClientErrorsWriteOffsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\ZOV\ClientErrors\ClientErrorsWriteOffsForm.designer.cs">
+      <DependentUpon>ClientErrorsWriteOffsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\ZOV\Orders\CupboardsExportForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\ZOV\Orders\CupboardsExportForm.designer.cs">
+      <DependentUpon>CupboardsExportForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\ZOV\Orders\CupboardsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\ZOV\Orders\CupboardsForm.designer.cs">
+      <DependentUpon>CupboardsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\ZOV\Orders\DoubleOrderForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\ZOV\Orders\DoubleOrderForm.designer.cs">
+      <DependentUpon>DoubleOrderForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\ZOV\ClientErrors\NewAssemblyOrderForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\ZOV\ClientErrors\NewAssemblyOrderForm.designer.cs">
+      <DependentUpon>NewAssemblyOrderForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\ZOV\ClientErrors\NewClientErrorForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\ZOV\ClientErrors\NewClientErrorForm.designer.cs">
+      <DependentUpon>NewClientErrorForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\ZOV\Orders\NewZOVOrderSelectMenu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\ZOV\Orders\NewZOVOrderSelectMenu.designer.cs">
+      <DependentUpon>NewZOVOrderSelectMenu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\ZOV\Orders\ReportFilterForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\ZOV\Orders\ReportFilterForm.designer.cs">
+      <DependentUpon>ReportFilterForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\ZOV\Orders\SelectManagerMenu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\ZOV\Orders\SelectManagerMenu.designer.cs">
+      <DependentUpon>SelectManagerMenu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\ZOV\Samples\SampleOrders.cs" />
+    <Compile Include="Modules\ZOV\Samples\SamplesOrdersForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\ZOV\Samples\SamplesOrdersForm.designer.cs">
+      <DependentUpon>SamplesOrdersForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\ZOV\Samples\ShowShopAddressesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\ZOV\Samples\ShowShopAddressesForm.designer.cs">
+      <DependentUpon>ShowShopAddressesForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\TechnologyCatalog\InsetTypesSelectForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\TechnologyCatalog\InsetTypesSelectForm.designer.cs">
+      <DependentUpon>InsetTypesSelectForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\ZOV\WeeklyPlanning\WeeklyPlanning.cs" />
+    <Compile Include="Modules\ZOV\WeeklyPlanning\ZOVBatchForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\ZOV\WeeklyPlanning\ZOVBatchForm.designer.cs">
+      <DependentUpon>ZOVBatchForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\ZOV\WeeklyPlanning\ZOVBatchSelectMenu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\ZOV\WeeklyPlanning\ZOVBatchSelectMenu.designer.cs">
+      <DependentUpon>ZOVBatchSelectMenu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\ZOV\WeeklyPlanning\ZOVPickFrontsSelectForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\ZOV\WeeklyPlanning\ZOVPickFrontsSelectForm.designer.cs">
+      <DependentUpon>ZOVPickFrontsSelectForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Packages\CheckLabel.cs" />
+    <Compile Include="Modules\ExpeditionMarketing\MarketingExpeditionForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\ExpeditionMarketing\MarketingExpeditionForm.designer.cs">
+      <DependentUpon>MarketingExpeditionForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\ExpeditionZOV\ZOVExpeditionForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\ExpeditionZOV\ZOVExpeditionForm.designer.cs">
+      <DependentUpon>ZOVExpeditionForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Packages\LabelCheck\ExpeditionLabelCheckForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Packages\LabelCheck\ExpeditionLabelCheckForm.designer.cs">
+      <DependentUpon>ExpeditionLabelCheckForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Packages\LabelCheck\LabelCheckProfilForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Packages\LabelCheck\LabelCheckProfilForm.designer.cs">
+      <DependentUpon>LabelCheckProfilForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Packages\LabelCheck\PalleteLabelCheckForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Packages\LabelCheck\PalleteLabelCheckForm.designer.cs">
+      <DependentUpon>PalleteLabelCheckForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Packages\MarketingPackages.cs" />
+    <Compile Include="Modules\Packages\MarketingPackagesAllocation\MarketingPackagesAllocProfilForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Packages\MarketingPackagesAllocation\MarketingPackagesAllocProfilForm.designer.cs">
+      <DependentUpon>MarketingPackagesAllocProfilForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Packages\MarketingPackagesAllocation\MarketingPackagesAllocTPSForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Packages\MarketingPackagesAllocation\MarketingPackagesAllocTPSForm.designer.cs">
+      <DependentUpon>MarketingPackagesAllocTPSForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Packages\MarketingPackagesAllocation\MarketingSplitOrdersForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Packages\MarketingPackagesAllocation\MarketingSplitOrdersForm.designer.cs">
+      <DependentUpon>MarketingSplitOrdersForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Packages\MarketingPackagesAllocation\MarketingSplitPackagesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Packages\MarketingPackagesAllocation\MarketingSplitPackagesForm.designer.cs">
+      <DependentUpon>MarketingSplitPackagesForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Packages\MarketingPackagesAllocation\SplitOrdersForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Packages\MarketingPackagesAllocation\SplitOrdersForm.designer.cs">
+      <DependentUpon>SplitOrdersForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Packages\MarketingPrintPackages\MarketingFilterProductsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Packages\MarketingPrintPackages\MarketingFilterProductsForm.designer.cs">
+      <DependentUpon>MarketingFilterProductsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Packages\MarketingPrintPackages\MarketingPackagesPrintTPSForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Packages\MarketingPrintPackages\MarketingPackagesPrintTPSForm.designer.cs">
+      <DependentUpon>MarketingPackagesPrintTPSForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Dispatch\ZOVDispatchListForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Dispatch\ZOVDispatchListForm.designer.cs">
+      <DependentUpon>ZOVDispatchListForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Packages\MarketingPrintPackages\MarketingPackagesPrintProfilForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Packages\MarketingPrintPackages\MarketingPackagesPrintProfilForm.designer.cs">
+      <DependentUpon>MarketingPackagesPrintProfilForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Packages\MarketingSplitOrders.cs" />
+    <Compile Include="Modules\Trays\MarketingTrays.cs" />
+    <Compile Include="Modules\Trays\MarketingTraysForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Trays\MarketingTraysForm.designer.cs">
+      <DependentUpon>MarketingTraysForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Trays\TrayCheckForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Trays\TrayCheckForm.designer.cs">
+      <DependentUpon>TrayCheckForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Trays\ZOVTraysForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Trays\ZOVTraysForm.designer.cs">
+      <DependentUpon>ZOVTraysForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\ExpeditionZOV\ZOVExpedition.cs" />
+    <Compile Include="Modules\Packages\ZOVPackages.cs" />
+    <Compile Include="Modules\Packages\ZOVPackagesAllocation\ZOVPackagesAllocTPSForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Packages\ZOVPackagesAllocation\ZOVPackagesAllocTPSForm.designer.cs">
+      <DependentUpon>ZOVPackagesAllocTPSForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Packages\ZOVPackagesAllocation\ZOVSplitPackagesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Packages\ZOVPackagesAllocation\ZOVSplitPackagesForm.designer.cs">
+      <DependentUpon>ZOVSplitPackagesForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Packages\ZOVPackagesAllocation\ZOVPackagesAllocProfilForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Packages\ZOVPackagesAllocation\ZOVPackagesAllocProfilForm.designer.cs">
+      <DependentUpon>ZOVPackagesAllocProfilForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\ExpeditionMarketing\MarketingExpedition.cs" />
+    <Compile Include="Modules\Packages\ZOVPrintPackages\ZOVFilterProductsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Packages\ZOVPrintPackages\ZOVFilterProductsForm.designer.cs">
+      <DependentUpon>ZOVFilterProductsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Packages\ZOVPrintPackages\ZOVPackagesPrintTPSForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Packages\ZOVPrintPackages\ZOVPackagesPrintTPSForm.designer.cs">
+      <DependentUpon>ZOVPackagesPrintTPSForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Packages\ZOVPrintPackages\ZOVPackagesPrintProfilForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Packages\ZOVPrintPackages\ZOVPackagesPrintProfilForm.designer.cs">
+      <DependentUpon>ZOVPackagesPrintProfilForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Trays\ZOVTrays.cs" />
+    <Compile Include="Modules\PaymentWeeks\PaymentWeeks.cs" />
+    <Compile Include="Modules\PaymentWeeks\PaymentWeeksZOVForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\PaymentWeeks\PaymentWeeksZOVForm.designer.cs">
+      <DependentUpon>PaymentWeeksZOVForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\PaymentWeeks\PaymentWeeksZOVSelectDateForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\PaymentWeeks\PaymentWeeksZOVSelectDateForm.designer.cs">
+      <DependentUpon>PaymentWeeksZOVSelectDateForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\TechnologyCatalog\AddNewTechStoreItemForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\TechnologyCatalog\AddNewTechStoreItemForm.designer.cs">
+      <DependentUpon>AddNewTechStoreItemForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\ClientCatalog\Catalog.cs" />
+    <Compile Include="Modules\ClientCatalog\CatalogForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\ClientCatalog\CatalogForm.designer.cs">
+      <DependentUpon>CatalogForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\ClientCatalog\CatalogZOVPriceForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\ClientCatalog\CatalogZOVPriceForm.designer.cs">
+      <DependentUpon>CatalogZOVPriceForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Marketing\Clients\Clients.cs" />
+    <Compile Include="Classes\Excel.cs" />
+    <Compile Include="Modules\ZOV\Orders\OrdersZOV.cs" />
+    <Compile Include="Modules\ZOV\Orders\ZOVOrdersForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\ZOV\Orders\ZOVOrdersForm.designer.cs">
+      <DependentUpon>ZOVOrdersForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\TechnologyCatalog\MachinePictureEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\TechnologyCatalog\MachinePictureEditForm.designer.cs">
+      <DependentUpon>MachinePictureEditForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Marketing\Clients\MarketingClientsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Marketing\Clients\MarketingClientsForm.designer.cs">
+      <DependentUpon>MarketingClientsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\TechnicalCatalog\NewMachineForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\TechnicalCatalog\NewMachineForm.Designer.cs">
+      <DependentUpon>NewMachineForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\TechnologyCatalog\NewMachinesOperationForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\TechnologyCatalog\NewMachinesOperationForm.Designer.cs">
+      <DependentUpon>NewMachinesOperationForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Marketing\Clients\NewMarketingClientForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Marketing\Clients\NewMarketingClientForm.designer.cs">
+      <DependentUpon>NewMarketingClientForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\TechnologyCatalog\NewSectorForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\TechnologyCatalog\NewSectorForm.Designer.cs">
+      <DependentUpon>NewSectorForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\TechnologyCatalog\NewSubSectorForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\TechnologyCatalog\NewSubSectorForm.Designer.cs">
+      <DependentUpon>NewSubSectorForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\TechnologyCatalog\NewToolsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\TechnologyCatalog\NewToolsForm.Designer.cs">
+      <DependentUpon>NewToolsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\TechnologyCatalog\NewToolsGroupForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\TechnologyCatalog\NewToolsGroupForm.Designer.cs">
+      <DependentUpon>NewToolsGroupForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\TechnologyCatalog\NewToolsSubTypeForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\TechnologyCatalog\NewToolsSubTypeForm.Designer.cs">
+      <DependentUpon>NewToolsSubTypeForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\TechnologyCatalog\CabFurDocTypesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\TechnologyCatalog\CabFurDocTypesForm.Designer.cs">
+      <DependentUpon>CabFurDocTypesForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\ClientCatalog\PictureEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\ClientCatalog\PictureEditForm.designer.cs">
+      <DependentUpon>PictureEditForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\TechnologyCatalog\TechCatalogForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\TechnologyCatalog\TechCatalogForm.designer.cs">
+      <DependentUpon>TechCatalogForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\TechnologyCatalog\TechStorageItemsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\TechnologyCatalog\TechStorageItemsForm.designer.cs">
+      <DependentUpon>TechStorageItemsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\TechnologyCatalog\ZoomImageForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\TechnologyCatalog\ZoomImageForm.designer.cs">
+      <DependentUpon>ZoomImageForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\StaticticsZOV\ClientStatisticsAllClientsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\StaticticsZOV\ClientStatisticsAllClientsForm.designer.cs">
+      <DependentUpon>ClientStatisticsAllClientsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\StaticticsZOV\DoubleOrdersStatistics.cs" />
+    <Compile Include="Modules\StaticticsZOV\DoubleOrdersStatisticsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\StaticticsZOV\DoubleOrdersStatisticsForm.designer.cs">
+      <DependentUpon>DoubleOrdersStatisticsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\StaticticsZOV\IncomeMonthZOVForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\StaticticsZOV\IncomeMonthZOVForm.designer.cs">
+      <DependentUpon>IncomeMonthZOVForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\StaticticsZOV\ZOVDebtsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\StaticticsZOV\ZOVDebtsForm.designer.cs">
+      <DependentUpon>ZOVDebtsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\StaticticsZOV\StatisticsZOV.cs" />
+    <Compile Include="Modules\StaticticsZOV\ClientStatisticsZOVDetailForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\StaticticsZOV\ClientStatisticsZOVDetailForm.designer.cs">
+      <DependentUpon>ClientStatisticsZOVDetailForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\StaticticsZOV\ClientStatisticsZOVSelectDateForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\StaticticsZOV\ClientStatisticsZOVSelectDateForm.designer.cs">
+      <DependentUpon>ClientStatisticsZOVSelectDateForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\StatisticsMarketing\CommonStatisticsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\StatisticsMarketing\CommonStatisticsForm.designer.cs">
+      <DependentUpon>CommonStatisticsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\StatisticsMarketing\IncomeMonthMarketingForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\StatisticsMarketing\IncomeMonthMarketingForm.designer.cs">
+      <DependentUpon>IncomeMonthMarketingForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\StatisticsMarketing\MarketingStateForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\StatisticsMarketing\MarketingStateForm.designer.cs">
+      <DependentUpon>MarketingStateForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\StatisticsMarketing\MarketingStorageStatisticsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\StatisticsMarketing\MarketingStorageStatisticsForm.designer.cs">
+      <DependentUpon>MarketingStorageStatisticsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\StatisticsMarketing\StatisticsMarketing.cs" />
+    <Compile Include="Modules\StatisticsMarketing\MarketingExpeditionStatisticsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\StatisticsMarketing\MarketingExpeditionStatisticsForm.designer.cs">
+      <DependentUpon>MarketingExpeditionStatisticsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\StatisticsMarketing\ConditionOrdersStatisticsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\StatisticsMarketing\ConditionOrdersStatisticsForm.designer.cs">
+      <DependentUpon>ConditionOrdersStatisticsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Storage\AddInventoryRestForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Storage\AddInventoryRestForm.designer.cs">
+      <DependentUpon>AddInventoryRestForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Storage\AddWealthForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Storage\AddWealthForm.designer.cs">
+      <DependentUpon>AddWealthForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Storage\InventoryForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Storage\InventoryForm.designer.cs">
+      <DependentUpon>InventoryForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Storage\ManufactureStoreInventoryForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Storage\ManufactureStoreInventoryForm.designer.cs">
+      <DependentUpon>ManufactureStoreInventoryForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Storage\MovementReportMenu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Storage\MovementReportMenu.designer.cs">
+      <DependentUpon>MovementReportMenu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Storage\MoveToPersonMenu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Storage\MoveToPersonMenu.designer.cs">
+      <DependentUpon>MoveToPersonMenu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Storage\NewArrivalForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Storage\NewArrivalForm.designer.cs">
+      <DependentUpon>NewArrivalForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Storage\NewInventoryForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Storage\NewInventoryForm.designer.cs">
+      <DependentUpon>NewInventoryForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Storage\NewMovementInvoiceForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Storage\NewMovementInvoiceForm.designer.cs">
+      <DependentUpon>NewMovementInvoiceForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Storage\NewSellerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Storage\NewSellerForm.designer.cs">
+      <DependentUpon>NewSellerForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Storage\PersonalInventoryForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Storage\PersonalInventoryForm.designer.cs">
+      <DependentUpon>PersonalInventoryForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Storage\ReadyStoreInventoryForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Storage\ReadyStoreInventoryForm.designer.cs">
+      <DependentUpon>ReadyStoreInventoryForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Storage\ReturnWealthForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Storage\ReturnWealthForm.designer.cs">
+      <DependentUpon>ReturnWealthForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Storage\SelectMovementMenu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Storage\SelectMovementMenu.designer.cs">
+      <DependentUpon>SelectMovementMenu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Storage\SellerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Storage\SellerForm.designer.cs">
+      <DependentUpon>SellerForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Storage\Storage.cs" />
+    <Compile Include="Modules\Storage\StorageForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Storage\StorageForm.designer.cs">
+      <DependentUpon>StorageForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Storage\StoreLabels\PrintStoreLabels.cs" />
+    <Compile Include="Modules\Storage\StoreLabels\StoreLabelsManager.cs" />
+    <Compile Include="Modules\Storage\StoreLabels\StoreLabelsPrintForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Storage\StoreLabels\StoreLabelsPrintForm.designer.cs">
+      <DependentUpon>StoreLabelsPrintForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Storage\WealthForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Storage\WealthForm.designer.cs">
+      <DependentUpon>WealthForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Storage\WriteOffParametersMenu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Storage\WriteOffParametersMenu.designer.cs">
+      <DependentUpon>WriteOffParametersMenu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\UserProfile\DateForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\UserProfile\DateForm.Designer.cs">
+      <DependentUpon>DateForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\UserProfile\GridsBackColorForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\UserProfile\GridsBackColorForm.designer.cs">
+      <DependentUpon>GridsBackColorForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\UserProfile\LanguageForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\UserProfile\LanguageForm.Designer.cs">
+      <DependentUpon>LanguageForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\UserProfile\PersonalSettingsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\UserProfile\PersonalSettingsForm.designer.cs">
+      <DependentUpon>PersonalSettingsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\UserProfile\PhotoEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\UserProfile\PhotoEditForm.designer.cs">
+      <DependentUpon>PhotoEditForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\WorkAssignments\EditTafelForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\WorkAssignments\EditTafelForm.designer.cs">
+      <DependentUpon>EditTafelForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\ProfileAssignments\ComplexSawingForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\ProfileAssignments\ComplexSawingForm.designer.cs">
+      <DependentUpon>ComplexSawingForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\DyeingAssignments\DyeingAssignments.cs" />
+    <Compile Include="Modules\DyeingAssignments\DyeingAssignmentsCreateForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\DyeingAssignments\DyeingAssignmentsCreateForm.designer.cs">
+      <DependentUpon>DyeingAssignmentsCreateForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\DyeingAssignments\DyeingAssignmentsMainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\DyeingAssignments\DyeingAssignmentsMainForm.designer.cs">
+      <DependentUpon>DyeingAssignmentsMainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\DyeingAssignments\DyeingAssignmentsMaterialForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\DyeingAssignments\DyeingAssignmentsMaterialForm.designer.cs">
+      <DependentUpon>DyeingAssignmentsMaterialForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\DyeingAssignments\ScaningDyeingAssignmentsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\DyeingAssignments\ScaningDyeingAssignmentsForm.designer.cs">
+      <DependentUpon>ScaningDyeingAssignmentsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\ProfileAssignments\InputPackageInfoMenu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\ProfileAssignments\InputPackageInfoMenu.designer.cs">
+      <DependentUpon>InputPackageInfoMenu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\ProfileAssignments\ProfileAssignments.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Modules\ProfileAssignments\ProfileAssignmentsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\ProfileAssignments\ProfileAssignmentsForm.designer.cs">
+      <DependentUpon>ProfileAssignmentsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\ProfileAssignments\ProfileAssignmentsLabelsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\ProfileAssignments\ProfileAssignmentsLabelsForm.designer.cs">
+      <DependentUpon>ProfileAssignmentsLabelsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\ProfileAssignments\ReturnedRollersForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\ProfileAssignments\ReturnedRollersForm.designer.cs">
+      <DependentUpon>ReturnedRollersForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\ProfileAssignments\SplitAssignmentRequestMenu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\ProfileAssignments\SplitAssignmentRequestMenu.designer.cs">
+      <DependentUpon>SplitAssignmentRequestMenu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\WorkAssignments\TafelSplitMenu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\WorkAssignments\TafelSplitMenu.designer.cs">
+      <DependentUpon>TafelSplitMenu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\WorkAssignments\WorkAssignments.cs" />
+    <Compile Include="Modules\WorkAssignments\WorkAssignmentsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\WorkAssignments\WorkAssignmentsForm.designer.cs">
+      <DependentUpon>WorkAssignmentsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Overrides.cs" />
+    <Compile Include="PhantomForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PhantomForm.Designer.cs">
+      <DependentUpon>PhantomForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="SmallWaitForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SmallWaitForm.designer.cs">
+      <DependentUpon>SmallWaitForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SplashForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SplashForm.designer.cs">
+      <DependentUpon>SplashForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Light\LightNewsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Light\LightNewsForm.designer.cs">
+      <DependentUpon>LightNewsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\UserFunctionsContainer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\UserFunctionsContainer.Designer.cs">
+      <DependentUpon>UserFunctionsContainer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WaitForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WaitForm.designer.cs">
+      <DependentUpon>WaitForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\WebService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="AccessDeniedForm.resx">
+      <DependentUpon>AccessDeniedForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CoverWaitForm.resx">
+      <DependentUpon>CoverWaitForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InfiniumTipForm.resx">
+      <DependentUpon>InfiniumTipForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Light\DayPlannerForm.resx">
+      <DependentUpon>DayPlannerForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Light\EditTimeForm1.resx">
+      <DependentUpon>EditTimeForm1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Light\LightMessageBoxForm.resx">
+      <DependentUpon>LightMessageBoxForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Light\AddBlogNewsForm.resx">
+      <DependentUpon>AddBlogNewsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Light\AddContractorForm.resx">
+      <DependentUpon>AddContractorForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Light\AddDocumentRecipientsForm.resx">
+      <DependentUpon>AddDocumentRecipientsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Light\AddItemForm.resx">
+      <DependentUpon>AddItemForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Light\AddMarketingNewsForm.resx">
+      <DependentUpon>AddMarketingNewsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Light\AddNewsForm.resx">
+      <DependentUpon>AddNewsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Light\AddNotesForm.resx">
+      <DependentUpon>AddNotesForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Light\AddProjectForm.resx">
+      <DependentUpon>AddProjectForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Light\AddProjectNewsForm.resx">
+      <DependentUpon>AddProjectNewsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Light\AddZOVNewsForm.resx">
+      <DependentUpon>AddZOVNewsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Light\AttachDownloadForm.resx">
+      <DependentUpon>AttachDownloadForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Light\AuthorizationForm.resx">
+      <DependentUpon>AuthorizationForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Light\CoderBlogForm.resx">
+      <DependentUpon>CoderBlogForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Light\ContractorsForm.resx">
+      <DependentUpon>ContractorsForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Light\CreateIncomeDocumentForm.resx">
+      <DependentUpon>CreateIncomeDocumentForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Light\CreateInnerDocumentForm.resx">
+      <DependentUpon>CreateInnerDocumentForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Light\CreateFolderForm.resx">
+      <DependentUpon>CreateFolderForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Light\CreateOuterDocumentForm.resx">
+      <DependentUpon>CreateOuterDocumentForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Light\DateCorrectForm.resx">
+      <DependentUpon>DateCorrectForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Light\DocumentAttributesForm.resx">
+      <DependentUpon>DocumentAttributesForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Light\DocumentsCommentsFilesForm.resx">
+      <DependentUpon>DocumentsCommentsFilesForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Light\DocumentsConfirmationForm.resx">
+      <DependentUpon>DocumentsConfirmationForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Light\DocumentsForm.resx">
+      <DependentUpon>DocumentsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Light\DocumentsUploadForm.resx">
+      <DependentUpon>DocumentsUploadForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Light\FilesForm.resx">
+      <DependentUpon>FilesForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Light\EditTimeForm.resx">
+      <DependentUpon>EditTimeForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Light\LightStartForm.resx">
+      <DependentUpon>LightStartForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Light\MarketingNewsAttachDownloadForm.resx">
+      <DependentUpon>MarketingNewsAttachDownloadForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Light\MarketingNewsForm.resx">
+      <DependentUpon>MarketingNewsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Light\MessagesForm.resx">
+      <DependentUpon>MessagesForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Light\NewToolsSellerForm.resx">
+      <DependentUpon>NewToolsSellerForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Light\NotifyForm.resx">
+      <DependentUpon>NotifyForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Light\PermitsForm.resx">
+      <DependentUpon>PermitsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Light\PicturesForm.resx">
+      <DependentUpon>PicturesForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Light\PictureViewForm.resx">
+      <DependentUpon>PictureViewForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Light\ProjectAttachDownloadForm.resx">
+      <DependentUpon>ProjectAttachDownloadForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Light\ProjectsForm.resx">
+      <DependentUpon>ProjectsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Light\ReadForm.resx">
+      <DependentUpon>ReadForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Light\ToolsSellerForm.resx">
+      <DependentUpon>ToolsSellerForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Light\UploadFileForm.resx">
+      <DependentUpon>UploadFileForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Light\UserInfoForm.resx">
+      <DependentUpon>UserInfoForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Light\UsersForm.resx">
+      <DependentUpon>UsersForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Light\ZOVMessagesForm.resx">
+      <DependentUpon>ZOVMessagesForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Light\ZOVNewsAttachDownloadForm.resx">
+      <DependentUpon>ZOVNewsAttachDownloadForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Light\ZOVNewsForm.resx">
+      <DependentUpon>ZOVNewsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LoginForm.resx">
+      <DependentUpon>LoginForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\CabFurnitureAssignments\CabFurnitureOperationsForm.resx">
+      <DependentUpon>CabFurnitureOperationsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\CabFurnitureAssignments\CabFurnitureCoversForm.resx">
+      <DependentUpon>CabFurnitureCoversForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\CabFurnitureAssignments\CabFurSelectFactoryForm.resx">
+      <DependentUpon>CabFurSelectFactoryForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\ClientCatalog\CatalogFinishedProductsForm.resx">
+      <DependentUpon>CatalogFinishedProductsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\ClientCatalog\ProductDescriptionForm.resx">
+      <DependentUpon>ProductDescriptionForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\ClientCatalog\CabFurLabelInfoMenu.resx">
+      <DependentUpon>CabFurLabelInfoMenu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Editors\AddFunctionsForm.resx">
+      <DependentUpon>AddFunctionsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Admin\AdminClientsJournalDetailForm.resx">
+      <DependentUpon>AdminClientsJournalDetailForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Admin\AdminJournalDetailForm.resx">
+      <DependentUpon>AdminJournalDetailForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Admin\AdminLoginJournalForm.resx">
+      <DependentUpon>AdminLoginJournalForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Admin\AdminManagersJournalDetailForm.resx">
+      <DependentUpon>AdminManagersJournalDetailForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Admin\AdminModulesForm.resx">
+      <DependentUpon>AdminModulesForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Admin\AdminModulesJournalForm.resx">
+      <DependentUpon>AdminModulesJournalForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Admin\AdminOptionsForm.resx">
+      <DependentUpon>AdminOptionsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Editors\FunctionsManagementForm.resx">
+      <DependentUpon>FunctionsManagementForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Editors\PositionsManagementForm.resx">
+      <DependentUpon>PositionsManagementForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Editors\DateRatesEditForm.resx">
+      <DependentUpon>DateRatesEditForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Editors\UsersResponsibilitiesForm.resx">
+      <DependentUpon>UsersResponsibilitiesForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Editors\StaffListForm.resx">
+      <DependentUpon>StaffListForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Admin\AdminRolesManagerForm.resx">
+      <DependentUpon>AdminRolesManagerForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Admin\AdminUsersForm.resx">
+      <DependentUpon>AdminUsersForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Admin\AdminModulesAccessForm.resx">
+      <DependentUpon>AdminModulesAccessForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Admin\ControlResponsibilitiesForm.resx">
+      <DependentUpon>ControlResponsibilitiesForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Editors\DepartmentsManagementForm.resx">
+      <DependentUpon>DepartmentsManagementForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Editors\GroupPhotoEditForm.resx">
+      <DependentUpon>GroupPhotoEditForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Editors\UserProfilesForm.resx">
+      <DependentUpon>UserProfilesForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Admin\WebServiceForm.resx">
+      <DependentUpon>WebServiceForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Admin\WorkTimeRegisterForm.resx">
+      <DependentUpon>WorkTimeRegisterForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\ClientCatalog\CatalogMarketingPriceForm.resx">
+      <DependentUpon>CatalogMarketingPriceForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\ClientCatalog\SamplesLabelsForm.resx">
+      <DependentUpon>SamplesLabelsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\ClientCatalog\SampleFrontsManually.resx">
+      <DependentUpon>SampleFrontsManually.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\ClientCatalog\SampleDecorManually.resx">
+      <DependentUpon>SampleDecorManually.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Dispatch\MarketingDispatchLabelCheckForm.resx">
+      <DependentUpon>MarketingDispatchLabelCheckForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Dispatch\MarketingDispatchListForm.resx">
+      <DependentUpon>MarketingDispatchListForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Dispatch\ZOVDispatchLabelCheckForm.resx">
+      <DependentUpon>ZOVDispatchLabelCheckForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\ExpeditionMarketing\InputNewDecorCountForm.resx">
+      <DependentUpon>InputNewDecorCountForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\ExpeditionMarketing\ReaddressMarketingDispatchMenu.resx">
+      <DependentUpon>ReaddressMarketingDispatchMenu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Editors\LabelParamsForm.resx">
+      <DependentUpon>LabelParamsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Marketing\Clients\CountriesForm.resx">
+      <DependentUpon>CountriesForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Marketing\Clients\ClientRatesForm.resx">
+      <DependentUpon>ClientRatesForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Marketing\Clients\ClientDeleteForm.resx">
+      <DependentUpon>ClientDeleteForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Marketing\Clients\ClientsManagersForm.resx">
+      <DependentUpon>ClientsManagersForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Marketing\MutualSettlements\MuttlementDownloadForm.resx">
+      <DependentUpon>MuttlementDownloadForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Marketing\MutualSettlements\MutualSettlementsForm.resx">
+      <DependentUpon>MutualSettlementsForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Marketing\MutualSettlements\MutualSettlementsFilterMenu.resx">
+      <DependentUpon>MutualSettlementsFilterMenu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Marketing\NewOrders\MCupboardsExportForm.resx">
+      <DependentUpon>MCupboardsExportForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Marketing\NewOrders\MCupboardsForm.resx">
+      <DependentUpon>MCupboardsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Marketing\NewOrders\MarketingDiscountManagementForm.resx">
+      <DependentUpon>MarketingDiscountManagementForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Marketing\NewOrders\CopyMarketingOrderForm.resx">
+      <DependentUpon>CopyMarketingOrderForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Marketing\NewOrders\SetOrderStatusForm.resx">
+      <DependentUpon>SetOrderStatusForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Marketing\NewOrders\TestTechCatalogForm.resx">
+      <DependentUpon>TestTechCatalogForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Marketing\NewOrders\SaveDBFReportMenu.resx">
+      <DependentUpon>SaveDBFReportMenu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Marketing\Orders\AddMarketingOrdersForm.resx">
+      <DependentUpon>AddMarketingOrdersForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Marketing\Orders\MarketingOrdersForm.resx">
+      <DependentUpon>MarketingOrdersForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Marketing\Payments\AddContractForm.resx">
+      <DependentUpon>AddContractForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Marketing\NewOrders\AddMarketingNewOrdersForm.resx">
+      <DependentUpon>AddMarketingNewOrdersForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Marketing\Payments\AddPaymentsForm.resx">
+      <DependentUpon>AddPaymentsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Marketing\Payments\ClientPaymentsForm.resx">
+      <DependentUpon>ClientPaymentsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Marketing\NewOrders\ClientReportMenu.resx">
+      <DependentUpon>ClientReportMenu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Marketing\ClientMessages\ClientsMessagesForm.resx">
+      <DependentUpon>ClientsMessagesForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Marketing\NewOrders\CurrencyForm.resx">
+      <DependentUpon>CurrencyForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Marketing\NewOrders\DecorSizesExportForm.resx">
+      <DependentUpon>DecorSizesExportForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Marketing\NewOrders\FrontsSizesExportForm.resx">
+      <DependentUpon>FrontsSizesExportForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Marketing\WeeklyPlanning\MarketingBatchForm.resx">
+      <DependentUpon>MarketingBatchForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Marketing\WeeklyPlanning\MarketingBatchSelectMenu.resx">
+      <DependentUpon>MarketingBatchSelectMenu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Marketing\NewOrders\MarketingNewOrdersForm.resx">
+      <DependentUpon>MarketingNewOrdersForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Marketing\WeeklyPlanning\MarketingPickFrontsSelectForm.resx">
+      <DependentUpon>MarketingPickFrontsSelectForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Marketing\ClientMessages\MenuClientsMessagesForm.resx">
+      <DependentUpon>MenuClientsMessagesForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Marketing\NewOrders\NewOrderSelectClientsMenu.resx">
+      <DependentUpon>NewOrderSelectClientsMenu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Packages\LabelCheck\ReAutorizationForm.resx">
+      <DependentUpon>ReAutorizationForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Permits\MachinesPermitsForm.resx">
+      <DependentUpon>MachinesPermitsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Permits\HistoryScanPermitsForm.resx">
+      <DependentUpon>HistoryScanPermitsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Permits\NewMachinesPermitForm.resx">
+      <DependentUpon>NewMachinesPermitForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\TechnologyCatalog\AddTechStoreTermsForm.resx">
+      <DependentUpon>AddTechStoreTermsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\TechnologyCatalog\TechnologyLabelInfoMenu.resx">
+      <DependentUpon>TechnologyLabelInfoMenu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\TechnologyCatalog\InsetTypesEditForm.resx">
+      <DependentUpon>InsetTypesEditForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\TechnologyCatalog\NewToolsTypeForm.resx">
+      <DependentUpon>NewToolsTypeForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\TechnologyCatalog\PatinaEditForm.resx">
+      <DependentUpon>PatinaEditForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\CabFurnitureAssignments\CabFurDocsDownloadForm.resx">
+      <DependentUpon>CabFurDocsDownloadForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\CabFurnitureAssignments\CabFurnitureModuleForm.resx">
+      <DependentUpon>CabFurnitureModuleForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\StaticticsZOV\ZOVBatchStatisticsForm.resx">
+      <DependentUpon>ZOVBatchStatisticsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\TechnologyCatalog\PlannedWorkForm.resx">
+      <DependentUpon>PlannedWorkForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\WorkAssignments\FrontsProdCapacityForm.resx">
+      <DependentUpon>FrontsProdCapacityForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\ZOV\ClientErrors\NewNotPaidOrderForm.resx">
+      <DependentUpon>NewNotPaidOrderForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\ZOV\Clients\ZOVClientsForm.resx">
+      <DependentUpon>ZOVClientsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\ZOV\Clients\NewZOVClientForm.resx">
+      <DependentUpon>NewZOVClientForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\ZOV\Complaints\ZOVComplaintsForm.resx">
+      <DependentUpon>ZOVComplaintsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\ZOV\ReportToDBF\ReportCalculationsForm.resx">
+      <DependentUpon>ReportCalculationsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\ExpeditionMarketing\MarketingDispatchInfoMenu.resx">
+      <DependentUpon>MarketingDispatchInfoMenu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\ExpeditionMarketing\MarketingNewDispatchForm.resx">
+      <DependentUpon>MarketingNewDispatchForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\ExpeditionMarketing\MarketingNewDispatchMenu.resx">
+      <DependentUpon>MarketingNewDispatchMenu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Light\NewPermitMenu.resx">
+      <DependentUpon>NewPermitMenu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Packages\LabelCheck\StorageLabelCheckForm.resx">
+      <DependentUpon>StorageLabelCheckForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Permits\NewVisitorPermitForm.resx">
+      <DependentUpon>NewVisitorPermitForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Permits\VisitorsPermitsForm.resx">
+      <DependentUpon>VisitorsPermitsForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\TechnologyCatalog\AddOperationsTermsForm.resx">
+      <DependentUpon>AddOperationsTermsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\ClientCatalog\DecorPictureEditForm.resx">
+      <DependentUpon>DecorPictureEditForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\ClientCatalog\FrontsPictureEditForm.resx">
+      <DependentUpon>FrontsPictureEditForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\TechnicalCatalog\MachinesCatalogForm.resx">
+      <DependentUpon>MachinesCatalogForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\TechnicalCatalog\MachinesSummaryForm.resx">
+      <DependentUpon>MachinesSummaryForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\ClientCatalog\SampleDecorLabelInfoMenu.resx">
+      <DependentUpon>SampleDecorLabelInfoMenu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\ClientCatalog\SampleFrontsLabelInfoMenu.resx">
+      <DependentUpon>SampleFrontsLabelInfoMenu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\TechnicalCatalog\TechnicalSpecificationForm.resx">
+      <DependentUpon>TechnicalSpecificationForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\StaticticsZOV\ZOVStorageStatisticsForm.resx">
+      <DependentUpon>ZOVStorageStatisticsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\StatisticsMarketing\MarketingBatchStatisticsForm.resx">
+      <DependentUpon>MarketingBatchStatisticsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\ZOV\Orders\AddZOVMainOrdersForm.resx">
+      <DependentUpon>AddZOVMainOrdersForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\ZOV\ClientErrors\ClientErrorsWriteOffsForm.resx">
+      <DependentUpon>ClientErrorsWriteOffsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\ZOV\Orders\CupboardsExportForm.resx">
+      <DependentUpon>CupboardsExportForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\ZOV\Orders\CupboardsForm.resx">
+      <DependentUpon>CupboardsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\ZOV\Orders\DoubleOrderForm.resx">
+      <DependentUpon>DoubleOrderForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\ZOV\ClientErrors\NewAssemblyOrderForm.resx">
+      <DependentUpon>NewAssemblyOrderForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\ZOV\ClientErrors\NewClientErrorForm.resx">
+      <DependentUpon>NewClientErrorForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\ZOV\Orders\NewZOVOrderSelectMenu.resx">
+      <DependentUpon>NewZOVOrderSelectMenu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\ZOV\Orders\ReportFilterForm.resx">
+      <DependentUpon>ReportFilterForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\ZOV\Orders\SelectManagerMenu.resx">
+      <DependentUpon>SelectManagerMenu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\ZOV\Samples\SamplesOrdersForm.resx">
+      <DependentUpon>SamplesOrdersForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\ZOV\Samples\ShowShopAddressesForm.resx">
+      <DependentUpon>ShowShopAddressesForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\TechnologyCatalog\InsetTypesSelectForm.resx">
+      <DependentUpon>InsetTypesSelectForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\ZOV\WeeklyPlanning\ZOVBatchForm.resx">
+      <DependentUpon>ZOVBatchForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\ZOV\WeeklyPlanning\ZOVBatchSelectMenu.resx">
+      <DependentUpon>ZOVBatchSelectMenu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\ZOV\WeeklyPlanning\ZOVPickFrontsSelectForm.resx">
+      <DependentUpon>ZOVPickFrontsSelectForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\ExpeditionMarketing\MarketingExpeditionForm.resx">
+      <DependentUpon>MarketingExpeditionForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\ExpeditionZOV\ZOVExpeditionForm.resx">
+      <DependentUpon>ZOVExpeditionForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Packages\LabelCheck\ExpeditionLabelCheckForm.resx">
+      <DependentUpon>ExpeditionLabelCheckForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Packages\LabelCheck\LabelCheckProfilForm.resx">
+      <DependentUpon>LabelCheckProfilForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Packages\LabelCheck\PalleteLabelCheckForm.resx">
+      <DependentUpon>PalleteLabelCheckForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Packages\MarketingPackagesAllocation\MarketingPackagesAllocProfilForm.resx">
+      <DependentUpon>MarketingPackagesAllocProfilForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Packages\MarketingPackagesAllocation\MarketingPackagesAllocTPSForm.resx">
+      <DependentUpon>MarketingPackagesAllocTPSForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Packages\MarketingPackagesAllocation\MarketingSplitOrdersForm.resx">
+      <DependentUpon>MarketingSplitOrdersForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Packages\MarketingPackagesAllocation\MarketingSplitPackagesForm.resx">
+      <DependentUpon>MarketingSplitPackagesForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Packages\MarketingPackagesAllocation\SplitOrdersForm.resx">
+      <DependentUpon>SplitOrdersForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Packages\MarketingPrintPackages\MarketingFilterProductsForm.resx">
+      <DependentUpon>MarketingFilterProductsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Packages\MarketingPrintPackages\MarketingPackagesPrintTPSForm.resx">
+      <DependentUpon>MarketingPackagesPrintTPSForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Dispatch\ZOVDispatchListForm.resx">
+      <DependentUpon>ZOVDispatchListForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Packages\MarketingPrintPackages\MarketingPackagesPrintProfilForm.resx">
+      <DependentUpon>MarketingPackagesPrintProfilForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Trays\MarketingTraysForm.resx">
+      <DependentUpon>MarketingTraysForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Trays\TrayCheckForm.resx">
+      <DependentUpon>TrayCheckForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Trays\ZOVTraysForm.resx">
+      <DependentUpon>ZOVTraysForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Packages\ZOVPackagesAllocation\ZOVPackagesAllocTPSForm.resx">
+      <DependentUpon>ZOVPackagesAllocTPSForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Packages\ZOVPackagesAllocation\ZOVSplitPackagesForm.resx">
+      <DependentUpon>ZOVSplitPackagesForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Packages\ZOVPackagesAllocation\ZOVPackagesAllocProfilForm.resx">
+      <DependentUpon>ZOVPackagesAllocProfilForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Packages\ZOVPrintPackages\ZOVFilterProductsForm.resx">
+      <DependentUpon>ZOVFilterProductsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Packages\ZOVPrintPackages\ZOVPackagesPrintTPSForm.resx">
+      <DependentUpon>ZOVPackagesPrintTPSForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Packages\ZOVPrintPackages\ZOVPackagesPrintProfilForm.resx">
+      <DependentUpon>ZOVPackagesPrintProfilForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\PaymentWeeks\PaymentWeeksZOVForm.resx">
+      <DependentUpon>PaymentWeeksZOVForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\PaymentWeeks\PaymentWeeksZOVSelectDateForm.resx">
+      <DependentUpon>PaymentWeeksZOVSelectDateForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\TechnologyCatalog\AddNewTechStoreItemForm.resx">
+      <DependentUpon>AddNewTechStoreItemForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\ClientCatalog\CatalogForm.resx">
+      <DependentUpon>CatalogForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\ClientCatalog\CatalogZOVPriceForm.resx">
+      <DependentUpon>CatalogZOVPriceForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\ZOV\Orders\ZOVOrdersForm.resx">
+      <DependentUpon>ZOVOrdersForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\TechnologyCatalog\MachinePictureEditForm.resx">
+      <DependentUpon>MachinePictureEditForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Marketing\Clients\MarketingClientsForm.resx">
+      <DependentUpon>MarketingClientsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\TechnicalCatalog\NewMachineForm.resx">
+      <DependentUpon>NewMachineForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\TechnologyCatalog\NewMachinesOperationForm.resx">
+      <DependentUpon>NewMachinesOperationForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Marketing\Clients\NewMarketingClientForm.resx">
+      <DependentUpon>NewMarketingClientForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\TechnologyCatalog\NewSectorForm.resx">
+      <DependentUpon>NewSectorForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\TechnologyCatalog\NewSubSectorForm.resx">
+      <DependentUpon>NewSubSectorForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\TechnologyCatalog\NewToolsForm.resx">
+      <DependentUpon>NewToolsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\TechnologyCatalog\NewToolsGroupForm.resx">
+      <DependentUpon>NewToolsGroupForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\TechnologyCatalog\NewToolsSubTypeForm.resx">
+      <DependentUpon>NewToolsSubTypeForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\TechnologyCatalog\CabFurDocTypesForm.resx">
+      <DependentUpon>CabFurDocTypesForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\ClientCatalog\PictureEditForm.resx">
+      <DependentUpon>PictureEditForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\TechnologyCatalog\TechCatalogForm.resx">
+      <DependentUpon>TechCatalogForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\TechnologyCatalog\TechStorageItemsForm.resx">
+      <DependentUpon>TechStorageItemsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\TechnologyCatalog\ZoomImageForm.resx">
+      <DependentUpon>ZoomImageForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\StaticticsZOV\ClientStatisticsAllClientsForm.resx">
+      <DependentUpon>ClientStatisticsAllClientsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\StaticticsZOV\ClientStatisticsZOVDetailForm.resx">
+      <DependentUpon>ClientStatisticsZOVDetailForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\StaticticsZOV\ClientStatisticsZOVSelectDateForm.resx">
+      <DependentUpon>ClientStatisticsZOVSelectDateForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\StaticticsZOV\DoubleOrdersStatisticsForm.resx">
+      <DependentUpon>DoubleOrdersStatisticsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\StaticticsZOV\IncomeMonthZOVForm.resx">
+      <DependentUpon>IncomeMonthZOVForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\StaticticsZOV\ZOVDebtsForm.resx">
+      <DependentUpon>ZOVDebtsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\StatisticsMarketing\CommonStatisticsForm.resx">
+      <DependentUpon>CommonStatisticsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\StatisticsMarketing\IncomeMonthMarketingForm.resx">
+      <DependentUpon>IncomeMonthMarketingForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\StatisticsMarketing\MarketingStateForm.resx">
+      <DependentUpon>MarketingStateForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\StatisticsMarketing\MarketingExpeditionStatisticsForm.resx">
+      <DependentUpon>MarketingExpeditionStatisticsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\StatisticsMarketing\ConditionOrdersStatisticsForm.resx">
+      <DependentUpon>ConditionOrdersStatisticsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\StatisticsMarketing\MarketingStorageStatisticsForm.resx">
+      <DependentUpon>MarketingStorageStatisticsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Storage\AddInventoryRestForm.resx">
+      <DependentUpon>AddInventoryRestForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Storage\AddWealthForm.resx">
+      <DependentUpon>AddWealthForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Storage\InventoryForm.resx">
+      <DependentUpon>InventoryForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Storage\ManufactureStoreInventoryForm.resx">
+      <DependentUpon>ManufactureStoreInventoryForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Storage\MovementReportMenu.resx">
+      <DependentUpon>MovementReportMenu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Storage\MoveToPersonMenu.resx">
+      <DependentUpon>MoveToPersonMenu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Storage\NewArrivalForm.resx">
+      <DependentUpon>NewArrivalForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Storage\NewInventoryForm.resx">
+      <DependentUpon>NewInventoryForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Storage\NewMovementInvoiceForm.resx">
+      <DependentUpon>NewMovementInvoiceForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Storage\NewSellerForm.resx">
+      <DependentUpon>NewSellerForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Storage\PersonalInventoryForm.resx">
+      <DependentUpon>PersonalInventoryForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Storage\ReadyStoreInventoryForm.resx">
+      <DependentUpon>ReadyStoreInventoryForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Storage\ReturnWealthForm.resx">
+      <DependentUpon>ReturnWealthForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Storage\SelectMovementMenu.resx">
+      <DependentUpon>SelectMovementMenu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Storage\SellerForm.resx">
+      <DependentUpon>SellerForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Storage\StorageForm.resx">
+      <DependentUpon>StorageForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Storage\StoreLabels\StoreLabelsPrintForm.resx">
+      <DependentUpon>StoreLabelsPrintForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Storage\WealthForm.resx">
+      <DependentUpon>WealthForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Storage\WriteOffParametersMenu.resx">
+      <DependentUpon>WriteOffParametersMenu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\UserProfile\DateForm.resx">
+      <DependentUpon>DateForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\UserProfile\GridsBackColorForm.resx">
+      <DependentUpon>GridsBackColorForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\UserProfile\LanguageForm.resx">
+      <DependentUpon>LanguageForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\UserProfile\PersonalSettingsForm.resx">
+      <DependentUpon>PersonalSettingsForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\UserProfile\PhotoEditForm.resx">
+      <DependentUpon>PhotoEditForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\WorkAssignments\EditTafelForm.resx">
+      <DependentUpon>EditTafelForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\ProfileAssignments\ComplexSawingForm.resx">
+      <DependentUpon>ComplexSawingForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\DyeingAssignments\DyeingAssignmentsCreateForm.resx">
+      <DependentUpon>DyeingAssignmentsCreateForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\DyeingAssignments\DyeingAssignmentsMainForm.resx">
+      <DependentUpon>DyeingAssignmentsMainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\DyeingAssignments\DyeingAssignmentsMaterialForm.resx">
+      <DependentUpon>DyeingAssignmentsMaterialForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\DyeingAssignments\ScaningDyeingAssignmentsForm.resx">
+      <DependentUpon>ScaningDyeingAssignmentsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\ProfileAssignments\InputPackageInfoMenu.resx">
+      <DependentUpon>InputPackageInfoMenu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\ProfileAssignments\ProfileAssignmentsForm.resx">
+      <DependentUpon>ProfileAssignmentsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\ProfileAssignments\ProfileAssignmentsLabelsForm.resx">
+      <DependentUpon>ProfileAssignmentsLabelsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\ProfileAssignments\ReturnedRollersForm.resx">
+      <DependentUpon>ReturnedRollersForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\ProfileAssignments\SplitAssignmentRequestMenu.resx">
+      <DependentUpon>SplitAssignmentRequestMenu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\WorkAssignments\TafelSplitMenu.resx">
+      <DependentUpon>TafelSplitMenu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\WorkAssignments\WorkAssignmentsForm.resx">
+      <DependentUpon>WorkAssignmentsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Overrides.resx">
+      <DependentUpon>Overrides.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PhantomForm.resx">
+      <DependentUpon>PhantomForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\licenses.licx" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SmallWaitForm.resx">
+      <DependentUpon>SmallWaitForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SplashForm.resx">
+      <DependentUpon>SplashForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Light\LightNewsForm.resx">
+      <DependentUpon>LightNewsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\UserFunctionsContainer.resx">
+      <DependentUpon>UserFunctionsContainer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WaitForm.resx">
+      <DependentUpon>WaitForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <None Include="Web References\WebService\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\WebService\WebService1.wsdl" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Hercules.isl" />
+    <None Include="Resources\Lock.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Running.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\Checked.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\Checked2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\Checked3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\Checked4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\CheckAdd.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\Checked5.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\checked_button2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\checked_button2select.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\blank3232.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\RST.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\RST.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\STB.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ZOVPROFIL.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ZOVTPS.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\CheckNew.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\CheckNewWhite.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\NoImage.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\NoImage2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\EditVerysmall.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\Trash.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\EditVerysmall2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\EditVerysmall3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\EditVerysmall4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\runningLight.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\checkblack2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\checkwhite2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\BackCommon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\BackTracking.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\BackCommon2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\ArrowBackTracking.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\Backgrounds\ArrowBackBlack.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\ArrowBackTrackingBlue.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\ArrowForwardBlack.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\ArrowForwardTrackingBlue.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\ArrowForwardTrackingWhite.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\ArrowBackTrackingWhite.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BackStandardBlur50.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\Backgrounds\BackStandardBlur50.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\n2.jpg" />
+    <None Include="Resources\n2.png" />
+    <None Include="Resources\eac.png" />
+    <None Include="Resources\n2.jpeg" />
+    <None Include="Resources\small_save.png" />
+    <None Include="Resources\hdoboi.org-17018.jpg" />
+    <None Include="Resources\img_0689.jpg" />
+    <None Include="Resources\may_1400.jpg" />
+    <None Include="Resources\9 мая.jpg" />
+    <None Include="Resources\DocumentsSearch.png" />
+    <None Include="Resources\fon45.jpg" />
+    <None Include="Resources\fon25.png" />
+    <None Include="Resources\fon24.png" />
+    <None Include="Resources\fon23.png" />
+    <None Include="Resources\fon3.png" />
+    <None Include="Resources\fon3.jpg" />
+    <None Include="Resources\fon2.jpg" />
+    <None Include="Resources\zima-sneg-snegovik-santa.jpg" />
+    <None Include="Resources\novyy-god-rozhdestvo-christmas-42_2.jpg" />
+    <None Include="Resources\novyy-god-rozhdestvo-christmas-340.jpg" />
+    <None Include="Resources\111111111.jpg" />
+    <None Include="Resources\testrec.png" />
+    <None Include="Resources\435738_listya_osen_prozhilki_vorox_1680x1050.jpg" />
+    <None Include="Resources\d9318f3bedae.jpg" />
+    <None Include="Resources\692112-1680x1050.jpg" />
+    <None Include="Resources\365478-2560x1440.jpg" />
+    <None Include="Resources\Edit_16x16.png" />
+    <None Include="Resources\Small Red Remove.png" />
+    <None Include="Resources\Small Green Add.png" />
+    <None Include="Resources\Explanded.png" />
+    <None Include="Resources\Collapsed.png" />
+    <None Include="Resources\655646-1600x900.jpg" />
+    <None Include="Resources\WordFileIcon.png" />
+    <None Include="Resources\WordFile.png" />
+    <None Include="Resources\RemoveItem.png" />
+    <None Include="Resources\ProjectStopGray.png" />
+    <None Include="Resources\ProjectStop.png" />
+    <None Include="Resources\ProjectStartGray.png" />
+    <None Include="Resources\ProjectStart.png" />
+    <None Include="Resources\ProjectsAllGray.png" />
+    <None Include="Resources\ProjectsAll.png" />
+    <None Include="Resources\ProjectPauseGray.png" />
+    <None Include="Resources\ProjectPause.png" />
+    <None Include="Resources\ProjectItemStop.png" />
+    <None Include="Resources\ProjectItemStart.png" />
+    <None Include="Resources\ProjectItemPause.png" />
+    <None Include="Resources\ProjectItemCanceled.png" />
+    <None Include="Resources\ProjectGroupUsersGray2.png" />
+    <None Include="Resources\ProjectGroupUsers2.png" />
+    <None Include="Resources\ProjectGroupMyGray2.png" />
+    <None Include="Resources\ProjectGroupMy2.png" />
+    <None Include="Resources\ProjectGroupDepsGray2.png" />
+    <None Include="Resources\ProjectGroupDeps2.png" />
+    <None Include="Resources\ProjectGroupAllGray2.png" />
+    <None Include="Resources\ProjectGroupAll2.png" />
+    <None Include="Resources\ProjectCanceledGray.png" />
+    <None Include="Resources\ProjectCanceled.png" />
+    <None Include="Resources\PDFFileIcon.png" />
+    <None Include="Resources\PDFFile.png" />
+    <None Include="Resources\OtherFileIcon.png" />
+    <None Include="Resources\OtherFile.png" />
+    <None Include="Resources\NoImage.png" />
+    <None Include="Resources\LikePictureActive.png" />
+    <None Include="Resources\LikePicIncative.png" />
+    <None Include="Resources\LikePicBigInactive.png" />
+    <None Include="Resources\LikePicBigActive.png" />
+    <None Include="Resources\LikePicActive.png" />
+    <None Include="Resources\LikeLiked.png" />
+    <None Include="Resources\LikeInActive.png" />
+    <None Include="Resources\LikeAlbumInactive.png" />
+    <None Include="Resources\LikeAlbumActive3.png" />
+    <None Include="Resources\LikeAlbumActive2.png" />
+    <None Include="Resources\LikeAlbumActive.png" />
+    <None Include="Resources\ImageFileIcon.png" />
+    <None Include="Resources\ImageFile.png" />
+    <None Include="Resources\FolderUp.png" />
+    <None Include="Resources\Folder.png" />
+    <None Include="Resources\FileUnchecked.png" />
+    <None Include="Resources\FileChecked.png" />
+    <None Include="Resources\ExcelFileIcon.png" />
+    <None Include="Resources\ExcelFile.png" />
+    <None Include="Resources\CommentsAlbumInactive.png" />
+    <None Include="Resources\CommentsAlbumActive.png" />
+    <None Include="Resources\CloseUser.png" />
+    <None Include="Resources\Closerun2.png" />
+    <None Include="Resources\Closerun.png" />
+    <None Include="Resources\close-icon2.png" />
+    <None Include="Resources\ArchiveFileIcon.png" />
+    <None Include="Resources\ArchiveFile.png" />
+    <None Include="Resources\MESSAGENOTIFY.wav" />
+    <None Include="Resources\fon.jpg" />
+    <None Include="Resources\Winter Sport, Ski2.jpg" />
+    <None Include="Resources\582308-2560x14402222.jpg" />
+    <None Include="Resources\582308-2560x1440.jpg" />
+    <None Include="Resources\585558-1680x1050.jpg" />
+    <None Include="Resources\582483-2000x1448.jpg" />
+    <None Include="Resources\586690-1680x1050.jpg" />
+    <None Include="Resources\564986-5760x384011111111.jpg" />
+    <None Include="Resources\zoom_in_32x32.png" />
+    <None Include="Web References\WebService\WebService1.disco" />
+    <None Include="Resources\1380035188_stock_task.png" />
+    <None Include="Resources\ag.gif" />
+    <None Include="Resources\01_01.wav" />
+    <None Include="Resources\sndMsgSent.wav" />
+    <None Include="Images\file1616.png" />
+    <None Include="Images\CancelGrid.png" />
+    <None Include="Images\CancelGrid2.png" />
+    <None Include="Images\CloseGrid2.png" />
+    <None Include="Images\CloseGrid.png" />
+    <None Include="Images\Favourite.png" />
+    <None Include="Images\Favourite2.png" />
+    <None Include="Images\Favourite3.png" />
+    <None Include="Images\ExecDaily.png" />
+    <None Include="Images\ExecEvent.png" />
+    <None Include="Images\ExecQuery.png" />
+    <None Include="Images\ExecWeek.png" />
+    <None Include="Images\Clock30.png" />
+    <None Include="Images\Clock44.png" />
+    <None Include="Images\FavouriteNote.png" />
+    <None Include="Images\FavouriteNote3.png" />
+    <None Include="Images\FavouriteNote4.png" />
+    <None Include="Images\ArrowBackBlack.png" />
+    <None Include="Images\LikePicBigActive.png" />
+    <None Include="Images\LikePicBigInactive.png" />
+    <None Include="Images\ArchiveFileIcon.png" />
+    <None Include="Images\ExcelFile.png" />
+    <None Include="Images\ImageFile.png" />
+    <None Include="Images\ArchiveFile.png" />
+    <None Include="Images\DocIncomeIcon.png" />
+    <None Include="Images\DocOuterIcon.png" />
+    <None Include="Images\close4.png" />
+    <None Include="Images\DocDelete.png" />
+    <None Include="Images\DocEdit.png" />
+    <None Include="Images\DocumentsMenuAllDocs.png" />
+    <None Include="Images\DocumentsMenuUpdates.png" />
+    <None Include="Images\DocListNote.png" />
+    <None Include="Images\DocListType.png" />
+    <None Include="Images\DocListNote32.png" />
+    <None Include="Images\DocListType32.png" />
+    <None Include="Images\DocUserCount.png" />
+    <None Include="Images\DocFileCount.png" />
+    <None Include="Images\DocCommentsCount.png" />
+    <None Include="Images\DocumentsMenuConfirms.png" />
+    <None Include="Images\DocumentsMenuUser.png" />
+    <None Include="Images\CheckCanceled.png" />
+    <None Include="Images\CheckDocOK.png" />
+    <None Include="Images\DocCheckList.png" />
+    <None Include="Images\DocItemDelete.png" />
+    <None Include="Images\DocItemEdit.png" />
+    <None Include="Images\ContractorContactsDown.png" />
+    <None Include="Images\ContractorContactsUp.png" />
+    <None Include="Images\DocAddUser.png" />
+    <Content Include="Images\1481109876_Scissors.png" />
+    <Content Include="Images\LoaderVeloWhite.gif" />
+    <None Include="Images\NewMessage.png" />
+    <None Include="Images\NewMessage2.png" />
+    <None Include="Images\Online.png" />
+    <None Include="Images\Offline.png" />
+    <None Include="Images\Offline2.png" />
+    <None Include="Images\Online2.png" />
+    <None Include="Images\Online3.png" />
+    <None Include="Images\OnTop.png" />
+    <None Include="Images\OnTop2.png" />
+    <None Include="Images\MenuDown.png" />
+    <None Include="Images\MenuUp.png" />
+    <None Include="Images\LockSmallYellow.png" />
+    <None Include="Images\UserOn.png" />
+    <None Include="Images\UserOff.png" />
+    <None Include="Images\Pr0.png" />
+    <None Include="Images\Pr25.png" />
+    <None Include="Images\Pr50.png" />
+    <None Include="Images\Pr75.png" />
+    <None Include="Images\Pr100.png" />
+    <None Include="Images\Prior0.png" />
+    <None Include="Images\Prior1.png" />
+    <None Include="Images\TimeDownCommon.png" />
+    <None Include="Images\TimeDownPressed.png" />
+    <None Include="Images\TimeDownTracking.png" />
+    <None Include="Images\TimeUpCommon.png" />
+    <None Include="Images\TimeUpPressed.png" />
+    <None Include="Images\TimeUpTracking.png" />
+    <None Include="Images\TaskComplete.png" />
+    <None Include="Images\SimpleNote.png" />
+    <None Include="Images\SimpleNote2.png" />
+    <None Include="Images\SimpleNote3.png" />
+    <None Include="Images\SimpleNote4.png" />
+    <None Include="Images\LockSmallBlack.png" />
+    <None Include="Images\UnlockSmallBlack.png" />
+    <None Include="Images\WordFile.png" />
+    <None Include="Images\PDFFile.png" />
+    <None Include="Images\OtherFile.png" />
+    <Content Include="inf2.ico" />
+    <Content Include="inf3.ico" />
+    <Content Include="inf4.ico" />
+    <None Include="Resources\inf2.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">
+      <Visible>False</Visible>
+      <ProductName>Клиентский профиль Microsoft .NET Framework 4 %28x86 и x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>Клиентский профиль .NET Framework 3.5 с пакетом обновления 1 %28SP1%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <PublishFile Include="inf.ico">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Exclude</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>File</FileType>
+    </PublishFile>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferences Include="Web References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferenceUrl Include="http://infinium.2h.by/WebService1.asmx">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\WebService\</RelPath>
+      <UpdateFromURL>http://infinium.2h.by/WebService1.asmx</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>Infinium_WebService_WebService1</CachedSettingsPropName>
+    </WebReferenceUrl>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
