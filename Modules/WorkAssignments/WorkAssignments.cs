@@ -15,6 +15,7 @@ namespace Infinium.Modules.WorkAssignments
     public class TafelSplitStruct
     {
         public int PosCount;
+        public int PosCount1;
         public int SourceCount;
         public int FirstCount;
         public int SecondCount;
