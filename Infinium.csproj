@@ -955,6 +955,7 @@
     <Compile Include="Modules\Permits\NewMachinesPermitForm.designer.cs">
       <DependentUpon>NewMachinesPermitForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Modules\ProductionCalendar\ProductionCalendar.cs" />
     <Compile Include="Modules\TechnologyCatalog\AddTechStoreTermsForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -3107,9 +3108,7 @@
       <CachedSettingsPropName>Infinium_WebService_WebService1</CachedSettingsPropName>
     </WebReferenceUrl>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Modules\ProductionCalendar\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
