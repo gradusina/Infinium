@@ -70,14 +70,20 @@
             this.ApplyButton = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.YearComboBox = new ComponentFactory.Krypton.Toolkit.KryptonComboBox();
             this.MonthComboBox = new ComponentFactory.Krypton.Toolkit.KryptonComboBox();
+            this.xtraTabPage4 = new DevExpress.XtraTab.XtraTabPage();
+            this.btnSaveCalendar = new ComponentFactory.Krypton.Toolkit.KryptonButton();
+            this.kryptonButton1 = new ComponentFactory.Krypton.Toolkit.KryptonButton();
+            this.YearComboBox1 = new ComponentFactory.Krypton.Toolkit.KryptonComboBox();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.ProdCalendarDataGrid = new Infinium.PercentageDataGrid();
             this.kryptonContextMenu1 = new ComponentFactory.Krypton.Toolkit.KryptonContextMenu();
             this.kryptonContextMenuItems1 = new ComponentFactory.Krypton.Toolkit.KryptonContextMenuItems();
             this.kryptonContextMenuItem1 = new ComponentFactory.Krypton.Toolkit.KryptonContextMenuItem();
             this.kryptonContextMenuItem2 = new ComponentFactory.Krypton.Toolkit.KryptonContextMenuItem();
-            this.kryptonContextMenuItems2 = new ComponentFactory.Krypton.Toolkit.KryptonContextMenuItems();
-            this.kryptonContextMenuItem3 = new ComponentFactory.Krypton.Toolkit.KryptonContextMenuItem();
             this.kryptonContextMenuItem4 = new ComponentFactory.Krypton.Toolkit.KryptonContextMenuItem();
             this.kryptonContextMenuItem5 = new ComponentFactory.Krypton.Toolkit.KryptonContextMenuItem();
+            this.kryptonContextMenuItems2 = new ComponentFactory.Krypton.Toolkit.KryptonContextMenuItems();
+            this.kryptonContextMenuItem3 = new ComponentFactory.Krypton.Toolkit.KryptonContextMenuItem();
             this.NavigatePanel.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.WorkDaysGrid)).BeginInit();
@@ -92,6 +98,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.TimeSheetDataGrid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.YearComboBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.MonthComboBox)).BeginInit();
+            this.xtraTabPage4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.YearComboBox1)).BeginInit();
+            this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ProdCalendarDataGrid)).BeginInit();
             this.SuspendLayout();
             // 
             // AnimateTimer
@@ -506,7 +516,8 @@
             this.MainOrdersTabControl.TabPages.AddRange(new DevExpress.XtraTab.XtraTabPage[] {
             this.xtraTabPage1,
             this.xtraTabPage2,
-            this.xtraTabPage3});
+            this.xtraTabPage3,
+            this.xtraTabPage4});
             // 
             // xtraTabPage1
             // 
@@ -703,6 +714,7 @@
             // 
             // YearComboBox
             // 
+            this.YearComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.YearComboBox.DropDownWidth = 121;
             this.YearComboBox.ImeMode = System.Windows.Forms.ImeMode.Disable;
             this.YearComboBox.Location = new System.Drawing.Point(17, 13);
@@ -725,6 +737,7 @@
             // 
             // MonthComboBox
             // 
+            this.MonthComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.MonthComboBox.DropDownWidth = 121;
             this.MonthComboBox.Location = new System.Drawing.Point(130, 13);
             this.MonthComboBox.Name = "MonthComboBox";
@@ -741,6 +754,137 @@
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.MonthComboBox.StateTracking.Item.Border.Rounding = 0;
             this.MonthComboBox.TabIndex = 253;
+            // 
+            // xtraTabPage4
+            // 
+            this.xtraTabPage4.Controls.Add(this.btnSaveCalendar);
+            this.xtraTabPage4.Controls.Add(this.kryptonButton1);
+            this.xtraTabPage4.Controls.Add(this.YearComboBox1);
+            this.xtraTabPage4.Controls.Add(this.panel2);
+            this.xtraTabPage4.Name = "xtraTabPage4";
+            this.xtraTabPage4.Size = new System.Drawing.Size(1264, 628);
+            this.xtraTabPage4.Text = "Произв. календарь";
+            // 
+            // btnSaveCalendar
+            // 
+            this.btnSaveCalendar.Location = new System.Drawing.Point(168, 13);
+            this.btnSaveCalendar.Name = "btnSaveCalendar";
+            this.btnSaveCalendar.Palette = this.StandardButtonsPalette;
+            this.btnSaveCalendar.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Custom;
+            this.btnSaveCalendar.Size = new System.Drawing.Size(32, 32);
+            this.btnSaveCalendar.StateCommon.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.btnSaveCalendar.StateCommon.Content.Image.ImageH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
+            this.btnSaveCalendar.StateCommon.Content.Image.ImageV = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
+            this.btnSaveCalendar.StateCommon.Content.ShortText.Font = new System.Drawing.Font("Microsoft Sans Serif", 25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.btnSaveCalendar.StateTracking.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(253)))), ((int)(((byte)(164)))), ((int)(((byte)(61)))));
+            this.btnSaveCalendar.StateTracking.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
+            this.btnSaveCalendar.TabIndex = 433;
+            this.btnSaveCalendar.TabStop = false;
+            this.btnSaveCalendar.Values.Image = ((System.Drawing.Image)(resources.GetObject("btnSaveCalendar.Values.Image")));
+            this.btnSaveCalendar.Values.Text = "";
+            this.btnSaveCalendar.Click += new System.EventHandler(this.btnSaveCalendar_Click);
+            // 
+            // kryptonButton1
+            // 
+            this.kryptonButton1.Location = new System.Drawing.Point(130, 13);
+            this.kryptonButton1.Name = "kryptonButton1";
+            this.kryptonButton1.Palette = this.StandardButtonsPalette;
+            this.kryptonButton1.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Custom;
+            this.kryptonButton1.Size = new System.Drawing.Size(32, 32);
+            this.kryptonButton1.StateCommon.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.kryptonButton1.StateCommon.Content.Padding = new System.Windows.Forms.Padding(-2, -3, -2, -1);
+            this.kryptonButton1.StateCommon.Content.ShortText.Font = new System.Drawing.Font("Segoe UI", 16.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.kryptonButton1.StateCommon.Content.ShortText.TextV = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
+            this.kryptonButton1.StateTracking.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(253)))), ((int)(((byte)(164)))), ((int)(((byte)(61)))));
+            this.kryptonButton1.StateTracking.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
+            this.kryptonButton1.TabIndex = 260;
+            this.kryptonButton1.TabStop = false;
+            this.kryptonButton1.Values.Image = ((System.Drawing.Image)(resources.GetObject("kryptonButton1.Values.Image")));
+            this.kryptonButton1.Values.Text = "";
+            this.kryptonButton1.Click += new System.EventHandler(this.kryptonButton1_Click);
+            // 
+            // YearComboBox1
+            // 
+            this.YearComboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.YearComboBox1.DropDownWidth = 121;
+            this.YearComboBox1.ImeMode = System.Windows.Forms.ImeMode.Disable;
+            this.YearComboBox1.Location = new System.Drawing.Point(17, 13);
+            this.YearComboBox1.Name = "YearComboBox1";
+            this.YearComboBox1.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.ProfessionalOffice2003;
+            this.YearComboBox1.Size = new System.Drawing.Size(107, 32);
+            this.YearComboBox1.Sorted = true;
+            this.YearComboBox1.StateCommon.ComboBox.Content.Font = new System.Drawing.Font("Segoe UI", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.YearComboBox1.StateCommon.Item.Content.Padding = new System.Windows.Forms.Padding(-1, -3, -1, -1);
+            this.YearComboBox1.StateCommon.Item.Content.ShortText.Font = new System.Drawing.Font("Segoe UI", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.YearComboBox1.StateTracking.Item.Back.Color1 = System.Drawing.Color.Gainsboro;
+            this.YearComboBox1.StateTracking.Item.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
+            this.YearComboBox1.StateTracking.Item.Border.Draw = ComponentFactory.Krypton.Toolkit.InheritBool.False;
+            this.YearComboBox1.StateTracking.Item.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.YearComboBox1.StateTracking.Item.Border.Rounding = 0;
+            this.YearComboBox1.TabIndex = 259;
+            // 
+            // panel2
+            // 
+            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel2.Controls.Add(this.ProdCalendarDataGrid);
+            this.panel2.Location = new System.Drawing.Point(17, 58);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(1231, 562);
+            this.panel2.TabIndex = 257;
+            // 
+            // ProdCalendarDataGrid
+            // 
+            this.ProdCalendarDataGrid.AllowUserToAddRows = false;
+            this.ProdCalendarDataGrid.AllowUserToDeleteRows = false;
+            this.ProdCalendarDataGrid.AllowUserToResizeColumns = false;
+            this.ProdCalendarDataGrid.AllowUserToResizeRows = false;
+            this.ProdCalendarDataGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.ColumnHeader;
+            this.ProdCalendarDataGrid.BackText = "Нет данных";
+            this.ProdCalendarDataGrid.ColumnHeadersHeight = 50;
+            this.ProdCalendarDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            this.ProdCalendarDataGrid.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ProdCalendarDataGrid.Location = new System.Drawing.Point(0, 0);
+            this.ProdCalendarDataGrid.MultiSelect = false;
+            this.ProdCalendarDataGrid.Name = "ProdCalendarDataGrid";
+            this.ProdCalendarDataGrid.PercentLineWidth = 0;
+            this.ProdCalendarDataGrid.RowHeadersVisible = false;
+            this.ProdCalendarDataGrid.RowTemplate.Height = 30;
+            this.ProdCalendarDataGrid.SelectedColorStyle = Infinium.PercentageDataGrid.ColorStyle.Orange;
+            this.ProdCalendarDataGrid.Size = new System.Drawing.Size(1229, 560);
+            this.ProdCalendarDataGrid.StandardStyle = false;
+            this.ProdCalendarDataGrid.StateCommon.Background.Color1 = System.Drawing.Color.White;
+            this.ProdCalendarDataGrid.StateCommon.Background.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
+            this.ProdCalendarDataGrid.StateCommon.BackStyle = ComponentFactory.Krypton.Toolkit.PaletteBackStyle.GridBackgroundList;
+            this.ProdCalendarDataGrid.StateCommon.DataCell.Back.Color1 = System.Drawing.Color.White;
+            this.ProdCalendarDataGrid.StateCommon.DataCell.Border.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(210)))), ((int)(((byte)(210)))), ((int)(((byte)(210)))));
+            this.ProdCalendarDataGrid.StateCommon.DataCell.Border.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
+            this.ProdCalendarDataGrid.StateCommon.DataCell.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.ProdCalendarDataGrid.StateCommon.DataCell.Content.Color1 = System.Drawing.Color.Black;
+            this.ProdCalendarDataGrid.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.ProdCalendarDataGrid.StateCommon.HeaderColumn.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
+            this.ProdCalendarDataGrid.StateCommon.HeaderColumn.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
+            this.ProdCalendarDataGrid.StateCommon.HeaderColumn.Border.Color1 = System.Drawing.Color.Black;
+            this.ProdCalendarDataGrid.StateCommon.HeaderColumn.Border.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
+            this.ProdCalendarDataGrid.StateCommon.HeaderColumn.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)(((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.ProdCalendarDataGrid.StateCommon.HeaderColumn.Content.Color1 = System.Drawing.Color.White;
+            this.ProdCalendarDataGrid.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.ProdCalendarDataGrid.StateSelected.DataCell.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(253)))), ((int)(((byte)(164)))), ((int)(((byte)(61)))));
+            this.ProdCalendarDataGrid.StateSelected.DataCell.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
+            this.ProdCalendarDataGrid.StateSelected.DataCell.Content.Color1 = System.Drawing.Color.White;
+            this.ProdCalendarDataGrid.TabIndex = 47;
+            this.ProdCalendarDataGrid.UseCustomBackColor = false;
             // 
             // kryptonContextMenu1
             // 
@@ -766,10 +910,6 @@
             this.kryptonContextMenuItem2.Text = "Изменить окончание рабочего дня";
             this.kryptonContextMenuItem2.Click += new System.EventHandler(this.kryptonContextMenuItem2_Click);
             // 
-            // kryptonContextMenuItem3
-            // 
-            this.kryptonContextMenuItem3.Text = "Menu Item";
-            // 
             // kryptonContextMenuItem4
             // 
             this.kryptonContextMenuItem4.Text = "Изменить начало перерыва";
@@ -779,6 +919,10 @@
             // 
             this.kryptonContextMenuItem5.Text = "Изменить окончание перерыва";
             this.kryptonContextMenuItem5.Click += new System.EventHandler(this.kryptonContextMenuItem5_Click);
+            // 
+            // kryptonContextMenuItem3
+            // 
+            this.kryptonContextMenuItem3.Text = "Menu Item";
             // 
             // WorkTimeRegisterForm
             // 
@@ -817,6 +961,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.TimeSheetDataGrid)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.YearComboBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.MonthComboBox)).EndInit();
+            this.xtraTabPage4.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.YearComboBox1)).EndInit();
+            this.panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.ProdCalendarDataGrid)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -872,5 +1020,11 @@
         private ComponentFactory.Krypton.Toolkit.KryptonContextMenuItem kryptonContextMenuItem3;
         private ComponentFactory.Krypton.Toolkit.KryptonContextMenuItem kryptonContextMenuItem4;
         private ComponentFactory.Krypton.Toolkit.KryptonContextMenuItem kryptonContextMenuItem5;
+        private DevExpress.XtraTab.XtraTabPage xtraTabPage4;
+        private System.Windows.Forms.Panel panel2;
+        private PercentageDataGrid ProdCalendarDataGrid;
+        private ComponentFactory.Krypton.Toolkit.KryptonButton kryptonButton1;
+        private ComponentFactory.Krypton.Toolkit.KryptonComboBox YearComboBox1;
+        private ComponentFactory.Krypton.Toolkit.KryptonButton btnSaveCalendar;
     }
 }

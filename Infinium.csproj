@@ -498,6 +498,7 @@
     <Compile Include="LoginForm.designer.cs">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Modules\Admin\ProductionCalendar.cs" />
     <Compile Include="Modules\CabFurnitureAssignments\CabFurnitureOperationsForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -955,7 +956,6 @@
     <Compile Include="Modules\Permits\NewMachinesPermitForm.designer.cs">
       <DependentUpon>NewMachinesPermitForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Modules\ProductionCalendar\ProductionCalendar.cs" />
     <Compile Include="Modules\TechnologyCatalog\AddTechStoreTermsForm.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -3,6 +3,7 @@ using System.Data;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Threading;
+using Infinium.Modules.Admin;
 
 namespace Infinium
 {
@@ -14,6 +15,7 @@ namespace Infinium
 
         int FormEvent = 0;
 
+        const int iAdminRole = 97;
         LightStartForm LightStartForm;
         
         Form TopForm = null;
@@ -21,6 +23,12 @@ namespace Infinium
         WorkTimeRegister WorkTimeRegister;
         WorkTimeRegister.DayStatus DayStatus;
 
+        RoleTypes RoleType = RoleTypes.OrdinaryRole;
+        public enum RoleTypes
+        {
+            OrdinaryRole = 0,
+            AdminRole = 1
+        }
 
         //----------------------------------------------
         DateTime Date;
@@ -28,6 +36,8 @@ namespace Infinium
         string Month;
         WorkTimeSheet WorkTimeSheet;
         DataTable DayStartDate;
+
+        ProductionCalendar ProductionCalendar;
         //----------------------------------------------
 
         public WorkTimeRegisterForm(LightStartForm tLightStartForm)
@@ -59,6 +69,29 @@ namespace Infinium
 
             //----------------------------------------------
             WorkTimeSheet = new WorkTimeSheet();
+            ProductionCalendar = new ProductionCalendar();
+
+            ProdCalendarDataGrid.DataSource = ProductionCalendar.HoursBindingSource;
+            ProdCalendarDataGrid.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
+            if (ProductionCalendar.PermissionGranted(Security.CurrentUserID, this.Name, iAdminRole))
+                RoleType = RoleTypes.AdminRole;
+
+            for (int i = 1; i < DateTime.DaysInMonth(2020, 1) + 1; i++)
+            {
+                ProdCalendarDataGrid.Columns[i.ToString()].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+                ProdCalendarDataGrid.Columns[i.ToString()].Width = 50;
+                ProdCalendarDataGrid.Columns[i.ToString()].ReadOnly = true;
+                if (RoleType == RoleTypes.AdminRole)
+                    ProdCalendarDataGrid.Columns[i.ToString()].ReadOnly = false;
+            }
+
+            ProdCalendarDataGrid.Columns["MonthName"].HeaderText = "Дата";
+            ProdCalendarDataGrid.Columns["MonthName"].ReadOnly = true;
+            ProdCalendarDataGrid.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            ProdCalendarDataGrid.Columns["MonthName"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            ProdCalendarDataGrid.Columns["MonthName"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+
             DayStartDate = WorkTimeSheet.DayStartDate();
 
             for (int i = 0; i < DayStartDate.Rows.Count; i++)
@@ -70,6 +103,15 @@ namespace Infinium
                     YearComboBox.Items.Add(Year);
             }
             YearComboBox.Text = YearComboBox.Items[YearComboBox.Items.Count - 1].ToString();
+
+
+            YearComboBox1.Items.Add(2019);
+            YearComboBox1.Items.Add(2020);
+            YearComboBox1.Items.Add(2021);
+            YearComboBox1.Text = YearComboBox.Items[YearComboBox.Items.Count - 1].ToString();
+
+            ProductionCalendar.GetCalendar(YearComboBox1.SelectedItem.ToString());
+            ProductionCalendar.FillHoursDataTable();
             //----------------------------------------------
         }
 
@@ -658,6 +700,36 @@ namespace Infinium
             WorkTimeRegister.FilterWorkDays(D);
             CreateNotes();
             WorkTimeRegister.SetOverduedColor();
+        }
+
+        private void kryptonButton1_Click(object sender, EventArgs e)
+        {
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных.\r\nПодождите..."); });
+            T.Start();
+
+            while (!SplashWindow.bSmallCreated) ;
+
+            ProductionCalendar.GetCalendar(YearComboBox1.SelectedItem.ToString());
+            ProductionCalendar.FillHoursDataTable();
+
+            while (SplashWindow.bSmallCreated)
+                SmallWaitForm.CloseS = true;
+            InfiniumTips.ShowTip(this, 50, 85, "Данные обновлены", 1700);
+        }
+
+        private void btnSaveCalendar_Click(object sender, EventArgs e)
+        {
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение данных.\r\nПодождите..."); });
+            T.Start();
+
+            while (!SplashWindow.bSmallCreated) ;
+
+            ProductionCalendar.FillSourceDataTable(YearComboBox1.SelectedItem.ToString());
+            ProductionCalendar.SaveCalendar();
+
+            while (SplashWindow.bSmallCreated)
+                SmallWaitForm.CloseS = true;
+            InfiniumTips.ShowTip(this, 50, 85, "Календарь сохраненён", 1700);
         }
         //----------------------------------------------
     }
