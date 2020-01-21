@@ -41018,6 +41018,71 @@ AND FrontID=" + Convert.ToInt32(Front) +
             cost = Decimal.Round(time * div2, 2, MidpointRounding.AwayFromZero);
         }
 
+        private void PlanningTimeGashRapid(DataTable table, ref decimal time, ref decimal cost)
+        {
+            decimal sum1 = 0;
+            decimal sum2 = 0;
+            for (int x = 0; x < table.Rows.Count; x++)
+            {
+                int Height = Convert.ToInt32(table.Rows[x]["Height"]);
+
+                if (table.Rows[x]["Count"] != DBNull.Value)
+                {
+                    if (Height <= 296)
+                    {
+                        sum1 += Convert.ToInt32(table.Rows[x]["Count"]);
+                    }
+                    else
+                    {
+                        sum2 += Convert.ToInt32(table.Rows[x]["Count"]);
+                    }
+                }
+            }
+
+            time = sum1 * 2 / 200 + sum2 / 200;
+            cost = Decimal.Round(time * 2.14m, 2, MidpointRounding.AwayFromZero);
+        }
+
+        private void PlanningTimeDeyning(DataTable table, Machines machine, ref decimal time, ref decimal cost)
+        {
+            int div = 7;
+            decimal Square = 0;
+
+            for (int x = 0; x < table.Rows.Count; x++)
+            {
+                if (table.Rows[x]["Square"] != DBNull.Value)
+                {
+                    Square += Convert.ToDecimal(table.Rows[x]["Square"]);
+                }
+            }
+
+            if (machine == Machines.Balistrini)
+                div = 5;
+            time = Decimal.Round(Square / div, 3, MidpointRounding.AwayFromZero);
+            cost = Decimal.Round(time * 1.25m, 2, MidpointRounding.AwayFromZero);
+        }
+
+        private void PlanningTimeMarketPacking(DataTable table, ref decimal time, ref decimal cost)
+        {
+            int VitrinaCount = 0;
+            decimal Square = 0;
+
+            for (int x = 0; x < table.Rows.Count; x++)
+            {
+                if (table.Rows[x]["Count"] != DBNull.Value)
+                {
+                    // Витрины
+                    if (Convert.ToInt32(table.Rows[x]["InsetTypeID"]) == 1)
+                        VitrinaCount += Convert.ToInt32(table.Rows[x]["Count"]);
+                    // квадратура всех фасадов
+                    Square += Convert.ToDecimal(table.Rows[x]["Square"]);
+                }
+            }
+
+            time = Decimal.Round(VitrinaCount / 26 + Square / 8, 3, MidpointRounding.AwayFromZero);
+            cost = Decimal.Round(time * 2.14m, 2, MidpointRounding.AwayFromZero);
+        }
+
         public void OrdersToExcel(ref HSSFWorkbook hssfworkbook,
             HSSFCellStyle Calibri11CS, HSSFCellStyle CalibriBold11CS, HSSFFont CalibriBold11F, HSSFCellStyle TableHeaderCS, HSSFCellStyle TableHeaderDecCS,
             int WorkAssignmentID, string BatchName, string ClientName)

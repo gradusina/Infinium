@@ -109,7 +109,7 @@ namespace Infinium
             YearComboBox1.Items.Add(2020);
             YearComboBox1.Items.Add(2021);
             YearComboBox1.Text = YearComboBox.Items[YearComboBox.Items.Count - 1].ToString();
-
+            
             ProductionCalendar.GetCalendar(YearComboBox1.SelectedItem.ToString());
             ProductionCalendar.FillHoursDataTable();
             //----------------------------------------------
