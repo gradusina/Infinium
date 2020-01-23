@@ -40801,9 +40801,9 @@ AND FrontID=" + Convert.ToInt32(Front) +
 
             FilenkaToExcel(ref hssfworkbook,
                         Calibri11CS, CalibriBold11CS, CalibriBold11F, TableHeaderCS, TableHeaderDecCS, WorkAssignmentID, BatchName, ClientName);
-
+            
             TrimmingToExcel(ref hssfworkbook,
-                        Calibri11CS, CalibriBold11CS, CalibriBold11F, TableHeaderCS, TableHeaderDecCS, Admission, 0, WorkAssignmentID, BatchName, ClientName, MachineName);
+                        Calibri11CS, CalibriBold11CS, CalibriBold11F, TableHeaderCS, TableHeaderDecCS, Admission, 0, WorkAssignmentID, BatchName, ClientName);
 
             AdditionsToExcel(ref hssfworkbook,
                         Calibri11CS, CalibriBold11CS, CalibriBold11F, TableHeaderCS, TableHeaderDecCS, WorkAssignmentID, BatchName, ClientName);
@@ -40906,11 +40906,18 @@ AND FrontID=" + Convert.ToInt32(Front) +
                 CollectAssemblyBoxes(Convert.ToInt32(DistFrameColorsDT.Rows[i]["ColorID"]), InfinitiBoxesDT, ref AssemblyDT, FrontType);
                 CollectAssemblyGrids(Convert.ToInt32(DistFrameColorsDT.Rows[i]["ColorID"]), InfinitiGridsDT, ref AssemblyDT, FrontType);
             }
+
+            decimal div1 = 25;
+            decimal div2 = 2.14m;
+            decimal time = 0;
+            decimal cost = 0;
+            PlanningTimebyCount(AssemblyDT, div1, div2, ref time, ref cost);
+
             AssemblyToExcel(ref hssfworkbook,
-                        Calibri11CS, CalibriBold11CS, CalibriBold11F, TableHeaderCS, TableHeaderDecCS, WorkAssignmentID, BatchName, ClientName);
+                        Calibri11CS, CalibriBold11CS, CalibriBold11F, TableHeaderCS, TableHeaderDecCS, WorkAssignmentID, BatchName, ClientName, time, cost);
 
             DeyingToExcel(ref hssfworkbook,
-                        Calibri11CS, CalibriBold11CS, CalibriBold11F, TableHeaderCS, TableHeaderDecCS, WorkAssignmentID, BatchName, ClientName, "Покраска");
+                        Calibri11CS, CalibriBold11CS, CalibriBold11F, TableHeaderCS, TableHeaderDecCS, WorkAssignmentID, BatchName, ClientName, Machine);
 
             DeyingByMainOrderToExcel(ref hssfworkbook,
                         Calibri11CS, CalibriBold11CS, CalibriBold11F, TableHeaderCS, TableHeaderDecCS, WorkAssignmentID, BatchName);
@@ -40918,10 +40925,10 @@ AND FrontID=" + Convert.ToInt32(Front) +
             //string FileName = "№" + WorkAssignmentID + " " + BatchName;
             //string tempFolder = System.Environment.GetEnvironmentVariable("TEMP");
 
-            //string tempFolder = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
+            string tempFolder = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
             string FileName = "№" + WorkAssignmentID + " " + BatchName;
             //string tempFolder = @"\\192.168.1.6\Public\ТПС\Infinium\Задания\";
-            string tempFolder = @"\\192.168.1.6\Public\USERS_2016\_ДЕЙСТВУЮЩИЕ\ПРОИЗВОДСТВО\ТПС\инфиниум\";
+            //string tempFolder = @"\\192.168.1.6\Public\USERS_2016\_ДЕЙСТВУЮЩИЕ\ПРОИЗВОДСТВО\ТПС\инфиниум\";
             string CurrentMonthName = DateTime.Now.ToString("MMMM");
             tempFolder = Path.Combine(tempFolder, CurrentMonthName);
             if (!(Directory.Exists(tempFolder)))
@@ -41004,6 +41011,31 @@ AND FrontID=" + Convert.ToInt32(Front) +
             cost = Decimal.Round(time * div2, 2, MidpointRounding.AwayFromZero);
         }
 
+        private void GetPlanningFilenka(DataTable table, decimal div1, decimal div2, decimal div3, ref decimal time, ref decimal cost)
+        {
+            decimal filenkaCount = 0;
+            decimal allCount = 0;
+
+            for (int x = 0; x < table.Rows.Count; x++)
+            {
+                if (table.Rows[x]["Square"] != DBNull.Value)
+                {
+                    // Фл04, Фл07
+                    string name = table.Rows[x]["Name"].ToString();
+                    string substr1 = "Фл04";
+                    string substr2 = "Фл07";
+
+                    if (name.Contains((substr1)) || name.Contains((substr2)))
+                        filenkaCount += Convert.ToDecimal(table.Rows[x]["Square"]);
+                    else
+                        allCount += Convert.ToDecimal(table.Rows[x]["Square"]);
+                }
+            }
+
+            time = Decimal.Round(filenkaCount / div1 + allCount / div2, 3, MidpointRounding.AwayFromZero);
+            cost = Decimal.Round(time * div3, 2, MidpointRounding.AwayFromZero);
+        }
+
         private void PlanningTimebySquare(DataTable table, decimal div1, decimal div2, ref decimal time, ref decimal cost)
         {
             for (int x = 0; x < table.Rows.Count; x++)
@@ -41064,7 +41096,7 @@ AND FrontID=" + Convert.ToInt32(Front) +
 
         private void PlanningTimeMarketPacking(DataTable table, ref decimal time, ref decimal cost)
         {
-            int VitrinaCount = 0;
+            decimal VitrinaCount = 0;
             decimal Square = 0;
 
             for (int x = 0; x < table.Rows.Count; x++)
@@ -41072,8 +41104,8 @@ AND FrontID=" + Convert.ToInt32(Front) +
                 if (table.Rows[x]["Count"] != DBNull.Value)
                 {
                     // Витрины
-                    if (Convert.ToInt32(table.Rows[x]["InsetTypeID"]) == 1)
-                        VitrinaCount += Convert.ToInt32(table.Rows[x]["Count"]);
+                    if (table.Rows[x]["InsetColor"].ToString() == "Витрина")
+                        VitrinaCount += Convert.ToDecimal(table.Rows[x]["Count"]);
                     // квадратура всех фасадов
                     Square += Convert.ToDecimal(table.Rows[x]["Square"]);
                 }
@@ -41180,7 +41212,7 @@ AND FrontID=" + Convert.ToInt32(Front) +
 
         private void DeyingToExcel(ref HSSFWorkbook hssfworkbook,
             HSSFCellStyle Calibri11CS, HSSFCellStyle CalibriBold11CS, HSSFFont CalibriBold11F, HSSFCellStyle TableHeaderCS, HSSFCellStyle TableHeaderDecCS,
-            int WorkAssignmentID, string BatchName, string ClientName, string PageName)
+            int WorkAssignmentID, string BatchName, string ClientName, Machines Machine)
         {
             DeyingDT.Clear();
 
@@ -41304,7 +41336,7 @@ AND FrontID=" + Convert.ToInt32(Front) +
 
             if (DeyingDT.Rows.Count > 0)
                 DeyingToExcelSingly(ref hssfworkbook,
-                        Calibri11CS, CalibriBold11CS, CalibriBold11F, TableHeaderCS, TableHeaderDecCS, WorkAssignmentID, BatchName, ClientName, "Покраска");
+                        Calibri11CS, CalibriBold11CS, CalibriBold11F, TableHeaderCS, TableHeaderDecCS, WorkAssignmentID, BatchName, ClientName, "Покраска", Machine);
         }
 
         private void DeyingByMainOrderToExcel(ref HSSFWorkbook hssfworkbook,
@@ -41692,7 +41724,7 @@ AND FrontID=" + Convert.ToInt32(Front) +
                 sheet1.SetColumnWidth(3, 6 * 256);
                 sheet1.SetColumnWidth(4, 6 * 256);
                 sheet1.SetColumnWidth(5, 6 * 256);
-
+                
                 HSSFCell cell = null;
                 cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex++), 0, "Распечатал: Дата/время " + CurrentDate.ToString("dd.MM.yyyy HH:mm") + " \r\n ФИО: " + Security.CurrentUserShortName);
                 cell.CellStyle = Calibri11CS;
@@ -42461,13 +42493,19 @@ AND FrontID=" + Convert.ToInt32(Front) +
 
         public void TrimmingToExcel(ref HSSFWorkbook hssfworkbook,
             HSSFCellStyle Calibri11CS, HSSFCellStyle CalibriBold11CS, HSSFFont CalibriBold11F, HSSFCellStyle TableHeaderCS, HSSFCellStyle TableHeaderDecCS,
-            int Admission, int BoxAdmission, int WorkAssignmentID, string BatchName, string ClientName, string MachineName)
+            int Admission, int BoxAdmission, int WorkAssignmentID, string BatchName, string ClientName)
         {
             TrimmingDT.Clear();
 
             TrimCollectSimpleFronts(ref TrimmingDT, Admission, true);
             TrimCollectGridFronts(ref TrimmingDT, Admission, true);
             TrimCollectBoxFronts(ref TrimmingDT, BoxAdmission, true);
+
+            decimal div1 = 370;
+            decimal div2 = 2.14m;
+            decimal time = 0;
+            decimal cost = 0;
+            PlanningTimebyCount(TrimmingDT, div1, div2, ref time, ref cost);
 
             if (TrimmingDT.Rows.Count == 0)
                 return;
@@ -42493,10 +42531,32 @@ AND FrontID=" + Convert.ToInt32(Front) +
             int RowIndex = 0;
 
             HSSFCell cell = null;
+
             cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex++), 0, "Распечатал: Дата/время " + CurrentDate.ToString("dd.MM.yyyy HH:mm") + " \r\n ФИО: " + Security.CurrentUserShortName);
             cell.CellStyle = Calibri11CS;
-            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex++), 0, "Плановое время выполнения:");
+
+
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 0, "Плановое время выполнения:");
             cell.CellStyle = Calibri11CS;
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 3, "ч/ч");
+            cell.CellStyle = Calibri11CS;
+
+            cell = sheet1.CreateRow(RowIndex++).CreateCell(2);
+            cell.SetCellValue(Convert.ToDouble(time));
+            cell.CellStyle = Calibri11CS;
+
+
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 0, "Планово-премиальный фонд:");
+            cell.CellStyle = Calibri11CS;
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 3, "руб.");
+            cell.CellStyle = Calibri11CS;
+
+            cell = sheet1.CreateRow(RowIndex++).CreateCell(2);
+            cell.SetCellValue(Convert.ToDouble(cost));
+            cell.CellStyle = Calibri11CS;
+
+            RowIndex++;
+
             cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex++), 1, "УТВЕРЖДАЮ_____________");
             cell.CellStyle = Calibri11CS;
             cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex++), 1, "ТСК-01");
@@ -43005,9 +43065,16 @@ AND FrontID=" + Convert.ToInt32(Front) +
                 Col1 = DT.Columns.Add("Col1", System.Type.GetType("System.String"));
                 Col1.SetOrdinal(4);
 
+                decimal div1 = 165;
+                decimal div2 = 2.14m;
+                decimal time = 0;
+                decimal cost = 0;
+                PlanningTimebyCount(DT, div1, div2, ref time, ref cost);
+
                 if (DT.Rows.Count > 0)
                     GashToExcelSingly(ref hssfworkbook,
-                        Calibri11CS, CalibriBold11CS, CalibriBold11F, TableHeaderCS, TableHeaderDecCS, ref sheet1, DT, WorkAssignmentID, BatchName, ClientName, MachineName, ref RowIndex);
+                        Calibri11CS, CalibriBold11CS, CalibriBold11F, TableHeaderCS, TableHeaderDecCS, ref sheet1, 
+                        DT, WorkAssignmentID, BatchName, ClientName, MachineName, time, cost, ref RowIndex);
                 RowIndex++;
                 RowIndex++;
 
@@ -43020,9 +43087,14 @@ AND FrontID=" + Convert.ToInt32(Front) +
                 Col1 = DT.Columns.Add("Col1", System.Type.GetType("System.String"));
                 Col1.SetOrdinal(4);
 
+                time = 0;
+                cost = 0;
+                PlanningTimeGashRapid(DT, ref time, ref cost);
+
                 if (DT.Rows.Count > 0)
                     GashToExcelSingly(ref hssfworkbook,
-                        Calibri11CS, CalibriBold11CS, CalibriBold11F, TableHeaderCS, TableHeaderDecCS, ref sheet1, DT, WorkAssignmentID, BatchName, ClientName, "Rapid", ref RowIndex);
+                        Calibri11CS, CalibriBold11CS, CalibriBold11F, TableHeaderCS, TableHeaderDecCS, ref sheet1, DT, WorkAssignmentID, BatchName, ClientName, "Rapid",
+                        time, cost, ref RowIndex);
             }
             if (MachineName == "Rapid")
             {
@@ -43037,9 +43109,13 @@ AND FrontID=" + Convert.ToInt32(Front) +
                 Col1 = DT.Columns.Add("Col1", System.Type.GetType("System.String"));
                 Col1.SetOrdinal(4);
 
+                decimal time = 0;
+                decimal cost = 0;
+                PlanningTimeGashRapid(DT, ref time, ref cost);
                 if (DT.Rows.Count > 0)
                     GashToExcelSingly(ref hssfworkbook,
-                        Calibri11CS, CalibriBold11CS, CalibriBold11F, TableHeaderCS, TableHeaderDecCS, ref sheet1, DT, WorkAssignmentID, BatchName, ClientName, "Rapid", ref RowIndex);
+                        Calibri11CS, CalibriBold11CS, CalibriBold11F, TableHeaderCS, TableHeaderDecCS, ref sheet1, DT, WorkAssignmentID, BatchName, ClientName, "Rapid",
+                        time, cost, ref RowIndex);
             }
             RowIndex++;
         }
@@ -43077,12 +43153,33 @@ AND FrontID=" + Convert.ToInt32(Front) +
                 Col1 = DT.Columns.Add("Col1", System.Type.GetType("System.String"));
                 Col1.SetOrdinal(4);
 
+                decimal div1 = 7;
+                decimal div2 = 2.14m;
+                decimal time = 0;
+                decimal cost = 0;
+                PlanningTimebyCount(DT, div1, div2, ref time, ref cost);
+
                 InsetToExcelSingly(ref hssfworkbook,
-                        Calibri11CS, CalibriBold11CS, CalibriBold11F, TableHeaderCS, TableHeaderDecCS, ref sheet1, DT, WorkAssignmentID, BatchName, ClientName, "Сборка решеток", ref RowIndex);
+                        Calibri11CS, CalibriBold11CS, CalibriBold11F, TableHeaderCS, TableHeaderDecCS, ref sheet1, DT, WorkAssignmentID, BatchName, ClientName,
+                        string.Empty, "Сборка решеток", time, cost, ref RowIndex);
                 RowIndex++;
                 RowIndex++;
+
                 InsetToExcelSingly(ref hssfworkbook,
-                        Calibri11CS, CalibriBold11CS, CalibriBold11F, TableHeaderCS, TableHeaderDecCS, ref sheet1, DT, WorkAssignmentID, BatchName, ClientName, "Пила DFTP-400", ref RowIndex);
+                    Calibri11CS, CalibriBold11CS, CalibriBold11F, TableHeaderCS, TableHeaderDecCS, ref sheet1, DT, WorkAssignmentID, BatchName, ClientName,
+                    "ДУБЛЬ", "Сборка решеток", time, cost, ref RowIndex);
+                RowIndex++;
+                RowIndex++;
+
+                div1 = 40;
+                div2 = 2.14m;
+                time = 0;
+                cost = 0;
+                PlanningTimebyCount(DT, div1, div2, ref time, ref cost);
+
+                InsetToExcelSingly(ref hssfworkbook,
+                        Calibri11CS, CalibriBold11CS, CalibriBold11F, TableHeaderCS, TableHeaderDecCS, ref sheet1, DT, WorkAssignmentID, BatchName, ClientName,
+                        string.Empty, "Пила DFTP-400", time, cost, ref RowIndex);
                 RowIndex++;
                 RowIndex++;
             }
@@ -43167,13 +43264,23 @@ AND FrontID=" + Convert.ToInt32(Front) +
             DataColumn Col2 = new DataColumn("Col2", System.Type.GetType("System.String"));
             DataColumn Col3 = new DataColumn("Col3", System.Type.GetType("System.String"));
 
+            decimal div1 = 54;
+            decimal div2 = 2.14m;
+            decimal div3 = 2.14m;
+            decimal time = 0;
+            decimal cost = 0;
+
             if (FilenkaBoxesDT.Rows.Count > 0)
             {
                 DT = FilenkaBoxesDT.Copy();
                 Col1 = DT.Columns.Add("Col1", System.Type.GetType("System.String"));
                 Col1.SetOrdinal(4);
+
+                PlanningTimebyCount(DT, div1, div2, ref time, ref cost);
+
                 FilenkaBoxesToExcel(ref hssfworkbook,
-                        Calibri11CS, CalibriBold11CS, CalibriBold11F, TableHeaderCS, TableHeaderDecCS, ref sheet1, DT, WorkAssignmentID, BatchName, ClientName, ref RowIndex);
+                        Calibri11CS, CalibriBold11CS, CalibriBold11F, TableHeaderCS, TableHeaderDecCS, ref sheet1, DT,
+                        WorkAssignmentID, BatchName, ClientName, time, cost, ref RowIndex);
                 RowIndex++;
                 RowIndex++;
             }
@@ -43186,9 +43293,15 @@ AND FrontID=" + Convert.ToInt32(Front) +
                 Col1 = DT.Columns.Add("Col1", System.Type.GetType("System.String"));
                 Col1.SetOrdinal(4);
 
+                div1 = 54;
+                div2 = 2.14m;
+                time = 0;
+                cost = 0;
+                PlanningTimebyCount(DT, div1, div2, ref time, ref cost);
+
                 FilenkaSimple1ToExcel(ref hssfworkbook,
                         Calibri11CS, CalibriBold11CS, CalibriBold11F, TableHeaderCS, TableHeaderDecCS, ref sheet1, DT,
-                        WorkAssignmentID, BatchName, ClientName, "Вставка", ref RowIndex);
+                        WorkAssignmentID, BatchName, ClientName, "Вставка", time, cost, ref RowIndex);
                 RowIndex++;
                 RowIndex++;
             }
@@ -43204,10 +43317,35 @@ AND FrontID=" + Convert.ToInt32(Front) +
                 Col1.SetOrdinal(4);
                 Col2.SetOrdinal(5);
                 Col3.SetOrdinal(6);
+                
+                decimal time1 = 0;
+                decimal cost1 = 0;
+                decimal time2 = 0;
+                decimal cost2 = 0;
+                decimal time3 = 0;
+                decimal cost3 = 0;
+                decimal time4 = 0;
+                decimal cost4 = 0;
+                div1 = 8.5m;
+                div2 = 9.5m;
+                div3 = 2.14m;
+                GetPlanningFilenka(DT, div1, div2, div3, ref time1, ref cost1);
+                div1 = 14;
+                div2 = 2.14m;
+                PlanningTimebySquare(DT, div1, div2, ref time2, ref cost2);
+                div1 = 7.2m;
+                div2 = 10.3m;
+                div3 = 2.14m;
+                GetPlanningFilenka(DT, div1, div2, div3, ref time3, ref cost3);
+                div1 = 7.2m;
+                div2 = 10.3m;
+                div3 = 1.25m;
+                GetPlanningFilenka(DT, div1, div2, div3, ref time4, ref cost4);
 
                 FilenkaSimple2ToExcel(ref hssfworkbook,
                         Calibri11CS, CalibriBold11CS, CalibriBold11F, TableHeaderCS, TableHeaderDecCS, ref sheet1, DT,
-                        WorkAssignmentID, BatchName, ClientName, "Филенка", ref RowIndex);
+                        WorkAssignmentID, BatchName, ClientName, "Филенка", time1, cost1, time2, cost2,
+                        time3, cost3, time4, cost4, ref RowIndex);
                 RowIndex++;
                 RowIndex++;
             }
@@ -43220,9 +43358,15 @@ AND FrontID=" + Convert.ToInt32(Front) +
                 Col1 = DT.Columns.Add("Col1", System.Type.GetType("System.String"));
                 Col1.SetOrdinal(4);
 
+                div1 = 54;
+                div2 = 2.14m;
+                time = 0;
+                cost = 0;
+                PlanningTimebyCount(DT, div1, div2, ref time, ref cost);
+
                 FilenkaSimple1ToExcel(ref hssfworkbook,
                         Calibri11CS, CalibriBold11CS, CalibriBold11F, TableHeaderCS, TableHeaderDecCS, ref sheet1, DT,
-                        WorkAssignmentID, BatchName, ClientName, "Вставка", ref RowIndex);
+                        WorkAssignmentID, BatchName, ClientName, "Вставка", time, cost, ref RowIndex);
                 RowIndex++;
                 RowIndex++;
             }
@@ -43239,9 +43383,33 @@ AND FrontID=" + Convert.ToInt32(Front) +
                 Col2.SetOrdinal(5);
                 Col3.SetOrdinal(6);
 
+                decimal time1 = 0;
+                decimal cost1 = 0;
+                decimal time2 = 0;
+                decimal cost2 = 0;
+                decimal time3 = 0;
+                decimal cost3 = 0;
+                decimal time4 = 0;
+                decimal cost4 = 0;
+                div1 = 8.5m;
+                div2 = 9.5m;
+                div3 = 2.14m;
+                GetPlanningFilenka(DT, div1, div2, div3, ref time1, ref cost1);
+                div1 = 14;
+                div2 = 2.14m;
+                PlanningTimebySquare(DT, div1, div2, ref time2, ref cost2);
+                div1 = 7.2m;
+                div2 = 10.3m;
+                div3 = 2.14m;
+                GetPlanningFilenka(DT, div1, div2, div3, ref time3, ref cost3);
+                div1 = 7.2m;
+                div2 = 10.3m;
+                div3 = 1.25m;
+
                 FilenkaSimple2ToExcel(ref hssfworkbook,
                         Calibri11CS, CalibriBold11CS, CalibriBold11F, TableHeaderCS, TableHeaderDecCS, ref sheet1, DT,
-                        WorkAssignmentID, BatchName, ClientName, "Филенка", ref RowIndex);
+                        WorkAssignmentID, BatchName, ClientName, "Филенка", time1, cost1, time2, cost2,
+                        time3, cost3, time4, cost4, ref RowIndex);
                 RowIndex++;
                 RowIndex++;
             }
@@ -43250,7 +43418,7 @@ AND FrontID=" + Convert.ToInt32(Front) +
 
         public void AssemblyToExcel(ref HSSFWorkbook hssfworkbook,
             HSSFCellStyle Calibri11CS, HSSFCellStyle CalibriBold11CS, HSSFFont CalibriBold11F, HSSFCellStyle TableHeaderCS, HSSFCellStyle TableHeaderDecCS,
-            int WorkAssignmentID, string BatchName, string ClientName)
+            int WorkAssignmentID, string BatchName, string ClientName, decimal Time, decimal Cost)
         {
             int RowIndex = 0;
             HSSFSheet sheet1 = hssfworkbook.CreateSheet("Сборка");
@@ -43268,29 +43436,33 @@ AND FrontID=" + Convert.ToInt32(Front) +
             sheet1.SetColumnWidth(4, 6 * 256);
             sheet1.SetColumnWidth(5, 6 * 256);
 
-            //cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex + 2), 1, "УТВЕРЖДАЮ_____________");
-            //cell.CellStyle = Calibri11CS;
-            //cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 0, "Распечатал: Дата/время " + CurrentDate.ToString("dd.MM.yyyy HH:mm") + " \r\n ФИО: " + Security.CurrentUserShortName);
-            //cell.CellStyle = Calibri11CS;
-            //cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex + 4), 0, "Клиент:");
-            //cell.CellStyle = CalibriBold11CS;
-            //cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex + 4), 1, ClientName);
-            //cell.CellStyle = CalibriBold11CS;
-            //cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex + 5), 0, "Партия:");
-            //cell.CellStyle = CalibriBold11CS;
-            //cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex + 5), 1, BatchName);
-            //cell.CellStyle = CalibriBold11CS;
-            //cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex + 3), 0, "Задание №" + WorkAssignmentID.ToString());
-            //cell.CellStyle = CalibriBold11CS;
-            //cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex + 3), 1, "Сборка");
-            //cell.CellStyle = CalibriBold11CS;
-            //RowIndex += 6;
-
             HSSFCell cell = null;
+
             cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex++), 0, "Распечатал: Дата/время " + CurrentDate.ToString("dd.MM.yyyy HH:mm") + " \r\n ФИО: " + Security.CurrentUserShortName);
             cell.CellStyle = Calibri11CS;
-            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex++), 0, "Плановое время выполнения:");
+
+
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 0, "Плановое время выполнения:");
             cell.CellStyle = Calibri11CS;
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 3, "ч/ч");
+            cell.CellStyle = Calibri11CS;
+
+            cell = sheet1.CreateRow(RowIndex++).CreateCell(2);
+            cell.SetCellValue(Convert.ToDouble(Time));
+            cell.CellStyle = Calibri11CS;
+
+
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 0, "Планово-премиальный фонд:");
+            cell.CellStyle = Calibri11CS;
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 3, "руб.");
+            cell.CellStyle = Calibri11CS;
+
+            cell = sheet1.CreateRow(RowIndex++).CreateCell(2);
+            cell.SetCellValue(Convert.ToDouble(Cost));
+            cell.CellStyle = Calibri11CS;
+
+            RowIndex++;
+
             cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex++), 1, "УТВЕРЖДАЮ_____________");
             cell.CellStyle = Calibri11CS;
             cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex++), 1, "Сборка");
@@ -43510,7 +43682,7 @@ AND FrontID=" + Convert.ToInt32(Front) +
 
         public void DeyingToExcelSingly(ref HSSFWorkbook hssfworkbook,
             HSSFCellStyle Calibri11CS, HSSFCellStyle CalibriBold11CS, HSSFFont CalibriBold11F, HSSFCellStyle TableHeaderCS, HSSFCellStyle TableHeaderDecCS,
-            int WorkAssignmentID, string BatchName, string ClientName, string PageName)
+            int WorkAssignmentID, string BatchName, string ClientName, string PageName, Machines machine)
         {
             int RowIndex = 0;
 
@@ -43547,9 +43719,14 @@ AND FrontID=" + Convert.ToInt32(Front) +
                 Col1 = DT.Columns.Add("Col1", System.Type.GetType("System.String"));
                 Col1.SetOrdinal(6);
                 DT.Columns["Square"].SetOrdinal(7);
+
+                decimal time = 0;
+                decimal cost = 0;
+                PlanningTimeDeyning(DT, machine, ref time, ref cost);
+
                 DyeingWomen1ToExcel(ref hssfworkbook,
                         Calibri11CS, CalibriBold11CS, CalibriBold11F, TableHeaderCS, TableHeaderDecCS, ref sheet1, DT, WorkAssignmentID, BatchName, ClientName, string.Empty,
-                    "Жен1. (" + Security.CurrentUserShortName + " от " + CurrentDate.ToString("dd.MM.yyyy HH:mm") + ")", string.Empty, ref RowIndex);
+                    "Жен1. (" + Security.CurrentUserShortName + " от " + CurrentDate.ToString("dd.MM.yyyy HH:mm") + ")", string.Empty, time, cost, ref RowIndex);
                 RowIndex++;
 
                 DT.Dispose();
@@ -43618,11 +43795,15 @@ AND FrontID=" + Convert.ToInt32(Front) +
                 Col1.SetOrdinal(6);
                 Col2.SetOrdinal(7);
                 DT.Columns["Square"].SetOrdinal(8);
+
+                time = 0;
+                cost = 0;
+                PlanningTimeMarketPacking(DT, ref time, ref cost);
+
                 DyeingPackingToExcel(ref hssfworkbook,
                         Calibri11CS, CalibriBold11CS, CalibriBold11F, TableHeaderCS, TableHeaderDecCS, ref sheet1, DT, WorkAssignmentID, BatchName, ClientName, string.Empty,
-                    "Упаковка. (" + Security.CurrentUserShortName + " от " + CurrentDate.ToString("dd.MM.yyyy HH:mm") + ")", string.Empty, ref RowIndex);
-                RowIndex++;
-
+                    "Упаковка. (" + Security.CurrentUserShortName + " от " + CurrentDate.ToString("dd.MM.yyyy HH:mm") + ")", string.Empty, time, cost, ref RowIndex);
+                
                 //DT.Dispose();
                 //Col1.Dispose();
                 //Col2.Dispose();
@@ -43636,8 +43817,6 @@ AND FrontID=" + Convert.ToInt32(Front) +
                 //        Calibri11CS, CalibriBold11CS, CalibriBold11F, TableHeaderCS, TableHeaderDecCS, ref sheet1, DT, WorkAssignmentID, ClientName, BatchName,
                 //    "Сверление. (" + Security.CurrentUserShortName + " от " + CurrentDate.ToString("dd.MM.yyyy HH:mm") + ")", ref RowIndex);
             }
-
-            RowIndex++;
         }
 
         public void DeyingByMainOrderToExcelSingly(ref HSSFWorkbook hssfworkbook,
@@ -43762,9 +43941,16 @@ AND FrontID=" + Convert.ToInt32(Front) +
                 Col1.SetOrdinal(6);
                 Col2.SetOrdinal(7);
                 DT.Columns["Square"].SetOrdinal(8);
+
+                decimal div1 = 165;
+                decimal div2 = 2.14m;
+                decimal time = 0;
+                decimal cost = 0;
+                PlanningTimeMarketPacking(DT, ref time, ref cost);
+
                 DyeingPackingToExcel(ref hssfworkbook,
                         Calibri11CS, CalibriBold11CS, CalibriBold11F, TableHeaderCS, TableHeaderDecCS, ref sheet1, DT, WorkAssignmentID, BatchName, ClientName, OrderName,
-                    "Упаковка. (" + Security.CurrentUserShortName + " от " + CurrentDate.ToString("dd.MM.yyyy HH:mm") + ")", Notes, ref RowIndex);
+                    "Упаковка. (" + Security.CurrentUserShortName + " от " + CurrentDate.ToString("dd.MM.yyyy HH:mm") + ")", Notes, time, cost, ref RowIndex);
                 RowIndex++;
 
                 DT.Dispose();
@@ -43776,9 +43962,16 @@ AND FrontID=" + Convert.ToInt32(Front) +
                 Col1.SetOrdinal(6);
                 DT.Columns["Square"].SetOrdinal(7);
                 DT.Columns["Notes"].SetOrdinal(8);
+
+                div1 = 48;
+                div2 = 2.14m;
+                time = 0;
+                cost = 0;
+                PlanningTimebyCount(DT, div1, div2, ref time, ref cost);
+
                 DyeingBoringToExcel(ref hssfworkbook,
                         Calibri11CS, CalibriBold11CS, CalibriBold11F, TableHeaderCS, TableHeaderDecCS, ref sheet1, DT, WorkAssignmentID, BatchName, ClientName, OrderName,
-                    "Сверление. (" + Security.CurrentUserShortName + " от " + CurrentDate.ToString("dd.MM.yyyy HH:mm") + ")", Notes, ref RowIndex);
+                    "Сверление. (" + Security.CurrentUserShortName + " от " + CurrentDate.ToString("dd.MM.yyyy HH:mm") + ")", Notes, time, cost, ref RowIndex);
             }
 
             RowIndex++;
@@ -43792,7 +43985,7 @@ AND FrontID=" + Convert.ToInt32(Front) +
             DataColumn Col1 = new DataColumn("Col1", System.Type.GetType("System.String"));
             DataColumn Col2 = new DataColumn("Col2", System.Type.GetType("System.String"));
             DataColumn Col3 = new DataColumn("Col3", System.Type.GetType("System.String"));
-
+            
             if (DT.Rows.Count > 0)
             {
                 TempDT.Dispose();
@@ -43805,9 +43998,16 @@ AND FrontID=" + Convert.ToInt32(Front) +
                 Col1.SetOrdinal(6);
                 Col2.SetOrdinal(7);
                 TempDT.Columns["Square"].SetOrdinal(8);
+
+                decimal div1 = 165;
+                decimal div2 = 2.14m;
+                decimal time = 0;
+                decimal cost = 0;
+                PlanningTimeMarketPacking(DT, ref time, ref cost);
+
                 DyeingPackingToExcel(ref hssfworkbook,
                         Calibri11CS, CalibriBold11CS, CalibriBold11F, TableHeaderCS, TableHeaderDecCS, ref sheet1, TempDT, WorkAssignmentID, BatchName, ClientName, OrderName,
-                    "Упаковка. (" + Security.CurrentUserShortName + " от " + CurrentDate.ToString("dd.MM.yyyy HH:mm") + ")", Notes, ref RowIndex);
+                    "Упаковка. (" + Security.CurrentUserShortName + " от " + CurrentDate.ToString("dd.MM.yyyy HH:mm") + ")", Notes, time, cost, ref RowIndex);
                 RowIndex++;
 
                 TempDT.Dispose();
@@ -43819,9 +44019,16 @@ AND FrontID=" + Convert.ToInt32(Front) +
                 Col1.SetOrdinal(6);
                 TempDT.Columns["Square"].SetOrdinal(7);
                 TempDT.Columns["Notes"].SetOrdinal(8);
+                
+                div1 = 48;
+                div2 = 2.14m;
+                time = 0;
+                cost = 0;
+                PlanningTimebyCount(DT, div1, div2, ref time, ref cost);
+
                 DyeingBoringToExcel(ref hssfworkbook,
                         Calibri11CS, CalibriBold11CS, CalibriBold11F, TableHeaderCS, TableHeaderDecCS, ref sheet1, TempDT, WorkAssignmentID, BatchName, ClientName, OrderName,
-                    "Сверление. (" + Security.CurrentUserShortName + " от " + CurrentDate.ToString("dd.MM.yyyy HH:mm") + ")", Notes, ref RowIndex);
+                    "Сверление. (" + Security.CurrentUserShortName + " от " + CurrentDate.ToString("dd.MM.yyyy HH:mm") + ")", Notes, time, cost, ref RowIndex);
             }
 
             RowIndex++;
@@ -43829,29 +44036,36 @@ AND FrontID=" + Convert.ToInt32(Front) +
 
         public void GashToExcelSingly(ref HSSFWorkbook hssfworkbook,
             HSSFCellStyle Calibri11CS, HSSFCellStyle CalibriBold11CS, HSSFFont CalibriBold11F, HSSFCellStyle TableHeaderCS, HSSFCellStyle TableHeaderDecCS,
-            ref HSSFSheet sheet1, DataTable DT, int WorkAssignmentID, string BatchName, string ClientName, string PageName, ref int RowIndex)
+            ref HSSFSheet sheet1, DataTable DT, int WorkAssignmentID, string BatchName, string ClientName, string PageName, decimal Time, decimal Cost, ref int RowIndex)
         {
-            //HSSFCell cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex + 2), 1, "УТВЕРЖДАЮ_____________");
-            //cell.CellStyle = Calibri11CS;
-            //cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(0), 0, "Распечатал: Дата/время " + CurrentDate.ToString("dd.MM.yyyy HH:mm") + " \r\n ФИО: " + Security.CurrentUserShortName);
-            //cell.CellStyle = Calibri11CS;
-            //cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex + 4), 0, "Клиент:");
-            //cell.CellStyle = CalibriBold11CS;
-            //cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex + 4), 1, ClientName);
-            //cell.CellStyle = CalibriBold11CS;
-            //cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex + 5), 0, "Партия:");
-            //cell.CellStyle = CalibriBold11CS;
-            //cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex + 5), 1, BatchName);
-            //cell.CellStyle = CalibriBold11CS;
-            //cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex + 3), 0, "Задание №" + WorkAssignmentID.ToString());
-            //cell.CellStyle = CalibriBold11CS;
-            //cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex + 3), 1, PageName);
-            //cell.CellStyle = CalibriBold11CS;
+
             HSSFCell cell = null;
+
             cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex++), 0, "Распечатал: Дата/время " + CurrentDate.ToString("dd.MM.yyyy HH:mm") + " \r\n ФИО: " + Security.CurrentUserShortName);
             cell.CellStyle = Calibri11CS;
-            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex++), 0, "Плановое время выполнения:");
+
+
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 0, "Плановое время выполнения:");
             cell.CellStyle = Calibri11CS;
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 3, "ч/ч");
+            cell.CellStyle = Calibri11CS;
+
+            cell = sheet1.CreateRow(RowIndex++).CreateCell(2);
+            cell.SetCellValue(Convert.ToDouble(Time));
+            cell.CellStyle = Calibri11CS;
+
+
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 0, "Планово-премиальный фонд:");
+            cell.CellStyle = Calibri11CS;
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 3, "руб.");
+            cell.CellStyle = Calibri11CS;
+
+            cell = sheet1.CreateRow(RowIndex++).CreateCell(2);
+            cell.SetCellValue(Convert.ToDouble(Cost));
+            cell.CellStyle = Calibri11CS;
+
+            RowIndex++;
+
             cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex++), 1, "УТВЕРЖДАЮ_____________");
             cell.CellStyle = Calibri11CS;
             cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex++), 1, PageName);
@@ -44049,27 +44263,35 @@ AND FrontID=" + Convert.ToInt32(Front) +
 
         public void InsetToExcelSingly(ref HSSFWorkbook hssfworkbook,
             HSSFCellStyle Calibri11CS, HSSFCellStyle CalibriBold11CS, HSSFFont CalibriBold11F, HSSFCellStyle TableHeaderCS, HSSFCellStyle TableHeaderDecCS,
-            ref HSSFSheet sheet1, DataTable DT, int WorkAssignmentID, string BatchName, string ClientName, string PageName, ref int RowIndex)
+            ref HSSFSheet sheet1, DataTable DT, int WorkAssignmentID, string BatchName, string ClientName, string OperationName, string PageName, decimal time, decimal cost, ref int RowIndex)
         {
+
             HSSFCell cell = null;
 
-            //cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex + 2), 1, "УТВЕРЖДАЮ_____________");
-            //cell.CellStyle = Calibri11CS;
-            //cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 0, "Распечатал: Дата/время " + CurrentDate.ToString("dd.MM.yyyy HH:mm") + " \r\n ФИО: " + Security.CurrentUserShortName);
-            //cell.CellStyle = Calibri11CS;
-            //cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex + 4), 0, "Клиент:");
-            //cell.CellStyle = CalibriBold11CS;
-            //cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex + 4), 1, ClientName);
-            //cell.CellStyle = CalibriBold11CS;
-            //cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex + 5), 0, "Партия:");
-            //cell.CellStyle = CalibriBold11CS;
-            //cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex + 5), 1, BatchName);
-            //cell.CellStyle = CalibriBold11CS;
-            //cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex + 3), 0, "Задание №" + WorkAssignmentID.ToString());
-            //cell.CellStyle = CalibriBold11CS;
-            //cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex + 3), 1, PageName);
-            //cell.CellStyle = CalibriBold11CS;
-            //RowIndex += 6;
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex++), 0, "Распечатал: Дата/время " + CurrentDate.ToString("dd.MM.yyyy HH:mm") + " \r\n ФИО: " + Security.CurrentUserShortName);
+            cell.CellStyle = Calibri11CS;
+
+
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 0, "Плановое время выполнения:");
+            cell.CellStyle = Calibri11CS;
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 3, "ч/ч");
+            cell.CellStyle = Calibri11CS;
+
+            cell = sheet1.CreateRow(RowIndex++).CreateCell(2);
+            cell.SetCellValue(Convert.ToDouble(time));
+            cell.CellStyle = Calibri11CS;
+
+
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 0, "Планово-премиальный фонд:");
+            cell.CellStyle = Calibri11CS;
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 3, "руб.");
+            cell.CellStyle = Calibri11CS;
+
+            cell = sheet1.CreateRow(RowIndex++).CreateCell(2);
+            cell.SetCellValue(Convert.ToDouble(cost));
+            cell.CellStyle = Calibri11CS;
+
+            RowIndex++;
 
             cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex++), 0, "Распечатал: Дата/время " + CurrentDate.ToString("dd.MM.yyyy HH:mm") + " \r\n ФИО: " + Security.CurrentUserShortName);
             cell.CellStyle = Calibri11CS;
@@ -44085,7 +44307,9 @@ AND FrontID=" + Convert.ToInt32(Front) +
             cell.CellStyle = CalibriBold11CS;
             cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 0, "Клиент:");
             cell.CellStyle = CalibriBold11CS;
-            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex++), 1, ClientName);
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 1, ClientName);
+            cell.CellStyle = CalibriBold11CS;
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex++), 4, OperationName);
             cell.CellStyle = CalibriBold11CS;
 
             cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 0, "Цвет наполнителя");
@@ -44290,32 +44514,36 @@ AND FrontID=" + Convert.ToInt32(Front) +
 
         public void FilenkaSimple1ToExcel(ref HSSFWorkbook hssfworkbook,
             HSSFCellStyle Calibri11CS, HSSFCellStyle CalibriBold11CS, HSSFFont CalibriBold11F, HSSFCellStyle TableHeaderCS, HSSFCellStyle TableHeaderDecCS,
-            ref HSSFSheet sheet1, DataTable DT, int WorkAssignmentID, string BatchName, string ClientName, string PageName, ref int RowIndex)
+            ref HSSFSheet sheet1, DataTable DT, int WorkAssignmentID, string BatchName, string ClientName, string PageName, decimal time, decimal cost, ref int RowIndex)
         {
-            HSSFCell cell = null;
 
-            //cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex + 2), 1, "УТВЕРЖДАЮ_____________");
-            //cell.CellStyle = Calibri11CS;
-            //cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 0, "Распечатал: Дата/время " + CurrentDate.ToString("dd.MM.yyyy HH:mm") + " \r\n ФИО: " + Security.CurrentUserShortName);
-            //cell.CellStyle = Calibri11CS;
-            //cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex + 4), 0, "Клиент:");
-            //cell.CellStyle = CalibriBold11CS;
-            //cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex + 4), 1, ClientName);
-            //cell.CellStyle = CalibriBold11CS;
-            //cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex + 5), 0, "Партия:");
-            //cell.CellStyle = CalibriBold11CS;
-            //cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex + 5), 1, BatchName);
-            //cell.CellStyle = CalibriBold11CS;
-            //cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex + 3), 0, "Задание №" + WorkAssignmentID.ToString());
-            //cell.CellStyle = CalibriBold11CS;
-            //cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex + 3), 1, PageName);
-            //cell.CellStyle = CalibriBold11CS;
-            //RowIndex += 6;
+            HSSFCell cell = null;
 
             cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex++), 0, "Распечатал: Дата/время " + CurrentDate.ToString("dd.MM.yyyy HH:mm") + " \r\n ФИО: " + Security.CurrentUserShortName);
             cell.CellStyle = Calibri11CS;
-            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex++), 0, "Плановое время выполнения:");
+
+
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 0, "Плановое время выполнения:");
             cell.CellStyle = Calibri11CS;
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 3, "ч/ч");
+            cell.CellStyle = Calibri11CS;
+
+            cell = sheet1.CreateRow(RowIndex++).CreateCell(2);
+            cell.SetCellValue(Convert.ToDouble(time));
+            cell.CellStyle = Calibri11CS;
+
+
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 0, "Планово-премиальный фонд:");
+            cell.CellStyle = Calibri11CS;
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 3, "руб.");
+            cell.CellStyle = Calibri11CS;
+
+            cell = sheet1.CreateRow(RowIndex++).CreateCell(2);
+            cell.SetCellValue(Convert.ToDouble(cost));
+            cell.CellStyle = Calibri11CS;
+
+            RowIndex++;
+
             cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex++), 1, "УТВЕРЖДАЮ_____________");
             cell.CellStyle = Calibri11CS;
             cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex++), 1, PageName);
@@ -44532,32 +44760,83 @@ AND FrontID=" + Convert.ToInt32(Front) +
 
         public void FilenkaSimple2ToExcel(ref HSSFWorkbook hssfworkbook,
             HSSFCellStyle Calibri11CS, HSSFCellStyle CalibriBold11CS, HSSFFont CalibriBold11F, HSSFCellStyle TableHeaderCS, HSSFCellStyle TableHeaderDecCS,
-            ref HSSFSheet sheet1, DataTable DT, int WorkAssignmentID, string BatchName, string ClientName, string PageName, ref int RowIndex)
+            ref HSSFSheet sheet1, DataTable DT, int WorkAssignmentID, string BatchName, string ClientName, string PageName, decimal time1, decimal cost1,
+            decimal time2, decimal cost2, decimal time3, decimal cost3, decimal time4, decimal cost4, ref int RowIndex)
         {
-            HSSFCell cell = null;
 
-            //cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex + 2), 1, "УТВЕРЖДАЮ_____________");
-            //cell.CellStyle = Calibri11CS;
-            //cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 0, "Распечатал: Дата/время " + CurrentDate.ToString("dd.MM.yyyy HH:mm") + " \r\n ФИО: " + Security.CurrentUserShortName);
-            //cell.CellStyle = Calibri11CS;
-            //cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex + 4), 0, "Клиент:");
-            //cell.CellStyle = CalibriBold11CS;
-            //cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex + 4), 1, ClientName);
-            //cell.CellStyle = CalibriBold11CS;
-            //cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex + 5), 0, "Партия:");
-            //cell.CellStyle = CalibriBold11CS;
-            //cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex + 5), 1, BatchName);
-            //cell.CellStyle = CalibriBold11CS;
-            //cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex + 3), 0, "Задание №" + WorkAssignmentID.ToString());
-            //cell.CellStyle = CalibriBold11CS;
-            //cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex + 3), 1, PageName);
-            //cell.CellStyle = CalibriBold11CS;
-            //RowIndex += 6;
+            HSSFCell cell = null;
 
             cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex++), 0, "Распечатал: Дата/время " + CurrentDate.ToString("dd.MM.yyyy HH:mm") + " \r\n ФИО: " + Security.CurrentUserShortName);
             cell.CellStyle = Calibri11CS;
-            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex++), 0, "Плановое время выполнения:");
+
+
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 0, "Плановое время выполнения (фрезер):");
             cell.CellStyle = Calibri11CS;
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 3, "ч/ч");
+            cell.CellStyle = Calibri11CS;
+            cell = sheet1.CreateRow(RowIndex++).CreateCell(2);
+            cell.SetCellValue(Convert.ToDouble(time1));
+            cell.CellStyle = Calibri11CS;
+
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 0, "Плановое время выполнения (клей):");
+            cell.CellStyle = Calibri11CS;
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 3, "ч/ч");
+            cell.CellStyle = Calibri11CS;
+            cell = sheet1.CreateRow(RowIndex++).CreateCell(2);
+            cell.SetCellValue(Convert.ToDouble(time2));
+            cell.CellStyle = Calibri11CS;
+
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 0, "Плановое время выполнения (пресс):");
+            cell.CellStyle = Calibri11CS;
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 3, "ч/ч");
+            cell.CellStyle = Calibri11CS;
+            cell = sheet1.CreateRow(RowIndex++).CreateCell(2);
+            cell.SetCellValue(Convert.ToDouble(time3));
+            cell.CellStyle = Calibri11CS;
+
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 0, "Плановое время выполнения (обрезка):");
+            cell.CellStyle = Calibri11CS;
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 3, "ч/ч");
+            cell.CellStyle = Calibri11CS;
+            cell = sheet1.CreateRow(RowIndex++).CreateCell(2);
+            cell.SetCellValue(Convert.ToDouble(time4));
+            cell.CellStyle = Calibri11CS;
+
+
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 0, "Планово-премиальный фонд (фрезер):");
+            cell.CellStyle = Calibri11CS;
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 3, "руб.");
+            cell.CellStyle = Calibri11CS;
+            cell = sheet1.CreateRow(RowIndex++).CreateCell(2);
+            cell.SetCellValue(Convert.ToDouble(cost1));
+            cell.CellStyle = Calibri11CS;
+
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 0, "Планово-премиальный фонд (клей):");
+            cell.CellStyle = Calibri11CS;
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 3, "руб.");
+            cell.CellStyle = Calibri11CS;
+            cell = sheet1.CreateRow(RowIndex++).CreateCell(2);
+            cell.SetCellValue(Convert.ToDouble(cost2));
+            cell.CellStyle = Calibri11CS;
+
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 0, "Планово-премиальный фонд (пресс):");
+            cell.CellStyle = Calibri11CS;
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 3, "руб.");
+            cell.CellStyle = Calibri11CS;
+            cell = sheet1.CreateRow(RowIndex++).CreateCell(2);
+            cell.SetCellValue(Convert.ToDouble(cost3));
+            cell.CellStyle = Calibri11CS;
+
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 0, "Планово-премиальный фонд (обрезка):");
+            cell.CellStyle = Calibri11CS;
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 3, "руб.");
+            cell.CellStyle = Calibri11CS;
+            cell = sheet1.CreateRow(RowIndex++).CreateCell(2);
+            cell.SetCellValue(Convert.ToDouble(cost4));
+            cell.CellStyle = Calibri11CS;
+
+            RowIndex++;
+
             cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex++), 1, "УТВЕРЖДАЮ_____________");
             cell.CellStyle = Calibri11CS;
             cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex++), 1, PageName);
@@ -44778,32 +45057,36 @@ AND FrontID=" + Convert.ToInt32(Front) +
 
         public void FilenkaBoxesToExcel(ref HSSFWorkbook hssfworkbook,
             HSSFCellStyle Calibri11CS, HSSFCellStyle CalibriBold11CS, HSSFFont CalibriBold11F, HSSFCellStyle TableHeaderCS, HSSFCellStyle TableHeaderDecCS,
-            ref HSSFSheet sheet1, DataTable DT, int WorkAssignmentID, string BatchName, string ClientName, ref int RowIndex)
+            ref HSSFSheet sheet1, DataTable DT, int WorkAssignmentID, string BatchName, string ClientName, decimal time, decimal cost, ref int RowIndex)
         {
-            HSSFCell cell = null;
 
-            //cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex + 2), 1, "УТВЕРЖДАЮ_____________");
-            //cell.CellStyle = Calibri11CS;
-            //cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 0, "Распечатал: Дата/время " + CurrentDate.ToString("dd.MM.yyyy HH:mm") + " \r\n ФИО: " + Security.CurrentUserShortName);
-            //cell.CellStyle = Calibri11CS;
-            //cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex + 4), 0, "Клиент:");
-            //cell.CellStyle = CalibriBold11CS;
-            //cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex + 4), 1, ClientName);
-            //cell.CellStyle = CalibriBold11CS;
-            //cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex + 5), 0, "Партия:");
-            //cell.CellStyle = CalibriBold11CS;
-            //cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex + 5), 1, BatchName);
-            //cell.CellStyle = CalibriBold11CS;
-            //cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex + 3), 0, "Задание №" + WorkAssignmentID.ToString());
-            //cell.CellStyle = CalibriBold11CS;
-            //cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex + 3), 1, "Вставка ВП-204");
-            //cell.CellStyle = CalibriBold11CS;
-            //RowIndex += 6;
+            HSSFCell cell = null;
 
             cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex++), 0, "Распечатал: Дата/время " + CurrentDate.ToString("dd.MM.yyyy HH:mm") + " \r\n ФИО: " + Security.CurrentUserShortName);
             cell.CellStyle = Calibri11CS;
-            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex++), 0, "Плановое время выполнения:");
+
+
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 0, "Плановое время выполнения:");
             cell.CellStyle = Calibri11CS;
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 3, "ч/ч");
+            cell.CellStyle = Calibri11CS;
+
+            cell = sheet1.CreateRow(RowIndex++).CreateCell(2);
+            cell.SetCellValue(Convert.ToDouble(time));
+            cell.CellStyle = Calibri11CS;
+
+
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 0, "Планово-премиальный фонд:");
+            cell.CellStyle = Calibri11CS;
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 3, "руб.");
+            cell.CellStyle = Calibri11CS;
+
+            cell = sheet1.CreateRow(RowIndex++).CreateCell(2);
+            cell.SetCellValue(Convert.ToDouble(cost));
+            cell.CellStyle = Calibri11CS;
+
+            RowIndex++;
+
             cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex++), 1, "УТВЕРЖДАЮ_____________");
             cell.CellStyle = Calibri11CS;
             cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex++), 1, "Вставка ВП-204");
@@ -45652,9 +45935,34 @@ AND FrontID=" + Convert.ToInt32(Front) +
         public void DyeingWomen1ToExcel(ref HSSFWorkbook hssfworkbook,
             HSSFCellStyle Calibri11CS, HSSFCellStyle CalibriBold11CS, HSSFFont CalibriBold11F, HSSFCellStyle TableHeaderCS, HSSFCellStyle TableHeaderDecCS,
             ref HSSFSheet sheet1, DataTable DT, int WorkAssignmentID, string BatchName, string ClientName, string OrderName, string PageName, string Notes,
-            ref int RowIndex)
+            decimal Time, decimal Cost, ref int RowIndex)
         {
             HSSFCell cell = null;
+
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex++), 0, "Распечатал: Дата/время " + CurrentDate.ToString("dd.MM.yyyy HH:mm") + " \r\n ФИО: " + Security.CurrentUserShortName);
+            cell.CellStyle = Calibri11CS;
+
+
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 0, "Плановое время выполнения:");
+            cell.CellStyle = Calibri11CS;
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 3, "ч/ч");
+            cell.CellStyle = Calibri11CS;
+
+            cell = sheet1.CreateRow(RowIndex++).CreateCell(2);
+            cell.SetCellValue(Convert.ToDouble(Time));
+            cell.CellStyle = Calibri11CS;
+
+
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 0, "Планово-премиальный фонд:");
+            cell.CellStyle = Calibri11CS;
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 3, "руб.");
+            cell.CellStyle = Calibri11CS;
+
+            cell = sheet1.CreateRow(RowIndex++).CreateCell(2);
+            cell.SetCellValue(Convert.ToDouble(Cost));
+            cell.CellStyle = Calibri11CS;
+
+            RowIndex++;
 
             cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex++), 1, "УТВЕРЖДАЮ_____________");
             cell.CellStyle = Calibri11CS;
@@ -46258,9 +46566,34 @@ AND FrontID=" + Convert.ToInt32(Front) +
         public void DyeingPackingToExcel(ref HSSFWorkbook hssfworkbook,
             HSSFCellStyle Calibri11CS, HSSFCellStyle CalibriBold11CS, HSSFFont CalibriBold11F, HSSFCellStyle TableHeaderCS, HSSFCellStyle TableHeaderDecCS,
             ref HSSFSheet sheet1, DataTable DT, int WorkAssignmentID, string BatchName, string ClientName, string OrderName, string PageName, string Notes,
-            ref int RowIndex)
+            decimal Time, decimal Cost, ref int RowIndex)
         {
             HSSFCell cell = null;
+
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex++), 0, "Распечатал: Дата/время " + CurrentDate.ToString("dd.MM.yyyy HH:mm") + " \r\n ФИО: " + Security.CurrentUserShortName);
+            cell.CellStyle = Calibri11CS;
+
+
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 0, "Плановое время выполнения:");
+            cell.CellStyle = Calibri11CS;
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 3, "ч/ч");
+            cell.CellStyle = Calibri11CS;
+
+            cell = sheet1.CreateRow(RowIndex++).CreateCell(2);
+            cell.SetCellValue(Convert.ToDouble(Time));
+            cell.CellStyle = Calibri11CS;
+
+
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 0, "Планово-премиальный фонд:");
+            cell.CellStyle = Calibri11CS;
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 3, "руб.");
+            cell.CellStyle = Calibri11CS;
+
+            cell = sheet1.CreateRow(RowIndex++).CreateCell(2);
+            cell.SetCellValue(Convert.ToDouble(Cost));
+            cell.CellStyle = Calibri11CS;
+
+            RowIndex++;
 
             cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex++), 1, "УТВЕРЖДАЮ_____________");
             cell.CellStyle = Calibri11CS;
@@ -46462,9 +46795,34 @@ AND FrontID=" + Convert.ToInt32(Front) +
         public void DyeingBoringToExcel(ref HSSFWorkbook hssfworkbook,
             HSSFCellStyle Calibri11CS, HSSFCellStyle CalibriBold11CS, HSSFFont CalibriBold11F, HSSFCellStyle TableHeaderCS, HSSFCellStyle TableHeaderDecCS,
             ref HSSFSheet sheet1, DataTable DT, int WorkAssignmentID, string BatchName, string ClientName, string OrderName, string PageName, string Notes,
-            ref int RowIndex)
+            decimal Time, decimal Cost, ref int RowIndex)
         {
             HSSFCell cell = null;
+
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex++), 0, "Распечатал: Дата/время " + CurrentDate.ToString("dd.MM.yyyy HH:mm") + " \r\n ФИО: " + Security.CurrentUserShortName);
+            cell.CellStyle = Calibri11CS;
+
+
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 0, "Плановое время выполнения:");
+            cell.CellStyle = Calibri11CS;
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 3, "ч/ч");
+            cell.CellStyle = Calibri11CS;
+
+            cell = sheet1.CreateRow(RowIndex++).CreateCell(2);
+            cell.SetCellValue(Convert.ToDouble(Time));
+            cell.CellStyle = Calibri11CS;
+
+
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 0, "Планово-премиальный фонд:");
+            cell.CellStyle = Calibri11CS;
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 3, "руб.");
+            cell.CellStyle = Calibri11CS;
+
+            cell = sheet1.CreateRow(RowIndex++).CreateCell(2);
+            cell.SetCellValue(Convert.ToDouble(Cost));
+            cell.CellStyle = Calibri11CS;
+
+            RowIndex++;
 
             cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex++), 1, "УТВЕРЖДАЮ_____________");
             cell.CellStyle = Calibri11CS;
