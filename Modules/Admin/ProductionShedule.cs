@@ -10,14 +10,14 @@ using System.Windows.Forms;
 
 namespace Infinium.Modules.Admin
 {
-    class ProductionCalendar
+    class ProductionShedule
     {
         private DataTable _hoursDataTable;
         private DataTable _sourceDataTable;
 
         public BindingSource HoursBindingSource;
 
-        public ProductionCalendar()
+        public ProductionShedule()
         {
             Create();
             Fill();
@@ -52,7 +52,7 @@ namespace Infinium.Modules.Admin
 
         private void Fill()
         {
-            using (SqlDataAdapter da = new SqlDataAdapter("SELECT TOP 0 * FROM ProductionCalendar", ConnectionStrings.LightConnectionString))
+            using (SqlDataAdapter da = new SqlDataAdapter("SELECT TOP 0 * FROM ProductionShedule", ConnectionStrings.LightConnectionString))
             {
                 da.Fill(_sourceDataTable);
             }
@@ -60,7 +60,7 @@ namespace Infinium.Modules.Admin
 
         public void GetCalendar(string year)
         {
-            using (SqlDataAdapter da = new SqlDataAdapter(@"SELECT * FROM ProductionCalendar WHERE Year=" + year, ConnectionStrings.LightConnectionString))
+            using (SqlDataAdapter da = new SqlDataAdapter(@"SELECT * FROM ProductionShedule WHERE Year=" + year, ConnectionStrings.LightConnectionString))
             {
                 _sourceDataTable.Clear();
                 da.Fill(_sourceDataTable);
@@ -136,7 +136,7 @@ namespace Infinium.Modules.Admin
 
         public void SaveCalendar()
         {
-            string SelectCommand = "SELECT TOP 0 * FROM ProductionCalendar";
+            string SelectCommand = "SELECT TOP 0 * FROM ProductionShedule";
             using (SqlDataAdapter da = new SqlDataAdapter(SelectCommand, ConnectionStrings.LightConnectionString))
             {
                 using (new SqlCommandBuilder(da))

@@ -37,7 +37,7 @@ namespace Infinium
         WorkTimeSheet WorkTimeSheet;
         DataTable DayStartDate;
 
-        ProductionCalendar ProductionCalendar;
+        ProductionShedule _productionShedule;
         //----------------------------------------------
 
         public WorkTimeRegisterForm(LightStartForm tLightStartForm)
@@ -69,28 +69,28 @@ namespace Infinium
 
             //----------------------------------------------
             WorkTimeSheet = new WorkTimeSheet();
-            ProductionCalendar = new ProductionCalendar();
+            _productionShedule = new ProductionShedule();
 
-            ProdCalendarDataGrid.DataSource = ProductionCalendar.HoursBindingSource;
-            ProdCalendarDataGrid.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            ProdSheduleDataGrid.DataSource = _productionShedule.HoursBindingSource;
+            ProdSheduleDataGrid.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
-            if (ProductionCalendar.PermissionGranted(Security.CurrentUserID, this.Name, iAdminRole))
+            if (_productionShedule.PermissionGranted(Security.CurrentUserID, this.Name, iAdminRole))
                 RoleType = RoleTypes.AdminRole;
 
             for (int i = 1; i < DateTime.DaysInMonth(2020, 1) + 1; i++)
             {
-                ProdCalendarDataGrid.Columns[i.ToString()].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-                ProdCalendarDataGrid.Columns[i.ToString()].Width = 50;
-                ProdCalendarDataGrid.Columns[i.ToString()].ReadOnly = true;
+                ProdSheduleDataGrid.Columns[i.ToString()].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+                ProdSheduleDataGrid.Columns[i.ToString()].Width = 50;
+                ProdSheduleDataGrid.Columns[i.ToString()].ReadOnly = true;
                 if (RoleType == RoleTypes.AdminRole)
-                    ProdCalendarDataGrid.Columns[i.ToString()].ReadOnly = false;
+                    ProdSheduleDataGrid.Columns[i.ToString()].ReadOnly = false;
             }
 
-            ProdCalendarDataGrid.Columns["MonthName"].HeaderText = "Дата";
-            ProdCalendarDataGrid.Columns["MonthName"].ReadOnly = true;
-            ProdCalendarDataGrid.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            ProdCalendarDataGrid.Columns["MonthName"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            ProdCalendarDataGrid.Columns["MonthName"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            ProdSheduleDataGrid.Columns["MonthName"].HeaderText = "Дата";
+            ProdSheduleDataGrid.Columns["MonthName"].ReadOnly = true;
+            ProdSheduleDataGrid.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            ProdSheduleDataGrid.Columns["MonthName"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            ProdSheduleDataGrid.Columns["MonthName"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
 
             DayStartDate = WorkTimeSheet.DayStartDate();
 
@@ -110,8 +110,8 @@ namespace Infinium
             YearComboBox1.Items.Add(2021);
             YearComboBox1.Text = YearComboBox.Items[YearComboBox.Items.Count - 1].ToString();
             
-            ProductionCalendar.GetCalendar(YearComboBox1.SelectedItem.ToString());
-            ProductionCalendar.FillHoursDataTable();
+            _productionShedule.GetCalendar(YearComboBox1.SelectedItem.ToString());
+            _productionShedule.FillHoursDataTable();
             //----------------------------------------------
         }
 
@@ -709,8 +709,8 @@ namespace Infinium
 
             while (!SplashWindow.bSmallCreated) ;
 
-            ProductionCalendar.GetCalendar(YearComboBox1.SelectedItem.ToString());
-            ProductionCalendar.FillHoursDataTable();
+            _productionShedule.GetCalendar(YearComboBox1.SelectedItem.ToString());
+            _productionShedule.FillHoursDataTable();
 
             while (SplashWindow.bSmallCreated)
                 SmallWaitForm.CloseS = true;
@@ -724,8 +724,8 @@ namespace Infinium
 
             while (!SplashWindow.bSmallCreated) ;
 
-            ProductionCalendar.FillSourceDataTable(YearComboBox1.SelectedItem.ToString());
-            ProductionCalendar.SaveCalendar();
+            _productionShedule.FillSourceDataTable(YearComboBox1.SelectedItem.ToString());
+            _productionShedule.SaveCalendar();
 
             while (SplashWindow.bSmallCreated)
                 SmallWaitForm.CloseS = true;

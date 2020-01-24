@@ -40925,10 +40925,10 @@ AND FrontID=" + Convert.ToInt32(Front) +
             //string FileName = "№" + WorkAssignmentID + " " + BatchName;
             //string tempFolder = System.Environment.GetEnvironmentVariable("TEMP");
 
-            string tempFolder = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
+            //string tempFolder = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
             string FileName = "№" + WorkAssignmentID + " " + BatchName;
             //string tempFolder = @"\\192.168.1.6\Public\ТПС\Infinium\Задания\";
-            //string tempFolder = @"\\192.168.1.6\Public\USERS_2016\_ДЕЙСТВУЮЩИЕ\ПРОИЗВОДСТВО\ТПС\инфиниум\";
+            string tempFolder = @"\\192.168.1.6\Public\USERS_2016\_ДЕЙСТВУЮЩИЕ\ПРОИЗВОДСТВО\ТПС\инфиниум\";
             string CurrentMonthName = DateTime.Now.ToString("MMMM");
             tempFolder = Path.Combine(tempFolder, CurrentMonthName);
             if (!(Directory.Exists(tempFolder)))
@@ -40975,10 +40975,10 @@ AND FrontID=" + Convert.ToInt32(Front) +
             return sFileName;
         }
 
-        private void GetPlanningCurved(DataTable table, ref decimal time, ref decimal cost)
+        private void PlanningCurved(DataTable table, ref decimal time, ref decimal cost)
         {
-            int VitrinaCount = 0;
-            int NotVitrinaCount = 0;
+            decimal VitrinaCount = 0;
+            decimal NotVitrinaCount = 0;
 
             for (int x = 0; x < table.Rows.Count; x++)
             {
@@ -40986,10 +40986,10 @@ AND FrontID=" + Convert.ToInt32(Front) +
                 {
                     // Витрины
                     if (Convert.ToInt32(table.Rows[x]["InsetTypeID"]) == 1)
-                        VitrinaCount += Convert.ToInt32(table.Rows[x]["Count"]);
+                        VitrinaCount += Convert.ToDecimal(table.Rows[x]["Count"]);
                     // Глухие
                     if (Convert.ToInt32(table.Rows[x]["InsetTypeID"]) != 1 && Convert.ToInt32(table.Rows[x]["InsetTypeID"]) != -1)
-                        NotVitrinaCount += Convert.ToInt32(table.Rows[x]["Count"]);
+                        NotVitrinaCount += Convert.ToDecimal(table.Rows[x]["Count"]);
                 }
             }
 
@@ -41403,13 +41403,6 @@ AND FrontID=" + Convert.ToInt32(Front) +
                 sheet1.SetColumnWidth(4, 6 * 256);
                 sheet1.SetColumnWidth(5, 6 * 256);
 
-                HSSFCell cell = null;
-                cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex++), 0, "Распечатал: Дата/время " + CurrentDate.ToString("dd.MM.yyyy HH:mm") + " \r\n ФИО: " + Security.CurrentUserShortName);
-                cell.CellStyle = Calibri11CS;
-                cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 0, "Плановое время выполнения:");
-                cell.CellStyle = Calibri11CS;
-                RowIndex++;
-                RowIndex++;
                 for (int i = 0; i < DistMainOrdersDT.Rows.Count; i++)
                 {
                     if (Convert.ToInt32(DistMainOrdersDT.Rows[i]["GroupType"]) == 1)
@@ -41588,31 +41581,6 @@ AND FrontID=" + Convert.ToInt32(Front) +
                         CollectDeying(Convert.ToInt32(DT1.Rows[j]["ColorID"]), DT, ref DeyingDT, " РЕШ");
                     }
 
-                    //using (DataView DV = new DataView(Turin1_1OrdersDT, "MainOrderID=" + MainOrderID, "ColorID", DataViewRowState.CurrentRows))
-                    //{
-                    //    DT1.Clear();
-                    //    DT1 = DV.ToTable(true, new string[] { "ColorID" });
-                    //}
-                    //for (int j = 0; j < DT1.Rows.Count; j++)
-                    //{
-                    //    DT.Clear();
-                    //    DataRow[] rows = Turin1_1SimpleDT.Select("MainOrderID=" + MainOrderID);
-                    //    foreach (DataRow item in rows)
-                    //        DT.Rows.Add(item.ItemArray);
-                    //    CollectDeying(Convert.ToInt32(DT1.Rows[j]["ColorID"]), DT, ref DeyingDT, string.Empty);
-
-                    //    DT.Clear();
-                    //    rows = Turin1_1BoxesDT.Select("MainOrderID=" + MainOrderID);
-                    //    foreach (DataRow item in rows)
-                    //        DT.Rows.Add(item.ItemArray);
-                    //    CollectDeying(Convert.ToInt32(DT1.Rows[j]["ColorID"]), DT, ref DeyingDT, " ШУФ");
-
-                    //    DT.Clear();
-                    //    rows = Turin1_1GridsDT.Select("MainOrderID=" + MainOrderID);
-                    //    foreach (DataRow item in rows)
-                    //        DT.Rows.Add(item.ItemArray);
-                    //    CollectDeying(Convert.ToInt32(DT1.Rows[j]["ColorID"]), DT, ref DeyingDT, " РЕШ");
-                    //}
                     using (DataView DV = new DataView(Turin3OrdersDT, "MainOrderID=" + MainOrderID, "ColorID", DataViewRowState.CurrentRows))
                     {
                         DT1.Clear();
@@ -41725,13 +41693,6 @@ AND FrontID=" + Convert.ToInt32(Front) +
                 sheet1.SetColumnWidth(4, 6 * 256);
                 sheet1.SetColumnWidth(5, 6 * 256);
                 
-                HSSFCell cell = null;
-                cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex++), 0, "Распечатал: Дата/время " + CurrentDate.ToString("dd.MM.yyyy HH:mm") + " \r\n ФИО: " + Security.CurrentUserShortName);
-                cell.CellStyle = Calibri11CS;
-                cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 0, "Плановое время выполнения:");
-                cell.CellStyle = Calibri11CS;
-                RowIndex++;
-                RowIndex++;
                 for (int i = 0; i < DistMainOrdersDT.Rows.Count; i++)
                 {
                     if (Convert.ToInt32(DistMainOrdersDT.Rows[i]["GroupType"]) == 0)
@@ -41909,32 +41870,6 @@ AND FrontID=" + Convert.ToInt32(Front) +
                             DT.Rows.Add(item.ItemArray);
                         CollectDeying(Convert.ToInt32(DT1.Rows[j]["ColorID"]), DT, ref DeyingDT, " РЕШ");
                     }
-
-                    //using (DataView DV = new DataView(Turin1_1OrdersDT, "MainOrderID=" + MainOrderID, "ColorID", DataViewRowState.CurrentRows))
-                    //{
-                    //    DT1.Clear();
-                    //    DT1 = DV.ToTable(true, new string[] { "ColorID" });
-                    //}
-                    //for (int j = 0; j < DT1.Rows.Count; j++)
-                    //{
-                    //    DT.Clear();
-                    //    DataRow[] rows = Turin1_1SimpleDT.Select("MainOrderID=" + MainOrderID);
-                    //    foreach (DataRow item in rows)
-                    //        DT.Rows.Add(item.ItemArray);
-                    //    CollectDeying(Convert.ToInt32(DT1.Rows[j]["ColorID"]), DT, ref DeyingDT, string.Empty);
-
-                    //    DT.Clear();
-                    //    rows = Turin1_1BoxesDT.Select("MainOrderID=" + MainOrderID);
-                    //    foreach (DataRow item in rows)
-                    //        DT.Rows.Add(item.ItemArray);
-                    //    CollectDeying(Convert.ToInt32(DT1.Rows[j]["ColorID"]), DT, ref DeyingDT, " ШУФ");
-
-                    //    DT.Clear();
-                    //    rows = Turin1_1GridsDT.Select("MainOrderID=" + MainOrderID);
-                    //    foreach (DataRow item in rows)
-                    //        DT.Rows.Add(item.ItemArray);
-                    //    CollectDeying(Convert.ToInt32(DT1.Rows[j]["ColorID"]), DT, ref DeyingDT, " РЕШ");
-                    //}
 
                     using (DataView DV = new DataView(Turin3OrdersDT, "MainOrderID=" + MainOrderID, "ColorID", DataViewRowState.CurrentRows))
                     {
@@ -43261,8 +43196,6 @@ AND FrontID=" + Convert.ToInt32(Front) +
 
             DataTable DT = new DataTable();
             DataColumn Col1 = new DataColumn("Col1", System.Type.GetType("System.String"));
-            DataColumn Col2 = new DataColumn("Col2", System.Type.GetType("System.String"));
-            DataColumn Col3 = new DataColumn("Col3", System.Type.GetType("System.String"));
 
             decimal div1 = 54;
             decimal div2 = 2.14m;
@@ -43312,12 +43245,8 @@ AND FrontID=" + Convert.ToInt32(Front) +
                 Col1.Dispose();
                 DT = FilenkaSimpleDT.Copy();
                 Col1 = DT.Columns.Add("Col1", System.Type.GetType("System.String"));
-                Col2 = DT.Columns.Add("Col2", System.Type.GetType("System.String"));
-                Col3 = DT.Columns.Add("Col3", System.Type.GetType("System.String"));
-                Col1.SetOrdinal(4);
-                Col2.SetOrdinal(5);
-                Col3.SetOrdinal(6);
-                
+                Col1.SetOrdinal(4);;
+
                 decimal time1 = 0;
                 decimal cost1 = 0;
                 decimal time2 = 0;
@@ -43326,6 +43255,7 @@ AND FrontID=" + Convert.ToInt32(Front) +
                 decimal cost3 = 0;
                 decimal time4 = 0;
                 decimal cost4 = 0;
+
                 div1 = 8.5m;
                 div2 = 9.5m;
                 div3 = 2.14m;
@@ -43342,10 +43272,24 @@ AND FrontID=" + Convert.ToInt32(Front) +
                 div3 = 1.25m;
                 GetPlanningFilenka(DT, div1, div2, div3, ref time4, ref cost4);
 
-                FilenkaSimple2ToExcel(ref hssfworkbook,
-                        Calibri11CS, CalibriBold11CS, CalibriBold11F, TableHeaderCS, TableHeaderDecCS, ref sheet1, DT,
-                        WorkAssignmentID, BatchName, ClientName, "Филенка", time1, cost1, time2, cost2,
-                        time3, cost3, time4, cost4, ref RowIndex);
+                FilenkaSimpleFToExcel(ref hssfworkbook,
+                    Calibri11CS, CalibriBold11CS, CalibriBold11F, TableHeaderCS, TableHeaderDecCS, ref sheet1, DT,
+                    WorkAssignmentID, BatchName, ClientName, "Филенка", time1, cost1, ref RowIndex);
+                RowIndex++;
+                RowIndex++;
+                FilenkaSimpleKToExcel(ref hssfworkbook,
+                    Calibri11CS, CalibriBold11CS, CalibriBold11F, TableHeaderCS, TableHeaderDecCS, ref sheet1, DT,
+                    WorkAssignmentID, BatchName, ClientName, "Филенка", time2, cost2, ref RowIndex);
+                RowIndex++;
+                RowIndex++;
+                FilenkaSimpleP1ToExcel(ref hssfworkbook,
+                    Calibri11CS, CalibriBold11CS, CalibriBold11F, TableHeaderCS, TableHeaderDecCS, ref sheet1, DT,
+                    WorkAssignmentID, BatchName, ClientName, "Филенка", time3, cost3, time4, cost4, ref RowIndex);
+                RowIndex++;
+                RowIndex++;
+                FilenkaSimpleP2ToExcel(ref hssfworkbook,
+                    Calibri11CS, CalibriBold11CS, CalibriBold11F, TableHeaderCS, TableHeaderDecCS, ref sheet1, DT,
+                    WorkAssignmentID, BatchName, ClientName, "Филенка", ref RowIndex);
                 RowIndex++;
                 RowIndex++;
             }
@@ -43377,11 +43321,7 @@ AND FrontID=" + Convert.ToInt32(Front) +
                 Col1.Dispose();
                 DT = DakotaFilenkaSimpleDT.Copy();
                 Col1 = DT.Columns.Add("Col1", System.Type.GetType("System.String"));
-                Col2 = DT.Columns.Add("Col2", System.Type.GetType("System.String"));
-                Col3 = DT.Columns.Add("Col3", System.Type.GetType("System.String"));
                 Col1.SetOrdinal(4);
-                Col2.SetOrdinal(5);
-                Col3.SetOrdinal(6);
 
                 decimal time1 = 0;
                 decimal cost1 = 0;
@@ -43391,6 +43331,7 @@ AND FrontID=" + Convert.ToInt32(Front) +
                 decimal cost3 = 0;
                 decimal time4 = 0;
                 decimal cost4 = 0;
+
                 div1 = 8.5m;
                 div2 = 9.5m;
                 div3 = 2.14m;
@@ -43405,11 +43346,26 @@ AND FrontID=" + Convert.ToInt32(Front) +
                 div1 = 7.2m;
                 div2 = 10.3m;
                 div3 = 1.25m;
+                GetPlanningFilenka(DT, div1, div2, div3, ref time4, ref cost4);
 
-                FilenkaSimple2ToExcel(ref hssfworkbook,
-                        Calibri11CS, CalibriBold11CS, CalibriBold11F, TableHeaderCS, TableHeaderDecCS, ref sheet1, DT,
-                        WorkAssignmentID, BatchName, ClientName, "Филенка", time1, cost1, time2, cost2,
-                        time3, cost3, time4, cost4, ref RowIndex);
+                FilenkaSimpleFToExcel(ref hssfworkbook,
+                    Calibri11CS, CalibriBold11CS, CalibriBold11F, TableHeaderCS, TableHeaderDecCS, ref sheet1, DT,
+                    WorkAssignmentID, BatchName, ClientName, "Филенка", time1, cost1, ref RowIndex);
+                RowIndex++;
+                RowIndex++;
+                FilenkaSimpleKToExcel(ref hssfworkbook,
+                    Calibri11CS, CalibriBold11CS, CalibriBold11F, TableHeaderCS, TableHeaderDecCS, ref sheet1, DT,
+                    WorkAssignmentID, BatchName, ClientName, "Филенка", time2, cost2, ref RowIndex);
+                RowIndex++;
+                RowIndex++;
+                FilenkaSimpleP1ToExcel(ref hssfworkbook,
+                    Calibri11CS, CalibriBold11CS, CalibriBold11F, TableHeaderCS, TableHeaderDecCS, ref sheet1, DT,
+                    WorkAssignmentID, BatchName, ClientName, "Филенка", time3, cost3, time4, cost4, ref RowIndex);
+                RowIndex++;
+                RowIndex++;
+                FilenkaSimpleP2ToExcel(ref hssfworkbook,
+                    Calibri11CS, CalibriBold11CS, CalibriBold11F, TableHeaderCS, TableHeaderDecCS, ref sheet1, DT,
+                    WorkAssignmentID, BatchName, ClientName, "Филенка", ref RowIndex);
                 RowIndex++;
                 RowIndex++;
             }
@@ -43701,13 +43657,6 @@ AND FrontID=" + Convert.ToInt32(Front) +
             sheet1.SetColumnWidth(4, 6 * 256);
             sheet1.SetColumnWidth(5, 6 * 256);
 
-            HSSFCell cell = null;
-            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex++), 0, "Распечатал: Дата/время " + CurrentDate.ToString("dd.MM.yyyy HH:mm") + " \r\n ФИО: " + Security.CurrentUserShortName);
-            cell.CellStyle = Calibri11CS;
-            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 0, "Плановое время выполнения:");
-            cell.CellStyle = Calibri11CS;
-            RowIndex++;
-            RowIndex++;
             DataTable DT = new DataTable();
             DataColumn Col1 = new DataColumn("Col1", System.Type.GetType("System.String"));
             DataColumn Col2 = new DataColumn("Col2", System.Type.GetType("System.String"));
@@ -44293,10 +44242,6 @@ AND FrontID=" + Convert.ToInt32(Front) +
 
             RowIndex++;
 
-            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex++), 0, "Распечатал: Дата/время " + CurrentDate.ToString("dd.MM.yyyy HH:mm") + " \r\n ФИО: " + Security.CurrentUserShortName);
-            cell.CellStyle = Calibri11CS;
-            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex++), 0, "Плановое время выполнения:");
-            cell.CellStyle = Calibri11CS;
             cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex++), 1, "УТВЕРЖДАЮ_____________");
             cell.CellStyle = Calibri11CS;
             cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex++), 1, PageName);
@@ -44516,7 +44461,6 @@ AND FrontID=" + Convert.ToInt32(Front) +
             HSSFCellStyle Calibri11CS, HSSFCellStyle CalibriBold11CS, HSSFFont CalibriBold11F, HSSFCellStyle TableHeaderCS, HSSFCellStyle TableHeaderDecCS,
             ref HSSFSheet sheet1, DataTable DT, int WorkAssignmentID, string BatchName, string ClientName, string PageName, decimal time, decimal cost, ref int RowIndex)
         {
-
             HSSFCell cell = null;
 
             cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex++), 0, "Распечатал: Дата/время " + CurrentDate.ToString("dd.MM.yyyy HH:mm") + " \r\n ФИО: " + Security.CurrentUserShortName);
@@ -44724,46 +44668,12 @@ AND FrontID=" + Convert.ToInt32(Front) +
             CalibriBold11CS.TopBorderColor = HSSFColor.BLACK.index;
             CalibriBold11CS.SetFont(CalibriBold11F);
 
-            //RowIndex++;
-            //cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 0, "задание начали:");
-            //cell.CellStyle = CalibriBold11CS;
-            //cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 1, string.Empty);
-            //cell.CellStyle = CalibriBold11CS;
-            //sheet1.AddMergedRegion(new NPOI.HSSF.Util.Region(RowIndex, 0, RowIndex, 1));
-            //cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 2, "задание закончили:");
-            //cell.CellStyle = CalibriBold11CS;
-            //cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 3, string.Empty);
-            //cell.CellStyle = CalibriBold11CS;
-            //cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 4, string.Empty);
-            //cell.CellStyle = CalibriBold11CS;
-            //sheet1.AddMergedRegion(new NPOI.HSSF.Util.Region(RowIndex, 2, RowIndex, 4));
-            //RowIndex++;
-            //cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 0, "работало человек:");
-            //cell.CellStyle = CalibriBold11CS;
-            //cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 1, string.Empty);
-            //cell.CellStyle = CalibriBold11CS;
-            //sheet1.AddMergedRegion(new NPOI.HSSF.Util.Region(RowIndex, 0, RowIndex, 1));
-            //RowIndex++;
-            //cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 0, "№ станка:");
-            //cell.CellStyle = CalibriBold11CS;
-            //cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 1, string.Empty);
-            //cell.CellStyle = CalibriBold11CS;
-            //sheet1.AddMergedRegion(new NPOI.HSSF.Util.Region(RowIndex, 0, RowIndex, 1));
-            //cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 2, "№ операции:");
-            //cell.CellStyle = CalibriBold11CS;
-            //cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 3, string.Empty);
-            //cell.CellStyle = CalibriBold11CS;
-            //cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 4, string.Empty);
-            //cell.CellStyle = CalibriBold11CS;
-            //sheet1.AddMergedRegion(new NPOI.HSSF.Util.Region(RowIndex, 2, RowIndex, 4));
         }
 
-        public void FilenkaSimple2ToExcel(ref HSSFWorkbook hssfworkbook,
+        public void FilenkaSimpleFToExcel(ref HSSFWorkbook hssfworkbook,
             HSSFCellStyle Calibri11CS, HSSFCellStyle CalibriBold11CS, HSSFFont CalibriBold11F, HSSFCellStyle TableHeaderCS, HSSFCellStyle TableHeaderDecCS,
-            ref HSSFSheet sheet1, DataTable DT, int WorkAssignmentID, string BatchName, string ClientName, string PageName, decimal time1, decimal cost1,
-            decimal time2, decimal cost2, decimal time3, decimal cost3, decimal time4, decimal cost4, ref int RowIndex)
+            ref HSSFSheet sheet1, DataTable DT, int WorkAssignmentID, string BatchName, string ClientName, string PageName, decimal time1, decimal cost1, ref int RowIndex)
         {
-
             HSSFCell cell = null;
 
             cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex++), 0, "Распечатал: Дата/время " + CurrentDate.ToString("dd.MM.yyyy HH:mm") + " \r\n ФИО: " + Security.CurrentUserShortName);
@@ -44777,62 +44687,13 @@ AND FrontID=" + Convert.ToInt32(Front) +
             cell = sheet1.CreateRow(RowIndex++).CreateCell(2);
             cell.SetCellValue(Convert.ToDouble(time1));
             cell.CellStyle = Calibri11CS;
-
-            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 0, "Плановое время выполнения (клей):");
-            cell.CellStyle = Calibri11CS;
-            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 3, "ч/ч");
-            cell.CellStyle = Calibri11CS;
-            cell = sheet1.CreateRow(RowIndex++).CreateCell(2);
-            cell.SetCellValue(Convert.ToDouble(time2));
-            cell.CellStyle = Calibri11CS;
-
-            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 0, "Плановое время выполнения (пресс):");
-            cell.CellStyle = Calibri11CS;
-            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 3, "ч/ч");
-            cell.CellStyle = Calibri11CS;
-            cell = sheet1.CreateRow(RowIndex++).CreateCell(2);
-            cell.SetCellValue(Convert.ToDouble(time3));
-            cell.CellStyle = Calibri11CS;
-
-            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 0, "Плановое время выполнения (обрезка):");
-            cell.CellStyle = Calibri11CS;
-            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 3, "ч/ч");
-            cell.CellStyle = Calibri11CS;
-            cell = sheet1.CreateRow(RowIndex++).CreateCell(2);
-            cell.SetCellValue(Convert.ToDouble(time4));
-            cell.CellStyle = Calibri11CS;
-
-
+            
             cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 0, "Планово-премиальный фонд (фрезер):");
             cell.CellStyle = Calibri11CS;
             cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 3, "руб.");
             cell.CellStyle = Calibri11CS;
             cell = sheet1.CreateRow(RowIndex++).CreateCell(2);
             cell.SetCellValue(Convert.ToDouble(cost1));
-            cell.CellStyle = Calibri11CS;
-
-            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 0, "Планово-премиальный фонд (клей):");
-            cell.CellStyle = Calibri11CS;
-            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 3, "руб.");
-            cell.CellStyle = Calibri11CS;
-            cell = sheet1.CreateRow(RowIndex++).CreateCell(2);
-            cell.SetCellValue(Convert.ToDouble(cost2));
-            cell.CellStyle = Calibri11CS;
-
-            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 0, "Планово-премиальный фонд (пресс):");
-            cell.CellStyle = Calibri11CS;
-            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 3, "руб.");
-            cell.CellStyle = Calibri11CS;
-            cell = sheet1.CreateRow(RowIndex++).CreateCell(2);
-            cell.SetCellValue(Convert.ToDouble(cost3));
-            cell.CellStyle = Calibri11CS;
-
-            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 0, "Планово-премиальный фонд (обрезка):");
-            cell.CellStyle = Calibri11CS;
-            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 3, "руб.");
-            cell.CellStyle = Calibri11CS;
-            cell = sheet1.CreateRow(RowIndex++).CreateCell(2);
-            cell.SetCellValue(Convert.ToDouble(cost4));
             cell.CellStyle = Calibri11CS;
 
             RowIndex++;
@@ -44860,11 +44721,7 @@ AND FrontID=" + Convert.ToInt32(Front) +
             cell.CellStyle = TableHeaderCS;
             cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 4, "Фрезер");
             cell.CellStyle = TableHeaderCS;
-            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 5, "Клей");
-            cell.CellStyle = TableHeaderCS;
-            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 6, "Пресс");
-            cell.CellStyle = TableHeaderCS;
-            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 7, "м.кв.");
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 5, "м.кв.");
             cell.CellStyle = TableHeaderCS;
             RowIndex++;
 
@@ -44945,7 +44802,7 @@ AND FrontID=" + Convert.ToInt32(Front) +
                         cell.CellStyle = TableHeaderCS;
 
                         TotalSquare = Decimal.Round(TotalSquare, 3, MidpointRounding.AwayFromZero);
-                        cell = sheet1.CreateRow(RowIndex).CreateCell(7);
+                        cell = sheet1.CreateRow(RowIndex).CreateCell(5);
                         cell.SetCellValue(Convert.ToDouble(TotalSquare));
                         cell.CellStyle = TableHeaderCS;
 
@@ -44978,7 +44835,7 @@ AND FrontID=" + Convert.ToInt32(Front) +
                     cell.CellStyle = TableHeaderCS;
 
                     TotalSquare = Decimal.Round(TotalSquare, 3, MidpointRounding.AwayFromZero);
-                    cell = sheet1.CreateRow(RowIndex).CreateCell(7);
+                    cell = sheet1.CreateRow(RowIndex).CreateCell(5);
                     cell.SetCellValue(Convert.ToDouble(TotalSquare));
                     cell.CellStyle = TableHeaderDecCS;
 
@@ -45003,7 +44860,7 @@ AND FrontID=" + Convert.ToInt32(Front) +
                     cell.CellStyle = TableHeaderCS;
 
                     AllTotalSquare = Decimal.Round(AllTotalSquare, 3, MidpointRounding.AwayFromZero);
-                    cell = sheet1.CreateRow(RowIndex).CreateCell(7);
+                    cell = sheet1.CreateRow(RowIndex).CreateCell(5);
                     cell.SetCellValue(Convert.ToDouble(AllTotalSquare));
                     cell.CellStyle = TableHeaderDecCS;
                 }
@@ -45021,38 +44878,635 @@ AND FrontID=" + Convert.ToInt32(Front) +
             CalibriBold11CS.TopBorderColor = HSSFColor.BLACK.index;
             CalibriBold11CS.SetFont(CalibriBold11F);
 
-            //RowIndex++;
-            //cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 0, "задание начали:");
-            //cell.CellStyle = CalibriBold11CS;
-            //cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 1, string.Empty);
-            //cell.CellStyle = CalibriBold11CS;
-            //sheet1.AddMergedRegion(new NPOI.HSSF.Util.Region(RowIndex, 0, RowIndex, 1));
-            //cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 2, "задание закончили:");
-            //cell.CellStyle = CalibriBold11CS;
-            //cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 3, string.Empty);
-            //cell.CellStyle = CalibriBold11CS;
-            //cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 4, string.Empty);
-            //cell.CellStyle = CalibriBold11CS;
-            //sheet1.AddMergedRegion(new NPOI.HSSF.Util.Region(RowIndex, 2, RowIndex, 4));
-            //RowIndex++;
-            //cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 0, "работало человек:");
-            //cell.CellStyle = CalibriBold11CS;
-            //cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 1, string.Empty);
-            //cell.CellStyle = CalibriBold11CS;
-            //sheet1.AddMergedRegion(new NPOI.HSSF.Util.Region(RowIndex, 0, RowIndex, 1));
-            //RowIndex++;
-            //cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 0, "№ станка:");
-            //cell.CellStyle = CalibriBold11CS;
-            //cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 1, string.Empty);
-            //cell.CellStyle = CalibriBold11CS;
-            //sheet1.AddMergedRegion(new NPOI.HSSF.Util.Region(RowIndex, 0, RowIndex, 1));
-            //cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 2, "№ операции:");
-            //cell.CellStyle = CalibriBold11CS;
-            //cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 3, string.Empty);
-            //cell.CellStyle = CalibriBold11CS;
-            //cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 4, string.Empty);
-            //cell.CellStyle = CalibriBold11CS;
-            //sheet1.AddMergedRegion(new NPOI.HSSF.Util.Region(RowIndex, 2, RowIndex, 4));
+        }
+
+        public void FilenkaSimpleKToExcel(ref HSSFWorkbook hssfworkbook,
+            HSSFCellStyle Calibri11CS, HSSFCellStyle CalibriBold11CS, HSSFFont CalibriBold11F, HSSFCellStyle TableHeaderCS, HSSFCellStyle TableHeaderDecCS,
+            ref HSSFSheet sheet1, DataTable DT, int WorkAssignmentID, string BatchName, string ClientName, string PageName, decimal time1, decimal cost1, ref int RowIndex)
+        {
+            HSSFCell cell = null;
+
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex++), 0, "Распечатал: Дата/время " + CurrentDate.ToString("dd.MM.yyyy HH:mm") + " \r\n ФИО: " + Security.CurrentUserShortName);
+            cell.CellStyle = Calibri11CS;
+
+
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 0, "Плановое время выполнения (клей):");
+            cell.CellStyle = Calibri11CS;
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 3, "ч/ч");
+            cell.CellStyle = Calibri11CS;
+            cell = sheet1.CreateRow(RowIndex++).CreateCell(2);
+            cell.SetCellValue(Convert.ToDouble(time1));
+            cell.CellStyle = Calibri11CS;
+
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 0, "Планово-премиальный фонд (клей):");
+            cell.CellStyle = Calibri11CS;
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 3, "руб.");
+            cell.CellStyle = Calibri11CS;
+            cell = sheet1.CreateRow(RowIndex++).CreateCell(2);
+            cell.SetCellValue(Convert.ToDouble(cost1));
+            cell.CellStyle = Calibri11CS;
+
+            RowIndex++;
+
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex++), 1, "УТВЕРЖДАЮ_____________");
+            cell.CellStyle = Calibri11CS;
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex++), 1, PageName);
+            cell.CellStyle = CalibriBold11CS;
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 0, "Задание №" + WorkAssignmentID.ToString());
+            cell.CellStyle = CalibriBold11CS;
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex++), 1, BatchName);
+            cell.CellStyle = CalibriBold11CS;
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 0, "Клиент:");
+            cell.CellStyle = CalibriBold11CS;
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex++), 1, ClientName);
+            cell.CellStyle = CalibriBold11CS;
+
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 0, "Филенка");
+            cell.CellStyle = TableHeaderCS;
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 1, "Высота");
+            cell.CellStyle = TableHeaderCS;
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 2, "Ширина");
+            cell.CellStyle = TableHeaderCS;
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 3, "Кол-во");
+            cell.CellStyle = TableHeaderCS;
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 4, "Клей");
+            cell.CellStyle = TableHeaderCS;
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 5, "м.кв.");
+            cell.CellStyle = TableHeaderCS;
+            RowIndex++;
+
+            int CType = -1;
+            int AllTotalAmount = 0;
+            int TotalAmount = 0;
+            decimal AllTotalSquare = 0;
+            decimal TotalSquare = 0;
+
+            if (DT.Rows.Count > 0)
+                CType = Convert.ToInt32(DT.Rows[0]["ColorType"]);
+
+            for (int x = 0; x < DT.Rows.Count; x++)
+            {
+                if (DT.Rows[x]["Count"] != DBNull.Value)
+                {
+                    AllTotalAmount += Convert.ToInt32(DT.Rows[x]["Count"]);
+                    TotalAmount += Convert.ToInt32(DT.Rows[x]["Count"]);
+                }
+                if (DT.Rows[x]["Square"] != DBNull.Value)
+                {
+                    AllTotalSquare += Convert.ToDecimal(DT.Rows[x]["Square"]);
+                    TotalSquare += Convert.ToDecimal(DT.Rows[x]["Square"]);
+                }
+
+                for (int y = 0; y < DT.Columns.Count; y++)
+                {
+                    if (DT.Columns[y].ColumnName == "ColorType")
+                        continue;
+
+                    Type t = DT.Rows[x][y].GetType();
+
+                    if (t.Name == "Decimal")
+                    {
+                        cell = sheet1.CreateRow(RowIndex).CreateCell(y);
+                        cell.SetCellValue(Convert.ToDouble(DT.Rows[x][y]));
+                        cell.CellStyle = TableHeaderDecCS;
+                        continue;
+                    }
+                    if (t.Name == "Int32")
+                    {
+                        cell = sheet1.CreateRow(RowIndex).CreateCell(y);
+                        cell.SetCellValue(Convert.ToInt32(DT.Rows[x][y]));
+                        cell.CellStyle = TableHeaderCS;
+                        continue;
+                    }
+
+                    if (t.Name == "String" || t.Name == "DBNull")
+                    {
+                        cell = sheet1.CreateRow(RowIndex).CreateCell(y);
+                        cell.SetCellValue(DT.Rows[x][y].ToString());
+                        cell.CellStyle = TableHeaderCS;
+                        continue;
+                    }
+                }
+
+                if (x + 1 <= DT.Rows.Count - 1)
+                {
+                    if (CType != Convert.ToInt32(DT.Rows[x + 1]["ColorType"]))
+                    {
+                        RowIndex++;
+                        for (int y = 0; y < DT.Columns.Count; y++)
+                        {
+                            if (DT.Columns[y].ColumnName == "ColorType")
+                                continue;
+                            cell = sheet1.CreateRow(RowIndex).CreateCell(y);
+                            cell.SetCellValue(string.Empty);
+                            cell.CellStyle = TableHeaderCS;
+                            continue;
+                        }
+
+                        cell = sheet1.CreateRow(RowIndex).CreateCell(0);
+                        cell.SetCellValue("Итого:");
+                        cell.CellStyle = TableHeaderCS;
+
+                        cell = sheet1.CreateRow(RowIndex).CreateCell(3);
+                        cell.SetCellValue(TotalAmount);
+                        cell.CellStyle = TableHeaderCS;
+
+                        TotalSquare = Decimal.Round(TotalSquare, 3, MidpointRounding.AwayFromZero);
+                        cell = sheet1.CreateRow(RowIndex).CreateCell(5);
+                        cell.SetCellValue(Convert.ToDouble(TotalSquare));
+                        cell.CellStyle = TableHeaderCS;
+
+                        CType = Convert.ToInt32(DT.Rows[x + 1]["ColorType"]);
+                        TotalAmount = 0;
+                        TotalSquare = 0;
+                        RowIndex++;
+                    }
+                }
+
+                if (x == DT.Rows.Count - 1)
+                {
+                    RowIndex++;
+                    for (int y = 0; y < DT.Columns.Count; y++)
+                    {
+                        if (DT.Columns[y].ColumnName == "ColorType")
+                            continue;
+                        cell = sheet1.CreateRow(RowIndex).CreateCell(y);
+                        cell.SetCellValue(string.Empty);
+                        cell.CellStyle = TableHeaderCS;
+                        continue;
+                    }
+
+                    cell = sheet1.CreateRow(RowIndex).CreateCell(0);
+                    cell.SetCellValue("Итого:");
+                    cell.CellStyle = TableHeaderCS;
+
+                    cell = sheet1.CreateRow(RowIndex).CreateCell(3);
+                    cell.SetCellValue(TotalAmount);
+                    cell.CellStyle = TableHeaderCS;
+
+                    TotalSquare = Decimal.Round(TotalSquare, 3, MidpointRounding.AwayFromZero);
+                    cell = sheet1.CreateRow(RowIndex).CreateCell(5);
+                    cell.SetCellValue(Convert.ToDouble(TotalSquare));
+                    cell.CellStyle = TableHeaderDecCS;
+
+                    RowIndex++;
+
+                    for (int y = 0; y < DT.Columns.Count; y++)
+                    {
+                        if (DT.Columns[y].ColumnName == "ColorType")
+                            continue;
+                        cell = sheet1.CreateRow(RowIndex).CreateCell(y);
+                        cell.SetCellValue(string.Empty);
+                        cell.CellStyle = TableHeaderCS;
+                        continue;
+                    }
+
+                    cell = sheet1.CreateRow(RowIndex).CreateCell(0);
+                    cell.SetCellValue("Всего:");
+                    cell.CellStyle = TableHeaderCS;
+
+                    cell = sheet1.CreateRow(RowIndex).CreateCell(3);
+                    cell.SetCellValue(AllTotalAmount);
+                    cell.CellStyle = TableHeaderCS;
+
+                    AllTotalSquare = Decimal.Round(AllTotalSquare, 3, MidpointRounding.AwayFromZero);
+                    cell = sheet1.CreateRow(RowIndex).CreateCell(5);
+                    cell.SetCellValue(Convert.ToDouble(AllTotalSquare));
+                    cell.CellStyle = TableHeaderDecCS;
+                }
+                RowIndex++;
+            }
+
+            CalibriBold11CS = hssfworkbook.CreateCellStyle();
+            CalibriBold11CS.BorderBottom = HSSFCellStyle.BORDER_MEDIUM;
+            CalibriBold11CS.BottomBorderColor = HSSFColor.BLACK.index;
+            CalibriBold11CS.BorderLeft = HSSFCellStyle.BORDER_MEDIUM;
+            CalibriBold11CS.LeftBorderColor = HSSFColor.BLACK.index;
+            CalibriBold11CS.BorderRight = HSSFCellStyle.BORDER_MEDIUM;
+            CalibriBold11CS.RightBorderColor = HSSFColor.BLACK.index;
+            CalibriBold11CS.BorderTop = HSSFCellStyle.BORDER_MEDIUM;
+            CalibriBold11CS.TopBorderColor = HSSFColor.BLACK.index;
+            CalibriBold11CS.SetFont(CalibriBold11F);
+
+        }
+
+        public void FilenkaSimpleP1ToExcel(ref HSSFWorkbook hssfworkbook,
+            HSSFCellStyle Calibri11CS, HSSFCellStyle CalibriBold11CS, HSSFFont CalibriBold11F, HSSFCellStyle TableHeaderCS, HSSFCellStyle TableHeaderDecCS,
+            ref HSSFSheet sheet1, DataTable DT, int WorkAssignmentID, string BatchName, string ClientName, string PageName, decimal time1, decimal cost1, decimal time2, decimal cost2, ref int RowIndex)
+        {
+            HSSFCell cell = null;
+
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex++), 0, "Распечатал: Дата/время " + CurrentDate.ToString("dd.MM.yyyy HH:mm") + " \r\n ФИО: " + Security.CurrentUserShortName);
+            cell.CellStyle = Calibri11CS;
+
+
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 0, "Плановое время выполнения (пресс):");
+            cell.CellStyle = Calibri11CS;
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 3, "ч/ч");
+            cell.CellStyle = Calibri11CS;
+            cell = sheet1.CreateRow(RowIndex++).CreateCell(2);
+            cell.SetCellValue(Convert.ToDouble(time1));
+            cell.CellStyle = Calibri11CS;
+
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 0, "Плановое время выполнения (обрезка):");
+            cell.CellStyle = Calibri11CS;
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 3, "ч/ч");
+            cell.CellStyle = Calibri11CS;
+            cell = sheet1.CreateRow(RowIndex++).CreateCell(2);
+            cell.SetCellValue(Convert.ToDouble(time2));
+            cell.CellStyle = Calibri11CS;
+
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 0, "Планово-премиальный фонд (пресс):");
+            cell.CellStyle = Calibri11CS;
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 3, "руб.");
+            cell.CellStyle = Calibri11CS;
+            cell = sheet1.CreateRow(RowIndex++).CreateCell(2);
+            cell.SetCellValue(Convert.ToDouble(cost1));
+            cell.CellStyle = Calibri11CS;
+
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 0, "Планово-премиальный фонд (обрезка):");
+            cell.CellStyle = Calibri11CS;
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 3, "руб.");
+            cell.CellStyle = Calibri11CS;
+            cell = sheet1.CreateRow(RowIndex++).CreateCell(2);
+            cell.SetCellValue(Convert.ToDouble(cost2));
+            cell.CellStyle = Calibri11CS;
+
+            RowIndex++;
+
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex++), 1, "УТВЕРЖДАЮ_____________");
+            cell.CellStyle = Calibri11CS;
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex++), 1, PageName);
+            cell.CellStyle = CalibriBold11CS;
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 0, "Задание №" + WorkAssignmentID.ToString());
+            cell.CellStyle = CalibriBold11CS;
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex++), 1, BatchName);
+            cell.CellStyle = CalibriBold11CS;
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 0, "Клиент:");
+            cell.CellStyle = CalibriBold11CS;
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex++), 1, ClientName);
+            cell.CellStyle = CalibriBold11CS;
+
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 0, "Филенка");
+            cell.CellStyle = TableHeaderCS;
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 1, "Высота");
+            cell.CellStyle = TableHeaderCS;
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 2, "Ширина");
+            cell.CellStyle = TableHeaderCS;
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 3, "Кол-во");
+            cell.CellStyle = TableHeaderCS;
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 4, "Пресс");
+            cell.CellStyle = TableHeaderCS;
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 5, "м.кв.");
+            cell.CellStyle = TableHeaderCS;
+            RowIndex++;
+
+            int CType = -1;
+            int AllTotalAmount = 0;
+            int TotalAmount = 0;
+            decimal AllTotalSquare = 0;
+            decimal TotalSquare = 0;
+
+            if (DT.Rows.Count > 0)
+                CType = Convert.ToInt32(DT.Rows[0]["ColorType"]);
+
+            for (int x = 0; x < DT.Rows.Count; x++)
+            {
+                if (DT.Rows[x]["Count"] != DBNull.Value)
+                {
+                    AllTotalAmount += Convert.ToInt32(DT.Rows[x]["Count"]);
+                    TotalAmount += Convert.ToInt32(DT.Rows[x]["Count"]);
+                }
+                if (DT.Rows[x]["Square"] != DBNull.Value)
+                {
+                    AllTotalSquare += Convert.ToDecimal(DT.Rows[x]["Square"]);
+                    TotalSquare += Convert.ToDecimal(DT.Rows[x]["Square"]);
+                }
+
+                for (int y = 0; y < DT.Columns.Count; y++)
+                {
+                    if (DT.Columns[y].ColumnName == "ColorType")
+                        continue;
+
+                    Type t = DT.Rows[x][y].GetType();
+
+                    if (t.Name == "Decimal")
+                    {
+                        cell = sheet1.CreateRow(RowIndex).CreateCell(y);
+                        cell.SetCellValue(Convert.ToDouble(DT.Rows[x][y]));
+                        cell.CellStyle = TableHeaderDecCS;
+                        continue;
+                    }
+                    if (t.Name == "Int32")
+                    {
+                        cell = sheet1.CreateRow(RowIndex).CreateCell(y);
+                        cell.SetCellValue(Convert.ToInt32(DT.Rows[x][y]));
+                        cell.CellStyle = TableHeaderCS;
+                        continue;
+                    }
+
+                    if (t.Name == "String" || t.Name == "DBNull")
+                    {
+                        cell = sheet1.CreateRow(RowIndex).CreateCell(y);
+                        cell.SetCellValue(DT.Rows[x][y].ToString());
+                        cell.CellStyle = TableHeaderCS;
+                        continue;
+                    }
+                }
+
+                if (x + 1 <= DT.Rows.Count - 1)
+                {
+                    if (CType != Convert.ToInt32(DT.Rows[x + 1]["ColorType"]))
+                    {
+                        RowIndex++;
+                        for (int y = 0; y < DT.Columns.Count; y++)
+                        {
+                            if (DT.Columns[y].ColumnName == "ColorType")
+                                continue;
+                            cell = sheet1.CreateRow(RowIndex).CreateCell(y);
+                            cell.SetCellValue(string.Empty);
+                            cell.CellStyle = TableHeaderCS;
+                            continue;
+                        }
+
+                        cell = sheet1.CreateRow(RowIndex).CreateCell(0);
+                        cell.SetCellValue("Итого:");
+                        cell.CellStyle = TableHeaderCS;
+
+                        cell = sheet1.CreateRow(RowIndex).CreateCell(3);
+                        cell.SetCellValue(TotalAmount);
+                        cell.CellStyle = TableHeaderCS;
+
+                        TotalSquare = Decimal.Round(TotalSquare, 3, MidpointRounding.AwayFromZero);
+                        cell = sheet1.CreateRow(RowIndex).CreateCell(5);
+                        cell.SetCellValue(Convert.ToDouble(TotalSquare));
+                        cell.CellStyle = TableHeaderCS;
+
+                        CType = Convert.ToInt32(DT.Rows[x + 1]["ColorType"]);
+                        TotalAmount = 0;
+                        TotalSquare = 0;
+                        RowIndex++;
+                    }
+                }
+
+                if (x == DT.Rows.Count - 1)
+                {
+                    RowIndex++;
+                    for (int y = 0; y < DT.Columns.Count; y++)
+                    {
+                        if (DT.Columns[y].ColumnName == "ColorType")
+                            continue;
+                        cell = sheet1.CreateRow(RowIndex).CreateCell(y);
+                        cell.SetCellValue(string.Empty);
+                        cell.CellStyle = TableHeaderCS;
+                        continue;
+                    }
+
+                    cell = sheet1.CreateRow(RowIndex).CreateCell(0);
+                    cell.SetCellValue("Итого:");
+                    cell.CellStyle = TableHeaderCS;
+
+                    cell = sheet1.CreateRow(RowIndex).CreateCell(3);
+                    cell.SetCellValue(TotalAmount);
+                    cell.CellStyle = TableHeaderCS;
+
+                    TotalSquare = Decimal.Round(TotalSquare, 3, MidpointRounding.AwayFromZero);
+                    cell = sheet1.CreateRow(RowIndex).CreateCell(5);
+                    cell.SetCellValue(Convert.ToDouble(TotalSquare));
+                    cell.CellStyle = TableHeaderDecCS;
+
+                    RowIndex++;
+
+                    for (int y = 0; y < DT.Columns.Count; y++)
+                    {
+                        if (DT.Columns[y].ColumnName == "ColorType")
+                            continue;
+                        cell = sheet1.CreateRow(RowIndex).CreateCell(y);
+                        cell.SetCellValue(string.Empty);
+                        cell.CellStyle = TableHeaderCS;
+                        continue;
+                    }
+
+                    cell = sheet1.CreateRow(RowIndex).CreateCell(0);
+                    cell.SetCellValue("Всего:");
+                    cell.CellStyle = TableHeaderCS;
+
+                    cell = sheet1.CreateRow(RowIndex).CreateCell(3);
+                    cell.SetCellValue(AllTotalAmount);
+                    cell.CellStyle = TableHeaderCS;
+
+                    AllTotalSquare = Decimal.Round(AllTotalSquare, 3, MidpointRounding.AwayFromZero);
+                    cell = sheet1.CreateRow(RowIndex).CreateCell(5);
+                    cell.SetCellValue(Convert.ToDouble(AllTotalSquare));
+                    cell.CellStyle = TableHeaderDecCS;
+                }
+                RowIndex++;
+            }
+
+            CalibriBold11CS = hssfworkbook.CreateCellStyle();
+            CalibriBold11CS.BorderBottom = HSSFCellStyle.BORDER_MEDIUM;
+            CalibriBold11CS.BottomBorderColor = HSSFColor.BLACK.index;
+            CalibriBold11CS.BorderLeft = HSSFCellStyle.BORDER_MEDIUM;
+            CalibriBold11CS.LeftBorderColor = HSSFColor.BLACK.index;
+            CalibriBold11CS.BorderRight = HSSFCellStyle.BORDER_MEDIUM;
+            CalibriBold11CS.RightBorderColor = HSSFColor.BLACK.index;
+            CalibriBold11CS.BorderTop = HSSFCellStyle.BORDER_MEDIUM;
+            CalibriBold11CS.TopBorderColor = HSSFColor.BLACK.index;
+            CalibriBold11CS.SetFont(CalibriBold11F);
+
+        }
+
+        public void FilenkaSimpleP2ToExcel(ref HSSFWorkbook hssfworkbook,
+            HSSFCellStyle Calibri11CS, HSSFCellStyle CalibriBold11CS, HSSFFont CalibriBold11F, HSSFCellStyle TableHeaderCS, HSSFCellStyle TableHeaderDecCS,
+            ref HSSFSheet sheet1, DataTable DT, int WorkAssignmentID, string BatchName, string ClientName, string PageName, ref int RowIndex)
+        {
+            HSSFCell cell = null;
+
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex++), 0, "Распечатал: Дата/время " + CurrentDate.ToString("dd.MM.yyyy HH:mm") + " \r\n ФИО: " + Security.CurrentUserShortName);
+            cell.CellStyle = Calibri11CS;
+
+            RowIndex++;
+
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex++), 1, "УТВЕРЖДАЮ_____________");
+            cell.CellStyle = Calibri11CS;
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex++), 1, PageName);
+            cell.CellStyle = CalibriBold11CS;
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 0, "Задание №" + WorkAssignmentID.ToString());
+            cell.CellStyle = CalibriBold11CS;
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex++), 1, BatchName);
+            cell.CellStyle = CalibriBold11CS;
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 0, "Клиент:");
+            cell.CellStyle = CalibriBold11CS;
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex++), 1, ClientName);
+            cell.CellStyle = CalibriBold11CS;
+
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 0, "Филенка");
+            cell.CellStyle = TableHeaderCS;
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 1, "Высота");
+            cell.CellStyle = TableHeaderCS;
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 2, "Ширина");
+            cell.CellStyle = TableHeaderCS;
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 3, "Кол-во");
+            cell.CellStyle = TableHeaderCS;
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 4, "Пресс");
+            cell.CellStyle = TableHeaderCS;
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 5, "м.кв.");
+            cell.CellStyle = TableHeaderCS;
+            RowIndex++;
+
+            int CType = -1;
+            int AllTotalAmount = 0;
+            int TotalAmount = 0;
+            decimal AllTotalSquare = 0;
+            decimal TotalSquare = 0;
+
+            if (DT.Rows.Count > 0)
+                CType = Convert.ToInt32(DT.Rows[0]["ColorType"]);
+
+            for (int x = 0; x < DT.Rows.Count; x++)
+            {
+                if (DT.Rows[x]["Count"] != DBNull.Value)
+                {
+                    AllTotalAmount += Convert.ToInt32(DT.Rows[x]["Count"]);
+                    TotalAmount += Convert.ToInt32(DT.Rows[x]["Count"]);
+                }
+                if (DT.Rows[x]["Square"] != DBNull.Value)
+                {
+                    AllTotalSquare += Convert.ToDecimal(DT.Rows[x]["Square"]);
+                    TotalSquare += Convert.ToDecimal(DT.Rows[x]["Square"]);
+                }
+
+                for (int y = 0; y < DT.Columns.Count; y++)
+                {
+                    if (DT.Columns[y].ColumnName == "ColorType")
+                        continue;
+
+                    Type t = DT.Rows[x][y].GetType();
+
+                    if (t.Name == "Decimal")
+                    {
+                        cell = sheet1.CreateRow(RowIndex).CreateCell(y);
+                        cell.SetCellValue(Convert.ToDouble(DT.Rows[x][y]));
+                        cell.CellStyle = TableHeaderDecCS;
+                        continue;
+                    }
+                    if (t.Name == "Int32")
+                    {
+                        cell = sheet1.CreateRow(RowIndex).CreateCell(y);
+                        cell.SetCellValue(Convert.ToInt32(DT.Rows[x][y]));
+                        cell.CellStyle = TableHeaderCS;
+                        continue;
+                    }
+
+                    if (t.Name == "String" || t.Name == "DBNull")
+                    {
+                        cell = sheet1.CreateRow(RowIndex).CreateCell(y);
+                        cell.SetCellValue(DT.Rows[x][y].ToString());
+                        cell.CellStyle = TableHeaderCS;
+                        continue;
+                    }
+                }
+
+                if (x + 1 <= DT.Rows.Count - 1)
+                {
+                    if (CType != Convert.ToInt32(DT.Rows[x + 1]["ColorType"]))
+                    {
+                        RowIndex++;
+                        for (int y = 0; y < DT.Columns.Count; y++)
+                        {
+                            if (DT.Columns[y].ColumnName == "ColorType")
+                                continue;
+                            cell = sheet1.CreateRow(RowIndex).CreateCell(y);
+                            cell.SetCellValue(string.Empty);
+                            cell.CellStyle = TableHeaderCS;
+                            continue;
+                        }
+
+                        cell = sheet1.CreateRow(RowIndex).CreateCell(0);
+                        cell.SetCellValue("Итого:");
+                        cell.CellStyle = TableHeaderCS;
+
+                        cell = sheet1.CreateRow(RowIndex).CreateCell(3);
+                        cell.SetCellValue(TotalAmount);
+                        cell.CellStyle = TableHeaderCS;
+
+                        TotalSquare = Decimal.Round(TotalSquare, 3, MidpointRounding.AwayFromZero);
+                        cell = sheet1.CreateRow(RowIndex).CreateCell(5);
+                        cell.SetCellValue(Convert.ToDouble(TotalSquare));
+                        cell.CellStyle = TableHeaderCS;
+
+                        CType = Convert.ToInt32(DT.Rows[x + 1]["ColorType"]);
+                        TotalAmount = 0;
+                        TotalSquare = 0;
+                        RowIndex++;
+                    }
+                }
+
+                if (x == DT.Rows.Count - 1)
+                {
+                    RowIndex++;
+                    for (int y = 0; y < DT.Columns.Count; y++)
+                    {
+                        if (DT.Columns[y].ColumnName == "ColorType")
+                            continue;
+                        cell = sheet1.CreateRow(RowIndex).CreateCell(y);
+                        cell.SetCellValue(string.Empty);
+                        cell.CellStyle = TableHeaderCS;
+                        continue;
+                    }
+
+                    cell = sheet1.CreateRow(RowIndex).CreateCell(0);
+                    cell.SetCellValue("Итого:");
+                    cell.CellStyle = TableHeaderCS;
+
+                    cell = sheet1.CreateRow(RowIndex).CreateCell(3);
+                    cell.SetCellValue(TotalAmount);
+                    cell.CellStyle = TableHeaderCS;
+
+                    TotalSquare = Decimal.Round(TotalSquare, 3, MidpointRounding.AwayFromZero);
+                    cell = sheet1.CreateRow(RowIndex).CreateCell(5);
+                    cell.SetCellValue(Convert.ToDouble(TotalSquare));
+                    cell.CellStyle = TableHeaderDecCS;
+
+                    RowIndex++;
+
+                    for (int y = 0; y < DT.Columns.Count; y++)
+                    {
+                        if (DT.Columns[y].ColumnName == "ColorType")
+                            continue;
+                        cell = sheet1.CreateRow(RowIndex).CreateCell(y);
+                        cell.SetCellValue(string.Empty);
+                        cell.CellStyle = TableHeaderCS;
+                        continue;
+                    }
+
+                    cell = sheet1.CreateRow(RowIndex).CreateCell(0);
+                    cell.SetCellValue("Всего:");
+                    cell.CellStyle = TableHeaderCS;
+
+                    cell = sheet1.CreateRow(RowIndex).CreateCell(3);
+                    cell.SetCellValue(AllTotalAmount);
+                    cell.CellStyle = TableHeaderCS;
+
+                    AllTotalSquare = Decimal.Round(AllTotalSquare, 3, MidpointRounding.AwayFromZero);
+                    cell = sheet1.CreateRow(RowIndex).CreateCell(5);
+                    cell.SetCellValue(Convert.ToDouble(AllTotalSquare));
+                    cell.CellStyle = TableHeaderDecCS;
+                }
+                RowIndex++;
+            }
+
+            CalibriBold11CS = hssfworkbook.CreateCellStyle();
+            CalibriBold11CS.BorderBottom = HSSFCellStyle.BORDER_MEDIUM;
+            CalibriBold11CS.BottomBorderColor = HSSFColor.BLACK.index;
+            CalibriBold11CS.BorderLeft = HSSFCellStyle.BORDER_MEDIUM;
+            CalibriBold11CS.LeftBorderColor = HSSFColor.BLACK.index;
+            CalibriBold11CS.BorderRight = HSSFCellStyle.BORDER_MEDIUM;
+            CalibriBold11CS.RightBorderColor = HSSFColor.BLACK.index;
+            CalibriBold11CS.BorderTop = HSSFCellStyle.BORDER_MEDIUM;
+            CalibriBold11CS.TopBorderColor = HSSFColor.BLACK.index;
+            CalibriBold11CS.SetFont(CalibriBold11F);
+
         }
 
         public void FilenkaBoxesToExcel(ref HSSFWorkbook hssfworkbook,
@@ -47066,12 +47520,6 @@ AND FrontID=" + Convert.ToInt32(Front) +
                 sheet1.SetColumnWidth(5, 6 * 256);
                 sheet1.SetColumnWidth(6, 6 * 256);
 
-                HSSFCell cell = null;
-                cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex++), 0, "Распечатал: Дата/время " + CurrentDate.ToString("dd.MM.yyyy HH:mm") + " \r\n ФИО: " + Security.CurrentUserShortName);
-                cell.CellStyle = Calibri11CS;
-                cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 0, "Плановое время выполнения:");
-                cell.CellStyle = Calibri11CS;
-
                 CurvedAssemblyDT.Clear();
                 DT.Clear();
 
@@ -47099,12 +47547,17 @@ AND FrontID=" + Convert.ToInt32(Front) +
 
                 DT1 = CurvedAssemblyDT.Copy();
 
+                decimal div1 = 370;
+                decimal div2 = 2.14m;
+                decimal time = 0;
+                decimal cost = 0;
+                PlanningCurved(DT1, ref time, ref cost);
                 CurvedAssembly1ToExcelSingly(ref hssfworkbook, ref sheet1, Calibri11CS, CalibriBold11CS, CalibriBold11F, TableHeaderCS, TableHeaderDecCS,
-                    DT1, WorkAssignmentID, BatchName, "ЗОВ", string.Empty, "Гнутые фасады", ref RowIndex);
+                    DT1, WorkAssignmentID, BatchName, "ЗОВ", string.Empty, "Гнутые фасады", time, cost, ref RowIndex);
                 RowIndex++;
 
                 CurvedAssembly1ToExcelSingly(ref hssfworkbook, ref sheet1, Calibri11CS, CalibriBold11CS, CalibriBold11F, TableHeaderCS, TableHeaderDecCS,
-                    DT1, WorkAssignmentID, BatchName, "ЗОВ", "ДУБЛЬ", "Гнутые фасады", ref RowIndex);
+                    DT1, WorkAssignmentID, BatchName, "ЗОВ", "ДУБЛЬ", "Гнутые фасады", time, cost, ref RowIndex);
                 RowIndex++;
 
                 foreach (DataRow item in DistMainOrdersDT.Select("GroupType=0"))
@@ -47140,10 +47593,19 @@ AND FrontID=" + Convert.ToInt32(Front) +
                         ClientName1 = CRows[0]["ClientName"].ToString();
                         OrderName = CRows[0]["DocNumber"].ToString();
                     }
+
                     if (CurvedAssemblyDT.Rows.Count > 0)
+                    {
+                        div1 = 10;
+                        div2 = 2.14m;
+                        time = 0;
+                        cost = 0;
+                        PlanningTimebyCount(CurvedAssemblyDT, div1, div2, ref time, ref cost);
                         CurvedAssembly2ToExcelSingly(ref hssfworkbook, ref sheet1,
                             Calibri11CS, CalibriBold11CS, CalibriBold11F, TableHeaderCS, TableHeaderDecCS, CurvedAssemblyDT,
-                            WorkAssignmentID, BatchName, ClientName1, OrderName, "Гнутые фасады", Notes, ref RowIndex);
+                            WorkAssignmentID, BatchName, ClientName1, OrderName, "Гнутые фасады", Notes, time, cost, ref RowIndex);
+                    }
+
                     RowIndex++;
                 }
             }
@@ -47178,12 +47640,6 @@ AND FrontID=" + Convert.ToInt32(Front) +
                 sheet1.SetColumnWidth(5, 6 * 256);
                 sheet1.SetColumnWidth(6, 6 * 256);
 
-                HSSFCell cell = null;
-                cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex++), 0, "Распечатал: Дата/время " + CurrentDate.ToString("dd.MM.yyyy HH:mm") + " \r\n ФИО: " + Security.CurrentUserShortName);
-                cell.CellStyle = Calibri11CS;
-                cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 0, "Плановое время выполнения:");
-                cell.CellStyle = Calibri11CS;
-
                 CurvedAssemblyDT.Clear();
                 DT.Clear();
 
@@ -47211,12 +47667,17 @@ AND FrontID=" + Convert.ToInt32(Front) +
 
                 DT1 = CurvedAssemblyDT.Copy();
 
+                decimal div1 = 370;
+                decimal div2 = 2.14m;
+                decimal time = 0;
+                decimal cost = 0;
+                PlanningCurved(DT1, ref time, ref cost);
                 CurvedAssembly1ToExcelSingly(ref hssfworkbook, ref sheet1, Calibri11CS, CalibriBold11CS, CalibriBold11F, TableHeaderCS, TableHeaderDecCS,
-                    DT1, WorkAssignmentID, BatchName, "Маркетинг", string.Empty, "Гнутые фасады", ref RowIndex);
+                    DT1, WorkAssignmentID, BatchName, "Маркетинг", string.Empty, "Гнутые фасады", time, cost, ref RowIndex);
                 RowIndex++;
 
                 CurvedAssembly1ToExcelSingly(ref hssfworkbook, ref sheet1, Calibri11CS, CalibriBold11CS, CalibriBold11F, TableHeaderCS, TableHeaderDecCS,
-                    DT1, WorkAssignmentID, BatchName, "Маркетинг", "ДУБЛЬ", "Гнутые фасады", ref RowIndex);
+                    DT1, WorkAssignmentID, BatchName, "Маркетинг", "ДУБЛЬ", "Гнутые фасады", time, cost, ref RowIndex);
                 RowIndex++;
 
                 foreach (DataRow item in DistMainOrdersDT.Select("GroupType=1"))
@@ -47253,10 +47714,20 @@ AND FrontID=" + Convert.ToInt32(Front) +
                         Notes = CRows[0]["Notes"].ToString();
                         OrderName = "№" + CRows[0]["OrderNumber"].ToString() + "-" + MainOrderID;
                     }
+
                     if (CurvedAssemblyDT.Rows.Count > 0)
+                    {
+
+                        div1 = 10;
+                        div2 = 2.14m;
+                        time = 0;
+                        cost = 0;
+                        PlanningTimebyCount(CurvedAssemblyDT, div1, div2, ref time, ref cost);
                         CurvedAssembly2ToExcelSingly(ref hssfworkbook, ref sheet1,
                             Calibri11CS, CalibriBold11CS, CalibriBold11F, TableHeaderCS, TableHeaderDecCS, CurvedAssemblyDT,
-                            WorkAssignmentID, BatchName, ClientName1, OrderName, "Гнутые фасады", Notes, ref RowIndex);
+                            WorkAssignmentID, BatchName, ClientName1, OrderName, "Гнутые фасады", Notes, time, cost, ref RowIndex);
+                    }
+
                     RowIndex++;
                 }
             }
@@ -47264,10 +47735,37 @@ AND FrontID=" + Convert.ToInt32(Front) +
 
         public void CurvedAssembly1ToExcelSingly(ref HSSFWorkbook hssfworkbook, ref HSSFSheet sheet1,
             HSSFCellStyle Calibri11CS, HSSFCellStyle CalibriBold11CS, HSSFFont CalibriBold11F, HSSFCellStyle TableHeaderCS, HSSFCellStyle TableHeaderDecCS,
-            DataTable DT, int WorkAssignmentID, string BatchName, string ClientName, string OperationName, string PageName, ref int RowIndex)
+            DataTable DT, int WorkAssignmentID, string BatchName, string ClientName, string OperationName, string PageName, decimal Time, decimal Cost, ref int RowIndex)
         {
             HSSFCell cell = null;
 
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex++), 0, "Распечатал: Дата/время " + CurrentDate.ToString("dd.MM.yyyy HH:mm") + " \r\n ФИО: " + Security.CurrentUserShortName);
+            cell.CellStyle = Calibri11CS;
+
+
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 0, "Плановое время выполнения:");
+            cell.CellStyle = Calibri11CS;
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 3, "ч/ч");
+            cell.CellStyle = Calibri11CS;
+
+            cell = sheet1.CreateRow(RowIndex++).CreateCell(2);
+            cell.SetCellValue(Convert.ToDouble(Time));
+            cell.CellStyle = Calibri11CS;
+
+
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 0, "Планово-премиальный фонд:");
+            cell.CellStyle = Calibri11CS;
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 3, "руб.");
+            cell.CellStyle = Calibri11CS;
+
+            cell = sheet1.CreateRow(RowIndex++).CreateCell(2);
+            cell.SetCellValue(Convert.ToDouble(Cost));
+            cell.CellStyle = Calibri11CS;
+
+            RowIndex++;
+
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex++), 1, "УТВЕРЖДАЮ_____________");
+            cell.CellStyle = Calibri11CS;
             cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex++), 1, PageName);
             cell.CellStyle = CalibriBold11CS;
             cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 0, "Задание №" + WorkAssignmentID.ToString());
@@ -47434,10 +47932,37 @@ AND FrontID=" + Convert.ToInt32(Front) +
 
         public void CurvedAssembly2ToExcelSingly(ref HSSFWorkbook hssfworkbook, ref HSSFSheet sheet1,
             HSSFCellStyle Calibri11CS, HSSFCellStyle CalibriBold11CS, HSSFFont CalibriBold11F, HSSFCellStyle TableHeaderCS, HSSFCellStyle TableHeaderDecCS,
-            DataTable DT, int WorkAssignmentID, string BatchName, string ClientName, string OrderName, string PageName, string Notes, ref int RowIndex)
+            DataTable DT, int WorkAssignmentID, string BatchName, string ClientName, string OrderName, string PageName, string Notes, decimal Time, decimal Cost, ref int RowIndex)
         {
             HSSFCell cell = null;
 
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex++), 0, "Распечатал: Дата/время " + CurrentDate.ToString("dd.MM.yyyy HH:mm") + " \r\n ФИО: " + Security.CurrentUserShortName);
+            cell.CellStyle = Calibri11CS;
+
+
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 0, "Плановое время выполнения:");
+            cell.CellStyle = Calibri11CS;
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 3, "ч/ч");
+            cell.CellStyle = Calibri11CS;
+
+            cell = sheet1.CreateRow(RowIndex++).CreateCell(2);
+            cell.SetCellValue(Convert.ToDouble(Time));
+            cell.CellStyle = Calibri11CS;
+
+
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 0, "Планово-премиальный фонд:");
+            cell.CellStyle = Calibri11CS;
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 3, "руб.");
+            cell.CellStyle = Calibri11CS;
+
+            cell = sheet1.CreateRow(RowIndex++).CreateCell(2);
+            cell.SetCellValue(Convert.ToDouble(Cost));
+            cell.CellStyle = Calibri11CS;
+
+            RowIndex++;
+
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex++), 1, "УТВЕРЖДАЮ_____________");
+            cell.CellStyle = Calibri11CS;
             cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex++), 1, PageName);
             cell.CellStyle = CalibriBold11CS;
             cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 0, "Задание №" + WorkAssignmentID.ToString());
@@ -47887,6 +48412,13 @@ AND FrontID=" + Convert.ToInt32(Front) +
         {
             HSSFCell cell = null;
 
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex++), 0, "Распечатал: Дата/время " + CurrentDate.ToString("dd.MM.yyyy HH:mm") + " \r\n ФИО: " + Security.CurrentUserShortName);
+            cell.CellStyle = Calibri11CS;
+
+            RowIndex++;
+
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex++), 1, "УТВЕРЖДАЮ_____________");
+            cell.CellStyle = Calibri11CS;
             cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 0, "Задание №" + WorkAssignmentID.ToString());
             cell.CellStyle = CalibriBold11CS;
             cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex++), 1, BatchName);
@@ -48062,6 +48594,13 @@ AND FrontID=" + Convert.ToInt32(Front) +
         {
             HSSFCell cell = null;
 
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex++), 0, "Распечатал: Дата/время " + CurrentDate.ToString("dd.MM.yyyy HH:mm") + " \r\n ФИО: " + Security.CurrentUserShortName);
+            cell.CellStyle = Calibri11CS;
+
+            RowIndex++;
+
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex++), 1, "УТВЕРЖДАЮ_____________");
+            cell.CellStyle = Calibri11CS;
             cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 0, "Задание №" + WorkAssignmentID.ToString());
             cell.CellStyle = CalibriBold11CS;
             cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex++), 1, BatchName);
@@ -48367,6 +48906,13 @@ AND FrontID=" + Convert.ToInt32(Front) +
         {
             HSSFCell cell = null;
 
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex++), 0, "Распечатал: Дата/время " + CurrentDate.ToString("dd.MM.yyyy HH:mm") + " \r\n ФИО: " + Security.CurrentUserShortName);
+            cell.CellStyle = Calibri11CS;
+
+            RowIndex++;
+
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex++), 1, "УТВЕРЖДАЮ_____________");
+            cell.CellStyle = Calibri11CS;
             cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 0, "Задание №" + WorkAssignmentID.ToString());
             cell.CellStyle = CalibriBold11CS;
             cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex++), 1, BatchName);
@@ -48673,6 +49219,13 @@ AND FrontID=" + Convert.ToInt32(Front) +
         {
             HSSFCell cell = null;
 
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex++), 0, "Распечатал: Дата/время " + CurrentDate.ToString("dd.MM.yyyy HH:mm") + " \r\n ФИО: " + Security.CurrentUserShortName);
+            cell.CellStyle = Calibri11CS;
+
+            RowIndex++;
+
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex++), 1, "УТВЕРЖДАЮ_____________");
+            cell.CellStyle = Calibri11CS;
             cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 0, "Задание №" + WorkAssignmentID.ToString());
             cell.CellStyle = CalibriBold11CS;
             cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex++), 1, BatchName);
@@ -49003,7 +49556,7 @@ AND FrontID=" + Convert.ToInt32(Front) +
             NotCurvedAssemblyDT.Columns.Add(new DataColumn("Width", Type.GetType("System.Int32")));
             NotCurvedAssemblyDT.Columns.Add(new DataColumn("Count", Type.GetType("System.Int32")));
             NotCurvedAssemblyDT.Columns.Add(new DataColumn("Notes", Type.GetType("System.String")));
-            NotCurvedAssemblyDT.Columns.Add(new DataColumn("Worker", Type.GetType("System.String")));
+            //NotCurvedAssemblyDT.Columns.Add(new DataColumn("Worker", Type.GetType("System.String")));
             NotCurvedAssemblyDT.Columns.Add(new DataColumn("Square", Type.GetType("System.Decimal")));
             NotCurvedAssemblyDT.Columns.Add(new DataColumn("ColorType", Type.GetType("System.Int32")));
 
@@ -50510,7 +51063,7 @@ AND FrontID=" + Convert.ToInt32(Front) +
             //string FileName = "№" + WorkAssignmentID + " " + BatchName;
             //string tempFolder = System.Environment.GetEnvironmentVariable("TEMP");
 
-            ////string tempFolder = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
+            //string tempFolder = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
             string FileName = "№" + WorkAssignmentID + " " + BatchName;
             //string tempFolder = @"\\192.168.1.6\Public\ТПС\Infinium\Задания\";
             string tempFolder = @"\\192.168.1.6\Public\USERS_2016\_ДЕЙСТВУЮЩИЕ\ПРОИЗВОДСТВО\ТПС\инфиниум\";
@@ -50679,13 +51232,6 @@ AND FrontID=" + Convert.ToInt32(Front) +
                 sheet1.SetColumnWidth(4, 6 * 256);
                 sheet1.SetColumnWidth(5, 6 * 256);
 
-                HSSFCell cell = null;
-                cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex++), 0, "Распечатал: Дата/время " + CurrentDate.ToString("dd.MM.yyyy HH:mm") + " \r\n ФИО: " + Security.CurrentUserShortName);
-                cell.CellStyle = Calibri11CS;
-                cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 0, "Плановое время выполнения:");
-                cell.CellStyle = Calibri11CS;
-                RowIndex++;
-                RowIndex++;
                 for (int i = 0; i < DistMainOrdersDT.Rows.Count; i++)
                 {
                     if (Convert.ToInt32(DistMainOrdersDT.Rows[i]["GroupType"]) == 0)
@@ -50771,11 +51317,6 @@ AND FrontID=" + Convert.ToInt32(Front) +
             sheet1.SetColumnWidth(4, 6 * 256);
             sheet1.SetColumnWidth(5, 6 * 256);
             sheet1.SetColumnWidth(6, 18 * 256);
-
-            HSSFCell cell = null;
-            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex++), 0, "Распечатал: Дата/время " + CurrentDate.ToString("dd.MM.yyyy HH:mm") + " \r\n ФИО: " + Security.CurrentUserShortName);
-            cell.CellStyle = Calibri11CS;
-            RowIndex++;
 
             DataTable DistFrameColorsDT = DistFrameColorsTable(NotCurvedOrdersDT, true);
             NotCurvedAssemblyDT.Clear();
@@ -51245,6 +51786,9 @@ AND FrontID=" + Convert.ToInt32(Front) +
         {
             HSSFCell cell = null;
 
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex++), 0, "Распечатал: Дата/время " + CurrentDate.ToString("dd.MM.yyyy HH:mm") + " \r\n ФИО: " + Security.CurrentUserShortName);
+            cell.CellStyle = Calibri11CS;
+
             cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 0, "Плановое время выполнения:");
             cell.CellStyle = Calibri11CS;
             cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 3, "ч/ч");
@@ -51321,7 +51865,7 @@ AND FrontID=" + Convert.ToInt32(Front) +
 
                 for (int y = 0; y < NotCurvedAssemblyDT.Columns.Count; y++)
                 {
-                    if (NotCurvedAssemblyDT.Columns[y].ColumnName == "ColorType" || NotCurvedAssemblyDT.Columns[y].ColumnName == "Square")
+                    if (NotCurvedAssemblyDT.Columns[y].ColumnName == "ColorType")
                         continue;
 
                     Type t = NotCurvedAssemblyDT.Rows[x][y].GetType();
@@ -51357,7 +51901,7 @@ AND FrontID=" + Convert.ToInt32(Front) +
                         RowIndex++;
                         for (int y = 0; y < NotCurvedAssemblyDT.Columns.Count; y++)
                         {
-                            if (NotCurvedAssemblyDT.Columns[y].ColumnName == "ColorType" || NotCurvedAssemblyDT.Columns[y].ColumnName == "Square")
+                            if (NotCurvedAssemblyDT.Columns[y].ColumnName == "ColorType")
                                 continue;
 
                             cell = sheet1.CreateRow(RowIndex).CreateCell(y);
@@ -51374,7 +51918,7 @@ AND FrontID=" + Convert.ToInt32(Front) +
                         cell.SetCellValue(TotalAmount);
                         cell.CellStyle = TableHeaderCS;
 
-                        cell = sheet1.CreateRow(RowIndex).CreateCell(6);
+                        cell = sheet1.CreateRow(RowIndex).CreateCell(7);
                         cell.SetCellValue(Convert.ToDouble(TotalSquare));
                         cell.CellStyle = TableHeaderCS;
 
@@ -51390,7 +51934,7 @@ AND FrontID=" + Convert.ToInt32(Front) +
                     RowIndex++;
                     for (int y = 0; y < NotCurvedAssemblyDT.Columns.Count; y++)
                     {
-                        if (NotCurvedAssemblyDT.Columns[y].ColumnName == "ColorType" || NotCurvedAssemblyDT.Columns[y].ColumnName == "Square")
+                        if (NotCurvedAssemblyDT.Columns[y].ColumnName == "ColorType")
                             continue;
 
                         cell = sheet1.CreateRow(RowIndex).CreateCell(y);
@@ -51407,7 +51951,7 @@ AND FrontID=" + Convert.ToInt32(Front) +
                     cell.SetCellValue(TotalAmount);
                     cell.CellStyle = TableHeaderCS;
 
-                    cell = sheet1.CreateRow(RowIndex).CreateCell(6);
+                    cell = sheet1.CreateRow(RowIndex).CreateCell(7);
                     cell.SetCellValue(Convert.ToDouble(TotalSquare));
                     cell.CellStyle = TableHeaderDecCS;
 
@@ -51415,7 +51959,7 @@ AND FrontID=" + Convert.ToInt32(Front) +
 
                     for (int y = 0; y < NotCurvedAssemblyDT.Columns.Count; y++)
                     {
-                        if (NotCurvedAssemblyDT.Columns[y].ColumnName == "ColorType" || NotCurvedAssemblyDT.Columns[y].ColumnName == "Square")
+                        if (NotCurvedAssemblyDT.Columns[y].ColumnName == "ColorType")
                             continue;
 
                         cell = sheet1.CreateRow(RowIndex).CreateCell(y);
@@ -51432,7 +51976,7 @@ AND FrontID=" + Convert.ToInt32(Front) +
                     cell.SetCellValue(AllTotalAmount);
                     cell.CellStyle = TableHeaderCS;
 
-                    cell = sheet1.CreateRow(RowIndex).CreateCell(6);
+                    cell = sheet1.CreateRow(RowIndex).CreateCell(7);
                     cell.SetCellValue(Convert.ToDouble(AllTotalSquare));
                     cell.CellStyle = TableHeaderDecCS;
                 }
@@ -51449,39 +51993,6 @@ AND FrontID=" + Convert.ToInt32(Front) +
             CalibriBold11CS.BorderTop = HSSFCellStyle.BORDER_MEDIUM;
             CalibriBold11CS.TopBorderColor = HSSFColor.BLACK.index;
             CalibriBold11CS.SetFont(CalibriBold11F);
-
-            //RowIndex++;
-            //cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 0, "задание начали:");
-            //cell.CellStyle = CalibriBold11CS;
-            //cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 1, string.Empty);
-            //cell.CellStyle = CalibriBold11CS;
-            //sheet1.AddMergedRegion(new NPOI.HSSF.Util.Region(RowIndex, 0, RowIndex, 1));
-            //cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 2, "задание закончили:");
-            //cell.CellStyle = CalibriBold11CS;
-            //cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 3, string.Empty);
-            //cell.CellStyle = CalibriBold11CS;
-            //cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 4, string.Empty);
-            //cell.CellStyle = CalibriBold11CS;
-            //sheet1.AddMergedRegion(new NPOI.HSSF.Util.Region(RowIndex, 2, RowIndex, 4));
-            //RowIndex++;
-            //cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 0, "работало человек:");
-            //cell.CellStyle = CalibriBold11CS;
-            //cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 1, string.Empty);
-            //cell.CellStyle = CalibriBold11CS;
-            //sheet1.AddMergedRegion(new NPOI.HSSF.Util.Region(RowIndex, 0, RowIndex, 1));
-            //RowIndex++;
-            //cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 0, "№ станка:");
-            //cell.CellStyle = CalibriBold11CS;
-            //cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 1, string.Empty);
-            //cell.CellStyle = CalibriBold11CS;
-            //sheet1.AddMergedRegion(new NPOI.HSSF.Util.Region(RowIndex, 0, RowIndex, 1));
-            //cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 2, "№ операции:");
-            //cell.CellStyle = CalibriBold11CS;
-            //cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 3, string.Empty);
-            //cell.CellStyle = CalibriBold11CS;
-            //cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 4, string.Empty);
-            //cell.CellStyle = CalibriBold11CS;
-            //sheet1.AddMergedRegion(new NPOI.HSSF.Util.Region(RowIndex, 2, RowIndex, 4));
         }
 
         public void CurvedAssembly1ToExcelSingly(ref HSSFWorkbook hssfworkbook, ref HSSFSheet sheet1,
@@ -51855,13 +52366,7 @@ AND FrontID=" + Convert.ToInt32(Front) +
             sheet1.SetColumnWidth(3, 6 * 256);
             sheet1.SetColumnWidth(4, 6 * 256);
             sheet1.SetColumnWidth(5, 6 * 256);
-            HSSFCell cell = null;
-            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex++), 0, "Распечатал: Дата/время " + CurrentDate.ToString("dd.MM.yyyy HH:mm") + " \r\n ФИО: " + Security.CurrentUserShortName);
-            cell.CellStyle = Calibri11CS;
-            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 0, "Плановое время выполнения:");
-            cell.CellStyle = Calibri11CS;
-            RowIndex++;
-            RowIndex++;
+            
             DataTable DT = new DataTable();
             DataColumn Col1 = new DataColumn("Col1", System.Type.GetType("System.String"));
             DataColumn Col2 = new DataColumn("Col2", System.Type.GetType("System.String"));
@@ -53055,6 +53560,9 @@ AND FrontID=" + Convert.ToInt32(Front) +
         {
             HSSFCell cell = null;
 
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex++), 0, "Распечатал: Дата/время " + CurrentDate.ToString("dd.MM.yyyy HH:mm") + " \r\n ФИО: " + Security.CurrentUserShortName);
+            cell.CellStyle = Calibri11CS;
+
             cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 0, "Плановое время выполнения:");
             cell.CellStyle = Calibri11CS;
             cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 3, "ч/ч");
@@ -53279,6 +53787,9 @@ AND FrontID=" + Convert.ToInt32(Front) +
             decimal Time, decimal Cost, ref int RowIndex)
         {
             HSSFCell cell = null;
+
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex++), 0, "Распечатал: Дата/время " + CurrentDate.ToString("dd.MM.yyyy HH:mm") + " \r\n ФИО: " + Security.CurrentUserShortName);
+            cell.CellStyle = Calibri11CS;
 
             cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 0, "Плановое время выполнения:");
             cell.CellStyle = Calibri11CS;
