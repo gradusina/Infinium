@@ -64,6 +64,7 @@
             this.NotesRichTextBox = new System.Windows.Forms.RichTextBox();
             this.kryptonBorderEdge1 = new ComponentFactory.Krypton.Toolkit.KryptonBorderEdge();
             this.xtraTabPage3 = new DevExpress.XtraTab.XtraTabPage();
+            this.kryptonBorderEdge2 = new ComponentFactory.Krypton.Toolkit.KryptonBorderEdge();
             this.ExportButton = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.panel5 = new System.Windows.Forms.Panel();
             this.TimeSheetDataGrid = new Infinium.PercentageDataGrid();
@@ -71,11 +72,37 @@
             this.YearComboBox = new ComponentFactory.Krypton.Toolkit.KryptonComboBox();
             this.MonthComboBox = new ComponentFactory.Krypton.Toolkit.KryptonComboBox();
             this.xtraTabPage4 = new DevExpress.XtraTab.XtraTabPage();
+            this.kryptonBorderEdge5 = new ComponentFactory.Krypton.Toolkit.KryptonBorderEdge();
             this.btnSaveShedule = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.kryptonButton1 = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.YearComboBox1 = new ComponentFactory.Krypton.Toolkit.KryptonComboBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.ProdSheduleDataGrid = new Infinium.PercentageDataGrid();
+            this.xtraTabPage5 = new DevExpress.XtraTab.XtraTabPage();
+            this.panel7 = new System.Windows.Forms.Panel();
+            this.rbtnTPS = new ComponentFactory.Krypton.Toolkit.KryptonRadioButton();
+            this.rbtnProfil = new ComponentFactory.Krypton.Toolkit.KryptonRadioButton();
+            this.panel12 = new System.Windows.Forms.Panel();
+            this.kryptonRadioButton12 = new ComponentFactory.Krypton.Toolkit.KryptonRadioButton();
+            this.kryptonRadioButton11 = new ComponentFactory.Krypton.Toolkit.KryptonRadioButton();
+            this.kryptonRadioButton10 = new ComponentFactory.Krypton.Toolkit.KryptonRadioButton();
+            this.kryptonRadioButton9 = new ComponentFactory.Krypton.Toolkit.KryptonRadioButton();
+            this.kryptonRadioButton8 = new ComponentFactory.Krypton.Toolkit.KryptonRadioButton();
+            this.kryptonRadioButton7 = new ComponentFactory.Krypton.Toolkit.KryptonRadioButton();
+            this.kryptonRadioButton6 = new ComponentFactory.Krypton.Toolkit.KryptonRadioButton();
+            this.kryptonRadioButton5 = new ComponentFactory.Krypton.Toolkit.KryptonRadioButton();
+            this.kryptonRadioButton4 = new ComponentFactory.Krypton.Toolkit.KryptonRadioButton();
+            this.kryptonRadioButton3 = new ComponentFactory.Krypton.Toolkit.KryptonRadioButton();
+            this.kryptonRadioButton2 = new ComponentFactory.Krypton.Toolkit.KryptonRadioButton();
+            this.kryptonRadioButton1 = new ComponentFactory.Krypton.Toolkit.KryptonRadioButton();
+            this.kryptonRadioButton0 = new ComponentFactory.Krypton.Toolkit.KryptonRadioButton();
+            this.kryptonButton2 = new ComponentFactory.Krypton.Toolkit.KryptonButton();
+            this.panel6 = new System.Windows.Forms.Panel();
+            this.absencesDataGrid = new Infinium.PercentageDataGrid();
+            this.kryptonButton3 = new ComponentFactory.Krypton.Toolkit.KryptonButton();
+            this.YearComboBox2 = new ComponentFactory.Krypton.Toolkit.KryptonComboBox();
+            this.MonthComboBox2 = new ComponentFactory.Krypton.Toolkit.KryptonComboBox();
+            this.kryptonBorderEdge6 = new ComponentFactory.Krypton.Toolkit.KryptonBorderEdge();
             this.kryptonContextMenu1 = new ComponentFactory.Krypton.Toolkit.KryptonContextMenu();
             this.kryptonContextMenuItems1 = new ComponentFactory.Krypton.Toolkit.KryptonContextMenuItems();
             this.kryptonContextMenuItem1 = new ComponentFactory.Krypton.Toolkit.KryptonContextMenuItem();
@@ -102,6 +129,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.YearComboBox1)).BeginInit();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ProdSheduleDataGrid)).BeginInit();
+            this.xtraTabPage5.SuspendLayout();
+            this.panel7.SuspendLayout();
+            this.panel12.SuspendLayout();
+            this.panel6.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.absencesDataGrid)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.YearComboBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.MonthComboBox2)).BeginInit();
             this.SuspendLayout();
             // 
             // AnimateTimer
@@ -517,7 +551,8 @@
             this.xtraTabPage1,
             this.xtraTabPage2,
             this.xtraTabPage3,
-            this.xtraTabPage4});
+            this.xtraTabPage4,
+            this.xtraTabPage5});
             // 
             // xtraTabPage1
             // 
@@ -598,6 +633,7 @@
             // 
             // xtraTabPage3
             // 
+            this.xtraTabPage3.Controls.Add(this.kryptonBorderEdge2);
             this.xtraTabPage3.Controls.Add(this.ExportButton);
             this.xtraTabPage3.Controls.Add(this.panel5);
             this.xtraTabPage3.Controls.Add(this.ApplyButton);
@@ -606,6 +642,17 @@
             this.xtraTabPage3.Name = "xtraTabPage3";
             this.xtraTabPage3.Size = new System.Drawing.Size(1264, 628);
             this.xtraTabPage3.Text = "Табель";
+            // 
+            // kryptonBorderEdge2
+            // 
+            this.kryptonBorderEdge2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.kryptonBorderEdge2.AutoSize = false;
+            this.kryptonBorderEdge2.Location = new System.Drawing.Point(5, 4);
+            this.kryptonBorderEdge2.Name = "kryptonBorderEdge2";
+            this.kryptonBorderEdge2.Size = new System.Drawing.Size(1253, 3);
+            this.kryptonBorderEdge2.StateCommon.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(253)))), ((int)(((byte)(164)))), ((int)(((byte)(61)))));
+            this.kryptonBorderEdge2.Text = "kryptonBorderEdge2";
             // 
             // ExportButton
             // 
@@ -757,6 +804,7 @@
             // 
             // xtraTabPage4
             // 
+            this.xtraTabPage4.Controls.Add(this.kryptonBorderEdge5);
             this.xtraTabPage4.Controls.Add(this.btnSaveShedule);
             this.xtraTabPage4.Controls.Add(this.kryptonButton1);
             this.xtraTabPage4.Controls.Add(this.YearComboBox1);
@@ -764,6 +812,17 @@
             this.xtraTabPage4.Name = "xtraTabPage4";
             this.xtraTabPage4.Size = new System.Drawing.Size(1264, 628);
             this.xtraTabPage4.Text = "Произв. календарь";
+            // 
+            // kryptonBorderEdge5
+            // 
+            this.kryptonBorderEdge5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.kryptonBorderEdge5.AutoSize = false;
+            this.kryptonBorderEdge5.Location = new System.Drawing.Point(5, 4);
+            this.kryptonBorderEdge5.Name = "kryptonBorderEdge5";
+            this.kryptonBorderEdge5.Size = new System.Drawing.Size(1253, 3);
+            this.kryptonBorderEdge5.StateCommon.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(158)))), ((int)(((byte)(0)))));
+            this.kryptonBorderEdge5.Text = "kryptonBorderEdge5";
             // 
             // btnSaveShedule
             // 
@@ -782,9 +841,9 @@
             this.btnSaveShedule.StateTracking.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
             this.btnSaveShedule.TabIndex = 433;
             this.btnSaveShedule.TabStop = false;
-            this.btnSaveShedule.Values.Image = ((System.Drawing.Image)(resources.GetObject("btnSaveCalendar.Values.Image")));
+            this.btnSaveShedule.Values.Image = ((System.Drawing.Image)(resources.GetObject("btnSaveShedule.Values.Image")));
             this.btnSaveShedule.Values.Text = "";
-            this.btnSaveShedule.Click += new System.EventHandler(this.btnSaveCalendar_Click);
+            this.btnSaveShedule.Click += new System.EventHandler(this.btnSaveShedule_Click);
             // 
             // kryptonButton1
             // 
@@ -886,6 +945,370 @@
             this.ProdSheduleDataGrid.TabIndex = 47;
             this.ProdSheduleDataGrid.UseCustomBackColor = false;
             // 
+            // xtraTabPage5
+            // 
+            this.xtraTabPage5.Controls.Add(this.panel7);
+            this.xtraTabPage5.Controls.Add(this.panel12);
+            this.xtraTabPage5.Controls.Add(this.kryptonButton2);
+            this.xtraTabPage5.Controls.Add(this.panel6);
+            this.xtraTabPage5.Controls.Add(this.kryptonButton3);
+            this.xtraTabPage5.Controls.Add(this.YearComboBox2);
+            this.xtraTabPage5.Controls.Add(this.MonthComboBox2);
+            this.xtraTabPage5.Controls.Add(this.kryptonBorderEdge6);
+            this.xtraTabPage5.Name = "xtraTabPage5";
+            this.xtraTabPage5.Size = new System.Drawing.Size(1264, 628);
+            this.xtraTabPage5.Text = "Журнал неявок";
+            // 
+            // panel7
+            // 
+            this.panel7.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel7.Controls.Add(this.rbtnTPS);
+            this.panel7.Controls.Add(this.rbtnProfil);
+            this.panel7.Location = new System.Drawing.Point(17, 58);
+            this.panel7.Name = "panel7";
+            this.panel7.Size = new System.Drawing.Size(290, 42);
+            this.panel7.TabIndex = 439;
+            // 
+            // rbtnTPS
+            // 
+            this.rbtnTPS.Location = new System.Drawing.Point(160, 3);
+            this.rbtnTPS.Name = "rbtnTPS";
+            this.rbtnTPS.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2010Black;
+            this.rbtnTPS.Size = new System.Drawing.Size(78, 21);
+            this.rbtnTPS.StateCommon.ShortText.Color1 = System.Drawing.Color.Black;
+            this.rbtnTPS.StateCommon.ShortText.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.rbtnTPS.TabIndex = 438;
+            this.rbtnTPS.Values.Text = "ЗОВ-ТПС";
+            // 
+            // rbtnProfil
+            // 
+            this.rbtnProfil.Checked = true;
+            this.rbtnProfil.Location = new System.Drawing.Point(3, 3);
+            this.rbtnProfil.Name = "rbtnProfil";
+            this.rbtnProfil.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2010Black;
+            this.rbtnProfil.Size = new System.Drawing.Size(109, 21);
+            this.rbtnProfil.StateCommon.ShortText.Color1 = System.Drawing.Color.Black;
+            this.rbtnProfil.StateCommon.ShortText.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.rbtnProfil.TabIndex = 437;
+            this.rbtnProfil.Values.Text = "ЗОВ-Профиль";
+            // 
+            // panel12
+            // 
+            this.panel12.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel12.Controls.Add(this.kryptonRadioButton12);
+            this.panel12.Controls.Add(this.kryptonRadioButton11);
+            this.panel12.Controls.Add(this.kryptonRadioButton10);
+            this.panel12.Controls.Add(this.kryptonRadioButton9);
+            this.panel12.Controls.Add(this.kryptonRadioButton8);
+            this.panel12.Controls.Add(this.kryptonRadioButton7);
+            this.panel12.Controls.Add(this.kryptonRadioButton6);
+            this.panel12.Controls.Add(this.kryptonRadioButton5);
+            this.panel12.Controls.Add(this.kryptonRadioButton4);
+            this.panel12.Controls.Add(this.kryptonRadioButton3);
+            this.panel12.Controls.Add(this.kryptonRadioButton2);
+            this.panel12.Controls.Add(this.kryptonRadioButton1);
+            this.panel12.Controls.Add(this.kryptonRadioButton0);
+            this.panel12.Location = new System.Drawing.Point(17, 103);
+            this.panel12.Name = "panel12";
+            this.panel12.Size = new System.Drawing.Size(290, 516);
+            this.panel12.TabIndex = 435;
+            // 
+            // kryptonRadioButton12
+            // 
+            this.kryptonRadioButton12.Location = new System.Drawing.Point(3, 351);
+            this.kryptonRadioButton12.Name = "kryptonRadioButton12";
+            this.kryptonRadioButton12.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2010Black;
+            this.kryptonRadioButton12.Size = new System.Drawing.Size(75, 21);
+            this.kryptonRadioButton12.StateCommon.ShortText.Color1 = System.Drawing.Color.Black;
+            this.kryptonRadioButton12.StateCommon.ShortText.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.kryptonRadioButton12.TabIndex = 359;
+            this.kryptonRadioButton12.Values.Text = "В - отгул";
+            // 
+            // kryptonRadioButton11
+            // 
+            this.kryptonRadioButton11.Location = new System.Drawing.Point(3, 322);
+            this.kryptonRadioButton11.Name = "kryptonRadioButton11";
+            this.kryptonRadioButton11.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2010Black;
+            this.kryptonRadioButton11.Size = new System.Drawing.Size(87, 21);
+            this.kryptonRadioButton11.StateCommon.ShortText.Color1 = System.Drawing.Color.Black;
+            this.kryptonRadioButton11.StateCommon.ShortText.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.kryptonRadioButton11.TabIndex = 358;
+            this.kryptonRadioButton11.Values.Text = "П - прогул";
+            // 
+            // kryptonRadioButton10
+            // 
+            this.kryptonRadioButton10.Location = new System.Drawing.Point(3, 293);
+            this.kryptonRadioButton10.Name = "kryptonRadioButton10";
+            this.kryptonRadioButton10.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2010Black;
+            this.kryptonRadioButton10.Size = new System.Drawing.Size(126, 21);
+            this.kryptonRadioButton10.StateCommon.ShortText.Color1 = System.Drawing.Color.Black;
+            this.kryptonRadioButton10.StateCommon.ShortText.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.kryptonRadioButton10.TabIndex = 357;
+            this.kryptonRadioButton10.Values.Text = "МО - медосмотр";
+            // 
+            // kryptonRadioButton9
+            // 
+            this.kryptonRadioButton9.Location = new System.Drawing.Point(3, 264);
+            this.kryptonRadioButton9.Name = "kryptonRadioButton9";
+            this.kryptonRadioButton9.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2010Black;
+            this.kryptonRadioButton9.Size = new System.Drawing.Size(271, 21);
+            this.kryptonRadioButton9.StateCommon.ShortText.Color1 = System.Drawing.Color.Black;
+            this.kryptonRadioButton9.StateCommon.ShortText.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.kryptonRadioButton9.TabIndex = 356;
+            this.kryptonRadioButton9.Values.Text = "ОТ - отпуск по коллективному договору";
+            // 
+            // kryptonRadioButton8
+            // 
+            this.kryptonRadioButton8.Location = new System.Drawing.Point(3, 235);
+            this.kryptonRadioButton8.Name = "kryptonRadioButton8";
+            this.kryptonRadioButton8.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2010Black;
+            this.kryptonRadioButton8.Size = new System.Drawing.Size(203, 21);
+            this.kryptonRadioButton8.StateCommon.ShortText.Color1 = System.Drawing.Color.Black;
+            this.kryptonRadioButton8.StateCommon.ShortText.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.kryptonRadioButton8.TabIndex = 355;
+            this.kryptonRadioButton8.Values.Text = "Г - гражданские обязанности";
+            // 
+            // kryptonRadioButton7
+            // 
+            this.kryptonRadioButton7.Location = new System.Drawing.Point(3, 206);
+            this.kryptonRadioButton7.Name = "kryptonRadioButton7";
+            this.kryptonRadioButton7.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2010Black;
+            this.kryptonRadioButton7.Size = new System.Drawing.Size(133, 21);
+            this.kryptonRadioButton7.StateCommon.ShortText.Color1 = System.Drawing.Color.Black;
+            this.kryptonRadioButton7.StateCommon.ShortText.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.kryptonRadioButton7.TabIndex = 354;
+            this.kryptonRadioButton7.Values.Text = "К - командировка";
+            // 
+            // kryptonRadioButton6
+            // 
+            this.kryptonRadioButton6.Location = new System.Drawing.Point(3, 177);
+            this.kryptonRadioButton6.Name = "kryptonRadioButton6";
+            this.kryptonRadioButton6.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2010Black;
+            this.kryptonRadioButton6.Size = new System.Drawing.Size(267, 21);
+            this.kryptonRadioButton6.StateCommon.ShortText.Color1 = System.Drawing.Color.Black;
+            this.kryptonRadioButton6.StateCommon.ShortText.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.kryptonRadioButton6.TabIndex = 353;
+            this.kryptonRadioButton6.Values.Text = "ОА - отпуск по инициативе нанимателя";
+            // 
+            // kryptonRadioButton5
+            // 
+            this.kryptonRadioButton5.Location = new System.Drawing.Point(3, 148);
+            this.kryptonRadioButton5.Name = "kryptonRadioButton5";
+            this.kryptonRadioButton5.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2010Black;
+            this.kryptonRadioButton5.Size = new System.Drawing.Size(111, 21);
+            this.kryptonRadioButton5.StateCommon.ShortText.Color1 = System.Drawing.Color.Black;
+            this.kryptonRadioButton5.StateCommon.ShortText.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.kryptonRadioButton5.TabIndex = 352;
+            this.kryptonRadioButton5.Values.Text = "Д - донорские";
+            // 
+            // kryptonRadioButton4
+            // 
+            this.kryptonRadioButton4.Location = new System.Drawing.Point(3, 119);
+            this.kryptonRadioButton4.Name = "kryptonRadioButton4";
+            this.kryptonRadioButton4.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2010Black;
+            this.kryptonRadioButton4.Size = new System.Drawing.Size(134, 21);
+            this.kryptonRadioButton4.StateCommon.ShortText.Color1 = System.Drawing.Color.Black;
+            this.kryptonRadioButton4.StateCommon.ShortText.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.kryptonRadioButton4.TabIndex = 351;
+            this.kryptonRadioButton4.Values.Text = "ДМ - день матери";
+            // 
+            // kryptonRadioButton3
+            // 
+            this.kryptonRadioButton3.Location = new System.Drawing.Point(3, 90);
+            this.kryptonRadioButton3.Name = "kryptonRadioButton3";
+            this.kryptonRadioButton3.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2010Black;
+            this.kryptonRadioButton3.Size = new System.Drawing.Size(121, 21);
+            this.kryptonRadioButton3.StateCommon.ShortText.Color1 = System.Drawing.Color.Black;
+            this.kryptonRadioButton3.StateCommon.ShortText.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.kryptonRadioButton3.TabIndex = 350;
+            this.kryptonRadioButton3.Values.Text = "Б - больничный";
+            // 
+            // kryptonRadioButton2
+            // 
+            this.kryptonRadioButton2.Location = new System.Drawing.Point(3, 61);
+            this.kryptonRadioButton2.Name = "kryptonRadioButton2";
+            this.kryptonRadioButton2.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2010Black;
+            this.kryptonRadioButton2.Size = new System.Drawing.Size(102, 21);
+            this.kryptonRadioButton2.StateCommon.ShortText.Color1 = System.Drawing.Color.Black;
+            this.kryptonRadioButton2.StateCommon.ShortText.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.kryptonRadioButton2.TabIndex = 349;
+            this.kryptonRadioButton2.Values.Text = "У - обучение";
+            // 
+            // kryptonRadioButton1
+            // 
+            this.kryptonRadioButton1.Location = new System.Drawing.Point(3, 32);
+            this.kryptonRadioButton1.Name = "kryptonRadioButton1";
+            this.kryptonRadioButton1.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2010Black;
+            this.kryptonRadioButton1.Size = new System.Drawing.Size(86, 21);
+            this.kryptonRadioButton1.StateCommon.ShortText.Color1 = System.Drawing.Color.Black;
+            this.kryptonRadioButton1.StateCommon.ShortText.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.kryptonRadioButton1.TabIndex = 348;
+            this.kryptonRadioButton1.Values.Text = "О - отпуск";
+            // 
+            // kryptonRadioButton0
+            // 
+            this.kryptonRadioButton0.Checked = true;
+            this.kryptonRadioButton0.Location = new System.Drawing.Point(3, 3);
+            this.kryptonRadioButton0.Name = "kryptonRadioButton0";
+            this.kryptonRadioButton0.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2010Black;
+            this.kryptonRadioButton0.Size = new System.Drawing.Size(119, 21);
+            this.kryptonRadioButton0.StateCommon.ShortText.Color1 = System.Drawing.Color.Black;
+            this.kryptonRadioButton0.StateCommon.ShortText.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.kryptonRadioButton0.TabIndex = 347;
+            this.kryptonRadioButton0.Values.Text = "А - за свой счет";
+            // 
+            // kryptonButton2
+            // 
+            this.kryptonButton2.Location = new System.Drawing.Point(331, 13);
+            this.kryptonButton2.Name = "kryptonButton2";
+            this.kryptonButton2.Palette = this.StandardButtonsPalette;
+            this.kryptonButton2.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Custom;
+            this.kryptonButton2.Size = new System.Drawing.Size(32, 32);
+            this.kryptonButton2.StateCommon.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.kryptonButton2.StateCommon.Content.Image.ImageH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
+            this.kryptonButton2.StateCommon.Content.Image.ImageV = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
+            this.kryptonButton2.StateCommon.Content.ShortText.Font = new System.Drawing.Font("Microsoft Sans Serif", 25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.kryptonButton2.StateTracking.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(253)))), ((int)(((byte)(164)))), ((int)(((byte)(61)))));
+            this.kryptonButton2.StateTracking.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
+            this.kryptonButton2.TabIndex = 434;
+            this.kryptonButton2.TabStop = false;
+            this.kryptonButton2.Values.Image = ((System.Drawing.Image)(resources.GetObject("kryptonButton2.Values.Image")));
+            this.kryptonButton2.Values.Text = "";
+            // 
+            // panel6
+            // 
+            this.panel6.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel6.Controls.Add(this.absencesDataGrid);
+            this.panel6.Location = new System.Drawing.Point(309, 58);
+            this.panel6.Name = "panel6";
+            this.panel6.Size = new System.Drawing.Size(944, 561);
+            this.panel6.TabIndex = 261;
+            // 
+            // absencesDataGrid
+            // 
+            this.absencesDataGrid.AllowUserToAddRows = false;
+            this.absencesDataGrid.AllowUserToDeleteRows = false;
+            this.absencesDataGrid.AllowUserToResizeColumns = false;
+            this.absencesDataGrid.AllowUserToResizeRows = false;
+            this.absencesDataGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.ColumnHeader;
+            this.absencesDataGrid.BackText = "Нет данных";
+            this.absencesDataGrid.ColumnHeadersHeight = 50;
+            this.absencesDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            this.absencesDataGrid.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.absencesDataGrid.Location = new System.Drawing.Point(0, 0);
+            this.absencesDataGrid.MultiSelect = false;
+            this.absencesDataGrid.Name = "absencesDataGrid";
+            this.absencesDataGrid.PercentLineWidth = 0;
+            this.absencesDataGrid.RowHeadersVisible = false;
+            this.absencesDataGrid.RowTemplate.Height = 30;
+            this.absencesDataGrid.SelectedColorStyle = Infinium.PercentageDataGrid.ColorStyle.Orange;
+            this.absencesDataGrid.Size = new System.Drawing.Size(942, 559);
+            this.absencesDataGrid.StandardStyle = false;
+            this.absencesDataGrid.StateCommon.Background.Color1 = System.Drawing.Color.White;
+            this.absencesDataGrid.StateCommon.Background.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
+            this.absencesDataGrid.StateCommon.BackStyle = ComponentFactory.Krypton.Toolkit.PaletteBackStyle.GridBackgroundList;
+            this.absencesDataGrid.StateCommon.DataCell.Back.Color1 = System.Drawing.Color.White;
+            this.absencesDataGrid.StateCommon.DataCell.Border.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(210)))), ((int)(((byte)(210)))), ((int)(((byte)(210)))));
+            this.absencesDataGrid.StateCommon.DataCell.Border.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
+            this.absencesDataGrid.StateCommon.DataCell.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.absencesDataGrid.StateCommon.DataCell.Content.Color1 = System.Drawing.Color.Black;
+            this.absencesDataGrid.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.absencesDataGrid.StateCommon.HeaderColumn.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
+            this.absencesDataGrid.StateCommon.HeaderColumn.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
+            this.absencesDataGrid.StateCommon.HeaderColumn.Border.Color1 = System.Drawing.Color.Black;
+            this.absencesDataGrid.StateCommon.HeaderColumn.Border.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
+            this.absencesDataGrid.StateCommon.HeaderColumn.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)(((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.absencesDataGrid.StateCommon.HeaderColumn.Content.Color1 = System.Drawing.Color.White;
+            this.absencesDataGrid.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.absencesDataGrid.StateSelected.DataCell.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(253)))), ((int)(((byte)(164)))), ((int)(((byte)(61)))));
+            this.absencesDataGrid.StateSelected.DataCell.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
+            this.absencesDataGrid.StateSelected.DataCell.Content.Color1 = System.Drawing.Color.White;
+            this.absencesDataGrid.TabIndex = 47;
+            this.absencesDataGrid.UseCustomBackColor = false;
+            // 
+            // kryptonButton3
+            // 
+            this.kryptonButton3.Location = new System.Drawing.Point(293, 13);
+            this.kryptonButton3.Name = "kryptonButton3";
+            this.kryptonButton3.Palette = this.StandardButtonsPalette;
+            this.kryptonButton3.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Custom;
+            this.kryptonButton3.Size = new System.Drawing.Size(32, 32);
+            this.kryptonButton3.StateCommon.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.kryptonButton3.StateCommon.Content.Padding = new System.Windows.Forms.Padding(-2, -3, -2, -1);
+            this.kryptonButton3.StateCommon.Content.ShortText.Font = new System.Drawing.Font("Segoe UI", 16.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.kryptonButton3.StateCommon.Content.ShortText.TextV = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
+            this.kryptonButton3.StateTracking.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(253)))), ((int)(((byte)(164)))), ((int)(((byte)(61)))));
+            this.kryptonButton3.StateTracking.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
+            this.kryptonButton3.TabIndex = 260;
+            this.kryptonButton3.TabStop = false;
+            this.kryptonButton3.Values.Image = ((System.Drawing.Image)(resources.GetObject("kryptonButton3.Values.Image")));
+            this.kryptonButton3.Values.Text = "";
+            this.kryptonButton3.Click += new System.EventHandler(this.kryptonButton3_Click);
+            // 
+            // YearComboBox2
+            // 
+            this.YearComboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.YearComboBox2.DropDownWidth = 121;
+            this.YearComboBox2.ImeMode = System.Windows.Forms.ImeMode.Disable;
+            this.YearComboBox2.Location = new System.Drawing.Point(17, 13);
+            this.YearComboBox2.Name = "YearComboBox2";
+            this.YearComboBox2.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.ProfessionalOffice2003;
+            this.YearComboBox2.Size = new System.Drawing.Size(107, 32);
+            this.YearComboBox2.Sorted = true;
+            this.YearComboBox2.StateCommon.ComboBox.Content.Font = new System.Drawing.Font("Segoe UI", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.YearComboBox2.StateCommon.Item.Content.Padding = new System.Windows.Forms.Padding(-1, -3, -1, -1);
+            this.YearComboBox2.StateCommon.Item.Content.ShortText.Font = new System.Drawing.Font("Segoe UI", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.YearComboBox2.StateTracking.Item.Back.Color1 = System.Drawing.Color.Gainsboro;
+            this.YearComboBox2.StateTracking.Item.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
+            this.YearComboBox2.StateTracking.Item.Border.Draw = ComponentFactory.Krypton.Toolkit.InheritBool.False;
+            this.YearComboBox2.StateTracking.Item.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.YearComboBox2.StateTracking.Item.Border.Rounding = 0;
+            this.YearComboBox2.TabIndex = 259;
+            this.YearComboBox2.SelectedIndexChanged += new System.EventHandler(this.YearComboBox2_SelectedIndexChanged);
+            // 
+            // MonthComboBox2
+            // 
+            this.MonthComboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.MonthComboBox2.DropDownWidth = 121;
+            this.MonthComboBox2.Location = new System.Drawing.Point(130, 13);
+            this.MonthComboBox2.Name = "MonthComboBox2";
+            this.MonthComboBox2.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.ProfessionalOffice2003;
+            this.MonthComboBox2.Size = new System.Drawing.Size(157, 32);
+            this.MonthComboBox2.StateCommon.ComboBox.Content.Font = new System.Drawing.Font("Segoe UI", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.MonthComboBox2.StateCommon.Item.Content.Padding = new System.Windows.Forms.Padding(-1, -3, -1, -1);
+            this.MonthComboBox2.StateCommon.Item.Content.ShortText.Font = new System.Drawing.Font("Segoe UI", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.MonthComboBox2.StateTracking.Item.Back.Color1 = System.Drawing.Color.Gainsboro;
+            this.MonthComboBox2.StateTracking.Item.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
+            this.MonthComboBox2.StateTracking.Item.Border.Draw = ComponentFactory.Krypton.Toolkit.InheritBool.False;
+            this.MonthComboBox2.StateTracking.Item.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.MonthComboBox2.StateTracking.Item.Border.Rounding = 0;
+            this.MonthComboBox2.TabIndex = 258;
+            // 
+            // kryptonBorderEdge6
+            // 
+            this.kryptonBorderEdge6.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.kryptonBorderEdge6.AutoSize = false;
+            this.kryptonBorderEdge6.Location = new System.Drawing.Point(5, 4);
+            this.kryptonBorderEdge6.Name = "kryptonBorderEdge6";
+            this.kryptonBorderEdge6.Size = new System.Drawing.Size(1253, 3);
+            this.kryptonBorderEdge6.StateCommon.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(253)))), ((int)(((byte)(164)))), ((int)(((byte)(61)))));
+            this.kryptonBorderEdge6.Text = "kryptonBorderEdge6";
+            // 
             // kryptonContextMenu1
             // 
             this.kryptonContextMenu1.Items.AddRange(new ComponentFactory.Krypton.Toolkit.KryptonContextMenuItemBase[] {
@@ -965,6 +1388,15 @@
             ((System.ComponentModel.ISupportInitialize)(this.YearComboBox1)).EndInit();
             this.panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.ProdSheduleDataGrid)).EndInit();
+            this.xtraTabPage5.ResumeLayout(false);
+            this.panel7.ResumeLayout(false);
+            this.panel7.PerformLayout();
+            this.panel12.ResumeLayout(false);
+            this.panel12.PerformLayout();
+            this.panel6.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.absencesDataGrid)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.YearComboBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.MonthComboBox2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1026,5 +1458,32 @@
         private ComponentFactory.Krypton.Toolkit.KryptonButton kryptonButton1;
         private ComponentFactory.Krypton.Toolkit.KryptonComboBox YearComboBox1;
         private ComponentFactory.Krypton.Toolkit.KryptonButton btnSaveShedule;
+        private ComponentFactory.Krypton.Toolkit.KryptonBorderEdge kryptonBorderEdge2;
+        private ComponentFactory.Krypton.Toolkit.KryptonBorderEdge kryptonBorderEdge5;
+        private DevExpress.XtraTab.XtraTabPage xtraTabPage5;
+        private ComponentFactory.Krypton.Toolkit.KryptonBorderEdge kryptonBorderEdge6;
+        private ComponentFactory.Krypton.Toolkit.KryptonButton kryptonButton3;
+        private ComponentFactory.Krypton.Toolkit.KryptonComboBox YearComboBox2;
+        private ComponentFactory.Krypton.Toolkit.KryptonComboBox MonthComboBox2;
+        private System.Windows.Forms.Panel panel6;
+        private PercentageDataGrid absencesDataGrid;
+        private ComponentFactory.Krypton.Toolkit.KryptonButton kryptonButton2;
+        private System.Windows.Forms.Panel panel12;
+        private ComponentFactory.Krypton.Toolkit.KryptonRadioButton kryptonRadioButton1;
+        private ComponentFactory.Krypton.Toolkit.KryptonRadioButton kryptonRadioButton0;
+        private ComponentFactory.Krypton.Toolkit.KryptonRadioButton kryptonRadioButton11;
+        private ComponentFactory.Krypton.Toolkit.KryptonRadioButton kryptonRadioButton10;
+        private ComponentFactory.Krypton.Toolkit.KryptonRadioButton kryptonRadioButton9;
+        private ComponentFactory.Krypton.Toolkit.KryptonRadioButton kryptonRadioButton8;
+        private ComponentFactory.Krypton.Toolkit.KryptonRadioButton kryptonRadioButton7;
+        private ComponentFactory.Krypton.Toolkit.KryptonRadioButton kryptonRadioButton6;
+        private ComponentFactory.Krypton.Toolkit.KryptonRadioButton kryptonRadioButton5;
+        private ComponentFactory.Krypton.Toolkit.KryptonRadioButton kryptonRadioButton4;
+        private ComponentFactory.Krypton.Toolkit.KryptonRadioButton kryptonRadioButton3;
+        private ComponentFactory.Krypton.Toolkit.KryptonRadioButton kryptonRadioButton2;
+        private ComponentFactory.Krypton.Toolkit.KryptonRadioButton kryptonRadioButton12;
+        private System.Windows.Forms.Panel panel7;
+        private ComponentFactory.Krypton.Toolkit.KryptonRadioButton rbtnTPS;
+        private ComponentFactory.Krypton.Toolkit.KryptonRadioButton rbtnProfil;
     }
 }

@@ -500,6 +500,7 @@
     <Compile Include="LoginForm.designer.cs">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Modules\Admin\AbsenceJournal.cs" />
     <Compile Include="Modules\Admin\ProductionShedule.cs" />
     <Compile Include="Modules\CabFurnitureAssignments\CabFurnitureOperationsForm.cs">
       <SubType>Form</SubType>

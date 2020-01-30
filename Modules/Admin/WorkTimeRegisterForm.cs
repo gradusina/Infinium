@@ -38,6 +38,8 @@ namespace Infinium
         DataTable DayStartDate;
 
         ProductionShedule _productionShedule;
+
+        AbsenceJournal _absenceJournal;
         //----------------------------------------------
 
         public WorkTimeRegisterForm(LightStartForm tLightStartForm)
@@ -71,6 +73,8 @@ namespace Infinium
             WorkTimeSheet = new WorkTimeSheet();
             _productionShedule = new ProductionShedule();
 
+            _absenceJournal = new AbsenceJournal();
+
             ProdSheduleDataGrid.DataSource = _productionShedule.HoursBindingSource;
             ProdSheduleDataGrid.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
@@ -92,6 +96,9 @@ namespace Infinium
             ProdSheduleDataGrid.Columns["MonthName"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
             ProdSheduleDataGrid.Columns["MonthName"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
 
+            absencesDataGrid.DataSource = _absenceJournal.AbsencesJournalBindingSource;
+            //absencesDataGrid.Columns.Add(_absenceJournal.UserColumn);
+
             DayStartDate = WorkTimeSheet.DayStartDate();
 
             for (int i = 0; i < DayStartDate.Rows.Count; i++)
@@ -100,17 +107,17 @@ namespace Infinium
                 Year = Date.ToString("yyyy");
 
                 if (YearComboBox.Items.Count == 0 | YearComboBox.Items.IndexOf(Year) == -1)
+                {
                     YearComboBox.Items.Add(Year);
+                    YearComboBox1.Items.Add(Year);
+                    YearComboBox2.Items.Add(Year);
+                }
             }
             YearComboBox.Text = YearComboBox.Items[YearComboBox.Items.Count - 1].ToString();
-
-
-            YearComboBox1.Items.Add(2019);
-            YearComboBox1.Items.Add(2020);
-            YearComboBox1.Items.Add(2021);
-            YearComboBox1.Text = YearComboBox.Items[YearComboBox.Items.Count - 1].ToString();
+            YearComboBox1.Text = YearComboBox1.Items[YearComboBox1.Items.Count - 1].ToString();
+            YearComboBox2.Text = YearComboBox2.Items[YearComboBox2.Items.Count - 1].ToString();
             
-            _productionShedule.GetCalendar(YearComboBox1.SelectedItem.ToString());
+            _productionShedule.GetShedule(YearComboBox1.SelectedItem.ToString());
             _productionShedule.FillHoursDataTable();
             //----------------------------------------------
         }
@@ -568,6 +575,31 @@ namespace Infinium
             MonthComboBox.Text = MonthComboBox.Items[MonthComboBox.Items.Count - 1].ToString();
         }
 
+        private void YearComboBox2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            MonthComboBox2.Items.Clear();
+            MonthComboBox2.Items.AddRange(new string[] { "Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь" });
+            ComboBox Month_mass = new ComboBox();
+            Month_mass.Items.AddRange(new string[] { "Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь" });
+
+            for (int i = 0; i < DayStartDate.Rows.Count; i++)
+            {
+                Date = (DateTime)DayStartDate.Rows[i]["DayStartDateTime"];
+                Year = Date.ToString("yyyy");
+                Month = Date.ToString("MMMM");
+
+                if (Year == YearComboBox2.SelectedItem.ToString() && Month_mass.Items.IndexOf(Month) != -1)
+                    Month_mass.Items.Remove(Month);
+            }
+            for (int i = 0; i < Month_mass.Items.Count; i++)
+            {
+                if (MonthComboBox2.Items.IndexOf(Month_mass.Items[i]) != -1)
+                    MonthComboBox2.Items.Remove(Month_mass.Items[i]);
+            }
+            Month_mass.Dispose();
+            MonthComboBox2.Text = MonthComboBox2.Items[MonthComboBox2.Items.Count - 1].ToString();
+        }
+
         private void ExportButton_Click(object sender, EventArgs e)
         {
             Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Создание документа Excel.\r\nПодождите..."); });
@@ -709,7 +741,7 @@ namespace Infinium
 
             while (!SplashWindow.bSmallCreated) ;
 
-            _productionShedule.GetCalendar(YearComboBox1.SelectedItem.ToString());
+            _productionShedule.GetShedule(YearComboBox1.SelectedItem.ToString());
             _productionShedule.FillHoursDataTable();
 
             while (SplashWindow.bSmallCreated)
@@ -717,7 +749,7 @@ namespace Infinium
             InfiniumTips.ShowTip(this, 50, 85, "Данные обновлены", 1700);
         }
 
-        private void btnSaveCalendar_Click(object sender, EventArgs e)
+        private void btnSaveShedule_Click(object sender, EventArgs e)
         {
             Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение данных.\r\nПодождите..."); });
             T.Start();
@@ -725,11 +757,30 @@ namespace Infinium
             while (!SplashWindow.bSmallCreated) ;
 
             _productionShedule.FillSourceDataTable(YearComboBox1.SelectedItem.ToString());
-            _productionShedule.SaveCalendar();
+            _productionShedule.SaveShedule();
 
             while (SplashWindow.bSmallCreated)
                 SmallWaitForm.CloseS = true;
             InfiniumTips.ShowTip(this, 50, 85, "Календарь сохраненён", 1700);
+        }
+
+        private void kryptonButton3_Click(object sender, EventArgs e)
+        {
+            WorkTimeSheet.GetTimeSheet(TimeSheetDataGrid, YearComboBox.SelectedItem.ToString(), MonthComboBox.SelectedItem.ToString());
+
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Подождите..."); });
+            T.Start();
+
+            while (!SplashWindow.bSmallCreated) ;
+
+            int FactoryID = 1;
+            if (rbtnTPS.Checked)
+                FactoryID = 2;
+            _absenceJournal.GetJournal(YearComboBox2.SelectedItem.ToString(), MonthComboBox2.SelectedItem.ToString(), FactoryID);
+
+            while (SplashWindow.bSmallCreated)
+                SmallWaitForm.CloseS = true;
+            InfiniumTips.ShowTip(this, 50, 85, "Данные обновлены", 1700);
         }
         //----------------------------------------------
     }

@@ -58,7 +58,7 @@ namespace Infinium.Modules.Admin
             }
         }
 
-        public void GetCalendar(string year)
+        public void GetShedule(string year)
         {
             using (SqlDataAdapter da = new SqlDataAdapter(@"SELECT * FROM ProductionShedule WHERE Year=" + year, ConnectionStrings.LightConnectionString))
             {
@@ -134,7 +134,7 @@ namespace Infinium.Modules.Admin
             }
         }
 
-        public void SaveCalendar()
+        public void SaveShedule()
         {
             string SelectCommand = "SELECT TOP 0 * FROM ProductionShedule";
             using (SqlDataAdapter da = new SqlDataAdapter(SelectCommand, ConnectionStrings.LightConnectionString))
