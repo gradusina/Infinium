@@ -3,6 +3,7 @@ using System.Data;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Threading;
+using ComponentFactory.Krypton.Toolkit;
 using Infinium.Modules.Admin;
 
 namespace Infinium
@@ -17,7 +18,7 @@ namespace Infinium
 
         const int iAdminRole = 97;
         LightStartForm LightStartForm;
-        
+
         Form TopForm = null;
 
         WorkTimeRegister WorkTimeRegister;
@@ -29,6 +30,9 @@ namespace Infinium
             OrdinaryRole = 0,
             AdminRole = 1
         }
+
+        int absenceTypeId = 0;
+        int factoryId = 1;
 
         //----------------------------------------------
         DateTime Date;
@@ -48,7 +52,7 @@ namespace Infinium
 
             LightStartForm = tLightStartForm;
 
-            
+
             this.MaximumSize = Screen.PrimaryScreen.WorkingArea.Size;
 
             WorkTimeRegister = new WorkTimeRegister(ref WorkDaysGrid);
@@ -97,8 +101,33 @@ namespace Infinium
             ProdSheduleDataGrid.Columns["MonthName"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
 
             absencesDataGrid.DataSource = _absenceJournal.AbsencesJournalBindingSource;
-            //absencesDataGrid.Columns.Add(_absenceJournal.UserColumn);
+            absencesDataGrid.Columns.Add(_absenceJournal.PositionColumn);
+            absencesDataGrid.Columns.Add(_absenceJournal.UserColumn);
+            absencesDataGrid.Columns.Add(_absenceJournal.DateStartColumn);
+            absencesDataGrid.Columns.Add(_absenceJournal.DateFinishColumn);
 
+            absencesDataGrid.Columns["AbsenceID"].Visible = false;
+            absencesDataGrid.Columns["FactoryID"].Visible = false;
+            absencesDataGrid.Columns["PositionID"].Visible = false;
+            absencesDataGrid.Columns["UserID"].Visible = false;
+            absencesDataGrid.Columns["DateStart"].Visible = false;
+            absencesDataGrid.Columns["DateFinish"].Visible = false;
+            absencesDataGrid.Columns["AbsenceTypeID"].Visible = false;
+
+            absencesDataGrid.Columns["Rate"].HeaderText = "Ставка";
+            absencesDataGrid.Columns["Hours"].HeaderText = "Часы";
+
+            absencesDataGrid.AutoGenerateColumns = false;
+
+            int DisplayIndex = 0;
+            absencesDataGrid.Columns["UserColumn"].DisplayIndex = DisplayIndex++;
+            absencesDataGrid.Columns["PositionColumn"].DisplayIndex = DisplayIndex++;
+            absencesDataGrid.Columns["Rate"].DisplayIndex = DisplayIndex++;
+            absencesDataGrid.Columns["DateStartColumn"].DisplayIndex = DisplayIndex++;
+            absencesDataGrid.Columns["DateFinishColumn"].DisplayIndex = DisplayIndex++;
+            absencesDataGrid.Columns["Hours"].DisplayIndex = DisplayIndex++;
+
+            absencesDataGrid.Columns["Rate"].ReadOnly = true;
             DayStartDate = WorkTimeSheet.DayStartDate();
 
             for (int i = 0; i < DayStartDate.Rows.Count; i++)
@@ -116,9 +145,11 @@ namespace Infinium
             YearComboBox.Text = YearComboBox.Items[YearComboBox.Items.Count - 1].ToString();
             YearComboBox1.Text = YearComboBox1.Items[YearComboBox1.Items.Count - 1].ToString();
             YearComboBox2.Text = YearComboBox2.Items[YearComboBox2.Items.Count - 1].ToString();
-            
+
             _productionShedule.GetShedule(YearComboBox1.SelectedItem.ToString());
             _productionShedule.FillHoursDataTable();
+
+            AbsenceTypesRadioButtons_CheckedChanged(null, null);
             //----------------------------------------------
         }
 
@@ -134,7 +165,7 @@ namespace Infinium
 
                     if (FormEvent == eClose)
                     {
-                       
+
                         LightStartForm.CloseForm(this);
                     }
 
@@ -144,7 +175,7 @@ namespace Infinium
                         LightStartForm.HideForm(this);
                     }
 
-                    
+
                     return;
                 }
 
@@ -166,7 +197,7 @@ namespace Infinium
                     AnimateTimer.Enabled = false;
 
                     if (FormEvent == eClose)
-                    {                      
+                    {
                         LightStartForm.CloseForm(this);
                     }
 
@@ -174,7 +205,7 @@ namespace Infinium
                     {
                         LightStartForm.HideForm(this);
                     }
-                    
+
                 }
 
                 return;
@@ -602,7 +633,7 @@ namespace Infinium
 
         private void ExportButton_Click(object sender, EventArgs e)
         {
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Создание документа Excel.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Создание документа Excel.\r\nПодождите..."); });
             T.Start();
 
             while (!SplashWindow.bSmallCreated) ;
@@ -611,7 +642,7 @@ namespace Infinium
                 WorkTimeSheet.ExportToExcel(TimeSheetDataGrid);
 
             while (SplashWindow.bSmallCreated)
-                SmallWaitForm.CloseS = true;            
+                SmallWaitForm.CloseS = true;
         }
 
         private void WorkDaysGrid_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
@@ -621,7 +652,7 @@ namespace Infinium
                 kryptonContextMenu1.Show(new Point(Cursor.Position.X - 212, Cursor.Position.Y - 10));
             }
         }
-        
+
         private void kryptonContextMenuItem1_Click(object sender, EventArgs e)
         {
             //if (((DataRowView)WorkTimeRegister.WorkDaysBindingSource.Current).Row["DayStartDateTime"] == DBNull.Value)
@@ -766,22 +797,86 @@ namespace Infinium
 
         private void kryptonButton3_Click(object sender, EventArgs e)
         {
-            WorkTimeSheet.GetTimeSheet(TimeSheetDataGrid, YearComboBox.SelectedItem.ToString(), MonthComboBox.SelectedItem.ToString());
-
             Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Подождите..."); });
             T.Start();
 
             while (!SplashWindow.bSmallCreated) ;
 
-            int FactoryID = 1;
-            if (rbtnTPS.Checked)
-                FactoryID = 2;
-            _absenceJournal.GetJournal(YearComboBox2.SelectedItem.ToString(), MonthComboBox2.SelectedItem.ToString(), FactoryID);
+            _absenceJournal.GetJournal(YearComboBox2.SelectedItem.ToString(), MonthComboBox2.SelectedItem.ToString());
+            AbsenceTypesRadioButtons_CheckedChanged(null, null);
 
             while (SplashWindow.bSmallCreated)
                 SmallWaitForm.CloseS = true;
             InfiniumTips.ShowTip(this, 50, 85, "Данные обновлены", 1700);
         }
+
+        private void AbsenceTypesRadioButtons_CheckedChanged(object sender, EventArgs e)
+        {
+            if (kryptonRadioButton0.Checked)
+                absenceTypeId = 1;
+            else if (kryptonRadioButton1.Checked)
+                absenceTypeId = 2;
+            else if (kryptonRadioButton2.Checked)
+                absenceTypeId = 3;
+            else if (kryptonRadioButton3.Checked)
+                absenceTypeId = 4;
+            else if (kryptonRadioButton4.Checked)
+                absenceTypeId = 5;
+            else if (kryptonRadioButton5.Checked)
+                absenceTypeId = 6;
+            else if (kryptonRadioButton6.Checked)
+                absenceTypeId = 7;
+            else if (kryptonRadioButton7.Checked)
+                absenceTypeId = 8;
+            else if (kryptonRadioButton8.Checked)
+                absenceTypeId = 9;
+            else if (kryptonRadioButton9.Checked)
+                absenceTypeId = 10;
+            else if (kryptonRadioButton10.Checked)
+                absenceTypeId = 11;
+            else if (kryptonRadioButton11.Checked)
+                absenceTypeId = 12;
+            else if (kryptonRadioButton1.Checked)
+                absenceTypeId = 13;
+
+            if (rbtnProfil.Checked)
+                factoryId = 1;
+            if (rbtnTPS.Checked)
+                factoryId = 2;
+
+            _absenceJournal.FilterAbsenceJournal(absenceTypeId, factoryId);
+        }
+
+        private void absencesDataGrid_DefaultValuesNeeded(object sender, DataGridViewRowEventArgs e)
+        {
+            e.Row.Cells["AbsenceTypeID"].Value = absenceTypeId;
+            e.Row.Cells["FactoryID"].Value = factoryId;
+        }
+
+        private void kryptonButton2_Click(object sender, EventArgs e)
+        {
+            if (!_absenceJournal.CheckCorrectData)
+            {
+                MessageBox.Show("Введены не все даты", "Ошибка сохранения", MessageBoxButtons.OK,
+                    MessageBoxIcon.Exclamation);
+                return;
+            }
+
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение данных.\r\nПодождите..."); });
+            T.Start();
+
+            while (!SplashWindow.bSmallCreated) ;
+
+            _absenceJournal.SaveJournal();
+            _absenceJournal.GetJournal(YearComboBox2.SelectedItem.ToString(), MonthComboBox2.SelectedItem.ToString());
+            AbsenceTypesRadioButtons_CheckedChanged(null, null);
+
+            while (SplashWindow.bSmallCreated)
+                SmallWaitForm.CloseS = true;
+            InfiniumTips.ShowTip(this, 50, 85, "Журнал сохраненён", 1700);
+        }
+
+
         //----------------------------------------------
     }
 }

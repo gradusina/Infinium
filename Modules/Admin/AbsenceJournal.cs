@@ -3,6 +3,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Windows.Forms;
+using ComponentFactory.Krypton.Toolkit;
 
 namespace Infinium.Modules.Admin
 {
@@ -10,6 +11,7 @@ namespace Infinium.Modules.Admin
     {
         private DataTable _absencesJournalDataTable;
         private DataTable _positionsDataTable;
+        private DataTable _staffListDataTable;
         private DataTable _usersDataTable;
 
         public BindingSource AbsencesJournalBindingSource;
@@ -24,14 +26,77 @@ namespace Infinium.Modules.Admin
         private void Create()
         {
             _absencesJournalDataTable = new DataTable();
+            _absencesJournalDataTable.Columns.Add(new DataColumn("PositionID", Type.GetType("System.Int64")));
+            _absencesJournalDataTable.Columns.Add(new DataColumn("Rate", Type.GetType("System.Decimal")));
             _positionsDataTable = new DataTable();
+            _staffListDataTable = new DataTable();
             _usersDataTable = new DataTable();
 
-            _absencesJournalDataTable.Columns.Add(new DataColumn("UserName", Type.GetType("System.String")));
-            _absencesJournalDataTable.Columns.Add(new DataColumn("Position", Type.GetType("System.String")));
-            _absencesJournalDataTable.Columns.Add(new DataColumn("Rate", Type.GetType("System.Decimal")));
-
             AbsencesJournalBindingSource = new BindingSource();
+        }
+
+        public KryptonDataGridViewDateTimePickerColumn DateStartColumn
+        {
+            get
+            {
+                KryptonDataGridViewDateTimePickerColumn Column = new KryptonDataGridViewDateTimePickerColumn()
+                {
+                    CalendarTodayDate = DateTime.Now
+                };
+                Column.DefaultCellStyle.Format = "dd.MM.yyyy";
+                Column.Checked = false;
+                Column.DataPropertyName = "DateStart";
+                Column.HeaderText = "Дата начала";
+                Column.Name = "DateStartColumn";
+                Column.SortMode = DataGridViewColumnSortMode.Automatic;
+                Column.MinimumWidth = 100;
+                Column.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                Column.Width = 250;
+                return Column;
+            }
+        }
+
+        public KryptonDataGridViewDateTimePickerColumn DateFinishColumn
+        {
+            get
+            {
+                KryptonDataGridViewDateTimePickerColumn Column = new KryptonDataGridViewDateTimePickerColumn()
+                {
+                    CalendarTodayDate = DateTime.Now
+                };
+                Column.DefaultCellStyle.Format = "dd.MM.yyyy";
+                Column.Checked = false;
+                Column.DataPropertyName = "DateFinish";
+                Column.HeaderText = "Дата окончания";
+                Column.Name = "DateFinishColumn";
+                Column.SortMode = DataGridViewColumnSortMode.Automatic;
+                Column.MinimumWidth = 100;
+                Column.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                Column.Width = 250;
+                return Column;
+            }
+        }
+
+        public DataGridViewComboBoxColumn PositionColumn
+        {
+            get
+            {
+                DataGridViewComboBoxColumn Column = new DataGridViewComboBoxColumn()
+                {
+                    Name = "PositionColumn",
+                    HeaderText = "Должность",
+                    DataPropertyName = "PositionID",
+                    DataSource = new DataView(_positionsDataTable),
+                    ValueMember = "PositionID",
+                    DisplayMember = "Position",
+                    DisplayStyle = DataGridViewComboBoxDisplayStyle.Nothing,
+                    SortMode = DataGridViewColumnSortMode.Automatic,
+                    AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
+                    ReadOnly = true,
+                    MinimumWidth = 55
+                };
+                return Column;
+            }
         }
 
         public DataGridViewComboBoxColumn UserColumn
@@ -40,6 +105,7 @@ namespace Infinium.Modules.Admin
             {
                 DataGridViewComboBoxColumn Column = new DataGridViewComboBoxColumn()
                 {
+                    AutoComplete = true,
                     Name = "UserColumn",
                     HeaderText = "Сотрудник",
                     DataPropertyName = "UserID",
@@ -61,6 +127,10 @@ namespace Infinium.Modules.Admin
             {
                 da.Fill(_positionsDataTable);
             }
+            using (SqlDataAdapter da = new SqlDataAdapter(@"SELECT TOP 0 StaffListID, FactoryID, PositionID, UserID, Rate FROM StaffList", ConnectionStrings.LightConnectionString))
+            {
+                da.Fill(_staffListDataTable);
+            }
             using (SqlDataAdapter da = new SqlDataAdapter("SELECT UserID, Name, ShortName FROM Users", ConnectionStrings.UsersConnectionString))
             {
                 da.Fill(_usersDataTable);
@@ -69,42 +139,84 @@ namespace Infinium.Modules.Admin
             {
                 da.Fill(_absencesJournalDataTable);
             }
+
         }
 
-        private string UserName(int UserID)
+        private string GetPosition(int positionId)
         {
-            string name = string.Empty;
+            string name = "no_name";
 
-            DataRow row = _usersDataTable
-                .AsEnumerable().FirstOrDefault(r => r.Field<Int64>("UserID") == UserID);
-            if (row != null)
-                name = row["ShortName"].ToString();
+            DataRow[] rows = _positionsDataTable.Select("PositionID=" + positionId);
+            if (rows.Any())
+                name = rows[0]["Position"].ToString();
             return name;
+        }
+
+        private string GetUserName(int userId)
+        {
+            string name = "no_name";
+
+            DataRow[] rows = _usersDataTable.Select("UserID=" + userId);
+            if (rows.Any())
+                name = rows[0]["ShortName"].ToString();
+            return name;
+        }
+
+        public void RemoveAbsenceRecord()
+        {
+
         }
 
         private void FillAbsenceJournal()
         {
             for (int i = 0; i < _absencesJournalDataTable.Rows.Count; i++)
             {
-                int UserID = Convert.ToInt32(_absencesJournalDataTable.Rows[i]["UserID"]);
-                _absencesJournalDataTable.Rows[i]["UserName"] = UserName(UserID);
+                int factoryId = Convert.ToInt32(_absencesJournalDataTable.Rows[i]["FactoryID"]);
+                int userId = Convert.ToInt32(_absencesJournalDataTable.Rows[i]["UserID"]);
+                int positionId = 0;
+                decimal rate = 0;
+                var tuple = GetFactoryAndPosition(factoryId, userId);
+                positionId = tuple.Item1;
+                rate = tuple.Item2;
+
+                _absencesJournalDataTable.Rows[i]["PositionID"] = positionId;
+                _absencesJournalDataTable.Rows[i]["Rate"] = rate;
             }
         }
 
-        private void GetPositionFromStaffList(int FactoryID, int UserID)
+        public void FilterAbsenceJournal(int absenceTypeId, int factoryId)
         {
-            using (SqlDataAdapter da = new SqlDataAdapter("SELECT * FROM StaffList", ConnectionStrings.LightConnectionString))
-            {
-                da.Fill(_positionsDataTable);
-            }
+            AbsencesJournalBindingSource.Filter = "AbsenceTypeID=" + absenceTypeId + " AND FactoryID=" + factoryId;
         }
 
-        public void GetJournal(string year, string month, int FactoryID)
+        private Tuple<int, decimal> GetFactoryAndPosition(int factoryId, int userId)
+        {
+            int positionId = 0;
+            decimal rate = 0;
+
+            using (SqlDataAdapter da = new SqlDataAdapter(@"SELECT StaffListID, FactoryID, PositionID, UserID, Rate FROM StaffList
+                WHERE FactoryID=" + factoryId + " AND UserID=" + userId, ConnectionStrings.LightConnectionString))
+            {
+                _staffListDataTable.Clear();
+                da.Fill(_staffListDataTable);
+            }
+
+            if (_staffListDataTable.Rows.Count > 0)
+            {
+                positionId = Convert.ToInt32(_staffListDataTable.Rows[0]["PositionID"]);
+                rate = Convert.ToDecimal(_staffListDataTable.Rows[0]["Rate"]);
+            }
+
+            var tuple = new Tuple<int, decimal>(positionId, rate);
+            return tuple;
+        }
+
+        public void GetJournal(string year, string month)
         {
             int Monthint = Convert.ToDateTime(month + " " + year).Month;
             int Yearint = Convert.ToInt32(year);
-            using (SqlDataAdapter da = new SqlDataAdapter(@"SELECT * FROM AbsencesJournal WHERE FactoryID =" + FactoryID +
-                " AND ((DATEPART(month, DateStart) = " + Monthint + " AND DATEPART(year, DateStart) = " + Yearint +
+            using (SqlDataAdapter da = new SqlDataAdapter(@"SELECT * FROM AbsencesJournal WHERE" +
+                " ((DATEPART(month, DateStart) = " + Monthint + " AND DATEPART(year, DateStart) = " + Yearint +
                 ") OR (DATEPART(month, DateFinish) = " + Monthint + " AND DATEPART(year, DateFinish) = " + Yearint + "))", ConnectionStrings.LightConnectionString))
             {
                 _absencesJournalDataTable.Clear();
@@ -114,11 +226,57 @@ namespace Infinium.Modules.Admin
             FillAbsenceJournal();
         }
 
-        public void AddNewAbsence(string year)
+        public bool CheckCorrectData
         {
-            DataRow newRow = _absencesJournalDataTable.NewRow();
-            newRow["Year"] = Convert.ToInt32(year);
-            _absencesJournalDataTable.Rows.Add(newRow);
+            get
+            {
+                for (int i = 0; i < _absencesJournalDataTable.Rows.Count; i++)
+                {
+                    if (_absencesJournalDataTable.Rows[i]["DateStart"] == DBNull.Value
+                        || _absencesJournalDataTable.Rows[i]["DateFinish"] == DBNull.Value)
+                        return false;
+                }
+
+                return true;
+            }
+        }
+
+        private int FindHourInProdShedule(DateTime date)
+        {
+            int hour = -1;
+
+            using (SqlDataAdapter da = new SqlDataAdapter(@"SELECT * FROM ProductionShedule
+                WHERE Year=" + date.Year + " AND Month=" + date.Month + " AND Day=" + date.Day, ConnectionStrings.LightConnectionString))
+            {
+                using (DataTable dt = new DataTable())
+                {
+                    if (da.Fill(dt) > 0)
+                        hour = Convert.ToInt32(dt.Rows[0]["Hour"]);
+                }
+            }
+
+            return hour;
+        }
+
+        public void CalcHour()
+        {
+            for (int i = 0; i < _absencesJournalDataTable.Rows.Count; i++)
+            {
+                DateTime dateStart = Convert.ToDateTime(_absencesJournalDataTable.Rows[i]["DateStart"]);
+                DateTime dateFinish = Convert.ToDateTime(_absencesJournalDataTable.Rows[i]["DateFinish"]);
+
+                decimal hours = 0;
+
+                for (DateTime date = dateStart; date <= dateFinish; date = date.AddDays(1))
+                {
+                    int hour = FindHourInProdShedule(date);
+                    decimal rate = Convert.ToDecimal(_absencesJournalDataTable.Rows[i]["Rate"]);
+
+                    hours += hour * rate;
+                }
+
+                _absencesJournalDataTable.Rows[i]["Hour"] = hours;
+            }
         }
 
         public void SaveJournal()

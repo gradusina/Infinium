@@ -979,6 +979,7 @@
             this.rbtnTPS.StateCommon.ShortText.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.rbtnTPS.TabIndex = 438;
             this.rbtnTPS.Values.Text = "ЗОВ-ТПС";
+            this.rbtnTPS.CheckedChanged += new System.EventHandler(this.AbsenceTypesRadioButtons_CheckedChanged);
             // 
             // rbtnProfil
             // 
@@ -991,6 +992,7 @@
             this.rbtnProfil.StateCommon.ShortText.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.rbtnProfil.TabIndex = 437;
             this.rbtnProfil.Values.Text = "ЗОВ-Профиль";
+            this.rbtnProfil.CheckedChanged += new System.EventHandler(this.AbsenceTypesRadioButtons_CheckedChanged);
             // 
             // panel12
             // 
@@ -1023,6 +1025,7 @@
             this.kryptonRadioButton12.StateCommon.ShortText.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.kryptonRadioButton12.TabIndex = 359;
             this.kryptonRadioButton12.Values.Text = "В - отгул";
+            this.kryptonRadioButton12.CheckedChanged += new System.EventHandler(this.AbsenceTypesRadioButtons_CheckedChanged);
             // 
             // kryptonRadioButton11
             // 
@@ -1034,6 +1037,7 @@
             this.kryptonRadioButton11.StateCommon.ShortText.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.kryptonRadioButton11.TabIndex = 358;
             this.kryptonRadioButton11.Values.Text = "П - прогул";
+            this.kryptonRadioButton11.CheckedChanged += new System.EventHandler(this.AbsenceTypesRadioButtons_CheckedChanged);
             // 
             // kryptonRadioButton10
             // 
@@ -1045,6 +1049,7 @@
             this.kryptonRadioButton10.StateCommon.ShortText.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.kryptonRadioButton10.TabIndex = 357;
             this.kryptonRadioButton10.Values.Text = "МО - медосмотр";
+            this.kryptonRadioButton10.CheckedChanged += new System.EventHandler(this.AbsenceTypesRadioButtons_CheckedChanged);
             // 
             // kryptonRadioButton9
             // 
@@ -1056,6 +1061,7 @@
             this.kryptonRadioButton9.StateCommon.ShortText.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.kryptonRadioButton9.TabIndex = 356;
             this.kryptonRadioButton9.Values.Text = "ОТ - отпуск по коллективному договору";
+            this.kryptonRadioButton9.CheckedChanged += new System.EventHandler(this.AbsenceTypesRadioButtons_CheckedChanged);
             // 
             // kryptonRadioButton8
             // 
@@ -1067,6 +1073,7 @@
             this.kryptonRadioButton8.StateCommon.ShortText.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.kryptonRadioButton8.TabIndex = 355;
             this.kryptonRadioButton8.Values.Text = "Г - гражданские обязанности";
+            this.kryptonRadioButton8.CheckedChanged += new System.EventHandler(this.AbsenceTypesRadioButtons_CheckedChanged);
             // 
             // kryptonRadioButton7
             // 
@@ -1078,6 +1085,7 @@
             this.kryptonRadioButton7.StateCommon.ShortText.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.kryptonRadioButton7.TabIndex = 354;
             this.kryptonRadioButton7.Values.Text = "К - командировка";
+            this.kryptonRadioButton7.CheckedChanged += new System.EventHandler(this.AbsenceTypesRadioButtons_CheckedChanged);
             // 
             // kryptonRadioButton6
             // 
@@ -1089,6 +1097,7 @@
             this.kryptonRadioButton6.StateCommon.ShortText.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.kryptonRadioButton6.TabIndex = 353;
             this.kryptonRadioButton6.Values.Text = "ОА - отпуск по инициативе нанимателя";
+            this.kryptonRadioButton6.CheckedChanged += new System.EventHandler(this.AbsenceTypesRadioButtons_CheckedChanged);
             // 
             // kryptonRadioButton5
             // 
@@ -1100,6 +1109,7 @@
             this.kryptonRadioButton5.StateCommon.ShortText.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.kryptonRadioButton5.TabIndex = 352;
             this.kryptonRadioButton5.Values.Text = "Д - донорские";
+            this.kryptonRadioButton5.CheckedChanged += new System.EventHandler(this.AbsenceTypesRadioButtons_CheckedChanged);
             // 
             // kryptonRadioButton4
             // 
@@ -1111,6 +1121,7 @@
             this.kryptonRadioButton4.StateCommon.ShortText.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.kryptonRadioButton4.TabIndex = 351;
             this.kryptonRadioButton4.Values.Text = "ДМ - день матери";
+            this.kryptonRadioButton4.CheckedChanged += new System.EventHandler(this.AbsenceTypesRadioButtons_CheckedChanged);
             // 
             // kryptonRadioButton3
             // 
@@ -1122,6 +1133,7 @@
             this.kryptonRadioButton3.StateCommon.ShortText.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.kryptonRadioButton3.TabIndex = 350;
             this.kryptonRadioButton3.Values.Text = "Б - больничный";
+            this.kryptonRadioButton3.CheckedChanged += new System.EventHandler(this.AbsenceTypesRadioButtons_CheckedChanged);
             // 
             // kryptonRadioButton2
             // 
@@ -1133,6 +1145,7 @@
             this.kryptonRadioButton2.StateCommon.ShortText.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.kryptonRadioButton2.TabIndex = 349;
             this.kryptonRadioButton2.Values.Text = "У - обучение";
+            this.kryptonRadioButton2.CheckedChanged += new System.EventHandler(this.AbsenceTypesRadioButtons_CheckedChanged);
             // 
             // kryptonRadioButton1
             // 
@@ -1144,6 +1157,7 @@
             this.kryptonRadioButton1.StateCommon.ShortText.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.kryptonRadioButton1.TabIndex = 348;
             this.kryptonRadioButton1.Values.Text = "О - отпуск";
+            this.kryptonRadioButton1.CheckedChanged += new System.EventHandler(this.AbsenceTypesRadioButtons_CheckedChanged);
             // 
             // kryptonRadioButton0
             // 
@@ -1156,6 +1170,7 @@
             this.kryptonRadioButton0.StateCommon.ShortText.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.kryptonRadioButton0.TabIndex = 347;
             this.kryptonRadioButton0.Values.Text = "А - за свой счет";
+            this.kryptonRadioButton0.CheckedChanged += new System.EventHandler(this.AbsenceTypesRadioButtons_CheckedChanged);
             // 
             // kryptonButton2
             // 
@@ -1176,6 +1191,7 @@
             this.kryptonButton2.TabStop = false;
             this.kryptonButton2.Values.Image = ((System.Drawing.Image)(resources.GetObject("kryptonButton2.Values.Image")));
             this.kryptonButton2.Values.Text = "";
+            this.kryptonButton2.Click += new System.EventHandler(this.kryptonButton2_Click);
             // 
             // panel6
             // 
@@ -1191,11 +1207,10 @@
             // 
             // absencesDataGrid
             // 
-            this.absencesDataGrid.AllowUserToAddRows = false;
             this.absencesDataGrid.AllowUserToDeleteRows = false;
             this.absencesDataGrid.AllowUserToResizeColumns = false;
             this.absencesDataGrid.AllowUserToResizeRows = false;
-            this.absencesDataGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.ColumnHeader;
+            this.absencesDataGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.absencesDataGrid.BackText = "Нет данных";
             this.absencesDataGrid.ColumnHeadersHeight = 50;
             this.absencesDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
@@ -1233,6 +1248,8 @@
             this.absencesDataGrid.StateSelected.DataCell.Content.Color1 = System.Drawing.Color.White;
             this.absencesDataGrid.TabIndex = 47;
             this.absencesDataGrid.UseCustomBackColor = false;
+            this.absencesDataGrid.VirtualMode = true;
+            this.absencesDataGrid.DefaultValuesNeeded += new System.Windows.Forms.DataGridViewRowEventHandler(this.absencesDataGrid_DefaultValuesNeeded);
             // 
             // kryptonButton3
             // 
