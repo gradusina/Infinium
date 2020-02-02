@@ -240,7 +240,7 @@ namespace Infinium.Modules.Admin
                 return true;
             }
         }
-
+        
         private int FindHourInProdShedule(DateTime date)
         {
             int hour = -1;

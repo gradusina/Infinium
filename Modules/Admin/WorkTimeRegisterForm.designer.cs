@@ -699,7 +699,7 @@
             this.TimeSheetDataGrid.AllowUserToResizeRows = false;
             this.TimeSheetDataGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.ColumnHeader;
             this.TimeSheetDataGrid.BackText = "Нет данных";
-            this.TimeSheetDataGrid.ColumnHeadersHeight = 55;
+            this.TimeSheetDataGrid.ColumnHeadersHeight = 45;
             this.TimeSheetDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.TimeSheetDataGrid.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TimeSheetDataGrid.Location = new System.Drawing.Point(0, 0);
@@ -708,7 +708,7 @@
             this.TimeSheetDataGrid.PercentLineWidth = 0;
             this.TimeSheetDataGrid.ReadOnly = true;
             this.TimeSheetDataGrid.RowHeadersVisible = false;
-            this.TimeSheetDataGrid.RowTemplate.Height = 40;
+            this.TimeSheetDataGrid.RowTemplate.Height = 30;
             this.TimeSheetDataGrid.SelectedColorStyle = Infinium.PercentageDataGrid.ColorStyle.Orange;
             this.TimeSheetDataGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.TimeSheetDataGrid.Size = new System.Drawing.Size(1229, 560);
@@ -908,7 +908,7 @@
             this.ProdSheduleDataGrid.AllowUserToResizeRows = false;
             this.ProdSheduleDataGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.ColumnHeader;
             this.ProdSheduleDataGrid.BackText = "Нет данных";
-            this.ProdSheduleDataGrid.ColumnHeadersHeight = 50;
+            this.ProdSheduleDataGrid.ColumnHeadersHeight = 45;
             this.ProdSheduleDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.ProdSheduleDataGrid.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ProdSheduleDataGrid.Location = new System.Drawing.Point(0, 0);
@@ -938,7 +938,7 @@
             this.ProdSheduleDataGrid.StateCommon.HeaderColumn.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)(((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.ProdSheduleDataGrid.StateCommon.HeaderColumn.Content.Color1 = System.Drawing.Color.White;
-            this.ProdSheduleDataGrid.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.ProdSheduleDataGrid.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.ProdSheduleDataGrid.StateSelected.DataCell.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(253)))), ((int)(((byte)(164)))), ((int)(((byte)(61)))));
             this.ProdSheduleDataGrid.StateSelected.DataCell.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
             this.ProdSheduleDataGrid.StateSelected.DataCell.Content.Color1 = System.Drawing.Color.White;
@@ -1212,7 +1212,7 @@
             this.absencesDataGrid.AllowUserToResizeRows = false;
             this.absencesDataGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.absencesDataGrid.BackText = "Нет данных";
-            this.absencesDataGrid.ColumnHeadersHeight = 50;
+            this.absencesDataGrid.ColumnHeadersHeight = 45;
             this.absencesDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.absencesDataGrid.Dock = System.Windows.Forms.DockStyle.Fill;
             this.absencesDataGrid.Location = new System.Drawing.Point(0, 0);
@@ -1242,7 +1242,7 @@
             this.absencesDataGrid.StateCommon.HeaderColumn.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)(((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.absencesDataGrid.StateCommon.HeaderColumn.Content.Color1 = System.Drawing.Color.White;
-            this.absencesDataGrid.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.absencesDataGrid.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.absencesDataGrid.StateSelected.DataCell.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(253)))), ((int)(((byte)(164)))), ((int)(((byte)(61)))));
             this.absencesDataGrid.StateSelected.DataCell.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
             this.absencesDataGrid.StateSelected.DataCell.Content.Color1 = System.Drawing.Color.White;

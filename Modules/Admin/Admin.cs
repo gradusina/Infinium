@@ -13,7 +13,7 @@ using System.Xml;
 using System.Net;
 
 namespace Infinium
-{    
+{
     public class AdminModulesJournalToExcel
     {
         HSSFWorkbook hssfworkbook;
@@ -38,7 +38,7 @@ namespace Infinium
         private void Create()
         {
             hssfworkbook = new HSSFWorkbook();
-            
+
             ////create a entry of DocumentSummaryInformation
             DocumentSummaryInformation dsi = PropertySetFactory.CreateDocumentSummaryInformation();
             dsi.Company = "NPOI Team";
@@ -513,7 +513,7 @@ namespace Infinium
             Cell1 = sheet1.CreateRow(pos).CreateCell(DisplayIndex++);
             Cell1.SetCellValue("Рейтинг");
             Cell1.CellStyle = HeaderCS;
-            
+
             pos++;
 
             for (int i = 0; i < DT1.Rows.Count; i++)
@@ -764,7 +764,7 @@ namespace Infinium
             {
                 DA.Fill(ModulesJournalDataTable);
                 ModulesJournalDataTable.Columns.Add(new DataColumn("TotalMinutes", Type.GetType("System.Int32")));
-            }            
+            }
         }
 
         private void GetHours(int UserID, DateTime DateFrom, DateTime DateTo)
@@ -1268,7 +1268,7 @@ namespace Infinium
             using (SqlDataAdapter DA = new SqlDataAdapter("SELECT * FROM LoginJournal WHERE LoginJournalID IN (SELECT LoginJournalID FROM ModulesJournal " + FilterExpr + ") ORDER BY DateEnter ASC", ConnectionStrings.UsersConnectionString))
             {
                 DA.Fill(LoginJournalDataTable);
-            } 
+            }
             FillComputerName();
         }
 
@@ -1566,7 +1566,7 @@ namespace Infinium
                 }
                 catch
                 {
-                    
+
                 }
             }
 
@@ -1756,13 +1756,13 @@ namespace Infinium
 
             RichTextBox.Clear();
 
-            using (SqlDataAdapter uDA = new SqlDataAdapter("SELECT UserID, DateEnter, DateExit, ModuleID FROM ModulesJournal WHERE DateEnter >= '" + StartModuleDateTime.ToString("yyyy-MM-dd HH:mm:ss.fff")+"'", ConnectionStrings.UsersConnectionString))
+            using (SqlDataAdapter uDA = new SqlDataAdapter("SELECT UserID, DateEnter, DateExit, ModuleID FROM ModulesJournal WHERE DateEnter >= '" + StartModuleDateTime.ToString("yyyy-MM-dd HH:mm:ss.fff") + "'", ConnectionStrings.UsersConnectionString))
             {
                 using (DataTable DT = new DataTable())
                 {
                     uDA.Fill(DT);
 
-                    
+
 
                     foreach (DataRow Row in DT.Rows)
                     {
@@ -1772,12 +1772,12 @@ namespace Infinium
                         AddText(" в " + Convert.ToDateTime(Row["DateEnter"]).ToString("HH:mm:ss") + "\n");
                     }
 
-                    
+
                 }
             }
 
             RichTextBox.ScrollToCaret();
-            
+
             EndUpdate();
         }
 
@@ -1947,7 +1947,7 @@ namespace Infinium
         public void SetPicture(int ModuleID, Image Image)
         {
             if (Image != null)
-            {               
+            {
                 MemoryStream ms = new MemoryStream();
 
                 Image.Save(ms, ImageFormat.Png);
@@ -1959,7 +1959,7 @@ namespace Infinium
                 ms.Dispose();
             }
 
-            
+
         }
     }
 
@@ -2758,7 +2758,7 @@ namespace Infinium
             FunctionsDA = new SqlDataAdapter(SelectCommand, ConnectionStrings.LightConnectionString);
             FunctionsCB = new SqlCommandBuilder(FunctionsDA);
             FunctionsDA.Fill(FunctionsDataTable);
-            
+
             FunctionsBindingSource = new BindingSource()
             {
                 DataSource = FunctionsDataTable
@@ -2931,7 +2931,7 @@ namespace Infinium
                 DataSource = DateRatesDT
             };
         }
-        
+
         public void SaveDateRates()
         {
             string SelectCommand = @"SELECT * FROM DateRates
@@ -3146,7 +3146,7 @@ namespace Infinium
                 EURUSDCurrency = Decimal.Round(EURRUBCurrency / USDRUBCurrency, 4, MidpointRounding.AwayFromZero);
 
             if (EURBYRCurrency == 1000000)
-            {                
+            {
                 return false;
             }
 
@@ -3163,7 +3163,7 @@ namespace Infinium
                 Rows[0]["FunctionDescription"] = Description;
             }
         }
-        
+
         public void DeleteDateRate(int DateRateID)
         {
             using (SqlDataAdapter DA = new SqlDataAdapter("DELETE FROM DateRates WHERE DateRateID = " + DateRateID,
@@ -3876,9 +3876,9 @@ namespace Infinium
             }
         }
 
-        private DataTable DT_TimeSheet_new_by_YM(int month, int year)
+        private DataTable DT_TimeSheet_new_by_YM(int year, int month)
         {
-            using (SqlDataAdapter DA = new SqlDataAdapter("SELECT infiniu2_users.dbo.Users.Name, infiniu2_light.dbo.WorkDays.DayStartDateTime, infiniu2_light.dbo.WorkDays.DayEndDateTime, infiniu2_light.dbo.WorkDays.DayBreakStartDateTime, infiniu2_light.dbo.WorkDays.DayBreakEndDateTime FROM infiniu2_users.dbo.Users INNER JOIN infiniu2_light.dbo.WorkDays ON infiniu2_users.dbo.Users.UserID = infiniu2_light.dbo.WorkDays.UserID WHERE DATEPART(year,infiniu2_light.dbo.WorkDays.DayStartDateTime)=" + year + " and DATEPART(month,infiniu2_light.dbo.WorkDays.DayStartDateTime)=" + month + " ORDER BY infiniu2_users.dbo.Users.Name",
+            using (SqlDataAdapter DA = new SqlDataAdapter("SELECT infiniu2_light.dbo.WorkDays.UserID, infiniu2_users.dbo.Users.Name, infiniu2_light.dbo.WorkDays.DayStartDateTime, infiniu2_light.dbo.WorkDays.DayEndDateTime, infiniu2_light.dbo.WorkDays.DayBreakStartDateTime, infiniu2_light.dbo.WorkDays.DayBreakEndDateTime FROM infiniu2_users.dbo.Users INNER JOIN infiniu2_light.dbo.WorkDays ON infiniu2_users.dbo.Users.UserID = infiniu2_light.dbo.WorkDays.UserID WHERE DATEPART(year,infiniu2_light.dbo.WorkDays.DayStartDateTime)=" + year + " and DATEPART(month,infiniu2_light.dbo.WorkDays.DayStartDateTime)=" + month + " ORDER BY infiniu2_users.dbo.Users.Name",
                 ConnectionStrings.LightConnectionString))
             {
                 using (DataTable DT = new DataTable())
@@ -3889,9 +3889,9 @@ namespace Infinium
             }
         }
 
-        private DataTable DT_TimeSheet_by_YM(int month, int year)
+        private DataTable DT_TimeSheet_by_YM(int year, int month)
         {
-            using (SqlDataAdapter DA = new SqlDataAdapter("SELECT DISTINCT infiniu2_users.dbo.Users.Name FROM infiniu2_users.dbo.Users INNER JOIN infiniu2_light.dbo.WorkDays ON infiniu2_users.dbo.Users.UserID = infiniu2_light.dbo.WorkDays.UserID WHERE DATEPART(year,infiniu2_light.dbo.WorkDays.DayStartDateTime)=" + year + " and DATEPART(month,infiniu2_light.dbo.WorkDays.DayStartDateTime)=" + month + " ORDER BY infiniu2_users.dbo.Users.Name",
+            using (SqlDataAdapter DA = new SqlDataAdapter("SELECT DISTINCT infiniu2_light.dbo.WorkDays.UserID, infiniu2_users.dbo.Users.Name FROM infiniu2_users.dbo.Users INNER JOIN infiniu2_light.dbo.WorkDays ON infiniu2_users.dbo.Users.UserID = infiniu2_light.dbo.WorkDays.UserID WHERE DATEPART(year,infiniu2_light.dbo.WorkDays.DayStartDateTime)=" + year + " and DATEPART(month,infiniu2_light.dbo.WorkDays.DayStartDateTime)=" + month + " ORDER BY infiniu2_users.dbo.Users.Name",
                 ConnectionStrings.LightConnectionString))
             {
                 using (DataTable DT = new DataTable())
@@ -3918,9 +3918,12 @@ namespace Infinium
             int Monthint = Convert.ToDateTime(MonthComboBox + " 2013").Month;
             int Yearint = int.Parse(YearComboBox);
 
-            DT_TimeSheet_new = DT_TimeSheet_new_by_YM(Monthint, Yearint);
+            DataTable dtAbsences = GetAbsences(Yearint, Monthint);
+            DataTable dtProdShedule = GetShedule(Yearint, Monthint);
 
-            DT_TimeSheet = DT_TimeSheet_by_YM(Monthint, Yearint);
+            DT_TimeSheet_new = DT_TimeSheet_new_by_YM(Yearint, Monthint);
+
+            DT_TimeSheet = DT_TimeSheet_by_YM(Yearint, Monthint);
 
             for (int i = 1; i < DateTime.DaysInMonth(Yearint, Monthint) + 1; i++)
                 DT_TimeSheet.Columns.Add(i.ToString("D2"));
@@ -3933,8 +3936,9 @@ namespace Infinium
                 double T = 0;
                 using (DataView DV = new DataView(DT_TimeSheet_new))
                 {
-                    DV.RowFilter = "Name = '" + DT_TimeSheet.Rows[i]["Name"].ToString() + "'";
-                    DataTable Table = DV.ToTable(false, new string[] { "Name", "DayStartDateTime", "DayEndDateTime",
+                    //DV.RowFilter = "Name = '" + DT_TimeSheet.Rows[i]["Name"].ToString() + "'";
+                    DV.RowFilter = "UserID = '" + DT_TimeSheet.Rows[i]["UserID"].ToString() + "'";
+                    DataTable Table = DV.ToTable(false, new string[] { "UserID", "Name", "DayStartDateTime", "DayEndDateTime",
                         "DayBreakStartDateTime", "DayBreakEndDateTime" });
                     for (int j = 0; j < Table.Rows.Count; j++)
                     {
@@ -3963,6 +3967,16 @@ namespace Infinium
                     }
                 }
                 DT_TimeSheet.Rows[i]["Total"] = Math.Round(Total) + " (" + Math.Round(T, 1) + ")";
+            }
+
+            if (dtProdShedule.Rows.Count > 0)
+            {
+                DataRow row = DT_TimeSheet.NewRow();
+
+                for (int i = 1; i < DateTime.DaysInMonth(Yearint, Monthint) + 1; i++)
+                    row[i] = dtProdShedule.Rows[i - 1]["Hour"];
+
+                DT_TimeSheet.Rows.InsertAt(row, 0);
             }
 
             TimeSheetDataGrid.Columns.Clear();
@@ -4041,6 +4055,27 @@ namespace Infinium
             Ex.AutoFit(1, 1, 1, TimeSheetDataGrid.Rows.Count + 1, 1);
             Ex.Visible = true;
         }
+
+        public DataTable GetShedule(int year, int month)
+        {
+            DataTable dt = new DataTable();
+            using (SqlDataAdapter da = new SqlDataAdapter(@"SELECT * FROM ProductionShedule WHERE Year=" + year + " AND Month=" + month, ConnectionStrings.LightConnectionString))
+            {
+                da.Fill(dt);
+            }
+            return dt;
+        }
+
+        public DataTable GetAbsences(int year, int month)
+        {
+            DataTable dt = new DataTable();
+            using (SqlDataAdapter da = new SqlDataAdapter(@"SELECT * FROM AbsencesJournal WHERE" + " ((DATEPART(month, DateStart) = " + month + " AND DATEPART(year, DateStart) = " + year + ") OR (DATEPART(month, DateFinish) = " + month + " AND DATEPART(year, DateFinish) = " + year + "))", ConnectionStrings.LightConnectionString))
+            {
+                da.Fill(dt);
+            }
+            return dt;
+        }
+
 
         public void ClearReport()
         {
@@ -4512,7 +4547,7 @@ namespace Infinium
     }
 
 
-    
+
 
 
     public class UsersResponsibilities
@@ -4869,7 +4904,7 @@ namespace Infinium
                         StaffListID = Convert.ToInt32(DT.Rows[0]["StaffListID"]);
                 }
             }
-            
+
             return StaffListID;
         }
 
@@ -4889,7 +4924,7 @@ namespace Infinium
         {
             FunctionsDT = new DataTable();
         }
-        
+
         public DataTable dFunctionsDT
         {
             set { FunctionsDT = value; }
@@ -4920,7 +4955,7 @@ namespace Infinium
             hssfworkbook.SummaryInformation = si;
 
             #region Create fonts and styles
-            
+
             HSSFFont HeaderF3 = hssfworkbook.CreateFont();
             HeaderF3.FontHeightInPoints = 12;
             HeaderF3.Boldweight = 12 * 256;
@@ -4932,7 +4967,7 @@ namespace Infinium
 
             HSSFCellStyle SimpleCS = hssfworkbook.CreateCellStyle();
             SimpleCS.SetFont(SimpleF);
-            
+
             HSSFCellStyle SimpleHeaderCS = hssfworkbook.CreateCellStyle();
             SimpleHeaderCS.SetFont(HeaderF3);
 
@@ -5014,7 +5049,7 @@ namespace Infinium
 
     }
 
-    
+
 
     public class RolesAndPermissionsManager
     {
@@ -5235,12 +5270,12 @@ namespace Infinium
         {
             UserRolesBindingSource.Filter = "RoleID = " + RoleID;
         }
-        
+
         public void RemoveCurrentRole()
         {
             if (RolesBindingSource.Count > -1)
             {
-                RolesBindingSource.RemoveCurrent(); 
+                RolesBindingSource.RemoveCurrent();
             }
         }
 
@@ -5276,7 +5311,7 @@ namespace Infinium
 
         public void AddUserRole(int RoleID, int UserID)
         {
-            if (UserRolesDataTable.Select("UserID = " + UserID + " AND RoleID = "+RoleID).Count() > 0)
+            if (UserRolesDataTable.Select("UserID = " + UserID + " AND RoleID = " + RoleID).Count() > 0)
                 return;
 
             DataRow NewRow = UserRolesDataTable.NewRow();
@@ -5423,7 +5458,7 @@ namespace Infinium
             }
         }
 
-       static public DataTable GetPermissions(int UserID, string FormName)
+        static public DataTable GetPermissions(int UserID, string FormName)
         {
             using (SqlDataAdapter DA = new SqlDataAdapter("SELECT * FROM RolePermissions" +
                 " WHERE Granted=1 AND RolePermissions.RoleID IN " +
@@ -5438,7 +5473,7 @@ namespace Infinium
                     return (DataTable)DT;
                 }
             }
-        } 
+        }
     }
 
 
@@ -6442,8 +6477,8 @@ namespace Infinium
     public class AdminWebServiceManager
     {
         public AdminWebServiceManager()
-        { 
-        
+        {
+
         }
 
         public bool StartOnlineControl()
@@ -6541,7 +6576,7 @@ namespace Infinium
     {
         public AdminOptionsClass()
         {
-            
+
         }
 
         public int SetModulesSubscribes()
@@ -6565,7 +6600,7 @@ namespace Infinium
 
                     using (SqlDataAdapter sDA = new SqlDataAdapter("SELECT * FROM Subscribers", ConnectionStrings.LightConnectionString))
                     {
-                        using(SqlCommandBuilder CB = new SqlCommandBuilder(sDA))
+                        using (SqlCommandBuilder CB = new SqlCommandBuilder(sDA))
                         {
                             using (DataTable sDT = new DataTable())
                             {
@@ -6597,9 +6632,9 @@ namespace Infinium
                                         sDA.Update(sDT);
                                     }
                                 }
-                            }                            
+                            }
                         }
-                    }                    
+                    }
                 }
             }
 
