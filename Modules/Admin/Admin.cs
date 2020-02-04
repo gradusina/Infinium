@@ -3902,94 +3902,147 @@ namespace Infinium
             }
         }
 
+        private DataRow GetAbsenceRow(int userId)
+        {
+            DataRow[] rows = _dtAbsences.Select("UserID=" + userId);
+            if (rows.Any())
+            {
+                DataRow row = dtTimeSheet.NewRow();
+
+                for (int i = 0; i < rows.Length; i++)
+                {
+                    DateTime dateStart = Convert.ToDateTime(rows[i]["DateStart"]);
+                    DateTime dateFinish = Convert.ToDateTime(rows[i]["DateFinish"]);
+
+                    if (dateStart.Equals(dateFinish))
+                        break;
+
+                    for (DateTime date = dateStart; date <= dateFinish; date = date.AddDays(1))
+                    {
+                        int planHour = GetPlanHour(date);
+                        int absenceTypeId = Convert.ToInt32(rows[i]["AbsenceTypeID"]);
+                        int absenceHour = Convert.ToInt32(rows[i]["Hours"]);
+                        int factHour = planHour - absenceHour;
+                        string absenceTypeString = string.Empty;
+
+                        if (absenceTypeId == 1)
+                            absenceTypeString = "А/" + absenceHour;
+                        else if (absenceTypeId == 2)
+                            absenceTypeString = "О/" + absenceHour;
+
+                        row[date.Day + 1] = absenceTypeString;
+                    }
+                }
+
+                return row;
+            }
+
+            return null;
+        }
+
         public void GetTimeSheet(DataGridView TimeSheetDataGrid, string YearComboBox, string MonthComboBox)
         {
-            DataTable DT_TimeSheet = new DataTable();
-            DataTable DT_TimeSheet_new = new DataTable();
+            DataTable dtTimeSheetNew;
 
-            DateTime DayStartDateTime;
-            DateTime DayEndDateTime;
-            DateTime DayBreakStartDateTime;
-            DateTime DayBreakEndDateTime;
-            TimeSpan TimeWork;
-            TimeSpan Ts = new TimeSpan();
+            DateTime dayStartDateTime;
+            DateTime dayEndDateTime;
+            DateTime dayBreakStartDateTime;
+            DateTime dayBreakEndDateTime;
+            TimeSpan timeWork;
 
-            string Header;
-            int Monthint = Convert.ToDateTime(MonthComboBox + " 2013").Month;
-            int Yearint = int.Parse(YearComboBox);
+            string header;
+            int monthInt = Convert.ToDateTime(MonthComboBox + " 2013").Month;
+            int yearInt = int.Parse(YearComboBox);
+            int factoryId = 1;
 
-            DataTable dtAbsences = GetAbsences(Yearint, Monthint);
-            DataTable dtProdShedule = GetShedule(Yearint, Monthint);
+            if (dtTimeSheet == null)
+                dtTimeSheet = new DataTable();
+            if (_dtAbsences == null)
+                _dtAbsences = new DataTable();
+            _dtAbsences = GetAbsences(yearInt, monthInt, factoryId);
 
-            DT_TimeSheet_new = DT_TimeSheet_new_by_YM(Yearint, Monthint);
+            DataTable dtProdShedule = GetShedule(yearInt, monthInt);
 
-            DT_TimeSheet = DT_TimeSheet_by_YM(Yearint, Monthint);
+            dtTimeSheetNew = DT_TimeSheet_new_by_YM(yearInt, monthInt);
 
-            for (int i = 1; i < DateTime.DaysInMonth(Yearint, Monthint) + 1; i++)
-                DT_TimeSheet.Columns.Add(i.ToString("D2"));
+            dtTimeSheet = DT_TimeSheet_by_YM(yearInt, monthInt);
 
-            DT_TimeSheet.Columns.Add("Total");
+            for (int i = 1; i < DateTime.DaysInMonth(yearInt, monthInt) + 1; i++)
+                dtTimeSheet.Columns.Add(i.ToString("D2"));
 
-            for (int i = 0; i < DT_TimeSheet.Rows.Count; i++)
+            dtTimeSheet.Columns.Add("Total");
+
+            for (int i = 0; i < dtTimeSheet.Rows.Count; i++)
             {
                 double Total = 0;
                 double T = 0;
-                using (DataView DV = new DataView(DT_TimeSheet_new))
+                using (DataView DV = new DataView(dtTimeSheetNew))
                 {
                     //DV.RowFilter = "Name = '" + DT_TimeSheet.Rows[i]["Name"].ToString() + "'";
-                    DV.RowFilter = "UserID = '" + DT_TimeSheet.Rows[i]["UserID"].ToString() + "'";
+                    DV.RowFilter = "UserID = '" + dtTimeSheet.Rows[i]["UserID"].ToString() + "'";
                     DataTable Table = DV.ToTable(false, new string[] { "UserID", "Name", "DayStartDateTime", "DayEndDateTime",
                         "DayBreakStartDateTime", "DayBreakEndDateTime" });
                     for (int j = 0; j < Table.Rows.Count; j++)
                     {
                         if (Table.Rows[j]["DayEndDateTime"].ToString() != "")
                         {
-                            DayStartDateTime = (DateTime)Table.Rows[j]["DayStartDateTime"];
-                            DayEndDateTime = (DateTime)Table.Rows[j]["DayEndDateTime"];
-                            TimeWork = DayEndDateTime.TimeOfDay - DayStartDateTime.TimeOfDay;
+                            dayStartDateTime = (DateTime)Table.Rows[j]["DayStartDateTime"];
+                            dayEndDateTime = (DateTime)Table.Rows[j]["DayEndDateTime"];
+                            timeWork = dayEndDateTime.TimeOfDay - dayStartDateTime.TimeOfDay;
 
+                            TimeSpan timeSpan;
                             if (Table.Rows[j]["DayBreakStartDateTime"].ToString() != "" && Table.Rows[j]["DayBreakEndDateTime"].ToString() != "")
                             {
-                                DayBreakStartDateTime = (DateTime)Table.Rows[j]["DayBreakStartDateTime"];
-                                DayBreakEndDateTime = (DateTime)Table.Rows[j]["DayBreakEndDateTime"];
+                                dayBreakStartDateTime = (DateTime)Table.Rows[j]["DayBreakStartDateTime"];
+                                dayBreakEndDateTime = (DateTime)Table.Rows[j]["DayBreakEndDateTime"];
                                 //TimeWork -= DayBreakEndDateTime.TimeOfDay - DayBreakStartDateTime.TimeOfDay;
-                                Ts = DayBreakEndDateTime.TimeOfDay - DayBreakStartDateTime.TimeOfDay;
+                                timeSpan = dayBreakEndDateTime.TimeOfDay - dayBreakStartDateTime.TimeOfDay;
                             }
                             else
                             {
                                 //TimeWork -= new TimeSpan(1, 0, 0);
-                                Ts = new TimeSpan(1, 0, 0);
+                                timeSpan = new TimeSpan(1, 0, 0);
                             }
-                            DT_TimeSheet.Rows[i][DayStartDateTime.ToString("dd")] = Math.Round(TimeWork.TotalHours, 1) + " (" + Math.Round(Ts.TotalHours, 1) + ")";
-                            Total += TimeWork.TotalHours;
-                            T += Ts.TotalHours;
+                            dtTimeSheet.Rows[i][dayStartDateTime.ToString("dd")] = Math.Round(timeWork.TotalHours, 1) + " (" + Math.Round(timeSpan.TotalHours, 1) + ")";
+                            Total += timeWork.TotalHours;
+                            T += timeSpan.TotalHours;
                         }
                     }
                 }
-                DT_TimeSheet.Rows[i]["Total"] = Math.Round(Total) + " (" + Math.Round(T, 1) + ")";
+                dtTimeSheet.Rows[i]["Total"] = Math.Round(Total) + " (" + Math.Round(T, 1) + ")";
+            }
+
+            for (int i = 0; i < dtTimeSheet.Rows.Count; i++)
+            {
+                int userId = Convert.ToInt32(dtTimeSheet.Rows[i]["UserID"]);
+                DataRow absenceRow = GetAbsenceRow(userId);
+                if (absenceRow != null)
+                {
+                    dtTimeSheet.Rows.InsertAt(absenceRow, i++);
+                }
             }
 
             if (dtProdShedule.Rows.Count > 0)
             {
-                DataRow row = DT_TimeSheet.NewRow();
+                DataRow row = dtTimeSheet.NewRow();
 
-                for (int i = 1; i < DateTime.DaysInMonth(Yearint, Monthint) + 1; i++)
-                    row[i] = dtProdShedule.Rows[i - 1]["Hour"];
+                for (int i = 1; i < DateTime.DaysInMonth(yearInt, monthInt) + 1; i++)
+                    row[i + 1] = dtProdShedule.Rows[i - 1]["Hour"];
 
-                DT_TimeSheet.Rows.InsertAt(row, 0);
+                dtTimeSheet.Rows.InsertAt(row, 0);
             }
 
             TimeSheetDataGrid.Columns.Clear();
-            TimeSheetDataGrid.DataSource = DT_TimeSheet;
+            TimeSheetDataGrid.DataSource = dtTimeSheet;
             TimeSheetDataGrid.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
-            for (int i = 1; i < DateTime.DaysInMonth(Yearint, Monthint) + 1; i++)
+            for (int i = 1; i < DateTime.DaysInMonth(yearInt, monthInt) + 1; i++)
             {
-                Header = new DateTime(Yearint, Monthint, i).ToString("ddd");
-                TimeSheetDataGrid.Columns[i.ToString("D2")].HeaderText += "\r\n" + Header;
+                header = new DateTime(yearInt, monthInt, i).ToString("ddd");
+                TimeSheetDataGrid.Columns[i.ToString("D2")].HeaderText += "\r\n" + header;
                 TimeSheetDataGrid.Columns[i.ToString("D2")].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
                 TimeSheetDataGrid.Columns[i.ToString("D2")].Width = 90;
-                if (Header == "Сб" | Header == "Вс")
+                if (header == "Сб" | header == "Вс")
                     TimeSheetDataGrid.Columns[i.ToString("D2")].DefaultCellStyle.BackColor = Color.Yellow;
                 //TimeSheetDataGrid.Columns[i.ToString("D2")].DefaultCellStyle.BackColor = Color.FromArgb(222, 222, 65);
             }
@@ -4001,9 +4054,9 @@ namespace Infinium
             TimeSheetDataGrid.Columns["Total"].HeaderText = "Итого";
             TimeSheetDataGrid.Columns["Total"].DisplayIndex = TimeSheetDataGrid.Columns.Count - 1;
 
-            DT_TimeSheet.Dispose();
-            DT_TimeSheet_new.Clear();
-            DT_TimeSheet_new.Dispose();
+            dtTimeSheet.Dispose();
+            dtTimeSheetNew.Clear();
+            dtTimeSheetNew.Dispose();
         }
 
         public void ExportToExcel(DataGridView TimeSheetDataGrid)
@@ -4066,18 +4119,37 @@ namespace Infinium
             return dt;
         }
 
-        public DataTable GetAbsences(int year, int month)
+        public DataTable GetAbsences(int year, int month, int factoryId)
         {
             DataTable dt = new DataTable();
-            using (SqlDataAdapter da = new SqlDataAdapter(@"SELECT * FROM AbsencesJournal WHERE" + " ((DATEPART(month, DateStart) = " + month + " AND DATEPART(year, DateStart) = " + year + ") OR (DATEPART(month, DateFinish) = " + month + " AND DATEPART(year, DateFinish) = " + year + "))", ConnectionStrings.LightConnectionString))
+            using (SqlDataAdapter da = new SqlDataAdapter(@"SELECT * FROM AbsencesJournal WHERE FactoryID=" + factoryId + " AND ((DATEPART(month, DateStart) = " + month + " AND DATEPART(year, DateStart) = " + year + ") OR (DATEPART(month, DateFinish) = " + month + " AND DATEPART(year, DateFinish) = " + year + "))", ConnectionStrings.LightConnectionString))
             {
                 da.Fill(dt);
             }
             return dt;
         }
 
+        private DataTable _dtAbsences;
+        private DataTable dtTimeSheet;
 
-        public void ClearReport()
+        private int GetPlanHour(DateTime date)
+        {
+            int hour = -1;
+
+            using (SqlDataAdapter da = new SqlDataAdapter(@"SELECT * FROM ProductionShedule
+                WHERE Year=" + date.Year + " AND Month=" + date.Month + " AND Day=" + date.Day, ConnectionStrings.LightConnectionString))
+            {
+                using (DataTable dt = new DataTable())
+                {
+                    if (da.Fill(dt) > 0)
+                        hour = Convert.ToInt32(dt.Rows[0]["Hour"]);
+                }
+            }
+
+            return hour;
+        }
+
+        private void ClearReport()
         {
             if (Ex != null)
             {
