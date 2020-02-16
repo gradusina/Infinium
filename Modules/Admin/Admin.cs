@@ -3841,6 +3841,8 @@ namespace Infinium
     public class WorkTimeSheet
     {
         public DataTable TimeSheetDataTable;
+        private DataTable userTable;
+        private DataTable dtTimeSheetNew;
         Excel Ex = null;
 
         public WorkTimeSheet()
@@ -3851,7 +3853,16 @@ namespace Infinium
 
         private void Create()
         {
+            dtTimeSheetNew = new DataTable();
             TimeSheetDataTable = new DataTable();
+            userTable = new DataTable();
+            userTable.Columns.Add(new DataColumn("Date", Type.GetType("System.DateTime")));
+            userTable.Columns.Add(new DataColumn("UserID", Type.GetType("System.Int32")));
+            userTable.Columns.Add(new DataColumn("WorkTime", Type.GetType("System.Decimal")));
+            userTable.Columns.Add(new DataColumn("BreakTime", Type.GetType("System.Decimal")));
+            userTable.Columns.Add(new DataColumn("PlanTime", Type.GetType("System.Decimal")));
+            userTable.Columns.Add(new DataColumn("AbsenceTypeID", Type.GetType("System.Int32")));
+            userTable.Columns.Add(new DataColumn("AbsenceTime", Type.GetType("System.Decimal")));
         }
 
         private void Fill()
@@ -3902,7 +3913,7 @@ namespace Infinium
             }
         }
 
-        private DataRow GetAbsenceRow(int userId)
+        private DataRow GetAbsenceRow(int userId, DateTime date)
         {
             DataRow[] rows = _dtAbsences.Select("UserID=" + userId);
             if (rows.Any())
@@ -3914,33 +3925,297 @@ namespace Infinium
                     DateTime dateStart = Convert.ToDateTime(rows[i]["DateStart"]);
                     DateTime dateFinish = Convert.ToDateTime(rows[i]["DateFinish"]);
 
-                    if (dateStart.Equals(dateFinish))
-                        break;
+                    if (!(date.Date >= dateStart.Date && date.Date <= dateFinish.Date))
+                        continue;
 
-                    for (DateTime date = dateStart; date <= dateFinish; date = date.AddDays(1))
-                    {
-                        int planHour = GetPlanHour(date);
-                        int absenceTypeId = Convert.ToInt32(rows[i]["AbsenceTypeID"]);
-                        int absenceHour = Convert.ToInt32(rows[i]["Hours"]);
-                        int factHour = planHour - absenceHour;
-                        string absenceTypeString = string.Empty;
+                    int planHour = GetPlanHour(date);
+                    int absenceTypeId = Convert.ToInt32(rows[i]["AbsenceTypeID"]);
+                    decimal absenceHour = Convert.ToDecimal(rows[i]["Hours"]);
 
-                        if (absenceTypeId == 1)
-                            absenceTypeString = "А/" + absenceHour;
-                        else if (absenceTypeId == 2)
-                            absenceTypeString = "О/" + absenceHour;
+                    decimal workHour = 0;
 
-                        row[date.Day + 1] = absenceTypeString;
-                    }
+                    string absenceTypeString = string.Empty;
+
+
+                    if (absenceTypeId == 1)
+                        absenceTypeString = "А/" + absenceHour;
+                    else if (absenceTypeId == 2)
+                        absenceTypeString = "О/" + absenceHour;
+                    else if (absenceTypeId == 3)
+                        absenceTypeString = "У/" + absenceHour;
+                    else if (absenceTypeId == 4)
+                        absenceTypeString = "Б/" + absenceHour;
+                    else if (absenceTypeId == 5)
+                        absenceTypeString = "ДМ/" + absenceHour;
+                    else if (absenceTypeId == 6)
+                        absenceTypeString = "Д/" + absenceHour;
+                    else if (absenceTypeId == 7)
+                        absenceTypeString = "ОА/" + absenceHour;
+                    else if (absenceTypeId == 8)
+                        absenceTypeString = "К/" + absenceHour;
+                    else if (absenceTypeId == 9)
+                        absenceTypeString = "Г/" + absenceHour;
+                    else if (absenceTypeId == 10)
+                        absenceTypeString = "ОТ/" + absenceHour;
+                    else if (absenceTypeId == 11)
+                        absenceTypeString = "МО/" + absenceHour;
+                    else if (absenceTypeId == 12)
+                        absenceTypeString = "П/" + absenceHour;
+                    else if (absenceTypeId == 13)
+                        absenceTypeString = "В/" + absenceHour;
+
+                    row[date.Day + 1] = absenceTypeString;
                 }
 
+                row[dtTimeSheet.Columns.Count - 1] = "Итог";
                 return row;
             }
 
             return null;
         }
 
+        private Tuple<int, decimal> GetAbsenceTime(int userId, DateTime dayStartDateTime)
+        {
+            int absenceTypeId = 0;
+            decimal absenceHour = 0;
+
+            DataRow[] rows = _dtAbsences.Select("UserID=" + userId);
+            if (rows.Any())
+            {
+                for (int x = 0; x < rows.Length; x++)
+                {
+                    DateTime dateStart = Convert.ToDateTime(rows[x]["DateStart"]);
+                    DateTime dateFinish = Convert.ToDateTime(rows[x]["DateFinish"]);
+
+                    if (dayStartDateTime.Date >= dateStart.Date && dayStartDateTime.Date <= dateFinish.Date)
+                    {
+                        absenceTypeId = Convert.ToInt32(rows[x]["AbsenceTypeID"]);
+                        absenceHour = Convert.ToDecimal(rows[x]["Hours"]);
+                    }
+                }
+            }
+
+            var tuple = new Tuple<int, decimal>(absenceTypeId, absenceHour);
+            return tuple;
+        }
+
         public void GetTimeSheet(DataGridView TimeSheetDataGrid, string YearComboBox, string MonthComboBox)
+        {
+            int monthInt = Convert.ToDateTime(MonthComboBox + " 2013").Month;
+            int yearInt = int.Parse(YearComboBox);
+            int factoryId = 1;
+
+            if (dtTimeSheet == null)
+                dtTimeSheet = new DataTable();
+            if (_dtAbsences == null)
+                _dtAbsences = new DataTable();
+            _dtAbsences = GetAbsences(yearInt, monthInt, factoryId);
+
+            DataTable dtProdShedule = GetShedule(yearInt, monthInt);
+
+            dtTimeSheetNew.Clear();
+            dtTimeSheetNew = DT_TimeSheet_new_by_YM(yearInt, monthInt);
+
+            dtTimeSheet = DT_TimeSheet_by_YM(yearInt, monthInt);
+
+            for (int i = 1; i < DateTime.DaysInMonth(yearInt, monthInt) + 1; i++)
+                dtTimeSheet.Columns.Add(i.ToString("D2"));
+
+            dtTimeSheet.Columns.Add("Total");
+
+            TimeSpan timeWork = default;
+            TimeSpan timeSpan = default;
+
+            for (int i = 0; i < dtTimeSheet.Rows.Count; i++)
+            {
+                double Total = 0;
+                double T = 0;
+                int userId = Convert.ToInt32(dtTimeSheet.Rows[i]["UserID"]);
+
+                using (DataView DV = new DataView(dtTimeSheetNew))
+                {
+                    //DV.RowFilter = "Name = '" + DT_TimeSheet.Rows[i]["Name"].ToString() + "'";
+                    DV.RowFilter = "UserID = '" + dtTimeSheet.Rows[i]["UserID"].ToString() + "'";
+                    DataTable Table = DV.ToTable(false, new string[] { "UserID", "Name", "DayStartDateTime", "DayEndDateTime",
+                        "DayBreakStartDateTime", "DayBreakEndDateTime" });
+                    for (int j = 0; j < Table.Rows.Count; j++)
+                    {
+                        if (Table.Rows[j]["DayEndDateTime"].ToString() != "")
+                        {
+                            var dayStartDateTime = (DateTime)Table.Rows[j]["DayStartDateTime"];
+                            var dayEndDateTime = (DateTime)Table.Rows[j]["DayEndDateTime"];
+                            timeWork = dayEndDateTime.TimeOfDay - dayStartDateTime.TimeOfDay;
+
+                            if (Table.Rows[j]["DayBreakStartDateTime"].ToString() != "" && Table.Rows[j]["DayBreakEndDateTime"].ToString() != "")
+                            {
+                                var dayBreakStartDateTime = (DateTime)Table.Rows[j]["DayBreakStartDateTime"];
+                                var dayBreakEndDateTime = (DateTime)Table.Rows[j]["DayBreakEndDateTime"];
+                                //TimeWork -= DayBreakEndDateTime.TimeOfDay - DayBreakStartDateTime.TimeOfDay;
+                                timeSpan = dayBreakEndDateTime.TimeOfDay - dayBreakStartDateTime.TimeOfDay;
+                            }
+                            else
+                            {
+                                //TimeWork -= new TimeSpan(1, 0, 0);
+                                timeSpan = new TimeSpan(1, 0, 0);
+                            }
+                            dtTimeSheet.Rows[i][dayStartDateTime.ToString("dd")] = Math.Round(timeWork.TotalHours, 1) + " (" + Math.Round(timeSpan.TotalHours, 1) + ")";
+                            Total += timeWork.TotalHours;
+                            T += timeSpan.TotalHours;
+                        }
+                    }
+                }
+                dtTimeSheet.Rows[i]["Total"] = Math.Round(Total) + " (" + Math.Round(T, 1) + ")";
+            }
+
+            if (dtProdShedule.Rows.Count > 0)
+            {
+                DataRow row = dtTimeSheet.NewRow();
+
+                for (int j = 1; j < DateTime.DaysInMonth(yearInt, monthInt) + 1; j++)
+                    row[j + 1] = dtProdShedule.Rows[j - 1]["Hour"];
+
+                dtTimeSheet.Rows.InsertAt(row, 0);
+            }
+
+            for (int i = 1; i < dtTimeSheet.Rows.Count; i++)
+            {
+                int userId = Convert.ToInt32(dtTimeSheet.Rows[i]["UserID"]);
+
+                if (!_dtAbsences.Select("UserID=" + userId).Any())
+                    continue;
+
+                DataRow row = dtTimeSheet.NewRow();
+
+                decimal totalAbsenceTime = 0;
+                double totalWorkTime = 0;
+                decimal totalPlanTime = 0;
+                for (int j = 1; j < DateTime.DaysInMonth(yearInt, monthInt) + 1; j++)
+                {
+                    DateTime today = new DateTime(yearInt, monthInt, j);
+
+                    int planHour = Convert.ToInt32(dtTimeSheet.Rows[0][j + 1]);
+                    var tuple = GetAbsenceTime(userId, today);
+
+                    string absenceTypeString;
+                    int absenceTypeId = tuple.Item1;
+                    decimal absenceHour = tuple.Item2;
+                    timeWork = default;
+                    timeSpan = default;
+
+                    totalPlanTime += planHour - absenceHour;
+
+                    if (absenceTypeId == 0)
+                        continue;;
+
+                    if (absenceTypeId != 12 && absenceTypeId != 13)
+                        totalAbsenceTime += absenceHour;
+
+                    for (int x = 0; x < dtTimeSheetNew.Rows.Count; x++)
+                    {
+                        if (userId != Convert.ToInt32(dtTimeSheetNew.Rows[x]["UserID"]))
+                            continue;
+
+                        if (dtTimeSheetNew.Rows[x]["DayEndDateTime"].ToString() != "")
+                        {
+                            var dayStartDateTime = (DateTime)dtTimeSheetNew.Rows[x]["DayStartDateTime"];
+                            var dayEndDateTime = (DateTime)dtTimeSheetNew.Rows[x]["DayEndDateTime"];
+
+                            var compare = DateTime.Compare(today.Date, dayStartDateTime.Date);
+                            if (compare != 0)
+                                continue;
+
+                            timeWork = dayEndDateTime.TimeOfDay - dayStartDateTime.TimeOfDay;
+                            totalWorkTime += timeWork.TotalHours;
+                            if (dtTimeSheetNew.Rows[x]["DayBreakStartDateTime"].ToString() != "" && dtTimeSheetNew.Rows[x]["DayBreakEndDateTime"].ToString() != "")
+                            {
+                                var dayBreakStartDateTime = (DateTime)dtTimeSheetNew.Rows[x]["DayBreakStartDateTime"];
+                                var dayBreakEndDateTime = (DateTime)dtTimeSheetNew.Rows[x]["DayBreakEndDateTime"];
+                                timeSpan = dayBreakEndDateTime.TimeOfDay - dayBreakStartDateTime.TimeOfDay;
+                            }
+                            else
+                            {
+                                timeSpan = new TimeSpan(1, 0, 0);
+                            }
+                        }
+                    }
+
+
+                    if (timeWork.TotalHours > 0)
+                        absenceTypeString = Decimal.Round(absenceHour, 1, MidpointRounding.AwayFromZero) + " " + Math.Round(timeWork.TotalHours, 1) + "/" + Math.Round(planHour - absenceHour, 1) + "(" + Math.Round(timeSpan.TotalHours, 1) + ")";
+                    else
+                        absenceTypeString = Decimal.Round(absenceHour, 1, MidpointRounding.AwayFromZero).ToString();
+
+                    if (absenceTypeId == 1)
+                        absenceTypeString = "А/" + absenceTypeString;
+                    else if (absenceTypeId == 2)
+                        absenceTypeString = "О/" + absenceTypeString;
+                    else if (absenceTypeId == 3)
+                        absenceTypeString = "У/" + absenceTypeString;
+                    else if (absenceTypeId == 4)
+                        absenceTypeString = "Б/" + absenceTypeString;
+                    else if (absenceTypeId == 5)
+                        absenceTypeString = "ДМ/" + absenceTypeString;
+                    else if (absenceTypeId == 6)
+                        absenceTypeString = "Д/" + absenceTypeString;
+                    else if (absenceTypeId == 7)
+                        absenceTypeString = "ОА/" + absenceTypeString;
+                    else if (absenceTypeId == 8)
+                        absenceTypeString = "К/" + absenceTypeString;
+                    else if (absenceTypeId == 9)
+                        absenceTypeString = "Г/" + absenceTypeString;
+                    else if (absenceTypeId == 10)
+                        absenceTypeString = "ОТ/" + absenceTypeString;
+                    else if (absenceTypeId == 11)
+                        absenceTypeString = "МО/" + absenceTypeString;
+                    else if (absenceTypeId == 12)
+                        absenceTypeString = "П/" + absenceTypeString;
+                    else if (absenceTypeId == 13)
+                        absenceTypeString = "В/" + absenceTypeString;
+
+                    row[j + 1] = absenceTypeString;
+                }
+
+                row[dtTimeSheet.Columns.Count - 1] = Decimal.Round(totalAbsenceTime, 1, MidpointRounding.AwayFromZero)+ " " + Math.Round(totalWorkTime, 1)+ "/" + Decimal.Round(totalPlanTime, 1, MidpointRounding.AwayFromZero);
+                dtTimeSheet.Rows.InsertAt(row, ++i);
+            }
+
+            dtTimeSheet.Columns.RemoveAt(0);
+            TimeSheetDataGrid.Columns.Clear();
+            TimeSheetDataGrid.DataSource = dtTimeSheet;
+            TimeSheetDataGrid.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
+            for (int i = 1; i < DateTime.DaysInMonth(yearInt, monthInt) + 1; i++)
+            {
+                var header = new DateTime(yearInt, monthInt, i).ToString("ddd");
+                TimeSheetDataGrid.Columns[i.ToString("D2")].HeaderText += "\r\n" + header;
+                TimeSheetDataGrid.Columns[i.ToString("D2")].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+                TimeSheetDataGrid.Columns[i.ToString("D2")].Width = 130;
+                if (header == "Сб" | header == "Вс")
+                    TimeSheetDataGrid.Columns[i.ToString("D2")].DefaultCellStyle.BackColor = Color.Yellow;
+                //TimeSheetDataGrid.Columns[i.ToString("D2")].DefaultCellStyle.BackColor = Color.FromArgb(222, 222, 65);
+            }
+
+            TimeSheetDataGrid.Columns["Name"].HeaderText = "Сотрудник";
+            TimeSheetDataGrid.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            TimeSheetDataGrid.Columns["Name"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            TimeSheetDataGrid.Columns["Name"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            TimeSheetDataGrid.Columns["Total"].HeaderText = "Итого";
+            TimeSheetDataGrid.Columns["Total"].DisplayIndex = TimeSheetDataGrid.Columns.Count - 1;
+            TimeSheetDataGrid.Columns["Total"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            TimeSheetDataGrid.Columns["Total"].Width = 130;
+
+            //DataGridViewCellStyle style = new DataGridViewCellStyle();
+
+            //style.Font = new Font(TimeSheetDataGrid.Font, FontStyle.Bold);
+            //if (TimeSheetDataGrid.Rows.Count > 0)
+            //    TimeSheetDataGrid.Rows[0].DefaultCellStyle = style;
+
+            dtTimeSheet.Dispose();
+            dtTimeSheetNew.Clear();
+            dtTimeSheetNew.Dispose();
+        }
+
+        public void GetTimeSheet1(DataGridView TimeSheetDataGrid, string YearComboBox, string MonthComboBox)
         {
             DataTable dtTimeSheetNew;
 
@@ -4012,15 +4287,17 @@ namespace Infinium
                 dtTimeSheet.Rows[i]["Total"] = Math.Round(Total) + " (" + Math.Round(T, 1) + ")";
             }
 
-            for (int i = 0; i < dtTimeSheet.Rows.Count; i++)
-            {
-                int userId = Convert.ToInt32(dtTimeSheet.Rows[i]["UserID"]);
-                DataRow absenceRow = GetAbsenceRow(userId);
-                if (absenceRow != null)
-                {
-                    dtTimeSheet.Rows.InsertAt(absenceRow, i++);
-                }
-            }
+            //for (int i = 0; i < dtTimeSheet.Rows.Count; i++)
+            //{
+            //    int userId = Convert.ToInt32(dtTimeSheet.Rows[i]["UserID"]);
+            //    DataRow absenceRow = GetAbsenceRow(userId);
+            //    if (absenceRow != null)
+            //    {
+            //        dtTimeSheet.Rows.InsertAt(absenceRow, ++i);
+
+            //    }
+            //    dtTimeSheet.Rows.InsertAt(dtTimeSheet.NewRow(), ++i);
+            //}
 
             if (dtProdShedule.Rows.Count > 0)
             {
@@ -4031,7 +4308,7 @@ namespace Infinium
 
                 dtTimeSheet.Rows.InsertAt(row, 0);
             }
-
+            dtTimeSheet.Columns.RemoveAt(0);
             TimeSheetDataGrid.Columns.Clear();
             TimeSheetDataGrid.DataSource = dtTimeSheet;
             TimeSheetDataGrid.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
@@ -4053,6 +4330,12 @@ namespace Infinium
             TimeSheetDataGrid.Columns["Name"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             TimeSheetDataGrid.Columns["Total"].HeaderText = "Итого";
             TimeSheetDataGrid.Columns["Total"].DisplayIndex = TimeSheetDataGrid.Columns.Count - 1;
+
+            //DataGridViewCellStyle style = new DataGridViewCellStyle();
+
+            //style.Font = new Font(TimeSheetDataGrid.Font, FontStyle.Bold);
+            //if (TimeSheetDataGrid.Rows.Count > 0)
+            //    TimeSheetDataGrid.Rows[0].DefaultCellStyle = style;
 
             dtTimeSheet.Dispose();
             dtTimeSheetNew.Clear();
@@ -4131,6 +4414,8 @@ namespace Infinium
 
         private DataTable _dtAbsences;
         private DataTable dtTimeSheet;
+        private int userTablesCount;
+        private DataTable[] userTables;
 
         private int GetPlanHour(DateTime date)
         {
