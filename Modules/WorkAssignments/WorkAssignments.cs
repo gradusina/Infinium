@@ -499,7 +499,7 @@ InsetTypeID, InsetColorID, TechnoProfileID, TechnoColorID, TechnoInsetTypeID, Te
             AllBatchFrontsDT.Clear();
 
             if (FilterType == 1)
-                FilterString = " AND FrontsOrders.FrontID IN (1975,1976,1977,1978,15760, 3737, 16269,30364,30366,30367,28945,3727,3728,3729,3730,3731,3732,3733,3734,3735,3736,3737,3739,3740,3741,3742,3743,3744,3745,3746,3747,3748,15108,27914)";
+                FilterString = " AND FrontsOrders.FrontID IN (1975,1976,1977,1978,15760, 3737, 30501,30502,30503,30504,30505,30506,16269,30364,30366,30367,28945,3727,3728,3729,3730,3731,3732,3733,3734,3735,3736,3737,3739,3740,3741,3742,3743,3744,3745,3746,3747,3748,15108,27914)";
             if (FilterType == 2)
                 FilterString = " AND (FrontsOrders.FrontID=" + Convert.ToInt32(Fronts.KansasPat) + " OR FrontsOrders.FrontID=" + Convert.ToInt32(Fronts.Kansas) +
                     " OR FrontsOrders.FrontID=" + Convert.ToInt32(Fronts.Sofia) + " OR FrontsOrders.FrontID=" + Convert.ToInt32(Fronts.Lorenzo) +
@@ -627,7 +627,7 @@ Height, Width, Count, FrontConfigID, FrontsOrders.Square, FrontsOrders.FactoryID
             BatchFrontsDT.Clear();
 
             if (FilterType == 1)
-                FilterString = " AND FrontsOrders.FrontID IN (1975,1976,1977,1978,15760, 3737, 16269,30364,30366,30367,28945,3727,3728,3729,3730,3731,3732,3733,3734,3735,3736,3737,3739,3740,3741,3742,3743,3744,3745,3746,3747,3748,15108,27914)";
+                FilterString = " AND FrontsOrders.FrontID IN (1975,1976,1977,1978,15760, 3737, 30501,30502,30503,30504,30505,30506,16269,30364,30366,30367,28945,3727,3728,3729,3730,3731,3732,3733,3734,3735,3736,3737,3739,3740,3741,3742,3743,3744,3745,3746,3747,3748,15108,27914)";
             if (FilterType == 2)
                 FilterString = " AND (FrontsOrders.FrontID=" + Convert.ToInt32(Fronts.KansasPat) +
                     " OR FrontsOrders.FrontID=" + Convert.ToInt32(Fronts.Kansas) + 
@@ -3853,7 +3853,7 @@ DecorOrders.DecorConfigID, DecorOrders.FactoryID, DecorOrders.Notes, DecorConfig
                 INNER JOIN MegaOrders ON MainOrders.MegaOrderID = MegaOrders.MegaOrderID
                 INNER JOIN BatchDetails ON FrontsOrders.MainOrderID = BatchDetails.MainOrderID AND BatchDetails.FactoryID = 1
                 INNER JOIN Batch ON BatchDetails.BatchID = Batch.BatchID AND Batch.ProfilWorkAssignmentID = " + WorkAssignmentID +
-                @" WHERE FrontsOrders.FactoryID=1 AND FrontID IN (1975,1976,1977,1978,15760, 3737, 16269,30364,30366,30367,28945,3727,3728,3729,3730,3731,3732,3733,3734,3735,3736,3737,3739,3740,3741,3742,3743,3744,3745,3746,3747,3748,15108,27914)";
+                @" WHERE FrontsOrders.FactoryID=1 AND FrontID IN (1975,1976,1977,1978,15760, 3737, 30501,30502,30503,30504,30505,30506,16269,30364,30366,30367,28945,3727,3728,3729,3730,3731,3732,3733,3734,3735,3736,3737,3739,3740,3741,3742,3743,3744,3745,3746,3747,3748,15108,27914)";
 
             using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand,
                 ConnectionStrings.MarketingOrdersConnectionString))
@@ -4202,7 +4202,7 @@ DecorOrders.DecorConfigID, DecorOrders.FactoryID, DecorOrders.Notes, DecorConfig
         MegaInsetWidth = 176,
 
         LorenzoSimpleInsetHeight = 125,
-        ElegantSimpleInsetHeight = 133,
+        ElegantSimpleInsetHeight = 134,
         KansasSimpleInsetHeight = 127,
         SofiaSimpleInsetHeight = 127,
         DakotaSimpleInsetHeight = 113,
@@ -4227,20 +4227,20 @@ DecorOrders.DecorConfigID, DecorOrders.FactoryID, DecorOrders.Notes, DecorConfig
         Turin1VitrinaInsetHeight = 127,
         Turin3VitrinaInsetHeight = 127,
         LeonVitrinaInsetHeight = 109,
-        InfinitiVitrinaInsetHeight = 133,
+        InfinitiVitrinaInsetHeight = 134,
 
         LorenzoGridInsetHeight = 125,
-        ElegantGridInsetHeight = 133,
+        ElegantGridInsetHeight = 134,
         KansasGridInsetHeight = 127,
         SofiaGridInsetHeight = 127,
         DakotaGridInsetHeight = 113,
         Turin1GridInsetHeight = 127,
         Turin3GridInsetHeight = 127,
         LeonGridInsetHeight = 109,
-        InfinitiGridInsetHeight = 133,
+        InfinitiGridInsetHeight = 134,
 
         LorenzoSimpleInsetWidth = 125,
-        ElegantSimpleInsetWidth = 133,
+        ElegantSimpleInsetWidth = 134,
         KansasSimpleInsetWidth = 127,
         SofiaSimpleInsetWidth = 127,
         DakotaSimpleInsetWidth = 113,
@@ -4265,17 +4265,17 @@ DecorOrders.DecorConfigID, DecorOrders.FactoryID, DecorOrders.Notes, DecorConfig
         Turin1VitrinaInsetWidth = 127,
         Turin3VitrinaInsetWidth = 127,
         LeonVitrinaInsetWidth = 109,
-        InfinitiVitrinaInsetWidth = 133,
+        InfinitiVitrinaInsetWidth = 134,
 
         LorenzoGridInsetWidth = 125,
-        ElegantGridInsetWidth = 133,
+        ElegantGridInsetWidth = 134,
         KansasGridInsetWidth = 127,
         SofiaGridInsetWidth = 127,
         DakotaGridInsetWidth = 113,
         Turin1GridInsetWidth = 127,
         Turin3GridInsetWidth = 127,
         LeonGridInsetWidth = 109,
-        InfinitiGridInsetWidth = 133
+        InfinitiGridInsetWidth = 134
     }
 
     public enum FrontMinSizes
@@ -49897,12 +49897,12 @@ AND FrontID=" + Convert.ToInt32(Front) +
 
             SelectCommand = @"SELECT FrontsOrdersID, MainOrderID, FrontID, PatinaID, InsetTypeID,
                 ColorID, InsetColorID, Height, Width, Count, FrontConfigID, Notes FROM FrontsOrders
-                WHERE Width<>-1 AND FrontID IN (16269,30364,30366,30367,28945,15760, 3737, 3727,3728,3729,3730,3731,3732,3733,3734,3735,3736,3737,3739,3740,3741,3742,3743,3744,3745,3746,3747,3748,15108,27914)" +
+                WHERE Width<>-1 AND FrontID IN (30501,30502,30503,30504,30505,30506,16269,30364,30366,30367,28945,15760, 3737, 3727,3728,3729,3730,3731,3732,3733,3734,3735,3736,3737,3739,3740,3741,3742,3743,3744,3745,3746,3747,3748,15108,27914)" +
                 " AND MainOrderID IN (SELECT MainOrderID FROM BatchDetails WHERE BatchID IN (SELECT BatchID FROM Batch WHERE ProfilWorkAssignmentID=" + WorkAssignmentID + "))";
             if (FactoryID == 2)
                 SelectCommand = @"SELECT FrontsOrdersID, MainOrderID, FrontID, PatinaID, InsetTypeID,
                     ColorID, InsetColorID, Height, Width, Count, FrontConfigID, Notes FROM FrontsOrders
-                    WHERE Width<>-1 AND FrontID IN (16269,30364,30366,30367,28945,15760, 3737, 3727,3728,3729,3730,3731,3732,3733,3734,3735,3736,3737,3739,3740,3741,3742,3743,3744,3745,3746,3747,3748,15108,27914)" +
+                    WHERE Width<>-1 AND FrontID IN (30501,30502,30503,30504,30505,30506,16269,30364,30366,30367,28945,15760, 3737, 3727,3728,3729,3730,3731,3732,3733,3734,3735,3736,3737,3739,3740,3741,3742,3743,3744,3745,3746,3747,3748,15108,27914)" +
                     " AND MainOrderID IN (SELECT MainOrderID FROM BatchDetails WHERE BatchID IN (SELECT BatchID FROM Batch WHERE TPSWorkAssignmentID=" + WorkAssignmentID + "))";
             using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.ZOVOrdersConnectionString))
             {
@@ -56159,19 +56159,28 @@ AND FrontID=" + Convert.ToInt32(Front) +
                         " AND ColorID=" + Convert.ToInt32(DT1.Rows[i]["ColorID"]) + " AND PatinaID=" + Convert.ToInt32(DT1.Rows[i]["PatinaID"]),
                         "InsetTypeID, InsetColorID, Height, Width", DataViewRowState.CurrentRows))
                     {
-                        DT3 = DV.ToTable(true, new string[] { "InsetTypeID", "InsetColorID", "Height", "Width" });
+                        DT3 = DV.ToTable(true, new string[] { "InsetTypeID", "InsetColorID", "Height", "Width", "Notes" });
                     }
+
                     for (int c = 0; c < DT3.Rows.Count; c++)
                     {
                         decimal Square = 0;
                         int Count = 0;
-
-                        DataRow[] rows = SourceDT.Select("ColorID=" + Convert.ToInt32(DT1.Rows[i]["ColorID"]) +
+                        string filter = "ColorID=" + Convert.ToInt32(DT1.Rows[i]["ColorID"]) +
                             " AND PatinaID=" + Convert.ToInt32(DT1.Rows[i]["PatinaID"]) +
                             " AND FrontID=" + Convert.ToInt32(DT2.Rows[j]["FrontID"]) +
                             " AND InsetTypeID=" + Convert.ToInt32(DT3.Rows[c]["InsetTypeID"]) +
                             " AND InsetColorID=" + Convert.ToInt32(DT3.Rows[c]["InsetColorID"]) + " AND Height=" + Convert.ToInt32(DT3.Rows[c]["Height"]) +
-                            " AND Width=" + Convert.ToInt32(DT3.Rows[c]["Width"]));
+                            " AND Width=" + Convert.ToInt32(DT3.Rows[c]["Width"]) + " AND (Notes='' OR Notes IS NULL)";
+                        if (DT3.Rows[c]["Notes"] != DBNull.Value && DT3.Rows[c]["Notes"].ToString().Length > 0)
+                            filter = "ColorID=" + Convert.ToInt32(DT1.Rows[i]["ColorID"]) +
+                            " AND PatinaID=" + Convert.ToInt32(DT1.Rows[i]["PatinaID"]) +
+                            " AND FrontID=" + Convert.ToInt32(DT2.Rows[j]["FrontID"]) +
+                            " AND InsetTypeID=" + Convert.ToInt32(DT3.Rows[c]["InsetTypeID"]) +
+                            " AND InsetColorID=" + Convert.ToInt32(DT3.Rows[c]["InsetColorID"]) + " AND Height=" + Convert.ToInt32(DT3.Rows[c]["Height"]) +
+                            " AND Width=" + Convert.ToInt32(DT3.Rows[c]["Width"]) + " AND Notes='" + DT3.Rows[c]["Notes"] + "'";
+
+                        DataRow[] rows = SourceDT.Select(filter);
                         if (rows.Count() == 0)
                             continue;
                         foreach (DataRow item in rows)
@@ -56202,7 +56211,7 @@ AND FrontID=" + Convert.ToInt32(Front) +
                         " AND ColorID=" + Convert.ToInt32(DT1.Rows[i]["ColorID"]) + " AND PatinaID=" + Convert.ToInt32(DT1.Rows[i]["PatinaID"]),
                         "InsetTypeID, InsetColorID, Height, Width", DataViewRowState.CurrentRows))
                     {
-                        DT3 = DV.ToTable(true, new string[] { "InsetTypeID", "InsetColorID", "Height", "Width" });
+                        DT3 = DV.ToTable(true, new string[] { "InsetTypeID", "InsetColorID", "Height", "Width", "Notes" });
                     }
                     for (int c = 0; c < DT3.Rows.Count; c++)
                     {
@@ -56211,12 +56220,27 @@ AND FrontID=" + Convert.ToInt32(Front) +
                         string InsetType = string.Empty;
                         string InsetColor = string.Empty;
 
-                        DataRow[] rows = SourceDT.Select("ColorID=" + Convert.ToInt32(DT1.Rows[i]["ColorID"]) +
+                        string filter = "ColorID=" + Convert.ToInt32(DT1.Rows[i]["ColorID"]) +
                             " AND PatinaID=" + Convert.ToInt32(DT1.Rows[i]["PatinaID"]) +
                             " AND FrontID=" + Convert.ToInt32(DT2.Rows[j]["FrontID"]) +
                             " AND InsetTypeID=" + Convert.ToInt32(DT3.Rows[c]["InsetTypeID"]) +
                             " AND InsetColorID=" + Convert.ToInt32(DT3.Rows[c]["InsetColorID"]) + " AND Height=" + Convert.ToInt32(DT3.Rows[c]["Height"]) +
-                            " AND Width=" + Convert.ToInt32(DT3.Rows[c]["Width"]));
+                            " AND Width=" + Convert.ToInt32(DT3.Rows[c]["Width"]) + " AND (Notes='' OR Notes IS NULL)";
+                        if (DT3.Rows[c]["Notes"] != DBNull.Value && DT3.Rows[c]["Notes"].ToString().Length > 0)
+                            filter = "ColorID=" + Convert.ToInt32(DT1.Rows[i]["ColorID"]) +
+                            " AND PatinaID=" + Convert.ToInt32(DT1.Rows[i]["PatinaID"]) +
+                            " AND FrontID=" + Convert.ToInt32(DT2.Rows[j]["FrontID"]) +
+                            " AND InsetTypeID=" + Convert.ToInt32(DT3.Rows[c]["InsetTypeID"]) +
+                            " AND InsetColorID=" + Convert.ToInt32(DT3.Rows[c]["InsetColorID"]) + " AND Height=" + Convert.ToInt32(DT3.Rows[c]["Height"]) +
+                            " AND Width=" + Convert.ToInt32(DT3.Rows[c]["Width"]) + " AND Notes='" + DT3.Rows[c]["Notes"] + "'";
+
+                        DataRow[] rows = SourceDT.Select(filter);
+                        //DataRow[] rows = SourceDT.Select("ColorID=" + Convert.ToInt32(DT1.Rows[i]["ColorID"]) +
+                        //    " AND PatinaID=" + Convert.ToInt32(DT1.Rows[i]["PatinaID"]) +
+                        //    " AND FrontID=" + Convert.ToInt32(DT2.Rows[j]["FrontID"]) +
+                        //    " AND InsetTypeID=" + Convert.ToInt32(DT3.Rows[c]["InsetTypeID"]) +
+                        //    " AND InsetColorID=" + Convert.ToInt32(DT3.Rows[c]["InsetColorID"]) + " AND Height=" + Convert.ToInt32(DT3.Rows[c]["Height"]) +
+                        //    " AND Width=" + Convert.ToInt32(DT3.Rows[c]["Width"]));
                         if (rows.Count() == 0)
                             continue;
                         foreach (DataRow item in rows)

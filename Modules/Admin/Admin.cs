@@ -4204,6 +4204,35 @@ namespace Infinium
             TimeSheetDataGrid.Columns["Total"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
             TimeSheetDataGrid.Columns["Total"].Width = 130;
 
+
+            //DataGridViewCellStyle styleUser1 = new DataGridViewCellStyle();
+            //styleUser1.BackColor = Color.LightSlateGray;
+
+            //bool needPaint = true;
+
+            //for (int i = 1; i < TimeSheetDataGrid.Rows.Count; i++)
+            //{
+            //    if ((i + 1) == TimeSheetDataGrid.Rows.Count)
+            //        continue;
+
+            //    if (!needPaint)
+            //    {
+            //        needPaint = true;
+            //        continue;
+            //    }
+
+            //    if (needPaint)
+            //        TimeSheetDataGrid.Rows[i].DefaultCellStyle = styleUser1;
+
+            //    if (TimeSheetDataGrid.Rows[i + 1].Cells["Name"].Value.ToString() == "")
+            //    {
+            //        TimeSheetDataGrid.Rows[i].DefaultCellStyle = styleUser1;
+            //        needPaint = true;
+            //    }
+            //    else
+            //        needPaint = false;
+            //}
+
             //DataGridViewCellStyle style = new DataGridViewCellStyle();
 
             //style.Font = new Font(TimeSheetDataGrid.Font, FontStyle.Bold);

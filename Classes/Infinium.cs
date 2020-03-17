@@ -6559,6 +6559,23 @@ namespace Infinium
 			}
 			return sConnectionString;
 		}
+
+		//public string GetConnectionString(string FileName)
+		//{
+		//	try
+		//	{
+		//		string EncryptedConnectionString = ReadConnectionString(FileName);
+		//		int Index = EncryptedConnectionString.IndexOf("Password");
+		//		string Password = EncryptedConnectionString.Substring(Index + 9, EncryptedConnectionString.Length - Index - 9);
+		//		string privateKey = "<RSAKeyValue><Modulus>pqJ+ilhHSM5N3XGPCAYdrpFjHlvcQQoaNPiTvUHut5dIwx40olIKRjvequY8WeGb</Modulus><Exponent>AQAB</Exponent><P>2UlRsj0mJoeGxD4AtwOEn02oCEjlYifD</P><Q>xFLlKWJuoE3mb88iI8v24/7Qt1Wvc5lJ</Q><DP>s8j4sfPqpyKoHaP3z3Y3u9/zUreOJIMl</DP><DQ>YhIOy8eR/54qeLv+D+e5o1cNKCgzhwmR</DQ><InverseQ>kU9Phb5ynWsB6ZFQoAnUPAzmirRIlqDR</InverseQ><D>J1Q64ZQsXvayUg23YIFxB/6wkj3EImWroC3gjjCvYa+fjojM1XXvE/tE5t8mnnzB</D></RSAKeyValue>";
+		//		sConnectionString = EncryptedConnectionString.Replace(Password, DecryptString(Password, 384, privateKey));
+		//	}
+		//	catch (ArgumentNullException)
+		//	{
+
+		//	}
+		//	return sConnectionString;
+		//}
 	}
 
 
@@ -6567,22 +6584,70 @@ namespace Infinium
 
 	public struct ConnectionStrings
 	{
-		public static string UsersConnectionString;
 		public static string CatalogConnectionString;
-		public static string ZOVReferenceConnectionString;
-		public static string MarketingReferenceConnectionString;
-		public static string ZOVOrdersConnectionString;
-		public static string MarketingOrdersConnectionString;
-		public static string ReferenceInformationConnectionString;
 		public static string LightConnectionString;
+		public static string MarketingOrdersConnectionString;
+		public static string MarketingReferenceConnectionString;
 		public static string StorageConnectionString;
+		public static string UsersConnectionString;
+		public static string ZOVOrdersConnectionString;
+		public static string ZOVReferenceConnectionString;
 	}
 
 	public class CommonVariables
 	{
+		public static String CatalogConnectionString
+		{
+			get { return ConfigurationManager.ConnectionStrings["Infinium.Properties.Settings.CatalogConnectionString"].ConnectionString; }
+		}
+		public static String LightConnectionString
+		{
+			get
+			{
+				return ConfigurationManager.ConnectionStrings["Infinium.Properties.Settings.LightConnectionString"].ConnectionString;
+			}
+		}
+		public static String MarketingOrdersConnectionString
+		{
+			get
+			{
+				return ConfigurationManager.ConnectionStrings["Infinium.Properties.Settings.MarketingOrdersConnectionString"].ConnectionString;
+			}
+		}
+		public static String MarketingReferenceConnectionString
+		{
+			get
+			{
+				return ConfigurationManager.ConnectionStrings["Infinium.Properties.Settings.MarketingReferenceConnectionString"].ConnectionString;
+			}
+		}
+		public static String StorageConnectionString
+		{
+			get
+			{
+				return ConfigurationManager.ConnectionStrings["Infinium.Properties.Settings.StorageConnectionString"].ConnectionString;
+			}
+		}
 		public static String UsersConnectionString
 		{
-			get { return ConfigurationManager.ConnectionStrings["Infinium.Properties.Settings.UsersConnectionString"].ConnectionString; }
+			get
+			{
+				return ConfigurationManager.ConnectionStrings["Infinium.Properties.Settings.UsersConnectionString"].ConnectionString;
+			}
+		}
+		public static String ZOVOrdersConnectionString
+		{
+			get
+			{
+				return ConfigurationManager.ConnectionStrings["Infinium.Properties.Settings.ZOVOrdersConnectionString"].ConnectionString;
+			}
+		}
+		public static String ZOVReferenceConnectionString
+		{
+			get
+			{
+				return ConfigurationManager.ConnectionStrings["Infinium.Properties.Settings.ZOVReferenceConnectionString"].ConnectionString;
+			}
 		}
 	}
 

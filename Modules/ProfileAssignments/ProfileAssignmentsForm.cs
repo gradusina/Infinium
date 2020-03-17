@@ -62,14 +62,15 @@ namespace Infinium
 
             //Connection = new Connection();
 
-            //ConnectionStrings.UsersConnectionString = Connection.GetConnectionString("ConnectionUsers.config");
-            //ConnectionStrings.CatalogConnectionString = Connection.GetConnectionString("ConnectionCatalog.config");
-            //ConnectionStrings.ZOVOrdersConnectionString = Connection.GetConnectionString("ConnectionZOVOrders.config");
-            //ConnectionStrings.ZOVReferenceConnectionString = Connection.GetConnectionString("ConnectionZOVReference.config");
-            //ConnectionStrings.MarketingOrdersConnectionString = Connection.GetConnectionString("ConnectionMarketingOrders.config");
-            //ConnectionStrings.MarketingReferenceConnectionString = Connection.GetConnectionString("ConnectionMarketingReference.config");
-            //ConnectionStrings.LightConnectionString = Connection.GetConnectionString("ConnectionLight.config");
-            //ConnectionStrings.StorageConnectionString = Connection.GetConnectionString("ConnectionStorage.config");
+            //ConnectionStrings.CatalogConnectionString = Connection.GetConnectionString(CommonVariables.CatalogConnectionString);
+            //ConnectionStrings.LightConnectionString = Connection.GetConnectionString(CommonVariables.LightConnectionString);
+            //ConnectionStrings.MarketingOrdersConnectionString = Connection.GetConnectionString(CommonVariables.MarketingOrdersConnectionString);
+            //ConnectionStrings.MarketingReferenceConnectionString = Connection.GetConnectionString(CommonVariables.MarketingReferenceConnectionString);
+            //ConnectionStrings.StorageConnectionString = Connection.GetConnectionString(CommonVariables.StorageConnectionString);
+            //ConnectionStrings.UsersConnectionString = Connection.GetConnectionString(CommonVariables.UsersConnectionString);
+            //ConnectionStrings.ZOVOrdersConnectionString = Connection.GetConnectionString(CommonVariables.ZOVOrdersConnectionString);
+            //ConnectionStrings.ZOVReferenceConnectionString = Connection.GetConnectionString(CommonVariables.ZOVReferenceConnectionString);
+
             //Security = new Infinium.Security();
             //if (!Security.Initialize())
             //{

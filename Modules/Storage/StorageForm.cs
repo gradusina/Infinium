@@ -69,32 +69,7 @@ namespace Infinium
             
             this.MaximumSize = Screen.PrimaryScreen.WorkingArea.Size;
             LightStartForm = tLightStartForm;
-            //Connection = new Connection();
-
-            //ConnectionStrings.UsersConnectionString = Connection.GetConnectionString("ConnectionUsers.config");
-            //ConnectionStrings.CatalogConnectionString = Connection.GetConnectionString("ConnectionCatalog.config");
-            //ConnectionStrings.ZOVOrdersConnectionString = Connection.GetConnectionString("ConnectionZOVOrders.config");
-            //ConnectionStrings.ZOVReferenceConnectionString = Connection.GetConnectionString("ConnectionZOVReference.config");
-            //ConnectionStrings.MarketingOrdersConnectionString = Connection.GetConnectionString("ConnectionMarketingOrders.config");
-            //ConnectionStrings.MarketingReferenceConnectionString = Connection.GetConnectionString("ConnectionMarketingReference.config");
-            //ConnectionStrings.LightConnectionString = Connection.GetConnectionString("ConnectionLight.config");
-            //ConnectionStrings.StorageConnectionString = Connection.GetConnectionString("ConnectionStorage.config");
-            //Security = new Infinium.Security();
-            //if (!Security.Initialize())
-            //{
-            //    MessageBox.Show("Не удалось подключится к базе данных. Возможные причины: не работает сервер баз данных, нет доступа к сети или интернет. Обратитесь к системному администратору");
-            //    this.Close();
-            //    Application.Exit();
-            //    return;
-            //}
-
-            //Security.Enter(322, "gradus");
-            //DatabaseConfigsManager DatabaseConfigsManager = new DatabaseConfigsManager();
-            //DatabaseConfigsManager.ReadAnimationFlag("Animation.config");
-            //Configs.DocumentsPath = DatabaseConfigsManager.ReadConfig("DocumentsPath.config");
-            //Configs.DocumentsPathHost = DatabaseConfigsManager.ReadConfig("DocumentsPathHost.config");
-            //Configs.FTPType = Convert.ToInt32(DatabaseConfigsManager.ReadConfig("FTP.config", 1, 0));
-
+           
             Initialize();
             //StorageManager.MoveToPersonalStore();
             while (!SplashForm.bCreated) ;

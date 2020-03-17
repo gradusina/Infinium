@@ -3613,7 +3613,7 @@ namespace Infinium
             string ClientName = string.Empty;
             string BatchName = string.Empty;
 
-            GenevaAssignments.ClearOrders();
+            Tafel1Assignments.ClearOrders();
 
             int FactoryID = 0;
             int WorkAssignmentID = 0;

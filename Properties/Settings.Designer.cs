@@ -32,17 +32,5 @@ namespace Infinium.Properties {
                 return ((string)(this["Infinium_WebService_WebService1"]));
             }
         }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=ROMANCHUK;Initial Catalog=USERS;Persist Security Info=True;Connection" +
-            " Timeout=1;User ID=sa;Password=YcLj3x+u7UbaDGhpHpuw1qkacjwo7YJI7GUr4Z4Z60owmAk3t" +
-            "Mw14ObnvvCI+ZBn")]
-        public string UsersConnectionString {
-            get {
-                return ((string)(this["UsersConnectionString"]));
-            }
-        }
     }
 }

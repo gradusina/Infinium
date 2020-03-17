@@ -64,6 +64,8 @@
             this.NotesRichTextBox = new System.Windows.Forms.RichTextBox();
             this.kryptonBorderEdge1 = new ComponentFactory.Krypton.Toolkit.KryptonBorderEdge();
             this.xtraTabPage3 = new DevExpress.XtraTab.XtraTabPage();
+            this.kryptonRadioButton13 = new ComponentFactory.Krypton.Toolkit.KryptonRadioButton();
+            this.kryptonRadioButton14 = new ComponentFactory.Krypton.Toolkit.KryptonRadioButton();
             this.kryptonBorderEdge2 = new ComponentFactory.Krypton.Toolkit.KryptonBorderEdge();
             this.ExportButton = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.panel5 = new System.Windows.Forms.Panel();
@@ -111,8 +113,6 @@
             this.kryptonContextMenuItem5 = new ComponentFactory.Krypton.Toolkit.KryptonContextMenuItem();
             this.kryptonContextMenuItems2 = new ComponentFactory.Krypton.Toolkit.KryptonContextMenuItems();
             this.kryptonContextMenuItem3 = new ComponentFactory.Krypton.Toolkit.KryptonContextMenuItem();
-            this.kryptonRadioButton13 = new ComponentFactory.Krypton.Toolkit.KryptonRadioButton();
-            this.kryptonRadioButton14 = new ComponentFactory.Krypton.Toolkit.KryptonRadioButton();
             this.NavigatePanel.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.WorkDaysGrid)).BeginInit();
@@ -646,6 +646,29 @@
             this.xtraTabPage3.Name = "xtraTabPage3";
             this.xtraTabPage3.Size = new System.Drawing.Size(1264, 628);
             this.xtraTabPage3.Text = "Табель";
+            // 
+            // kryptonRadioButton13
+            // 
+            this.kryptonRadioButton13.Location = new System.Drawing.Point(540, 19);
+            this.kryptonRadioButton13.Name = "kryptonRadioButton13";
+            this.kryptonRadioButton13.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2010Black;
+            this.kryptonRadioButton13.Size = new System.Drawing.Size(78, 21);
+            this.kryptonRadioButton13.StateCommon.ShortText.Color1 = System.Drawing.Color.Black;
+            this.kryptonRadioButton13.StateCommon.ShortText.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.kryptonRadioButton13.TabIndex = 438;
+            this.kryptonRadioButton13.Values.Text = "ЗОВ-ТПС";
+            // 
+            // kryptonRadioButton14
+            // 
+            this.kryptonRadioButton14.Checked = true;
+            this.kryptonRadioButton14.Location = new System.Drawing.Point(383, 19);
+            this.kryptonRadioButton14.Name = "kryptonRadioButton14";
+            this.kryptonRadioButton14.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2010Black;
+            this.kryptonRadioButton14.Size = new System.Drawing.Size(109, 21);
+            this.kryptonRadioButton14.StateCommon.ShortText.Color1 = System.Drawing.Color.Black;
+            this.kryptonRadioButton14.StateCommon.ShortText.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.kryptonRadioButton14.TabIndex = 437;
+            this.kryptonRadioButton14.Values.Text = "ЗОВ-Профиль";
             // 
             // kryptonBorderEdge2
             // 
@@ -1367,29 +1390,6 @@
             // kryptonContextMenuItem3
             // 
             this.kryptonContextMenuItem3.Text = "Menu Item";
-            // 
-            // kryptonRadioButton13
-            // 
-            this.kryptonRadioButton13.Location = new System.Drawing.Point(540, 19);
-            this.kryptonRadioButton13.Name = "kryptonRadioButton13";
-            this.kryptonRadioButton13.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2010Black;
-            this.kryptonRadioButton13.Size = new System.Drawing.Size(78, 21);
-            this.kryptonRadioButton13.StateCommon.ShortText.Color1 = System.Drawing.Color.Black;
-            this.kryptonRadioButton13.StateCommon.ShortText.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.kryptonRadioButton13.TabIndex = 438;
-            this.kryptonRadioButton13.Values.Text = "ЗОВ-ТПС";
-            // 
-            // kryptonRadioButton14
-            // 
-            this.kryptonRadioButton14.Checked = true;
-            this.kryptonRadioButton14.Location = new System.Drawing.Point(383, 19);
-            this.kryptonRadioButton14.Name = "kryptonRadioButton14";
-            this.kryptonRadioButton14.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2010Black;
-            this.kryptonRadioButton14.Size = new System.Drawing.Size(109, 21);
-            this.kryptonRadioButton14.StateCommon.ShortText.Color1 = System.Drawing.Color.Black;
-            this.kryptonRadioButton14.StateCommon.ShortText.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.kryptonRadioButton14.TabIndex = 437;
-            this.kryptonRadioButton14.Values.Text = "ЗОВ-Профиль";
             // 
             // WorkTimeRegisterForm
             // 

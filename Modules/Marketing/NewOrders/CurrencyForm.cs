@@ -563,22 +563,6 @@ namespace Infinium
 
         private void CurrencyTypeComboBox_SelectionChangeCommitted(object sender, EventArgs e)
         {
-            //if (!FixedPaymentRate)
-            //{
-            //    EURRUBCurrency = 0;
-            //    USDRUBCurrency = 0;
-            //    EURUSDCurrency = 0;
-            //    EURBYRCurrency = 0;
-            //    CBRDailyRates = OrdersManager.CBRDailyRates(CurrencyDateTimePicker.Value.Date, ref EURRUBCurrency, ref USDRUBCurrency);
-            //    NBRBDailyRates = OrdersManager.NBRBDailyRates(CurrencyDateTimePicker.Value.Date, ref EURBYRCurrency);
-            //    if (USDRUBCurrency != 0)
-            //        EURUSDCurrency = Decimal.Round(EURRUBCurrency / USDRUBCurrency, 4, MidpointRounding.AwayFromZero);
-            //}
-            //CBRDailyRates = OrdersManager.CBRDailyRates(CurrencyDateTimePicker.Value.Date, ref EURRUBCurrency, ref USDRUBCurrency);
-            //NBRBDailyRates = OrdersManager.NBRBDailyRates(CurrencyDateTimePicker.Value.Date, ref EURBYRCurrency);
-            //if (USDRUBCurrency != 0)
-            //    EURUSDCurrency = Decimal.Round(EURRUBCurrency / USDRUBCurrency, 4, MidpointRounding.AwayFromZero);
-            
             if (CurrencyTypeComboBox.SelectedItem.ToString() == "Евро - Евро")
             {
                 Rate = 1;

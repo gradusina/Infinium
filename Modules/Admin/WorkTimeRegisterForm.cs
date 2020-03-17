@@ -44,6 +44,8 @@ namespace Infinium
         ProductionShedule _productionShedule;
 
         AbsenceJournal _absenceJournal;
+        //Connection Connection;
+        //Security Security = null;
         //----------------------------------------------
 
         public WorkTimeRegisterForm(LightStartForm tLightStartForm)
@@ -54,6 +56,27 @@ namespace Infinium
 
 
             this.MaximumSize = Screen.PrimaryScreen.WorkingArea.Size;
+
+            //Connection = new Connection();
+            //ConnectionStrings.CatalogConnectionString = Connection.GetConnectionString(CommonVariables.CatalogConnectionString);
+            //ConnectionStrings.LightConnectionString = Connection.GetConnectionString(CommonVariables.LightConnectionString);
+            //ConnectionStrings.MarketingOrdersConnectionString = Connection.GetConnectionString(CommonVariables.MarketingOrdersConnectionString);
+            //ConnectionStrings.MarketingReferenceConnectionString = Connection.GetConnectionString(CommonVariables.MarketingReferenceConnectionString);
+            //ConnectionStrings.StorageConnectionString = Connection.GetConnectionString(CommonVariables.StorageConnectionString);
+            //ConnectionStrings.UsersConnectionString = Connection.GetConnectionString(CommonVariables.UsersConnectionString);
+            //ConnectionStrings.ZOVOrdersConnectionString = Connection.GetConnectionString(CommonVariables.ZOVOrdersConnectionString);
+            //ConnectionStrings.ZOVReferenceConnectionString = Connection.GetConnectionString(CommonVariables.ZOVReferenceConnectionString);
+
+            //Security = new Infinium.Security();
+            //if (!Security.Initialize())
+            //{
+            //    MessageBox.Show("Не удалось подключится к базе данных. Возможные причины: не работает сервер баз данных, нет доступа к сети или интернет. Обратитесь к системному администратору");
+            //    this.Close();
+            //    Application.Exit();
+            //    return;
+            //}
+
+            //Security.Enter(322, "gradus");
 
             WorkTimeRegister = new WorkTimeRegister(ref WorkDaysGrid);
 

@@ -28,15 +28,32 @@ namespace Infinium
             this.MaximumSize = Screen.PrimaryScreen.WorkingArea.Size;
 
             Connection = new Connection();
+            //ConnectionStrings.CatalogConnectionString = Connection.GetConnectionString(CommonVariables.CatalogConnectionString);
+            //ConnectionStrings.LightConnectionString = Connection.GetConnectionString(CommonVariables.LightConnectionString);
+            //ConnectionStrings.MarketingOrdersConnectionString = Connection.GetConnectionString(CommonVariables.MarketingOrdersConnectionString);
+            //ConnectionStrings.MarketingReferenceConnectionString = Connection.GetConnectionString(CommonVariables.MarketingReferenceConnectionString);
+            //ConnectionStrings.StorageConnectionString = Connection.GetConnectionString(CommonVariables.StorageConnectionString);
             //ConnectionStrings.UsersConnectionString = Connection.GetConnectionString(CommonVariables.UsersConnectionString);
+            //ConnectionStrings.ZOVOrdersConnectionString = Connection.GetConnectionString(CommonVariables.ZOVOrdersConnectionString);
+            //ConnectionStrings.ZOVReferenceConnectionString = Connection.GetConnectionString(CommonVariables.ZOVReferenceConnectionString);
+
             ConnectionStrings.UsersConnectionString = Connection.GetConnectionString("ConnectionUsers.config");
             ConnectionStrings.CatalogConnectionString = Connection.GetConnectionString("ConnectionCatalog.config");
-            ConnectionStrings.ZOVOrdersConnectionString = Connection.GetConnectionString("ConnectionZOVOrders.config");
-            ConnectionStrings.ZOVReferenceConnectionString = Connection.GetConnectionString("ConnectionZOVReference.config");
+            ConnectionStrings.LightConnectionString = Connection.GetConnectionString("ConnectionLight.config");
             ConnectionStrings.MarketingOrdersConnectionString = Connection.GetConnectionString("ConnectionMarketingOrders.config");
             ConnectionStrings.MarketingReferenceConnectionString = Connection.GetConnectionString("ConnectionMarketingReference.config");
-            ConnectionStrings.LightConnectionString = Connection.GetConnectionString("ConnectionLight.config");
             ConnectionStrings.StorageConnectionString = Connection.GetConnectionString("ConnectionStorage.config");
+            ConnectionStrings.ZOVOrdersConnectionString = Connection.GetConnectionString("ConnectionZOVOrders.config");
+            ConnectionStrings.ZOVReferenceConnectionString = Connection.GetConnectionString("ConnectionZOVReference.config");
+
+            //ConnectionStrings.CatalogConnectionString = Connection.GetConnectionString("ConnectionCatalog.config");
+            //ConnectionStrings.LightConnectionString = Connection.GetConnectionString("ConnectionLight.config");
+            //ConnectionStrings.MarketingOrdersConnectionString = Connection.GetConnectionString("ConnectionMarketingOrders.config");
+            //ConnectionStrings.MarketingReferenceConnectionString = Connection.GetConnectionString("ConnectionMarketingReference.config");
+            //ConnectionStrings.StorageConnectionString = Connection.GetConnectionString("ConnectionStorage.config");
+            //ConnectionStrings.UsersConnectionString = Connection.GetConnectionString("ConnectionUsers.config");
+            //ConnectionStrings.ZOVOrdersConnectionString = Connection.GetConnectionString("ConnectionZOVOrders.config");
+            //ConnectionStrings.ZOVReferenceConnectionString = Connection.GetConnectionString("ConnectionZOVReference.config");
 
             DatabaseConfigsManager DatabaseConfigsManager = new DatabaseConfigsManager();
             DatabaseConfigsManager.ReadAnimationFlag("Animation.config");
