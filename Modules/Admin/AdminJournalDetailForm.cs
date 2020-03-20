@@ -14,7 +14,7 @@ namespace Infinium
         int FormEvent = 0;
 
         LightStartForm LightStartForm;
-        
+
         Form TopForm = null;
 
         AdminJournalDetail AdminJournalDetail;
@@ -27,23 +27,23 @@ namespace Infinium
 
             LightStartForm = tLightStartForm;
 
-            
+
             this.MaximumSize = Screen.PrimaryScreen.WorkingArea.Size;
 
             Initialize();
 
             OnTopBitmap = new Bitmap(Properties.Resources.OnTop);
 
-            
+
 
             OnlinerTimer_Tick(null, null);
 
             while (!SplashForm.bCreated) ;
         }
 
-      
+
         private void AdminJournalDetailForm_Shown(object sender, EventArgs e)
-        {        
+        {
             FormEvent = eShow;
             AnimateTimer.Enabled = true;
         }
@@ -153,8 +153,8 @@ namespace Infinium
         private void Filter()
         {
             AdminJournalDetail.FillUsers(DateFromPicker.Value, DateToPicker.Value);
-            
-            if(AdminJournalDetail.UsersBindingSource.Count > 0)
+
+            if (AdminJournalDetail.UsersBindingSource.Count > 0)
                 AdminJournalDetail.UsersBindingSource.Position = 0;
 
             //int UserID = -1;
@@ -197,7 +197,7 @@ namespace Infinium
             UsersDataGrid.Refresh();
             UsersDataGrid.ResumeLayout();
 
-            TotalUsersLabel.Text = "Всего: "+AdminJournalDetail.UsersBindingSource.Count;
+            TotalUsersLabel.Text = "Всего: " + AdminJournalDetail.UsersBindingSource.Count;
             OnlineLabel.Text = "Онлайн: " + AdminJournalDetail.GetOnlineUsersCount();
 
             AdminJournalDetail.FillRichTextBox();
@@ -226,7 +226,7 @@ namespace Infinium
 
         private void UsersDataGrid_SelectionChanged(object sender, EventArgs e)
         {
-            if(AdminJournalDetail.UsersBindingSource.Count > 0)
+            if (AdminJournalDetail.UsersBindingSource.Count > 0)
                 AdminJournalDetail.FillLoginJournal(Convert.ToInt32(((DataRowView)AdminJournalDetail.UsersBindingSource.Current)["UserID"]), DateFromPicker.Value, DateToPicker.Value);
         }
 
@@ -241,7 +241,7 @@ namespace Infinium
 
         private void button1_Click(object sender, EventArgs e)
         {
-            
+
         }
 
         private void AdminJournalDetailForm_Load(object sender, EventArgs e)
@@ -264,8 +264,8 @@ namespace Infinium
             {
                 if (UsersDataGrid.Rows[e.RowIndex].Cells["IdleTime"].FormattedValue.ToString() != "-" && UsersDataGrid.Rows[e.RowIndex].Cells["IdleTime"].FormattedValue.ToString() != "")
                 {
-                    int Total = Convert.ToDateTime(UsersDataGrid.Rows[e.RowIndex].Cells["IdleTime"].FormattedValue.ToString()).Hour * 3600 + 
-                                Convert.ToDateTime(UsersDataGrid.Rows[e.RowIndex].Cells["IdleTime"].FormattedValue.ToString()).Minute * 60 + 
+                    int Total = Convert.ToDateTime(UsersDataGrid.Rows[e.RowIndex].Cells["IdleTime"].FormattedValue.ToString()).Hour * 3600 +
+                                Convert.ToDateTime(UsersDataGrid.Rows[e.RowIndex].Cells["IdleTime"].FormattedValue.ToString()).Minute * 60 +
                                 Convert.ToDateTime(UsersDataGrid.Rows[e.RowIndex].Cells["IdleTime"].FormattedValue.ToString()).Second;
 
                     if (Total < 30)

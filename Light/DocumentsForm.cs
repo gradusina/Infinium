@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Data;
 using System.Linq;
-using System.Windows.Forms;
 using System.Threading;
+using System.Windows.Forms;
 
 namespace Infinium
 {
@@ -140,7 +140,7 @@ namespace Infinium
 
             InfiniumDocumentsMenu.ItemsDataTable = InfiniumDocuments.DocumentsMenuDataTable;
             InfiniumDocumentsMenu.InitializeItems();
-           
+
 
             InnerDocumentsList.FactoryDataTable = InfiniumDocuments.FactoryTypesDataTable;
             InnerDocumentsList.DocumentsTypesDataTable = InfiniumDocuments.DocumentTypesDataTable;
@@ -199,7 +199,7 @@ namespace Infinium
         {
             if (bNeedSplash)
             {
-                Thread T = new Thread(delegate()
+                Thread T = new Thread(delegate ()
                 {
                     SplashWindow.CreateCoverSplash(UpdatePanel.Top + DateTypePanel.Height, UpdatePanel.Left,
                                                    UpdatePanel.Height - DateTypePanel.Height, UpdatePanel.Width);
@@ -214,7 +214,7 @@ namespace Infinium
         {
             if (bNeedSplash)
             {
-                Thread T = new Thread(delegate()
+                Thread T = new Thread(delegate ()
                 {
                     SplashWindow.CreateCoverSplash(InnerDocumentsList.Top + UpdatePanel.Top, UpdatePanel.Left,
                                                    InnerDocumentsList.Height - InnerDocumentsList.Top, UpdatePanel.Width);
@@ -229,7 +229,7 @@ namespace Infinium
         {
             if (bNeedSplash)
             {
-                Thread T = new Thread(delegate()
+                Thread T = new Thread(delegate ()
                 {
                     SplashWindow.CreateCoverSplash(UpdatePanel.Top, UpdatePanel.Left,
                                                    UpdatePanel.Height, UpdatePanel.Width);
@@ -314,14 +314,14 @@ namespace Infinium
         }
 
         private void FillUpdates()
-        { 
-            if(InfiniumDocumentsMenu.SelectedName == "Лента")
+        {
+            if (InfiniumDocumentsMenu.SelectedName == "Лента")
                 InfiniumDocuments.FillUpdates(GetDateType());
 
-            if(InfiniumDocumentsMenu.SelectedName == "Все документы")
+            if (InfiniumDocumentsMenu.SelectedName == "Все документы")
                 InfiniumDocuments.FillItemUpdate(CurrentDocumenID, CurrentDocumentCategoryID);
 
-            if(InfiniumDocumentsMenu.SelectedName == "Мои документы")
+            if (InfiniumDocumentsMenu.SelectedName == "Мои документы")
                 InfiniumDocuments.FillMyUpdates(Security.CurrentUserID, GetMyDocsType());
 
             if (InfiniumDocumentsMenu.SelectedName == "Согласование")
@@ -500,7 +500,7 @@ namespace Infinium
         {
             if (bNeedSplash)
             {
-                Thread T = new Thread(delegate()
+                Thread T = new Thread(delegate ()
                 {
                     SplashWindow.CreateCoverSplash(InnerDocumentsList.Top + UpdatePanel.Top, InnerDocumentsList.Left + UpdatePanel.Left,
                                                    InnerDocumentsList.Height, InnerDocumentsList.Width);
@@ -530,7 +530,7 @@ namespace Infinium
                 OuterDocumentsList.InitializeItems();
                 OuterDocumentsList.BringToFront();
             }
-            
+
 
             if (bNeedSplash)
                 bC = true;
@@ -572,7 +572,7 @@ namespace Infinium
 
                 return;
             }
-            
+
 
             if (DocumentCommentID != -1)//edit
             {
@@ -584,9 +584,9 @@ namespace Infinium
 
                     ((InfiniumDocumentsUpdatesItem)sender).CloseCommentsTextBox();
 
-                    
+
                     FillUpdates();
-                    
+
                     DocumentsUpdatesList.InitializeItems();
                     GC.Collect();
 
@@ -673,14 +673,14 @@ namespace Infinium
                 }
             }
 
-            
 
-            
+
+
         }
 
         private void DocumentsUpdatesList_EditCommentClicked(object sender, int DocumentCommentID)
         {
-            DocumentsUpdatesList.Items[((InfiniumDocumentsUpdatesItem)sender).iItemIndex].CurrentFilesDataTable = 
+            DocumentsUpdatesList.Items[((InfiniumDocumentsUpdatesItem)sender).iItemIndex].CurrentFilesDataTable =
                 InfiniumDocuments.GetCommentFiles(DocumentCommentID);
 
             if (((InfiniumDocumentsUpdatesItem)sender).CurrentFilesDataTable.Rows.Count > 0)
@@ -1235,6 +1235,6 @@ namespace Infinium
                     bC = true;
             }
         }
-           
+
     }
 }

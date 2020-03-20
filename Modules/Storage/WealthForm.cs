@@ -1,9 +1,10 @@
-﻿using System;
+﻿using Infinium.Store;
+
+using System;
 using System.Data;
 using System.Drawing;
-using System.Windows.Forms;
 using System.Threading;
-using Infinium.Store;
+using System.Windows.Forms;
 
 namespace Infinium
 {
@@ -39,7 +40,7 @@ namespace Infinium
 
             LightStartForm = tLightStartForm;
 
-            
+
             this.MaximumSize = Screen.PrimaryScreen.WorkingArea.Size;
 
             Initialize();
@@ -56,7 +57,7 @@ namespace Infinium
             GoodGrid.Columns["UnloadID"].Visible = false;
             GoodGrid.Columns["MeasureID"].Visible = false;
             GoodGrid.Columns["CurrencyTypeID"].Visible = false;
-            
+
             GoodGrid.Columns["SubjectName"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             GoodGrid.Columns["Count"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             GoodGrid.Columns["Count"].MinimumWidth = 150;
@@ -73,9 +74,9 @@ namespace Infinium
                 DisplayStyle = DataGridViewComboBoxDisplayStyle.Nothing
             };
             GoodGrid.Columns.Add(MeasureColumn);
-           GoodGrid.Columns["Measure"].HeaderText = "Ед.измерения";
-           GoodGrid.Columns["Measure"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-           GoodGrid.Columns["Measure"].MinimumWidth = 150;
+            GoodGrid.Columns["Measure"].HeaderText = "Ед.измерения";
+            GoodGrid.Columns["Measure"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            GoodGrid.Columns["Measure"].MinimumWidth = 150;
 
             DataGridViewComboBoxColumn CurrencyColumn = new DataGridViewComboBoxColumn()
             {
@@ -90,7 +91,7 @@ namespace Infinium
             GoodGrid.Columns["CurrencyType"].HeaderText = "Валюта";
             GoodGrid.Columns["CurrencyType"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             GoodGrid.Columns["CurrencyType"].MinimumWidth = 150;
-            
+
             GoodGrid.Columns["SubjectName"].DisplayIndex = 0;
             GoodGrid.Columns["Count"].DisplayIndex = 1;
             GoodGrid.Columns["Measure"].DisplayIndex = 2;
@@ -115,7 +116,7 @@ namespace Infinium
             UnloadDataGrid.Columns["Notes"].Visible = false;
 
             UnloadDataGrid.Columns["UnloadID"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-            UnloadDataGrid.Columns["UnloadID"].Width =100;
+            UnloadDataGrid.Columns["UnloadID"].Width = 100;
             UnloadDataGrid.Columns["UserName"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             UnloadDataGrid.Columns["UnloadDateTime"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
             UnloadDataGrid.Columns["UnloadDateTime"].Width = 130;
@@ -178,7 +179,7 @@ namespace Infinium
             GoodGrid.Columns["UnloadID"].Visible = false;
             GoodGrid.Columns["MeasureID"].Visible = false;
             GoodGrid.Columns["CurrencyTypeID"].Visible = false;
-            
+
             GoodGrid.Columns["SubjectName"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             GoodGrid.Columns["Count"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             GoodGrid.Columns["Count"].MinimumWidth = 150;
@@ -212,7 +213,7 @@ namespace Infinium
             GoodGrid.Columns["CurrencyType"].HeaderText = "Валюта";
             GoodGrid.Columns["CurrencyType"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             GoodGrid.Columns["CurrencyType"].MinimumWidth = 150;
-            
+
             GoodGrid.Columns["SubjectName"].DisplayIndex = 0;
             GoodGrid.Columns["Count"].DisplayIndex = 1;
             GoodGrid.Columns["Measure"].DisplayIndex = 2;
@@ -406,7 +407,7 @@ namespace Infinium
 
         private void AddButton_Click(object sender, EventArgs e)
         {
-            Thread T = new Thread(delegate() { SplashWindow.CreateSplash(); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSplash(); });
             T.Start();
 
             while (!SplashForm.bCreated) ;
@@ -437,7 +438,7 @@ namespace Infinium
 
         private void PrintButton_Click(object sender, EventArgs e)
         {
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Создание документа Excel.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Создание документа Excel.\r\nПодождите..."); });
             T.Start();
 
             while (!SplashWindow.bSmallCreated)
@@ -459,38 +460,38 @@ namespace Infinium
                 }
                 else
                     if ((bool)UnloadDataGrid.SelectedRows[0].Cells["ReturnObject"].Value == false)
-                    {
-                        PhantomForm PhantomForm = new PhantomForm();
-                        PhantomForm.Show();
+                {
+                    PhantomForm PhantomForm = new PhantomForm();
+                    PhantomForm.Show();
 
-                        ReturnWealthForm ReturnWealthForm = new ReturnWealthForm();
+                    ReturnWealthForm ReturnWealthForm = new ReturnWealthForm();
 
-                        TopForm = ReturnWealthForm;
-                        ReturnWealthForm.ShowDialog();
+                    TopForm = ReturnWealthForm;
+                    ReturnWealthForm.ShowDialog();
 
-                        if (ReturnWealthForm.ok)
+                    if (ReturnWealthForm.ok)
 
-                            ViewConnectUnloads.ReturnObject(ReturnWealthForm.NotesTextBox.Text);
+                        ViewConnectUnloads.ReturnObject(ReturnWealthForm.NotesTextBox.Text);
 
-                        PhantomForm.Close();
-                        PhantomForm.Dispose();
+                    PhantomForm.Close();
+                    PhantomForm.Dispose();
 
-                        TopForm = null;
+                    TopForm = null;
 
-                        ReturnWealthForm.Dispose();
-                    }
-                    else
-                    {
-                        Infinium.LightMessageBox.Show(ref TopForm, false, "Предмет уже вернули",
-                            "Ошибка");
-                    }
+                    ReturnWealthForm.Dispose();
+                }
+                else
+                {
+                    Infinium.LightMessageBox.Show(ref TopForm, false, "Предмет уже вернули",
+                        "Ошибка");
+                }
 
             ViewConnectUnloads.CreateAndFill();
         }
 
         private void DetachButton_Click(object sender, EventArgs e)
         {
-            
+
             if (UnloadDataGrid.SelectedRows.Count != 0)
 
                 if (Infinium.LightMessageBox.Show(ref TopForm, true, "Вы уверены, что хотите удалить запись?", "Удаление"))
@@ -519,11 +520,11 @@ namespace Infinium
         {
             if (UnloadDataGrid.SelectedRows.Count == 0)
                 return;
-            Thread T = new Thread(delegate() { SplashWindow.CreateSplash(); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSplash(); });
             T.Start();
 
             while (!SplashForm.bCreated) ;
-            
+
             bool BindingOk = false;
             int UnloadID = Convert.ToInt32(UnloadDataGrid.SelectedRows[0].Cells["UnloadID"].Value);
             PermitsForm PermitsForm = new PermitsForm(this, UnloadID);

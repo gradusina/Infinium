@@ -1,7 +1,8 @@
-﻿using System;
-using System.Windows.Forms;
+﻿using Infinium.Modules.Permits;
+
+using System;
 using System.Threading;
-using Infinium.Modules.Permits;
+using System.Windows.Forms;
 
 namespace Infinium
 {
@@ -34,7 +35,7 @@ namespace Infinium
         public HistoryScanPermitsForm()
         {
             InitializeComponent();
-            
+
             this.MaximumSize = Screen.PrimaryScreen.WorkingArea.Size;
 
             historyDispatchManager = new HistoryDispatch();
@@ -677,7 +678,7 @@ namespace Infinium
                 {
                     Thread T =
                         new Thread(
-                            delegate()
+                            delegate ()
                             {
                                 SplashWindow.CreateSmallSplash(ref _topForm,
                                     "Загрузка данных с сервера.\r\nПодождите...");
@@ -701,7 +702,7 @@ namespace Infinium
                 {
                     Thread T =
                         new Thread(
-                            delegate()
+                            delegate ()
                             {
                                 SplashWindow.CreateSmallSplash(ref _topForm,
                                     "Загрузка данных с сервера.\r\nПодождите...");
@@ -736,7 +737,7 @@ namespace Infinium
                 ProductType = Convert.ToInt32(dgvPackages.SelectedRows[0].Cells["ProductType"].Value);
             if (NeedSplash)
             {
-                Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref _topForm, "Загрузка данных с сервера.\r\nПодождите..."); });
+                Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref _topForm, "Загрузка данных с сервера.\r\nПодождите..."); });
                 T.Start();
 
                 while (!SplashWindow.bSmallCreated) ;
@@ -796,7 +797,7 @@ namespace Infinium
             _historyScanPermits.UpdateDispatchScans(cbUsers.Checked, cbDate.Checked, CalendarFrom.SelectionStart, CalendarTo.SelectionStart);
             //dgvDispatchScanning.SelectionChanged += dgvDispatchScanning_SelectionChanged;
         }
-        
+
         private void MenuButton_Click(object sender, EventArgs e)
         {
             CommonMenuPanel.Visible = !CommonMenuPanel.Visible;
@@ -846,7 +847,7 @@ namespace Infinium
             {
                 Thread T =
                     new Thread(
-                        delegate()
+                        delegate ()
                         {
                             SplashWindow.CreateSmallSplash(ref _topForm, "Загрузка данных с сервера.\r\nПодождите...");
                         });

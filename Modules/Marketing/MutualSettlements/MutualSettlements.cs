@@ -1,15 +1,18 @@
-﻿using System;
-using System.Linq;
-using System.Data;
-using System.Data.SqlClient;
-using System.Windows.Forms;
-using System.IO;
-using ComponentFactory.Krypton.Toolkit;
+﻿using ComponentFactory.Krypton.Toolkit;
+
+using Infinium.Modules.Marketing.NewOrders;
+
+using NPOI.HPSF;
 using NPOI.HSSF.UserModel;
 using NPOI.HSSF.Util;
-using NPOI.HPSF;
+
+using System;
 using System.Collections;
-using Infinium.Modules.Marketing.NewOrders;
+using System.Data;
+using System.Data.SqlClient;
+using System.IO;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace Infinium.Modules.Marketing.MutualSettlements
 {
@@ -200,12 +203,12 @@ INNER JOIN ClientsManagers ON Clients.ManagerID=ClientsManagers.ManagerID WHERE 
             UpdateMutualSettlementOrdersDA.Fill(MutualSettlementOrdersDT);
             UpdateMutualSettlementOrdersCB = new SqlCommandBuilder(UpdateMutualSettlementOrdersDA);
 
-//            SelectCommand = @"SELECT * FROM SubscribesRecords WHERE SubscribesItemID = 22
-//                AND UserTypeID = 0 AND UserID = " + Security.CurrentUserID;
-//            using (SqlDataAdapter sDA = new SqlDataAdapter(SelectCommand, ConnectionStrings.LightConnectionString))
-//            {
-//                sDA.Fill(NewsSubsRecordsDataTable);
-//            }
+            //            SelectCommand = @"SELECT * FROM SubscribesRecords WHERE SubscribesItemID = 22
+            //                AND UserTypeID = 0 AND UserID = " + Security.CurrentUserID;
+            //            using (SqlDataAdapter sDA = new SqlDataAdapter(SelectCommand, ConnectionStrings.LightConnectionString))
+            //            {
+            //                sDA.Fill(NewsSubsRecordsDataTable);
+            //            }
         }
 
         public bool FillNewMutualSettlements(int FactoryID)
@@ -642,7 +645,7 @@ INNER JOIN ClientsManagers ON Clients.ManagerID=ClientsManagers.ManagerID WHERE 
             MutualSettlementOrdersDT.Rows.Add(NewRow);
         }
 
-        public int AddMutualSettlement(int ClientID, int FactoryID, int CurrencyTypeID, int DiscountPaymentConditionID, 
+        public int AddMutualSettlement(int ClientID, int FactoryID, int CurrencyTypeID, int DiscountPaymentConditionID,
             int DelayOfPayment, decimal TotalInvoiceSum, string Notes, bool IsSample = false)
         {
             int MutualSettlementID = -1;
@@ -1004,7 +1007,7 @@ INNER JOIN ClientsManagers ON Clients.ManagerID=ClientsManagers.ManagerID WHERE 
                                 {
                                     if (SevenDaysIncomeSum / DispatchSum >= 1)
                                     {
-                                        Discount = 6; 
+                                        Discount = 6;
                                         bVerify = true;
                                     }
                                     else
@@ -1221,7 +1224,7 @@ INNER JOIN ClientsManagers ON Clients.ManagerID=ClientsManagers.ManagerID WHERE 
             int MutualSettlementID = 0;
             if (OrderNumbers.Count() == 0)
                 return MutualSettlementID;
-            string SelectCommand = @"SELECT * FROM MutualSettlementOrders WHERE OrderNumber IN (" + string.Join(",", OrderNumbers) + 
+            string SelectCommand = @"SELECT * FROM MutualSettlementOrders WHERE OrderNumber IN (" + string.Join(",", OrderNumbers) +
                 ") AND MutualSettlementID IN (SELECT MutualSettlementID FROM MutualSettlements WHERE ClientID=" + ClientID + " AND FactoryID=" + FactoryID + ")";
             using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.MarketingOrdersConnectionString))
             {
@@ -1252,7 +1255,7 @@ INNER JOIN ClientsManagers ON Clients.ManagerID=ClientsManagers.ManagerID WHERE 
             int MutualSettlementID = 0;
             if (OrderNumbers.Count() == 0)
                 return MutualSettlementID;
-            
+
             string SelectCommand = @"SELECT * FROM MutualSettlementOrders WHERE OrderNumber IN (" + string.Join(",", OrderNumbers) +
                 ") AND MutualSettlementID IN (SELECT MutualSettlementID FROM MutualSettlements WHERE IsSample=1 AND ClientID=" + ClientID + " AND FactoryID=" + FactoryID + ")";
             if (!IsSample)
@@ -1792,7 +1795,7 @@ INNER JOIN ClientsManagers ON Clients.ManagerID=ClientsManagers.ManagerID WHERE 
         {
             string FileName = "";
 
-            using (SqlDataAdapter DA = new SqlDataAdapter("SELECT * FROM MutualSettlementDocuments WHERE MutualSettlementDocumentID = " + MutualSettlementDocumentID, 
+            using (SqlDataAdapter DA = new SqlDataAdapter("SELECT * FROM MutualSettlementDocuments WHERE MutualSettlementDocumentID = " + MutualSettlementDocumentID,
                 ConnectionStrings.MarketingOrdersConnectionString))
             {
                 using (DataTable DT = new DataTable())
@@ -1814,7 +1817,7 @@ INNER JOIN ClientsManagers ON Clients.ManagerID=ClientsManagers.ManagerID WHERE 
                 }
             }
         }
-        
+
         #region отчет по ДС
         public DataTable BYRReportCash(int FactoryID, DateTime Date1, DateTime Date2, ref decimal TotalOpeningBalance, ref decimal TotalDispatchSum, ref decimal TotalIncomeSum, ref decimal TotalClosingBalance)
         {
@@ -2516,7 +2519,7 @@ INNER JOIN ClientsManagers ON Clients.ManagerID=ClientsManagers.ManagerID WHERE 
         {
             VATReportDT.Clear();
             string SelectCommand = @"SELECT ClientsDispatches.*, MutualSettlements.ClientID, infiniu2_marketingreference.dbo.Clients.ClientName FROM ClientsDispatches
-                INNER JOIN MutualSettlements ON ClientsDispatches.MutualSettlementID=MutualSettlements.MutualSettlementID AND MutualSettlements.FactoryID=" + FactoryID + 
+                INNER JOIN MutualSettlements ON ClientsDispatches.MutualSettlementID=MutualSettlements.MutualSettlementID AND MutualSettlements.FactoryID=" + FactoryID +
                 @"INNER JOIN infiniu2_marketingreference.dbo.Clients ON MutualSettlements.ClientID=infiniu2_marketingreference.dbo.Clients.ClientID AND CountryID<>1
                 WHERE ClientsDispatches.CurrencyTypeID=5 AND ConfirmVAT=0 ORDER BY DispatchDateTime";
             using (DataTable DT = new DataTable())
@@ -2537,7 +2540,7 @@ INNER JOIN ClientsManagers ON Clients.ManagerID=ClientsManagers.ManagerID WHERE 
                             DateTime Deadline = DispatchDateTime.AddDays(180);
                             NewRow["DispatchDateTime"] = DispatchDateTime;
                             NewRow["Deadline"] = Deadline;
-                            NewRow["TotalDays"] = -(DateTime.Now - Deadline).TotalDays; 
+                            NewRow["TotalDays"] = -(DateTime.Now - Deadline).TotalDays;
                             if (Deadline < DateTime.Now)
                                 NewRow["Overdue"] = true;
                         }
@@ -2715,7 +2718,7 @@ INNER JOIN ClientsManagers ON Clients.ManagerID=ClientsManagers.ManagerID WHERE 
                             DateTime Deadline = DispatchDateTime.AddDays(DelayOfPayment);
                             NewRow["DispatchDateTime"] = DispatchDateTime;
                             NewRow["Deadline"] = Deadline;
-                            NewRow["TotalDays"] = -(DateTime.Now - Deadline).TotalDays; 
+                            NewRow["TotalDays"] = -(DateTime.Now - Deadline).TotalDays;
                             if (Deadline < DateTime.Now)
                                 NewRow["Overdue"] = true;
                         }
@@ -2739,7 +2742,7 @@ INNER JOIN ClientsManagers ON Clients.ManagerID=ClientsManagers.ManagerID WHERE 
                         DateTime Deadline = DispatchDateTime.AddDays(DelayOfPayment);
                         NewRow["DispatchDateTime"] = DispatchDateTime;
                         NewRow["Deadline"] = Deadline;
-                        NewRow["TotalDays"] = -(DateTime.Now - Deadline).TotalDays; 
+                        NewRow["TotalDays"] = -(DateTime.Now - Deadline).TotalDays;
                         if (Deadline < DateTime.Now)
                             NewRow["Overdue"] = true;
                     }
@@ -3089,7 +3092,7 @@ INNER JOIN ClientsManagers ON Clients.ManagerID=ClientsManagers.ManagerID WHERE 
                             d -= Convert.ToDecimal(dr["IncomeSum"]);
                             dr["IncomeSum"] = 0;
                         }
-                        
+
                         if (d <= 0)
                             continue;
                         int CurrencyTypeID = Convert.ToInt32(DispDT.Rows[i]["CurrencyTypeID"]);
@@ -4008,7 +4011,7 @@ INNER JOIN ClientsManagers ON Clients.ManagerID=ClientsManagers.ManagerID WHERE 
                     //if (Currency == "BYN")
                     //    Cell1.CellStyle = BelOverdueCountCS;
                     //else
-                        Cell1.CellStyle = OverdueCountCS;
+                    Cell1.CellStyle = OverdueCountCS;
                     Cell1 = sheet1.CreateRow(pos).CreateCell(DisplayIndex++);
                     Cell1.SetCellValue(ReportTable.Rows[i]["CurrencyType"].ToString());
                     Cell1.CellStyle = OverdueSimpleCS;
@@ -4038,7 +4041,7 @@ INNER JOIN ClientsManagers ON Clients.ManagerID=ClientsManagers.ManagerID WHERE 
                     //if (Currency == "BYN")
                     //    Cell1.CellStyle = BelCountCS;
                     //else
-                        Cell1.CellStyle = CountCS;
+                    Cell1.CellStyle = CountCS;
                     Cell1 = sheet1.CreateRow(pos).CreateCell(DisplayIndex++);
                     Cell1.SetCellValue(ReportTable.Rows[i]["CurrencyType"].ToString());
                     Cell1.CellStyle = SimpleCS;
@@ -4062,7 +4065,7 @@ INNER JOIN ClientsManagers ON Clients.ManagerID=ClientsManagers.ManagerID WHERE 
             //if (Currency == "BYN")
             //    Cell1.CellStyle = BelTotalCountCS;
             //else
-                Cell1.CellStyle = TotalCountCS;
+            Cell1.CellStyle = TotalCountCS;
 
             RowIndex = pos++;
         }
@@ -4104,7 +4107,7 @@ INNER JOIN ClientsManagers ON Clients.ManagerID=ClientsManagers.ManagerID WHERE 
                     //if (Currency == "BYN")
                     //    Cell1.CellStyle = BelOverdueCountCS;
                     //else
-                        Cell1.CellStyle = OverdueCountCS;
+                    Cell1.CellStyle = OverdueCountCS;
                     Cell1 = sheet2.CreateRow(pos).CreateCell(DisplayIndex++);
                     Cell1.SetCellValue(ReportTable.Rows[i]["CurrencyType"].ToString());
                     Cell1.CellStyle = OverdueSimpleCS;
@@ -4134,7 +4137,7 @@ INNER JOIN ClientsManagers ON Clients.ManagerID=ClientsManagers.ManagerID WHERE 
                     //if (Currency == "BYN")
                     //    Cell1.CellStyle = BelCountCS;
                     //else
-                        Cell1.CellStyle = CountCS;
+                    Cell1.CellStyle = CountCS;
                     Cell1 = sheet2.CreateRow(pos).CreateCell(DisplayIndex++);
                     Cell1.SetCellValue(ReportTable.Rows[i]["CurrencyType"].ToString());
                     Cell1.CellStyle = SimpleCS;
@@ -4159,7 +4162,7 @@ INNER JOIN ClientsManagers ON Clients.ManagerID=ClientsManagers.ManagerID WHERE 
             //if (Currency == "BYN")
             //    Cell1.CellStyle = BelTotalCountCS;
             //else
-                Cell1.CellStyle = TotalCountCS;
+            Cell1.CellStyle = TotalCountCS;
 
             RowIndex = pos++;
         }
@@ -4494,7 +4497,7 @@ INNER JOIN ClientsManagers ON Clients.ManagerID=ClientsManagers.ManagerID WHERE 
                     //if (Currency == "BYN")
                     //    Cell1.CellStyle = BelOverdueCountCS;
                     //else
-                        Cell1.CellStyle = OverdueCountCS;
+                    Cell1.CellStyle = OverdueCountCS;
                     Cell1 = sheet1.CreateRow(pos).CreateCell(DisplayIndex++);
                     Cell1.SetCellValue(ReportTable.Rows[i]["CurrencyType"].ToString());
                     Cell1.CellStyle = OverdueSimpleCS;
@@ -4524,7 +4527,7 @@ INNER JOIN ClientsManagers ON Clients.ManagerID=ClientsManagers.ManagerID WHERE 
                     //if (Currency == "BYN")
                     //    Cell1.CellStyle = BelCountCS;
                     //else
-                        Cell1.CellStyle = CountCS;
+                    Cell1.CellStyle = CountCS;
                     Cell1 = sheet1.CreateRow(pos).CreateCell(DisplayIndex++);
                     Cell1.SetCellValue(ReportTable.Rows[i]["CurrencyType"].ToString());
                     Cell1.CellStyle = SimpleCS;
@@ -4549,7 +4552,7 @@ INNER JOIN ClientsManagers ON Clients.ManagerID=ClientsManagers.ManagerID WHERE 
             //if (Currency == "BYN")
             //    Cell1.CellStyle = BelTotalCountCS;
             //else
-                Cell1.CellStyle = TotalCountCS;
+            Cell1.CellStyle = TotalCountCS;
 
             RowIndex = pos++;
         }
@@ -4590,7 +4593,7 @@ INNER JOIN ClientsManagers ON Clients.ManagerID=ClientsManagers.ManagerID WHERE 
                     //if (Currency == "BYN")
                     //    Cell1.CellStyle = BelOverdueCountCS;
                     //else
-                        Cell1.CellStyle = OverdueCountCS;
+                    Cell1.CellStyle = OverdueCountCS;
                     Cell1 = sheet2.CreateRow(pos).CreateCell(DisplayIndex++);
                     Cell1.SetCellValue(ReportTable.Rows[i]["CurrencyType"].ToString());
                     Cell1.CellStyle = OverdueSimpleCS;
@@ -4620,7 +4623,7 @@ INNER JOIN ClientsManagers ON Clients.ManagerID=ClientsManagers.ManagerID WHERE 
                     //if (Currency == "BYN")
                     //    Cell1.CellStyle = BelCountCS;
                     //else
-                        Cell1.CellStyle = CountCS;
+                    Cell1.CellStyle = CountCS;
                     Cell1 = sheet2.CreateRow(pos).CreateCell(DisplayIndex++);
                     Cell1.SetCellValue(ReportTable.Rows[i]["CurrencyType"].ToString());
                     Cell1.CellStyle = SimpleCS;
@@ -4645,7 +4648,7 @@ INNER JOIN ClientsManagers ON Clients.ManagerID=ClientsManagers.ManagerID WHERE 
             //if (Currency == "BYN")
             //    Cell1.CellStyle = BelTotalCountCS;
             //else
-                Cell1.CellStyle = TotalCountCS;
+            Cell1.CellStyle = TotalCountCS;
 
             RowIndex = pos++;
         }
@@ -4990,14 +4993,14 @@ INNER JOIN ClientsManagers ON Clients.ManagerID=ClientsManagers.ManagerID WHERE 
                     //if (Currency == "BYN")
                     //    Cell1.CellStyle = BelOverdueCountCS;
                     //else
-                        Cell1.CellStyle = OverdueCountCS;
+                    Cell1.CellStyle = OverdueCountCS;
                     Cell1 = sheet1.CreateRow(pos).CreateCell(DisplayIndex++);
                     if (ReportTable.Rows[i]["DebtSum"] != DBNull.Value)
                         Cell1.SetCellValue(Convert.ToDouble(ReportTable.Rows[i]["DebtSum"]));
                     //if (Currency == "BYN")
                     //    Cell1.CellStyle = BelOverdueCountCS;
                     //else
-                        Cell1.CellStyle = OverdueCountCS;
+                    Cell1.CellStyle = OverdueCountCS;
                     Cell1 = sheet1.CreateRow(pos).CreateCell(DisplayIndex++);
                     Cell1.SetCellValue(ReportTable.Rows[i]["CurrencyType"].ToString());
                     Cell1.CellStyle = OverdueSimpleCS;
@@ -5027,14 +5030,14 @@ INNER JOIN ClientsManagers ON Clients.ManagerID=ClientsManagers.ManagerID WHERE 
                     //if (Currency == "BYN")
                     //    Cell1.CellStyle = BelCountCS;
                     //else
-                        Cell1.CellStyle = CountCS;
+                    Cell1.CellStyle = CountCS;
                     Cell1 = sheet1.CreateRow(pos).CreateCell(DisplayIndex++);
                     if (ReportTable.Rows[i]["DebtSum"] != DBNull.Value)
                         Cell1.SetCellValue(Convert.ToDouble(ReportTable.Rows[i]["DebtSum"]));
                     //if (Currency == "BYN")
                     //    Cell1.CellStyle = BelCountCS;
                     //else
-                        Cell1.CellStyle = CountCS;
+                    Cell1.CellStyle = CountCS;
                     Cell1 = sheet1.CreateRow(pos).CreateCell(DisplayIndex++);
                     Cell1.SetCellValue(ReportTable.Rows[i]["CurrencyType"].ToString());
                     Cell1.CellStyle = SimpleCS;
@@ -5059,7 +5062,7 @@ INNER JOIN ClientsManagers ON Clients.ManagerID=ClientsManagers.ManagerID WHERE 
             //if (Currency == "BYN")
             //    Cell1.CellStyle = BelTotalCountCS;
             //else
-                Cell1.CellStyle = TotalCountCS;
+            Cell1.CellStyle = TotalCountCS;
 
             RowIndex = pos++;
         }
@@ -5100,14 +5103,14 @@ INNER JOIN ClientsManagers ON Clients.ManagerID=ClientsManagers.ManagerID WHERE 
                     //if (Currency == "BYN")
                     //    Cell1.CellStyle = BelOverdueCountCS;
                     //else
-                        Cell1.CellStyle = OverdueCountCS;
+                    Cell1.CellStyle = OverdueCountCS;
                     Cell1 = sheet2.CreateRow(pos).CreateCell(DisplayIndex++);
                     if (ReportTable.Rows[i]["DebtSum"] != DBNull.Value)
                         Cell1.SetCellValue(Convert.ToDouble(ReportTable.Rows[i]["DebtSum"]));
                     //if (Currency == "BYN")
                     //    Cell1.CellStyle = BelOverdueCountCS;
                     //else
-                        Cell1.CellStyle = OverdueCountCS;
+                    Cell1.CellStyle = OverdueCountCS;
                     Cell1 = sheet2.CreateRow(pos).CreateCell(DisplayIndex++);
                     Cell1.SetCellValue(ReportTable.Rows[i]["CurrencyType"].ToString());
                     Cell1.CellStyle = OverdueSimpleCS;
@@ -5137,14 +5140,14 @@ INNER JOIN ClientsManagers ON Clients.ManagerID=ClientsManagers.ManagerID WHERE 
                     //if (Currency == "BYN")
                     //    Cell1.CellStyle = BelCountCS;
                     //else
-                        Cell1.CellStyle = CountCS;
+                    Cell1.CellStyle = CountCS;
                     Cell1 = sheet2.CreateRow(pos).CreateCell(DisplayIndex++);
                     if (ReportTable.Rows[i]["DebtSum"] != DBNull.Value)
                         Cell1.SetCellValue(Convert.ToDouble(ReportTable.Rows[i]["DebtSum"]));
                     //if (Currency == "BYN")
                     //    Cell1.CellStyle = BelCountCS;
                     //else
-                        Cell1.CellStyle = CountCS;
+                    Cell1.CellStyle = CountCS;
                     Cell1 = sheet2.CreateRow(pos).CreateCell(DisplayIndex++);
                     Cell1.SetCellValue(ReportTable.Rows[i]["CurrencyType"].ToString());
                     Cell1.CellStyle = SimpleCS;
@@ -5169,7 +5172,7 @@ INNER JOIN ClientsManagers ON Clients.ManagerID=ClientsManagers.ManagerID WHERE 
             //if (Currency == "BYN")
             //    Cell1.CellStyle = BelTotalCountCS;
             //else
-                Cell1.CellStyle = TotalCountCS;
+            Cell1.CellStyle = TotalCountCS;
 
             RowIndex = pos++;
         }
@@ -5218,7 +5221,7 @@ INNER JOIN ClientsManagers ON Clients.ManagerID=ClientsManagers.ManagerID WHERE 
             SummaryInformation si = PropertySetFactory.CreateSummaryInformation();
             si.Subject = "NPOI SDK Example";
             hssfworkbook.SummaryInformation = si;
-            
+
             sheet1 = hssfworkbook.CreateSheet("ЗОВ-Профиль");
             sheet1.PrintSetup.PaperSize = (short)PaperSizeType.A4;
 
@@ -5462,25 +5465,25 @@ INNER JOIN ClientsManagers ON Clients.ManagerID=ClientsManagers.ManagerID WHERE 
                 //if (Currency == "BYN")
                 //    Cell1.CellStyle = BelCountCS;
                 //else
-                    Cell1.CellStyle = CountCS;
+                Cell1.CellStyle = CountCS;
                 Cell1 = sheet1.CreateRow(pos).CreateCell(DisplayIndex++);
                 Cell1.SetCellValue(Convert.ToDouble(ReportTable.Rows[i]["TotalDispatchSum"]));
                 //if (Currency == "BYN")
                 //    Cell1.CellStyle = BelCountCS;
                 //else
-                    Cell1.CellStyle = CountCS;
+                Cell1.CellStyle = CountCS;
                 Cell1 = sheet1.CreateRow(pos).CreateCell(DisplayIndex++);
                 Cell1.SetCellValue(Convert.ToDouble(ReportTable.Rows[i]["TotalIncomeSum"]));
                 //if (Currency == "BYN")
                 //    Cell1.CellStyle = BelCountCS;
                 //else
-                    Cell1.CellStyle = CountCS;
+                Cell1.CellStyle = CountCS;
                 Cell1 = sheet1.CreateRow(pos).CreateCell(DisplayIndex++);
                 Cell1.SetCellValue(Convert.ToDouble(ReportTable.Rows[i]["ClosingBalance"]));
                 //if (Currency == "BYN")
                 //    Cell1.CellStyle = BelCountCS;
                 //else
-                    Cell1.CellStyle = CountCS;
+                Cell1.CellStyle = CountCS;
                 pos++;
             }
 
@@ -5493,28 +5496,28 @@ INNER JOIN ClientsManagers ON Clients.ManagerID=ClientsManagers.ManagerID WHERE 
             //if (Currency == "BYN")
             //    Cell1.CellStyle = BelTotalCountCS;
             //else
-                Cell1.CellStyle = TotalCountCS;
+            Cell1.CellStyle = TotalCountCS;
 
             Cell1 = sheet1.CreateRow(pos).CreateCell(2);
             Cell1.SetCellValue(Convert.ToDouble(TotalDispatchSum));
             //if (Currency == "BYN")
             //    Cell1.CellStyle = BelTotalCountCS;
             //else
-                Cell1.CellStyle = TotalCountCS;
+            Cell1.CellStyle = TotalCountCS;
 
             Cell1 = sheet1.CreateRow(pos).CreateCell(3);
             Cell1.SetCellValue(Convert.ToDouble(TotalIncomeSum));
             //if (Currency == "BYN")
             //    Cell1.CellStyle = BelTotalCountCS;
             //else
-                Cell1.CellStyle = TotalCountCS;
+            Cell1.CellStyle = TotalCountCS;
 
             Cell1 = sheet1.CreateRow(pos).CreateCell(4);
             Cell1.SetCellValue(Convert.ToDouble(TotalClosingBalance));
             //if (Currency == "BYN")
             //    Cell1.CellStyle = BelTotalCountCS;
             //else
-                Cell1.CellStyle = TotalCountCS;
+            Cell1.CellStyle = TotalCountCS;
 
             RowIndex = pos++;
         }
@@ -5549,25 +5552,25 @@ INNER JOIN ClientsManagers ON Clients.ManagerID=ClientsManagers.ManagerID WHERE 
                 //if (Currency == "BYN")
                 //    Cell1.CellStyle = BelCountCS;
                 //else
-                    Cell1.CellStyle = CountCS;
+                Cell1.CellStyle = CountCS;
                 Cell1 = sheet2.CreateRow(pos).CreateCell(DisplayIndex++);
                 Cell1.SetCellValue(Convert.ToDouble(ReportTable.Rows[i]["TotalDispatchSum"]));
                 //if (Currency == "BYN")
                 //    Cell1.CellStyle = BelCountCS;
                 //else
-                    Cell1.CellStyle = CountCS;
+                Cell1.CellStyle = CountCS;
                 Cell1 = sheet2.CreateRow(pos).CreateCell(DisplayIndex++);
                 Cell1.SetCellValue(Convert.ToDouble(ReportTable.Rows[i]["TotalIncomeSum"]));
                 //if (Currency == "BYN")
                 //    Cell1.CellStyle = BelCountCS;
                 //else
-                    Cell1.CellStyle = CountCS;
+                Cell1.CellStyle = CountCS;
                 Cell1 = sheet2.CreateRow(pos).CreateCell(DisplayIndex++);
                 Cell1.SetCellValue(Convert.ToDouble(ReportTable.Rows[i]["ClosingBalance"]));
                 //if (Currency == "BYN")
                 //    Cell1.CellStyle = BelCountCS;
                 //else
-                    Cell1.CellStyle = CountCS;
+                Cell1.CellStyle = CountCS;
                 pos++;
             }
 
@@ -5580,28 +5583,28 @@ INNER JOIN ClientsManagers ON Clients.ManagerID=ClientsManagers.ManagerID WHERE 
             //if (Currency == "BYN")
             //    Cell1.CellStyle = BelTotalCountCS;
             //else
-                Cell1.CellStyle = TotalCountCS;
+            Cell1.CellStyle = TotalCountCS;
 
             Cell1 = sheet2.CreateRow(pos).CreateCell(2);
             Cell1.SetCellValue(Convert.ToDouble(TotalDispatchSum));
             //if (Currency == "BYN")
             //    Cell1.CellStyle = BelTotalCountCS;
             //else
-                Cell1.CellStyle = TotalCountCS;
+            Cell1.CellStyle = TotalCountCS;
 
             Cell1 = sheet2.CreateRow(pos).CreateCell(3);
             Cell1.SetCellValue(Convert.ToDouble(TotalIncomeSum));
             //if (Currency == "BYN")
             //    Cell1.CellStyle = BelTotalCountCS;
             //else
-                Cell1.CellStyle = TotalCountCS;
+            Cell1.CellStyle = TotalCountCS;
 
             Cell1 = sheet2.CreateRow(pos).CreateCell(4);
             Cell1.SetCellValue(Convert.ToDouble(TotalClosingBalance));
             //if (Currency == "BYN")
             //    Cell1.CellStyle = BelTotalCountCS;
             //else
-                Cell1.CellStyle = TotalCountCS;
+            Cell1.CellStyle = TotalCountCS;
 
             RowIndex = pos++;
         }

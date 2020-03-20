@@ -1,7 +1,8 @@
-﻿using System;
+﻿using Infinium.Modules.Marketing.Clients;
+
+using System;
 using System.Data;
 using System.Windows.Forms;
-using Infinium.Modules.Marketing.Clients;
 
 namespace Infinium
 {
@@ -215,18 +216,18 @@ namespace Infinium
                     "Сохранение клиента");
                 return;
             }
-            
+
             string UNN = tbUNN.Text;
             string Name = ClientNameTextBox.Text;
             int CountryID = Convert.ToInt32(cbCountry.SelectedValue);
             int ClientGroupID = Convert.ToInt32(cbClientGroups.SelectedValue);
             string City = CityTextBox.Text;
-            string Site = SiteTextBox.Text; 
-            string Email = EmailTextBox.Text; 
+            string Site = SiteTextBox.Text;
+            string Email = EmailTextBox.Text;
             int ManagerID = Convert.ToInt32(cbManager.SelectedValue);
-            int NonStandard =  Convert.ToInt32(NonStandardComboBox.SelectedIndex); 
+            int NonStandard = Convert.ToInt32(NonStandardComboBox.SelectedIndex);
             decimal PriceGroup = Convert.ToDecimal(tbPriceGroup.Text);
-            int DelayOfPayment = 0; 
+            int DelayOfPayment = 0;
             bool Enabled = cbClientEnable.Checked;
 
             if (tbDelayOfPayment.Text.Length > 0)
@@ -326,7 +327,7 @@ namespace Infinium
         {
             PhantomForm PhantomForm = new Infinium.PhantomForm();
             PhantomForm.Show();
-            
+
             CountriesForm CountriesForm = new CountriesForm(this, Clients);
 
             TopForm = CountriesForm;

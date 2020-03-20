@@ -1,7 +1,8 @@
-﻿using System;
+﻿using Infinium.Modules.Marketing.Orders;
+
+using System;
 using System.Data;
 using System.Windows.Forms;
-using Infinium.Modules.Marketing.Orders;
 
 namespace Infinium
 {
@@ -11,7 +12,7 @@ namespace Infinium
         const int eShow = 1;
         const int eClose = 3;
         const int eMainMenu = 4;
-        
+
         int FormEvent = 0;
         int MainOrderID = -1;
 
@@ -61,7 +62,7 @@ namespace Infinium
             InsetColorComboBox.SelectionLength = 0;
             TechnoInsetTypesComboBox.SelectionLength = 0;
             TechnoInsetColorsComboBox.SelectionLength = 0;
-            
+
             FrontsComboBox.Focus();
         }
 
@@ -169,7 +170,7 @@ namespace Infinium
             DecorOrders.Initialize();
 
             DateTime DispatchDate = DateTime.Now;
-            bool IsSample = false; 
+            bool IsSample = false;
             string Notes = null;
             MainOrderID = OrdersManager.CurrentMainOrderID;
 
@@ -429,7 +430,7 @@ namespace Infinium
             TechnoInsetColorsComboBox.DataSource = FrontsCatalogOrder.TechnoInsetColorsBindingSource;
             TechnoInsetColorsComboBox.DisplayMember = FrontsCatalogOrder.InsetColorsBindingSourceDisplayMember;
             TechnoInsetColorsComboBox.ValueMember = FrontsCatalogOrder.InsetColorsBindingSourceValueMember;
-            
+
             bool bExcluzive = true;
             FrontsCatalogOrder.FilterFronts(bExcluzive);
             NGetFrameColors();
@@ -523,7 +524,7 @@ namespace Infinium
         {
             NGetWidth();
         }
-        
+
         //ORDER DECOR CATALOG
         public void NGetDecorItems()
         {
@@ -909,7 +910,7 @@ namespace Infinium
                 return;
             }
             InsetTypeID = Convert.ToInt32(InsetTypesComboBox.SelectedValue);
-            
+
             //цвет наполнителя
             if (InsetColorComboBox.SelectedIndex == -1)
             {
@@ -941,7 +942,7 @@ namespace Infinium
                 return;
             }
             TechnoInsetColorID = Convert.ToInt32(TechnoInsetColorsComboBox.SelectedValue);
-            
+
             //высота
             if (FrontsHeightComboBox.Text.Length < 1)
             {
@@ -949,7 +950,7 @@ namespace Infinium
                 return;
             }
             Height = Convert.ToInt32(FrontsHeightComboBox.Text);
-            
+
             //ширина
             if (FrontsWidthComboBox.Text.Length < 1)
             {
@@ -987,7 +988,7 @@ namespace Infinium
             //if (FrontsOrdersDataGrid.SelectedRows.Count != 0 && FrontsOrdersDataGrid.SelectedRows[0].Cells["FrontsOrdersID"].Value != DBNull.Value)
             //    FrontsOrdersID = Convert.ToInt32(FrontsOrdersDataGrid.SelectedRows[0].Cells["FrontsOrdersID"].Value);
             //if (FrontsOrdersID == 0)
-                FrontsOrders.RemoveOrder();
+            FrontsOrders.RemoveOrder();
         }
 
         private void SaveButton_Click(object sender, EventArgs e)
@@ -1043,7 +1044,7 @@ namespace Infinium
             }
 
             OrdersCalculate.Recalculate(MegaOrderID, OrdersManager.CurrentProfilDiscountDirector, OrdersManager.CurrentTPSDiscountDirector,
-                OrdersManager.CurrentProfilTotalDiscount, OrdersManager.CurrentTPSTotalDiscount, DiscountPaymentCondition,  OrdersManager.CurrencyTypeID,
+                OrdersManager.CurrentProfilTotalDiscount, OrdersManager.CurrentTPSTotalDiscount, DiscountPaymentCondition, OrdersManager.CurrencyTypeID,
                 OrdersManager.PaymentCurrency, OrdersManager.ConfirmDateTime, CurrencyTotalCost, false);
             //OrdersManager.SetCurrencyCost(Convert.ToInt32(((DataRowView)OrdersManager.MegaOrdersBindingSource.Current).Row["MegaOrderID"]), CurrencyTotalCost);
 
@@ -1146,7 +1147,7 @@ namespace Infinium
             int FactoryID = 0;
             int AreaID = 0;
             DecorOrders.DecorCatalogOrder.GetDecorConfigID(ProductID,
-                ((DataRowView)DecorItemsComboBox.SelectedItem).Row["Name"].ToString(), ColorID, PatinaID, InsetTypeID, InsetColorID, 
+                ((DataRowView)DecorItemsComboBox.SelectedItem).Row["Name"].ToString(), ColorID, PatinaID, InsetTypeID, InsetColorID,
                 Length, Height, Width, ref ItemID, ref FactoryID, ref AreaID);
             if (ItemID == -1)
                 return;
@@ -1606,7 +1607,7 @@ namespace Infinium
 
             int AreaID = 0;
             DecorOrders.DecorCatalogOrder.GetDecorConfigID(ProductID,
-                ((DataRowView)DecorItemsComboBox.SelectedItem).Row["Name"].ToString(), ColorID, PatinaID, InsetTypeID, InsetColorID, 
+                ((DataRowView)DecorItemsComboBox.SelectedItem).Row["Name"].ToString(), ColorID, PatinaID, InsetTypeID, InsetColorID,
                 Length, Height, Width, ref ItemID, ref FactoryID, ref AreaID);
             if (ItemID == -1)
                 return;
@@ -1726,32 +1727,32 @@ namespace Infinium
         {
             //if (FrontsOrders.HasExcluzive)
             //{
-                FrontsOrders.UpdateExcluziveCatalog();
-                FrontsCatalogOrder.FilterFronts(cbOnlyExcluzive.Checked);
+            FrontsOrders.UpdateExcluziveCatalog();
+            FrontsCatalogOrder.FilterFronts(cbOnlyExcluzive.Checked);
 
-                NGetFrameColors();
-                NGetTechnoFrameColors();
-                NGetPatina();
-                NGetInsetTypes();
-                NGetInsetColors();
-                NGetTechnoInsetTypes();
-                NGetTechnoInsetColors();
-                NGetHeight();
-                NGetWidth();
+            NGetFrameColors();
+            NGetTechnoFrameColors();
+            NGetPatina();
+            NGetInsetTypes();
+            NGetInsetColors();
+            NGetTechnoInsetTypes();
+            NGetTechnoInsetColors();
+            NGetHeight();
+            NGetWidth();
             //}
             //if (DecorOrders.HasExcluzive)
             //{
-                DecorOrders.UpdateExcluziveCatalog();
-                DecorCatalogOrder.FilterProducts(cbOnlyExcluzive.Checked);
+            DecorOrders.UpdateExcluziveCatalog();
+            DecorCatalogOrder.FilterProducts(cbOnlyExcluzive.Checked);
 
-                NGetDecorItems();
-                NGetDecorColors();
-                NGetDecorPatina();
-                NGetDecorInsetTypes();
-                NGetDecorInsetColors();
-                NGetDecorLength();
-                NGetDecorHeight();
-                NGetDecorWidth();
+            NGetDecorItems();
+            NGetDecorColors();
+            NGetDecorPatina();
+            NGetDecorInsetTypes();
+            NGetDecorInsetColors();
+            NGetDecorLength();
+            NGetDecorHeight();
+            NGetDecorWidth();
             //}
         }
 

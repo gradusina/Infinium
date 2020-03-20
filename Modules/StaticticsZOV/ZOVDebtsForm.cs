@@ -1,10 +1,11 @@
-﻿using System;
+﻿using Infinium.Modules.StaticticsZOV;
+
+using System;
 using System.Data;
-using System.Windows.Forms;
-using System.Threading;
-using System.Globalization;
 using System.Drawing;
-using Infinium.Modules.StaticticsZOV;
+using System.Globalization;
+using System.Threading;
+using System.Windows.Forms;
 
 namespace Infinium
 {
@@ -23,7 +24,7 @@ namespace Infinium
         int FormEvent = 0;
 
         LightStartForm LightStartForm;
-        
+
         Form TopForm = null;
 
         public Payments PaymentsManager;
@@ -39,12 +40,12 @@ namespace Infinium
 
             LightStartForm = tLightStartForm;
 
-            
+
             this.MaximumSize = Screen.PrimaryScreen.WorkingArea.Size;
 
             Initialize();
 
-            while (!SplashForm.bCreated);
+            while (!SplashForm.bCreated) ;
         }
 
         private void DispatchZOVDateForm_Shown(object sender, EventArgs e)
@@ -163,7 +164,7 @@ namespace Infinium
             };
             ZOVDebtsManager = new Modules.PaymentWeeks.ZOVDebts();
             ZOVDebtsManager.Initialize();
-            
+
             dgvDebtsDetails.DataSource = ZOVDebtsManager.DebtsList;
             dgvDoNotDispatchDetails.DataSource = ZOVDebtsManager.DoNotDispatchDetailsList;
 
@@ -980,7 +981,7 @@ namespace Infinium
 
             if (NeedSplash)
             {
-                Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
+                Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
                 T.Start();
                 while (!SplashWindow.bSmallCreated) ;
                 NeedSplash = false;
@@ -1044,7 +1045,7 @@ namespace Infinium
 
                 if (NeedSplash)
                 {
-                    Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
+                    Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
                     T.Start();
                     while (!SplashWindow.bSmallCreated) ;
                     NeedSplash = false;
@@ -1066,7 +1067,7 @@ namespace Infinium
 
         private void CheckAllClientsCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
             T.Start();
             while (!SplashWindow.bSmallCreated) ;
             NeedSplash = false;
@@ -1370,7 +1371,7 @@ namespace Infinium
             {
                 panel4.BringToFront();
             }
-                
+
         }
 
         private void PaymentWeeksZOVSelectDateForm_Load(object sender, EventArgs e)
@@ -1420,7 +1421,7 @@ namespace Infinium
         private void btnMoveToExpedition_Click(object sender, EventArgs e)
         {
             string DocNumber = dgvDoNotDispatchDetails.SelectedRows[0].Cells["DocNumber"].Value.ToString();
-            Thread T = new Thread(delegate() { SplashWindow.CreateSplash(); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSplash(); });
             T.Start();
 
             while (!SplashForm.bCreated) ;
@@ -1440,7 +1441,7 @@ namespace Infinium
         private void kryptonContextMenuItem2_Click(object sender, EventArgs e)
         {
             string DocNumber = dgvDebtsDetails.SelectedRows[0].Cells["DocNumber"].Value.ToString();
-            Thread T = new Thread(delegate() { SplashWindow.CreateSplash(); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSplash(); });
             T.Start();
 
             while (!SplashForm.bCreated) ;
@@ -1464,7 +1465,7 @@ namespace Infinium
 
             if (NeedSplash)
             {
-                Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
+                Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
                 T.Start();
                 while (!SplashWindow.bSmallCreated) ;
                 NeedSplash = false;
@@ -1529,7 +1530,7 @@ namespace Infinium
             DateTime FirstDate = CalendarFrom.SelectionStart;
             DateTime SecondDate = CalendarTo.SelectionStart;
 
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Обработка данных.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Обработка данных.\r\nПодождите..."); });
             T.Start();
 
             while (!SplashWindow.bSmallCreated) ;

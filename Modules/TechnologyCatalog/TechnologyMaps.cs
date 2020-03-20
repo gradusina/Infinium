@@ -1,5 +1,6 @@
 ﻿using NPOI.HSSF.UserModel;
 using NPOI.HSSF.Util;
+
 using System;
 using System.Data;
 using System.Data.SqlClient;
@@ -44,13 +45,13 @@ namespace Infinium.Modules.TechnologyCatalog
         public TechnologyMaps()
         {
         }
-        
+
         private void FillExcelTable(DataRow row)
         {
             DataRow NewRow = ToExcelDT.NewRow();
             ToExcelDT.Rows.Add(NewRow);
         }
-        
+
         public void Initialize()
         {
             Create();
@@ -200,7 +201,7 @@ namespace Infinium.Modules.TechnologyCatalog
             StoreDetailTermsDT = new DataTable();
             ToolsDT = new DataTable();
         }
-        
+
         public void MainFunction(int TechStoreID)
         {
             OrderNumber = 1;
@@ -519,7 +520,7 @@ namespace Infinium.Modules.TechnologyCatalog
 
             return rows.Count() > 0;
         }
-        
+
         public bool GetStoreDetail(DataRow Row)
         {
             int TechCatalogOperationsDetailID = Convert.ToInt32(Row["TechCatalogOperationsDetailID"]);
@@ -572,7 +573,7 @@ namespace Infinium.Modules.TechnologyCatalog
         public string GetTechStoreName(int TechStoreID)
         {
             string TechStoreName = string.Empty;
-            string SelectCommand = @"SELECT TechStoreID, TechStoreName FROM TechStore WHERE TechStoreID="+ TechStoreID;
+            string SelectCommand = @"SELECT TechStoreID, TechStoreName FROM TechStore WHERE TechStoreID=" + TechStoreID;
             using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.CatalogConnectionString))
             {
                 using (DataTable DT = new DataTable())
@@ -958,7 +959,7 @@ namespace Infinium.Modules.TechnologyCatalog
             return stringTerm;
         }
     }
-    
+
     public class ReportToExcel
     {
         int pos13 = 0;
@@ -988,7 +989,7 @@ namespace Infinium.Modules.TechnologyCatalog
         public ReportToExcel()
         {
             hssfworkbook = new HSSFWorkbook();
-            
+
             sheet13 = hssfworkbook.CreateSheet("sheet1");
             sheet13.PrintSetup.PaperSize = (short)PaperSizeType.A4;
             sheet13.SetMargin(HSSFSheet.LeftMargin, (double).12);
@@ -1165,7 +1166,7 @@ namespace Infinium.Modules.TechnologyCatalog
         {
 
         }
-        
+
         public void WriteSheetMainInfo()
         {
             HSSFCell Cell1;
@@ -1232,7 +1233,7 @@ namespace Infinium.Modules.TechnologyCatalog
         public void WriteTechStoreName(string TechStoreName)
         {
             HSSFCell Cell1;
-            
+
             Cell1 = sheet13.CreateRow(pos13).CreateCell(0);
             Cell1.SetCellValue(TechStoreName);
             Cell1.CellStyle = csHeader;
@@ -1245,7 +1246,7 @@ namespace Infinium.Modules.TechnologyCatalog
             HSSFCell Cell1;
 
             int p = pos13;
-           
+
             int firstRowIndex = pos13;
             int secondRowIndex = pos13 - 1 + rows.Count();
             if (rows.Count() > 0)

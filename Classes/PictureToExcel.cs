@@ -1,11 +1,12 @@
-﻿using System;
+﻿using NPOI.HPSF;
 using NPOI.HSSF.UserModel;
-using NPOI.HPSF;
-using System.IO;
-using System.Data.SqlClient;
-using System.Windows.Forms;
-using System.Data;
 using NPOI.HSSF.Util;
+
+using System;
+using System.Data;
+using System.Data.SqlClient;
+using System.IO;
+using System.Windows.Forms;
 
 namespace Infinium.Classes
 {
@@ -27,7 +28,7 @@ namespace Infinium.Classes
             {
                 using (DataTable DT = new DataTable())
                 {
-                    DA.Fill(TechStoreDocumentsDT); 
+                    DA.Fill(TechStoreDocumentsDT);
                 }
             }
 

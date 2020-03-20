@@ -1,16 +1,17 @@
-﻿using System;
-using System.Linq;
-using System.Data;
-using System.Data.SqlClient;
-using System.Windows.Forms;
-using System.Collections;
-using System.Drawing;
-using System.IO;
-using System.Drawing.Printing;
+﻿using NPOI.HPSF;
 using NPOI.HSSF.UserModel;
 using NPOI.HSSF.UserModel.Contrib;
 using NPOI.HSSF.Util;
-using NPOI.HPSF;
+
+using System;
+using System.Collections;
+using System.Data;
+using System.Data.SqlClient;
+using System.Drawing;
+using System.Drawing.Printing;
+using System.IO;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace Infinium
 {
@@ -57,7 +58,7 @@ namespace Infinium
         BindingSource FactLabelsBS;
         BindingSource DisprepancyLabelsBS;
         BindingSource DefectLabelsBS;
-        
+
         public ProfileAssignmentsLabels()
         {
 
@@ -1053,7 +1054,7 @@ WHERE LabelType=2 AND DecorAssignmentsLabels.DecorAssignmentID=" + iDecorAssignm
             //        CurrentLabelNumber++;
             //    }
             //}
-            
+
             {
                 indent = 8;
                 if (((ProfileAssignmentsLabelInfo)LabelInfo[CurrentLabelNumber]).LabelType == 1)
@@ -1080,7 +1081,7 @@ WHERE LabelType=2 AND DecorAssignmentsLabels.DecorAssignmentID=" + iDecorAssignm
                 indent = indent + 80;
 
                 ev.Graphics.DrawImage(Barcode.GetBarcode(Modules.Packages.Marketing.Barcode.BarcodeLength.Medium, 46, ((ProfileAssignmentsLabelInfo)LabelInfo[CurrentLabelNumber]).BarcodeNumber), 10, indent);
-                Barcode.DrawBarcodeText(Modules.Packages.Marketing.Barcode.BarcodeLength.Medium, ev.Graphics, ((ProfileAssignmentsLabelInfo)LabelInfo[CurrentLabelNumber]).BarcodeNumber, 9, indent + 49); 
+                Barcode.DrawBarcodeText(Modules.Packages.Marketing.Barcode.BarcodeLength.Medium, ev.Graphics, ((ProfileAssignmentsLabelInfo)LabelInfo[CurrentLabelNumber]).BarcodeNumber, 9, indent + 49);
                 if (((ProfileAssignmentsLabelInfo)LabelInfo[CurrentLabelNumber]).FactoryType == 2)
                     ev.Graphics.DrawImage(ZTTPS, 249, indent + 3, 37, 45);
                 else
@@ -2706,7 +2707,7 @@ WHERE LabelType=2 AND DecorAssignmentsLabels.DecorAssignmentID=" + iDecorAssignm
                 return Column;
             }
         }
-        
+
         private string GetTechStoreName(int TechStoreID)
         {
             string Name = string.Empty;
@@ -3179,7 +3180,7 @@ WHERE LabelType=2 AND DecorAssignmentsLabels.DecorAssignmentID=" + iDecorAssignm
             DataRow[] rows = DecorAssignmentsDT.Select("(ProductType=7 OR ProductType=8) AND BatchAssignmentID=" + BatchAssignmentID);
             if (rows.Count() == 0)
                 return false;
-            
+
             foreach (DataRow item in rows)
             {
                 if (Convert.ToInt32(item["DecorAssignmentStatusID"]) == 3)
@@ -3309,17 +3310,17 @@ WHERE LabelType=2 AND DecorAssignmentsLabels.DecorAssignmentID=" + iDecorAssignm
             }
         }
 
-//        public void GetReturnedRollers(int DecorAssignmentID)
-//        {
-//            ReturnedRollersDT.Clear();
-//            string SelectCommand = @"SELECT ReturnedRollers.*, infiniu2_catalog.dbo.TechStore.TechStoreName, infiniu2_catalog.dbo.TechStore.Thickness, infiniu2_catalog.dbo.TechStore.Notes FROM ReturnedRollers
-//                INNER JOIN infiniu2_catalog.dbo.TechStore ON ReturnedRollers.StoreItemID=infiniu2_catalog.dbo.TechStore.TechStoreID
-//                WHERE ReturnType=1 AND ReturnedRollers.DecorAssignmentID=" + DecorAssignmentID + " ORDER BY TechStoreName, ReturnedRollers.Diameter, ReturnedRollers.Height";
-//            using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.StorageConnectionString))
-//            {
-//                DA.Fill(ReturnedRollersDT);
-//            }
-//        }
+        //        public void GetReturnedRollers(int DecorAssignmentID)
+        //        {
+        //            ReturnedRollersDT.Clear();
+        //            string SelectCommand = @"SELECT ReturnedRollers.*, infiniu2_catalog.dbo.TechStore.TechStoreName, infiniu2_catalog.dbo.TechStore.Thickness, infiniu2_catalog.dbo.TechStore.Notes FROM ReturnedRollers
+        //                INNER JOIN infiniu2_catalog.dbo.TechStore ON ReturnedRollers.StoreItemID=infiniu2_catalog.dbo.TechStore.TechStoreID
+        //                WHERE ReturnType=1 AND ReturnedRollers.DecorAssignmentID=" + DecorAssignmentID + " ORDER BY TechStoreName, ReturnedRollers.Diameter, ReturnedRollers.Height";
+        //            using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.StorageConnectionString))
+        //            {
+        //                DA.Fill(ReturnedRollersDT);
+        //            }
+        //        }
 
         public int GetTransferredRollers(int DecorAssignmentID)
         {
@@ -4038,7 +4039,7 @@ WHERE LabelType=2 AND DecorAssignmentsLabels.DecorAssignmentID=" + iDecorAssignm
                 DT = DV.ToTable(true, new string[] { "MegaOrderID" });
             }
 
-            string filter = string.Empty;foreach (DataRow item in DT.Rows)
+            string filter = string.Empty; foreach (DataRow item in DT.Rows)
                 filter += item["MegaOrderID"].ToString() + ",";
             if (filter.Length > 0)
                 filter = " WHERE MegaOrderID IN (" + filter.Substring(0, filter.Length - 1) + ")";
@@ -4096,7 +4097,7 @@ WHERE LabelType=2 AND DecorAssignmentsLabels.DecorAssignmentID=" + iDecorAssignm
             string Status = string.Empty;
 
             Status = "(ProfilOrderStatusID=0)";
-            
+
             if (bsNotInProduction)
             {
                 if (Status.Length > 0)
@@ -4948,7 +4949,7 @@ WHERE LabelType=2 AND DecorAssignmentsLabels.DecorAssignmentID=" + iDecorAssignm
                 WriteOffMovementInvoiceID = AssignmentsStoreManager.SaveMovementInvoices(CreateDateTime, SellerStoreAllocID, RecipientStoreAllocID, 0,
                     Security.CurrentUserID, Security.CurrentUserShortName, Security.CurrentUserID, 0, 0, string.Empty, "Возвращено из пр-ва обл. ролики: откатить", 2);
                 ReturnToManufactureStoreByManufactureStoreID(WriteOffMovementInvoiceID, CreateDateTime, ManufactureStoreID, -Count);
-                
+
                 ReturnedRollersBS.RemoveCurrent();
             }
         }
@@ -5449,7 +5450,7 @@ WHERE LabelType=2 AND DecorAssignmentsLabels.DecorAssignmentID=" + iDecorAssignm
             if (rows.Count() > 0)
             {
                 CreateMovementInvoice = true;
-                ArrivalMovementInvoiceID = AssignmentsStoreManager.SaveMovementInvoices(CreateDateTime, SellerStoreAllocID, RecipientStoreAllocID, 0, 
+                ArrivalMovementInvoiceID = AssignmentsStoreManager.SaveMovementInvoices(CreateDateTime, SellerStoreAllocID, RecipientStoreAllocID, 0,
                     Security.CurrentUserID, Security.CurrentUserShortName, Security.CurrentUserID, 0, 0, string.Empty, "Приход в рабочую зону", 1);
             }
             rows = AssignmentsDT.Select("FactCount IS NOT NULL AND DefectCount IS NOT NULL AND DisprepancyCount IS NOT NULL AND WriteOffFromStore=0");
@@ -5467,7 +5468,7 @@ WHERE LabelType=2 AND DecorAssignmentsLabels.DecorAssignmentID=" + iDecorAssignm
             DT.Clear();
             rows = AssignmentsDT.Select("ProductType=5");
             PreSaveKashir(ArrivalMovementInvoiceID, WriteOffMovementInvoiceID, CreateDateTime, ref rows);
-            
+
             DT.Clear();
             rows = AssignmentsDT.Select("ProductType=2");
             PreSaveMilledProfile(ArrivalMovementInvoiceID, WriteOffMovementInvoiceID, CreateDateTime, ref rows);
@@ -6394,7 +6395,8 @@ WHERE LabelType=2 AND DecorAssignmentsLabels.DecorAssignmentID=" + iDecorAssignm
                     {
                         if (DT2.Rows[j]["Width"] != DBNull.Value)
                             Width1 = Convert.ToDecimal(DT2.Rows[j]["Width"]);
-                        return TechStoreID1;}
+                        return TechStoreID1;
+                    }
                     FindSawStripID(TechStoreID1, GroupNumber, ref Width1);
                 }
             }
@@ -7398,7 +7400,7 @@ WHERE LabelType=2 AND DecorAssignmentsLabels.DecorAssignmentID=" + iDecorAssignm
                     if (PatinaID > -1)
                         ManufactureStoreDT.Rows[0]["PatinaID"] = PatinaID;
                     if (ManufactureStoreDT.Rows[0]["InvoiceCount"] != DBNull.Value)
-                        ManufactureStoreDT.Rows[0]["InvoiceCount"] =  Count;
+                        ManufactureStoreDT.Rows[0]["InvoiceCount"] = Count;
                     if (ManufactureStoreDT.Rows[0]["CurrentCount"] != DBNull.Value)
                         ManufactureStoreDT.Rows[0]["CurrentCount"] = Count;
                     ManufactureStoreDT.Rows[0]["FactoryID"] = FactoryID;
@@ -9559,7 +9561,7 @@ WHERE LabelType=2 AND DecorAssignmentsLabels.DecorAssignmentID=" + iDecorAssignm
             sheet1.SetColumnWidth(11, 12 * 256);
 
             HSSFCell cell = null;
-            
+
             cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 0, "ДАТА");
             cell.CellStyle = TableNameCS;
             cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 1, date.ToString("dd MMMM yyyy"));

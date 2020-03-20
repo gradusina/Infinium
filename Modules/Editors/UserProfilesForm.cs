@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Data;
 using System.Drawing;
-using System.Windows.Forms;
 using System.Threading;
+using System.Windows.Forms;
 
 namespace Infinium
 {
@@ -18,7 +18,7 @@ namespace Infinium
         int FormEvent = 0;
 
         LightStartForm LightStartForm;
-        
+
 
         int CurrentUserID;
 
@@ -42,14 +42,14 @@ namespace Infinium
         {
             InitializeComponent();
 
-            
+
 
             this.MaximumSize = Screen.PrimaryScreen.WorkingArea.Size;
 
             UserProfile = new Infinium.UserProfile();
             LightStartForm = tLightStartForm;
 
-            
+
             UserComboBox.DataSource = UserProfile.UsersBindingSource;
             UserComboBox.DisplayMember = "Name";
             UserComboBox.ValueMember = "UserID";
@@ -85,7 +85,7 @@ namespace Infinium
 
             UserComboBox_SelectionChangeCommitted(null, null);
 
-            while(!SplashForm.bCreated);
+            while (!SplashForm.bCreated) ;
         }
 
         private void ContactsToControls()
@@ -127,7 +127,7 @@ namespace Infinium
 
             }
 
-            if(Contacts.WorkExtPhone.Length > 0)
+            if (Contacts.WorkExtPhone.Length > 0)
                 WorkExtTextBox.Text = Contacts.WorkExtPhone;
 
             if (Contacts.Skype.Length > 0)
@@ -149,7 +149,7 @@ namespace Infinium
             BirthDateTextEdit.Text = PersonalInform.BirthDate;
             //PositionComboBox.SelectedValue = PersonalInform.PositionID;
 
-            if(PersonalInform.Education.Length > 0)
+            if (PersonalInform.Education.Length > 0)
                 EduComboBox.SelectedIndex = EduComboBox.Items.IndexOf(PersonalInform.Education);
 
             EduPlace.Text = PersonalInform.EducationPlace;
@@ -197,7 +197,7 @@ namespace Infinium
             DriveDCheckBox.Checked = PersonalInform.DriveD;
             DriveECheckBox.Checked = PersonalInform.DriveE;
             CombatArmTextBox.Text = PersonalInform.CombatArm;
-            
+
             if (PersonalInform.MilitaryRank.Length > 0)
                 MilitaryRankComboBox.SelectedIndex = MilitaryRankComboBox.Items.IndexOf(PersonalInform.MilitaryRank);
         }
@@ -249,7 +249,7 @@ namespace Infinium
 
                     if (FormEvent == eClose)
                     {
-                       
+
                         LightStartForm.CloseForm(this);
                     }
 
@@ -259,7 +259,7 @@ namespace Infinium
                         LightStartForm.HideForm(this);
                     }
 
-                    
+
                     return;
                 }
 
@@ -282,7 +282,7 @@ namespace Infinium
 
                     if (FormEvent == eClose)
                     {
-                       
+
                         LightStartForm.CloseForm(this);
                     }
 
@@ -291,7 +291,7 @@ namespace Infinium
 
                         LightStartForm.HideForm(this);
                     }
-                    
+
                 }
 
                 return;
@@ -322,8 +322,8 @@ namespace Infinium
         {
             FormEvent = eHide;
             AnimateTimer.Enabled = true;
-        }     
-        
+        }
+
 
         private void Initialize()
         {
@@ -356,7 +356,7 @@ namespace Infinium
                 if (MobPersOpCodeTextBox.Text.Length == 2)
                     if (MobPersNumberTextBox.Text.Length == 9)
                     {
-                        Contacts.PersonalMobilePhone = MobPersCCodeTextBox.Text + MobPersOpCodeTextBox.Text + 
+                        Contacts.PersonalMobilePhone = MobPersCCodeTextBox.Text + MobPersOpCodeTextBox.Text +
                                         UserProfile.PhoneFormatToNumberFormat(MobPersNumberTextBox.Text);
                     }
 
@@ -370,7 +370,7 @@ namespace Infinium
                     }
 
             Contacts.WorkStatPhone = "";
-            
+
             if (CityCountryCodeTextBox.Text.Length == 3)
                 if (CityCityCodeTextBox.Text.Length == 2)
                     if (CityNumberTextBox.Text.Length == 9)
@@ -437,7 +437,7 @@ namespace Infinium
             PhotoEditForm PhotoEditForm = new PhotoEditForm(ref UserProfile, false, CurrentUserID);
 
             TopForm = PhotoEditForm;
-            
+
             PhotoEditForm.ShowDialog();
 
             TopForm = null;
@@ -451,7 +451,7 @@ namespace Infinium
         {
             UserProfile.PersonalInform PersonalInform = new UserProfile.PersonalInform();
 
-            if(BirthDateTextEdit.Text.Length > 0)
+            if (BirthDateTextEdit.Text.Length > 0)
                 PersonalInform.BirthDate = BirthDateTextEdit.Text;
 
             //PersonalInform.PositionID = Convert.ToInt32(PositionComboBox.SelectedValue);
@@ -501,10 +501,10 @@ namespace Infinium
                     TopForm.Activate();
             }
         }
-        
+
         private void lightBackButton1_Click(object sender, EventArgs e)
         {
-            Thread T = new Thread(delegate() { SplashWindow.CreateSplash(); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSplash(); });
             T.Start();
 
             while (!SplashForm.bCreated) ;

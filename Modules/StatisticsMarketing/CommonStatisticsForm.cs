@@ -1,12 +1,13 @@
-﻿using System;
+﻿using Infinium.Modules.Marketing.NewOrders;
+using Infinium.Modules.StatisticsMarketing;
+
+using System;
+using System.Collections;
 using System.Data;
 using System.Drawing;
-using System.Windows.Forms;
-using System.Threading;
 using System.Globalization;
-using Infinium.Modules.StatisticsMarketing;
-using System.Collections;
-using Infinium.Modules.Marketing.NewOrders;
+using System.Threading;
+using System.Windows.Forms;
 
 namespace Infinium
 {
@@ -1631,7 +1632,8 @@ namespace Infinium
                 NeedSplash = true;
             }
             else
-            {if (rbMarketing.Checked)
+            {
+                if (rbMarketing.Checked)
                 {
                     if (PlanDispDate)
                         AllProductsStatistics.FilterByPlanDispatch(From, To, FactoryID, cbSamples.Checked, cbNotSamples.Checked);
@@ -1837,7 +1839,7 @@ namespace Infinium
         }
 
         private void FrameColorsDataGrid_SelectionChanged(object sender, EventArgs e)
-        {            
+        {
             if (rbMarketing.Checked)
             {
                 if (AllProductsStatistics != null)
@@ -4439,7 +4441,7 @@ namespace Infinium
 
             ZOVOrdersStatistics.GetCurrentZOVGroup();
         }
-        
+
         private void ZOVClientGroupsDataGrid_RowPrePaint(object sender, DataGridViewRowPrePaintEventArgs e)
         {
             if (!string.IsNullOrEmpty(ZOVClientGroupsDataGrid.Rows[e.RowIndex].Cells["Color"].Value.ToString()))
@@ -4518,7 +4520,7 @@ namespace Infinium
             while (!SplashWindow.bSmallCreated) ;
             NeedSplash = false;
 
-            string FileName = "Не упакованная продукция с " + CalendarFrom.SelectionStart.ToString("dd.MM.yyyy") + " по " 
+            string FileName = "Не упакованная продукция с " + CalendarFrom.SelectionStart.ToString("dd.MM.yyyy") + " по "
                 + CalendarTo.SelectionStart.ToString("dd.MM.yyyy");
 
             ClientNotPackedReport report = new ClientNotPackedReport();

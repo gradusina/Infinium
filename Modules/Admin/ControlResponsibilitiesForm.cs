@@ -25,7 +25,7 @@ namespace Infinium
             InitializeComponent();
 
             LightStartForm = tLightStartForm;
-            
+
             this.MaximumSize = Screen.PrimaryScreen.WorkingArea.Size;
 
             Initialize();
@@ -53,16 +53,16 @@ namespace Infinium
 
                     if (FormEvent == eClose)
                     {
-                       
+
                         LightStartForm.CloseForm(this);
                     }
 
                     if (FormEvent == eHide)
                     {
-                        
+
                         LightStartForm.HideForm(this);
                     }
-                    
+
 
                     return;
                 }
@@ -86,7 +86,7 @@ namespace Infinium
 
                     if (FormEvent == eClose)
                     {
-                       
+
                         LightStartForm.CloseForm(this);
                     }
 
@@ -95,7 +95,7 @@ namespace Infinium
 
                         LightStartForm.HideForm(this);
                     }
-                    
+
                 }
 
                 return;
@@ -157,7 +157,7 @@ namespace Infinium
             }
 
             if (DayRadioButton.Checked)
-                DayRadioButton_CheckedChanged(null, null); 
+                DayRadioButton_CheckedChanged(null, null);
         }
 
         protected override void WndProc(ref Message m)

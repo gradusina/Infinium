@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Data;
 using System.Linq;
-using System.Windows.Forms;
 using System.Threading;
+using System.Windows.Forms;
 
 namespace Infinium
 {
@@ -48,7 +48,7 @@ namespace Infinium
 
         DataTable ItemsDataTable;
 
-        
+
 
         public UploadFileForm(ref FileManager tFM, ref Infinium.InfiniumFiles tInfiniumDocuments, string[] sFileNames, int iFolderID, ref Form tTopForm)//upload
         {
@@ -68,7 +68,7 @@ namespace Infinium
             bUpload = true;
         }
 
-        public UploadFileForm(ref FileManager tFM, ref Infinium.InfiniumFiles tInfiniumDocuments, string sFileName, int iFolderID, int iFileID, 
+        public UploadFileForm(ref FileManager tFM, ref Infinium.InfiniumFiles tInfiniumDocuments, string sFileName, int iFolderID, int iFileID,
                               bool Save, string sSaveToPath, ref Form tTopForm)//download
         {
             InitializeComponent();
@@ -176,7 +176,7 @@ namespace Infinium
                     if (bMultiple)
                         StartDownloadMulti();
 
-                    if(bDownload)
+                    if (bDownload)
                         bOk = StartDownload();
 
                     if (bReplace)
@@ -256,7 +256,7 @@ namespace Infinium
             if (FM.TotalFileSize == 0)
                 return;
 
-            if (FM.Position == FM.TotalFileSize || 
+            if (FM.Position == FM.TotalFileSize ||
                 FM.Position > FM.TotalFileSize)
             {
                 ProgressBar.Value = 100;
@@ -282,7 +282,7 @@ namespace Infinium
 
             bool bOk = false;
 
-            Thread T = new Thread(delegate() { bOk = InfiniumFiles.UploadFile(FileNames, FolderID, ref CurrentUploadedFile); });
+            Thread T = new Thread(delegate () { bOk = InfiniumFiles.UploadFile(FileNames, FolderID, ref CurrentUploadedFile); });
 
             T.Start();
 
@@ -324,7 +324,7 @@ namespace Infinium
                 }
             }
 
-            LoadTimer.Enabled = false;         
+            LoadTimer.Enabled = false;
 
             FormEvent = eClose;
             AnimateTimer.Enabled = true;
@@ -345,10 +345,10 @@ namespace Infinium
 
             bool bOk = false;
 
-            if(bSave)
-                T = new Thread(delegate() { bOk = InfiniumFiles.SaveFile(FileID, SaveToPath); });
+            if (bSave)
+                T = new Thread(delegate () { bOk = InfiniumFiles.SaveFile(FileID, SaveToPath); });
             else
-                T = new Thread(delegate() { bOk = InfiniumFiles.OpenFile(FileID); });
+                T = new Thread(delegate () { bOk = InfiniumFiles.OpenFile(FileID); });
 
             T.Start();
 
@@ -388,7 +388,7 @@ namespace Infinium
 
                     return -1;
                 }
-            }           
+            }
 
             LoadTimer.Enabled = false;
 
@@ -409,7 +409,7 @@ namespace Infinium
 
             Thread T;
 
-            T = new Thread(delegate() { InfiniumFiles.SaveFiles(ItemsDataTable, SaveToPath, ref CurrentUploadedFile); });
+            T = new Thread(delegate () { InfiniumFiles.SaveFiles(ItemsDataTable, SaveToPath, ref CurrentUploadedFile); });
 
             T.Start();
 
@@ -468,7 +468,7 @@ namespace Infinium
 
             bool Ok = false;
 
-            Thread T = new Thread(delegate() { Ok = InfiniumFiles.ReplaceFile(FileID, FileName); });
+            Thread T = new Thread(delegate () { Ok = InfiniumFiles.ReplaceFile(FileID, FileName); });
 
             T.Start();
 

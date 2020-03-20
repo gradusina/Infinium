@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Windows.Forms;
 using System.Threading;
+using System.Windows.Forms;
 
 namespace Infinium
 {
@@ -35,7 +35,7 @@ namespace Infinium
         public MarketingStateForm(LightStartForm tLightStartForm)
         {
             InitializeComponent();
-            
+
             LightStartForm = tLightStartForm;
             this.MaximumSize = Screen.PrimaryScreen.WorkingArea.Size;
 
@@ -47,7 +47,7 @@ namespace Infinium
                 CurrencySymbol = "",
                 CurrencyDecimalDigits = 2
             };
-            while (!SplashForm.bCreated);
+            while (!SplashForm.bCreated) ;
         }
 
         private void MarketingStateForm_Shown(object sender, EventArgs e)
@@ -163,7 +163,7 @@ namespace Infinium
                 ref OnExpeditionDataGrid);
 
             StatisticsMarketing.Filter();
-            
+
             StatisticsMarketing.GetNonAgreementCost(ref NonAgreementProfilCost, ref NonAgreementTPSCost);
             StatisticsMarketing.GetAgreementCost(ref AgreementProfilCost, ref AgreementTPSCost);
             StatisticsMarketing.GetOnProductionCost(ref OnProductionProfilCost, ref OnProductionTPSCost);
@@ -178,7 +178,7 @@ namespace Infinium
             label12.Text = AgreementProfilCost.ToString("N", nfi1) + " €";
             label6.Text = AgreementTPSCost.ToString("N", nfi1) + " €";
             label5.Text = (AgreementProfilCost + AgreementTPSCost).ToString("N", nfi1) + " €";
-            
+
             label29.Text = OnProductionProfilCost.ToString("N", nfi1) + " €";
             label28.Text = OnProductionTPSCost.ToString("N", nfi1) + " €";
             label27.Text = (OnProductionProfilCost + OnProductionTPSCost).ToString("N", nfi1) + " €";
@@ -228,8 +228,8 @@ namespace Infinium
         {
             if (StatisticsMarketing == null)
                 return;
-            
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
+
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
             T.Start();
 
             StatisticsMarketing.Filter();

@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Data;
 using System.Drawing;
-using System.Windows.Forms;
 using System.Threading;
+using System.Windows.Forms;
 
 namespace Infinium
 {
@@ -12,14 +12,14 @@ namespace Infinium
         const int eShow = 1;
         const int eClose = 3;
         const int eMainMenu = 4;
-        
+
         int FormEvent = 0;
         int CurrentRowIndex = 0;
         int CurrentColumnIndex = 0;
 
         Form TopForm = null;
         LightStartForm LightStartForm;
-        
+
 
         private Modules.Dispatch.ZOVDispatchList DispatchList;
 
@@ -29,12 +29,12 @@ namespace Infinium
             InitializeComponent();
             LightStartForm = tLightStartForm;
 
-            
+
             this.MaximumSize = Screen.PrimaryScreen.WorkingArea.Size;
 
             Initialize();
 
-            while (!SplashForm.bCreated);
+            while (!SplashForm.bCreated) ;
         }
 
         private void ZOVDispatchListForm_Shown(object sender, EventArgs e)
@@ -57,17 +57,17 @@ namespace Infinium
 
                     if (FormEvent == eClose)
                     {
-                       
+
                         LightStartForm.CloseForm(this);
                     }
 
                     if (FormEvent == eHide)
                     {
-                        
+
                         LightStartForm.HideForm(this);
                     }
 
-                    
+
                     return;
                 }
 
@@ -90,16 +90,16 @@ namespace Infinium
 
                     if (FormEvent == eClose)
                     {
-                       
+
                         LightStartForm.CloseForm(this);
                     }
 
                     if (FormEvent == eHide)
                     {
-                        
+
                         LightStartForm.HideForm(this);
                     }
-                    
+
                 }
 
                 return;
@@ -150,7 +150,7 @@ namespace Infinium
 
         private void MegaOrdersDataGrid_SelectionChanged(object sender, EventArgs e)
         {
-            
+
         }
 
         private void MegaOrdersDataGrid_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
@@ -163,7 +163,7 @@ namespace Infinium
             }
         }
 
-        
+
         //private void AttachContextMenuItem_Click(object sender, EventArgs e)
         //{
         //    DispatchList.MegaOrdersBindingSource.Position = CurrentRowIndex;
@@ -186,7 +186,7 @@ namespace Infinium
             bool NeedProfilList = true;
             bool NeedTPSList = false;
 
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Создание документа Excel.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Создание документа Excel.\r\nПодождите..."); });
             T.Start();
 
             while (!SplashWindow.bSmallCreated) ;
@@ -203,7 +203,7 @@ namespace Infinium
             bool NeedProfilList = false;
             bool NeedTPSList = true;
 
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Создание документа Excel.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Создание документа Excel.\r\nПодождите..."); });
             T.Start();
 
             while (!SplashWindow.bSmallCreated) ;
@@ -220,7 +220,7 @@ namespace Infinium
             bool NeedProfilList = true;
             bool NeedTPSList = true;
 
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Создание документа Excel.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Создание документа Excel.\r\nПодождите..."); });
             T.Start();
 
             while (!SplashWindow.bSmallCreated) ;
@@ -248,7 +248,7 @@ namespace Infinium
             bool NeedProfilList = true;
             bool NeedTPSList = true;
 
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Создание документа Excel.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Создание документа Excel.\r\nПодождите..."); });
             T.Start();
 
             while (!SplashWindow.bSmallCreated) ;
@@ -265,7 +265,7 @@ namespace Infinium
             bool NeedProfilList = true;
             bool NeedTPSList = false;
 
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Создание документа Excel.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Создание документа Excel.\r\nПодождите..."); });
             T.Start();
 
             while (!SplashWindow.bSmallCreated) ;
@@ -284,7 +284,7 @@ namespace Infinium
             bool NeedProfilList = false;
             bool NeedTPSList = true;
 
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Создание документа Excel.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Создание документа Excel.\r\nПодождите..."); });
             T.Start();
 
             while (!SplashWindow.bSmallCreated) ;
@@ -312,7 +312,7 @@ namespace Infinium
             DateTime FirstDate = CalendarFrom.SelectionStart;
             DateTime SecondDate = CalendarTo.SelectionStart;
 
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Обработка данных.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Обработка данных.\r\nПодождите..."); });
             T.Start();
 
             while (!SplashWindow.bSmallCreated) ;

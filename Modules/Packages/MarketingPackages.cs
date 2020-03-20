@@ -1,19 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Data;
-using System.Drawing;
-using System.Data.SqlClient;
-using System.Windows.Forms;
-using System.Globalization;
-using System.Drawing.Printing;
-using System.Collections;
-using System.IO;
+﻿using NPOI.HPSF;
 using NPOI.HSSF.UserModel;
-using NPOI.HPSF;
 using NPOI.HSSF.UserModel.Contrib;
 using NPOI.HSSF.Util;
+
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
+using System.Drawing;
+using System.Drawing.Printing;
+using System.Globalization;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Windows.Forms;
 
 namespace Infinium.Modules.Packages.Marketing
 {
@@ -865,7 +866,7 @@ namespace Infinium.Modules.Packages.Marketing
                                             Row.Delete();
 
                                         DA1.Update(DT1);
-                                        
+
                                     }
                                 }
                             }
@@ -1160,7 +1161,7 @@ namespace Infinium.Modules.Packages.Marketing
 
                         FrontsOrdersDataTable.Rows.Add(Row);
                     }
-                    
+
                     DataRow Row1 = FrontsOrdersDataTable.NewRow();
 
                     Row1.ItemArray = ((DataRowView)FrontsOrdersBindingSource.Current).Row.ItemArray;
@@ -1174,7 +1175,7 @@ namespace Infinium.Modules.Packages.Marketing
                 //((DataRowView)FrontsOrdersBindingSource.Current).Row["Count"] = CurrentPositionCount;
                 //((DataRowView)FrontsOrdersBindingSource.Current).Row["PackNumber"] = SS.FirstPosition++;
 
-                
+
 
                 //FrontsOrdersBindingSource.Position = FrontsOrdersBindingSource.Find("FrontsOrdersID", MainOrderID);
             }
@@ -2059,7 +2060,7 @@ namespace Infinium.Modules.Packages.Marketing
                 }
             }
         }
-        
+
         public void CreateComplements(int TechStoreSubGroupID, int CoverID, int PatinaID, int InsetColorID, int DecorID, int FactoryID, ref int ComplementsCount)
         {
             using (SqlDataAdapter DA = new SqlDataAdapter("SELECT TOP 1 * FROM CabFurnitureComplements ORDER BY CabFurnitureComplementID DESC",
@@ -2961,7 +2962,7 @@ WHERE dbo.TechCatalogOperationsDetail.TechCatalogOperationsGroupID IN
                 ConnectionStrings.CatalogConnectionString))
             {
                 DA.Fill(FactoryTypesDataTable);
-            } 
+            }
             ClientsDataTable = new DataTable();
             using (SqlDataAdapter DA = new SqlDataAdapter("SELECT * FROM Clients",
                 ConnectionStrings.MarketingReferenceConnectionString))
@@ -3059,7 +3060,7 @@ WHERE dbo.TechCatalogOperationsDetail.TechCatalogOperationsGroupID IN
             MainOrdersDataGrid.Columns["OrderCost"].Visible = false;
             MainOrdersDataGrid.Columns["ProfilPackAllocStatusID"].Visible = false;
             MainOrdersDataGrid.Columns["TPSPackAllocStatusID"].Visible = false;
-            
+
             if (FactoryID == 1)
             {
                 MainOrdersDataGrid.Columns["TPSPackCount"].Visible = false;
@@ -3164,7 +3165,7 @@ WHERE dbo.TechCatalogOperationsDetail.TechCatalogOperationsGroupID IN
             MegaOrdersDataGrid.Columns["Rate"].Visible = false;
             MegaOrdersDataGrid.Columns["ProfilPackAllocStatusID"].Visible = false;
             MegaOrdersDataGrid.Columns["TPSPackAllocStatusID"].Visible = false;
-            
+
             if (FactoryID == 1)
             {
                 MegaOrdersDataGrid.Columns["TPSPackCount"].Visible = false;
@@ -3295,7 +3296,7 @@ WHERE dbo.TechCatalogOperationsDetail.TechCatalogOperationsGroupID IN
 
             using (SqlDataAdapter DA = new SqlDataAdapter("SELECT * FROM MainOrders" +
                 " WHERE MegaOrderID = " + MegaOrderID +
-                " AND (FactoryID=0 OR FactoryID=" + FactoryID + ") AND " + ProductionStatusFilter + 
+                " AND (FactoryID=0 OR FactoryID=" + FactoryID + ") AND " + ProductionStatusFilter +
                 " AND ((MainOrderID IN (SELECT MainOrderID FROM FrontsOrders WHERE FactoryID=" + FactoryID + ")" +
                 " OR MainOrderID IN (SELECT MainOrderID FROM DecorOrders WHERE FactoryID=" + FactoryID + ")))",
                 ConnectionStrings.MarketingOrdersConnectionString))
@@ -3312,7 +3313,7 @@ WHERE dbo.TechCatalogOperationsDetail.TechCatalogOperationsGroupID IN
             CurrentMegaOrderID = MegaOrderID;
             //FillMainOrderPackStatuses();
         }
-        
+
         public void Filter(int MainOrderID)
         {
             if (CurrentMainOrderID == MainOrderID)
@@ -3569,7 +3570,7 @@ WHERE dbo.TechCatalogOperationsDetail.TechCatalogOperationsGroupID IN
                 int FirmPackCount = 0;
                 //string PackCount = "TPSPackCount";
                 //if (FactoryID == 2)
-                    string PackCount = "ProfilPackCount";
+                string PackCount = "ProfilPackCount";
 
                 using (SqlDataAdapter DA = new SqlDataAdapter("SELECT " + PackCount + " FROM MainOrders WHERE MainOrderID = " + CurrentMainOrderID,
                     ConnectionStrings.MarketingOrdersConnectionString))
@@ -5107,7 +5108,7 @@ WHERE dbo.TechCatalogOperationsDetail.TechCatalogOperationsGroupID IN
 
             return PackageID;
         }
-        
+
         public bool Filter(int MainOrderID, ArrayList FrontIDs)
         {
             if (CurrentMainOrderID == MainOrderID)
@@ -5750,7 +5751,7 @@ WHERE dbo.TechCatalogOperationsDetail.TechCatalogOperationsGroupID IN
                             //if (Convert.ToInt32(ORow[0]["ColorID"]) == -1)
                             //    NewRow["ColorID"] = 0;
                             //else
-                                NewRow["ColorID"] = ORow[0]["ColorID"];
+                            NewRow["ColorID"] = ORow[0]["ColorID"];
 
                             NewRow["Height"] = ORow[0]["Height"];
                             NewRow["Length"] = ORow[0]["Length"];
@@ -6016,7 +6017,7 @@ WHERE dbo.TechCatalogOperationsDetail.TechCatalogOperationsGroupID IN
         {
             System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
             sw.Start();
-            
+
             MainOrdersDataAdapter = new SqlDataAdapter("SELECT TOP 0 * FROM MainOrders",
                 ConnectionStrings.MarketingOrdersConnectionString);
             MainOrdersSqlCommandBuilder = new SqlCommandBuilder(MainOrdersDataAdapter);
@@ -6205,7 +6206,7 @@ WHERE dbo.TechCatalogOperationsDetail.TechCatalogOperationsGroupID IN
             MainOrdersDataGrid.Columns.Add(DispatchStatusColumn);
 
             MegaOrdersDataGrid.Columns.Add(FirmOrderStatusColumn);
-            
+
             PackagesDataGrid.Columns.Add(PackageStatusesColumn);
         }
 
@@ -6229,7 +6230,7 @@ WHERE dbo.TechCatalogOperationsDetail.TechCatalogOperationsGroupID IN
             MainOrdersDataGrid.Columns["FrontsCost"].Visible = false;
             MainOrdersDataGrid.Columns["DecorCost"].Visible = false;
             MainOrdersDataGrid.Columns["OrderCost"].Visible = false;
-            MainOrdersDataGrid.Columns["TPSPackAllocStatusID"].Visible = false;           
+            MainOrdersDataGrid.Columns["TPSPackAllocStatusID"].Visible = false;
             MainOrdersDataGrid.Columns["ProfilPackAllocStatusID"].Visible = false;
 
             if (FactoryID == 1)
@@ -6298,7 +6299,7 @@ WHERE dbo.TechCatalogOperationsDetail.TechCatalogOperationsGroupID IN
             MainOrdersDataGrid.Columns["FrontsSquare"].DisplayIndex = 5;
             MainOrdersDataGrid.Columns["Weight"].DisplayIndex = 6;
             MainOrdersDataGrid.Columns["DocDateTime"].DisplayIndex = 7;
-            
+
             MainOrdersDataGrid.Columns["FrontsSquare"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
             MainOrdersDataGrid.Columns["Weight"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
         }
@@ -6309,7 +6310,7 @@ WHERE dbo.TechCatalogOperationsDetail.TechCatalogOperationsGroupID IN
             {
                 Column.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
             }
-            
+
             MegaOrdersDataGrid.Columns["ClientID"].Visible = false;
             MegaOrdersDataGrid.Columns["OrderStatusID"].Visible = false;
             MegaOrdersDataGrid.Columns["ProfilOrderStatusID"].Visible = false;
@@ -6438,7 +6439,7 @@ WHERE dbo.TechCatalogOperationsDetail.TechCatalogOperationsGroupID IN
             MegaOrdersDataGrid.Columns["TPSDispatchDate"].DisplayIndex = 6;
             MegaOrdersDataGrid.Columns["Square"].DisplayIndex = 7;
             MegaOrdersDataGrid.Columns["Weight"].DisplayIndex = 8;
-            
+
             MegaOrdersDataGrid.Columns["Weight"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
             MegaOrdersDataGrid.Columns["Square"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
             MegaOrdersDataGrid.Columns[PackCount].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
@@ -6844,7 +6845,7 @@ WHERE dbo.TechCatalogOperationsDetail.TechCatalogOperationsGroupID IN
                 " AND FactoryID = " + FactoryID + " AND FrontID IN (" + string.Join(",", Fronts) + "))" +
                 " OR OrderID IN (SELECT DecorOrderID FROM DecorOrders WHERE MainOrderID = " + MainOrderID +
                 " AND FactoryID = " + FactoryID + " AND ProductID IN (" + string.Join(",", Decor) + "))))";
-            
+
             if (FrontIDs.Count > 0 && ProductIDs.Count < 1)
             {
                 SelectionCommand = "SELECT * FROM Packages" +
@@ -7929,7 +7930,7 @@ WHERE dbo.TechCatalogOperationsDetail.TechCatalogOperationsGroupID IN
                             //if (Convert.ToInt32(ORow[0]["ColorID"]) == -1)
                             //    NewRow["ColorID"] = 0;
                             //else
-                                NewRow["ColorID"] = ORow[0]["ColorID"];
+                            NewRow["ColorID"] = ORow[0]["ColorID"];
 
                             NewRow["Height"] = ORow[0]["Height"];
                             NewRow["Length"] = ORow[0]["Length"];
@@ -8045,7 +8046,7 @@ WHERE dbo.TechCatalogOperationsDetail.TechCatalogOperationsGroupID IN
                 System.Diagnostics.Process.Start(file.FullName);
             }
         }
-            
+
         private void CreateFrontsExcel(ref HSSFWorkbook hssfworkbook, int[] MainOrders, ArrayList FrontIDs)
         {
             string DispatchDate = "";
@@ -8242,7 +8243,7 @@ WHERE dbo.TechCatalogOperationsDetail.TechCatalogOperationsGroupID IN
                 DispatchDate = GetDispatchDate(MainOrders[i], FactoryID);
 
                 int BottomRow = FrontsResultDataTable.Rows.Count + RowIndex + 4;
-                
+
                 HSSFCell ClientCell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex++), 0, "Клиент: " + ClientName + " № " + OrderNumber + " - " + MainOrders[i]);
                 ClientCell.CellStyle = MainStyle;
 
@@ -8305,7 +8306,7 @@ WHERE dbo.TechCatalogOperationsDetail.TechCatalogOperationsGroupID IN
                             {
                                 HSSFCell cell = sheet1.CreateRow(RowIndex + 1).CreateCell(y);
                                 cell.SetCellValue(Convert.ToInt32(FRows[x][y]));
-                                
+
                                 cell.CellStyle = PackNumberStyle;
 
                                 if (y == 0)
@@ -8335,7 +8336,7 @@ WHERE dbo.TechCatalogOperationsDetail.TechCatalogOperationsGroupID IN
                                 sheet1.AddMergedRegion(new NPOI.HSSF.Util.Region(TopIndex, 0, BottomIndex, 0));
                                 continue;
                             }
-                            
+
                             if (t.Name == "Decimal")
                             {
                                 HSSFCell cell = sheet1.CreateRow(RowIndex + 1).CreateCell(y);
@@ -8483,7 +8484,7 @@ WHERE dbo.TechCatalogOperationsDetail.TechCatalogOperationsGroupID IN
             HSSFCell cell16 = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 6, "Квадратура: " + TotalFrontsSquare + " м.кв.");
             cell16.CellStyle = TotalStyle;
 
-            
+
         }
 
         private void CreateDecorExcel(ref HSSFWorkbook hssfworkbook, int[] MainOrders, ArrayList ProductIDs)
@@ -8501,7 +8502,7 @@ WHERE dbo.TechCatalogOperationsDetail.TechCatalogOperationsGroupID IN
 
             HSSFSheet sheet1 = hssfworkbook.CreateSheet("Декор");
             sheet1.PrintSetup.PaperSize = (short)PaperSizeType.A4;
-            
+
             sheet1.SetMargin(HSSFSheet.LeftMargin, (double).12);
             sheet1.SetMargin(HSSFSheet.RightMargin, (double).07);
             sheet1.SetMargin(HSSFSheet.TopMargin, (double).20);
@@ -8516,7 +8517,7 @@ WHERE dbo.TechCatalogOperationsDetail.TechCatalogOperationsGroupID IN
             sheet1.SetColumnWidth(6, 15 * 256);
 
             #region Create fonts and styles
-         
+
             HSSFFont HeaderFont = hssfworkbook.CreateFont();
             HeaderFont.Boldweight = 8 * 256;
             HeaderFont.FontName = "Calibri";
@@ -8551,7 +8552,7 @@ WHERE dbo.TechCatalogOperationsDetail.TechCatalogOperationsGroupID IN
 
             HSSFCellStyle MainStyle = hssfworkbook.CreateCellStyle();
             MainStyle.SetFont(MainFont);
-            
+
             HSSFCellStyle PackNumberStyle = hssfworkbook.CreateCellStyle();
             PackNumberStyle.BorderBottom = HSSFCellStyle.BORDER_THIN;
             PackNumberStyle.BottomBorderColor = HSSFColor.BLACK.index;
@@ -9459,7 +9460,7 @@ WHERE dbo.TechCatalogOperationsDetail.TechCatalogOperationsGroupID IN
         public DataTable FillFrontsDataTable()
         {
             FrontsResultDataTable.Clear();
-            
+
             string Front = "";
             string FrameColor = "";
             string InsetColor = "";
@@ -9716,7 +9717,7 @@ WHERE dbo.TechCatalogOperationsDetail.TechCatalogOperationsGroupID IN
                             //if (Convert.ToInt32(ORow[0]["ColorID"]) == -1)
                             //    NewRow["ColorID"] = 0;
                             //else
-                                NewRow["ColorID"] = ORow[0]["ColorID"];
+                            NewRow["ColorID"] = ORow[0]["ColorID"];
 
                             NewRow["Height"] = ORow[0]["Height"];
                             NewRow["Length"] = ORow[0]["Length"];
@@ -9786,7 +9787,7 @@ WHERE dbo.TechCatalogOperationsDetail.TechCatalogOperationsGroupID IN
             {
                 Graphics.DrawString(Text[i].ToString(), F, FontBrush, i * CharWidth + CharOffset + X, Y + 2);
             }
-            
+
             F.Dispose();
         }
 
@@ -9857,7 +9858,7 @@ WHERE dbo.TechCatalogOperationsDetail.TechCatalogOperationsGroupID IN
         public int FactoryType;
         public string GroupType;
     }
-    
+
     public struct LabelParam
     {
         public string FrameColor;
@@ -9881,7 +9882,7 @@ WHERE dbo.TechCatalogOperationsDetail.TechCatalogOperationsGroupID IN
         public string Group;
     }
 
-    
+
     public class PackageLabel
     {
         Barcode Barcode;
@@ -10050,8 +10051,8 @@ WHERE dbo.TechCatalogOperationsDetail.TechCatalogOperationsGroupID IN
                     //    ev.Graphics.DrawString(((Info)LabelInfo[CurrentLabelNumber]).OrderData.Rows[i]["FrameColor"].ToString().Substring(0, 25),
                     //        FrontOrderFont, FontBrush, VertLine1 + 1, OrderTopY + p);
                     //else
-                        ev.Graphics.DrawString(((Info)LabelInfo[CurrentLabelNumber]).OrderData.Rows[i]["FrameColor"].ToString(),
-                            FrontOrderFont, FontBrush, VertLine1 + 1, OrderTopY + p);
+                    ev.Graphics.DrawString(((Info)LabelInfo[CurrentLabelNumber]).OrderData.Rows[i]["FrameColor"].ToString(),
+                        FrontOrderFont, FontBrush, VertLine1 + 1, OrderTopY + p);
 
                     //if (((Info)LabelInfo[CurrentLabelNumber]).OrderData.Rows[i]["InsetType"].ToString().Length > 15)
                     //    ev.Graphics.DrawString(((Info)LabelInfo[CurrentLabelNumber]).OrderData.Rows[i]["InsetType"].ToString().Substring(0, 15),
@@ -10064,8 +10065,8 @@ WHERE dbo.TechCatalogOperationsDetail.TechCatalogOperationsGroupID IN
                     //    ev.Graphics.DrawString(((Info)LabelInfo[CurrentLabelNumber]).OrderData.Rows[i]["InsetColor"].ToString().Substring(0, 20),
                     //        FrontOrderFont, FontBrush, VertLine4 + 1, OrderTopY + p);
                     //else
-                        ev.Graphics.DrawString(((Info)LabelInfo[CurrentLabelNumber]).OrderData.Rows[i]["InsetColor"].ToString(),
-                            FrontOrderFont, FontBrush, VertLine4 + 1, OrderTopY + p);
+                    ev.Graphics.DrawString(((Info)LabelInfo[CurrentLabelNumber]).OrderData.Rows[i]["InsetColor"].ToString(),
+                        FrontOrderFont, FontBrush, VertLine4 + 1, OrderTopY + p);
 
                     ev.Graphics.DrawString(((Info)LabelInfo[CurrentLabelNumber]).OrderData.Rows[i]["Height"].ToString(),
                         FrontOrderFont, FontBrush, VertLine6 + 1, OrderTopY + p);

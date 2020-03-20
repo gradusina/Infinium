@@ -61,12 +61,12 @@ namespace Infinium
         public void CheckMembersTree()
         {
             if (InfiniumProjects.CurrentProjectDepartmentsDataTable.Rows.Count > 0)
-            { 
-                foreach(DataRow Row in InfiniumProjects.CurrentProjectDepartmentsDataTable.Rows)
+            {
+                foreach (DataRow Row in InfiniumProjects.CurrentProjectDepartmentsDataTable.Rows)
                 {
-                    foreach(TreeNode Node in MembersTree.Nodes)
+                    foreach (TreeNode Node in MembersTree.Nodes)
                     {
-                        if(Node.Text == Row["DepartmentName"].ToString())
+                        if (Node.Text == Row["DepartmentName"].ToString())
                             Node.Checked = true;
                     }
 
@@ -88,12 +88,12 @@ namespace Infinium
             if (InfiniumProjects.CurrentProjectUsersDataTable.Rows.Count > 0)
             {
                 foreach (DataRow Row in InfiniumProjects.CurrentProjectUsersDataTable.Rows)
-                {                    
+                {
                     foreach (TreeNode Node in MembersTree.Nodes)
                     {
                         bool Expand = false;
 
-                        foreach(TreeNode SubNode in Node.Nodes)
+                        foreach (TreeNode SubNode in Node.Nodes)
                             if (SubNode.Text == Row["Name"].ToString())
                             {
                                 SubNode.Checked = true;
@@ -120,8 +120,8 @@ namespace Infinium
             TempMembersList = new TreeView();
 
             for (int i = 0; i < InfiniumProjects.DepartmentsDataTable.Rows.Count; i++)
-            { 
-                DataRow[] URows = InfiniumProjects.UsersDataTable.Select("DepartmentID = " + 
+            {
+                DataRow[] URows = InfiniumProjects.UsersDataTable.Select("DepartmentID = " +
                                             InfiniumProjects.DepartmentsDataTable.Rows[i]["DepartmentID"]);
 
                 MembersTree.Nodes.Add(InfiniumProjects.DepartmentsDataTable.Rows[i]["DepartmentName"].ToString());
@@ -137,7 +137,7 @@ namespace Infinium
 
         public bool CompareMembersTrees()
         {
-            for (int i = 0; i < MembersTree.Nodes.Count; i++)            
+            for (int i = 0; i < MembersTree.Nodes.Count; i++)
             {
                 if (TempMembersList.Nodes[i].Checked != MembersTree.Nodes[i].Checked)
                     return true;
@@ -205,7 +205,7 @@ namespace Infinium
 
                     if (FormEvent == eClose)
                     {
-                        
+
                         this.Close();
                     }
 

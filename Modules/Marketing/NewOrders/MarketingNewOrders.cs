@@ -1,22 +1,23 @@
-﻿using System;
-using System.Linq;
-using System.Text;
-using System.Data;
-using System.Drawing;
-using System.Data.SqlClient;
-using System.Windows.Forms;
-using System.IO;
-using System.Net;
-using System.Collections;
-using System.Globalization;
+﻿using NPOI.HPSF;
 using NPOI.HSSF.UserModel;
-using NPOI.HPSF;
-using NPOI.HSSF.Util;
 using NPOI.HSSF.UserModel.Contrib;
+using NPOI.HSSF.Util;
+
+using System;
+using System.Collections;
+using System.Data;
+using System.Data.OleDb;
+using System.Data.SqlClient;
+using System.Drawing;
+using System.Globalization;
+using System.IO;
+using System.Linq;
+using System.Net;
 using System.Net.Mail;
 using System.Net.Mime;
+using System.Text;
+using System.Windows.Forms;
 using System.Xml;
-using System.Data.OleDb;
 
 namespace Infinium.Modules.Marketing.NewOrders
 {
@@ -1338,7 +1339,7 @@ namespace Infinium.Modules.Marketing.NewOrders
         public DataTable PatinaRALDataTable = null;
         public DataTable InsetTypesDataTable = null;
         public DataTable InsetColorsDataTable = null;
-        
+
         public DataTable DecorProductsDataTable = null;
         public DataTable DecorDataTable = null;
         public DataTable DecorConfigDataTable = null;
@@ -1378,7 +1379,7 @@ namespace Infinium.Modules.Marketing.NewOrders
         public String ItemsBindingSourceValueMember = null;
         public String ItemColorsBindingSourceValueMember = null;
         public String ItemPatinaBindingSourceValueMember = null;
-        
+
         public DecorCatalogOrder()
         {
             Initialize();
@@ -3220,7 +3221,7 @@ namespace Infinium.Modules.Marketing.NewOrders
                 }
             }
         }
-        
+
         public void FrontsOrdersSet(int MainOrderID, int CurrentMainOrderID)
         {
             //using (SqlDataAdapter DA = new SqlDataAdapter("SELECT * FROM NewFrontsOrders WHERE MainOrderID=" + MainOrderID,
@@ -3264,7 +3265,7 @@ namespace Infinium.Modules.Marketing.NewOrders
                  FrontID != 3730 && FrontID != 3731 && FrontID != 3732 && FrontID != 3733 && FrontID != 3734 &&
                  FrontID != 3735 && FrontID != 3736 && FrontID != 3737 && FrontID != 3739 && FrontID != 3740 &&
                  FrontID != 3741 && FrontID != 3742 && FrontID != 3743 && FrontID != 3744 && FrontID != 3745 &&
-                 FrontID != 3746 && FrontID != 3747 && FrontID != 3748 && FrontID != 15108 && FrontID != 3662 && FrontID != 3663 && FrontID != 3664 && FrontID != 15760 && 
+                 FrontID != 3746 && FrontID != 3747 && FrontID != 3748 && FrontID != 15108 && FrontID != 3662 && FrontID != 3663 && FrontID != 3664 && FrontID != 15760 &&
                  FrontID != 16269 && FrontID != 28945 &&
                  FrontID != 16579 && FrontID != 16580 && FrontID != 16581 && FrontID != 16582 && FrontID != 16583 && FrontID != 16584 && FrontID != 29277 && FrontID != 29278))
             {
@@ -3278,7 +3279,7 @@ namespace Infinium.Modules.Marketing.NewOrders
                  FrontID == 3746 || FrontID == 3747 || FrontID == 3748 || FrontID == 15108 || FrontID == 15760 ||
                  FrontID == 30504 || FrontID == 30505 || FrontID == 30506 ||
                  FrontID == 30364 || FrontID == 30366 || FrontID == 30367 ||
-                 FrontID == 30501 || FrontID == 30502 || FrontID == 30503 || 
+                 FrontID == 30501 || FrontID == 30502 || FrontID == 30503 ||
                  FrontID == 16269 || FrontID == 28945 || FrontID == 27914 ||
                  FrontID == 16579 || FrontID == 16580 || FrontID == 16581 || FrontID == 16582 || FrontID == 16583 || FrontID == 16584 || FrontID == 29277 || FrontID == 29278))
             {
@@ -3503,7 +3504,7 @@ namespace Infinium.Modules.Marketing.NewOrders
                      FrontID == 3730 || FrontID == 3731 || FrontID == 3732 || FrontID == 3733 || FrontID == 3734 ||
                      FrontID == 3735 || FrontID == 3736 || FrontID == 3737 || FrontID == 3739 || FrontID == 3740 ||
                      FrontID == 3741 || FrontID == 3742 || FrontID == 3743 || FrontID == 3744 || FrontID == 3745 ||
-                     FrontID == 3746 || FrontID == 3747 || FrontID == 3748 || FrontID == 15108 || FrontID == 15760 || 
+                     FrontID == 3746 || FrontID == 3747 || FrontID == 3748 || FrontID == 15108 || FrontID == 15760 ||
                      FrontID == 30504 || FrontID == 30505 || FrontID == 30506 ||
                      FrontID == 30364 || FrontID == 30366 || FrontID == 30367 ||
                      FrontID == 30501 || FrontID == 30502 || FrontID == 30503 ||
@@ -4529,7 +4530,7 @@ namespace Infinium.Modules.Marketing.NewOrders
         {
             int F = 0;
             int AreaID = 0;
-            Row["DecorConfigID"] = DecorCatalogOrder.GetDecorConfigID(ProductID, DecorID, ColorID, PatinaID, InsetTypeID, InsetColorID, 
+            Row["DecorConfigID"] = DecorCatalogOrder.GetDecorConfigID(ProductID, DecorID, ColorID, PatinaID, InsetTypeID, InsetColorID,
                 Length, Height, Width, ref F, ref AreaID);
             Row["FactoryID"] = F;
             Row["AreaID"] = AreaID;
@@ -4568,9 +4569,16 @@ namespace Infinium.Modules.Marketing.NewOrders
             }
         }
 
-        public void AddDecorOrder(int MainOrderID, int ProductID, int DecorID, int ColorID, int PatinaID, int InsetTypeID, int InsetColorID, 
+        public void AddDecorOrder(int MainOrderID, int ProductID, int DecorID, int ColorID, int PatinaID, int InsetTypeID, int InsetColorID,
             int Length, int Height, int Width, int Count, string Notes)
         {
+
+            //if ((Height < 50 || Width < 50) && (DecorID == 29278))
+            //{
+            //    MessageBox.Show("Высота и ширина фасада не могут быть меньше 30 мм", "Добавление фасада");
+            //    return;
+            //}
+
             int index = DecorCatalogOrder.DecorProductsBindingSource.Find("ProductID", ProductID);
 
             for (int i = 0; i < DecorCatalogOrder.DecorProductsDataTable.Rows.Count; i++)
@@ -4976,7 +4984,7 @@ namespace Infinium.Modules.Marketing.NewOrders
                 if (SetDecorConfigID(Convert.ToInt32(DecorOrdersDataTable.Rows[i]["ProductID"]), Convert.ToInt32(DecorOrdersDataTable.Rows[i]["DecorID"]),
                     Convert.ToInt32(DecorOrdersDataTable.Rows[i]["ColorID"]), Convert.ToInt32(DecorOrdersDataTable.Rows[i]["PatinaID"]),
                     Convert.ToInt32(DecorOrdersDataTable.Rows[i]["InsetTypeID"]), Convert.ToInt32(DecorOrdersDataTable.Rows[i]["InsetColorID"]),
-                    Convert.ToInt32(DecorOrdersDataTable.Rows[i]["Length"]), Convert.ToInt32(DecorOrdersDataTable.Rows[i]["Height"]), Convert.ToInt32(DecorOrdersDataTable.Rows[i]["Width"]), 
+                    Convert.ToInt32(DecorOrdersDataTable.Rows[i]["Length"]), Convert.ToInt32(DecorOrdersDataTable.Rows[i]["Height"]), Convert.ToInt32(DecorOrdersDataTable.Rows[i]["Width"]),
                     DecorOrdersDataTable.Rows[i], ref FactoryID) == false)
                     return false;
 
@@ -6483,7 +6491,7 @@ namespace Infinium.Modules.Marketing.NewOrders
             MainOrdersDecorOrders.Initialize(true);
             Initialize();
         }
-        
+
         private void Create()
         {
             OrdersInMutualSettlementTable = new DataTable();
@@ -6544,7 +6552,7 @@ namespace Infinium.Modules.Marketing.NewOrders
             {
                 DA.Fill(TransportGridTable);
             }
-            
+
             using (SqlDataAdapter DA = new SqlDataAdapter("SELECT * FROM DiscountPaymentConditions", ConnectionStrings.MarketingReferenceConnectionString))
             {
                 DA.Fill(DiscountPaymentConditionsTable);
@@ -7262,7 +7270,7 @@ namespace Infinium.Modules.Marketing.NewOrders
             MegaOrdersDataGrid.Columns["ClientName"].Frozen = true;
             MegaOrdersDataGrid.Columns["OrderNumber"].Frozen = true;
             MegaOrdersDataGrid.RightToLeft = RightToLeft.No;
-            
+
             MegaOrdersDataGrid.Columns["OrderCost"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
             MegaOrdersDataGrid.Columns["TransportCost"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
             MegaOrdersDataGrid.Columns["AdditionalCost"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
@@ -7275,7 +7283,7 @@ namespace Infinium.Modules.Marketing.NewOrders
             MegaOrdersDataGrid.Columns["PaymentRate"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
             MegaOrdersDataGrid.Columns["Weight"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
             MegaOrdersDataGrid.Columns["Square"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-            
+
             MegaOrdersDataGrid.Columns["IsComplaint"].SortMode = DataGridViewColumnSortMode.Automatic;
 
             foreach (DataGridViewColumn Column in MegaOrdersDataGrid.Columns)
@@ -8356,7 +8364,7 @@ namespace Infinium.Modules.Marketing.NewOrders
         {
             if (MegaOrdersBindingSource.Count == 0)
                 return;
-            
+
             int MegaOrderID = Convert.ToInt32(((DataRowView)MegaOrdersBindingSource.Current).Row["MegaOrderID"]);
 
             ((DataRowView)MegaOrdersBindingSource.Current).Row["AgreementStatusID"] = AgreementStatusID;
@@ -8923,7 +8931,7 @@ namespace Infinium.Modules.Marketing.NewOrders
             //int MainOrderID = Convert.ToInt32(((DataRowView)MainOrdersBindingSource.Current)["MainOrderID"]);
             GetCurrentMainOrder();
             //check status
-            
+
             MainOrdersFrontsOrders.DeleteOrder(CurrentMainOrderID);
 
             MainOrdersDecorOrders.DeleteOrder(CurrentMainOrderID);
@@ -9120,7 +9128,7 @@ namespace Infinium.Modules.Marketing.NewOrders
 
             int MegaOrderID = Convert.ToInt32(((DataRowView)MegaOrdersBindingSource.Current)["MegaOrderID"]);
             int OrderStatusID = Convert.ToInt32(((DataRowView)MegaOrdersBindingSource.Current)["OrderStatusID"]);
-            
+
             int[] NewMainOrders = new Int32[MainOrdersDataTable.Rows.Count];
 
             for (int i = 0; i < MainOrdersDataTable.Rows.Count; i++)
@@ -11915,7 +11923,7 @@ namespace Infinium.Modules.Marketing.NewOrders
             int FrontID = Convert.ToInt32(FrontsOrdersRow["FrontID"]);
             if (FrontID == 30504 || FrontID == 30505 || FrontID == 30506 ||
                 FrontID == 30364 || FrontID == 30366 || FrontID == 30367 ||
-                FrontID == 30501 || FrontID == 30502 || FrontID == 30503 || 
+                FrontID == 30501 || FrontID == 30502 || FrontID == 30503 ||
                 FrontID == 16269 || FrontID == 28945 || FrontID == 27914 || FrontID == 3727 || FrontID == 3728 || FrontID == 3729 ||
                 FrontID == 3730 || FrontID == 3731 || FrontID == 3732 || FrontID == 3733 || FrontID == 3734 ||
                 FrontID == 3735 || FrontID == 3736 || FrontID == 3737 || FrontID == 3739 || FrontID == 3740 ||
@@ -11978,7 +11986,7 @@ namespace Infinium.Modules.Marketing.NewOrders
             GetMegaOrderInfo(MainOrderIDs[0]);
             ProfilFrontsOrdersDataTable.Clear();
             TPSFrontsOrdersDataTable.Clear();
-            
+
             string SelectCommand = @"SELECT FrontsOrders.*, infiniu2_catalog.dbo.FrontsConfig.AccountingName, infiniu2_catalog.dbo.FrontsConfig.InvNumber, 
                 (-MegaOrders.ComplaintProfilCost-MegaOrders.ComplaintTPSCost+MegaOrders.TransportCost+MegaOrders.AdditionalCost) AS TotalAdditionalCost,
                 MegaOrders.ComplaintProfilCost, MegaOrders.ComplaintTPSCost, MegaOrders.TransportCost, MegaOrders.AdditionalCost, MegaOrders.MegaOrderID, MegaOrders.PaymentRate FROM FrontsOrders
@@ -12005,7 +12013,7 @@ namespace Infinium.Modules.Marketing.NewOrders
                     //get count of different covertypes
                     using (DataView DV = new DataView(DT))
                     {
-                        DistRatesDT = DV.ToTable(true, new string[] { "PaymentRate"  });
+                        DistRatesDT = DV.ToTable(true, new string[] { "PaymentRate" });
                     }
 
                     ProfilFrontsOrdersDataTable = DT.Clone();
@@ -12457,7 +12465,7 @@ namespace Infinium.Modules.Marketing.NewOrders
             TDT.Columns.Add(new DataColumn("UNN", Type.GetType("System.String")));
             TDT.Columns.Add(new DataColumn("CurrencyCode", Type.GetType("System.String")));
             TDT.Columns.Add(new DataColumn("TPSCurCode", Type.GetType("System.String")));
-            
+
             for (int r = 0; r < Rows.Count(); r++)
             {
                 string InvNumber = Rows[r]["InvNumber"].ToString();
@@ -13595,7 +13603,7 @@ namespace Infinium.Modules.Marketing.NewOrders
         public void Report(int[] MainOrderIDs, bool IsSample)
         {
             GetMegaOrderInfo(MainOrderIDs[0]);
-            
+
             ProfilReportDataTable.Clear();
             TPSReportDataTable.Clear();
             DecorOrdersDataTable.Clear();
@@ -16456,20 +16464,20 @@ namespace Infinium.Modules.Marketing.NewOrders
                     //if (DecorCatalogOrder.HasParameter(Convert.ToInt32(DecorCatalogOrder.DecorProductsDataTable.Rows[i]["ProductID"]), "Height"))
                     //    NewRow2["Height"] = Convert.ToInt32(Row["Height"]);
                     //else
-                        if (Convert.ToInt32(Row["Height"]) != -1)
-                            NewRow2["Height"] = Convert.ToInt32(Row["Height"]);
+                    if (Convert.ToInt32(Row["Height"]) != -1)
+                        NewRow2["Height"] = Convert.ToInt32(Row["Height"]);
 
                     //if (DecorCatalogOrder.HasParameter(Convert.ToInt32(DecorCatalogOrder.DecorProductsDataTable.Rows[i]["ProductID"]), "Length"))
                     //    NewRow2["Height"] = Convert.ToInt32(Row["Length"]);
                     //else
-                        if (Convert.ToInt32(Row["Length"]) != -1)
-                            NewRow2["Length"] = Convert.ToInt32(Row["Length"]);
+                    if (Convert.ToInt32(Row["Length"]) != -1)
+                        NewRow2["Length"] = Convert.ToInt32(Row["Length"]);
 
                     //if (DecorCatalogOrder.HasParameter(Convert.ToInt32(DecorCatalogOrder.DecorProductsDataTable.Rows[i]["ProductID"]), "Width"))
                     //    NewRow2["Width"] = Convert.ToInt32(Row["Width"]);
                     //else
-                        if (Convert.ToInt32(Row["Width"]) != -1)
-                            NewRow2["Width"] = Convert.ToInt32(Row["Width"]);
+                    if (Convert.ToInt32(Row["Width"]) != -1)
+                        NewRow2["Width"] = Convert.ToInt32(Row["Width"]);
 
                     //if (DecorCatalogOrder.HasParameter(Convert.ToInt32(DecorCatalogOrder.DecorProductsDataTable.Rows[i]["ProductID"]), "Length") && Convert.ToInt32(Row["Length"]) != -1)
                     //    NewRow2["Height"] = Convert.ToInt32(Row["Length"]);
@@ -17100,7 +17108,7 @@ namespace Infinium.Modules.Marketing.NewOrders
             FileStream NewFile = new FileStream(file.FullName, FileMode.Create);
             hssfworkbook.Write(NewFile);
             NewFile.Close();
-            
+
             ClearReport();
             return file.FullName;
         }
@@ -17597,7 +17605,7 @@ namespace Infinium.Modules.Marketing.NewOrders
 
         public void Report(ref HSSFWorkbook hssfworkbook, int[] MegaOrders, int[] OrderNumbers, int[] MainOrdersIDs, int ClientID, string ClientName,
             decimal ComplaintProfilCost, decimal ComplaintTPSCost,
-            decimal TransportCost, decimal AdditionalCost, 
+            decimal TransportCost, decimal AdditionalCost,
             decimal TotalCost, int CurrencyTypeID, decimal TotalWeight, bool IsSample)
         {
             ClearReport();
@@ -18607,7 +18615,7 @@ namespace Infinium.Modules.Marketing.NewOrders
         {
             string AccountPassword = "1290qpalzm";
             string SenderEmail = "zovprofilreport@mail.ru";
-            
+
             string to = GetClientEmail(ClientID);
             string from = SenderEmail;
 
@@ -19046,7 +19054,7 @@ namespace Infinium.Modules.Marketing.NewOrders
             SimpleCellStyle.BorderTop = HSSFCellStyle.BORDER_THIN;
             SimpleCellStyle.TopBorderColor = HSSFColor.BLACK.index;
             SimpleCellStyle.SetFont(SimpleFont);
-            
+
             HSSFCellStyle cellStyle = hssfworkbook.CreateCellStyle();
             cellStyle.DataFormat = HSSFDataFormat.GetBuiltinFormat("0.000");
             cellStyle.BorderBottom = HSSFCellStyle.BORDER_THIN;
@@ -19264,7 +19272,7 @@ namespace Infinium.Modules.Marketing.NewOrders
             System.Diagnostics.Process.Start(file.FullName);
         }
 
-        private int FrontsReport(HSSFWorkbook hssfworkbook, HSSFCellStyle HeaderStyle, HSSFFont PackNumberFont, HSSFFont SimpleFont, 
+        private int FrontsReport(HSSFWorkbook hssfworkbook, HSSFCellStyle HeaderStyle, HSSFFont PackNumberFont, HSSFFont SimpleFont,
             HSSFCellStyle SimpleCellStyle, HSSFCellStyle cellStyle,
             DataTable FrontsOrdersDT)
         {
@@ -19334,7 +19342,7 @@ namespace Infinium.Modules.Marketing.NewOrders
                     {
                         HSSFCell cell = sheet1.CreateRow(RowIndex).CreateCell(y);
                         cell.SetCellValue(Convert.ToDouble(DT.Rows[x][y]));
-                        
+
                         cell.CellStyle = cellStyle;
                         continue;
                     }
@@ -19408,7 +19416,7 @@ namespace Infinium.Modules.Marketing.NewOrders
             return RowIndex;
         }
 
-        private int DecorReport(HSSFWorkbook hssfworkbook, HSSFCellStyle HeaderStyle, HSSFFont SimpleFont, 
+        private int DecorReport(HSSFWorkbook hssfworkbook, HSSFCellStyle HeaderStyle, HSSFFont SimpleFont,
             HSSFCellStyle SimpleCellStyle, HSSFCellStyle cellStyle,
             DataTable DecorOrdersDT)
         {
@@ -19784,7 +19792,7 @@ namespace Infinium.Modules.Marketing.NewOrders
                 DA.Fill(fromDecorOrdersDT);
             }
         }
-        
+
         private int GetNextOrderNumber(int ClientID)
         {
             using (SqlDataAdapter DA = new SqlDataAdapter("SELECT MAX(OrderNumber) AS NEXT FROM NewMegaOrders WHERE ClientID = " + ClientID,
@@ -19916,7 +19924,7 @@ namespace Infinium.Modules.Marketing.NewOrders
             }
             return GetLastMainOrderID();
         }
-        
+
         private void CreateFrontsOrders(int MainOrderID)
         {
             toFrontsOrdersDT.Clear();
@@ -19965,7 +19973,7 @@ namespace Infinium.Modules.Marketing.NewOrders
     {
         int CurrentMegaOrderID = -1;
         int CurrentMainOrderID = -1;
-        
+
         DataTable toDecorOrdersDT = null;
         DataTable toFrontsOrdersDT = null;
         DataTable toMainOrdersDT = null;
@@ -20031,7 +20039,7 @@ namespace Infinium.Modules.Marketing.NewOrders
         {
             get { return Clipboard.GetText().Count() > 0; }
         }
-        
+
         public void GetDataFromExcel()
         {
             FrontsFromExcelDT.Clear();
@@ -20080,7 +20088,7 @@ namespace Infinium.Modules.Marketing.NewOrders
                 MessageBox.Show("Скопированы неверные данные");
                 return;
             }
-            
+
             DecorFromExcelDT = FrontsFromExcelDT.Copy();
             OrdersFromExcelDT = DistOrdersTable(FrontsFromExcelDT);
             for (int i = FrontsFromExcelDT.Rows.Count - 1; i >= 0; i--)
@@ -20094,7 +20102,7 @@ namespace Infinium.Modules.Marketing.NewOrders
                     DecorFromExcelDT.Rows[i].Delete();
             }
         }
-        
+
         private bool IsDecorConfingAdded(int DecorConfigID)
         {
             return fromDecorConfigDT.Select("DecorConfigID = " + DecorConfigID).Count() > 0;
@@ -20165,7 +20173,7 @@ namespace Infinium.Modules.Marketing.NewOrders
 
             return DT;
         }
-        
+
         public void CreateOrders(int ClientID)
         {
             if (OrdersFromExcelDT.Rows.Count == 0)
@@ -20286,7 +20294,7 @@ namespace Infinium.Modules.Marketing.NewOrders
                 }
             }
         }
-        
+
         private void CreateDecorOrders(DataRow[] rows, DateTime DocDateTime)
         {
             toDecorOrdersDT.Clear();

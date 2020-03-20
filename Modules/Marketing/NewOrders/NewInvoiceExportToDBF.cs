@@ -1,11 +1,12 @@
-﻿using System;
-using System.Linq;
-using System.Data;
-using System.Data.SqlClient;
-using System.Data.OleDb;
-using System.IO;
-using NPOI.HSSF.UserModel;
+﻿using NPOI.HSSF.UserModel;
 using NPOI.HSSF.Util;
+
+using System;
+using System.Data;
+using System.Data.OleDb;
+using System.Data.SqlClient;
+using System.IO;
+using System.Linq;
 
 namespace Infinium.Modules.Marketing.NewOrders
 {
@@ -195,7 +196,7 @@ namespace Infinium.Modules.Marketing.NewOrders
             //    DA.Fill(DecorConfigDataTable);
             //}
             DecorConfigDataTable = TablesManager.DecorConfigDataTableAll;
-            
+
             TechStoreDataTable = new DataTable();
             //using (SqlDataAdapter DA = new SqlDataAdapter("SELECT * FROM TechStore",
             //    ConnectionStrings.CatalogConnectionString))
@@ -1783,7 +1784,7 @@ namespace Infinium.Modules.Marketing.NewOrders
                     NewRow["InvNumber"] = rows[0]["DecorInvNumber"].ToString();
                 }
                 ReportDataTable.Rows.Add(NewRow);
-            
+
             }
         }
 
@@ -1820,7 +1821,7 @@ namespace Infinium.Modules.Marketing.NewOrders
             int FrontID = Convert.ToInt32(FrontsOrdersRow["FrontID"]);
             if (FrontID == 30504 || FrontID == 30505 || FrontID == 30506 ||
                 FrontID == 30364 || FrontID == 30366 || FrontID == 30367 ||
-                FrontID == 30501 || FrontID == 30502 || FrontID == 30503 || 
+                FrontID == 30501 || FrontID == 30502 || FrontID == 30503 ||
                 FrontID == 16269 || FrontID == 28945 || FrontID == 27914 || FrontID == 3727 || FrontID == 3728 || FrontID == 3729 ||
                 FrontID == 3730 || FrontID == 3731 || FrontID == 3732 || FrontID == 3733 || FrontID == 3734 ||
                 FrontID == 3735 || FrontID == 3736 || FrontID == 3737 || FrontID == 3739 || FrontID == 3740 ||
@@ -2046,7 +2047,7 @@ namespace Infinium.Modules.Marketing.NewOrders
             TPSFrontsOrdersDataTable.Clear();
             DecorInvNumbersDT.Clear();
             GetMegaOrderInfo(MainOrderIDs[0]);
-            
+
             string SelectCommand = "SELECT FrontsOrders.*, infiniu2_catalog.dbo.FrontsConfig.AccountingName, infiniu2_catalog.dbo.FrontsConfig.InvNumber, MegaOrders.PaymentRate FROM FrontsOrders" +
                 " INNER JOIN infiniu2_catalog.dbo.FrontsConfig ON FrontsOrders.FrontConfigID = infiniu2_catalog.dbo.FrontsConfig.FrontConfigID" +
                 " INNER JOIN MainOrders ON FrontsOrders.MainOrderID = MainOrders.MainOrderID" +
@@ -3543,11 +3544,11 @@ namespace Infinium.Modules.Marketing.NewOrders
                 " INNER JOIN infiniu2_catalog.dbo.DecorConfig ON NewDecorOrders.DecorConfigID = infiniu2_catalog.dbo.DecorConfig.DecorConfigID" +
                 " WHERE NeedCalcPrice=0 AND NewDecorOrders.IsSample=1 AND InvNumber IS NOT NULL ORDER BY InvNumber";
             if (!IsSample)
-            SelectCommand = "SELECT NewDecorOrders.*, infiniu2_catalog.dbo.DecorConfig.AccountingName, infiniu2_catalog.dbo.DecorConfig.InvNumber, NewMegaOrders.PaymentRate FROM NewDecorOrders" +
-                " INNER JOIN NewMainOrders ON NewDecorOrders.MainOrderID = NewMainOrders.MainOrderID" +
-                " INNER JOIN NewMegaOrders ON NewMainOrders.MegaOrderID = NewMegaOrders.MegaOrderID AND NewMegaOrders.MegaOrderID=" + MegaOrderID +
-                " INNER JOIN infiniu2_catalog.dbo.DecorConfig ON NewDecorOrders.DecorConfigID = infiniu2_catalog.dbo.DecorConfig.DecorConfigID" +
-                " WHERE NeedCalcPrice=0 AND NewDecorOrders.IsSample=0 AND InvNumber IS NOT NULL ORDER BY InvNumber";
+                SelectCommand = "SELECT NewDecorOrders.*, infiniu2_catalog.dbo.DecorConfig.AccountingName, infiniu2_catalog.dbo.DecorConfig.InvNumber, NewMegaOrders.PaymentRate FROM NewDecorOrders" +
+                    " INNER JOIN NewMainOrders ON NewDecorOrders.MainOrderID = NewMainOrders.MainOrderID" +
+                    " INNER JOIN NewMegaOrders ON NewMainOrders.MegaOrderID = NewMegaOrders.MegaOrderID AND NewMegaOrders.MegaOrderID=" + MegaOrderID +
+                    " INNER JOIN infiniu2_catalog.dbo.DecorConfig ON NewDecorOrders.DecorConfigID = infiniu2_catalog.dbo.DecorConfig.DecorConfigID" +
+                    " WHERE NeedCalcPrice=0 AND NewDecorOrders.IsSample=0 AND InvNumber IS NOT NULL ORDER BY InvNumber";
             using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand,
                 ConnectionStrings.MarketingOrdersConnectionString))
             {
@@ -3609,11 +3610,11 @@ namespace Infinium.Modules.Marketing.NewOrders
                 " INNER JOIN infiniu2_catalog.dbo.DecorConfig ON DecorOrders.DecorConfigID = infiniu2_catalog.dbo.DecorConfig.DecorConfigID" +
                 " WHERE DecorOrders.IsSample=1 AND InvNumber IS NOT NULL AND DecorOrders.MainOrderID IN (" + string.Join(",", MainOrderIDs) + ") ORDER BY InvNumber";
             if (!IsSample)
-            SelectCommand = "SELECT DecorOrders.*, infiniu2_catalog.dbo.DecorConfig.AccountingName, infiniu2_catalog.dbo.DecorConfig.InvNumber, MegaOrders.PaymentRate FROM DecorOrders" +
-                " INNER JOIN MainOrders ON DecorOrders.MainOrderID = MainOrders.MainOrderID" +
-                " INNER JOIN MegaOrders ON MainOrders.MegaOrderID = MegaOrders.MegaOrderID" +
-                " INNER JOIN infiniu2_catalog.dbo.DecorConfig ON DecorOrders.DecorConfigID = infiniu2_catalog.dbo.DecorConfig.DecorConfigID" +
-                " WHERE DecorOrders.IsSample=0 AND InvNumber IS NOT NULL AND DecorOrders.MainOrderID IN (" + string.Join(",", MainOrderIDs) + ") ORDER BY InvNumber";
+                SelectCommand = "SELECT DecorOrders.*, infiniu2_catalog.dbo.DecorConfig.AccountingName, infiniu2_catalog.dbo.DecorConfig.InvNumber, MegaOrders.PaymentRate FROM DecorOrders" +
+                    " INNER JOIN MainOrders ON DecorOrders.MainOrderID = MainOrders.MainOrderID" +
+                    " INNER JOIN MegaOrders ON MainOrders.MegaOrderID = MegaOrders.MegaOrderID" +
+                    " INNER JOIN infiniu2_catalog.dbo.DecorConfig ON DecorOrders.DecorConfigID = infiniu2_catalog.dbo.DecorConfig.DecorConfigID" +
+                    " WHERE DecorOrders.IsSample=0 AND InvNumber IS NOT NULL AND DecorOrders.MainOrderID IN (" + string.Join(",", MainOrderIDs) + ") ORDER BY InvNumber";
             using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand,
                 ConnectionStrings.MarketingOrdersConnectionString))
             {
@@ -3630,7 +3631,7 @@ namespace Infinium.Modules.Marketing.NewOrders
             DecorOrdersDataTable.Clear();
             ProfilReportDataTable.Clear();
             TPSReportDataTable.Clear();
-            
+
             string SelectCommand = "SELECT DecorOrders.*, infiniu2_catalog.dbo.DecorConfig.AccountingName, infiniu2_catalog.dbo.DecorConfig.InvNumber, MegaOrders.PaymentRate FROM DecorOrders" +
                 " INNER JOIN MainOrders ON DecorOrders.MainOrderID = MainOrders.MainOrderID" +
                 " INNER JOIN MegaOrders ON MainOrders.MegaOrderID = MegaOrders.MegaOrderID" +
@@ -3833,7 +3834,7 @@ namespace Infinium.Modules.Marketing.NewOrders
                         Count += Convert.ToDecimal(InvRows[j]["Count"]);
                         Cost += Convert.ToDecimal(InvRows[j]["Cost"]) * PaymentRate / VAT;
                         CostWithTransport += Convert.ToDecimal(InvRows[j]["CostWithTransport"]) * PaymentRate / VAT;
-                    } 
+                    }
                     Cost = Math.Ceiling(Cost / 0.01m) * 0.01m;
                     CostWithTransport = Math.Ceiling(CostWithTransport / 0.01m) * 0.01m;
                     Price = Cost / Count;
@@ -3968,7 +3969,7 @@ namespace Infinium.Modules.Marketing.NewOrders
             };
             dtGroup.Clear();
             dtGroup = dv.ToTable();
-            
+
             //returning grouped/counted result
             return dtGroup;
         }
@@ -4104,7 +4105,7 @@ namespace Infinium.Modules.Marketing.NewOrders
             TotalCost = 0;
             TotalProfil = 0;
             TotalTPS = 0;
-            
+
             DataTable table1 = ProfilReportTable.Copy();
             DataTable table2 = TPSReportTable.Copy();
             ProfilReportTable.Clear();
@@ -4241,7 +4242,7 @@ namespace Infinium.Modules.Marketing.NewOrders
             return TotalCost;
         }
 
-        public void CreateReport(ref HSSFWorkbook hssfworkbook, int[] MegaOrders, int[] OrderNumbers, int[] MainOrdersIDs, int ClientID, string ClientName, 
+        public void CreateReport(ref HSSFWorkbook hssfworkbook, int[] MegaOrders, int[] OrderNumbers, int[] MainOrdersIDs, int ClientID, string ClientName,
             decimal ComplaintProfilCost, decimal ComplaintTPSCost, decimal TransportCost, decimal AdditionalCost,
             decimal TotalCost, int CurrencyTypeID, decimal TotalWeight, bool IsSample, ref decimal TotalProfil1, ref decimal TotalTPS1)
         {

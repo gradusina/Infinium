@@ -57,7 +57,7 @@ namespace Infinium
             bEdit = true;
 
             foreach (DataRow Row in DT.Rows)
-            { 
+            {
                 RecipientsList.SelectItem(Convert.ToInt32(Row["UserID"]));
             }
 

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Data;
-using System.Windows.Forms;
 using System.Threading;
+using System.Windows.Forms;
 
 namespace Infinium
 {
@@ -197,7 +197,7 @@ namespace Infinium
             }
 
 
-            LoadThread = new Thread(delegate()
+            LoadThread = new Thread(delegate ()
             {
                 InfiniumDocuments.AddComment(Security.CurrentUserID, sCommentsText, DocumentID, DocumentCategoryID, FilesDataTable, ref CurrentFile);
             });
@@ -207,13 +207,13 @@ namespace Infinium
         public void StartDownload(int DocumentFileID)
         {
             StatusLabel.Text = "Загрузка файла...";
-  
+
             DownloadTimer.Enabled = true;
 
             InfiniumDocuments.FM.bStopTransfer = false;
 
 
-            LoadThread = new Thread(delegate()
+            LoadThread = new Thread(delegate ()
             {
                 InfiniumDocuments.OpenFile(DocumentFileID);
             });
@@ -229,7 +229,7 @@ namespace Infinium
             InfiniumDocuments.FM.bStopTransfer = false;
 
 
-            LoadThread = new Thread(delegate()
+            LoadThread = new Thread(delegate ()
             {
                 InfiniumDocuments.OpenCommentFile(DocumentCommentFileID);
             });
@@ -247,7 +247,7 @@ namespace Infinium
                 TotalSize += Convert.ToInt64(Row["FileSize"]);
             }
 
-            LoadThread = new Thread(delegate()
+            LoadThread = new Thread(delegate ()
             {
                 InfiniumDocuments.EditComment(iDocumentCommentID, sCommentsText, FilesDataTable, ref CurrentFile);
             });
@@ -271,7 +271,7 @@ namespace Infinium
                 Application.DoEvents();
 
                 //remove files
-                Thread T = new Thread(delegate()
+                Thread T = new Thread(delegate ()
                 {
                     InfiniumDocuments.RemoveUploadedFiles();
                 });

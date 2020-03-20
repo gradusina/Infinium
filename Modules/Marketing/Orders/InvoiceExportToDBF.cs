@@ -1,11 +1,12 @@
-﻿using System;
-using System.Linq;
-using System.Data;
-using System.Data.SqlClient;
-using System.Data.OleDb;
-using System.IO;
-using NPOI.HSSF.UserModel;
+﻿using NPOI.HSSF.UserModel;
 using NPOI.HSSF.Util;
+
+using System;
+using System.Data;
+using System.Data.OleDb;
+using System.Data.SqlClient;
+using System.IO;
+using System.Linq;
 
 namespace Infinium.Modules.Marketing.Orders
 {
@@ -199,7 +200,7 @@ namespace Infinium.Modules.Marketing.Orders
             //    DA.Fill(DecorConfigDataTable);
             //}
             DecorConfigDataTable = TablesManager.DecorConfigDataTableAll;
-            
+
             TechStoreDataTable = new DataTable();
             //using (SqlDataAdapter DA = new SqlDataAdapter("SELECT * FROM TechStore",
             //    ConnectionStrings.CatalogConnectionString))
@@ -1787,7 +1788,7 @@ namespace Infinium.Modules.Marketing.Orders
                     NewRow["InvNumber"] = rows[0]["DecorInvNumber"].ToString();
                 }
                 ReportDataTable.Rows.Add(NewRow);
-            
+
             }
         }
 
@@ -1824,7 +1825,7 @@ namespace Infinium.Modules.Marketing.Orders
             int FrontID = Convert.ToInt32(FrontsOrdersRow["FrontID"]);
             if (FrontID == 30504 || FrontID == 30505 || FrontID == 30506 ||
                 FrontID == 30364 || FrontID == 30366 || FrontID == 30367 ||
-                FrontID == 30501 || FrontID == 30502 || FrontID == 30503 || 
+                FrontID == 30501 || FrontID == 30502 || FrontID == 30503 ||
                 FrontID == 16269 || FrontID == 28945 || FrontID == 27914 || FrontID == 3727 || FrontID == 3728 || FrontID == 3729 ||
                 FrontID == 3730 || FrontID == 3731 || FrontID == 3732 || FrontID == 3733 || FrontID == 3734 ||
                 FrontID == 3735 || FrontID == 3736 || FrontID == 3737 || FrontID == 3739 || FrontID == 3740 ||
@@ -1883,7 +1884,7 @@ namespace Infinium.Modules.Marketing.Orders
             outFrontWeight = PackWeight + ResultProfileWeight * Convert.ToDecimal(FrontsOrdersRow["Count"]);
             outInsetWeight = ResultInsetWeight * Convert.ToDecimal(FrontsOrdersRow["Count"]);
         }
-        
+
         private DataTable[] GroupInvNumber(DataTable OrdersDataTable)
         {
             int InvCount = 0;
@@ -2157,7 +2158,7 @@ namespace Infinium.Modules.Marketing.Orders
             TPSFrontsOrdersDataTable.Clear();
             DecorInvNumbersDT.Clear();
             GetMegaOrderInfo1(MegaOrderID);
-            
+
             string SelectCommand = "SELECT FrontsOrders.*, infiniu2_catalog.dbo.FrontsConfig.AccountingName, infiniu2_catalog.dbo.FrontsConfig.InvNumber, MegaOrders.PaymentRate FROM FrontsOrders" +
                 " INNER JOIN infiniu2_catalog.dbo.FrontsConfig ON FrontsOrders.FrontConfigID = infiniu2_catalog.dbo.FrontsConfig.FrontConfigID" +
                 " INNER JOIN MainOrders ON FrontsOrders.MainOrderID = MainOrders.MainOrderID" +
@@ -3574,7 +3575,7 @@ namespace Infinium.Modules.Marketing.Orders
             ProfilReportDataTable.Clear();
             TPSReportDataTable.Clear();
             GetMegaOrderInfo1(MegaOrderID);
-            
+
             string SelectCommand = "SELECT DecorOrders.*, infiniu2_catalog.dbo.DecorConfig.AccountingName, infiniu2_catalog.dbo.DecorConfig.InvNumber, MegaOrders.PaymentRate FROM DecorOrders" +
                 " INNER JOIN MainOrders ON DecorOrders.MainOrderID = MainOrders.MainOrderID" +
                 " INNER JOIN MegaOrders ON MainOrders.MegaOrderID = MegaOrders.MegaOrderID AND MegaOrders.MegaOrderID=" + MegaOrderID +
@@ -3600,7 +3601,7 @@ namespace Infinium.Modules.Marketing.Orders
             ProfilReportDataTable.Clear();
             TPSReportDataTable.Clear();
             GetMegaOrderInfo(MainOrderIDs[0]);
-            
+
             string SelectCommand = "SELECT DecorOrders.*, infiniu2_catalog.dbo.DecorConfig.AccountingName, infiniu2_catalog.dbo.DecorConfig.InvNumber, MegaOrders.PaymentRate FROM DecorOrders" +
                 " INNER JOIN MainOrders ON DecorOrders.MainOrderID = MainOrders.MainOrderID" +
                 " INNER JOIN MegaOrders ON MainOrders.MegaOrderID = MegaOrders.MegaOrderID" +
@@ -3628,7 +3629,7 @@ namespace Infinium.Modules.Marketing.Orders
             ProfilReportDataTable.Clear();
             TPSReportDataTable.Clear();
             GetMegaOrderInfo(MainOrderIDs[0]);
-            
+
             string SelectCommand = "SELECT DecorOrders.*, infiniu2_catalog.dbo.DecorConfig.AccountingName, infiniu2_catalog.dbo.DecorConfig.InvNumber, MegaOrders.PaymentRate FROM DecorOrders" +
                 " INNER JOIN MainOrders ON DecorOrders.MainOrderID = MainOrders.MainOrderID" +
                 " INNER JOIN MegaOrders ON MainOrders.MegaOrderID = MegaOrders.MegaOrderID" +
@@ -3834,7 +3835,7 @@ namespace Infinium.Modules.Marketing.Orders
                         Count += Convert.ToDecimal(InvRows[j]["Count"]);
                         Cost += Convert.ToDecimal(InvRows[j]["Cost"]) * PaymentRate / VAT;
                         CostWithTransport += Convert.ToDecimal(InvRows[j]["CostWithTransport"]) * PaymentRate / VAT;
-                    } 
+                    }
                     Cost = Math.Ceiling(Cost / 0.01m) * 0.01m;
                     CostWithTransport = Math.Ceiling(CostWithTransport / 0.01m) * 0.01m;
                     Price = Cost / Count;
@@ -3912,49 +3913,49 @@ namespace Infinium.Modules.Marketing.Orders
             //Profil
             if (TotalProfil > 0)
             {
-            for (int i = 0; i < ProfilReportTable.Rows.Count; i++)
-            {
-                decimal ItemCost = Convert.ToDecimal(ProfilReportTable.Rows[i]["Cost"]);
-                decimal pItem = ItemCost / TotalProfil * 100;
+                for (int i = 0; i < ProfilReportTable.Rows.Count; i++)
+                {
+                    decimal ItemCost = Convert.ToDecimal(ProfilReportTable.Rows[i]["Cost"]);
+                    decimal pItem = ItemCost / TotalProfil * 100;
 
-                if (ItemCost == 0)
-                    continue;
+                    if (ItemCost == 0)
+                        continue;
 
-                //if (Convert.ToDecimal(ProfilReportTable.Rows[i]["CurrencyCode"]) == 974)
-                //    DecCount = 0;
-                //else
-                //    DecCount = 2;
+                    //if (Convert.ToDecimal(ProfilReportTable.Rows[i]["CurrencyCode"]) == 974)
+                    //    DecCount = 0;
+                    //else
+                    //    DecCount = 2;
 
-                ProfilReportTable.Rows[i]["Cost"] = Decimal.Round(ItemCost + cProfil / 100 * pItem, 2, MidpointRounding.AwayFromZero);
-                //ProfilReportTable.Rows[i]["Price"] = Decimal.Round(Convert.ToDecimal(ProfilReportTable.Rows[i]["OriginalPrice"]), DecCount, MidpointRounding.AwayFromZero);
-                ProfilReportTable.Rows[i]["Price"] = Decimal.Round(Convert.ToDecimal(ProfilReportTable.Rows[i]["Cost"]) /
-                                                     Convert.ToDecimal(ProfilReportTable.Rows[i]["Count"]), 2, MidpointRounding.AwayFromZero);
-            }
+                    ProfilReportTable.Rows[i]["Cost"] = Decimal.Round(ItemCost + cProfil / 100 * pItem, 2, MidpointRounding.AwayFromZero);
+                    //ProfilReportTable.Rows[i]["Price"] = Decimal.Round(Convert.ToDecimal(ProfilReportTable.Rows[i]["OriginalPrice"]), DecCount, MidpointRounding.AwayFromZero);
+                    ProfilReportTable.Rows[i]["Price"] = Decimal.Round(Convert.ToDecimal(ProfilReportTable.Rows[i]["Cost"]) /
+                                                         Convert.ToDecimal(ProfilReportTable.Rows[i]["Count"]), 2, MidpointRounding.AwayFromZero);
+                }
             }
 
             if (TotalTPS > 0)
             {
-            //TPS
-            for (int i = 0; i < TPSReportTable.Rows.Count; i++)
-            {
-                decimal ItemCost = Convert.ToDecimal(TPSReportTable.Rows[i]["Cost"]);
-                decimal pItem = ItemCost / TotalTPS * 100;
+                //TPS
+                for (int i = 0; i < TPSReportTable.Rows.Count; i++)
+                {
+                    decimal ItemCost = Convert.ToDecimal(TPSReportTable.Rows[i]["Cost"]);
+                    decimal pItem = ItemCost / TotalTPS * 100;
 
-                if (ItemCost == 0)
-                    continue;
-                string TPSCurCode = TPSReportTable.Rows[i]["TPSCurCode"].ToString();
+                    if (ItemCost == 0)
+                        continue;
+                    string TPSCurCode = TPSReportTable.Rows[i]["TPSCurCode"].ToString();
 
-                //if (TPSCurCode.Equals("974"))
-                //    DecCount = 0;
-                //else
-                //    DecCount = 2;
-                decimal Cost = Decimal.Round(ItemCost + cTPS / 100 * pItem, 2, MidpointRounding.AwayFromZero);
-                TPSReportTable.Rows[i]["Cost"] = Decimal.Round(ItemCost + cTPS / 100 * pItem, 2, MidpointRounding.AwayFromZero);
-                //TPSReportTable.Rows[i]["Price"] = Decimal.Round(Convert.ToDecimal(TPSReportTable.Rows[i]["OriginalPrice"]), DecCount, MidpointRounding.AwayFromZero);
-                TPSReportTable.Rows[i]["Price"] = Decimal.Round(Convert.ToDecimal(TPSReportTable.Rows[i]["Cost"]) /
-                                                     Convert.ToDecimal(TPSReportTable.Rows[i]["Count"]), 2, MidpointRounding.AwayFromZero);
+                    //if (TPSCurCode.Equals("974"))
+                    //    DecCount = 0;
+                    //else
+                    //    DecCount = 2;
+                    decimal Cost = Decimal.Round(ItemCost + cTPS / 100 * pItem, 2, MidpointRounding.AwayFromZero);
+                    TPSReportTable.Rows[i]["Cost"] = Decimal.Round(ItemCost + cTPS / 100 * pItem, 2, MidpointRounding.AwayFromZero);
+                    //TPSReportTable.Rows[i]["Price"] = Decimal.Round(Convert.ToDecimal(TPSReportTable.Rows[i]["OriginalPrice"]), DecCount, MidpointRounding.AwayFromZero);
+                    TPSReportTable.Rows[i]["Price"] = Decimal.Round(Convert.ToDecimal(TPSReportTable.Rows[i]["Cost"]) /
+                                                         Convert.ToDecimal(TPSReportTable.Rows[i]["Count"]), 2, MidpointRounding.AwayFromZero);
+                }
             }
-        }
         }
 
         private int GetMegaOrderID(int MainOrderID)
@@ -4021,7 +4022,7 @@ namespace Infinium.Modules.Marketing.Orders
             };
             dtGroup.Clear();
             dtGroup = dv.ToTable();
-            
+
             //returning grouped/counted result
             return dtGroup;
         }
@@ -4157,7 +4158,7 @@ namespace Infinium.Modules.Marketing.Orders
             TotalCost = 0;
             TotalProfil = 0;
             TotalTPS = 0;
-            
+
             DataTable table1 = ProfilReportTable.Copy();
             DataTable table2 = TPSReportTable.Copy();
             ProfilReportTable.Clear();
@@ -5161,7 +5162,7 @@ namespace Infinium.Modules.Marketing.Orders
             #endregion
         }
 
-        public void CreateReport(ref HSSFWorkbook hssfworkbook, int[] MegaOrders, int[] OrderNumbers, int[] MainOrdersIDs, int ClientID, string ClientName, 
+        public void CreateReport(ref HSSFWorkbook hssfworkbook, int[] MegaOrders, int[] OrderNumbers, int[] MainOrdersIDs, int ClientID, string ClientName,
             decimal ComplaintProfilCost, decimal ComplaintTPSCost, decimal TransportCost, decimal AdditionalCost,
             decimal TotalCost, int CurrencyTypeID, bool IsSample, ref decimal TotalProfil1, ref decimal TotalTPS1)
         {
@@ -6284,7 +6285,7 @@ namespace Infinium.Modules.Marketing.Orders
                 if (Convert.ToInt32(CurrencyCode) == 974 || Convert.ToInt32(CurrencyCode) == 933)
                     NDS = "20 %";
                 //if (FactoryID == 2)
-        //            UNNP = "590618616";
+                //            UNNP = "590618616";
                 cmd.Parameters.Add("UNNP", OleDbType.VarChar).Value = UNNP;
                 cmd.Parameters.Add("UNN", OleDbType.VarChar).Value = UNN;
                 cmd.Parameters.Add("CurrencyCode", OleDbType.VarChar).Value = CurrencyCode;

@@ -1,9 +1,9 @@
 ﻿using System;
-using System.Windows.Forms;
-using System.Drawing;
-using System.IO;
-using System.Drawing.Imaging;
 using System.ComponentModel;
+using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
+using System.Windows.Forms;
 
 namespace Infinium
 {
@@ -36,7 +36,7 @@ namespace Infinium
             Initialize();
         }
 
-      
+
         private void PersonalSettingsForm_Shown(object sender, EventArgs e)
         {
             FormEvent = eShow;
@@ -126,8 +126,8 @@ namespace Infinium
             AnimateTimer.Enabled = true;
         }
 
-        
-        
+
+
 
         private void Initialize()
         {

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Drawing;
-using System.Windows.Forms;
-using System.Threading;
 using System.Globalization;
+using System.Threading;
+using System.Windows.Forms;
 
 namespace Infinium
 {
@@ -16,7 +16,7 @@ namespace Infinium
 
         int FormEvent = 0;
 
-        
+
         Form TopForm = null;
         LightStartForm LightStartForm;
 
@@ -29,12 +29,12 @@ namespace Infinium
             InitializeComponent();
             LightStartForm = tLightStartForm;
 
-            
+
             this.MaximumSize = Screen.PrimaryScreen.WorkingArea.Size;
 
 
             Initialize();
-            while (!SplashForm.bCreated);
+            while (!SplashForm.bCreated) ;
         }
 
         private void IncomeMonthZOVForm_Shown(object sender, EventArgs e)
@@ -56,16 +56,16 @@ namespace Infinium
 
                     if (FormEvent == eClose)
                     {
-                       
+
                         LightStartForm.CloseForm(this);
                     }
 
                     if (FormEvent == eHide)
                     {
-                        
+
                         LightStartForm.HideForm(this);
                     }
-                    
+
 
                     return;
                 }
@@ -89,16 +89,16 @@ namespace Infinium
 
                     if (FormEvent == eClose)
                     {
-                       
+
                         LightStartForm.CloseForm(this);
                     }
 
                     if (FormEvent == eHide)
                     {
-                        
+
                         LightStartForm.HideForm(this);
                     }
-                    
+
                 }
 
                 return;
@@ -187,7 +187,7 @@ namespace Infinium
 
                 IncomeDataGrid.Sort(IncomeDataGrid.Columns["DateTime"], SD);
             }
-            
+
         }
 
         protected override void WndProc(ref Message m)
@@ -208,7 +208,7 @@ namespace Infinium
 
             if (kryptonCheckSet2.CheckedButton.Name == "AllCheckButton")
             {
-                Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
+                Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
                 T.Start();
 
                 while (!SplashWindow.bSmallCreated) ;
@@ -221,7 +221,7 @@ namespace Infinium
             }
             if (kryptonCheckSet2.CheckedButton.Name == "ProfilCheckButton")
             {
-                Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
+                Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
                 T.Start();
 
                 while (!SplashWindow.bSmallCreated) ;
@@ -234,7 +234,7 @@ namespace Infinium
             }
             if (kryptonCheckSet2.CheckedButton.Name == "TPSCheckButton")
             {
-                Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
+                Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
                 T.Start();
 
                 while (!SplashWindow.bSmallCreated) ;

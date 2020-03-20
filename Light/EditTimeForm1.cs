@@ -17,7 +17,7 @@ namespace Infinium
         public const int dBreakDay = 1;
         public const int dContinueDay = 2;
         public const int dEndDay = 3;
-        
+
         Form TopForm;
 
         public EditTimeForm1(ref Form tTopForm, int tDayEventType, int iWorkDayID, object NewDateTime, object StartDateTime)
@@ -72,9 +72,9 @@ namespace Infinium
                     FactTimeLabel.Text = "с " + Convert.ToDateTime(NewDateTime).ToString("HH:mm") + " на";
                 }
             }
-            
+
         }
-        
+
         protected override void WndProc(ref Message m)
         {
             base.WndProc(ref m);

@@ -1,10 +1,11 @@
-﻿using System;
+﻿using Infinium.Modules.Storage.StoreLabels;
+
+using System;
 using System.Drawing;
-using System.Linq;
-using System.Windows.Forms;
-using System.Threading;
 using System.Globalization;
-using Infinium.Modules.Storage.StoreLabels;
+using System.Linq;
+using System.Threading;
+using System.Windows.Forms;
 
 namespace Infinium
 {
@@ -18,7 +19,7 @@ namespace Infinium
         int BarcodeType = 13;
         int FormEvent = 0;
 
-        
+
         Form TopForm = null;
         LightStartForm LightStartForm;
         StoreLabelsManager StoreLabelManager;
@@ -29,12 +30,12 @@ namespace Infinium
             InitializeComponent();
 
             this.MaximumSize = Screen.PrimaryScreen.WorkingArea.Size;
-            
+
             LightStartForm = tLightStartForm;
-            
+
             Initialize();
-            
-            while (!SplashForm.bCreated);
+
+            while (!SplashForm.bCreated) ;
         }
 
         private void StoreLabelsForm_Shown(object sender, EventArgs e)
@@ -58,16 +59,16 @@ namespace Infinium
 
                     if (FormEvent == eClose)
                     {
-                       
+
                         LightStartForm.CloseForm(this);
-   
+
                     }
 
                     if (FormEvent == eHide)
                     {
                         LightStartForm.HideForm(this);
                     }
-                    
+
 
                     return;
                 }
@@ -91,7 +92,7 @@ namespace Infinium
 
                     if (FormEvent == eClose)
                     {
-                       
+
                         LightStartForm.CloseForm(this);
                     }
 
@@ -99,7 +100,7 @@ namespace Infinium
                     {
                         LightStartForm.HideForm(this);
                     }
-                    
+
                 }
 
                 return;
@@ -150,7 +151,7 @@ namespace Infinium
         public void GridSettings()
         {
             dgvStore.DataSource = StoreLabelManager.StoreList;
-            
+
             dgvStore.Columns.Add(StoreLabelManager.ColorsColumn);
             dgvStore.Columns.Add(StoreLabelManager.PatinaColumn);
             dgvStore.Columns.Add(StoreLabelManager.CoversColumn);
@@ -263,7 +264,7 @@ namespace Infinium
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение данных.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение данных.\r\nПодождите..."); });
             T.Start();
 
             while (!SplashWindow.bSmallCreated) ;
@@ -301,7 +302,7 @@ namespace Infinium
                 };
                 StoreLabelPrintManager.AddLabelInfo(ref LabelInfo);
             }
-            
+
             PrintDialog.Document = StoreLabelPrintManager.PD;
 
             if (PrintDialog.ShowDialog() == DialogResult.OK)
@@ -315,11 +316,11 @@ namespace Infinium
             if (StoreLabelManager == null)
                 return;
 
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Создаются этикеток.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Создаются этикеток.\r\nПодождите..."); });
             T.Start();
 
             while (!SplashWindow.bSmallCreated) ;
-            
+
             StoreLabelManager.CreateGroupLabels(100);
             StoreLabelManager.SaveStoreLabels();
             StoreLabelManager.UpdateStoreLabels();
@@ -356,7 +357,7 @@ namespace Infinium
             if (LabelsCount < 1)
                 return;
 
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Создаются этикетки.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Создаются этикетки.\r\nПодождите..."); });
             T.Start();
 
             while (!SplashWindow.bSmallCreated) ;

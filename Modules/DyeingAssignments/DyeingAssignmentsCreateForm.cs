@@ -1,10 +1,11 @@
-﻿using System;
+﻿using Infinium.Modules.DyeingAssignments;
+
+using System;
 using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Windows.Forms;
 using System.Threading;
-using Infinium.Modules.DyeingAssignments;
+using System.Windows.Forms;
 
 namespace Infinium
 {
@@ -36,12 +37,12 @@ namespace Infinium
             To = dTo;
             ControlAssignmentsManager = tControlAssignmentsManager;
             PrintDyeingAssignmentsManager = tPrintDyeingAssignmentsManager;
-            
+
             this.MaximumSize = Screen.PrimaryScreen.WorkingArea.Size;
 
             Initialize();
             ShowButtons();
-            while (!SplashForm.bCreated);
+            while (!SplashForm.bCreated) ;
         }
 
         public void ShowButtons()
@@ -786,7 +787,7 @@ namespace Infinium
             if (NeedSplash)
             {
                 NeedSplash = false;
-                Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
+                Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
                 T.Start();
                 while (!SplashWindow.bSmallCreated) ;
                 FrontsOrdersManager.GetSavedFrontsOrders(BatchID);
@@ -819,7 +820,7 @@ namespace Infinium
             if (NeedSplash)
             {
                 NeedSplash = false;
-                Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
+                Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
                 T.Start();
                 while (!SplashWindow.bSmallCreated) ;
                 //ControlAssignmentsManager.FilterBatchesByMegaBatch();
@@ -830,7 +831,7 @@ namespace Infinium
             }
             else
                 //ControlAssignmentsManager.FilterBatchesByMegaBatch();
-            ControlAssignmentsManager.FilterBatchesByMegaBatch(GroupType, MegaBatchID);
+                ControlAssignmentsManager.FilterBatchesByMegaBatch(GroupType, MegaBatchID);
         }
 
         private void dgvBatchMainOrders_SelectionChanged(object sender, EventArgs e)
@@ -862,11 +863,11 @@ namespace Infinium
 
             if (dgvMegaBatches.SelectedRows.Count != 0 && dgvMegaBatches.SelectedRows[0].Cells["MegaBatchID"].Value != DBNull.Value)
                 MegaBatchID = Convert.ToInt32(dgvMegaBatches.SelectedRows[0].Cells["MegaBatchID"].Value);
-            
+
             if (NeedSplash)
             {
                 NeedSplash = false;
-                Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
+                Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
                 T.Start();
                 while (!SplashWindow.bSmallCreated) ;
 
@@ -948,7 +949,7 @@ namespace Infinium
 
             ControlAssignmentsManager.GroupType = 2;
 
-            Thread T = new Thread(delegate() { SplashWindow.CreateSplash(); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSplash(); });
             T.Start();
 
             while (!SplashForm.bCreated) ;
@@ -989,7 +990,7 @@ namespace Infinium
             NeedPaintingMaterialForm.Dispose();
 
             TopForm = null;
-            Thread T1 = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение данных.\r\nПодождите..."); });
+            Thread T1 = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение данных.\r\nПодождите..."); });
             T1.Start();
 
             while (!SplashWindow.bSmallCreated) ;
@@ -1023,7 +1024,7 @@ namespace Infinium
 
             ControlAssignmentsManager.GroupType = 1;
 
-            Thread T = new Thread(delegate() { SplashWindow.CreateSplash(); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSplash(); });
             T.Start();
 
             while (!SplashForm.bCreated) ;
@@ -1077,7 +1078,7 @@ namespace Infinium
 
             TopForm = null;
 
-            Thread T1 = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение данных.\r\nПодождите..."); });
+            Thread T1 = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение данных.\r\nПодождите..."); });
             T1.Start();
 
             while (!SplashWindow.bSmallCreated) ;
@@ -1109,7 +1110,7 @@ namespace Infinium
 
             ControlAssignmentsManager.GroupType = 0;
 
-            Thread T = new Thread(delegate() { SplashWindow.CreateSplash(); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSplash(); });
             T.Start();
 
             while (!SplashForm.bCreated) ;
@@ -1200,7 +1201,7 @@ namespace Infinium
             NeedPaintingMaterialForm.Dispose();
 
             TopForm = null;
-            Thread T1 = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение данных.\r\nПодождите..."); });
+            Thread T1 = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение данных.\r\nПодождите..."); });
             T1.Start();
 
             while (!SplashWindow.bSmallCreated) ;
@@ -1220,7 +1221,7 @@ namespace Infinium
 
             ControlAssignmentsManager.GroupType = 2;
 
-            Thread T = new Thread(delegate() { SplashWindow.CreateSplash(); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSplash(); });
             T.Start();
 
             while (!SplashForm.bCreated) ;
@@ -1255,7 +1256,7 @@ namespace Infinium
             NeedPaintingMaterialForm.Dispose();
 
             TopForm = null;
-            Thread T1 = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение данных.\r\nПодождите..."); });
+            Thread T1 = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение данных.\r\nПодождите..."); });
             T1.Start();
 
             while (!SplashWindow.bSmallCreated) ;
@@ -1279,7 +1280,7 @@ namespace Infinium
             if (NeedSplash)
             {
                 NeedSplash = false;
-                Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
+                Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
                 T.Start();
                 while (!SplashWindow.bSmallCreated) ;
                 ControlAssignmentsManager.FilterMegaBatches(GroupType);

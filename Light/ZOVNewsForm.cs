@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Data;
-using System.Windows.Forms;
 using System.Threading;
+using System.Windows.Forms;
 
 namespace Infinium
 {
@@ -14,7 +14,7 @@ namespace Infinium
         int FormEvent = 0;
 
         LightStartForm LightStartForm;
-        
+
         Form TopForm;
 
         DataTable SDT = new DataTable();
@@ -25,9 +25,9 @@ namespace Infinium
         public ZOVNewsForm(LightStartForm tLightStartForm)
         {
             InitializeComponent();
-            
+
             LightStartForm = tLightStartForm;
-            
+
             this.MaximumSize = Screen.PrimaryScreen.WorkingArea.Size;
 
             ZOVNews = new Infinium.ZOVNews();
@@ -36,7 +36,7 @@ namespace Infinium
 
             Initialize();
 
-            
+
 
             //LightNewsContainer.PageChanged(null);
 
@@ -49,11 +49,11 @@ namespace Infinium
             while (!SplashForm.bCreated) ;
         }
 
-      
+
         private void LightNewsForm_Shown(object sender, EventArgs e)
         {
             while (!SplashForm.bCreated) ;
-            
+
             LightNewsContainer.Visible = true;
             FormEvent = eShow;
             AnimateTimer.Enabled = true;
@@ -71,16 +71,16 @@ namespace Infinium
 
                     if (FormEvent == eClose)
                     {
-                       
+
                         LightStartForm.CloseForm(this);
                     }
 
                     if (FormEvent == eHide)
                     {
-                        
+
                         LightStartForm.HideForm(this);
                     }
-                    
+
 
                     return;
                 }
@@ -108,16 +108,16 @@ namespace Infinium
 
                     if (FormEvent == eClose)
                     {
-                       
+
                         LightStartForm.CloseForm(this);
                     }
 
                     if (FormEvent == eHide)
                     {
-                        
+
                         LightStartForm.HideForm(this);
                     }
-                    
+
                 }
 
                 return;
@@ -143,7 +143,7 @@ namespace Infinium
         private void NavigateMenuCloseButton_Click(object sender, EventArgs e)
         {
             LightNewsContainer.Visible = false;
-            
+
             FormEvent = eClose;
             AnimateTimer.Enabled = true;
         }
@@ -187,7 +187,7 @@ namespace Infinium
         //    {
         //        UpdateNewsButton.Text = "Обновления " + c.ToString();
         //    }
-                
+
 
         //    //LightNews.FillNews();
         //    ////LightNews.RefillSubs();
@@ -252,7 +252,7 @@ namespace Infinium
             if (AddNewsForm.Canceled)
                 return;
 
-            Thread T = new Thread(delegate()
+            Thread T = new Thread(delegate ()
             {
                 SplashWindow.CreateCoverSplash(LightNewsContainer.Top, LightNewsContainer.Left,
                                      LightNewsContainer.Height, LightNewsContainer.Width);
@@ -296,13 +296,16 @@ namespace Infinium
 
             if (LightMessageBoxForm.OKCancel)
             {
-                Thread T = new Thread(delegate() {SplashWindow.CreateCoverSplash(LightNewsContainer.Top, LightNewsContainer.Left,
-                                                  LightNewsContainer.Height, LightNewsContainer.Width);});
+                Thread T = new Thread(delegate ()
+                {
+                    SplashWindow.CreateCoverSplash(LightNewsContainer.Top, LightNewsContainer.Left,
+                    LightNewsContainer.Height, LightNewsContainer.Width);
+                });
                 T.Start();
 
                 while (!SplashWindow.bSmallCreated) ;
 
-            
+
                 ZOVNews.RemoveNews(NewsID);
                 ZOVNews.ReloadNews(LightNewsContainer.NewsCount);
                 ZOVNews.ReloadComments();
@@ -315,12 +318,12 @@ namespace Infinium
 
 
             bC = true;
-           
+
         }
 
         private void LightNewsContainer_CommentSendButtonClicked(object sender, string Text, int NewsID, int SenderID, bool bEdit, int NewsCommentID)
         {
-            Thread T = new Thread(delegate()
+            Thread T = new Thread(delegate ()
             {
                 SplashWindow.CreateCoverSplash(LightNewsContainer.Top, LightNewsContainer.Left,
                                      LightNewsContainer.Height, LightNewsContainer.Width);
@@ -328,7 +331,7 @@ namespace Infinium
             T.Start();
 
             while (!SplashWindow.bSmallCreated) ;
-            
+
             if (bEdit)
                 ZOVNews.EditComments(SenderID, NewsCommentID, Text);
             else
@@ -365,7 +368,7 @@ namespace Infinium
 
             if (LightMessageBoxForm.OKCancel)
             {
-                Thread T = new Thread(delegate()
+                Thread T = new Thread(delegate ()
                 {
                     SplashWindow.CreateCoverSplash(LightNewsContainer.Top, LightNewsContainer.Left,
                     LightNewsContainer.Height, LightNewsContainer.Width);
@@ -409,8 +412,11 @@ namespace Infinium
             if (AddNewsForm.Canceled)
                 return;
 
-            Thread T = new Thread(delegate() { SplashWindow.CreateCoverSplash(LightNewsContainer.Top, LightNewsContainer.Left,
-                                     LightNewsContainer.Height, LightNewsContainer.Width); });
+            Thread T = new Thread(delegate ()
+            {
+                SplashWindow.CreateCoverSplash(LightNewsContainer.Top, LightNewsContainer.Left,
+      LightNewsContainer.Height, LightNewsContainer.Width);
+            });
             T.Start();
 
             while (!SplashWindow.bSmallCreated) ;
@@ -538,7 +544,7 @@ namespace Infinium
 
         private void UpdateNewsButton_Click(object sender, EventArgs e)
         {
-            Thread T = new Thread(delegate()
+            Thread T = new Thread(delegate ()
             {
                 SplashWindow.CreateCoverSplash(LightNewsContainer.Top, LightNewsContainer.Left,
                                      LightNewsContainer.Height, LightNewsContainer.Width);

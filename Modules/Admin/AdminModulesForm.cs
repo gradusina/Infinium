@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Data;
 using System.Drawing;
-using System.Windows.Forms;
 using System.IO;
+using System.Windows.Forms;
 
 namespace Infinium
 {
@@ -15,7 +15,7 @@ namespace Infinium
         int FormEvent = 0;
 
         LightStartForm LightStartForm;
-        
+
         Form TopForm = null;
         public AdminModulesManagement AdminModulesManagement = null;
 
@@ -23,17 +23,17 @@ namespace Infinium
         public AdminModulesForm(LightStartForm tLightStartForm)
         {
             InitializeComponent();
-            
+
 
             LightStartForm = tLightStartForm;
 
-            
+
             this.MaximumSize = Screen.PrimaryScreen.WorkingArea.Size;
 
 
             Initialize();
 
-            while(!SplashForm.bCreated);
+            while (!SplashForm.bCreated) ;
         }
 
         private void AdminModulesForm_Shown(object sender, EventArgs e)
@@ -56,7 +56,7 @@ namespace Infinium
 
                     if (FormEvent == eClose)
                     {
-                       
+
                         LightStartForm.CloseForm(this);
                     }
 
@@ -65,7 +65,7 @@ namespace Infinium
 
                         LightStartForm.HideForm(this);
                     }
-                    
+
 
                     return;
                 }
@@ -89,7 +89,7 @@ namespace Infinium
 
                     if (FormEvent == eClose)
                     {
-                       
+
                         LightStartForm.CloseForm(this);
                     }
 
@@ -98,7 +98,7 @@ namespace Infinium
 
                         LightStartForm.HideForm(this);
                     }
-                    
+
                 }
 
                 return;
@@ -131,7 +131,7 @@ namespace Infinium
             AnimateTimer.Enabled = true;
         }
 
-        
+
 
         private void Initialize()
         {
@@ -201,7 +201,7 @@ namespace Infinium
             if (AdminModulesManagement.ModulesBindingSource.Current == null)
                 return;
 
-            DataRow Row = AdminModulesManagement.ModulesDataTable.Select("ModuleID = "+
+            DataRow Row = AdminModulesManagement.ModulesDataTable.Select("ModuleID = " +
                 ((DataRowView)AdminModulesManagement.ModulesBindingSource.Current)["ModuleID"])[0];
 
             if (Row["Picture"] == DBNull.Value)
@@ -219,7 +219,7 @@ namespace Infinium
         private void kryptonButton1_Click(object sender, EventArgs e)
         {
             if (openFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            { 
+            {
                 pictureBox1.Image = Image.FromFile(openFileDialog1.FileName);
 
                 AdminModulesManagement.SetPicture(Convert.ToInt32(((DataRowView)AdminModulesManagement.ModulesBindingSource.Current)["ModuleID"]),

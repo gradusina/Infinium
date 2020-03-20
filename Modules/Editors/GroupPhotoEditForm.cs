@@ -32,7 +32,7 @@ namespace Infinium
             Initialize();
         }
 
-      
+
         private void DepartmentPhotoEditForm_Shown(object sender, EventArgs e)
         {
             FormEvent = eShow;
@@ -120,8 +120,8 @@ namespace Infinium
             AnimateTimer.Enabled = true;
         }
 
-        
-        
+
+
 
         private void Initialize()
         {

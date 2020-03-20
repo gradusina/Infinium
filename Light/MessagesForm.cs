@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
-using System.Windows.Forms;
 using System.Threading;
+using System.Windows.Forms;
 
 namespace Infinium
 {
@@ -25,7 +25,7 @@ namespace Infinium
         {
             InitializeComponent();
 
-            Thread T = new Thread(delegate()
+            Thread T = new Thread(delegate ()
             {
                 SplashWindow.CreateCoverSplash(true, (Screen.PrimaryScreen.WorkingArea.Height - this.Height) / 2, (Screen.PrimaryScreen.WorkingArea.Width - this.Width) / 2,
                                                 503, 1014);
@@ -49,16 +49,16 @@ namespace Infinium
             MessagesContainer.UsersDataTable = InfiniumMessages.FullUsersDataTable;
             MessagesContainer.CurrentUserID = Security.CurrentUserID;
 
-            if(InfiniumMessages.SelectedUsersDataTable.Rows.Count > 0)
+            if (InfiniumMessages.SelectedUsersDataTable.Rows.Count > 0)
             {
                 UsersList.Top = 159;
                 UsersList.Height = UsersList.Parent.Height - UsersList.Top;
 
                 SelectedUsersList.Selected = 0;
                 InfiniumMessages.FillMessages(SelectedUsersList.Items[0].UserID);
-                
+
                 MessagesContainer.ItemsDataTable = InfiniumMessages.MessagesDataTable;
-                MessagesContainer.InitializeItems(); 
+                MessagesContainer.InitializeItems();
             }
             else
             {
@@ -69,13 +69,13 @@ namespace Infinium
 
                 InfiniumMessages.FillMessages(UsersList.Items[0].UserID);
                 MessagesContainer.ItemsDataTable = InfiniumMessages.MessagesDataTable;
-                MessagesContainer.InitializeItems(); 
+                MessagesContainer.InitializeItems();
             }
 
             bC = true;
         }
 
-        
+
         protected override void WndProc(ref Message m)
         {
             base.WndProc(ref m);
@@ -98,7 +98,7 @@ namespace Infinium
                     AnimateTimer.Enabled = false;
 
                     if (FormEvent == eClose)
-                    {                        
+                    {
                         this.Close();
                     }
 
@@ -174,7 +174,7 @@ namespace Infinium
         {
             if (bNeedSplash)
             {
-                Thread T = new Thread(delegate()
+                Thread T = new Thread(delegate ()
                 {
                     SplashWindow.CreateCoverSplash(true, this.Top + MessagesContainer.Top, this.Left + MessagesContainer.Left,
                                                     MessagesContainer.Height, MessagesContainer.Width);
@@ -195,7 +195,7 @@ namespace Infinium
 
             SelectedUsersList.Selected = -1;
 
-            if(bNeedSplash)
+            if (bNeedSplash)
                 bC = true;
         }
 
@@ -216,7 +216,7 @@ namespace Infinium
 
             if (bNeedSplash)
             {
-                Thread T = new Thread(delegate()
+                Thread T = new Thread(delegate ()
                 {
                     SplashWindow.CreateCoverSplash(true, this.Top + MessagesContainer.Top, this.Left + MessagesContainer.Left,
                                                     MessagesContainer.Height, MessagesContainer.Width);
@@ -238,13 +238,13 @@ namespace Infinium
                     SelectedUsersList.ScrollDown();
                 }
                 else//in the list already
-                { 
-                    SelectedUsersList.SelectOnly(iRes);  
+                {
+                    SelectedUsersList.SelectOnly(iRes);
                 }
 
             }
 
-            InfiniumMessages.SendMessage(TextBox.Text, SelectedUsersList.Items[SelectedUsersList.Selected].UserID);           
+            InfiniumMessages.SendMessage(TextBox.Text, SelectedUsersList.Items[SelectedUsersList.Selected].UserID);
 
             InfiniumMessages.FillMessages(SelectedUsersList.Items[SelectedUsersList.Selected].UserID);
 
@@ -272,7 +272,7 @@ namespace Infinium
         {
             if (bNeedSplash)
             {
-                Thread T = new Thread(delegate()
+                Thread T = new Thread(delegate ()
                 {
                     SplashWindow.CreateCoverSplash(true, this.Top + panel1.Top, this.Left + panel1.Left,
                                                     panel1.Height, panel1.Width);
@@ -289,14 +289,14 @@ namespace Infinium
 
             InfiniumMessages.RemoveUserFromSelected(UserID);
             SelectedUsersList.InitializeItems();
-          
+
 
             if (SelectedUsersList.Items.Count() > 0)
             {
                 if (iSel > SelectedUsersList.Items.Count() - 1)
                     SelectedUsersList.Selected = SelectedUsersList.Items.Count() - 1;
                 else
-                    SelectedUsersList.Selected =  iSel;
+                    SelectedUsersList.Selected = iSel;
 
                 UsersList.Top = 159;
                 UsersList.Height = UsersList.Parent.Height - UsersList.Top;
@@ -324,14 +324,14 @@ namespace Infinium
                 bC = false;
 
                 TextBox.Focus();
-            }           
+            }
         }
 
         private void SelectedUsersList_ItemClicked(object sender, string Name, int UserID)
         {
             if (bNeedSplash)
             {
-                Thread T = new Thread(delegate()
+                Thread T = new Thread(delegate ()
                 {
                     SplashWindow.CreateCoverSplash(true, this.Top + MessagesContainer.Top, this.Left + MessagesContainer.Left,
                                                     MessagesContainer.Height, MessagesContainer.Width);
@@ -371,9 +371,9 @@ namespace Infinium
             bool bRes = false;
 
             iSel = SelectedUsersList.Selected;
-            
 
-            if(iSel > -1)
+
+            if (iSel > -1)
                 bRes = InfiniumMessages.FillSelectedUsers(SelectedUsersList.Items[iSel].UserID);
             else
                 InfiniumMessages.FillSelectedUsers(iSel);
@@ -381,7 +381,7 @@ namespace Infinium
             SelectedUsersList.InitializeItems();
 
             if (iSel > -1)
-            {               
+            {
                 if (bRes)
                     SelectedUsersList.Selected = iSel;
                 else

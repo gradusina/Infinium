@@ -23,10 +23,10 @@ namespace Infinium
 
             Initialize();
 
-            while (!SplashForm.bCreated);
+            while (!SplashForm.bCreated) ;
         }
 
-      
+
         private void GridsBackColorForm_Shown(object sender, EventArgs e)
         {
             FormEvent = eShow;

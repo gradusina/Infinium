@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Drawing;
-using System.Windows.Forms;
 using System.Runtime.InteropServices;
+using System.Windows.Forms;
 
 namespace Infinium
 {
@@ -26,15 +26,15 @@ namespace Infinium
         public LabelCheckProfilForm(LightStartForm tLightStartForm)
         {
             InitializeComponent();
-            
+
             LightStartForm = tLightStartForm;
 
-            
+
             this.MaximumSize = Screen.PrimaryScreen.WorkingArea.Size;
 
             Initialize();
 
-            while (!SplashForm.bCreated);
+            while (!SplashForm.bCreated) ;
         }
 
         private void LabelCheckProfilForm_Shown(object sender, EventArgs e)
@@ -89,7 +89,7 @@ namespace Infinium
 
                     if (FormEvent == eClose)
                     {
-                       
+
                         LightStartForm.CloseForm(this);
                     }
 
@@ -99,7 +99,7 @@ namespace Infinium
                         LightStartForm.HideForm(this);
                     }
 
-                    
+
                     return;
                 }
 
@@ -122,7 +122,7 @@ namespace Infinium
 
                     if (FormEvent == eClose)
                     {
-                       
+
                         LightStartForm.CloseForm(this);
                     }
 
@@ -130,7 +130,7 @@ namespace Infinium
                     {
                         LightStartForm.HideForm(this);
                     }
-                    
+
                 }
 
                 return;
@@ -159,7 +159,7 @@ namespace Infinium
 
         private void NavigateMenuBackButton_Click(object sender, EventArgs e)
         {
- 
+
         }
 
         private void NavigateMenuHerculesButton_Click(object sender, EventArgs e)
@@ -182,50 +182,70 @@ namespace Infinium
                 switch (e.KeyCode)
                 {
                     case Keys.NumPad1:
-                        { c = 1; } break;
+                        { c = 1; }
+                        break;
                     case Keys.NumPad2:
-                        { c = 2; } break;
+                        { c = 2; }
+                        break;
                     case Keys.NumPad3:
-                        { c = 3; } break;
+                        { c = 3; }
+                        break;
                     case Keys.NumPad4:
-                        { c = 4; } break;
+                        { c = 4; }
+                        break;
                     case Keys.NumPad5:
-                        { c = 5; } break;
+                        { c = 5; }
+                        break;
                     case Keys.NumPad6:
-                        { c = 6; } break;
+                        { c = 6; }
+                        break;
                     case Keys.NumPad7:
-                        { c = 7; } break;
+                        { c = 7; }
+                        break;
                     case Keys.NumPad8:
-                        { c = 8; } break;
+                        { c = 8; }
+                        break;
                     case Keys.NumPad9:
-                        { c = 9; } break;
+                        { c = 9; }
+                        break;
                     case Keys.NumPad0:
-                        { c = 0; } break;
+                        { c = 0; }
+                        break;
 
 
                     case Keys.D1:
-                        { c = 1; } break;
+                        { c = 1; }
+                        break;
                     case Keys.D2:
-                        { c = 2; } break;
+                        { c = 2; }
+                        break;
                     case Keys.D3:
-                        { c = 3; } break;
+                        { c = 3; }
+                        break;
                     case Keys.D4:
-                        { c = 4; } break;
+                        { c = 4; }
+                        break;
                     case Keys.D5:
-                        { c = 5; } break;
+                        { c = 5; }
+                        break;
                     case Keys.D6:
-                        { c = 6; } break;
+                        { c = 6; }
+                        break;
                     case Keys.D7:
-                        { c = 7; } break;
+                        { c = 7; }
+                        break;
                     case Keys.D8:
-                        { c = 8; } break;
+                        { c = 8; }
+                        break;
                     case Keys.D9:
-                        { c = 9; } break;
+                        { c = 9; }
+                        break;
                     case Keys.D0:
-                        { c = 0; } break;
+                        { c = 0; }
+                        break;
                 }
 
-                
+
             }
             return c;
         }
@@ -252,7 +272,7 @@ namespace Infinium
                 return;
             CheckTimer.Enabled = true;
         }
-        
+
         private void NavigateMenuCloseButton_MouseUp(object sender, MouseEventArgs e)
         {
             if (!CanAction)
@@ -307,7 +327,7 @@ namespace Infinium
                 BarcodeLabel.Text = BarcodeTextBox.Text;
 
                 BarcodeTextBox.Clear();
-                
+
 
                 if (CheckLabel.CheckBarcode(BarcodeLabel.Text))
                 {
@@ -333,7 +353,7 @@ namespace Infinium
                     if (CheckLabel.LabelInfo.Group == "Маркетинг")
                     {
                         //CheckLabel.SetMainOrderStatus(BarcodeLabel.Text, Convert.ToInt32(CheckLabel.LabelInfo.MainOrderNumber));
-                        CheckOrdersStatus.SetStatusMarketingForMainOrder(Convert.ToInt32(CheckLabel.LabelInfo.MegaOrderID), 
+                        CheckOrdersStatus.SetStatusMarketingForMainOrder(Convert.ToInt32(CheckLabel.LabelInfo.MegaOrderID),
                             Convert.ToInt32(CheckLabel.LabelInfo.MainOrderID));
 
                     }
@@ -384,7 +404,7 @@ namespace Infinium
                     e.Handled = true;
             }
         }
-        
+
         private void timer1_Tick(object sender, EventArgs e)
         {
             if (!CanAction)

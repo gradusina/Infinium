@@ -1,13 +1,14 @@
-﻿using System;
+﻿using Infinium.Modules.WorkAssignments;
+
+using System;
+using System.Collections;
 using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Windows.Forms;
-using System.Threading;
 using System.Globalization;
-using System.Collections;
-using Infinium.Modules.WorkAssignments;
 using System.IO;
+using System.Linq;
+using System.Threading;
+using System.Windows.Forms;
 
 namespace Infinium
 {
@@ -504,7 +505,7 @@ namespace Infinium
             grid.Columns["PrintDateTime"].HeaderText = "Дата печати";
             grid.Columns["Notes"].HeaderText = "Примечание";
             grid.Columns["Square"].HeaderText = "Квадратура";
-            
+
             foreach (DataGridViewColumn Column in grid.Columns)
             {
                 Column.ReadOnly = true;
@@ -685,7 +686,7 @@ namespace Infinium
                 Column.ReadOnly = true;
                 Column.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
             }
-            
+
             grid.Columns["TPSEntryDateTime"].DefaultCellStyle.Format = "dd.MM.yyyy HH:mm";
             grid.Columns["ProfilEntryDateTime"].DefaultCellStyle.Format = "dd.MM.yyyy HH:mm";
 
@@ -1080,7 +1081,7 @@ namespace Infinium
 
             if (NeedSplash)
             {
-                Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
+                Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
                 T.Start();
                 while (!SplashWindow.bSmallCreated) ;
                 NeedSplash = false;
@@ -1103,7 +1104,7 @@ namespace Infinium
 
             if (NeedSplash)
             {
-                Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
+                Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
                 T.Start();
                 while (!SplashWindow.bSmallCreated) ;
                 NeedSplash = false;
@@ -1120,7 +1121,7 @@ namespace Infinium
         {
             if (NeedSplash)
             {
-                Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
+                Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
                 T.Start();
 
                 while (!SplashWindow.bSmallCreated) ;
@@ -1155,7 +1156,7 @@ namespace Infinium
             }
             kryptonCheckSet3_CheckedButtonChanged(null, null);
 
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
             T.Start();
             while (!SplashWindow.bSmallCreated) ;
             NeedSplash = false;
@@ -1187,10 +1188,10 @@ namespace Infinium
             int FilterType = 0;
             if (dgvMarketBatches.SelectedRows.Count != 0 && dgvMarketBatches.SelectedRows[0].Cells["BatchID"].Value != DBNull.Value)
                 BatchID = Convert.ToInt32(dgvMarketBatches.SelectedRows[0].Cells["BatchID"].Value);
-            
+
             if (NeedSplash)
             {
-                Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
+                Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
                 T.Start();
                 while (!SplashWindow.bSmallCreated) ;
                 NeedSplash = false;
@@ -1215,10 +1216,10 @@ namespace Infinium
             int FilterType = 0;
             if (dgvZOVBatches.SelectedRows.Count != 0 && dgvZOVBatches.SelectedRows[0].Cells["BatchID"].Value != DBNull.Value)
                 BatchID = Convert.ToInt32(dgvZOVBatches.SelectedRows[0].Cells["BatchID"].Value);
-            
+
             if (NeedSplash)
             {
-                Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
+                Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
                 T.Start();
                 while (!SplashWindow.bSmallCreated) ;
                 NeedSplash = false;
@@ -1356,7 +1357,7 @@ namespace Infinium
             int BatchID = 0;
             int GroupType = 0;
             int FactoryID = 0;
-            int FilterType = 0; 
+            int FilterType = 0;
             int WorkAssignmentID = 0;
             if (dgvWorkAssignments.SelectedRows.Count != 0 && dgvWorkAssignments.SelectedRows[0].Cells["WorkAssignmentID"].Value != DBNull.Value)
                 WorkAssignmentID = Convert.ToInt32(dgvWorkAssignments.SelectedRows[0].Cells["WorkAssignmentID"].Value);
@@ -1437,7 +1438,7 @@ namespace Infinium
             }
             if (NeedSplash)
             {
-                Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
+                Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
                 T.Start();
                 while (!SplashWindow.bSmallCreated) ;
                 NeedSplash = false;
@@ -1473,7 +1474,7 @@ namespace Infinium
 
             if (NeedSplash)
             {
-                Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
+                Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
                 T.Start();
                 while (!SplashWindow.bSmallCreated) ;
                 NeedSplash = false;
@@ -1501,7 +1502,7 @@ namespace Infinium
             //CurrentWorkAssignmentID = WorkAssignmentID;
             if (NeedSplash)
             {
-                Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
+                Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
                 T.Start();
                 while (!SplashWindow.bSmallCreated) ;
                 NeedSplash = false;
@@ -1620,7 +1621,7 @@ namespace Infinium
             if (BatchName.Length > 0)
                 BatchName = BatchName.Substring(0, BatchName.Length - 1);
 
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
             T.Start();
             while (!SplashWindow.bSmallCreated) ;
             NeedSplash = false;
@@ -1669,7 +1670,7 @@ namespace Infinium
             if (dgvWorkAssignments.SelectedRows.Count != 0 && dgvWorkAssignments.SelectedRows[0].Cells["FactoryID"].Value != DBNull.Value)
                 FactoryID = Convert.ToInt32(dgvWorkAssignments.SelectedRows[0].Cells["FactoryID"].Value);
 
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
             T.Start();
             while (!SplashWindow.bSmallCreated) ;
             NeedSplash = false;
@@ -1704,7 +1705,7 @@ namespace Infinium
             if (GroupType == 0)
                 ZOV = true;
 
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
             T.Start();
             while (!SplashWindow.bSmallCreated) ;
             NeedSplash = false;
@@ -1832,7 +1833,7 @@ namespace Infinium
             if (dgvWorkAssignments.SelectedRows.Count != 0 && dgvWorkAssignments.SelectedRows[0].Cells["WorkAssignmentID"].Value != DBNull.Value)
                 WorkAssignmentID = Convert.ToInt32(dgvWorkAssignments.SelectedRows[0].Cells["WorkAssignmentID"].Value);
 
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
             T.Start();
             while (!SplashWindow.bSmallCreated) ;
             NeedSplash = false;
@@ -1898,7 +1899,7 @@ namespace Infinium
             if (dgvWorkAssignments.SelectedRows.Count != 0 && dgvWorkAssignments.SelectedRows[0].Cells["WorkAssignmentID"].Value != DBNull.Value)
                 WorkAssignmentID = Convert.ToInt32(dgvWorkAssignments.SelectedRows[0].Cells["WorkAssignmentID"].Value);
 
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
             T.Start();
             while (!SplashWindow.bSmallCreated) ;
             NeedSplash = false;
@@ -2198,7 +2199,7 @@ namespace Infinium
             if (!OKCancel)
                 return;
 
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Удаление задания.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Удаление задания.\r\nПодождите..."); });
             T.Start();
             while (!SplashWindow.bSmallCreated) ;
             NeedSplash = false;
@@ -2536,7 +2537,7 @@ namespace Infinium
         {
             if (WDecorOrdersManager == null)
                 return;
-            
+
             decimal TotalPogon = 0;
             int TotalCount = 0;
 
@@ -2568,7 +2569,7 @@ namespace Infinium
                 return;
             }
 
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Создание отчета.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Создание отчета.\r\nПодождите..."); });
             T.Start();
             while (!SplashWindow.bSmallCreated) ;
             NeedSplash = false;
@@ -2589,7 +2590,7 @@ namespace Infinium
             for (int i = 0; i < dgvFrontsSummary.Rows.Count; i++)
             {
                 int FrontID = Convert.ToInt32(dgvFrontsSummary.Rows[i].Cells["FrontID"].Value);
-                if (FrontID == Convert.ToInt32(Fronts.Marsel1) || FrontID == Convert.ToInt32(Fronts.Marsel5) || FrontID == Convert.ToInt32(Fronts.Marsel3) || 
+                if (FrontID == Convert.ToInt32(Fronts.Marsel1) || FrontID == Convert.ToInt32(Fronts.Marsel5) || FrontID == Convert.ToInt32(Fronts.Marsel3) ||
                     FrontID == Convert.ToInt32(Fronts.Marsel4) || FrontID == Convert.ToInt32(Fronts.Jersy110) ||
                     FrontID == Convert.ToInt32(Fronts.Porto) || FrontID == Convert.ToInt32(Fronts.Monte) ||
                     FrontID == Convert.ToInt32(Fronts.Techno1) || FrontID == Convert.ToInt32(Fronts.Shervud) ||
@@ -2655,7 +2656,7 @@ namespace Infinium
             dgvWBatches_SelectionChanged(null, null);
             ControlAssignmentsManager.SetPrintingStatus(WorkAssignmentID, FactoryID);
             ControlAssignmentsManager.SaveWorkAssignments();
-            
+
             NeedSplash = true;
             while (SplashWindow.bSmallCreated)
                 SmallWaitForm.CloseS = true;
@@ -2733,7 +2734,7 @@ namespace Infinium
             {
                 int FrontID = Convert.ToInt32(dgvFrontsSummary.Rows[i].Cells["FrontID"].Value);
                 if (FrontID == Convert.ToInt32(Fronts.Lorenzo) || FrontID == Convert.ToInt32(Fronts.Elegant) || FrontID == Convert.ToInt32(Fronts.KansasPat) ||
-                    FrontID == Convert.ToInt32(Fronts.Kansas) || FrontID == Convert.ToInt32(Fronts.Infiniti)  ||
+                    FrontID == Convert.ToInt32(Fronts.Kansas) || FrontID == Convert.ToInt32(Fronts.Infiniti) ||
                     FrontID == Convert.ToInt32(Fronts.Dakota) || FrontID == Convert.ToInt32(Fronts.DakotaPat) || FrontID == Convert.ToInt32(Fronts.Sofia) || FrontID == Convert.ToInt32(Fronts.Turin1) || FrontID == Convert.ToInt32(Fronts.Turin1_1) || FrontID == Convert.ToInt32(Fronts.Turin3) ||
                     FrontID == Convert.ToInt32(Fronts.LeonTPS) || FrontID == Convert.ToInt32(Fronts.InfinitiPat))
                     FrontsID.Add(Convert.ToInt32(dgvFrontsSummary.Rows[i].Cells["FrontID"].Value));
@@ -2779,7 +2780,7 @@ namespace Infinium
                 return;
             }
 
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Создание отчета.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Создание отчета.\r\nПодождите..."); });
             T.Start();
             while (!SplashWindow.bSmallCreated) ;
             NeedSplash = false;
@@ -2860,7 +2861,7 @@ namespace Infinium
                 return;
             }
 
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Создание отчета.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Создание отчета.\r\nПодождите..."); });
             T.Start();
             while (!SplashWindow.bSmallCreated) ;
             NeedSplash = false;
@@ -2902,7 +2903,7 @@ namespace Infinium
                 MessageBox.Show(ex.Message);
             }
 
-            System.Threading.Thread T1 = new System.Threading.Thread(delegate()
+            System.Threading.Thread T1 = new System.Threading.Thread(delegate ()
             {
                 FM.DownloadFile(sDestFolder + "/" + sSourceFileName, sSourceFolder + @"\" + sSourceFileName, iFileSize, Configs.FTPType);
             });
@@ -2942,7 +2943,7 @@ namespace Infinium
                 return;
             }
 
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Создание отчета.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Создание отчета.\r\nПодождите..."); });
             T.Start();
             while (!SplashWindow.bSmallCreated) ;
             NeedSplash = false;
@@ -2965,15 +2966,15 @@ namespace Infinium
             for (int i = 0; i < dgvFrontsSummary.Rows.Count; i++)
             {
                 int FrontID = Convert.ToInt32(dgvFrontsSummary.Rows[i].Cells["FrontID"].Value);
-                if (FrontID == Convert.ToInt32(Fronts.TechnoN) || 
-                    FrontID == Convert.ToInt32(Fronts.Antalia) || FrontID == Convert.ToInt32(Fronts.Nord95) || FrontID == Convert.ToInt32(Fronts.epFox) || 
+                if (FrontID == Convert.ToInt32(Fronts.TechnoN) ||
+                    FrontID == Convert.ToInt32(Fronts.Antalia) || FrontID == Convert.ToInt32(Fronts.Nord95) || FrontID == Convert.ToInt32(Fronts.epFox) ||
                     FrontID == Convert.ToInt32(Fronts.Venecia) || FrontID == Convert.ToInt32(Fronts.Bergamo) ||
-                    FrontID == Convert.ToInt32(Fronts.ep206) || FrontID == Convert.ToInt32(Fronts.ep216) || FrontID == Convert.ToInt32(Fronts.ep041) || FrontID == Convert.ToInt32(Fronts.ep071) || 
+                    FrontID == Convert.ToInt32(Fronts.ep206) || FrontID == Convert.ToInt32(Fronts.ep216) || FrontID == Convert.ToInt32(Fronts.ep041) || FrontID == Convert.ToInt32(Fronts.ep071) ||
                     FrontID == Convert.ToInt32(Fronts.Boston) ||
                     FrontID == Convert.ToInt32(Fronts.Leon) || FrontID == Convert.ToInt32(Fronts.Limog) ||
                     FrontID == Convert.ToInt32(Fronts.ep018Marsel1) || FrontID == Convert.ToInt32(Fronts.ep043Shervud) ||
                     FrontID == Convert.ToInt32(Fronts.Urban) || FrontID == Convert.ToInt32(Fronts.Alby) || FrontID == Convert.ToInt32(Fronts.Bruno) ||
-                    FrontID == Convert.ToInt32(Fronts.ep066Marsel4) || FrontID == Convert.ToInt32(Fronts.ep110Jersy) || 
+                    FrontID == Convert.ToInt32(Fronts.ep066Marsel4) || FrontID == Convert.ToInt32(Fronts.ep110Jersy) ||
                     FrontID == Convert.ToInt32(Fronts.epsh406Techno4) ||
                     FrontID == Convert.ToInt32(Fronts.Luk) || FrontID == Convert.ToInt32(Fronts.LukPVH) || FrontID == Convert.ToInt32(Fronts.Milano) ||
                     FrontID == Convert.ToInt32(Fronts.Praga) ||
@@ -3016,7 +3017,7 @@ namespace Infinium
                 for (int i = 0; i < dgvFrontsSummary.SelectedRows.Count; i++)
                     FrontsID.Add(Convert.ToInt32(dgvFrontsSummary.SelectedRows[i].Cells["FrontID"].Value));
                 //if (FactoryID == 1)
-                    kryptonContextMenu8.Show(new Point(Cursor.Position.X - 212, Cursor.Position.Y - 10));
+                kryptonContextMenu8.Show(new Point(Cursor.Position.X - 212, Cursor.Position.Y - 10));
                 //if (FactoryID == 2)
                 //    kryptonContextMenu9.Show(new Point(Cursor.Position.X - 212, Cursor.Position.Y - 10));
             }
@@ -3044,7 +3045,7 @@ namespace Infinium
                 return;
             }
 
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Создание отчета.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Создание отчета.\r\nПодождите..."); });
             T.Start();
             while (!SplashWindow.bSmallCreated) ;
             NeedSplash = false;
@@ -3065,15 +3066,15 @@ namespace Infinium
             for (int i = 0; i < dgvFrontsSummary.SelectedRows.Count; i++)
             {
                 int FrontID = Convert.ToInt32(dgvFrontsSummary.SelectedRows[i].Cells["FrontID"].Value);
-                if (FrontID == Convert.ToInt32(Fronts.TechnoN) || 
-                    FrontID == Convert.ToInt32(Fronts.Antalia) || FrontID == Convert.ToInt32(Fronts.Nord95) || FrontID == Convert.ToInt32(Fronts.epFox) || 
+                if (FrontID == Convert.ToInt32(Fronts.TechnoN) ||
+                    FrontID == Convert.ToInt32(Fronts.Antalia) || FrontID == Convert.ToInt32(Fronts.Nord95) || FrontID == Convert.ToInt32(Fronts.epFox) ||
                     FrontID == Convert.ToInt32(Fronts.Venecia) || FrontID == Convert.ToInt32(Fronts.Bergamo) ||
-                    FrontID == Convert.ToInt32(Fronts.ep206) || FrontID == Convert.ToInt32(Fronts.ep216) || FrontID == Convert.ToInt32(Fronts.ep041) || FrontID == Convert.ToInt32(Fronts.ep071) || 
+                    FrontID == Convert.ToInt32(Fronts.ep206) || FrontID == Convert.ToInt32(Fronts.ep216) || FrontID == Convert.ToInt32(Fronts.ep041) || FrontID == Convert.ToInt32(Fronts.ep071) ||
                     FrontID == Convert.ToInt32(Fronts.Boston) ||
                     FrontID == Convert.ToInt32(Fronts.Leon) || FrontID == Convert.ToInt32(Fronts.Limog) ||
                     FrontID == Convert.ToInt32(Fronts.ep018Marsel1) || FrontID == Convert.ToInt32(Fronts.ep043Shervud) ||
                     FrontID == Convert.ToInt32(Fronts.Urban) || FrontID == Convert.ToInt32(Fronts.Alby) || FrontID == Convert.ToInt32(Fronts.Bruno) ||
-                    FrontID == Convert.ToInt32(Fronts.ep066Marsel4) || FrontID == Convert.ToInt32(Fronts.ep110Jersy) || 
+                    FrontID == Convert.ToInt32(Fronts.ep066Marsel4) || FrontID == Convert.ToInt32(Fronts.ep110Jersy) ||
                     FrontID == Convert.ToInt32(Fronts.epsh406Techno4) ||
                     FrontID == Convert.ToInt32(Fronts.Luk) || FrontID == Convert.ToInt32(Fronts.LukPVH) || FrontID == Convert.ToInt32(Fronts.Milano) ||
                     FrontID == Convert.ToInt32(Fronts.Praga) ||
@@ -3227,7 +3228,7 @@ namespace Infinium
                 return;
             }
 
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Создание отчета.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Создание отчета.\r\nПодождите..."); });
             T.Start();
             while (!SplashWindow.bSmallCreated) ;
             NeedSplash = false;
@@ -3248,13 +3249,13 @@ namespace Infinium
             for (int i = 0; i < dgvFrontsSummary.SelectedRows.Count; i++)
             {
                 int FrontID = Convert.ToInt32(dgvFrontsSummary.SelectedRows[i].Cells["FrontID"].Value);
-                if (FrontID == Convert.ToInt32(Fronts.Marsel1) || FrontID == Convert.ToInt32(Fronts.Marsel5) || FrontID == Convert.ToInt32(Fronts.Marsel3) || 
+                if (FrontID == Convert.ToInt32(Fronts.Marsel1) || FrontID == Convert.ToInt32(Fronts.Marsel5) || FrontID == Convert.ToInt32(Fronts.Marsel3) ||
                     FrontID == Convert.ToInt32(Fronts.Marsel4) ||
-                    FrontID == Convert.ToInt32(Fronts.Jersy110) || FrontID == Convert.ToInt32(Fronts.Porto) || FrontID == Convert.ToInt32(Fronts.Monte) || 
+                    FrontID == Convert.ToInt32(Fronts.Jersy110) || FrontID == Convert.ToInt32(Fronts.Porto) || FrontID == Convert.ToInt32(Fronts.Monte) ||
                     FrontID == Convert.ToInt32(Fronts.Techno1) || FrontID == Convert.ToInt32(Fronts.Shervud) ||
                     FrontID == Convert.ToInt32(Fronts.Techno2) || FrontID == Convert.ToInt32(Fronts.Techno4) || FrontID == Convert.ToInt32(Fronts.pFox) ||
                     FrontID == Convert.ToInt32(Fronts.Techno5) || FrontID == Convert.ToInt32(Fronts.PRU8))
-                FrontsID.Add(Convert.ToInt32(dgvFrontsSummary.SelectedRows[i].Cells["FrontID"].Value));
+                    FrontsID.Add(Convert.ToInt32(dgvFrontsSummary.SelectedRows[i].Cells["FrontID"].Value));
             }
 
             ProfilAngle90Assignments.GetFrontsID = FrontsID;
@@ -3500,7 +3501,7 @@ namespace Infinium
 
         private void kryptonButton1_Click(object sender, EventArgs e)
         {
-            Thread T1 = new Thread(delegate() { SplashWindow.CreateSplash(); });
+            Thread T1 = new Thread(delegate () { SplashWindow.CreateSplash(); });
             T1.Start();
 
             while (!SplashForm.bCreated) ;
@@ -3545,7 +3546,7 @@ namespace Infinium
                 return;
             }
 
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Создание отчета.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Создание отчета.\r\nПодождите..."); });
             T.Start();
             while (!SplashWindow.bSmallCreated) ;
             NeedSplash = false;
@@ -3655,7 +3656,7 @@ namespace Infinium
             }
             ControlAssignmentsManager.SetPrintingStatus(WorkAssignmentID, FactoryID);
             ControlAssignmentsManager.SaveWorkAssignments();
-            
+
             NeedSplash = true;
             while (SplashWindow.bSmallCreated)
                 SmallWaitForm.CloseS = true;
@@ -3716,7 +3717,7 @@ namespace Infinium
                 ImpostAssignments.CreateExcel(WorkAssignmentID, FactoryID, BatchName, ClientName, ref sSourceFileName);
             }
             ImpostAssignments.ClearOrders();
-            
+
             dgvWBatches_SelectionChanged(null, null);
             ControlAssignmentsManager.SetPrintingStatus(WorkAssignmentID, FactoryID);
             ControlAssignmentsManager.SaveWorkAssignments();
@@ -3781,7 +3782,7 @@ namespace Infinium
                 ImpostAssignments.CreateExcel(WorkAssignmentID, FactoryID, BatchName, ClientName, ref sSourceFileName);
             }
             ImpostAssignments.ClearOrders();
-            
+
             dgvWBatches_SelectionChanged(null, null);
             ControlAssignmentsManager.SetPrintingStatus(WorkAssignmentID, FactoryID);
             ControlAssignmentsManager.SaveWorkAssignments();
@@ -3923,13 +3924,13 @@ namespace Infinium
             if (ControlAssignmentsManager.IsM1(WorkAssignmentID, FactoryID))
                 ClientName = "Москва-1";
             string sSourceFileName = string.Empty;
-            
+
             FrontsID.Clear();
             for (int i = 0; i < dgvFrontsSummary.SelectedRows.Count; i++)
             {
                 int FrontID = Convert.ToInt32(dgvFrontsSummary.SelectedRows[i].Cells["FrontID"].Value);
-                if (FrontID == Convert.ToInt32(Fronts.Lorenzo) || FrontID == Convert.ToInt32(Fronts.Elegant) || FrontID == Convert.ToInt32(Fronts.KansasPat) ||                    
-                    FrontID == Convert.ToInt32(Fronts.Kansas) || FrontID == Convert.ToInt32(Fronts.Infiniti)  ||
+                if (FrontID == Convert.ToInt32(Fronts.Lorenzo) || FrontID == Convert.ToInt32(Fronts.Elegant) || FrontID == Convert.ToInt32(Fronts.KansasPat) ||
+                    FrontID == Convert.ToInt32(Fronts.Kansas) || FrontID == Convert.ToInt32(Fronts.Infiniti) ||
                     FrontID == Convert.ToInt32(Fronts.Dakota) || FrontID == Convert.ToInt32(Fronts.DakotaPat) || FrontID == Convert.ToInt32(Fronts.Sofia) || FrontID == Convert.ToInt32(Fronts.Turin1) || FrontID == Convert.ToInt32(Fronts.Turin1_1) || FrontID == Convert.ToInt32(Fronts.Turin3) ||
                     FrontID == Convert.ToInt32(Fronts.LeonTPS) || FrontID == Convert.ToInt32(Fronts.InfinitiPat))
                     FrontsID.Add(Convert.ToInt32(dgvFrontsSummary.SelectedRows[i].Cells["FrontID"].Value));
@@ -3972,13 +3973,13 @@ namespace Infinium
                 BatchName = dgvWorkAssignments.SelectedRows[0].Cells["Name"].Value.ToString();
             if (dgvWorkAssignments.SelectedRows.Count != 0 && dgvWorkAssignments.SelectedRows[0].Cells["FactoryID"].Value != DBNull.Value)
                 FactoryID = Convert.ToInt32(dgvWorkAssignments.SelectedRows[0].Cells["FactoryID"].Value);
-            
+
             if (BatchName.Length == 0)
             {
                 Infinium.LightMessageBox.Show(ref TopForm, false, "В задании нет партий", "Внимание");
                 return;
             }
-            
+
             Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Создание отчета.\r\nПодождите..."); });
             T.Start();
             while (!SplashWindow.bSmallCreated) ;

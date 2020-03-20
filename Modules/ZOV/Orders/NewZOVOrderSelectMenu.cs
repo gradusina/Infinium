@@ -1,6 +1,7 @@
-﻿using System;
+﻿using Infinium.Modules.ZOV;
+
+using System;
 using System.Windows.Forms;
-using Infinium.Modules.ZOV;
 
 namespace Infinium
 {
@@ -20,12 +21,12 @@ namespace Infinium
         OrdersManager OrdersManager;
         OrdersCalculate OrdersCalculate;
 
-        public NewZOVOrderSelectMenu(Form tMainForm, ref OrdersManager tOrdersManager, 
+        public NewZOVOrderSelectMenu(Form tMainForm, ref OrdersManager tOrdersManager,
             ref OrdersCalculate tOrdersCalculate, ref NewOrderInfo tNewOrderInfo)
         {
             MainForm = tMainForm;
             NewOrderInfo = tNewOrderInfo;
-            
+
             OrdersManager = tOrdersManager;
             OrdersCalculate = tOrdersCalculate;
             InitializeComponent();
@@ -118,7 +119,7 @@ namespace Infinium
                 DispatchDate = DispDateDateTimePicker.Value;
                 OrdersManager.CurrentDispatchDate = Convert.ToDateTime(DispatchDate);
             }
-        
+
             if (PrepareCheckBox.Checked)
             {
                 NewOrderInfo.DispatchDate = null;
@@ -360,7 +361,7 @@ namespace Infinium
             int MainOrderID = -1;
             int DebtTypeID = 0;
             int PriceTypeID = -1;
-            
+
             bool IsSample = false;
             bool IsPrepare = false;
             bool DoNotDispatch = false;

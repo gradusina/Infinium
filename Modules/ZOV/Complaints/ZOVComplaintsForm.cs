@@ -1,8 +1,9 @@
-﻿using System;
+﻿using Infinium.Modules.ZOV.Complaints;
+
+using System;
 using System.Drawing;
-using System.Windows.Forms;
 using System.Threading;
-using Infinium.Modules.ZOV.Complaints;
+using System.Windows.Forms;
 
 namespace Infinium
 {
@@ -16,20 +17,20 @@ namespace Infinium
         int FormEvent = 0;
 
         LightStartForm LightStartForm;
-        
+
         Form TopForm = null;
         ComplaintsManager ComplaintsManager;
 
         public ZOVComplaintsForm(LightStartForm tLightStartForm)
         {
             InitializeComponent();
-            
+
             LightStartForm = tLightStartForm;
 
-            
+
             this.MaximumSize = Screen.PrimaryScreen.WorkingArea.Size;
 
-            while (!SplashForm.bCreated);
+            while (!SplashForm.bCreated) ;
         }
 
         private void ZOVComplaintsForm_Shown(object sender, EventArgs e)
@@ -51,17 +52,17 @@ namespace Infinium
 
                     if (FormEvent == eClose)
                     {
-                       
+
                         LightStartForm.CloseForm(this);
                     }
 
                     if (FormEvent == eHide)
                     {
-                        
+
                         LightStartForm.HideForm(this);
                     }
 
-                    
+
                     return;
                 }
 
@@ -84,16 +85,16 @@ namespace Infinium
 
                     if (FormEvent == eClose)
                     {
-                       
+
                         LightStartForm.CloseForm(this);
                     }
 
                     if (FormEvent == eHide)
                     {
-                        
+
                         LightStartForm.HideForm(this);
                     }
-                    
+
                 }
 
                 return;
@@ -495,7 +496,7 @@ namespace Infinium
 
         private void FilterComplaints()
         {
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
             T.Start();
 
             while (!SplashWindow.bSmallCreated) ;
@@ -548,7 +549,7 @@ namespace Infinium
             if (!bOkCancel)
                 return;
 
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Подтверждение рекламации.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Подтверждение рекламации.\r\nПодождите..."); });
             T.Start();
 
             while (!SplashWindow.bSmallCreated) ;
@@ -575,7 +576,7 @@ namespace Infinium
             if (!bOkCancel)
                 return;
 
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Отмена подтверждения рекламации.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Отмена подтверждения рекламации.\r\nПодождите..."); });
             T.Start();
 
             while (!SplashWindow.bSmallCreated) ;
@@ -618,7 +619,7 @@ namespace Infinium
             if (dgvComplaints.SelectedRows.Count == 0)
                 return;
 
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Создание отчета.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Создание отчета.\r\nПодождите..."); });
             T.Start();
 
             while (!SplashWindow.bSmallCreated) ;
@@ -645,7 +646,7 @@ namespace Infinium
             if (!bOkCancel)
                 return;
 
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Подтверждение рекламации.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Подтверждение рекламации.\r\nПодождите..."); });
             T.Start();
 
             while (!SplashWindow.bSmallCreated) ;
@@ -672,7 +673,7 @@ namespace Infinium
             if (!bOkCancel)
                 return;
 
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Подтверждение рекламации.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Подтверждение рекламации.\r\nПодождите..."); });
             T.Start();
 
             while (!SplashWindow.bSmallCreated) ;

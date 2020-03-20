@@ -1,8 +1,9 @@
-﻿using System;
+﻿using Infinium.Modules.TechnologyCatalog;
+
+using System;
 using System.IO;
-using System.Windows.Forms;
 using System.Threading;
-using Infinium.Modules.TechnologyCatalog;
+using System.Windows.Forms;
 
 namespace Infinium
 {
@@ -20,7 +21,7 @@ namespace Infinium
 
         Form _topForm = null;
         LightStartForm _lightStartForm;
-        
+
         PlannedWork _plannedWorkManager;
 
         RoleTypes _roleType = RoleTypes.Ordinary;
@@ -155,7 +156,7 @@ namespace Infinium
             dgvGridSettings();
             UpdateWorks();
         }
-        
+
         private void dgvGridSettings()
         {
             dgvUsers.DataSource = _plannedWorkManager.UsersBs;
@@ -232,7 +233,7 @@ namespace Infinium
                 Column.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
                 Column.ReadOnly = true;
             }
-            
+
             dgvWorks.Columns["PlannedWorkID"].HeaderText = "№п/п";
             dgvWorks.Columns["CreateDate"].HeaderText = "Дата оформления";
             dgvWorks.Columns["ConfirmDate"].HeaderText = "Дата утверждения";
@@ -268,10 +269,10 @@ namespace Infinium
                 dateType = 1;
             if (rbEndDate.Checked)
                 dateType = 2;
-            _plannedWorkManager.UpdateWorks(cbMachines.Checked, cbUsers.Checked, cbNew.Checked, cbConfirm.Checked, cbInProduction.Checked, cbEnd.Checked, 
+            _plannedWorkManager.UpdateWorks(cbMachines.Checked, cbUsers.Checked, cbNew.Checked, cbConfirm.Checked, cbInProduction.Checked, cbEnd.Checked,
                 cbDate.Checked, dateType, CalendarFrom.SelectionStart, CalendarTo.SelectionStart);
         }
-        
+
         private void btnSaveWorks_Click(object sender, EventArgs e)
         {
             for (int i = 0; i < dgvWorks.Rows.Count; i++)
@@ -292,7 +293,7 @@ namespace Infinium
 
             Thread T =
                 new Thread(
-                    delegate() { SplashWindow.CreateSmallSplash(ref _topForm, "Сохранение данных.\r\nПодождите..."); });
+                    delegate () { SplashWindow.CreateSmallSplash(ref _topForm, "Сохранение данных.\r\nПодождите..."); });
             T.Start();
             while (!SplashWindow.bSmallCreated) ;
 
@@ -306,13 +307,13 @@ namespace Infinium
             InfiniumTips.ShowTip(this, 50, 85, "Сохранено", 1700);
 
         }
-        
+
         private void dgvWorks_DefaultValuesNeeded(object sender, DataGridViewRowEventArgs e)
         {
             e.Row.Cells["CreateDate"].Value = DateTime.Now;
             e.Row.Cells["CreateUserID"].Value = Security.CurrentUserID;
         }
-        
+
         private void dgvWorks_DataError(object sender, DataGridViewDataErrorEventArgs e)
         {
             string colName = dgvWorks.Columns[e.ColumnIndex].Name;
@@ -331,7 +332,7 @@ namespace Infinium
 
             Thread T =
                 new Thread(
-                    delegate() { SplashWindow.CreateSmallSplash(ref _topForm, "Сохранение данных.\r\nПодождите..."); });
+                    delegate () { SplashWindow.CreateSmallSplash(ref _topForm, "Сохранение данных.\r\nПодождите..."); });
             T.Start();
             while (!SplashWindow.bSmallCreated) ;
 
@@ -518,7 +519,7 @@ namespace Infinium
             {
                 Thread T =
                     new Thread(
-                        delegate()
+                        delegate ()
                         {
                             SplashWindow.CreateSmallSplash(ref _topForm, "Обновление данных.\r\nПодождите...");
                         });

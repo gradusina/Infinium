@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Drawing;
-using System.Windows.Forms;
 using System.Threading;
+using System.Windows.Forms;
 
 namespace Infinium
 {
@@ -14,7 +14,7 @@ namespace Infinium
         int FormEvent = 0;
 
         LightStartForm LightStartForm;
-        
+
         Form TopForm = null;
 
 
@@ -33,14 +33,14 @@ namespace Infinium
         public PicturesForm(LightStartForm tLightStartForm)
         {
             InitializeComponent();
-            
+
             LightStartForm = tLightStartForm;
-            
+
             this.MaximumSize = Screen.PrimaryScreen.WorkingArea.Size;
 
             Initialize();
 
-            
+
 
             ActiveNotifySystem.ClearSubscribesRecords(Security.CurrentUserID, this.Name);
             //ActiveNotifySystem.ClearModuleUpdates(LightTile.Name);
@@ -70,17 +70,17 @@ namespace Infinium
 
                     if (FormEvent == eClose)
                     {
-                       
+
                         LightStartForm.CloseForm(this);
                     }
 
                     if (FormEvent == eHide)
                     {
-                        
+
                         LightStartForm.Activate();
                         this.Hide();
                     }
-                    
+
 
                     return;
                 }
@@ -108,17 +108,17 @@ namespace Infinium
 
                     if (FormEvent == eClose)
                     {
-                       
+
                         LightStartForm.CloseForm(this);
                     }
 
                     if (FormEvent == eHide)
                     {
-                        
+
                         LightStartForm.Activate();
                         this.Hide();
                     }
-                    
+
                 }
 
                 return;
@@ -182,7 +182,7 @@ namespace Infinium
 
         private void ProjectsForm_ANSUpdate(object sender)
         {
-           
+
         }
 
         private void timer1_Tick(object sender, EventArgs e)
@@ -198,12 +198,12 @@ namespace Infinium
 
         private void button1_Click(object sender, EventArgs e)
         {
-            
+
         }
 
         private void PicturesAlbums_ItemClicked(object sender, int AlbumID)
         {
-            Thread T = new Thread(delegate()
+            Thread T = new Thread(delegate ()
             {
                 SplashWindow.CreateCoverSplash(PicturesContainer.Top, PicturesContainer.Left,
                                                PicturesContainer.Height, PicturesContainer.Width);
@@ -228,7 +228,7 @@ namespace Infinium
 
         private void BackButton_Click(object sender, EventArgs e)
         {
-            Thread T = new Thread(delegate()
+            Thread T = new Thread(delegate ()
             {
                 SplashWindow.CreateCoverSplash(PicturesContainer.Top, PicturesContainer.Left,
                                                PicturesContainer.Height, PicturesContainer.Width);
@@ -242,7 +242,7 @@ namespace Infinium
             PicturesAlbums.BringToFront();
             PicturesAlbums.Focus();
 
-            PicturesAlbums.AlbumItems[PicturesAlbums.ItemsDT.Rows.IndexOf(PicturesAlbums.ItemsDT.Select("AlbumID = " + iAlbumID)[0])].LikesCount = 
+            PicturesAlbums.AlbumItems[PicturesAlbums.ItemsDT.Rows.IndexOf(PicturesAlbums.ItemsDT.Select("AlbumID = " + iAlbumID)[0])].LikesCount =
                                 InfiniumPictures.RefreshLikes(iAlbumID);
 
             BackButton.Visible = false;

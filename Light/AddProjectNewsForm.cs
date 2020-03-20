@@ -2,8 +2,8 @@
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.Windows.Forms;
 using System.Threading;
+using System.Windows.Forms;
 
 namespace Infinium
 {
@@ -145,7 +145,7 @@ namespace Infinium
                     int CurrentUploadedFile = 0;
                     int TotalFilesCount = AttachmentsDataTable.Rows.Count;
 
-                    Thread T = new Thread(delegate() { Ok = InfiniumProjects.Attach(AttachmentsDataTable, Date, ref CurrentUploadedFile, ProjectID); });
+                    Thread T = new Thread(delegate () { Ok = InfiniumProjects.Attach(AttachmentsDataTable, Date, ref CurrentUploadedFile, ProjectID); });
                     T.Start();
 
                     this.Activate();
@@ -196,8 +196,8 @@ namespace Infinium
                 }
 
                 InfiniumProjects.ClearNewsPending(Date);
-                
-                if(!NoNotifyCheckBox.Checked)
+
+                if (!NoNotifyCheckBox.Checked)
                     InfiniumProjects.AddNewsSubscribe(Date, ProjectID, AllUsersNotifyCheckBox.Checked);
             }
             else
@@ -232,7 +232,7 @@ namespace Infinium
                     int CurrentUploadedFile = 0;
                     int TotalFilesCount = 0;
 
-                    Thread T = new Thread(delegate() { Ok = InfiniumProjects.EditAttachments(iNewsIDEdit, ProjectID, AttachmentsDataTable, ref CurrentUploadedFile, ref TotalFilesCount); });
+                    Thread T = new Thread(delegate () { Ok = InfiniumProjects.EditAttachments(iNewsIDEdit, ProjectID, AttachmentsDataTable, ref CurrentUploadedFile, ref TotalFilesCount); });
                     T.Start();
 
                     this.Activate();
@@ -334,7 +334,7 @@ namespace Infinium
                 NewRow["FileName"] = System.IO.Path.GetFileName(FileName);
                 NewRow["Path"] = FileName;
                 AttachmentsDataTable.Rows.Add(NewRow);
-            }  
+            }
         }
 
         private void AnimateTimer_Tick(object sender, EventArgs e)
@@ -441,13 +441,13 @@ namespace Infinium
 
         private void AllUsersNotifyCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            if(AllUsersNotifyCheckBox.Checked)
+            if (AllUsersNotifyCheckBox.Checked)
                 NoNotifyCheckBox.Checked = false;
         }
 
         private void NoNotifyCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            if(NoNotifyCheckBox.Checked)
+            if (NoNotifyCheckBox.Checked)
                 AllUsersNotifyCheckBox.Checked = false;
         }
     }

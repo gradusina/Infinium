@@ -1,7 +1,8 @@
-﻿using System;
+﻿using Infinium.Store;
+
+using System;
 using System.Data;
 using System.Windows.Forms;
-using Infinium.Store;
 
 namespace Infinium
 {
@@ -11,7 +12,7 @@ namespace Infinium
         const int eShow = 1;
         const int eClose = 3;
         const int eMainMenu = 4;
-        
+
         int FormEvent = 0;
 
         MainStoreManager StorageManager;

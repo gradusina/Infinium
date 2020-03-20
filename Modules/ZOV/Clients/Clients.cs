@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Data;
-using System.Windows.Forms;
-using System.IO;
 using System.Data.SqlClient;
+using System.IO;
+using System.Windows.Forms;
 
 namespace Infinium.Modules.ZOV.Clients
 {
@@ -99,7 +99,7 @@ namespace Infinium.Modules.ZOV.Clients
             ManagersBindingSource.DataSource = ManagersDataTable;
             ContactsBindingSource.DataSource = ContactsDataTable;
             ShopAddressesBindingSource.DataSource = ShopAddressesDataTable;
-            
+
             ClientsDataGrid.DataSource = ClientsBindingSource;
             ContactsDataGrid.DataSource = ContactsBindingSource;
             ShopAddressesDataGrid.DataSource = ShopAddressesBindingSource;
@@ -307,7 +307,7 @@ namespace Infinium.Modules.ZOV.Clients
             //tShopAddressesDataGrid.Columns["Address"].DefaultCellStyle.ForeColor = System.Drawing.Color.Blue;
             //tShopAddressesDataGrid.Columns["Address"].DefaultCellStyle.Font = new System.Drawing.Font("SEGOE UI", 15.0F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
         }
-        
+
         public void AddClient(string Name, int ClientGroupID, int ManagerID)
         {
             string Contacts = GetContactsXML(NewContactsDataTable);
@@ -315,7 +315,7 @@ namespace Infinium.Modules.ZOV.Clients
             DataRow Row = ClientsDataTable.NewRow();
             Row["ManagerID"] = ManagerID;
             Row["ClientName"] = Name;
-            Row["ClientGroupID"] = ClientGroupID;            
+            Row["ClientGroupID"] = ClientGroupID;
             Row["Contacts"] = Contacts;
 
             ClientsDataTable.Rows.Add(Row);

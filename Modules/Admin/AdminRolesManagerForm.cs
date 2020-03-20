@@ -14,7 +14,7 @@ namespace Infinium
 
         Form TopForm = null;
         LightStartForm LightStartForm;
-        
+
 
         RolesAndPermissionsManager RolesAndPermissionsManager;
 
@@ -24,7 +24,7 @@ namespace Infinium
 
             LightStartForm = tLightStartForm;
 
-            
+
             this.MaximumSize = Screen.PrimaryScreen.WorkingArea.Size;
 
             RolesAndPermissionsManager = new RolesAndPermissionsManager(ref ModulesDataGrid, ref RolesDataGrid, ref PermissionsDataGrid, ref
@@ -61,7 +61,7 @@ namespace Infinium
 
                     if (FormEvent == eClose)
                     {
-                       
+
                         LightStartForm.CloseForm(this);
                     }
 
@@ -71,7 +71,7 @@ namespace Infinium
                         LightStartForm.HideForm(this);
                     }
 
-                    
+
                     return;
                 }
 
@@ -94,7 +94,7 @@ namespace Infinium
 
                     if (FormEvent == eClose)
                     {
-                       
+
                         LightStartForm.CloseForm(this);
                     }
 
@@ -103,7 +103,7 @@ namespace Infinium
 
                         LightStartForm.HideForm(this);
                     }
-                    
+
                 }
 
                 return;
@@ -275,7 +275,7 @@ namespace Infinium
 
         private void AddUser_Click(object sender, EventArgs e)
         {
-            
+
 
             RolesAndPermissionsManager.AddUserRole(Convert.ToInt32(((DataRowView)RolesAndPermissionsManager.RolesBindingSource.Current)["RoleID"]),
                                                    Convert.ToInt32(UsersComboBox.SelectedValue));

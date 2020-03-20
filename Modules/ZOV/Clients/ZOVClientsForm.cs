@@ -23,7 +23,7 @@ namespace Infinium
         DataTable RolePermissionsDataTable;
 
         LightStartForm LightStartForm;
-        
+
         Form TopForm = null;
         Infinium.Modules.ZOV.Clients.Clients Clients;
 
@@ -31,14 +31,14 @@ namespace Infinium
         {
             InitializeComponent();
             LightStartForm = tLightStartForm;
-            
+
             this.MaximumSize = Screen.PrimaryScreen.WorkingArea.Size;
 
             RolePermissionsDataTable = RolesAndPermissionsManager.GetPermissions(Security.CurrentUserID, this.Name);
 
             Initialize();
 
-            while (!SplashForm.bCreated);
+            while (!SplashForm.bCreated) ;
         }
 
         private bool PermissionGranted(int PermissionID)

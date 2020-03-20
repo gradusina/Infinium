@@ -1,12 +1,13 @@
-﻿using System;
+﻿using Infinium.Store;
+
+using System;
+using System.Collections;
 using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Windows.Forms;
-using System.Threading;
 using System.Globalization;
-using Infinium.Store;
-using System.Collections;
+using System.Linq;
+using System.Threading;
+using System.Windows.Forms;
 
 namespace Infinium
 {
@@ -66,10 +67,10 @@ namespace Infinium
         public StorageForm(LightStartForm tLightStartForm)
         {
             InitializeComponent();
-            
+
             this.MaximumSize = Screen.PrimaryScreen.WorkingArea.Size;
             LightStartForm = tLightStartForm;
-           
+
             Initialize();
             //StorageManager.MoveToPersonalStore();
             while (!SplashForm.bCreated) ;
@@ -182,7 +183,7 @@ namespace Infinium
         private void Initialize()
         {
             StoreGeneticsLabel = new Store.StoreGeneticsLabel();
-            
+
             GeneticsManager = new Store.GeneticsManager();
             GeneticsManager.Initialize();
 
@@ -318,13 +319,13 @@ namespace Infinium
             dgvMainStoreGroups.SelectionChanged -= dgvMainStoreGroups_SelectionChanged;
             dgvMainStoreSubGroups.SelectionChanged -= dgvMainStoreSubGroups_SelectionChanged;
             dgvPurchInvoices.SelectionChanged -= dgvPurchInvoices_SelectionChanged;
-            dgvDispGroups.SelectionChanged -=  dgvDispGroups_SelectionChanged;
-            dgvDispInvoices.SelectionChanged -=  dgvDispInvoices_SelectionChanged;
+            dgvDispGroups.SelectionChanged -= dgvDispGroups_SelectionChanged;
+            dgvDispInvoices.SelectionChanged -= dgvDispInvoices_SelectionChanged;
             dgvManufactreStoreGroups.SelectionChanged -= dgvManufactreStoreGroups_SelectionChanged;
             dgvManufactreStoreInvoices.SelectionChanged -= dgvManufactreStoreInvoices_SelectionChanged;
             dgvMovInvoices.SelectionChanged -= dgvMovInvoices_SelectionChanged;
             dgvPersGroups.SelectionChanged -= dgvPersGroups_SelectionChanged;
-            dgvPersInvoices.SelectionChanged -=  dgvPersInvoices_SelectionChanged;
+            dgvPersInvoices.SelectionChanged -= dgvPersInvoices_SelectionChanged;
             dgvReadyStoreGroups.SelectionChanged -= dgvReadyStoreGroups_SelectionChanged;
             dgvReadyStoreInvoices.SelectionChanged -= dgvReadyStoreInvoices_SelectionChanged;
         }
@@ -386,10 +387,10 @@ namespace Infinium
             dgvDispStore.DataSource = WriteOffStoreManager.StoreList;
             dgvDispSubGroups.DataSource = WriteOffStoreManager.SubGroupsList;
             dgvDispGroups.DataSource = WriteOffStoreManager.GroupsList;
-            
+
             dgvDispInvoices.DataSource = WriteOffStoreManager.MovementInvoicesList;
             dgvDispInvoiceItems.DataSource = WriteOffStoreManager.MovementInvoiceItemsList;
-            
+
             dgvDispGroups.Columns["TechStoreGroupID"].Visible = false;
 
             dgvDispSubGroups.Columns["TechStoreGroupID"].Visible = false;
@@ -2592,14 +2593,14 @@ namespace Infinium
         {
             if (MainStoreManager == null)
                 return;
-            
+
             int TechStoreGroupID = 0;
             if (dgvMainStoreGroups.SelectedRows.Count != 0 && dgvMainStoreGroups.SelectedRows[0].Cells["TechStoreGroupID"].Value != DBNull.Value)
                 TechStoreGroupID = Convert.ToInt32(dgvMainStoreGroups.SelectedRows[0].Cells["TechStoreGroupID"].Value);
             DateTime FilterDate = new DateTime(Convert.ToInt32(cbxYears.SelectedValue), Convert.ToInt32(cbxMonths.SelectedValue), 1);
             if (NeedSplash)
             {
-                Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Обновление данных.\r\nПодождите..."); });
+                Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Обновление данных.\r\nПодождите..."); });
                 T.Start();
 
                 while (!SplashWindow.bSmallCreated) ;
@@ -2619,7 +2620,7 @@ namespace Infinium
 
         private void AddItemButton_Click(object sender, EventArgs e)
         {
-            Thread T = new Thread(delegate() { SplashWindow.CreateSplash(); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSplash(); });
             T.Start();
 
             while (!SplashForm.bCreated) ;
@@ -2656,7 +2657,7 @@ namespace Infinium
             if (PurchaseInvoiceID == 0)
                 return;
 
-            Thread T = new Thread(delegate() { SplashWindow.CreateSplash(); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSplash(); });
             T.Start();
 
             while (!SplashForm.bCreated) ;
@@ -2848,7 +2849,7 @@ namespace Infinium
             if (PurchaseInvoiceID == -1)
                 return;
 
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Создание документа Excel.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Создание документа Excel.\r\nПодождите..."); });
             T.Start();
 
             while (!SplashWindow.bSmallCreated) ;
@@ -2877,7 +2878,7 @@ namespace Infinium
                 TechStoreGroupID = Convert.ToInt32(dgvMainStoreGroups.SelectedRows[0].Cells["TechStoreGroupID"].Value);
             if (NeedSplash)
             {
-                Thread T = new Thread(delegate()
+                Thread T = new Thread(delegate ()
                 {
                     SplashWindow.CreateCoverSplash(panel3.Top, panel3.Left,
                                                    panel3.Height, panel3.Width);
@@ -2959,7 +2960,7 @@ namespace Infinium
                 TechStoreGroupID = Convert.ToInt32(dgvManufactreStoreGroups.SelectedRows[0].Cells["TechStoreGroupID"].Value);
             if (NeedSplash)
             {
-                Thread T = new Thread(delegate()
+                Thread T = new Thread(delegate ()
                 {
                     SplashWindow.CreateCoverSplash(panel3.Top, panel3.Left,
                                                    panel3.Height, panel3.Width);
@@ -3012,7 +3013,7 @@ namespace Infinium
         private void FilterReadyStore()
         {
             FactoryID = 0;
-            
+
             if (ProfilCheckButton.Checked && !TPSCheckButton.Checked)
                 FactoryID = 1;
             if (!ProfilCheckButton.Checked && TPSCheckButton.Checked)
@@ -3027,7 +3028,7 @@ namespace Infinium
                 TechStoreGroupID = Convert.ToInt32(dgvReadyStoreGroups.SelectedRows[0].Cells["TechStoreGroupID"].Value);
             if (NeedSplash)
             {
-                Thread T = new Thread(delegate()
+                Thread T = new Thread(delegate ()
                 {
                     SplashWindow.CreateCoverSplash(panel3.Top, panel3.Left,
                                                    panel3.Height, panel3.Width);
@@ -3085,7 +3086,7 @@ namespace Infinium
                 TechStoreGroupID = Convert.ToInt32(dgvDispGroups.SelectedRows[0].Cells["TechStoreGroupID"].Value);
             if (NeedSplash)
             {
-                Thread T = new Thread(delegate()
+                Thread T = new Thread(delegate ()
                 {
                     SplashWindow.CreateCoverSplash(panel3.Top, panel3.Left,
                                                    panel3.Height, panel3.Width);
@@ -3141,7 +3142,7 @@ namespace Infinium
 
             if (NeedSplash)
             {
-                Thread T = new Thread(delegate()
+                Thread T = new Thread(delegate ()
                 {
                     SplashWindow.CreateCoverSplash(panel3.Top, panel3.Left,
                                                    panel3.Height, panel3.Width);
@@ -3310,7 +3311,7 @@ namespace Infinium
 
             NeedSplash = false;
 
-            Thread T = new Thread(delegate()
+            Thread T = new Thread(delegate ()
             {
                 SplashWindow.CreateCoverSplash(panel3.Top, panel3.Left,
                                                panel3.Height, panel3.Width);
@@ -3318,7 +3319,7 @@ namespace Infinium
             T.Start();
 
             while (!SplashWindow.bSmallCreated) ;
-            
+
             if (kryptonCheckSet3.CheckedButton == cbtnMainStore)
             {
                 FilterMainStore();
@@ -3348,14 +3349,14 @@ namespace Infinium
         {
             if (ManufactureStoreManager == null)
                 return;
-            
+
             int TechStoreGroupID = 0;
             if (dgvManufactreStoreGroups.SelectedRows.Count != 0 && dgvManufactreStoreGroups.SelectedRows[0].Cells["TechStoreGroupID"].Value != DBNull.Value)
                 TechStoreGroupID = Convert.ToInt32(dgvManufactreStoreGroups.SelectedRows[0].Cells["TechStoreGroupID"].Value);
 
             if (NeedSplash)
             {
-                Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Обновление данных.\r\nПодождите..."); });
+                Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Обновление данных.\r\nПодождите..."); });
                 T.Start();
 
                 while (!SplashWindow.bSmallCreated) ;
@@ -3458,7 +3459,7 @@ namespace Infinium
 
             if (NeedSplash)
             {
-                Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Обновление данных.\r\nПодождите..."); });
+                Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Обновление данных.\r\nПодождите..."); });
                 T.Start();
 
                 while (!SplashWindow.bSmallCreated) ;
@@ -3547,7 +3548,7 @@ namespace Infinium
 
             //новая накладная на движение
 
-            Thread T = new Thread(delegate() { SplashWindow.CreateSplash(); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSplash(); });
             T.Start();
 
             while (!SplashForm.bCreated) ;
@@ -3580,7 +3581,7 @@ namespace Infinium
         {
             //редактирование накладной на движение
 
-            Thread T = new Thread(delegate() { SplashWindow.CreateSplash(); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSplash(); });
             T.Start();
 
             while (!SplashForm.bCreated) ;
@@ -3696,7 +3697,7 @@ namespace Infinium
 
             //новая накладная на движение
 
-            Thread T = new Thread(delegate() { SplashWindow.CreateSplash(); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSplash(); });
             T.Start();
 
             while (!SplashForm.bCreated) ;
@@ -3760,7 +3761,7 @@ namespace Infinium
 
             //редактирование накладной на движение
 
-            Thread T = new Thread(delegate() { SplashWindow.CreateSplash(); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSplash(); });
             T.Start();
 
             while (!SplashForm.bCreated) ;
@@ -3797,7 +3798,7 @@ namespace Infinium
             if (!NewInventoryParameters.OKPress)
                 return;
 
-            Thread T = new Thread(delegate() { SplashWindow.CreateSplash(); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSplash(); });
             T.Start();
 
             while (!SplashForm.bCreated) ;
@@ -3835,7 +3836,7 @@ namespace Infinium
             if (NeedSplash)
             {
                 NeedSplash = false;
-                Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Обработка данных.\r\nПодождите..."); });
+                Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Обработка данных.\r\nПодождите..."); });
                 T.Start();
 
                 while (!SplashWindow.bSmallCreated) ;
@@ -3869,7 +3870,7 @@ namespace Infinium
 
             if (NeedSplash)
             {
-                Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Обновление данных.\r\nПодождите..."); });
+                Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Обновление данных.\r\nПодождите..."); });
                 T.Start();
 
                 while (!SplashWindow.bSmallCreated) ;
@@ -3898,7 +3899,7 @@ namespace Infinium
             DateTime FilterDate = new DateTime(Convert.ToInt32(cbxYears.SelectedValue), Convert.ToInt32(cbxMonths.SelectedValue), 1);
             if (NeedSplash)
             {
-                Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Обновление данных.\r\nПодождите..."); });
+                Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Обновление данных.\r\nПодождите..."); });
                 T.Start();
 
                 while (!SplashWindow.bSmallCreated) ;
@@ -3940,7 +3941,7 @@ namespace Infinium
             if (!ReportParameters.OKPress)
                 return;
 
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Создание отчета.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Создание отчета.\r\nПодождите..."); });
             T.Start();
 
             while (!SplashWindow.bSmallCreated) ;
@@ -3993,7 +3994,7 @@ namespace Infinium
             {
                 if (kryptonCheckSet1.CheckedButton == cbtnPurchaseInvoices)
                 {
-                    pnlPurchInvoicesMenu.Visible = MenuButton.Checked; 
+                    pnlPurchInvoicesMenu.Visible = MenuButton.Checked;
                 }
                 if (kryptonCheckSet1.CheckedButton == cbtnMainStoreProduct)
                 {
@@ -4068,10 +4069,10 @@ namespace Infinium
             dgvManufactreStoreGroups.SelectionChanged += new EventHandler(dgvManufactreStoreGroups_SelectionChanged);
             dgvManufactreStoreInvoices.SelectionChanged += new EventHandler(dgvManufactreStoreInvoices_SelectionChanged);
             dgvMovInvoices.SelectionChanged += new EventHandler(dgvMovInvoices_SelectionChanged);
-            dgvPersGroups.SelectionChanged+=new EventHandler(dgvPersGroups_SelectionChanged);
-            dgvPersInvoices.SelectionChanged+=new EventHandler(dgvPersInvoices_SelectionChanged);
-            dgvReadyStoreGroups.SelectionChanged+=new EventHandler(dgvReadyStoreGroups_SelectionChanged);
-            dgvReadyStoreInvoices.SelectionChanged+=new EventHandler(dgvReadyStoreInvoices_SelectionChanged);
+            dgvPersGroups.SelectionChanged += new EventHandler(dgvPersGroups_SelectionChanged);
+            dgvPersInvoices.SelectionChanged += new EventHandler(dgvPersInvoices_SelectionChanged);
+            dgvReadyStoreGroups.SelectionChanged += new EventHandler(dgvReadyStoreGroups_SelectionChanged);
+            dgvReadyStoreInvoices.SelectionChanged += new EventHandler(dgvReadyStoreInvoices_SelectionChanged);
 
             RolePermissionsDataTable = RolesAndPermissionsManager.GetPermissions(Security.CurrentUserID, this.Name);
             if (PermissionGranted(iInventory))
@@ -4189,7 +4190,7 @@ namespace Infinium
             if (NeedSplash)
             {
                 NeedSplash = false;
-                Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Обработка данных.\r\nПодождите..."); });
+                Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Обработка данных.\r\nПодождите..."); });
                 T.Start();
 
                 while (!SplashWindow.bSmallCreated) ;
@@ -4220,7 +4221,7 @@ namespace Infinium
             if (NeedSplash)
             {
                 NeedSplash = false;
-                Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Обработка данных.\r\nПодождите..."); });
+                Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Обработка данных.\r\nПодождите..."); });
                 T.Start();
 
                 while (!SplashWindow.bSmallCreated) ;
@@ -4270,7 +4271,7 @@ namespace Infinium
 
         private void btnInvoicesFilter_Click(object sender, EventArgs e)
         {
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
             T.Start();
 
             while (!SplashWindow.bSmallCreated) ;
@@ -4346,7 +4347,7 @@ namespace Infinium
             Parameters.FactoryID = FactoryID;
             Parameters.OKPress = true;
 
-            Thread T = new Thread(delegate() { SplashWindow.CreateSplash(); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSplash(); });
             T.Start();
 
             while (!SplashForm.bCreated) ;
@@ -4391,7 +4392,7 @@ namespace Infinium
 
             //новая накладная на движение
 
-            Thread T = new Thread(delegate() { SplashWindow.CreateSplash(); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSplash(); });
             T.Start();
 
             while (!SplashForm.bCreated) ;
@@ -4419,7 +4420,7 @@ namespace Infinium
         {
             //if (StorageManager == null || dgvSubGroups.SelectedRows.Count == 0)
             //    return;
-            
+
             //int PurchaseInvoiceID = 0;
             //if (FactoryID == 1 && dgvProfilStore.SelectedRows.Count != 0 && dgvProfilStore.SelectedRows[0].Cells["PurchaseInvoiceID"].Value != DBNull.Value)
             //    PurchaseInvoiceID = Convert.ToInt32(dgvProfilStore.SelectedRows[0].Cells["PurchaseInvoiceID"].Value);
@@ -4610,11 +4611,11 @@ namespace Infinium
 
             if (PressOK)
             {
-                Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение.\r\nПодождите..."); });
+                Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение.\r\nПодождите..."); });
                 T.Start();
 
                 while (!SplashWindow.bSmallCreated) ;
-                                
+
                 PersonalStorageManager.SaveMovementInvoices(Convert.ToDateTime(IncomeDateTime), 9, 9, 0,
                         PersonID, PersonName, Security.CurrentUserID, 0, 0, string.Empty, string.Empty);
                 LastMovementInvoiceID = PersonalStorageManager.GetLastMovementInvoiceID();
@@ -4642,7 +4643,7 @@ namespace Infinium
             if (!NewInventoryParameters.OKPress)
                 return;
 
-            Thread T = new Thread(delegate() { SplashWindow.CreateSplash(); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSplash(); });
             T.Start();
 
             while (!SplashForm.bCreated) ;
@@ -4664,7 +4665,7 @@ namespace Infinium
         private void MovementInvoiceItemsDataGrid_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
             PercentageDataGrid grid = (PercentageDataGrid)sender;
-            
+
             if (grid.Columns.Contains("StoreItemColumn") && (e.ColumnIndex == grid.Columns["StoreItemColumn"].Index)
                 && e.Value != null)
             {
@@ -4693,8 +4694,8 @@ namespace Infinium
 
             if (PurchaseInvoiceID == 0)
                 return;
-            
-            Thread T = new Thread(delegate() { SplashWindow.CreateSplash(); });
+
+            Thread T = new Thread(delegate () { SplashWindow.CreateSplash(); });
             T.Start();
 
             while (!SplashForm.bCreated) ;
@@ -4761,7 +4762,7 @@ namespace Infinium
             Parameters.FactoryID = FactoryID;
             Parameters.OKPress = true;
 
-            Thread T = new Thread(delegate() { SplashWindow.CreateSplash(); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSplash(); });
             T.Start();
 
             while (!SplashForm.bCreated) ;
@@ -4849,7 +4850,7 @@ namespace Infinium
             Parameters.FactoryID = FactoryID;
             Parameters.OKPress = true;
 
-            Thread T = new Thread(delegate() { SplashWindow.CreateSplash(); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSplash(); });
             T.Start();
 
             while (!SplashForm.bCreated) ;
@@ -4903,7 +4904,7 @@ namespace Infinium
             if (!NewInventoryParameters.OKPress)
                 return;
 
-            Thread T = new Thread(delegate() { SplashWindow.CreateSplash(); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSplash(); });
             T.Start();
 
             while (!SplashForm.bCreated) ;
@@ -4971,7 +4972,7 @@ namespace Infinium
 
             if (NeedSplash)
             {
-                Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Обновление данных.\r\nПодождите..."); });
+                Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Обновление данных.\r\nПодождите..."); });
                 T.Start();
 
                 while (!SplashWindow.bSmallCreated) ;
@@ -4997,7 +4998,7 @@ namespace Infinium
             DateTime FilterDate = new DateTime(Convert.ToInt32(cbxYears.SelectedValue), Convert.ToInt32(cbxMonths.SelectedValue), 1);
             if (NeedSplash)
             {
-                Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Обновление данных.\r\nПодождите..."); });
+                Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Обновление данных.\r\nПодождите..."); });
                 T.Start();
 
                 while (!SplashWindow.bSmallCreated) ;
@@ -5081,7 +5082,7 @@ namespace Infinium
             Parameters.FactoryID = FactoryID;
             Parameters.OKPress = true;
 
-            Thread T = new Thread(delegate() { SplashWindow.CreateSplash(); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSplash(); });
             T.Start();
 
             while (!SplashForm.bCreated) ;
@@ -5118,7 +5119,7 @@ namespace Infinium
             if (!NewInventoryParameters.OKPress)
                 return;
 
-            Thread T = new Thread(delegate() { SplashWindow.CreateSplash(); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSplash(); });
             T.Start();
 
             while (!SplashForm.bCreated) ;
@@ -5166,7 +5167,7 @@ namespace Infinium
 
             //новая накладная на движение
 
-            Thread T = new Thread(delegate() { SplashWindow.CreateSplash(); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSplash(); });
             T.Start();
 
             while (!SplashForm.bCreated) ;
@@ -5221,7 +5222,7 @@ namespace Infinium
             Parameters.FactoryID = FactoryID;
             Parameters.OKPress = true;
 
-            Thread T = new Thread(delegate() { SplashWindow.CreateSplash(); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSplash(); });
             T.Start();
 
             while (!SplashForm.bCreated) ;
@@ -5243,7 +5244,7 @@ namespace Infinium
 
         private void kryptonButton5_Click(object sender, EventArgs e)
         {
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Удаление пустой накладной.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Удаление пустой накладной.\r\nПодождите..."); });
             T.Start();
 
             while (!SplashWindow.bSmallCreated) ;
@@ -5259,7 +5260,7 @@ namespace Infinium
 
         private void RemoveMovementInvoiceButton_Click(object sender, EventArgs e)
         {
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Удаление пустой накладной.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Удаление пустой накладной.\r\nПодождите..."); });
             T.Start();
 
             while (!SplashWindow.bSmallCreated) ;
@@ -5275,7 +5276,7 @@ namespace Infinium
 
         private void ManufactureInvoiceToExcelButton_Click(object sender, EventArgs e)
         {
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Удаление пустой накладной.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Удаление пустой накладной.\r\nПодождите..."); });
             T.Start();
 
             while (!SplashWindow.bSmallCreated) ;
@@ -5291,7 +5292,7 @@ namespace Infinium
 
         private void PersonalInvoiceToExcelButton_Click(object sender, EventArgs e)
         {
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Удаление пустой накладной.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Удаление пустой накладной.\r\nПодождите..."); });
             T.Start();
 
             while (!SplashWindow.bSmallCreated) ;
@@ -5340,7 +5341,7 @@ namespace Infinium
             Parameters.FactoryID = FactoryID;
             Parameters.OKPress = true;
 
-            Thread T = new Thread(delegate() { SplashWindow.CreateSplash(); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSplash(); });
             T.Start();
 
             while (!SplashForm.bCreated) ;
@@ -5436,7 +5437,7 @@ namespace Infinium
             if (PurchaseInvoiceID == 0)
                 return;
 
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Выгрузка данных.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Выгрузка данных.\r\nПодождите..."); });
             T.Start();
 
             while (!SplashWindow.bSmallCreated) ;
@@ -5467,7 +5468,7 @@ namespace Infinium
             if (!ReportParameters.OKPress)
                 return;
 
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Создание отчета.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Создание отчета.\r\nПодождите..."); });
             T.Start();
 
             while (!SplashWindow.bSmallCreated) ;
@@ -5516,7 +5517,7 @@ namespace Infinium
 
         private void MovementInvoiceToExcelButton_Click(object sender, EventArgs e)
         {
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Экспорт в Excel.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Экспорт в Excel.\r\nПодождите..."); });
             T.Start();
 
             while (!SplashWindow.bSmallCreated) ;

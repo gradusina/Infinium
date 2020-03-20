@@ -1,8 +1,9 @@
-﻿using System;
+﻿using Infinium.Modules.CabFurnitureModule;
+
+using System;
 using System.ComponentModel;
-using System.Windows.Forms;
 using System.IO;
-using Infinium.Modules.CabFurnitureModule;
+using System.Windows.Forms;
 
 namespace Infinium
 {
@@ -38,7 +39,7 @@ namespace Infinium
 
             string temppath = "";
 
-            T = new System.Threading.Thread(delegate()
+            T = new System.Threading.Thread(delegate ()
             { temppath = CabFurnitureAssignments.OpenDocument(CabFurAssignmentID); });
             T.Start();
 
@@ -70,7 +71,7 @@ namespace Infinium
         {
             bStopTransfer = true;
 
-            if(T != null)
+            if (T != null)
                 T.Abort();
 
             //while (T.IsAlive)
@@ -95,7 +96,7 @@ namespace Infinium
                     label1.Visible = false;
                     ProgressBar.Visible = true;
 
-                    T = new System.Threading.Thread(delegate()
+                    T = new System.Threading.Thread(delegate ()
                     { CabFurnitureAssignments.SaveDocumentOnComputer(CabFurAssignmentID, saveFileDialog1.FileName); });
                     T.Start();
 
@@ -138,8 +139,8 @@ namespace Infinium
                 return;
             }
 
-            DownloadedLabel.Text = FileManager.GetIntegerWithThousands(Convert.ToInt32(FM.Position / 1024)) + " / " + 
-                                   FileManager.GetIntegerWithThousands(Convert.ToInt32((FM.TotalFileSize / 1024)))+" КБайт";
+            DownloadedLabel.Text = FileManager.GetIntegerWithThousands(Convert.ToInt32(FM.Position / 1024)) + " / " +
+                                   FileManager.GetIntegerWithThousands(Convert.ToInt32((FM.TotalFileSize / 1024))) + " КБайт";
 
             SpeedLabel.Text = FileManager.GetIntegerWithThousands(Convert.ToInt32(FM.CurrentSpeed)) + " КБайт/c";
 

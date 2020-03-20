@@ -1,7 +1,8 @@
-﻿using System;
+﻿using Infinium.Modules.ZOV.ClientErrors;
+
+using System;
 using System.Data;
 using System.Windows.Forms;
-using Infinium.Modules.ZOV.ClientErrors;
 
 namespace Infinium
 {
@@ -28,7 +29,7 @@ namespace Infinium
 
             Initialize();
 
-            while (!SplashForm.bCreated);
+            while (!SplashForm.bCreated) ;
         }
 
         private void Initialize()

@@ -1,16 +1,17 @@
-﻿using System;
-using System.Linq;
-using System.Data;
-using System.Drawing;
-using System.Data.SqlClient;
-using System.Windows.Forms;
-using System.IO;
-using System.Collections;
-using System.Globalization;
+﻿using NPOI.HPSF;
 using NPOI.HSSF.UserModel;
-using NPOI.HPSF;
-using NPOI.HSSF.Util;
 using NPOI.HSSF.UserModel.Contrib;
+using NPOI.HSSF.Util;
+
+using System;
+using System.Collections;
+using System.Data;
+using System.Data.SqlClient;
+using System.Drawing;
+using System.Globalization;
+using System.IO;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace Infinium.Modules.Marketing.WeeklyPlanning
 {
@@ -1424,7 +1425,7 @@ namespace Infinium.Modules.Marketing.WeeklyPlanning
         private DataTable InsetColorsDataTable = null;
         private DataTable DecorProductsDataTable = null;
         private DataTable DecorDataTable = null;
-        
+
         public BindingSource BatchBindingSource = null;
         public BindingSource MegaBatchBindingSource = null;
         public BindingSource ClientsBindingSource = null;
@@ -13480,7 +13481,7 @@ namespace Infinium.Modules.Marketing.WeeklyPlanning
         }
 
         #endregion
-        
+
         public string GetMegaBatchAgreement(int MegaBatchID)
         {
             string s = string.Empty;
@@ -13494,7 +13495,7 @@ namespace Infinium.Modules.Marketing.WeeklyPlanning
                         s = "Утверждение (ТПС): " + UserName(Convert.ToInt32(rows[0]["TPSAgreedUserID"])) + " " + Convert.ToDateTime(rows[0]["TPSAgreedDateTime"]).ToString("dd.MM.yyyy");
                     else
                         s += "\r\nУтверждение (ТПС): " + UserName(Convert.ToInt32(rows[0]["TPSAgreedUserID"])) + " " + Convert.ToDateTime(rows[0]["TPSAgreedDateTime"]).ToString("dd.MM.yyyy");
-                }
+            }
             if (s.Length == 0)
                 s = "Нет утверждений";
             return s;
@@ -16095,7 +16096,7 @@ namespace Infinium.Modules.Marketing.WeeklyPlanning
                 MessageBox.Show(ex.Message);
             }
 
-            System.Threading.Thread T = new System.Threading.Thread(delegate()
+            System.Threading.Thread T = new System.Threading.Thread(delegate ()
             {
                 FM.DownloadFile(sDestFolder + "/" + sSourceFileName, sSourceFolder + @"\" + sSourceFileName, iFileSize, Configs.FTPType);
             });
@@ -16703,7 +16704,7 @@ namespace Infinium.Modules.Marketing.WeeklyPlanning
                 MessageBox.Show(ex.Message);
             }
 
-            System.Threading.Thread T = new System.Threading.Thread(delegate()
+            System.Threading.Thread T = new System.Threading.Thread(delegate ()
             {
                 FM.DownloadFile(sDestFolder + "/" + sSourceFileName, sSourceFolder + @"\" + sSourceFileName, iFileSize, Configs.FTPType);
             });

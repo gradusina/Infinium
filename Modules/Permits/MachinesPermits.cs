@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Linq;
 using System.Data;
 using System.Data.SqlClient;
-using System.Windows.Forms;
-using System.IO;
-using System.Text;
 using System.Globalization;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace Infinium.Modules.Permits
 {
@@ -27,7 +25,7 @@ namespace Infinium.Modules.Permits
         string CreateUserName = string.Empty;
         string PrintUserName = string.Empty;
         string AgreedUserName = string.Empty;
-        
+
         DataTable dtPermits;
         DataTable dtPermitsDates;
         DataTable dtRolePermissions;
@@ -125,7 +123,7 @@ namespace Infinium.Modules.Permits
                     return GetUserName(Convert.ToInt32(((DataRowView)bsPermits.Current).Row["AgreedUserID"]));
             }
         }
-        
+
         public bool CurrentOutputEnable
         {
             get
@@ -156,7 +154,7 @@ namespace Infinium.Modules.Permits
                     return ((DataRowView)bsPermits.Current).Row["Validity"];
             }
         }
-        
+
         public object CurrentOutputDeniedTime
         {
             get
@@ -207,7 +205,7 @@ namespace Infinium.Modules.Permits
                     return ((DataRowView)bsPermits.Current).Row["AgreedTime"];
             }
         }
-        
+
         public object CurrentVisitDateTime
         {
             get
@@ -362,19 +360,19 @@ namespace Infinium.Modules.Permits
                 dtPermitsDates.Rows[i]["WeekNumber"] = GetWeekNumber(Convert.ToDateTime(dtPermitsDates.Rows[i]["VisitDateTime"])) + " к.н.";
             }
         }
-        
+
         public void SavePermits()
         {
             daPermits.Update(dtPermits);
         }
-        
+
         public void FilterPermitsDates(DateTime Date)
         {
             string SelectCommand = "SELECT DISTINCT CONVERT(VARCHAR(10), Validity, 104) AS VisitDateTime, Validity FROM MachinesPermits" +
                 " WHERE PermitEnable=1 AND DATEPART(month, Validity) = DATEPART(month, '" + Date.ToString("yyyy-MM-dd") +
                 "') AND DATEPART(year, Validity) = DATEPART(year, '" + Date.ToString("yyyy-MM-dd") + "')" +
                 " ORDER BY Validity DESC";
-            
+
             DataTable DT = new DataTable();
             using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.LightConnectionString))
             {
@@ -395,11 +393,11 @@ namespace Infinium.Modules.Permits
             DT.Dispose();
             FillWeekNumber();
         }
-        
+
         public void FilterPermits(DateTime Date)
         {
             string SelectCommand = "SELECT * FROM MachinesPermits WHERE PermitEnable=1 AND CAST(Validity AS DATE) = '" + Date.ToString("yyyy-MM-dd") + "'";
-            
+
             daPermits.SelectCommand.CommandText = SelectCommand;
             dtPermits.Clear();
             daPermits.Fill(dtPermits);
@@ -448,7 +446,7 @@ namespace Infinium.Modules.Permits
                 }
             }
         }
-        
+
         public void NewPermit(string Name, string VisitMission, DateTime Validity)
         {
             DataRow NewRow = dtPermits.NewRow();
@@ -498,7 +496,7 @@ namespace Infinium.Modules.Permits
             rows[0]["AgreedTime"] = Security.GetCurrentDate();
 
         }
-        
+
         public void PrintPermit(int MachinePermitID)
         {
             DataRow[] rows = dtPermits.Select("MachinePermitID=" + MachinePermitID);
@@ -507,7 +505,7 @@ namespace Infinium.Modules.Permits
             rows[0]["PrintUserID"] = Security.CurrentUserID;
             rows[0]["PrintTime"] = Security.GetCurrentDate();
         }
-        
+
         public struct ScanedPermitsInfo
         {
             public bool InputDone;
@@ -597,7 +595,7 @@ namespace Infinium.Modules.Permits
                 }
             }
         }
-        
+
         public ScanedPermitsInfo OutputDone(int MachinePermitID)
         {
             ScanedPermitsInfo Struct = new ScanedPermitsInfo();
@@ -683,7 +681,7 @@ namespace Infinium.Modules.Permits
 
             return Struct;
         }
-        
+
         public void DenyOutput(int MachinePermitID)
         {
             DataRow[] rows = dtPermits.Select("MachinePermitID=" + MachinePermitID);
@@ -696,7 +694,7 @@ namespace Infinium.Modules.Permits
             rows[0]["AgreedUserID"] = DBNull.Value;
             rows[0]["AgreedTime"] = DBNull.Value;
         }
-        
+
         public void MoveToVisitDateTime(DateTime VisitDateTime)
         {
             bsPermitsDates.Position = bsPermitsDates.Find("VisitDateTime", VisitDateTime);

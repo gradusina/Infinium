@@ -1,13 +1,15 @@
-﻿using System;
+﻿using Infinium.Modules.Marketing.NewOrders;
+using Infinium.Modules.Marketing.WeeklyPlanning;
+
+using NPOI.HSSF.UserModel;
+
+using System;
 using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Windows.Forms;
-using System.Threading;
-using Infinium.Modules.Marketing.NewOrders;
 using System.IO;
-using NPOI.HSSF.UserModel;
-using Infinium.Modules.Marketing.WeeklyPlanning;
+using System.Linq;
+using System.Threading;
+using System.Windows.Forms;
 
 namespace Infinium
 {
@@ -29,7 +31,7 @@ namespace Infinium
         int FormEvent = 0;
 
         LightStartForm LightStartForm;
-        
+
         Form TopForm = null;
         AddMarketingNewOrdersForm AddMainOrdersForm;
         CurrencyForm CurrencyForm;
@@ -62,7 +64,7 @@ namespace Infinium
             InitializeComponent();
             LightStartForm = tLightStartForm;
 
-            
+
             this.MaximumSize = Screen.PrimaryScreen.WorkingArea.Size;
 
             Initialize();
@@ -104,7 +106,7 @@ namespace Infinium
                 RoleType = RoleTypes.Director;
             }
 
-            while (!SplashForm.bCreated);
+            while (!SplashForm.bCreated) ;
         }
 
         //private bool PermissionGranted(int PermissionID)
@@ -115,7 +117,7 @@ namespace Infinium
         //    {
         //        return Convert.ToBoolean(Rows[0]["Granted"]);
         //    }
-            
+
         //    return false;
         //}
 
@@ -131,8 +133,8 @@ namespace Infinium
             while (!SplashForm.bCreated) ;
             FormEvent = eShow;
             AnimateTimer.Enabled = true;
-            
-            
+
+
             NeedSplash = true;
         }
 
@@ -148,18 +150,18 @@ namespace Infinium
 
                     if (FormEvent == eClose)
                     {
-                       
+
                         LightStartForm.CloseForm(this);
                         this.Close();
                     }
 
                     if (FormEvent == eHide)
                     {
-                        
+
                         LightStartForm.HideForm(this);
                     }
 
-                    
+
                     return;
                 }
 
@@ -183,17 +185,17 @@ namespace Infinium
 
                     if (FormEvent == eClose)
                     {
-                       
+
                         LightStartForm.CloseForm(this);
                         this.Close();
                     }
 
                     if (FormEvent == eHide)
                     {
-                        
+
                         LightStartForm.HideForm(this);
                     }
-                    
+
                 }
 
                 return;
@@ -246,7 +248,7 @@ namespace Infinium
                 true,
                 true,
                 true,
-                true, true, true, true, true, true);    
+                true, true, true, true, true, true);
             OrdersManager.FilterMegaOrders(
                 false, 0, true, true, true, true,
                 true, true, true, true, true, false, true, true, true, true, true, true);
@@ -265,10 +267,10 @@ namespace Infinium
                         bool OnStorage = OnStorageCheckBox.Checked;
                         bool OnExpedition = cbOnExpedition.Checked;
                         bool Dispatch = DispatchCheckBox.Checked;
-                        
+
                         if (NeedSplash)
                         {
-                            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
+                            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
                             T.Start();
 
                             while (!SplashWindow.bSmallCreated) ;
@@ -376,12 +378,12 @@ namespace Infinium
             bool bsFactoring = cbFactoring.Checked;
             bool bsHalfOfPayment2 = kryptonCheckBox1.Checked;
             bool bsDelayOfPayment2 = kryptonCheckBox2.Checked;
-            
+
             int ClientID = -1;
 
             if (NeedSplash)
             {
-                Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
+                Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
                 T.Start();
 
                 while (!SplashWindow.bSmallCreated) ;
@@ -395,7 +397,7 @@ namespace Infinium
                     OnAgreement,
                     NotConfirm,
                     Confirm,
-                    bsDelayOfPayment, bsHalfOfPayment, bsFullPayment, bsFactoring, bsHalfOfPayment2, bsDelayOfPayment2);  
+                    bsDelayOfPayment, bsHalfOfPayment, bsFullPayment, bsFactoring, bsHalfOfPayment2, bsDelayOfPayment2);
                 OrdersManager.FilterMegaOrders(
                     bClient, ClientID,
                     NotAgreed,
@@ -407,7 +409,7 @@ namespace Infinium
                     InProduction,
                     OnStorage,
                     OnExpedition,
-                    Dispatch, bsDelayOfPayment, bsHalfOfPayment, bsFullPayment, bsFactoring, bsHalfOfPayment2, bsDelayOfPayment2);  
+                    Dispatch, bsDelayOfPayment, bsHalfOfPayment, bsFullPayment, bsFactoring, bsHalfOfPayment2, bsDelayOfPayment2);
 
                 while (SplashWindow.bSmallCreated)
                     SmallWaitForm.CloseS = true;
@@ -424,7 +426,7 @@ namespace Infinium
                     OnAgreement,
                     NotConfirm,
                     Confirm,
-                    bsDelayOfPayment, bsHalfOfPayment, bsFullPayment, bsFactoring, bsHalfOfPayment2, bsDelayOfPayment2);  
+                    bsDelayOfPayment, bsHalfOfPayment, bsFullPayment, bsFactoring, bsHalfOfPayment2, bsDelayOfPayment2);
                 OrdersManager.FilterMegaOrders(
                     bClient, ClientID,
                     NotAgreed,
@@ -436,7 +438,7 @@ namespace Infinium
                     InProduction,
                     OnStorage,
                     OnExpedition,
-                    Dispatch, bsDelayOfPayment, bsHalfOfPayment, bsFullPayment, bsFactoring, bsHalfOfPayment2, bsDelayOfPayment2);              
+                    Dispatch, bsDelayOfPayment, bsHalfOfPayment, bsFullPayment, bsFactoring, bsHalfOfPayment2, bsDelayOfPayment2);
             }
         }
 
@@ -517,7 +519,7 @@ namespace Infinium
             FilterClientsDataGrid.Enabled = ClientCheckBox.Checked;
 
             if (OrdersManager == null)
-                return;Filter();
+                return; Filter();
         }
 
         private void FilterClientsDataGrid_SelectionChanged(object sender, EventArgs e)
@@ -553,7 +555,7 @@ namespace Infinium
                 return;
             }
 
-            Thread T = new Thread(delegate() { SplashWindow.CreateSplash(); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSplash(); });
             T.Start();
 
             while (!SplashForm.bCreated) ;
@@ -605,7 +607,7 @@ namespace Infinium
                 if (!OrdersManager.EditMainOrder(ref Notes, ref IsSample))
                     return;
 
-                Thread T = new Thread(delegate() { SplashWindow.CreateSplash(); });
+                Thread T = new Thread(delegate () { SplashWindow.CreateSplash(); });
                 T.Start();
 
                 while (!SplashForm.bCreated) ;
@@ -697,7 +699,7 @@ namespace Infinium
             if (!OrdersManager.EditMainOrder(ref Notes, ref IsSample))
                 return;
 
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
             T.Start();
 
             while (!SplashWindow.bSmallCreated) ;
@@ -740,7 +742,7 @@ namespace Infinium
                 int ClientID = Convert.ToInt32(((DataRowView)OrdersManager.MegaOrdersBindingSource.Current)["ClientID"]);
                 int OrderNumber = Convert.ToInt32(((DataRowView)OrdersManager.MegaOrdersBindingSource.Current)["OrderNumber"]);
                 int MegaOrderID = Convert.ToInt32(((DataRowView)OrdersManager.MegaOrdersBindingSource.Current)["MegaOrderID"]);
-                
+
                 bool OKCancel = Infinium.LightMessageBox.Show(ref TopForm, true,
                         "Вы действительно хотите удалить заказ " + MegaOrderID + " ?",
                         "Удаление заказа");
@@ -748,14 +750,14 @@ namespace Infinium
                     return;
 
                 NeedSplash = false;
-                Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
+                Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
                 T.Start();
 
                 while (!SplashWindow.bSmallCreated) ;
 
                 OrdersManager.RemoveCurrentMegaOrder();
                 OrdersManager.FixOrderEvent(MegaOrderID, "Заказ удален");
-                
+
                 if (OrdersManager.MegaOrdersCount == 0)
                 {
                     OrdersManager.CurrentMegaOrderID = -1;
@@ -885,7 +887,7 @@ namespace Infinium
             }
 
             NewOrderSelectClientsMenu NewOrderSelectMenu = new NewOrderSelectClientsMenu(this, ClientID);
-            
+
             TopForm = NewOrderSelectMenu;
             NewOrderSelectMenu.ShowDialog();
             ClientID = NewOrderSelectMenu.ClientID;
@@ -906,7 +908,7 @@ namespace Infinium
                 }
                 else
                     OrdersManager.CreateNewMegaOrder(ClientID);
-                
+
                 NeedSplash = false;
                 Filter();
                 NeedSplash = true;
@@ -961,7 +963,7 @@ namespace Infinium
                     Convert.ToDecimal(((DataRowView)OrdersManager.MegaOrdersBindingSource.Current).Row["ProfilDiscountDirector"]),
                     Convert.ToDecimal(((DataRowView)OrdersManager.MegaOrdersBindingSource.Current).Row["TPSDiscountDirector"]),
                             Convert.ToInt32(((DataRowView)OrdersManager.MegaOrdersBindingSource.Current).Row["Weight"]));
-            
+
             TopForm = CurrencyForm;
             CurrencyForm.ShowDialog();
 
@@ -970,7 +972,7 @@ namespace Infinium
             PhantomForm.Dispose();
             CurrencyForm.Dispose();
             TopForm = null;
-            
+
             NeedSplash = false;
             Filter();
             OrdersManager.MoveToMegaOrder(MegaOrderID);
@@ -1087,7 +1089,7 @@ namespace Infinium
                                        "Отправка отчета не возможна: отсутствует подключение к интернету либо адрес электронной почты указан неверно",
                                        "Отправка отчета");
                             }
-                            OrdersManager.FixOrderEvent(Convert.ToInt32(((DataRowView)OrdersManager.MegaOrdersBindingSource.Current).Row["MegaOrderID"]), 
+                            OrdersManager.FixOrderEvent(Convert.ToInt32(((DataRowView)OrdersManager.MegaOrdersBindingSource.Current).Row["MegaOrderID"]),
                                 "Отчет отправлен клиенту");
                         }
                     }
@@ -1290,7 +1292,7 @@ namespace Infinium
 
             NeedSplash = false;
 
-            InvoiceReportToDBF DBFReport = new  InvoiceReportToDBF();
+            InvoiceReportToDBF DBFReport = new InvoiceReportToDBF();
 
             Infinium.Modules.Marketing.MutualSettlements.MutualSettlements MutualSettlementsManager = new Modules.Marketing.MutualSettlements.MutualSettlements();
             MutualSettlementsManager.Initialize();
@@ -1914,7 +1916,7 @@ namespace Infinium
 
         private void MegaOrderDecorInProd_Click(object sender, EventArgs e)
         {
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Создание отчета.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Создание отчета.\r\nПодождите..."); });
             T.Start();
 
             while (!SplashWindow.bSmallCreated) ;
@@ -1931,7 +1933,7 @@ namespace Infinium
 
         private void MainOrderDecorInProd_Click(object sender, EventArgs e)
         {
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Создание отчета.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Создание отчета.\r\nПодождите..."); });
             T.Start();
 
             while (!SplashWindow.bSmallCreated) ;
@@ -2037,7 +2039,7 @@ namespace Infinium
 
         private void kryptonContextMenuItem14_Click(object sender, EventArgs e)
         {
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
             T.Start();
 
             while (!SplashWindow.bSmallCreated) ;
@@ -2176,8 +2178,8 @@ namespace Infinium
                 Convert.ToInt32(((ComponentFactory.Krypton.Toolkit.KryptonContextMenuItem)sender).Tag));
         }
 
-        bool Func1(DataTable DT1, int TechCatalogOperationsDetailID, 
-            ref ComponentFactory.Krypton.Toolkit.KryptonContextMenu kryptonContextMenu, 
+        bool Func1(DataTable DT1, int TechCatalogOperationsDetailID,
+            ref ComponentFactory.Krypton.Toolkit.KryptonContextMenu kryptonContextMenu,
             ref ComponentFactory.Krypton.Toolkit.KryptonContextMenuItem kryptonContextMenuItem)
         {
             string filter = "PrevTechCatalogOperationsDetailID=" + TechCatalogOperationsDetailID;
@@ -2205,7 +2207,7 @@ namespace Infinium
 
                 if (Func1(DT1, TechCatalogOperationsDetailID, ref kryptonContextMenu, ref kryptonContextMenuItem))
                 {
-                    
+
                 }
                 kryptonContextMenuItem.Text = GroupName;
                 kryptonContextMenuItem.Tag = TechCatalogOperationsDetailID;
@@ -2310,7 +2312,7 @@ namespace Infinium
 
             string MainOrderID = ((DataRowView)OrdersManager.MainOrdersBindingSource.Current)["MainOrderID"].ToString();
             int MegaOrderID = Convert.ToInt32(((DataRowView)OrdersManager.MegaOrdersBindingSource.Current).Row["MegaOrderID"]);
-            
+
             bool OKCancel = Infinium.LightMessageBox.Show(ref TopForm, true,
                     "Вы действительно хотите удалить подзаказ " + MainOrderID + " ?",
                     "Удаление подзаказа");
@@ -2318,7 +2320,7 @@ namespace Infinium
                 return;
 
             NeedSplash = false;
-            
+
             Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
             T.Start();
 
@@ -2342,7 +2344,7 @@ namespace Infinium
                     OnStorage,
                     OnExpedition,
                     true);
-            
+
             OrdersManager.SummaryCost(Convert.ToInt32(((DataRowView)OrdersManager.MegaOrdersBindingSource.Current).Row["MegaOrderID"]));
             OrdersManager.FixOrderEvent(Convert.ToInt32(((DataRowView)OrdersManager.MegaOrdersBindingSource.Current).Row["MegaOrderID"]), "Удален согласованный подзаказ");
             Filter();
@@ -2599,7 +2601,7 @@ namespace Infinium
                         FileStream NewFile = new FileStream(file.FullName, FileMode.Create);
                         hssfworkbook.Write(NewFile);
                         NewFile.Close();
-                        
+
                         while (SplashWindow.bSmallCreated)
                             SmallWaitForm.CloseS = true;
                         NeedSplash = true;
@@ -2674,7 +2676,7 @@ namespace Infinium
                         FileStream NewFile = new FileStream(file.FullName, FileMode.Create);
                         hssfworkbook.Write(NewFile);
                         NewFile.Close();
-                        
+
                         while (SplashWindow.bSmallCreated)
                             SmallWaitForm.CloseS = true;
                         NeedSplash = true;

@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Windows.Forms;
 using System.IO;
+using System.Windows.Forms;
 
 namespace Infinium
 {
@@ -159,7 +159,7 @@ namespace Infinium
                 Security.DBFSaveFilePath = label3.Text;
             }
             Notes = tbNotes.Text;
-            
+
             InMutualSettlement = true;
             Result = 1;
             Old = cbOld.Checked;

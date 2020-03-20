@@ -1,7 +1,8 @@
-﻿using System;
+﻿using Infinium.Modules.Marketing.NewOrders;
+
+using System;
 using System.Data;
 using System.Windows.Forms;
-using Infinium.Modules.Marketing.NewOrders;
 
 namespace Infinium
 {
@@ -60,7 +61,7 @@ namespace Infinium
             InsetColorComboBox.SelectionLength = 0;
             TechnoInsetTypesComboBox.SelectionLength = 0;
             TechnoInsetColorsComboBox.SelectionLength = 0;
-            
+
             FrontsComboBox.Focus();
         }
 
@@ -181,7 +182,7 @@ namespace Infinium
             if (EditMainOrder)
             {
                 DateTime DispatchDate = DateTime.Now;
-                bool IsSample = false; 
+                bool IsSample = false;
                 string Notes = null;
                 MainOrderID = OrdersManager.CurrentMainOrderID;
                 //получение значений параметров заказа, если заблокирован - выход
@@ -195,7 +196,7 @@ namespace Infinium
 
                 //редактирование фасадов
                 FrontsOrdersDataGrid.Visible = FrontsOrders.EditOrder(MainOrderID);
-                
+
                 //редактирование декора
                 if (DecorOrders.EditDecorOrder(MainOrderID))
                     NoDecorLabel.Visible = false;
@@ -324,7 +325,7 @@ namespace Infinium
             if (FrontsCatalogOrder.PatinaBindingSource.Current != null)
             {
                 int PatinaID = Convert.ToInt32(PatinaComboBox.SelectedValue);
-                
+
                 FrontsCatalogOrder.FilterCatalogInsetTypes(((DataRowView)FrontsComboBox.SelectedItem).Row["FrontName"].ToString(),
                     Convert.ToInt32(FrameColorComboBox.SelectedValue), Convert.ToInt32(TechnoProfilesComboBox.SelectedValue),
                     Convert.ToInt32(TechnoFrameColorComboBox.SelectedValue),
@@ -346,7 +347,7 @@ namespace Infinium
             if (FrontsCatalogOrder.InsetTypesBindingSource.Current != null)
             {
                 int PatinaID = Convert.ToInt32(PatinaComboBox.SelectedValue);
-                
+
                 FrontsCatalogOrder.FilterCatalogInsetColors(((DataRowView)FrontsComboBox.SelectedItem).Row["FrontName"].ToString(),
                     Convert.ToInt32(FrameColorComboBox.SelectedValue), Convert.ToInt32(TechnoProfilesComboBox.SelectedValue),
                     Convert.ToInt32(TechnoFrameColorComboBox.SelectedValue),
@@ -369,7 +370,7 @@ namespace Infinium
             if (FrontsCatalogOrder.InsetColorsBindingSource.Current != null)
             {
                 int PatinaID = Convert.ToInt32(PatinaComboBox.SelectedValue);
-                
+
                 FrontsCatalogOrder.FilterCatalogTechnoInsetTypes(((DataRowView)FrontsComboBox.SelectedItem).Row["FrontName"].ToString(),
                     Convert.ToInt32(FrameColorComboBox.SelectedValue), Convert.ToInt32(TechnoProfilesComboBox.SelectedValue),
                     Convert.ToInt32(TechnoFrameColorComboBox.SelectedValue),
@@ -393,7 +394,7 @@ namespace Infinium
             if (FrontsCatalogOrder.TechnoInsetTypesBindingSource.Current != null)
             {
                 int PatinaID = Convert.ToInt32(PatinaComboBox.SelectedValue);
-                
+
                 FrontsCatalogOrder.FilterCatalogTechnoInsetColors(((DataRowView)FrontsComboBox.SelectedItem).Row["FrontName"].ToString(),
                                                        Convert.ToInt32(FrameColorComboBox.SelectedValue), Convert.ToInt32(TechnoProfilesComboBox.SelectedValue),
                                                        Convert.ToInt32(TechnoFrameColorComboBox.SelectedValue),
@@ -413,7 +414,7 @@ namespace Infinium
             if (FrontsComboBox.SelectedItem == null)
                 return;
             int PatinaID = Convert.ToInt32(PatinaComboBox.SelectedValue);
-           
+
             FrontsCatalogOrder.FilterCatalogHeight(((DataRowView)FrontsComboBox.SelectedItem).Row["FrontName"].ToString(),
                                                             Convert.ToInt32(FrameColorComboBox.SelectedValue), Convert.ToInt32(TechnoProfilesComboBox.SelectedValue),
                                                             Convert.ToInt32(TechnoFrameColorComboBox.SelectedValue),
@@ -433,7 +434,7 @@ namespace Infinium
             if (FrontsHeightComboBox.Text != "")
                 Height = Convert.ToInt32(FrontsHeightComboBox.Text);
             int PatinaID = Convert.ToInt32(PatinaComboBox.SelectedValue);
-            
+
             FrontsCatalogOrder.FilterCatalogWidth(((DataRowView)FrontsComboBox.SelectedItem).Row["FrontName"].ToString(),
                                                             Convert.ToInt32(FrameColorComboBox.SelectedValue), Convert.ToInt32(TechnoProfilesComboBox.SelectedValue),
                                                             Convert.ToInt32(TechnoFrameColorComboBox.SelectedValue),
@@ -482,7 +483,7 @@ namespace Infinium
             TechnoInsetColorsComboBox.DataSource = FrontsCatalogOrder.TechnoInsetColorsBindingSource;
             TechnoInsetColorsComboBox.DisplayMember = FrontsCatalogOrder.InsetColorsBindingSourceDisplayMember;
             TechnoInsetColorsComboBox.ValueMember = FrontsCatalogOrder.InsetColorsBindingSourceValueMember;
-            
+
             bool bExcluzive = cbOnlyExcluzive.Checked;
             if (!FrontsOrders.HasExcluzive)
                 bExcluzive = false;
@@ -647,7 +648,7 @@ namespace Infinium
             bool bExcluzive = cbOnlyExcluzive.Checked;
             if (!DecorOrders.HasExcluzive)
                 bExcluzive = false;
-            DecorCatalogOrder.FilterInsetType(((DataRowView) DecorItemsComboBox.SelectedItem).Row["Name"].ToString(),
+            DecorCatalogOrder.FilterInsetType(((DataRowView)DecorItemsComboBox.SelectedItem).Row["Name"].ToString(),
                 Convert.ToInt32(DecorColorsComboBox.SelectedValue),
                 Convert.ToInt32(DecorPatinaComboBox.SelectedValue), bExcluzive);
         }
@@ -659,7 +660,7 @@ namespace Infinium
             bool bExcluzive = cbOnlyExcluzive.Checked;
             if (!DecorOrders.HasExcluzive)
                 bExcluzive = false;
-            DecorCatalogOrder.FilterInsetColor(((DataRowView) DecorItemsComboBox.SelectedItem).Row["Name"].ToString(),
+            DecorCatalogOrder.FilterInsetColor(((DataRowView)DecorItemsComboBox.SelectedItem).Row["Name"].ToString(),
                 Convert.ToInt32(DecorColorsComboBox.SelectedValue),
                 Convert.ToInt32(DecorPatinaComboBox.SelectedValue),
                 Convert.ToInt32(DecorInsetTypesComboBox.SelectedValue), bExcluzive);
@@ -980,7 +981,7 @@ namespace Infinium
                 return;
             }
             InsetTypeID = Convert.ToInt32(InsetTypesComboBox.SelectedValue);
-            
+
             //цвет наполнителя
             if (InsetColorComboBox.SelectedIndex == -1)
             {
@@ -1020,7 +1021,7 @@ namespace Infinium
                 return;
             }
             TechnoInsetColorID = Convert.ToInt32(TechnoInsetColorsComboBox.SelectedValue);
-            
+
             //высота
             if (FrontsHeightComboBox.Text.Length < 1)
             {
@@ -1028,7 +1029,7 @@ namespace Infinium
                 return;
             }
             Height = Convert.ToInt32(FrontsHeightComboBox.Text);
-            
+
             //ширина
             if (FrontsWidthComboBox.Text.Length < 1)
             {
@@ -1099,7 +1100,7 @@ namespace Infinium
                 IsSample = true;
 
             int F = 0;
-            
+
             if (FactoryIDF == 1)
                 if (FactoryIDD == 1)
                     F = 1;
@@ -1121,7 +1122,7 @@ namespace Infinium
 
             OrdersManager.SaveOrder(MainOrderID, MainOrderNotes.Text, IsSample, F);
             decimal DiscountPaymentCondition = OrdersManager.DiscountPaymentCondition(OrdersManager.CurrentDiscountPaymentConditionID);
-            OrdersCalculate.CalculateOrder(MegaOrderID, MainOrderID, OrdersManager.CurrentProfilDiscountDirector, OrdersManager.CurrentTPSDiscountDirector, 
+            OrdersCalculate.CalculateOrder(MegaOrderID, MainOrderID, OrdersManager.CurrentProfilDiscountDirector, OrdersManager.CurrentTPSDiscountDirector,
                 OrdersManager.CurrentProfilTotalDiscount, OrdersManager.CurrentTPSTotalDiscount, DiscountPaymentCondition,
                 OrdersManager.CurrencyTypeID, OrdersManager.PaymentCurrency, OrdersManager.ConfirmDateTime);
 
@@ -1349,7 +1350,7 @@ namespace Infinium
             FrontsOrders.AddFrontsOrderCupboards(ref CupboardsExportListBox, MainOrderID, FrontID, ColorID, PatinaID, InsetTypeID,
                 InsetColorID, TechnoProfileID, TechnoColorID, TechnoInsetTypeID, TechnoInsetColorID, Height, Width, Count);
         }
-       
+
         private void DecorAddButton_Click(object sender, EventArgs e)
         {
             int ProductID = Convert.ToInt32(DecorProductsComboBox.SelectedValue);
@@ -1436,7 +1437,7 @@ namespace Infinium
             int FactoryID = 0;
             int AreaID = 0;
             DecorOrders.DecorCatalogOrder.GetDecorConfigID(ProductID,
-                ((DataRowView)DecorItemsComboBox.SelectedItem).Row["Name"].ToString(), ColorID, PatinaID, InsetTypeID, InsetColorID, 
+                ((DataRowView)DecorItemsComboBox.SelectedItem).Row["Name"].ToString(), ColorID, PatinaID, InsetTypeID, InsetColorID,
                 Length, Height, Width, ref ItemID, ref FactoryID, ref AreaID);
             if (ItemID == -1)
                 return;
@@ -1908,7 +1909,7 @@ namespace Infinium
             }
             TechnoInsetColorID = Convert.ToInt32(TechnoInsetColorsComboBox.SelectedValue);
             //int FactoryID = 0;
-            FrontsOrders.AddFrontsOrderFromSizeTable(ref DataGrid, MainOrderID, ((DataRowView)FrontsComboBox.SelectedItem).Row["FrontName"].ToString(), 
+            FrontsOrders.AddFrontsOrderFromSizeTable(ref DataGrid, MainOrderID, ((DataRowView)FrontsComboBox.SelectedItem).Row["FrontName"].ToString(),
                 ColorID, PatinaID, InsetTypeID, InsetColorID, TechnoProfileID, TechnoColorID, TechnoInsetTypeID, TechnoInsetColorID);
         }
 
@@ -1961,7 +1962,7 @@ namespace Infinium
 
             int AreaID = 0;
             DecorOrders.DecorCatalogOrder.GetDecorConfigID(ProductID,
-                ((DataRowView)DecorItemsComboBox.SelectedItem).Row["Name"].ToString(), ColorID, PatinaID, InsetTypeID, InsetColorID, 
+                ((DataRowView)DecorItemsComboBox.SelectedItem).Row["Name"].ToString(), ColorID, PatinaID, InsetTypeID, InsetColorID,
                 Length, Height, Width, ref ItemID, ref FactoryID, ref AreaID);
             if (ItemID == -1)
                 return;
@@ -2014,7 +2015,7 @@ namespace Infinium
             TechnoFrameColorComboBox.Focus();
             TechnoFrameColorComboBox.DroppedDown = true;
         }
-        
+
         private void TechnoProfilesComboBox_Enter(object sender, EventArgs e)
         {
             TechnoProfilesComboBox.Focus();

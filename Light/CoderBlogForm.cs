@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Data;
-using System.Windows.Forms;
 using System.Threading;
+using System.Windows.Forms;
 
 namespace Infinium
 {
@@ -22,8 +22,8 @@ namespace Infinium
 
         public CoderBlogForm(LightStartForm tLightStartForm)
         {
-            InitializeComponent(); 
-            
+            InitializeComponent();
+
 
             LightStartForm = tLightStartForm;
 
@@ -67,7 +67,7 @@ namespace Infinium
 
                     if (FormEvent == eClose)
                     {
-                       
+
                         LightStartForm.CloseForm(this);
                     }
 
@@ -75,7 +75,7 @@ namespace Infinium
                     {
                         LightStartForm.HideForm(this);
                     }
-                    
+
                     return;
                 }
 
@@ -102,7 +102,7 @@ namespace Infinium
 
                     if (FormEvent == eClose)
                     {
-                       
+
                         LightStartForm.CloseForm(this);
                     }
 
@@ -136,7 +136,7 @@ namespace Infinium
         private void NavigateMenuCloseButton_Click(object sender, EventArgs e)
         {
             CoderBlogContainer.Visible = false;
-            
+
             FormEvent = eClose;
             AnimateTimer.Enabled = true;
         }
@@ -304,7 +304,7 @@ namespace Infinium
 
         private void CoderBlogContainer_CommentSendButtonClicked(object sender, string Text, int NewsID, int SenderID, bool bEdit, int NewsCommentID)
         {
-            Thread T = new Thread(delegate()
+            Thread T = new Thread(delegate ()
             {
                 SplashWindow.CreateCoverSplash(CoderBlogContainer.Top, CoderBlogContainer.Left,
                                      CoderBlogContainer.Height, CoderBlogContainer.Width);
@@ -356,7 +356,7 @@ namespace Infinium
             if (AddBlogNewsForm.Canceled)
                 return;
 
-            Thread T = new Thread(delegate()
+            Thread T = new Thread(delegate ()
             {
                 SplashWindow.CreateCoverSplash(CoderBlogContainer.Top, CoderBlogContainer.Left,
                     CoderBlogContainer.Height, CoderBlogContainer.Width);
@@ -406,7 +406,7 @@ namespace Infinium
 
             if (LightMessageBoxForm.OKCancel)
             {
-                Thread T = new Thread(delegate()
+                Thread T = new Thread(delegate ()
                 {
                     SplashWindow.CreateCoverSplash(CoderBlogContainer.Top, CoderBlogContainer.Left,
                     CoderBlogContainer.Height, CoderBlogContainer.Width);
@@ -448,7 +448,7 @@ namespace Infinium
 
             if (LightMessageBoxForm.OKCancel)
             {
-                Thread T = new Thread(delegate()
+                Thread T = new Thread(delegate ()
                 {
                     SplashWindow.CreateCoverSplash(CoderBlogContainer.Top, CoderBlogContainer.Left,
                     CoderBlogContainer.Height, CoderBlogContainer.Width);
@@ -499,7 +499,7 @@ namespace Infinium
 
         private void UpdateBlogButton_Click(object sender, EventArgs e)
         {
-            Thread T = new Thread(delegate()
+            Thread T = new Thread(delegate ()
             {
                 SplashWindow.CreateCoverSplash(CoderBlogContainer.Top, CoderBlogContainer.Left,
                                      CoderBlogContainer.Height, CoderBlogContainer.Width);
@@ -550,7 +550,7 @@ namespace Infinium
             if (AddBlogNewsForm.Canceled)
                 return;
 
-            Thread T = new Thread(delegate()
+            Thread T = new Thread(delegate ()
             {
                 SplashWindow.CreateCoverSplash(CoderBlogContainer.Top, CoderBlogContainer.Left,
                                      CoderBlogContainer.Height, CoderBlogContainer.Width);

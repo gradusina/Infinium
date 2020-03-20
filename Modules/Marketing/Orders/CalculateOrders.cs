@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Linq;
 using System.Data;
 using System.Data.SqlClient;
+using System.Linq;
 
 namespace Infinium.Modules.Marketing.Orders
 {
@@ -27,7 +27,7 @@ namespace Infinium.Modules.Marketing.Orders
             DecorCalculate = new DecorCalculate(FrontsCalculate);
         }
 
-        public void GetMegaOrderDiscount(int MeganOrderID, ref int CurrencyTypeID, ref decimal PaymentRate, 
+        public void GetMegaOrderDiscount(int MeganOrderID, ref int CurrencyTypeID, ref decimal PaymentRate,
             ref decimal ProfilDiscountDirector, ref decimal TPSDiscountDirector, ref decimal ProfilTotalDiscount, ref decimal TPSTotalDiscount)
         {
             using (SqlDataAdapter DA = new SqlDataAdapter("SELECT ProfilDiscountDirector, TPSDiscountDirector, ProfilTotalDiscount, TPSTotalDiscount, CurrencyTypeID, PaymentRate FROM MegaOrders WHERE MeganOrderID = " + MeganOrderID,
@@ -86,8 +86,8 @@ namespace Infinium.Modules.Marketing.Orders
             return ClientID;
         }
 
-        public void CalculateOrder(int MegaOrderID, int MainOrderID, 
-            decimal ProfilDiscountDirector, decimal TPSDiscountDirector, decimal ProfilTotalDiscount, decimal TPSTotalDiscount, decimal DiscountPaymentCondition, int CurrencyTypeID, decimal Currency, 
+        public void CalculateOrder(int MegaOrderID, int MainOrderID,
+            decimal ProfilDiscountDirector, decimal TPSDiscountDirector, decimal ProfilTotalDiscount, decimal TPSTotalDiscount, decimal DiscountPaymentCondition, int CurrencyTypeID, decimal Currency,
             object ConfirmDateTime,
             bool NeedCalcPrice)
         {
@@ -102,7 +102,7 @@ namespace Infinium.Modules.Marketing.Orders
                     using (DataTable DT = new DataTable())
                     {
                         DA.Fill(DT);
-                        
+
                         decimal FrontsOrderSquare = 0;
 
                         decimal OriginalProfilFrontsOrderCost = 0;
@@ -154,7 +154,7 @@ namespace Infinium.Modules.Marketing.Orders
                         OriginalProfilOrderCost = OriginalProfilFrontsOrderCost + OriginalProfilDecorOrderCost;
                         OriginalTPSOrderCost = OriginalTPSFrontsOrderCost + OriginalTPSDecorOrderCost;
                         OriginalOrderCost = OriginalProfilOrderCost + OriginalTPSOrderCost;
-                        
+
                         ProfilOrderCost = ProfilFrontsOrderCost + ProfilDecorOrderCost;
                         TPSOrderCost = TPSFrontsOrderCost + TPSDecorOrderCost;
                         OrderCost = ProfilOrderCost + TPSOrderCost;
@@ -194,7 +194,7 @@ namespace Infinium.Modules.Marketing.Orders
                 }
             }
         }
-        
+
         public void Recalculate(int MegaOrderID,
             decimal ProfilDiscountDirector, decimal TPSDiscountDirector, decimal ProfilTotalDiscount, decimal TPSTotalDiscount, decimal DiscountPaymentCondition,
             int CurrencyTypeID, decimal PaymentRate, object ConfirmDateTime, decimal CurrencyTotalCost, bool NeedCalcPrice)
@@ -215,7 +215,7 @@ namespace Infinium.Modules.Marketing.Orders
 
             SummaryCost(MegaOrderID, CurrencyTotalCost);
         }
-        
+
         public void SummaryCost(int MegaOrderID,
             decimal CurrencyTotalCost)
         {
@@ -358,7 +358,7 @@ namespace Infinium.Modules.Marketing.Orders
                 }
             }
         }
-        
+
         public void GetDecorExcluziveForManager(int ManagerID)
         {
             DataTable DecorConfigDataTable = new DataTable();
@@ -560,7 +560,7 @@ namespace Infinium.Modules.Marketing.Orders
             Fill();
         }
 
-        private void ProfilFrontClientPrice(int ClientID, DataRow FrontsOrdersRow, decimal DiscountDirector, decimal TotalDiscount, bool TechDrilling, 
+        private void ProfilFrontClientPrice(int ClientID, DataRow FrontsOrdersRow, decimal DiscountDirector, decimal TotalDiscount, bool TechDrilling,
             ref decimal OriginalPrice, ref decimal Price)
         {
             decimal MarketingCost = 0;//себестоимость
@@ -611,7 +611,7 @@ namespace Infinium.Modules.Marketing.Orders
             }
         }
 
-        private void TPSFrontClientPrice(int ClientID, DataRow FrontsOrdersRow, decimal DiscountDirector, decimal TotalDiscount, bool TechDrilling, 
+        private void TPSFrontClientPrice(int ClientID, DataRow FrontsOrdersRow, decimal DiscountDirector, decimal TotalDiscount, bool TechDrilling,
             ref decimal OriginalPrice, ref decimal Price)
         {
             decimal MarketingCost = 0;//себестоимость
@@ -1479,7 +1479,7 @@ namespace Infinium.Modules.Marketing.Orders
             int FrontID = Convert.ToInt32(FrontsOrdersRow["FrontID"]);
             if (FrontID == 30504 || FrontID == 30505 || FrontID == 30506 ||
                 FrontID == 30364 || FrontID == 30366 || FrontID == 30367 ||
-                FrontID == 30501 || FrontID == 30502 || FrontID == 30503 || 
+                FrontID == 30501 || FrontID == 30502 || FrontID == 30503 ||
                 FrontID == 16269 || FrontID == 28945 || FrontID == 27914 || FrontID == 28945 || FrontID == 3727 || FrontID == 3728 || FrontID == 3729 ||
                 FrontID == 3730 || FrontID == 3731 || FrontID == 3732 || FrontID == 3733 || FrontID == 3734 ||
                 FrontID == 3735 || FrontID == 3736 || FrontID == 3737 || FrontID == 3739 || FrontID == 3740 ||
@@ -1580,9 +1580,9 @@ namespace Infinium.Modules.Marketing.Orders
 
             return FrontsWeight * Convert.ToInt32(FrontsOrdersRow["Count"]);
         }
-        
+
         //общий расчет фасадов в заказе
-        public void CalculateFronts(int ClientID, int MainOrderID, decimal ProfilDiscountDirector, decimal TPSDiscountDirector, decimal ProfilTotalDiscount, decimal TPSTotalDiscount, int CurrencyTypeID, decimal Currency,  bool TechDrilling,
+        public void CalculateFronts(int ClientID, int MainOrderID, decimal ProfilDiscountDirector, decimal TPSDiscountDirector, decimal ProfilTotalDiscount, decimal TPSTotalDiscount, int CurrencyTypeID, decimal Currency, bool TechDrilling,
             ref decimal OriginalProfilCost, ref decimal OriginalTPSCost, ref decimal OriginalTotalCost,
             ref decimal ProfilCost, ref decimal TPSCost, ref decimal TotalCost, ref decimal TotalCurrencyCost,
             ref decimal OrderSquare, ref decimal FrontsWeight, object ConfirmDateTime)
@@ -2735,7 +2735,7 @@ namespace Infinium.Modules.Marketing.Orders
             decimal Weight = 0;
 
             DataRow[] Row = DecorConfigDataTable.Select("DecorConfigID = " + DecorOrderRow["DecorConfigID"].ToString());
-            
+
             if (Row[0]["Weight"] == DBNull.Value)
             {
                 System.Windows.Forms.MessageBox.Show("Ошибка конфигурации: нет веса в DecorConfigID=" + DecorOrderRow["DecorConfigID"].ToString() +
@@ -2826,7 +2826,7 @@ namespace Infinium.Modules.Marketing.Orders
                             TPSCost += Cost;
                         }
                         TotalCurrencyCost += CurrencyCost;
-                    }   
+                    }
                     OriginalTotalCost = OriginalProfilCost + OriginalTPSCost;
                     TotalCost = ProfilCost + TPSCost;
                     DA.Update(DecorOrdersTable);

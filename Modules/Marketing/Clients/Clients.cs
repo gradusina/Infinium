@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Data;
-using System.Windows.Forms;
-using System.IO;
 using System.Data.SqlClient;
+using System.IO;
+using System.Linq;
 using System.Net;
 using System.Net.Mail;
+using System.Text;
+using System.Windows.Forms;
 using System.Xml;
-using System.Linq;
 
 namespace Infinium.Modules.Marketing.Clients
 {
@@ -425,7 +425,7 @@ namespace Infinium.Modules.Marketing.Clients
             ContactsDataTable.Columns.Add(new DataColumn("ICQ", Type.GetType("System.String")));
             ContactsDataTable.Columns.Add(new DataColumn("Notes", Type.GetType("System.String")));
         }
-        
+
         private bool GetManagerInfo(int ManagerID, ref string Name, ref string Phone, ref string Email, ref string Skype)
         {
             DataRow[] Rows = GetManagersDataTable.Select("ManagerID = " + ManagerID);
@@ -507,7 +507,7 @@ namespace Infinium.Modules.Marketing.Clients
         }
 
 
-        public void AddClient(string Name, int CountryID, string City, int ClientGroupID, string Site, string Email, int ManagerID, string UNN, 
+        public void AddClient(string Name, int CountryID, string City, int ClientGroupID, string Site, string Email, int ManagerID, string UNN,
                               int NonStandard, decimal PriceGroup, int DelayOfPayment, bool Enabled)
         {
             string Contacts = GetContactsXML(NewContactsDataTable);
@@ -518,7 +518,7 @@ namespace Infinium.Modules.Marketing.Clients
             Row["Login"] = Login;
             Row["Password"] = "b59c67bf196a4758191e42f76670ceba";
             Row["ClientName"] = Name;
-            Row["ClientFolderName"] = Name.Replace('"',' ');
+            Row["ClientFolderName"] = Name.Replace('"', ' ');
             Row["CountryID"] = CountryID;
             Row["ClientGroupID"] = ClientGroupID;
             Row["City"] = City;
@@ -952,7 +952,7 @@ infiniumdevelopers@gmail.com";
                 {
                     MessageBox.Show("Exception\r\n" + ex.Message);
                 }
-                
+
                 client.Dispose();
             }
         }

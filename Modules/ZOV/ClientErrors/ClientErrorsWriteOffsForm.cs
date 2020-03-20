@@ -1,7 +1,8 @@
-﻿using System;
-using System.Windows.Forms;
+﻿using Infinium.Modules.ZOV.ClientErrors;
+
+using System;
 using System.Globalization;
-using Infinium.Modules.ZOV.ClientErrors;
+using System.Windows.Forms;
 
 namespace Infinium
 {
@@ -14,7 +15,7 @@ namespace Infinium
         int FormEvent = 0;
 
         LightStartForm LightStartForm;
-        
+
         Form TopForm;
 
         ClientErrorsWriteOffs ClientErrorsWriteOffs;
@@ -26,7 +27,7 @@ namespace Infinium
             InitializeComponent();
 
             LightStartForm = tLightStartForm;
-            
+
             this.MaximumSize = Screen.PrimaryScreen.WorkingArea.Size;
 
             Initialize();
@@ -55,7 +56,7 @@ namespace Infinium
 
                     if (FormEvent == eClose)
                     {
-                       
+
                         LightStartForm.CloseForm(this);
                     }
 
@@ -64,7 +65,7 @@ namespace Infinium
 
                         LightStartForm.HideForm(this);
                     }
-                    
+
 
                     return;
                 }
@@ -88,7 +89,7 @@ namespace Infinium
 
                     if (FormEvent == eClose)
                     {
-                       
+
                         LightStartForm.CloseForm(this);
                     }
 
@@ -97,7 +98,7 @@ namespace Infinium
 
                         LightStartForm.HideForm(this);
                     }
-                    
+
                 }
 
                 return;
@@ -296,11 +297,11 @@ namespace Infinium
             dgvAssemblyOrders.AutoGenerateColumns = false;
             int DisplayIndex = 0;
             dgvAssemblyOrders.Columns["ClientColumn"].DisplayIndex = DisplayIndex++;
-            dgvAssemblyOrders.Columns["DocNumber"].DisplayIndex =DisplayIndex++;
-            dgvAssemblyOrders.Columns["DispatchDateColumn"].DisplayIndex =DisplayIndex++;
+            dgvAssemblyOrders.Columns["DocNumber"].DisplayIndex = DisplayIndex++;
+            dgvAssemblyOrders.Columns["DispatchDateColumn"].DisplayIndex = DisplayIndex++;
             dgvAssemblyOrders.Columns["AssemblyNumber"].DisplayIndex = DisplayIndex++;
-            dgvAssemblyOrders.Columns["PaymentDateColumn"].DisplayIndex =DisplayIndex++;
-            dgvAssemblyOrders.Columns["Cost"].DisplayIndex =DisplayIndex++;
+            dgvAssemblyOrders.Columns["PaymentDateColumn"].DisplayIndex = DisplayIndex++;
+            dgvAssemblyOrders.Columns["Cost"].DisplayIndex = DisplayIndex++;
             dgvAssemblyOrders.Columns["Notes"].DisplayIndex = DisplayIndex++;
 
             dgvAssemblyOrders.Columns["Cost"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
@@ -547,7 +548,7 @@ namespace Infinium
             PhantomForm.Show();
 
             NewNotPaidOrderForm NewNotPaidOrderForm = new NewNotPaidOrderForm(this, ref NotPaidOrders);
-            
+
             TopForm = NewNotPaidOrderForm;
             NewNotPaidOrderForm.ShowDialog();
 

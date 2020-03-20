@@ -1,8 +1,9 @@
-﻿using System;
-using System.Windows.Forms;
-using System.Threading;
+﻿using Infinium.Modules.Marketing.Clients;
+
+using System;
 using System.Drawing;
-using Infinium.Modules.Marketing.Clients;
+using System.Threading;
+using System.Windows.Forms;
 
 namespace Infinium
 {
@@ -139,7 +140,7 @@ namespace Infinium
             dgvUsers.DataSource = ClientsManagers.UsersBS;
             dgvGridsSettings();
         }
-        
+
         private void dgvGridsSettings()
         {
             dgvManagers.Columns["ManagerID"].Visible = false;
@@ -165,7 +166,7 @@ namespace Infinium
             dgvUsers.Columns["Name"].Visible = false;
             dgvUsers.Columns["Password"].Visible = false;
         }
-        
+
         private void dgvDiscountVolume_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
         {
             if (e.Button == System.Windows.Forms.MouseButtons.Right)
@@ -173,7 +174,7 @@ namespace Infinium
                 kryptonContextMenu2.Show(new Point(Cursor.Position.X - 212, Cursor.Position.Y - 10));
             }
         }
-        
+
         private void kryptonContextMenuItem2_Click(object sender, EventArgs e)
         {
             int ManagerID = 0;
@@ -193,7 +194,7 @@ namespace Infinium
                 ClientsManagers.RemoveManager();
             }
         }
-        
+
         private void btnSaveManagers_Click(object sender, EventArgs e)
         {
             Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение данных.\r\nПодождите..."); });
@@ -241,7 +242,7 @@ namespace Infinium
             int UserID = 0;
             if (dgvUsers.SelectedRows.Count != 0 && dgvUsers.SelectedRows[0].Cells["UserID"].Value != DBNull.Value)
                 UserID = Convert.ToInt32(dgvUsers.SelectedRows[0].Cells["UserID"].Value);
-            
+
             ClientsManagers.AddManager(UserID, Name, ShortName, Password, Phone, Email, Skype);
         }
     }

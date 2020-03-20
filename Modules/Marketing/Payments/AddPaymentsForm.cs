@@ -1,7 +1,8 @@
-﻿using System;
+﻿using Infinium.Modules.Marketing.Payments;
+
+using System;
 using System.Data;
 using System.Windows.Forms;
-using Infinium.Modules.Marketing.Payments;
 
 namespace Infinium
 {
@@ -94,7 +95,7 @@ namespace Infinium
             ContractComboBox.DataSource = ClientPayments.Filter(ClientComboBox.SelectedValue.ToString());
             ContractComboBox.DisplayMember = "ContractNumber";
             ContractComboBox.ValueMember = "ContractId";
-            
+
             FirmComboBox.DataSource = TableFactory;
             FirmComboBox.DisplayMember = "FactoryName";
             FirmComboBox.ValueMember = "FactoryID";
@@ -248,7 +249,7 @@ namespace Infinium
                 label4.Text = "Сумма отгрузки:";
             }
             else
-            { 
+            {
                 label3.Text = "Укажите дату оплаты:";
                 label4.Text = "Сумма оплаты:";
             }

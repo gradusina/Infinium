@@ -1,11 +1,12 @@
-﻿using System;
-using System.Data;
-using System.Windows.Forms;
-using System.Threading;
-using System.Globalization;
-using System.Drawing;
-using Infinium.Modules.Marketing.NewOrders;
+﻿using Infinium.Modules.Marketing.NewOrders;
 using Infinium.Modules.StaticticsZOV;
+
+using System;
+using System.Data;
+using System.Drawing;
+using System.Globalization;
+using System.Threading;
+using System.Windows.Forms;
 
 namespace Infinium
 {
@@ -22,7 +23,7 @@ namespace Infinium
         NumberFormatInfo nfi2;
 
         LightStartForm LightStartForm;
-        
+
         Form TopForm = null;
 
         ZOVStorageStatistics StorageStatistics;
@@ -33,12 +34,12 @@ namespace Infinium
             InitializeComponent();
 
             LightStartForm = tLightStartForm;
-            
+
             this.MaximumSize = Screen.PrimaryScreen.WorkingArea.Size;
 
             Initialize();
 
-            while (!SplashForm.bCreated);
+            while (!SplashForm.bCreated) ;
         }
 
         private void ZOVExpeditionStatisticsForm_Shown(object sender, EventArgs e)
@@ -244,7 +245,7 @@ namespace Infinium
             if (NeedSplash)
             {
                 NeedSplash = false;
-                Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
+                Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
                 T.Start();
                 while (!SplashWindow.bSmallCreated) ;
 
@@ -306,7 +307,7 @@ namespace Infinium
 
         private void kryptonContextMenuItem2_Click(object sender, EventArgs e)
         {
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Создание отчета.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Создание отчета.\r\nПодождите..."); });
             T.Start();
 
             while (!SplashWindow.bSmallCreated) ;

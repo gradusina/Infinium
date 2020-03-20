@@ -45,7 +45,7 @@ namespace Infinium
                 AnimateTimer.Enabled = false;
 
                 if (FormEvent == eClose)
-                {                    
+                {
                     this.Close();
                     return;
                 }
@@ -60,7 +60,7 @@ namespace Infinium
                     AnimateTimer.Enabled = false;
                     if (FormEvent == eClose)
                     {
-                        
+
                         this.Close();
                     }
                 }

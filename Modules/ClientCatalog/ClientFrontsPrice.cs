@@ -1,10 +1,11 @@
-﻿using System;
+﻿using NPOI.HSSF.UserModel;
+using NPOI.HSSF.UserModel.Contrib;
+using NPOI.HSSF.Util;
+
+using System;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
-using NPOI.HSSF.UserModel;
-using NPOI.HSSF.UserModel.Contrib;
-using NPOI.HSSF.Util;
 
 namespace Infinium
 {

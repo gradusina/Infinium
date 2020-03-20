@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 
 namespace Infinium.Modules.Marketing.Clients
@@ -44,7 +40,7 @@ namespace Infinium.Modules.Marketing.Clients
             ManagersBS.DataSource = ManagersDT;
             UsersBS.DataSource = UsersDT;
         }
-        
+
         public void AddManager(int UserID, string Name, string ShortName, string Password, string Phone, string Email, string Skype)
         {
             DataRow NewRow = ManagersDT.NewRow();
@@ -83,7 +79,7 @@ namespace Infinium.Modules.Marketing.Clients
                 else
                     ManagersBS.Position = Pos;
         }
-        
+
         public void SaveManagers()
         {
             ManagersDA.Update(ManagersDT);

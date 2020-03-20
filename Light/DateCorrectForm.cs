@@ -217,8 +217,8 @@ namespace Infinium
                 D = Convert.ToDateTime(timeEdit1.EditValue);
                 LightWorkDay.BreakStartWorkDay(Security.CurrentUserID, D, richTextBox1.Text);
             }
-            
-            
+
+
 
             FormEvent = eClose;
             AnimateTimer.Enabled = true;

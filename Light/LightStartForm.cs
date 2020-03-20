@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Linq;
-using System.Windows.Forms;
-using System.Threading;
 using System.IO;
-using System.Runtime.InteropServices;
+using System.Linq;
 using System.Media;
-using Infinium.Modules.Marketing.NewOrders;
+using System.Runtime.InteropServices;
+using System.Threading;
+using System.Windows.Forms;
 
 namespace Infinium
 {
@@ -53,14 +52,14 @@ namespace Infinium
 
         public LightStartForm(LoginForm tLoginForm)
         {
-            InitializeComponent(); 
+            InitializeComponent();
 
             LoginForm = tLoginForm;
 
             TM = new TablesManager();
 
             this.MaximumSize = Screen.PrimaryScreen.WorkingArea.Size;
-             
+
             //CurrentTimeLabel.Text = DateTime.Now.ToString("HH:mm");
             //CurrentDayOfWeekLabel.Text = DateTime.Now.ToString("dddd");
             //CurrentDayMonthLabel.Text = DateTime.Now.ToString("dd MMMM");
@@ -81,7 +80,7 @@ namespace Infinium
             ActiveNotifySystem = new Infinium.ActiveNotifySystem();
             InfiniumNotifyList.ModulesDataTable = InfiniumStart.FullModulesDataTable;
 
-            InfiniumStartMenu.ItemsDataTable = InfiniumStart.MenuItemsDataTable;            
+            InfiniumStartMenu.ItemsDataTable = InfiniumStart.MenuItemsDataTable;
             InfiniumStartMenu.InitializeItems();
             InfiniumStartMenu.Selected = 0;
 
@@ -101,10 +100,10 @@ namespace Infinium
             NotifyRefreshT = new NotifyRefresh(FuckingNotify);
             OnlineFuck = new OnlineFuckingDelegate(this.GetTopMostAndModuleName);
 
-            NotifyThread = new Thread(delegate() { NotifyCheck(); });
+            NotifyThread = new Thread(delegate () { NotifyCheck(); });
             NotifyThread.Start();
 
-            while(!SplashForm.bCreated);
+            while (!SplashForm.bCreated) ;
         }
 
         OnlineStruct OS;
@@ -120,33 +119,23 @@ namespace Infinium
         {
             //try
             //{
-                InfiniumNotifyList.ItemsDataTable = ActiveNotifySystem.ModulesUpdatesDataTable;
-                InfiniumNotifyList.InitializeItems();
+            InfiniumNotifyList.ItemsDataTable = ActiveNotifySystem.ModulesUpdatesDataTable;
+            InfiniumNotifyList.InitializeItems();
 
-                if (TopForm != null)
+            if (TopForm != null)
+            {
+                if (TopForm.Name == "MessagesForm")
                 {
-                    if (TopForm.Name == "MessagesForm")
+                    using (Stream str = Properties.Resources.MESSAGENOTIFY)
                     {
-                        using (Stream str = Properties.Resources.MESSAGENOTIFY)
+                        using (SoundPlayer snd = new SoundPlayer(str))
                         {
-                            using (SoundPlayer snd = new SoundPlayer(str))
-                            {
-                                snd.Play();
-                            }
-                        }
-                    }
-                    else
-                    {
-                        using (Stream str = Properties.Resources._01_01)
-                        {
-                            using (SoundPlayer snd = new SoundPlayer(str))
-                            {
-                                snd.Play();
-                            }
+                            snd.Play();
                         }
                     }
                 }
                 else
+                {
                     using (Stream str = Properties.Resources._01_01)
                     {
                         using (SoundPlayer snd = new SoundPlayer(str))
@@ -154,46 +143,56 @@ namespace Infinium
                             snd.Play();
                         }
                     }
-
-                
-
-                //если открытый модуль типа InfiniumForm
-                if (TopForm != null)
+                }
+            }
+            else
+                using (Stream str = Properties.Resources._01_01)
                 {
-                    if (TopForm.GetType().BaseType.Name == "InfiniumForm")
-                        ((InfiniumForm)TopForm).OnANSUpdate();
+                    using (SoundPlayer snd = new SoundPlayer(str))
+                    {
+                        snd.Play();
+                    }
                 }
 
-                if (TopForm != null)
-                    if (ActiveNotifySystem.ModulesDataTable.Select("ModuleID = " + ActiveNotifySystem.iCurrentModuleID)[0]["FormName"].ToString() == TopForm.Name)
-                        if(GetActiveWindow() == TopForm.Handle)
-                            return;
 
-                if (GetActiveWindow() == this.Handle)//только звук
-                {
-                    return;
-                }
 
-                //показываем всплывающее окно
-                if (NotifyForm.bShowed == true)
-                {
-                    if(NotifyForm != null)
-                        NotifyForm.Close();
+            //если открытый модуль типа InfiniumForm
+            if (TopForm != null)
+            {
+                if (TopForm.GetType().BaseType.Name == "InfiniumForm")
+                    ((InfiniumForm)TopForm).OnANSUpdate();
+            }
 
-                    int ModuleID = 0;
-                    int MoreCount = 0;
-                    int Count = ActiveNotifySystem.GetLastModuleUpdate(ref ModuleID, ref MoreCount);
-                    NotifyForm = new NotifyForm(this, ref ActiveNotifySystem, ModuleID, Count, MoreCount);
-                    NotifyForm.Show();
-                }
-                else
-                {
-                    int ModuleID = 0;
-                    int MoreCount = 0;
-                    int Count = ActiveNotifySystem.GetLastModuleUpdate(ref ModuleID, ref MoreCount);
-                    NotifyForm = new NotifyForm(this, ref ActiveNotifySystem, ModuleID, Count, MoreCount);
-                    NotifyForm.Show();
-                }
+            if (TopForm != null)
+                if (ActiveNotifySystem.ModulesDataTable.Select("ModuleID = " + ActiveNotifySystem.iCurrentModuleID)[0]["FormName"].ToString() == TopForm.Name)
+                    if (GetActiveWindow() == TopForm.Handle)
+                        return;
+
+            if (GetActiveWindow() == this.Handle)//только звук
+            {
+                return;
+            }
+
+            //показываем всплывающее окно
+            if (NotifyForm.bShowed == true)
+            {
+                if (NotifyForm != null)
+                    NotifyForm.Close();
+
+                int ModuleID = 0;
+                int MoreCount = 0;
+                int Count = ActiveNotifySystem.GetLastModuleUpdate(ref ModuleID, ref MoreCount);
+                NotifyForm = new NotifyForm(this, ref ActiveNotifySystem, ModuleID, Count, MoreCount);
+                NotifyForm.Show();
+            }
+            else
+            {
+                int ModuleID = 0;
+                int MoreCount = 0;
+                int Count = ActiveNotifySystem.GetLastModuleUpdate(ref ModuleID, ref MoreCount);
+                NotifyForm = new NotifyForm(this, ref ActiveNotifySystem, ModuleID, Count, MoreCount);
+                NotifyForm.Show();
+            }
             //}
             //catch (Exception e)
             //{
@@ -202,8 +201,8 @@ namespace Infinium
         }
 
         public void StartModuleFromNotify(int ModuleID)
-        {            
-            if(TopForm != null)
+        {
+            if (TopForm != null)
                 if (TopForm.Name == InfiniumStart.FullModulesDataTable.Select("ModuleID = " + ModuleID)[0]["FormName"].ToString())
                 {
                     return;
@@ -211,13 +210,13 @@ namespace Infinium
 
             if (ModuleID != 80)
             {
-                Thread T = new Thread(delegate() { SplashWindow.CreateSplash(); });
+                Thread T = new Thread(delegate () { SplashWindow.CreateSplash(); });
                 T.Start();
 
                 while (!SplashForm.bCreated) ;
             }
 
-            if(TopForm != null)
+            if (TopForm != null)
                 if (TopForm.Name != InfiniumStart.FullModulesDataTable.Select("ModuleID = " + ModuleID)[0]["FormName"].ToString())
                 {
                     HideForm(TopForm);
@@ -245,7 +244,7 @@ namespace Infinium
                     TopForm = ModuleForm;
                     ModuleForm.ShowDialog();
                 }
-            }          
+            }
 
             ActiveNotifySystem.FillUpdates();
             InfiniumNotifyList.ItemsDataTable = ActiveNotifySystem.ModulesUpdatesDataTable;
@@ -289,15 +288,15 @@ namespace Infinium
                     }
                     else
                         if ((int)GetActiveWindow() == 0)
-                        {
-                            OS.TopMost = false;
-                            OS.ModuleID = ActiveNotifySystem.GetModuleIDByForm(this.TopForm.Name);
-                        }
-                        else
-                        {
-                            OS.TopMost = true;
-                            OS.ModuleID = ActiveNotifySystem.GetModuleIDByForm(this.TopForm.Name);
-                        }
+                    {
+                        OS.TopMost = false;
+                        OS.ModuleID = ActiveNotifySystem.GetModuleIDByForm(this.TopForm.Name);
+                    }
+                    else
+                    {
+                        OS.TopMost = true;
+                        OS.ModuleID = ActiveNotifySystem.GetModuleIDByForm(this.TopForm.Name);
+                    }
                 }
             }
 
@@ -305,7 +304,7 @@ namespace Infinium
         }
 
         private void NotifyCheck()
-        {            
+        {
             while (true)
             {
                 if (this.IsHandleCreated)
@@ -316,7 +315,7 @@ namespace Infinium
 
                     this.Invoke(OnlineFuck);
                     OnLineControl.IamOnline(OS.ModuleID, OS.TopMost);
-                    
+
                     if (ActiveNotifySystem.IsNewUpdates(Security.CurrentUserID) > 0)
                     {
                         if (ActiveNotifySystem.CheckLastUpdate())
@@ -365,12 +364,12 @@ namespace Infinium
 
             InfiniumMinimizeList.RemoveModule(Form.Name);
 
-            Thread T = new Thread(delegate()
+            Thread T = new Thread(delegate ()
             {
                 Security.ExitFromModule(FormName);
             });
             T.Start();
-        
+
             Form.Dispose();
 
             GC.Collect();
@@ -491,9 +490,9 @@ namespace Infinium
 
             AnimateTimer.Enabled = true;
         }
-       
+
         private void MinimizeButton_Click(object sender, EventArgs e)
-        {            
+        {
             this.WindowState = FormWindowState.Minimized;
         }
 
@@ -530,7 +529,7 @@ namespace Infinium
         {
             InfiniumTilesContainer.InitializeItems();
         }
-        
+
         private void CurrentTimer_Tick(object sender, EventArgs e)
         {
             InfiniumClock.iMinutes = (DateTime.Now).Minute;
@@ -548,7 +547,7 @@ namespace Infinium
 
         }
 
-        
+
         private void UpdatesTimer_Tick(object sender, EventArgs e)
         {
             //NotifyCheck();
@@ -558,7 +557,7 @@ namespace Infinium
         {
             if (bNeedSplash)
             {
-                Thread T = new Thread(delegate()
+                Thread T = new Thread(delegate ()
                 {
                     SplashWindow.CreateCoverSplash(InfiniumTilesContainer.Top + MainPanel.Top, InfiniumTilesContainer.Left,
                                                    InfiniumTilesContainer.Height, InfiniumTilesContainer.Width);
@@ -630,7 +629,7 @@ namespace Infinium
 
             if (bNeedSplash)
             {
-                Thread T = new Thread(delegate()
+                Thread T = new Thread(delegate ()
                 {
                     SplashWindow.CreateCoverSplash(InfiniumTilesContainer.Top + MainPanel.Top, InfiniumTilesContainer.Left,
                                                    InfiniumTilesContainer.Height, InfiniumTilesContainer.Width);
@@ -648,7 +647,7 @@ namespace Infinium
 
         private void InfiniumTilesContainer_ItemClicked(object sender, string FormName)
         {
-            Thread T = new Thread(delegate() { SplashWindow.CreateSplash(); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSplash(); });
             T.Start();
 
             while (!SplashForm.bCreated) ;
@@ -671,13 +670,13 @@ namespace Infinium
                 ModuleForm.ShowDialog();
             }
 
-            if(InfiniumNotifyList.Items != null)
+            if (InfiniumNotifyList.Items != null)
                 if (InfiniumNotifyList.Items.Count() > 0)
                 {
                     ActiveNotifySystem.FillUpdates();
                     InfiniumNotifyList.ItemsDataTable = ActiveNotifySystem.ModulesUpdatesDataTable;
                     InfiniumNotifyList.InitializeItems();
-                }           
+                }
         }
 
         private void InfiniumNotifyList_ItemClicked(object sender, string FormName)
@@ -700,12 +699,12 @@ namespace Infinium
                 return;
             }
 
-            Thread T = new Thread(delegate() { SplashWindow.CreateSplash(); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSplash(); });
             T.Start();
 
             while (!SplashForm.bCreated) ;
 
-            
+
             if (NotifyForm != null)
             {
                 NotifyForm.Close();
@@ -744,7 +743,7 @@ namespace Infinium
             }
             else
             {
-                Thread T = new Thread(delegate() { SplashWindow.CreateSplash(); });
+                Thread T = new Thread(delegate () { SplashWindow.CreateSplash(); });
                 T.Start();
 
                 while (!SplashForm.bCreated) ;
@@ -760,7 +759,7 @@ namespace Infinium
                     ActiveNotifySystem.FillUpdates();
                     InfiniumNotifyList.ItemsDataTable = ActiveNotifySystem.ModulesUpdatesDataTable;
                     InfiniumNotifyList.InitializeItems();
-                }            
+                }
         }
 
         private void InfiniumMinimizeList_CloseClicked(object sender, string FormName)
@@ -776,7 +775,7 @@ namespace Infinium
 
         private void InfiniumClock_Click(object sender, EventArgs e)
         {
-            Thread T = new Thread(delegate() { SplashWindow.CreateSplash(); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSplash(); });
             T.Start();
 
             while (!SplashForm.bCreated) ;
@@ -805,7 +804,7 @@ namespace Infinium
                     ActiveNotifySystem.FillUpdates();
                     InfiniumNotifyList.ItemsDataTable = ActiveNotifySystem.ModulesUpdatesDataTable;
                     InfiniumNotifyList.InitializeItems();
-                }           
+                }
         }
 
         private void MessagesButton_Click(object sender, EventArgs e)
@@ -832,12 +831,12 @@ namespace Infinium
                     ActiveNotifySystem.FillUpdates();
                     InfiniumNotifyList.ItemsDataTable = ActiveNotifySystem.ModulesUpdatesDataTable;
                     InfiniumNotifyList.InitializeItems();
-                }  
+                }
         }
 
         private void PhotoBox_Click(object sender, EventArgs e)
         {
-            Thread T = new Thread(delegate() { SplashWindow.CreateSplash(); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSplash(); });
             T.Start();
 
             while (!SplashForm.bCreated) ;
@@ -866,11 +865,11 @@ namespace Infinium
                     ActiveNotifySystem.FillUpdates();
                     InfiniumNotifyList.ItemsDataTable = ActiveNotifySystem.ModulesUpdatesDataTable;
                     InfiniumNotifyList.InitializeItems();
-                } 
+                }
         }
 
         private void kryptonButton1_Click(object sender, EventArgs e)
         {
         }
-    }    
+    }
 }

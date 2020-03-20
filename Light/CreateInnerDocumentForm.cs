@@ -1,8 +1,8 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Data;
-using System.Windows.Forms;
 using System.Threading;
+using System.Windows.Forms;
 
 namespace Infinium
 {
@@ -311,7 +311,7 @@ namespace Infinium
 
             if (!bEdit)
             {
-                T = new Thread(delegate()
+                T = new Thread(delegate ()
                 {
                     Ok = InfiniumDocuments.AddInnerDocument(DocumentType,
                                                         Security.GetCurrentDate(), Security.CurrentUserID, RecipientsDataTable,
@@ -322,7 +322,7 @@ namespace Infinium
             }
             else
             {
-                T = new Thread(delegate()
+                T = new Thread(delegate ()
                 {
                     Ok = InfiniumDocuments.EditInnerDocument(InnerDocumentID, DocumentType, Security.CurrentUserID, RecipientsDataTable,
                                                         Description, RegNumberTextBox.Text, DocumentState, AttachmentsDataTable,
@@ -370,7 +370,7 @@ namespace Infinium
             FormEvent = eClose;
             AnimateTimer.Enabled = true;
         }
-     
+
         private void AttachButton_Click(object sender, EventArgs e)
         {
             openFileDialog1.ShowDialog();

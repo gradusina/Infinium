@@ -1,10 +1,10 @@
-﻿using System;
+﻿using Infinium.Modules.Admin;
+
+using System;
 using System.Data;
 using System.Drawing;
-using System.Windows.Forms;
 using System.Threading;
-using ComponentFactory.Krypton.Toolkit;
-using Infinium.Modules.Admin;
+using System.Windows.Forms;
 
 namespace Infinium
 {

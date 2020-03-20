@@ -59,11 +59,11 @@ namespace Infinium
 
             int P = 0;
 
-            if(High.Checked)
+            if (High.Checked)
                 P = 1;
-            if(Medium.Checked)
+            if (Medium.Checked)
                 P = 2;
-            if(Low.Checked)
+            if (Low.Checked)
                 P = 3;
 
             LightNotes.AddNotes(HeaderTextEdit.Text, P);

@@ -1,6 +1,7 @@
-﻿using System;
+﻿using Infinium.Modules.Marketing.Clients;
+
+using System;
 using System.Windows.Forms;
-using Infinium.Modules.Marketing.Clients;
 
 namespace Infinium
 {

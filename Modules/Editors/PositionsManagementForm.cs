@@ -30,10 +30,10 @@ namespace Infinium
 
             Initialize();
 
-            while(!SplashForm.bCreated);
+            while (!SplashForm.bCreated) ;
         }
 
-      
+
         private void EditDepartmentsForm_Shown(object sender, EventArgs e)
         {
             FormEvent = eShow;

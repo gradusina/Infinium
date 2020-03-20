@@ -1,8 +1,9 @@
-﻿using System;
-using System.Windows.Forms;
-using System.Threading;
+﻿using Infinium.Modules.ZOV.ClientErrors;
+
+using System;
 using System.Globalization;
-using Infinium.Modules.ZOV.ClientErrors;
+using System.Threading;
+using System.Windows.Forms;
 
 namespace Infinium
 {
@@ -15,7 +16,7 @@ namespace Infinium
         int FormEvent = 0;
 
         LightStartForm LightStartForm;
-        
+
         Form TopForm;
 
         ReportCalculations ReportCalculationsManager;
@@ -25,7 +26,7 @@ namespace Infinium
             InitializeComponent();
 
             LightStartForm = tLightStartForm;
-            
+
             this.MaximumSize = Screen.PrimaryScreen.WorkingArea.Size;
 
             Initialize();
@@ -54,7 +55,7 @@ namespace Infinium
 
                     if (FormEvent == eClose)
                     {
-                       
+
                         LightStartForm.CloseForm(this);
                     }
 
@@ -63,7 +64,7 @@ namespace Infinium
 
                         LightStartForm.HideForm(this);
                     }
-                    
+
 
                     return;
                 }
@@ -87,7 +88,7 @@ namespace Infinium
 
                     if (FormEvent == eClose)
                     {
-                       
+
                         LightStartForm.CloseForm(this);
                     }
 
@@ -96,7 +97,7 @@ namespace Infinium
 
                         LightStartForm.HideForm(this);
                     }
-                    
+
                 }
 
                 return;
@@ -263,7 +264,7 @@ namespace Infinium
             DateTime DateFrom = CalendarFrom.SelectionEnd;
             DateTime DateTo = CalendarTo.SelectionEnd;
 
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Обновление данных.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Обновление данных.\r\nПодождите..."); });
             T.Start();
 
             while (!SplashWindow.bSmallCreated) ;
@@ -286,7 +287,7 @@ namespace Infinium
             DateTime DateFrom = CalendarFrom.SelectionEnd;
             DateTime DateTo = CalendarTo.SelectionEnd;
 
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Создание отчета.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Создание отчета.\r\nПодождите..."); });
             T.Start();
 
             while (!SplashWindow.bSmallCreated) ;

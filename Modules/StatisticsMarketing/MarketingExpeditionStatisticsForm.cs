@@ -1,11 +1,12 @@
-﻿using System;
-using System.Data;
-using System.Windows.Forms;
-using System.Threading;
-using System.Globalization;
-using System.Drawing;
+﻿using Infinium.Modules.Marketing.NewOrders;
 using Infinium.Modules.StatisticsMarketing;
-using Infinium.Modules.Marketing.NewOrders;
+
+using System;
+using System.Data;
+using System.Drawing;
+using System.Globalization;
+using System.Threading;
+using System.Windows.Forms;
 
 namespace Infinium
 {
@@ -23,7 +24,7 @@ namespace Infinium
         NumberFormatInfo nfi2;
 
         LightStartForm LightStartForm;
-        
+
         Form TopForm = null;
         MarketingExpeditionStatistics ExpeditionStatistics;
         BatchExcelReport MarketingBatchReport;
@@ -33,12 +34,12 @@ namespace Infinium
             InitializeComponent();
 
             LightStartForm = tLightStartForm;
-            
+
             this.MaximumSize = Screen.PrimaryScreen.WorkingArea.Size;
 
             Initialize();
 
-            while (!SplashForm.bCreated);
+            while (!SplashForm.bCreated) ;
         }
 
         private void MarketingExpeditionStatisticsForm_Shown(object sender, EventArgs e)
@@ -142,7 +143,7 @@ namespace Infinium
             MarketingBatchReport = new BatchExcelReport();
 
             ExpeditionStatistics = new MarketingExpeditionStatistics(
-                ref MFSummaryDG, ref MDSummaryDG, 
+                ref MFSummaryDG, ref MDSummaryDG,
                 ref ExpFrontsDataGrid, ref ExpDecorProductsDataGrid, ref ExpDecorItemsDataGrid);
         }
 
@@ -216,7 +217,7 @@ namespace Infinium
 
         private void kryptonContextMenuItem2_Click(object sender, EventArgs e)
         {
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Создание отчета.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Создание отчета.\r\nПодождите..."); });
             T.Start();
 
             while (!SplashWindow.bSmallCreated) ;
@@ -248,7 +249,7 @@ namespace Infinium
         {
             if (ExpOrdersSummaryCheckBox.Checked)
                 return;
-            
+
             if (ExpeditionStatistics != null)
                 if (ExpeditionStatistics.MDSummaryBS.Count > 0)
                 {
@@ -269,7 +270,7 @@ namespace Infinium
                         if (NeedSplash)
                         {
                             NeedSplash = false;
-                            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
+                            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
                             T.Start();
                             while (!SplashWindow.bSmallCreated) ;
 
@@ -325,7 +326,7 @@ namespace Infinium
                         if (NeedSplash)
                         {
                             NeedSplash = false;
-                            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
+                            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
                             T.Start();
                             while (!SplashWindow.bSmallCreated) ;
 
@@ -392,7 +393,7 @@ namespace Infinium
             if (NeedSplash)
             {
                 NeedSplash = false;
-                Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
+                Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
                 T.Start();
                 while (!SplashWindow.bSmallCreated) ;
 

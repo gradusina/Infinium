@@ -1,10 +1,10 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Data;
-using System.Linq;
-using System.Windows.Forms;
-using System.Threading;
 using System.IO;
+using System.Linq;
+using System.Threading;
+using System.Windows.Forms;
 
 namespace Infinium
 {
@@ -34,7 +34,7 @@ namespace Infinium
         public FilesForm(LightStartForm tLightStartForm)
         {
             InitializeComponent();
-            
+
             LightStartForm = tLightStartForm;
 
             this.MaximumSize = Screen.PrimaryScreen.WorkingArea.Size;
@@ -75,7 +75,7 @@ namespace Infinium
 
                     if (FormEvent == eClose)
                     {
-                       
+
                         LightStartForm.CloseForm(this);
                     }
 
@@ -109,7 +109,7 @@ namespace Infinium
 
                     if (FormEvent == eClose)
                     {
-                       
+
                         LightStartForm.CloseForm(this);
                     }
 
@@ -232,7 +232,7 @@ namespace Infinium
 
             if (FolderID != -1)
             {
-                Thread T = new Thread(delegate()
+                Thread T = new Thread(delegate ()
                 {
                     SplashWindow.CreateCoverSplash(InfiniumFileList.Top + UpdatePanel.Top, InfiniumFileList.Left + UpdatePanel.Left,
                                                    InfiniumFileList.Height, InfiniumFileList.Width);
@@ -257,7 +257,7 @@ namespace Infinium
         {
             if (FolderID != -1)
             {
-                Thread T = new Thread(delegate()
+                Thread T = new Thread(delegate ()
                 {
                     SplashWindow.CreateCoverSplash(InfiniumFileList.Top + UpdatePanel.Top, InfiniumFileList.Left + UpdatePanel.Left,
                                                    InfiniumFileList.Height, InfiniumFileList.Width);
@@ -311,7 +311,7 @@ namespace Infinium
                     return;
 
 
-                Thread T = new Thread(delegate()
+                Thread T = new Thread(delegate ()
                 {
                     SplashWindow.CreateCoverSplash(InfiniumFileList.Top + UpdatePanel.Top, InfiniumFileList.Left + UpdatePanel.Left,
                                                    InfiniumFileList.Height, InfiniumFileList.Width);
@@ -385,7 +385,7 @@ namespace Infinium
             else
             {
                 if (InfiniumFileList.Selected > -1)
-                {                                      
+                {
                     bool OK = LightMessageBox.Show(ref TopForm, true,
                         "Удалить?", "Удаление");
 
@@ -401,7 +401,7 @@ namespace Infinium
                         }
                     }
                     else
-                    {                      
+                    {
                         InfiniumFiles.RemoveFile(InfiniumFileList.FileItems[InfiniumFileList.Selected].FileID,
                                                      InfiniumFileList.FileItems[InfiniumFileList.Selected].FolderID,
                                                      InfiniumFileList.FileItems[InfiniumFileList.Selected].Caption);
@@ -411,7 +411,7 @@ namespace Infinium
             }
 
 
-            Thread T = new Thread(delegate()
+            Thread T = new Thread(delegate ()
             {
                 SplashWindow.CreateCoverSplash(InfiniumFileList.Top + UpdatePanel.Top, InfiniumFileList.Left + UpdatePanel.Left,
                                                InfiniumFileList.Height, InfiniumFileList.Width);
@@ -489,7 +489,7 @@ namespace Infinium
                 UploadFileDialog.Dispose();
 
 
-                Thread T = new Thread(delegate()
+                Thread T = new Thread(delegate ()
                 {
                     SplashWindow.CreateCoverSplash(InfiniumFileList.Top + UpdatePanel.Top, InfiniumFileList.Left + UpdatePanel.Left,
                                                    InfiniumFileList.Height, InfiniumFileList.Width);
@@ -509,7 +509,7 @@ namespace Infinium
 
         private void InfiniumFileList_MouseDown(object sender, MouseEventArgs e)
         {
-            
+
         }
 
         private void InfiniumFileList_ItemRightClicked(object sender, int FolderID, int FileID)
@@ -547,7 +547,7 @@ namespace Infinium
 
                 TopForm = null;
                 UploadFileDialog.Dispose();
-            }           
+            }
         }
 
         private void MenuFileSaveFile_Click(object sender, EventArgs e)
@@ -599,7 +599,7 @@ namespace Infinium
                         return;
                 }
 
-                if(r == -1)
+                if (r == -1)
                 {
                     LightMessageBox.Show(ref TopForm, false,
                                     "Копирование папок не поддерживается.", "Копирование файла");
@@ -626,11 +626,11 @@ namespace Infinium
                         if (!OK)
                             return;
                     }
-                    
+
                     PhantomForm PhantomForm = new PhantomForm();
                     PhantomForm.Show();
 
-                    UploadFileForm UploadFileForm = new UploadFileForm(ref InfiniumFiles.FM, ref InfiniumFiles, FolderBrowserDialog.SelectedPath, 
+                    UploadFileForm UploadFileForm = new UploadFileForm(ref InfiniumFiles.FM, ref InfiniumFiles, FolderBrowserDialog.SelectedPath,
                                                                        InfiniumFileList.ItemsDataTable, ref TopForm);
 
                     TopForm = UploadFileForm;
@@ -654,7 +654,7 @@ namespace Infinium
         }
 
         private void MenuFileReplaceFile_Click(object sender, EventArgs e)
-        {            
+        {
             if (InfiniumFiles.CheckFileVersion(InfiniumFileList.FileItems[InfiniumFileList.Selected].FileID, Security.CurrentUserID) == false)
             {
                 InfiniumTips.ShowTip(this, 50, 85, "Файл был кем-то изменен. Замена файла не возможна. Скачайте файл заново, \n" +
@@ -664,7 +664,7 @@ namespace Infinium
 
             if (InfiniumFiles.CheckUploadPending(InfiniumFileList.FileItems[InfiniumFileList.Selected].FileID))//someone uploads
             {
-                InfiniumTips.ShowTip(this, 50,  85, "В настоящее время указанный файл уже обновляется кем-то. Замена файла не возможна. \n" +
+                InfiniumTips.ShowTip(this, 50, 85, "В настоящее время указанный файл уже обновляется кем-то. Замена файла не возможна. \n" +
                                                     "Скачайте файл заново, примените свои изменения, а затем попытайтесь заменить еще раз", 7600);
                 return;
             }
@@ -689,7 +689,7 @@ namespace Infinium
             }
 
 
-            Thread T = new Thread(delegate()
+            Thread T = new Thread(delegate ()
             {
                 SplashWindow.CreateCoverSplash(InfiniumFileList.Top + UpdatePanel.Top, InfiniumFileList.Left + UpdatePanel.Left,
                                                InfiniumFileList.Height, InfiniumFileList.Width);
@@ -734,10 +734,10 @@ namespace Infinium
 
         private void InfiniumFileList_SizeChanged(object sender, EventArgs e)
         {
-            if(InfiniumFileList.FileItems == null)
+            if (InfiniumFileList.FileItems == null)
                 return;
 
-            if(InfiniumFileList.FileItems.Count() == 0)
+            if (InfiniumFileList.FileItems.Count() == 0)
                 return;
 
             HeaderPanel.Width = InfiniumFileList.Width;
@@ -823,7 +823,7 @@ namespace Infinium
 
                 InfiniumFiles.SetAttributes(Path.GetFileName(UploadFileDialog.FileNames[0]), InfiniumFileList.Entered, bFirstSign);
 
-                Thread T = new Thread(delegate()
+                Thread T = new Thread(delegate ()
                 {
                     SplashWindow.CreateCoverSplash(InfiniumFileList.Top + UpdatePanel.Top, InfiniumFileList.Left + UpdatePanel.Left,
                                                    InfiniumFileList.Height, InfiniumFileList.Width);
@@ -885,7 +885,7 @@ namespace Infinium
             PhantomForm PhantomForm = new PhantomForm();
             PhantomForm.Show();
 
-            AuthorizationForm AuthorizationForm = new AuthorizationForm( ref TopForm);
+            AuthorizationForm AuthorizationForm = new AuthorizationForm(ref TopForm);
 
             TopForm = AuthorizationForm;
 
@@ -919,7 +919,7 @@ namespace Infinium
 
                 InfiniumTips.ShowTip(this, 50, 85, "Подписано", 4000);
             }
-            
+
         }
 
         private void InfiniumDocumentAttributesView_ReadButtonClicked(object sender, int UserID, int FileID)
@@ -1002,7 +1002,7 @@ namespace Infinium
             DocumentsPermissionsUsersList.Refresh();
         }
 
-    
+
         private void MinimizeButton_Click(object sender, EventArgs e)
         {
             FormEvent = eHide;
@@ -1018,7 +1018,7 @@ namespace Infinium
         {
             if (bNeedSplash)
             {
-                Thread T = new Thread(delegate()
+                Thread T = new Thread(delegate ()
                 {
                     SplashWindow.CreateCoverSplash(InfiniumFileList.Top + UpdatePanel.Top, InfiniumFileList.Left + UpdatePanel.Left,
                                                    InfiniumFileList.Height, InfiniumFileList.Width);
@@ -1057,7 +1057,7 @@ namespace Infinium
 
             if (FolderID == 4)//клиенты
             {
-                if(InfiniumFiles.CheckInheritedPermission(Security.CurrentUserID, 4))
+                if (InfiniumFiles.CheckInheritedPermission(Security.CurrentUserID, 4))
                     SendMailButton.Visible = true;
             }
             else
@@ -1084,7 +1084,7 @@ namespace Infinium
 
         private void button1_Click_2(object sender, EventArgs e)
         {
-            
+
 
         }
 
@@ -1127,7 +1127,7 @@ namespace Infinium
             //    }
             //}
 
-            
+
         }
 
         private void SendMailButton_Click(object sender, EventArgs e)
@@ -1160,50 +1160,50 @@ namespace Infinium
             {
                 openFileDialog1.ShowDialog();
             }
-            
-                if (InfiniumFileList.Entered == 4)
-                {
-                    i = InfiniumFiles.GetCurrentClientFolder(InfiniumFileList.FileItems[InfiniumFileList.Selected].FolderID);
-                }
-                else
-                    i = InfiniumFiles.GetCurrentClientFolder(InfiniumFileList.Entered);
 
-                if (i == -1)
-                {
-                    InfiniumTips.ShowTip(this, 50, 85, "Невозможно определить клиента", 4000);
-                    return;
-                }
+            if (InfiniumFileList.Entered == 4)
+            {
+                i = InfiniumFiles.GetCurrentClientFolder(InfiniumFileList.FileItems[InfiniumFileList.Selected].FolderID);
+            }
+            else
+                i = InfiniumFiles.GetCurrentClientFolder(InfiniumFileList.Entered);
 
-                string r = InfiniumFiles.SendEmailNotifyClient(i, openFileDialog1.FileNames);
+            if (i == -1)
+            {
+                InfiniumTips.ShowTip(this, 50, 85, "Невозможно определить клиента", 4000);
+                return;
+            }
 
-                if (r == "-1")
-                {
-                    LightMessageBox.Show(ref TopForm, false, "У клиента не указан Email", "Уведомление");
-                    //InfiniumTips.ShowTip(this, 50, 85, "У клиента не указан Email", 3000);
-                    return;
-                }
-                else
-                    if (r == "1")
-                    {
-                        LightMessageBox.Show(ref TopForm, false, "Уведомление успешно отправлено", "Уведомление");
-                        //InfiniumTips.ShowTip(this, 50, 85, "Уведомление успешно отправлено", 3000);
-                        return;
-                    }
-                    else
-                        {
-                            LightMessageBox.Show(ref TopForm, false, r, "Уведомление");
-                            //InfiniumTips.ShowTip(this, 50, 85, "Не подключения к интернет", 3000);
-                            return;
-                        }
+            string r = InfiniumFiles.SendEmailNotifyClient(i, openFileDialog1.FileNames);
 
-                
+            if (r == "-1")
+            {
+                LightMessageBox.Show(ref TopForm, false, "У клиента не указан Email", "Уведомление");
+                //InfiniumTips.ShowTip(this, 50, 85, "У клиента не указан Email", 3000);
+                return;
+            }
+            else
+                if (r == "1")
+            {
+                LightMessageBox.Show(ref TopForm, false, "Уведомление успешно отправлено", "Уведомление");
+                //InfiniumTips.ShowTip(this, 50, 85, "Уведомление успешно отправлено", 3000);
+                return;
+            }
+            else
+            {
+                LightMessageBox.Show(ref TopForm, false, r, "Уведомление");
+                //InfiniumTips.ShowTip(this, 50, 85, "Не подключения к интернет", 3000);
+                return;
+            }
 
-                
+
+
+
         }
 
         private void button1_Click_5(object sender, EventArgs e)
         {
-            using(System.Data.SqlClient.SqlDataAdapter DA = new System.Data.SqlClient.SqlDataAdapter("SELECT FolderID FROM Folders WHERE FolderID > 192 AND FolderID < 1080", ConnectionStrings.LightConnectionString))
+            using (System.Data.SqlClient.SqlDataAdapter DA = new System.Data.SqlClient.SqlDataAdapter("SELECT FolderID FROM Folders WHERE FolderID > 192 AND FolderID < 1080", ConnectionStrings.LightConnectionString))
             {
                 using (DataTable DT = new DataTable())
                 {
@@ -1265,11 +1265,11 @@ namespace Infinium
                             if (Row["RootFolderID"].ToString() == "0")
                                 Row["ParentFolderID"] = 0;
                             else
-                            { 
+                            {
                                 int iR = -1;
-                                int iF = Convert.ToInt32(Row["RootFolderID"]); 
+                                int iF = Convert.ToInt32(Row["RootFolderID"]);
 
-                                for(int i = 0; i < 100; i++)
+                                for (int i = 0; i < 100; i++)
                                 {
                                     iR = InfiniumFiles.GetRootFolderID(iF);
 

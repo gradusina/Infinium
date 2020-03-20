@@ -89,7 +89,7 @@ namespace Infinium.Modules.Packages
         {
             get { return NewMainOrderID; }
         }
-        
+
         private void Initialize()
         {
             Create();
@@ -542,7 +542,7 @@ namespace Infinium.Modules.Packages
             FrontsOrdersDataGrid.Columns["FrontPrice"].Visible = false;
             FrontsOrdersDataGrid.Columns["InsetPrice"].Visible = false;
             FrontsOrdersDataGrid.Columns["Cost"].Visible = false;
-            FrontsOrdersDataGrid.Columns["IsNonStandard"].Visible = false;            
+            FrontsOrdersDataGrid.Columns["IsNonStandard"].Visible = false;
 
             FrontsOrdersDataGrid.ScrollBars = ScrollBars.Both;
 
@@ -567,7 +567,7 @@ namespace Infinium.Modules.Packages
             FrontsOrdersDataGrid.Columns["TechnoProfilesColumn"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             FrontsOrdersDataGrid.Columns["TechnoFrameColorsColumn"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             FrontsOrdersDataGrid.Columns["TechnoInsetTypesColumn"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            FrontsOrdersDataGrid.Columns["TechnoInsetColorsColumn"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells; 
+            FrontsOrdersDataGrid.Columns["TechnoInsetColorsColumn"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             FrontsOrdersDataGrid.Columns["Height"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
             FrontsOrdersDataGrid.Columns["Height"].Width = 85;
             FrontsOrdersDataGrid.Columns["Width"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
@@ -646,7 +646,7 @@ namespace Infinium.Modules.Packages
             DecorOrdersDataGrid.Columns["Width"].HeaderText = "Ширина";
             DecorOrdersDataGrid.Columns["Count"].HeaderText = "Кол-во";
             DecorOrdersDataGrid.Columns["Notes"].HeaderText = "Примечание";
-            DecorOrdersDataGrid.Columns["IsSample"].HeaderText = "Образцы";            
+            DecorOrdersDataGrid.Columns["IsSample"].HeaderText = "Образцы";
 
             DecorOrdersDataGrid.Columns["ProductColumn"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             DecorOrdersDataGrid.Columns["ProductColumn"].MinimumWidth = 120;
@@ -794,7 +794,7 @@ namespace Infinium.Modules.Packages
         public void CreateNewFrontsOrder(Infinium.Modules.Packages.SplitOrders SS, int FrontsOrdersID)
         {
             DataTable TempDataTable = new DataTable();
-            
+
             using (SqlDataAdapter DA = new SqlDataAdapter("SELECT * FROM FrontsOrders WHERE FrontsOrdersID = " + FrontsOrdersID,
                 ConnectionStrings.MarketingOrdersConnectionString))
             {
@@ -862,7 +862,7 @@ namespace Infinium.Modules.Packages
         public void CreateNewDecorOrder(Infinium.Modules.Packages.SplitOrders SS, int DecorOrderID)
         {
             DataTable TempDataTable = new DataTable();
-            
+
             using (SqlDataAdapter DA = new SqlDataAdapter("SELECT * FROM DecorOrders WHERE DecorOrderID = " + DecorOrderID,
                 ConnectionStrings.MarketingOrdersConnectionString))
             {
@@ -879,7 +879,7 @@ namespace Infinium.Modules.Packages
                 }
             }
 
-            
+
             using (SqlDataAdapter DA = new SqlDataAdapter("SELECT TOP 0 * FROM DecorOrders",
                 ConnectionStrings.MarketingOrdersConnectionString))
             {
@@ -890,7 +890,7 @@ namespace Infinium.Modules.Packages
                         DA.Fill(DT);
 
                         if (SS.IsEqual)
-                        {                            
+                        {
                             for (int i = 0; i < SS.OrdersCount - 1; i++)
                             {
                                 DataRow Row = DT.NewRow();
@@ -927,7 +927,7 @@ namespace Infinium.Modules.Packages
             }
             TempDataTable.Dispose();
         }
-               
+
 
         #region Фильтры
 
@@ -1062,22 +1062,22 @@ namespace Infinium.Modules.Packages
         /// </summary>
         private int GetNewMainOrderID()
         {
-                int NewID = -1;
-                using (SqlDataAdapter DA = new SqlDataAdapter("SELECT MAX(MainOrderID) AS MainOrderID FROM MainOrders WHERE MegaOrderID = " + CurrentMegaOrderID,
-                    ConnectionStrings.MarketingOrdersConnectionString))
+            int NewID = -1;
+            using (SqlDataAdapter DA = new SqlDataAdapter("SELECT MAX(MainOrderID) AS MainOrderID FROM MainOrders WHERE MegaOrderID = " + CurrentMegaOrderID,
+                ConnectionStrings.MarketingOrdersConnectionString))
+            {
+                using (DataTable DT = new DataTable())
                 {
-                    using (DataTable DT = new DataTable())
-                    {
-                        DA.Fill(DT);
+                    DA.Fill(DT);
 
-                        if (DT.Rows[0]["MainOrderID"] == DBNull.Value)
-                            return 1;
+                    if (DT.Rows[0]["MainOrderID"] == DBNull.Value)
+                        return 1;
 
-                        NewID = Convert.ToInt32(DT.Rows[0]["MainOrderID"]);
-                    }
+                    NewID = Convert.ToInt32(DT.Rows[0]["MainOrderID"]);
                 }
+            }
 
-                return NewID;
+            return NewID;
         }
 
         //true, если хотя бы одна упаковка отмечена

@@ -1,14 +1,16 @@
-﻿using System;
-using System.Linq;
-using System.Data;
-using System.Data.SqlClient;
-using System.Windows.Forms;
-using ComponentFactory.Krypton.Toolkit;
-using System.IO;
-using NPOI.HSSF.UserModel;
+﻿using ComponentFactory.Krypton.Toolkit;
+
 using NPOI.HPSF;
+using NPOI.HSSF.UserModel;
 using NPOI.HSSF.UserModel.Contrib;
 using NPOI.HSSF.Util;
+
+using System;
+using System.Data;
+using System.Data.SqlClient;
+using System.IO;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace Infinium.Modules.ZOV.ClientErrors
 {
@@ -104,7 +106,7 @@ namespace Infinium.Modules.ZOV.ClientErrors
                 DA.Fill(DocNumbersDT);
             }
 
-            using (SqlDataAdapter DA = new SqlDataAdapter("SELECT TOP 0 MainOrderID, DocNumber FROM ClientErrorsWriteOffs", 
+            using (SqlDataAdapter DA = new SqlDataAdapter("SELECT TOP 0 MainOrderID, DocNumber FROM ClientErrorsWriteOffs",
                 ConnectionStrings.ZOVOrdersConnectionString))
             {
                 DA.Fill(SearchMainOrdersDT);
@@ -193,7 +195,7 @@ namespace Infinium.Modules.ZOV.ClientErrors
 
         public void SaveClientErrors()
         {
-            using (SqlDataAdapter DA = new SqlDataAdapter("SELECT TOP 0 * FROM ClientErrorsWriteOffs", 
+            using (SqlDataAdapter DA = new SqlDataAdapter("SELECT TOP 0 * FROM ClientErrorsWriteOffs",
                 ConnectionStrings.ZOVOrdersConnectionString))
             {
                 using (SqlCommandBuilder CB = new SqlCommandBuilder(DA))
@@ -484,7 +486,7 @@ namespace Infinium.Modules.ZOV.ClientErrors
         private int GetMegaOrderByDispatchDate(DateTime DispatchDate)
         {
             int MegaOrderID = 0;
-            using (SqlDataAdapter DA = new SqlDataAdapter("SELECT MegaOrderID FROM MegaOrders WHERE DispatchDate='" + 
+            using (SqlDataAdapter DA = new SqlDataAdapter("SELECT MegaOrderID FROM MegaOrders WHERE DispatchDate='" +
                 Convert.ToDateTime(DispatchDate).ToString("yyyy-MM-dd") + "'", ConnectionStrings.ZOVOrdersConnectionString))
             {
                 using (DataTable DT = new DataTable())
@@ -900,7 +902,7 @@ namespace Infinium.Modules.ZOV.ClientErrors
             ToAssemblyOrdersDT = new DataTable();
             FromAssemblyOrdersDT = new DataTable();
             NotPaidOrdersDT = new DataTable();
-            
+
             ReportViewBS = new BindingSource();
         }
 
@@ -1142,7 +1144,7 @@ namespace Infinium.Modules.ZOV.ClientErrors
             for (int i = 0; i < Table.Rows.Count; i++)
             {
                 ZOVReport = 0;
-                DeductionsCost = 0; 
+                DeductionsCost = 0;
                 DateTime DispatchDate = Convert.ToDateTime(Table.Rows[i]["DispatchDate"]);
                 DataRow[] irows = ReportCalculationsDT.Select("DispatchDate='" + DispatchDate.ToString("yyyy-MM-dd") + "'");
                 foreach (DataRow item in irows)
@@ -1161,7 +1163,7 @@ namespace Infinium.Modules.ZOV.ClientErrors
                 }
                 OrdersNeedCalculate(DispatchDate, TempMainOrdersDT, ZOVReport, DeductionsCost);
             }
-            
+
             decimal PaymentPlan = 0;
             decimal DispatchedCost = 0;
             decimal SummaryReport = 0;

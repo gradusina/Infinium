@@ -1,8 +1,9 @@
-﻿using System;
+﻿using Infinium.Modules.TechnologyCatalog;
+
+using System;
 using System.Data;
 using System.Drawing;
 using System.Windows.Forms;
-using Infinium.Modules.TechnologyCatalog;
 
 namespace Infinium
 {
@@ -44,7 +45,7 @@ namespace Infinium
         }
 
         public AddNewTechStoreItemForm(ref TechStoreItemsManager tStorageItemsManager,
-            string sTechStoreName, string sTechStoreSubGroupName, string sSubGroupNotes, string sSubGroupNotes1, string sSubGroupNotes2, 
+            string sTechStoreName, string sTechStoreSubGroupName, string sSubGroupNotes, string sSubGroupNotes1, string sSubGroupNotes2,
             bool PrintLabels)
         {
             InitializeComponent();
@@ -239,7 +240,7 @@ namespace Infinium
 
         private void NewItemsDataGrid_DataError(object sender, DataGridViewDataErrorEventArgs e)
         {
-            
+
         }
 
         private void NewItemsDataGrid_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
@@ -427,7 +428,7 @@ namespace Infinium
             int LabelsHeight = Convert.ToInt32(NewItemsDataGrid.SelectedRows[0].Cells["Height"].Value);
             int LabelsWidth = Convert.ToInt32(NewItemsDataGrid.SelectedRows[0].Cells["Width"].Value);
             string Color = NewItemsDataGrid.SelectedRows[0].Cells["CoverColumn"].FormattedValue.ToString();
-            
+
             int DecorConfigID = 0;
             CabFurDT.Clear();
             DataRow NewRow = CabFurDT.NewRow();
@@ -445,7 +446,7 @@ namespace Infinium
             NewRow["LabelsCount"] = LabelsCount;
             NewRow["PositionsCount"] = PositionsCount;
             NewRow["DecorConfigID"] = DecorConfigID;
-            
+
             CabFurDT.Rows.Add(NewRow);
 
             CabFurLabelLabelManager.ClearLabelInfo();

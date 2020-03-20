@@ -1,8 +1,9 @@
-﻿using System;
+﻿using Infinium.Modules.WorkAssignments;
+
+using System;
 using System.Drawing;
-using System.Windows.Forms;
 using System.Threading;
-using Infinium.Modules.WorkAssignments;
+using System.Windows.Forms;
 
 namespace Infinium
 {
@@ -146,7 +147,7 @@ namespace Infinium
             if (NeedSplash)
             {
                 NeedSplash = false;
-                Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
+                Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
                 T.Start();
                 while (!SplashWindow.bSmallCreated) ;
                 TafelManager.FilterOrdersByMainOrder(GroupType, MainOrderID);

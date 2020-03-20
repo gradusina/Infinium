@@ -1,11 +1,12 @@
-﻿using System;
+﻿using Infinium.Modules.Permits;
+
+using System;
 using System.Data;
 using System.Drawing;
-using System.Windows.Forms;
-using System.Threading;
 using System.Globalization;
-using Infinium.Modules.Permits;
 using System.Runtime.InteropServices;
+using System.Threading;
+using System.Windows.Forms;
 
 namespace Infinium
 {
@@ -62,7 +63,7 @@ namespace Infinium
         {
             InitializeComponent();
             LightStartForm = tLightStartForm;
-            
+
             this.MaximumSize = Screen.PrimaryScreen.WorkingArea.Size;
 
             Initialize();
@@ -396,7 +397,7 @@ namespace Infinium
             pnlScanInput.Visible = false;
 
             dgvPermits.SelectionChanged += new EventHandler(dgvPermits_SelectionChanged);
-            dgvPermitsDates.SelectionChanged += new EventHandler(dgvPermitsDates_SelectionChanged); 
+            dgvPermitsDates.SelectionChanged += new EventHandler(dgvPermitsDates_SelectionChanged);
             GetPermitInformation();
             pnlScanInput.SendToBack();
 
@@ -537,7 +538,7 @@ namespace Infinium
 
             if (!NewPermit.bCreatePermit)
                 return;
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
             T.Start();
 
             while (!SplashWindow.bSmallCreated) ;
@@ -607,7 +608,7 @@ namespace Infinium
 
             if (Convert.ToBoolean(dgvPermits.SelectedRows[0].Cells["OutputDone"].Value))
                 return;
-            
+
             bool OKCancel = Infinium.LightMessageBox.Show(ref TopForm, true,
                     "Пропуск будет удален. Продолжить?",
                     "Удаление пропуска");
@@ -617,7 +618,7 @@ namespace Infinium
 
             int PermitID = Convert.ToInt32(dgvPermits.SelectedRows[0].Cells["VisitorPermitID"].Value);
 
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
             T.Start();
 
             while (!SplashWindow.bSmallCreated) ;
@@ -730,7 +731,7 @@ namespace Infinium
 
         private void cbxMonths_SelectionChangeCommitted(object sender, EventArgs e)
         {
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
             T.Start();
 
             while (!SplashWindow.bSmallCreated) ;
@@ -743,7 +744,7 @@ namespace Infinium
 
         private void cbxYears_SelectionChangeCommitted(object sender, EventArgs e)
         {
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
             T.Start();
 
             while (!SplashWindow.bSmallCreated) ;
@@ -948,7 +949,7 @@ namespace Infinium
 
             int PermitID = Convert.ToInt32(dgvPermits.SelectedRows[0].Cells["VisitorPermitID"].Value);
 
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение данных.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение данных.\r\nПодождите..."); });
             T.Start();
 
             while (!SplashWindow.bSmallCreated) ;
@@ -969,7 +970,7 @@ namespace Infinium
 
             int PermitID = Convert.ToInt32(dgvPermits.SelectedRows[0].Cells["VisitorPermitID"].Value);
 
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение данных.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение данных.\r\nПодождите..."); });
             T.Start();
 
             while (!SplashWindow.bSmallCreated) ;
@@ -990,7 +991,7 @@ namespace Infinium
 
             int PermitID = Convert.ToInt32(dgvPermits.SelectedRows[0].Cells["VisitorPermitID"].Value);
 
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение данных.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение данных.\r\nПодождите..."); });
             T.Start();
 
             while (!SplashWindow.bSmallCreated) ;
@@ -1011,7 +1012,7 @@ namespace Infinium
 
             int PermitID = Convert.ToInt32(dgvPermits.SelectedRows[0].Cells["VisitorPermitID"].Value);
 
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение данных.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение данных.\r\nПодождите..."); });
             T.Start();
 
             while (!SplashWindow.bSmallCreated) ;
@@ -1077,7 +1078,7 @@ namespace Infinium
 
                 PrintPermitsManager.Print();
 
-                Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Печать данных.\r\nПодождите..."); });
+                Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Печать данных.\r\nПодождите..."); });
                 T.Start();
 
                 while (!SplashWindow.bSmallCreated) ;
@@ -1111,7 +1112,7 @@ namespace Infinium
 
             int PermitID = Convert.ToInt32(dgvPermits.SelectedRows[0].Cells["VisitorPermitID"].Value);
 
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение данных.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение данных.\r\nПодождите..."); });
             T.Start();
 
             while (!SplashWindow.bSmallCreated) ;
@@ -1132,7 +1133,7 @@ namespace Infinium
 
             int PermitID = Convert.ToInt32(dgvPermits.SelectedRows[0].Cells["VisitorPermitID"].Value);
 
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение данных.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение данных.\r\nПодождите..."); });
             T.Start();
 
             while (!SplashWindow.bSmallCreated) ;
@@ -1198,7 +1199,7 @@ namespace Infinium
                     PermitsManager.FilterPermits(Convert.ToDateTime(VisitDateTime), false, false, false, false, false, false, false, false, false, false, false, true);
             }
         }
-        
+
         private void btnActive_Click(object sender, EventArgs e)
         {
             //panel10.Enabled = false;
@@ -1335,9 +1336,9 @@ namespace Infinium
         {
             label37.Visible = false;
             CheckTimer.Enabled = false;
-            
+
             //if (RoleType != RoleTypes.OrdinaryRole)
-                btnOpenMenu.Visible = true;
+            btnOpenMenu.Visible = true;
             btnBeginScanInput.Visible = true;
             btnBeginScanOutput.Visible = true;
             btnBeginScanInput1.Visible = false;
@@ -1939,7 +1940,7 @@ namespace Infinium
             pnlScanInput.BringToFront();
             pnlScanInput.Visible = true;
         }
-        
+
         private void btnMachinesPermits_Click(object sender, EventArgs e)
         {
             label37.Visible = true;

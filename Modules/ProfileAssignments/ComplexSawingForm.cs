@@ -24,7 +24,7 @@ namespace Infinium
             DecorAssignmentID = iDecorAssignmentID;
             Initialize();
 
-            while (!SplashForm.bCreated);
+            while (!SplashForm.bCreated) ;
         }
 
         private void Initialize()

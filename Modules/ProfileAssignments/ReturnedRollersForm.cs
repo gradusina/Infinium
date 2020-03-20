@@ -468,7 +468,7 @@ namespace Infinium
                 {
                     ProfileAssignmentsManager.AddReturnRoller(DecorAssignmentID, NewDiameter, NewWidth, NewCount);
                     ProfileAssignmentsManager.SaveTransferredRollers();
-                    int ReturnedRollerID = ProfileAssignmentsManager.GetTransferredRollers(DecorAssignmentID); 
+                    int ReturnedRollerID = ProfileAssignmentsManager.GetTransferredRollers(DecorAssignmentID);
 
                     //ProfileAssignmentsManager.AssignmentsStoreManager.AddToManufactureStore(DecorAssignmentID, StoreItemID, Length, NewWidth, Height, Thickness,
                     //    NewDiameter, Admission, Capacity, Weight, ColorID, PatinaID, -1, NewCount, FactoryID, Notes, ReturnedRollerID);

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Data;
-using System.Windows.Forms;
 using System.IO;
+using System.Windows.Forms;
 
 namespace Infinium
 {
@@ -50,7 +50,7 @@ namespace Infinium
 
             while (!SplashForm.bCreated) ;
         }
-        
+
         private void Initialize()
         {
             ToolsSellerInfoDataGrid.Columns["Name"].MinimumWidth = 150;
@@ -71,7 +71,7 @@ namespace Infinium
             ToolsSellerInfoDataGrid.Columns["Phone"].HeaderText = "Телефон";
             ToolsSellerInfoDataGrid.Columns["Email"].HeaderText = "E-mail";
             ToolsSellerInfoDataGrid.Columns["ICQ"].HeaderText = "ICQ";
-            ToolsSellerInfoDataGrid.Columns["Skype"].HeaderText = "Skype";  
+            ToolsSellerInfoDataGrid.Columns["Skype"].HeaderText = "Skype";
         }
 
         protected override void WndProc(ref Message m)
@@ -163,7 +163,7 @@ namespace Infinium
         private void MenuCloseButton_Click(object sender, EventArgs e)
         {
             FormEvent = eClose;
-            AnimateTimer.Enabled = true;            
+            AnimateTimer.Enabled = true;
         }
 
         private void SaveButton_Click(object sender, EventArgs e)

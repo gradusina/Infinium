@@ -2,8 +2,8 @@
 using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Windows.Forms;
 using System.Threading;
+using System.Windows.Forms;
 
 namespace Infinium
 {
@@ -27,7 +27,7 @@ namespace Infinium
         MarketingSplitPackagesForm SplitPackagesForm;
         Form TopForm = null;
         LightStartForm LightStartForm;
-        
+
 
         private Modules.Packages.Marketing.MarketingPackagesAllocManager PackagesOrdersManager;
 
@@ -36,14 +36,14 @@ namespace Infinium
             InitializeComponent();
             LightStartForm = tLightStartForm;
 
-            
+
             this.MaximumSize = Screen.PrimaryScreen.WorkingArea.Size;
 
             Initialize();
             PackagesOrdersManager.CheckPackages();
             PackedCheckButton.Checked = false;
             Filter();
-            while (!SplashForm.bCreated);
+            while (!SplashForm.bCreated) ;
         }
 
         private void MarketingPackagesAllocTPSForm_Shown(object sender, EventArgs e)
@@ -66,17 +66,17 @@ namespace Infinium
 
                     if (FormEvent == eClose)
                     {
-                       
+
                         LightStartForm.CloseForm(this);
                     }
 
                     if (FormEvent == eHide)
                     {
-                        
+
                         LightStartForm.HideForm(this);
                     }
 
-                    
+
                     return;
                 }
 
@@ -100,16 +100,16 @@ namespace Infinium
 
                     if (FormEvent == eClose)
                     {
-                       
+
                         LightStartForm.CloseForm(this);
                     }
 
                     if (FormEvent == eHide)
                     {
-                        
+
                         LightStartForm.HideForm(this);
                     }
-                    
+
                 }
 
                 return;
@@ -130,7 +130,7 @@ namespace Infinium
                 return;
             }
         }
-      
+
 
 
         private void NavigateMenuCloseButton_Click(object sender, EventArgs e)
@@ -169,7 +169,7 @@ namespace Infinium
                         if (NeedSplash)
                         {
                             NeedSplash = false;
-                            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
+                            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
                             T.Start();
 
                             while (!SplashWindow.bSmallCreated) ;
@@ -259,47 +259,67 @@ namespace Infinium
                 switch (e.KeyCode)
                 {
                     case Keys.NumPad1:
-                        { c = 1; } break;
+                        { c = 1; }
+                        break;
                     case Keys.NumPad2:
-                        { c = 2; } break;
+                        { c = 2; }
+                        break;
                     case Keys.NumPad3:
-                        { c = 3; } break;
+                        { c = 3; }
+                        break;
                     case Keys.NumPad4:
-                        { c = 4; } break;
+                        { c = 4; }
+                        break;
                     case Keys.NumPad5:
-                        { c = 5; } break;
+                        { c = 5; }
+                        break;
                     case Keys.NumPad6:
-                        { c = 6; } break;
+                        { c = 6; }
+                        break;
                     case Keys.NumPad7:
-                        { c = 7; } break;
+                        { c = 7; }
+                        break;
                     case Keys.NumPad8:
-                        { c = 8; } break;
+                        { c = 8; }
+                        break;
                     case Keys.NumPad9:
-                        { c = 9; } break;
+                        { c = 9; }
+                        break;
                     case Keys.NumPad0:
-                        { c = 0; } break;
+                        { c = 0; }
+                        break;
 
 
                     case Keys.D1:
-                        { c = 1; } break;
+                        { c = 1; }
+                        break;
                     case Keys.D2:
-                        { c = 2; } break;
+                        { c = 2; }
+                        break;
                     case Keys.D3:
-                        { c = 3; } break;
+                        { c = 3; }
+                        break;
                     case Keys.D4:
-                        { c = 4; } break;
+                        { c = 4; }
+                        break;
                     case Keys.D5:
-                        { c = 5; } break;
+                        { c = 5; }
+                        break;
                     case Keys.D6:
-                        { c = 6; } break;
+                        { c = 6; }
+                        break;
                     case Keys.D7:
-                        { c = 7; } break;
+                        { c = 7; }
+                        break;
                     case Keys.D8:
-                        { c = 8; } break;
+                        { c = 8; }
+                        break;
                     case Keys.D9:
-                        { c = 9; } break;
+                        { c = 9; }
+                        break;
                     case Keys.D0:
-                        { c = 0; } break;
+                        { c = 0; }
+                        break;
                 }
 
                 string r = MainOrdersFrontsOrdersDataGrid.SelectedRows[0].Cells["PackNumber"].FormattedValue.ToString();
@@ -341,47 +361,67 @@ namespace Infinium
                 switch (e.KeyCode)
                 {
                     case Keys.NumPad1:
-                        { c = 1; } break;
+                        { c = 1; }
+                        break;
                     case Keys.NumPad2:
-                        { c = 2; } break;
+                        { c = 2; }
+                        break;
                     case Keys.NumPad3:
-                        { c = 3; } break;
+                        { c = 3; }
+                        break;
                     case Keys.NumPad4:
-                        { c = 4; } break;
+                        { c = 4; }
+                        break;
                     case Keys.NumPad5:
-                        { c = 5; } break;
+                        { c = 5; }
+                        break;
                     case Keys.NumPad6:
-                        { c = 6; } break;
+                        { c = 6; }
+                        break;
                     case Keys.NumPad7:
-                        { c = 7; } break;
+                        { c = 7; }
+                        break;
                     case Keys.NumPad8:
-                        { c = 8; } break;
+                        { c = 8; }
+                        break;
                     case Keys.NumPad9:
-                        { c = 9; } break;
+                        { c = 9; }
+                        break;
                     case Keys.NumPad0:
-                        { c = 0; } break;
+                        { c = 0; }
+                        break;
 
 
                     case Keys.D1:
-                        { c = 1; } break;
+                        { c = 1; }
+                        break;
                     case Keys.D2:
-                        { c = 2; } break;
+                        { c = 2; }
+                        break;
                     case Keys.D3:
-                        { c = 3; } break;
+                        { c = 3; }
+                        break;
                     case Keys.D4:
-                        { c = 4; } break;
+                        { c = 4; }
+                        break;
                     case Keys.D5:
-                        { c = 5; } break;
+                        { c = 5; }
+                        break;
                     case Keys.D6:
-                        { c = 6; } break;
+                        { c = 6; }
+                        break;
                     case Keys.D7:
-                        { c = 7; } break;
+                        { c = 7; }
+                        break;
                     case Keys.D8:
-                        { c = 8; } break;
+                        { c = 8; }
+                        break;
                     case Keys.D9:
-                        { c = 9; } break;
+                        { c = 9; }
+                        break;
                     case Keys.D0:
-                        { c = 0; } break;
+                        { c = 0; }
+                        break;
                 }
 
                 string r = MainOrdersDecorOrdersDataGrid.SelectedRows[0].Cells["PackNumber"].FormattedValue.ToString();
@@ -413,7 +453,7 @@ namespace Infinium
         private void SavePackagesButton_Click(object sender, EventArgs e)
         {
             NeedSplash = false;
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение упаковок.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение упаковок.\r\nПодождите..."); });
             T.Start();
 
             while (!SplashWindow.bSmallCreated) ;
@@ -523,7 +563,7 @@ namespace Infinium
         private void PackedCheckButton_CheckedChanged(object sender, EventArgs e)
         {
             NeedSplash = false;
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
             T.Start();
 
             while (!SplashWindow.bSmallCreated) ;
@@ -533,11 +573,11 @@ namespace Infinium
                 SmallWaitForm.CloseS = true;
             NeedSplash = true;
         }
-        
+
         private void NonPackedCheckButton_CheckedChanged(object sender, EventArgs e)
         {
             NeedSplash = false;
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
             T.Start();
 
             while (!SplashWindow.bSmallCreated) ;
@@ -630,7 +670,7 @@ namespace Infinium
                         }
 
                         NeedSplash = false;
-                        Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Очистка упаковок.\r\nПодождите..."); });
+                        Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Очистка упаковок.\r\nПодождите..."); });
                         T.Start();
 
                         while (!SplashWindow.bSmallCreated) ;
@@ -655,7 +695,7 @@ namespace Infinium
                 return;
 
             NeedSplash = false;
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение упаковок.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение упаковок.\r\nПодождите..."); });
             T.Start();
 
             while (!SplashWindow.bSmallCreated) ;
@@ -732,7 +772,7 @@ namespace Infinium
             int MegaOrderID = Convert.ToInt32(((DataRowView)PackagesOrdersManager.MegaOrdersBindingSource.Current).Row["MegaOrderID"]);
             int MainOrderID = Convert.ToInt32(((DataRowView)PackagesOrdersManager.MainOrdersBindingSource.Current).Row["MainOrderID"]);
 
-            Thread T = new Thread(delegate() { SplashWindow.CreateSplash(); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSplash(); });
             T.Start();
 
             while (!SplashForm.bCreated) ;

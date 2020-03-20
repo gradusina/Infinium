@@ -1,6 +1,7 @@
-﻿using System;
+﻿using Infinium.Modules.Marketing.WeeklyPlanning;
+
+using System;
 using System.Windows.Forms;
-using Infinium.Modules.Marketing.WeeklyPlanning;
 
 namespace Infinium
 {
@@ -16,7 +17,7 @@ namespace Infinium
 
         Form MainForm = null;
 
-         BatchManager BatchManager;
+        BatchManager BatchManager;
 
         public MarketingBatchSelectMenu(Form tMainForm,
             BatchManager tBatchManager, int iFactoryID)

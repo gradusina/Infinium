@@ -1,10 +1,11 @@
-﻿using System;
+﻿using Infinium.Modules.DyeingAssignments;
+
+using System;
 using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Windows.Forms;
 using System.Threading;
-using Infinium.Modules.DyeingAssignments;
+using System.Windows.Forms;
 
 namespace Infinium
 {
@@ -48,7 +49,7 @@ namespace Infinium
         {
             InitializeComponent();
             LightStartForm = tLightStartForm;
-            
+
             this.MaximumSize = Screen.PrimaryScreen.WorkingArea.Size;
 
             Initialize();
@@ -146,7 +147,7 @@ namespace Infinium
                 kryptonContextMenuItem13.Visible = false;
             }
 
-            while (!SplashForm.bCreated);
+            while (!SplashForm.bCreated) ;
         }
 
         private bool PermissionGranted(int RoleID)
@@ -187,7 +188,7 @@ namespace Infinium
                         LightStartForm.HideForm(this);
                     }
 
-                    
+
                     return;
                 }
 
@@ -218,7 +219,7 @@ namespace Infinium
                     {
                         LightStartForm.HideForm(this);
                     }
-                    
+
                 }
 
                 return;
@@ -281,7 +282,7 @@ namespace Infinium
             grid.Columns.Add(ControlAssignmentsManager.TechnologyUserColumn);
             grid.Columns.Add(ControlAssignmentsManager.ControlUserColumn);
             grid.Columns.Add(ControlAssignmentsManager.AgreementUserColumn);
-            grid.Columns.Add(ControlAssignmentsManager.PrintUserColumn);  
+            grid.Columns.Add(ControlAssignmentsManager.PrintUserColumn);
             grid.AutoGenerateColumns = false;
 
             if (grid.Columns.Contains("CreationUserID"))
@@ -564,7 +565,7 @@ namespace Infinium
 
             ControlAssignmentsManager.NewAssignment = true;
             ControlAssignmentsManager.DyeingAssignmentID = 0;
-            Thread T = new Thread(delegate() { SplashWindow.CreateSplash(); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSplash(); });
             T.Start();
 
             while (!SplashForm.bCreated) ;
@@ -612,7 +613,7 @@ namespace Infinium
 
             ControlAssignmentsManager.NewAssignment = true;
             ControlAssignmentsManager.DyeingAssignmentID = 0;
-            Thread T = new Thread(delegate() { SplashWindow.CreateSplash(); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSplash(); });
             T.Start();
 
             while (!SplashForm.bCreated) ;
@@ -625,7 +626,7 @@ namespace Infinium
             ControlAssignmentsManager.UpdateBatches(WorkAssignmentID, FactoryID);
             ControlAssignmentsManager.UpdateBatchMainOrders(WorkAssignmentID, FactoryID);
             ControlAssignmentsManager.SumBatchFrontsSquare();
-            
+
             DyeingAssignmentsCreateForm DyeingAssignmentsForm1 = new DyeingAssignmentsCreateForm(this, ref ControlAssignmentsManager, ref PrintDyeingAssignmentsManager, From, To);
 
             TopForm = DyeingAssignmentsForm1;
@@ -676,7 +677,7 @@ namespace Infinium
             DateTime From = CalendarFrom.SelectionEnd;
             DateTime To = CalendarTo.SelectionEnd;
 
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение данных.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение данных.\r\nПодождите..."); });
             T.Start();
 
             while (!SplashWindow.bSmallCreated) ;
@@ -709,7 +710,7 @@ namespace Infinium
             ControlAssignmentsManager.DyeingAssignmentID = DyeingAssignmentID;
             ControlAssignmentsManager.TechCatalogOperationsGroupID = TechCatalogOperationsGroupID;
 
-            Thread T = new Thread(delegate() { SplashWindow.CreateSplash(); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSplash(); });
             T.Start();
 
             while (!SplashForm.bCreated) ;
@@ -735,7 +736,7 @@ namespace Infinium
             DyeingAssignmentsForm1.Dispose();
 
             TopForm = null;
-            
+
             ControlAssignmentsManager.UpdateDyeingAssignments(From, To);
             ControlAssignmentsManager.MoveToDyeingAssignmentID(DyeingAssignmentID);
         }
@@ -764,7 +765,7 @@ namespace Infinium
             ControlAssignmentsManager.DyeingAssignmentID = DyeingAssignmentID;
             ControlAssignmentsManager.TechCatalogOperationsGroupID = TechCatalogOperationsGroupID;
 
-            Thread T = new Thread(delegate() { SplashWindow.CreateSplash(); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSplash(); });
             T.Start();
 
             while (!SplashForm.bCreated) ;
@@ -794,7 +795,7 @@ namespace Infinium
 
         private void kryptonContextMenuItem5_Click(object sender, EventArgs e)
         {
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Создание отчета.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Создание отчета.\r\nПодождите..."); });
             T.Start();
             while (!SplashWindow.bSmallCreated) ;
             int DyeingAssignmentID = 0;
@@ -853,7 +854,7 @@ namespace Infinium
             if (dgvDyeingAssignments.SelectedRows.Count != 0 && dgvDyeingAssignments.SelectedRows[0].Cells["DyeingAssignmentID"].Value != DBNull.Value)
                 DyeingAssignmentID = Convert.ToInt32(dgvDyeingAssignments.SelectedRows[0].Cells["DyeingAssignmentID"].Value);
 
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Создание отчета.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Создание отчета.\r\nПодождите..."); });
             T.Start();
             while (!SplashWindow.bSmallCreated) ;
 
@@ -901,7 +902,7 @@ namespace Infinium
             ControlAssignmentsManager.DyeingAssignmentID = DyeingAssignmentID;
             ControlAssignmentsManager.TechCatalogOperationsGroupID = TechCatalogOperationsGroupID;
 
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Создание отчета.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Создание отчета.\r\nПодождите..."); });
             T.Start();
             while (!SplashWindow.bSmallCreated) ;
             CreateBarcodes(DyeingAssignmentID, TechCatalogOperationsGroupID);
@@ -926,7 +927,7 @@ namespace Infinium
             DateTime From = CalendarFrom.SelectionEnd;
             DateTime To = CalendarTo.SelectionEnd;
 
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение данных.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение данных.\r\nПодождите..."); });
             T.Start();
             while (!SplashWindow.bSmallCreated) ;
 
@@ -951,7 +952,7 @@ namespace Infinium
             if (dgvDyeingAssignments.SelectedRows.Count != 0 && dgvDyeingAssignments.SelectedRows[0].Cells["DyeingAssignmentID"].Value != DBNull.Value)
                 DyeingAssignmentID = Convert.ToInt32(dgvDyeingAssignments.SelectedRows[0].Cells["DyeingAssignmentID"].Value);
 
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение данных.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение данных.\r\nПодождите..."); });
             T.Start();
             while (!SplashWindow.bSmallCreated) ;
 
@@ -975,7 +976,7 @@ namespace Infinium
             if (dgvWorkAssignments.SelectedRows.Count != 0 && dgvWorkAssignments.SelectedRows[0].Cells["WorkAssignmentID"].Value != DBNull.Value)
                 WorkAssignmentID = Convert.ToInt32(dgvWorkAssignments.SelectedRows[0].Cells["WorkAssignmentID"].Value);
 
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение данных.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение данных.\r\nПодождите..."); });
             T.Start();
             while (!SplashWindow.bSmallCreated) ;
 
@@ -1003,7 +1004,7 @@ namespace Infinium
             if (dgvWorkAssignments.SelectedRows.Count != 0 && dgvWorkAssignments.SelectedRows[0].Cells["WorkAssignmentID"].Value != DBNull.Value)
                 WorkAssignmentID = Convert.ToInt32(dgvWorkAssignments.SelectedRows[0].Cells["WorkAssignmentID"].Value);
 
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение данных.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение данных.\r\nПодождите..."); });
             T.Start();
             while (!SplashWindow.bSmallCreated) ;
 
@@ -1031,7 +1032,7 @@ namespace Infinium
             if (dgvWorkAssignments.SelectedRows.Count != 0 && dgvWorkAssignments.SelectedRows[0].Cells["WorkAssignmentID"].Value != DBNull.Value)
                 WorkAssignmentID = Convert.ToInt32(dgvWorkAssignments.SelectedRows[0].Cells["WorkAssignmentID"].Value);
 
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение данных.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение данных.\r\nПодождите..."); });
             T.Start();
             while (!SplashWindow.bSmallCreated) ;
 
@@ -1056,7 +1057,7 @@ namespace Infinium
             if (dgvDyeingAssignments.SelectedRows.Count != 0 && dgvDyeingAssignments.SelectedRows[0].Cells["DyeingAssignmentID"].Value != DBNull.Value)
                 DyeingAssignmentID = Convert.ToInt32(dgvDyeingAssignments.SelectedRows[0].Cells["DyeingAssignmentID"].Value);
 
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение данных.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение данных.\r\nПодождите..."); });
             T.Start();
             while (!SplashWindow.bSmallCreated) ;
 
@@ -1077,7 +1078,7 @@ namespace Infinium
             if (dgvDyeingAssignments.SelectedRows.Count != 0 && dgvDyeingAssignments.SelectedRows[0].Cells["DyeingAssignmentID"].Value != DBNull.Value)
                 DyeingAssignmentID = Convert.ToInt32(dgvDyeingAssignments.SelectedRows[0].Cells["DyeingAssignmentID"].Value);
 
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение данных.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение данных.\r\nПодождите..."); });
             T.Start();
             while (!SplashWindow.bSmallCreated) ;
 
@@ -1098,7 +1099,7 @@ namespace Infinium
             if (dgvDyeingAssignments.SelectedRows.Count != 0 && dgvDyeingAssignments.SelectedRows[0].Cells["DyeingAssignmentID"].Value != DBNull.Value)
                 DyeingAssignmentID = Convert.ToInt32(dgvDyeingAssignments.SelectedRows[0].Cells["DyeingAssignmentID"].Value);
 
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение данных.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение данных.\r\nПодождите..."); });
             T.Start();
             while (!SplashWindow.bSmallCreated) ;
 
@@ -1122,7 +1123,7 @@ namespace Infinium
             if (dgvDyeingAssignments.SelectedRows.Count != 0 && dgvDyeingAssignments.SelectedRows[0].Cells["DyeingAssignmentID"].Value != DBNull.Value)
                 DyeingAssignmentID = Convert.ToInt32(dgvDyeingAssignments.SelectedRows[0].Cells["DyeingAssignmentID"].Value);
 
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение данных.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение данных.\r\nПодождите..."); });
             T.Start();
             while (!SplashWindow.bSmallCreated) ;
 
@@ -1154,7 +1155,7 @@ namespace Infinium
             Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение данных.\r\nПодождите..."); });
             T.Start();
             while (!SplashWindow.bSmallCreated) ;
-            
+
             ControlAssignmentsManager.UpdateDyeingAssignments(From, To);
             ControlAssignmentsManager.MoveToDyeingAssignmentID(DyeingAssignmentID);
 

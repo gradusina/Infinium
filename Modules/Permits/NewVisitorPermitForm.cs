@@ -1,6 +1,7 @@
-﻿using System;
+﻿using Infinium.Modules.Permits;
+
+using System;
 using System.Windows.Forms;
-using Infinium.Modules.Permits;
 
 namespace Infinium
 {
@@ -85,7 +86,7 @@ namespace Infinium
             {
                 NewPermit.AddresseeName = tbAddresseeOutInfinium.Text;
             }
-            NewPermit.Validity = dtpValidity.Value;            
+            NewPermit.Validity = dtpValidity.Value;
             NewPermit.bCreatePermit = true;
             FormEvent = eClose;
             AnimateTimer.Enabled = true;

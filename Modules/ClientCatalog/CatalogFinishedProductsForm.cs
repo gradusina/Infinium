@@ -1,8 +1,8 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Drawing;
-using System.Windows.Forms;
 using System.Threading;
+using System.Windows.Forms;
 
 namespace Infinium
 {
@@ -14,7 +14,7 @@ namespace Infinium
         const int eMainMenu = 4;
 
         bool NeedSplash = false;
-        
+
         int FormEvent = 0;
 
         Form TopForm = null;
@@ -229,7 +229,7 @@ namespace Infinium
             if (ImageID != 0)
             {
                 FinishedImagesCatalogManager.EditImageRowBeforeSaving(ImageID, cbToSite.Checked, cbCatSlider.Checked, cbMainSlider.Checked,
-                    kryptonRichTextBox6.Text, kryptonRichTextBox5.Text, kryptonRichTextBox4.Text, 
+                    kryptonRichTextBox6.Text, kryptonRichTextBox5.Text, kryptonRichTextBox4.Text,
                     kryptonRichTextBox1.Text, kryptonRichTextBox2.Text, kryptonRichTextBox3.Text);
             }
             FinishedImagesCatalogManager.SaveImages();
@@ -240,7 +240,7 @@ namespace Infinium
             while (SplashWindow.bSmallCreated)
                 SmallWaitForm.CloseS = true;
         }
-        
+
         private void btnDeleteImage_Click(object sender, EventArgs e)
         {
             int ImageID = 0;

@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Windows.Forms;
 using System.Threading;
+using System.Windows.Forms;
 
 namespace Infinium
 {
@@ -266,7 +266,7 @@ namespace Infinium
 
         private void btnAddResponsibility_Click(object sender, EventArgs e)
         {
-            Thread T = new Thread(delegate() { SplashWindow.CreateSplash(); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSplash(); });
             T.Start();
 
             int FactoryID = 0;
@@ -301,7 +301,7 @@ namespace Infinium
             FilterPositions();
             FilterUsersResponsibilities();
         }
-        
+
         private void btnDeleteResponsibility_Click(object sender, EventArgs e)
         {
             //bool OKCancel = Infinium.LightMessageBox.Show(ref TopForm, true,

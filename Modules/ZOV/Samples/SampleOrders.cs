@@ -1,11 +1,11 @@
 ﻿using System;
-using System.Linq;
-using System.Data;
-using System.Drawing;
-using System.Data.SqlClient;
-using System.Windows.Forms;
-using System.IO;
 using System.Collections;
+using System.Data;
+using System.Data.SqlClient;
+using System.Drawing;
+using System.IO;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace Infinium.Modules.ZOV.Samples
 {
@@ -3981,7 +3981,7 @@ namespace Infinium.Modules.ZOV.Samples
 
         public Image GetMFoto(int MainOrderID)
         {
-            using (SqlDataAdapter DA = new SqlDataAdapter("SELECT * FROM SamplesFoto WHERE MainOrderID = " + MainOrderID, 
+            using (SqlDataAdapter DA = new SqlDataAdapter("SELECT * FROM SamplesFoto WHERE MainOrderID = " + MainOrderID,
                 ConnectionStrings.MarketingOrdersConnectionString))
             {
                 using (DataTable DT = new DataTable())
@@ -4223,7 +4223,7 @@ namespace Infinium.Modules.ZOV.Samples
                 {
                     using (DataTable DT = new DataTable())
                     {
-                        if (DA.Fill(DT) > 0) 
+                        if (DA.Fill(DT) > 0)
                         {
                             DT.Rows[0]["Foto"] = false;
                             DA.Update(DT);

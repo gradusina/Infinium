@@ -1,4 +1,5 @@
 ﻿using Infinium.Modules.CabFurnitureModule;
+
 using System;
 using System.Data;
 using System.Windows.Forms;
@@ -129,7 +130,7 @@ namespace Infinium
             {
                 Column.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             }
-            
+
             if (dgvCovers.Columns.Contains("TechStoreSubGroupName"))
                 dgvCovers.Columns["TechStoreSubGroupName"].Visible = false;
             if (dgvCovers.Columns.Contains("CreationUserID"))

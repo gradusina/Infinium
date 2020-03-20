@@ -1,8 +1,9 @@
-﻿using System;
-using System.Windows.Forms;
-using System.Threading;
-using Infinium.Modules.TechnologyCatalog;
+﻿using Infinium.Modules.TechnologyCatalog;
+
+using System;
 using System.Drawing;
+using System.Threading;
+using System.Windows.Forms;
 
 namespace Infinium
 {
@@ -137,7 +138,7 @@ namespace Infinium
         {
             dgvGridsSettings();
         }
-        
+
         private void dgvGridsSettings()
         {
             dgvPatina.DataSource = PManager.PatinaBS;
@@ -159,7 +160,7 @@ namespace Infinium
             dgvPatinaRal.Columns["DisplayName"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
 
         }
-        
+
         private void btnSavePatina_Click(object sender, EventArgs e)
         {
             for (int i = 0; i < dgvPatina.Rows.Count; i++)
@@ -183,7 +184,7 @@ namespace Infinium
                 }
             }
 
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение данных.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение данных.\r\nПодождите..."); });
             T.Start();
             while (!SplashWindow.bSmallCreated) ;
 
@@ -211,7 +212,7 @@ namespace Infinium
                 PatinaID = Convert.ToInt32(dgvPatina.SelectedRows[0].Cells["PatinaID"].Value);
             PManager.FilterPatinaRAL(PatinaID);
         }
-        
+
         private void dgvPatinaRal_DefaultValuesNeeded(object sender, DataGridViewRowEventArgs e)
         {
             int PatinaID = -1;

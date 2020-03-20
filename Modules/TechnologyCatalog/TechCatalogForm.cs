@@ -1,12 +1,13 @@
-﻿using System;
+﻿using Infinium.Modules.TechnologyCatalog;
+
+using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Linq;
-using System.Windows.Forms;
-using System.Threading;
 using System.IO;
-using Infinium.Modules.TechnologyCatalog;
-using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Windows.Forms;
 
 namespace Infinium
 {
@@ -43,7 +44,7 @@ namespace Infinium
         bool bPrintLabels = false;
 
         int FormEvent = 0;
-        
+
         public int AttachsCount = 0;
 
         DataTable CabFurDT;
@@ -67,7 +68,7 @@ namespace Infinium
         public BindingSource AttachDocumentsBS;
         public BindingSource TechStoreAttachDocumentsBS;
         public BindingSource ToolsAttachDocumentsBS;
-        
+
         public TechCatalogForm(LightStartForm tLightStartForm)
         {
             InitializeComponent();
@@ -78,16 +79,16 @@ namespace Infinium
 
             this.MaximumSize = Screen.PrimaryScreen.WorkingArea.Size;
             CreateAttachments();
-            
+
             FactoryComboBox.SelectedItem = "Профиль";
             ToolsFactoryComboBox.SelectedItem = "Профиль";
 
             MachineValueParametrsGrid.ReadOnly = false;
 
             Initialize();
-            while(!SplashForm.bCreated);
+            while (!SplashForm.bCreated) ;
         }
-        
+
         private void CreateAttachments()
         {
             AttachDT = new DataTable();
@@ -321,7 +322,7 @@ namespace Infinium
         {
             //TechStoreManager.SaveSellersFromExcel();
             TechCatalogEvents.SaveEvents("Склад: Нажата кнопка Добавление материалов");
-            Thread T = new Thread(delegate() { SplashWindow.CreateSplash(); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSplash(); });
             T.Start();
 
             while (!SplashForm.bCreated) ;
@@ -729,7 +730,7 @@ namespace Infinium
                 MachineValueParametrsGrid.DataSource = null;
                 MachinePhotoPictureBox.Image = null;
                 TechStoreManager.FilterMachinesOperations(0);
-               // TechStoreManager.FilterOperationsOnMachine(0);
+                // TechStoreManager.FilterOperationsOnMachine(0);
             }
         }
 
@@ -817,7 +818,7 @@ namespace Infinium
             if (AllMachinesGrid.SelectedRows.Count == 0 || TechStoreManager == null || AllMachinesGrid.SelectedRows[0].Cells["MachineID"].Value == DBNull.Value || !NeedSplash)
                 return;
 
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
             T.Start();
 
             while (!SplashWindow.bSmallCreated) ;
@@ -891,7 +892,7 @@ namespace Infinium
                                     "Ошибка");
 
                 MachineValueParametrsGrid.Rows[e.RowIndex].Cells["Value"].Value = 0;
-            }  
+            }
         }
 
         private void EditMachinePhotoButton_Click(object sender, EventArgs e)
@@ -953,7 +954,7 @@ namespace Infinium
 
                     if (NeedSplash)
                     {
-                        Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
+                        Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
                         T.Start();
 
                         while (!SplashWindow.bSmallCreated) ;
@@ -1006,7 +1007,7 @@ namespace Infinium
             int TechCatalogOperationsGroupID = Convert.ToInt32(GroupsOperationsDetailGrid.SelectedRows[0].Cells["TechCatalogOperationsGroupID"].Value);
             //string GroupName = GroupsOperationsDetailGrid.SelectedRows[0].Cells["GroupName"].Value.ToString();
             TechCatalogEvents.SaveEvents("Склад: Нажата кнопка Прикрепление операций к складу");
-            
+
             for (int i = 0; i < MachinesOperationsGrid.SelectedRows.Count; i++)
             {
                 MachinesOperationID[i] = Convert.ToInt32(MachinesOperationsGrid.SelectedRows[i].Cells["MachinesOperationID"].Value);
@@ -1059,7 +1060,7 @@ namespace Infinium
 
             TechCatalogEvents.SaveEvents("Склад: Нажата кнопка Прикрепление материала к складу");
 
-            Thread T = new Thread(delegate() { SplashWindow.CreateSplash(); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSplash(); });
             T.Start();
 
             while (!SplashForm.bCreated) ;
@@ -1070,7 +1071,7 @@ namespace Infinium
             TopForm = TechStoreForm;
 
             TechStoreForm.ShowDialog();
-            
+
             TechStoreForm.Close();
             TechStoreForm.Dispose();
 
@@ -1620,7 +1621,7 @@ namespace Infinium
                 return;
 
             int TechStoreGroupID = Convert.ToInt32(((DataRowView)cmbxTechStoreGroups.SelectedItem).Row["TechStoreGroupID"]);
-            
+
             TechStoreManager.FilterTechStoreSubGroups(TechStoreGroupID);
         }
 
@@ -1890,7 +1891,7 @@ namespace Infinium
             string temppath = "";
 
             {
-                T = new System.Threading.Thread(delegate()
+                T = new System.Threading.Thread(delegate ()
                 { temppath = TechStoreManager.SaveOperationsDocuments(AttachDocumentsGrid.SelectedRows[0].Cells["FileName"].Value.ToString()); });
                 T.Start();
 
@@ -2395,7 +2396,7 @@ namespace Infinium
             string temppath = "";
 
             {
-                T = new System.Threading.Thread(delegate()
+                T = new System.Threading.Thread(delegate ()
                 { temppath = TechStoreManager.SaveToolsDocuments(ToolsAttachDocumentsGrid.SelectedRows[0].Cells["FileName"].Value.ToString()); });
                 T.Start();
 
@@ -2436,7 +2437,7 @@ namespace Infinium
             int NewOldOperationsGroupID = Convert.ToInt32(GroupsOperationsDetailGrid.Rows[GroupsOperationsDetailGrid.SelectedRows[0].Index - 1].Cells["TechCatalogOperationsGroupID"].Value);
             int TechStoreID = Convert.ToInt32(TechStoreGrid.SelectedRows[0].Cells["TechStoreID"].Value);
 
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
             T.Start();
 
             while (!SplashWindow.bSmallCreated) ;
@@ -2470,7 +2471,7 @@ namespace Infinium
             int NewOldOperationsGroupID = Convert.ToInt32(GroupsOperationsDetailGrid.Rows[GroupsOperationsDetailGrid.SelectedRows[0].Index + 1].Cells["TechCatalogOperationsGroupID"].Value);
             int TechStoreID = Convert.ToInt32(TechStoreGrid.SelectedRows[0].Cells["TechStoreID"].Value);
 
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
             T.Start();
 
             while (!SplashWindow.bSmallCreated) ;
@@ -2494,7 +2495,7 @@ namespace Infinium
             if (TechCatalogGroupOperationsIDs == null)
                 TechCatalogGroupOperationsIDs = new List<int>();
             TechCatalogGroupOperationsIDs.Clear();
-            
+
             kryptonButton4.Visible = true;
             kryptonButton5.Visible = true;
 
@@ -2625,7 +2626,7 @@ namespace Infinium
             string temppath = "";
 
             {
-                T = new System.Threading.Thread(delegate()
+                T = new System.Threading.Thread(delegate ()
                 { temppath = TechStoreManager.SaveTechStoreDocuments(Convert.ToInt32(TechStoreAttachDocumentsGrid.SelectedRows[0].Cells["TechStoreDocumentID"].Value)); });
                 T.Start();
 
@@ -2888,7 +2889,7 @@ namespace Infinium
                 "Удаление");
 
             if (!OKCancel) return;
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
             T.Start();
 
             while (!SplashWindow.bSmallCreated) ;
@@ -2903,7 +2904,7 @@ namespace Infinium
 
         private void SaveMachinesOperationButton_Click(object sender, EventArgs e)
         {
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение данных.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение данных.\r\nПодождите..."); });
             T.Start();
 
             while (!SplashWindow.bSmallCreated) ;
@@ -2937,7 +2938,7 @@ namespace Infinium
 
         private void kryptonContextMenuItem6_Click(object sender, EventArgs e)
         {
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных.\r\nПодождите..."); });
             T.Start();
 
             while (!SplashWindow.bSmallCreated) ;
@@ -2974,7 +2975,7 @@ namespace Infinium
             PhantomForm.Dispose();
 
             TopForm = null;
-            
+
             CabFurDocTypesForm.Dispose();
         }
 
@@ -3083,7 +3084,7 @@ namespace Infinium
 
                 Thread T =
                     new Thread(
-                        delegate()
+                        delegate ()
                         {
                             SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите...");
                         });
@@ -3116,7 +3117,8 @@ namespace Infinium
 
                 kryptonButton4.Visible = false;
                 kryptonButton5.Visible = false;
-                bCopyGroupOperationsDetail = false;}
+                bCopyGroupOperationsDetail = false;
+            }
             if (bCopyOperationsDetail)
             {
                 if (TechCatalogOperationsIDs.Count == 0 || GroupsOperationsDetailGrid.SelectedRows.Count == 0)
@@ -3142,7 +3144,7 @@ namespace Infinium
                     TechStoreManager.CopyOperationsDetail(TechCatalogOperationsIDs, TechCatalogOperationsGroupID);
                     InfiniumTips.ShowTip(this, 50, 85, "Операции скопированы", 1700);
                 }
-                
+
                 TechStoreManager.RefreshTechCatalogOperationsDetail();
                 TechStoreManager.RefreshTechCatalogStoreDetails();
                 TechStoreManager.RefreshTechCatalogTools();
@@ -3348,7 +3350,7 @@ namespace Infinium
                     LabelInfo.SubGroupNotes2 = CabFurDT.Rows[i]["SubGroupNotes2"].ToString();
                     SampleLabelID = CabFurLabelManager.SaveSampleLabel(DecorConfigID, DateTime.Now, Security.CurrentUserID, 2);
                     LabelInfo.BarcodeNumber = CabFurLabelManager.GetBarcodeNumber(19, SampleLabelID);
-                    
+
                     LabelInfo.FactoryType = tlInfo.Factory;
                     LabelInfo.ProductType = 2;
                     LabelInfo.DocDateTime = tlInfo.DocDateTime;

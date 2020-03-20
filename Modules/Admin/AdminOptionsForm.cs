@@ -14,7 +14,7 @@ namespace Infinium
 
         Form TopForm = null;
         LightStartForm LightStartForm;
-        
+
 
         AdminOptionsClass AdminOptionsClass;
 
@@ -22,15 +22,15 @@ namespace Infinium
         public AdminOptionsForm(LightStartForm tLightStartForm)
         {
             InitializeComponent();
-            
+
             LightStartForm = tLightStartForm;
 
-            
+
             this.MaximumSize = Screen.PrimaryScreen.WorkingArea.Size;
 
             Initialize();
 
-            while(!SplashForm.bCreated);
+            while (!SplashForm.bCreated) ;
         }
 
         private void AdminUsersForm_Shown(object sender, EventArgs e)
@@ -53,7 +53,7 @@ namespace Infinium
 
                     if (FormEvent == eClose)
                     {
-                       
+
                         LightStartForm.CloseForm(this);
                     }
                     if (FormEvent == eHide)
@@ -62,7 +62,7 @@ namespace Infinium
                         LightStartForm.HideForm(this);
                     }
 
-                    
+
                     return;
                 }
 
@@ -84,7 +84,7 @@ namespace Infinium
                     AnimateTimer.Enabled = false;
 
                     if (FormEvent == eClose)
-                    {                      
+                    {
                         LightStartForm.CloseForm(this);
 
                     }
@@ -94,7 +94,7 @@ namespace Infinium
 
                         LightStartForm.HideForm(this);
                     }
-                    
+
                 }
 
                 return;

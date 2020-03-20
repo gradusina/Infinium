@@ -1,11 +1,12 @@
-﻿using System;
+﻿using Infinium.Modules.Permits;
+
+using System;
 using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Windows.Forms;
-using System.Threading;
 using System.Globalization;
-using Infinium.Modules.Permits;
+using System.Linq;
+using System.Threading;
+using System.Windows.Forms;
 
 namespace Infinium
 {
@@ -305,7 +306,7 @@ namespace Infinium
         private void dgvPermitsDatesSetting()
         {
             dgvPermitsDates.AutoGenerateColumns = false;
-            
+
             if (dgvPermitsDates.Columns.Contains("PrepareDispatchDateTime"))
             {
                 dgvPermitsDates.Columns["PrepareDispatchDateTime"].DefaultCellStyle.Format = "dd MMMM dddd";
@@ -528,7 +529,7 @@ namespace Infinium
 
             if (!PressOK)
                 return;
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
             T.Start();
 
             while (!SplashWindow.bSmallCreated) ;
@@ -552,7 +553,7 @@ namespace Infinium
                 PermitID = Convert.ToInt32(dgvPermits.SelectedRows[0].Cells["PermitID"].Value);
             PermitsManager.ClearPermits();
             PermitsManager.UpdatePermitsDates(Date);
-            if (CreateDate != DBNull.Value) 
+            if (CreateDate != DBNull.Value)
             {
                 PermitsManager.MoveToCreateDate(Convert.ToDateTime(CreateDate));
                 PermitsManager.MoveToPermit(PermitID);
@@ -573,7 +574,7 @@ namespace Infinium
 
         private void mcmcCreateDate_DateChanged(object sender, DateRangeEventArgs e)
         {
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
             T.Start();
 
             while (!SplashWindow.bSmallCreated) ;
@@ -592,7 +593,7 @@ namespace Infinium
                 return;
             int PermitID = Convert.ToInt32(dgvPermits.SelectedRows[0].Cells["PermitID"].Value);
 
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
             T.Start();
 
             while (!SplashWindow.bSmallCreated) ;
@@ -632,7 +633,7 @@ namespace Infinium
 
             int PermitID = Convert.ToInt32(dgvPermits.SelectedRows[0].Cells["PermitID"].Value);
 
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
             T.Start();
 
             while (!SplashWindow.bSmallCreated) ;
@@ -671,7 +672,7 @@ namespace Infinium
             if (BindType == 3)
                 PermitsManager.BindPermitToUnload(PermitID, UnloadID);
 
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
             T.Start();
 
             while (!SplashWindow.bSmallCreated) ;
@@ -714,7 +715,7 @@ namespace Infinium
 
             if (NeedSplash)
             {
-                Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
+                Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
                 T.Start();
 
                 while (!SplashWindow.bSmallCreated) ;
@@ -859,7 +860,7 @@ namespace Infinium
                 return;
             if (!CallFromLightStartForm || dgvUnloads.SelectedRows.Count == 0)
                 return;
-            Thread T = new Thread(delegate() { SplashWindow.CreateSplash(); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSplash(); });
             T.Start();
 
             while (!SplashForm.bCreated) ;
@@ -879,8 +880,8 @@ namespace Infinium
         private void dgvZDispatch_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (!CallFromLightStartForm || dgvZDispatch.SelectedRows.Count == 0)
-                return; 
-            Thread T = new Thread(delegate() { SplashWindow.CreateSplash(); });
+                return;
+            Thread T = new Thread(delegate () { SplashWindow.CreateSplash(); });
             T.Start();
 
             while (!SplashForm.bCreated) ;
@@ -910,7 +911,7 @@ namespace Infinium
                 return;
             if (!CallFromLightStartForm || dgvMDispatch.SelectedRows.Count == 0)
                 return;
-            Thread T = new Thread(delegate() { SplashWindow.CreateSplash(); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSplash(); });
             T.Start();
 
             while (!SplashForm.bCreated) ;
@@ -936,7 +937,7 @@ namespace Infinium
 
         private void cbxMonths_SelectionChangeCommitted(object sender, EventArgs e)
         {
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
             T.Start();
 
             while (!SplashWindow.bSmallCreated) ;
@@ -951,7 +952,7 @@ namespace Infinium
 
         private void cbxYears_SelectionChangeCommitted(object sender, EventArgs e)
         {
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
             T.Start();
 
             while (!SplashWindow.bSmallCreated) ;
@@ -980,7 +981,7 @@ namespace Infinium
             {
                 if (NeedSplash)
                 {
-                    Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
+                    Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
                     T.Start();
 
                     while (!SplashWindow.bSmallCreated) ;

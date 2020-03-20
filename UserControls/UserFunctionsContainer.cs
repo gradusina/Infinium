@@ -44,13 +44,13 @@ namespace Infinium
             get { return iDepartmentID; }
             set { iDepartmentID = value; }
         }
-        
+
         public int PositionID
         {
             get { return iPositionID; }
             set { iPositionID = value; }
         }
-        
+
         public object UsersFunctionsDataTable
         {
             set { dgvUsersFunctions.DataSource = value; }
@@ -126,7 +126,7 @@ namespace Infinium
             string FunctionDescription = dgvUsersFunctions.SelectedRows[0].Cells["FunctionDescription"].Value.ToString();
             rtbFunctionDescription.Text = FunctionDescription;
         }
-        
+
         private void btnDeleteUserFunction_Click(object sender, EventArgs e)
         {
             if (dgvUsersFunctions.SelectedRows.Count != 0)

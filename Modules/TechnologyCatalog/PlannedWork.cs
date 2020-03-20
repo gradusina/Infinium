@@ -88,17 +88,17 @@ namespace Infinium.Modules.TechnologyCatalog
 
         private void Binding()
         {
-            MachinesBs = new BindingSource {DataSource = new DataView(_machinesDt)};
+            MachinesBs = new BindingSource { DataSource = new DataView(_machinesDt) };
 
             StatusesBs = new BindingSource { DataSource = new DataView(_statusesDt) };
 
-            ExecutorsBs = new BindingSource {DataSource = _executorsDt };
+            ExecutorsBs = new BindingSource { DataSource = _executorsDt };
 
             FilesBs = new BindingSource { DataSource = _filesDt };
 
             UsersBs = new BindingSource { DataSource = _usersDt };
 
-            PlannedWorksBs = new BindingSource {DataSource = _plannedWorksDt};
+            PlannedWorksBs = new BindingSource { DataSource = _plannedWorksDt };
         }
 
         public DataGridViewComboBoxColumn ExecutorsColumn
@@ -200,7 +200,7 @@ namespace Infinium.Modules.TechnologyCatalog
             }
         }
 
-        public void UpdateWorks(bool bMachines, bool bUsers, bool bNew, bool bConfirm, bool bInProduciton, bool bEnd, 
+        public void UpdateWorks(bool bMachines, bool bUsers, bool bNew, bool bConfirm, bool bInProduciton, bool bEnd,
             bool bDate, int dateType, DateTime from, DateTime to)
         {
             var filter = "";
@@ -259,7 +259,8 @@ namespace Infinium.Modules.TechnologyCatalog
                     else
                         filterStatus = "PlannedWorkStatusID=4";
                 }
-            }if (bDate)
+            }
+            if (bDate)
             {
                 if (dateType == 0)
                 {
@@ -429,7 +430,7 @@ namespace Infinium.Modules.TechnologyCatalog
                 return users;
             }
         }
-        
+
         public void SelectAllMachines(bool check)
         {
             for (var i = 0; i < _machinesDt.Rows.Count; i++)

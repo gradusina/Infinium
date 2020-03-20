@@ -130,7 +130,7 @@ namespace Infinium
             {
                 CodeTextBox.Clear();
                 return;
-            }         
+            }
         }
 
         private void FolderNameTextBox_KeyDown(object sender, KeyEventArgs e)

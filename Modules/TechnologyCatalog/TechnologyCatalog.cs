@@ -1,17 +1,18 @@
-﻿using System;
-using System.Linq;
-using System.Data;
-using System.Data.SqlClient;
-using System.Windows.Forms;
-using System.Drawing;
-using System.IO;
-using System.Drawing.Imaging;
+﻿using NPOI.HPSF;
 using NPOI.HSSF.UserModel;
 using NPOI.HSSF.Util;
-using NPOI.HPSF;
-using System.Data.OleDb;
-using System.Text;
+
+using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.OleDb;
+using System.Data.SqlClient;
+using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Windows.Forms;
 
 namespace Infinium.Modules.TechnologyCatalog
 {
@@ -251,7 +252,7 @@ namespace Infinium.Modules.TechnologyCatalog
             NewRow["MathSymbol"] = MathSymbol;
             MathSymbolsDT.Rows.Add(NewRow);
         }
-        
+
         public void AddLogicOperation(string LogicOperation)
         {
             DataRow NewRow = LogicOperationsDT.NewRow();
@@ -1253,7 +1254,7 @@ namespace Infinium.Modules.TechnologyCatalog
                     return Convert.ToInt32(((DataRowView)GroupsBS.Current).Row["TechStoreGroupID"]);
             }
         }
-        
+
         public int CurrentInsetTypeGroup
         {
             get
@@ -4831,7 +4832,7 @@ WHERE StoreItemID IN (SELECT TechStoreID FROM infiniu2_catalog.dbo.TechStore WHE
             //{
             //    if (Convert.ToInt32(PositionsDT.Rows[i]["PositionID"]) == 0)
             //        continue;
-                    //PositionsDT.Rows[i]["Position"] = PositionsDT.Rows[i]["Position"].ToString() + " " + PositionsDT.Rows[i]["TariffRank"].ToString() + " разряд";
+            //PositionsDT.Rows[i]["Position"] = PositionsDT.Rows[i]["Position"].ToString() + " " + PositionsDT.Rows[i]["TariffRank"].ToString() + " разряд";
             //}
 
             TechCatalogOperationsDetailGroupsDT = new DataTable();
@@ -4992,7 +4993,7 @@ WHERE StoreItemID IN (SELECT TechStoreID FROM infiniu2_catalog.dbo.TechStore WHE
                 DA.Fill(ToolsDocumentsDT);
             }
         }
-       
+
         #region ToolsGroup
         public void AddToolsGroup(int FactoryID, string Name)
         {
@@ -5143,7 +5144,7 @@ WHERE StoreItemID IN (SELECT TechStoreID FROM infiniu2_catalog.dbo.TechStore WHE
         }
 
         #endregion
-        
+
         #region ToolsType
         public void AddToolsType(int ToolsGroupID, string Name)
         {
@@ -6352,7 +6353,7 @@ WHERE StoreItemID IN (SELECT TechStoreID FROM infiniu2_catalog.dbo.TechStore WHE
             }
         }
         #endregion
-        
+
         #region Sector
         public void AddSector(int FactoryID, string Name)
         {
@@ -7001,7 +7002,7 @@ WHERE StoreItemID IN (SELECT TechStoreID FROM infiniu2_catalog.dbo.TechStore WHE
         public void CreateFrontsExcel(string TechStoreName, int TechCatalogOperationsGroupID)
         {
             HSSFWorkbook hssfworkbook = new HSSFWorkbook();
-            
+
             DocumentSummaryInformation dsi = PropertySetFactory.CreateDocumentSummaryInformation();
             dsi.Company = "NPOI Team";
             hssfworkbook.DocumentSummaryInformation = dsi;
@@ -7102,7 +7103,7 @@ WHERE StoreItemID IN (SELECT TechStoreID FROM infiniu2_catalog.dbo.TechStore WHE
 
             HSSFSheet sheet1 = hssfworkbook.CreateSheet(TechStoreName);
             sheet1.PrintSetup.PaperSize = (short)PaperSizeType.A4;
-            
+
             sheet1.SetMargin(HSSFSheet.LeftMargin, (double).12);
             sheet1.SetMargin(HSSFSheet.RightMargin, (double).07);
             sheet1.SetMargin(HSSFSheet.TopMargin, (double).20);

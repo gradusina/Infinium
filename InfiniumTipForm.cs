@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Windows.Forms;
 using System.Runtime.InteropServices;
+using System.Windows.Forms;
 
 namespace Infinium
 {
@@ -20,7 +20,7 @@ namespace Infinium
 
         public InfiniumTipForm(int Left, int Top, int Time, string sText)
         {
-            InitializeComponent(); 
+            InitializeComponent();
 
             iLeft = Left;
             iTop = Top;
@@ -32,7 +32,7 @@ namespace Infinium
 
         public InfiniumTipForm(Form ParentForm, int LeftPercents, int TopPercents, int Time, string sText)
         {
-            InitializeComponent(); 
+            InitializeComponent();
 
             iLeftPercents = LeftPercents;
             iTopPercents = TopPercents;

@@ -1,13 +1,14 @@
-﻿using System;
-using System.Linq;
-using System.Text;
+﻿using ComponentFactory.Krypton.Toolkit;
+
+using System;
+using System.Collections;
 using System.Data;
-using System.Windows.Forms;
 using System.Data.SqlClient;
 using System.Drawing;
-using ComponentFactory.Krypton.Toolkit;
 using System.Drawing.Printing;
-using System.Collections;
+using System.Linq;
+using System.Text;
+using System.Windows.Forms;
 
 namespace Infinium.Modules.Packages.Trays
 {
@@ -922,7 +923,7 @@ namespace Infinium.Modules.Packages.Trays
                             //if (Convert.ToInt32(ORow[0]["ColorID"]) == -1)
                             //    NewRow["ColorID"] = 0;
                             //else
-                                NewRow["ColorID"] = ORow[0]["ColorID"];
+                            NewRow["ColorID"] = ORow[0]["ColorID"];
 
                             NewRow["Height"] = ORow[0]["Height"];
                             NewRow["Length"] = ORow[0]["Length"];
@@ -1441,7 +1442,7 @@ namespace Infinium.Modules.Packages.Trays
         public void SaveTrays()
         {
             int Pos = TraysBindingSource.Position;
-                        
+
             using (SqlDataAdapter DA = new SqlDataAdapter("SELECT * FROM Trays", ConnectionStrings.MarketingOrdersConnectionString))
             {
                 using (SqlCommandBuilder CB = new SqlCommandBuilder(DA))
@@ -1584,7 +1585,7 @@ namespace Infinium.Modules.Packages.Trays
         }
 
         #region Properties
-        
+
         public int ScanPackgesCount
         {
             get { return TempDataTable.Rows.Count; }
@@ -2190,7 +2191,7 @@ namespace Infinium.Modules.Packages.Trays
             PackagesDataGrid.Columns["Notes"].HeaderText = "Примечание";
             PackagesDataGrid.Columns["ClientName"].HeaderText = "Клиент";
             PackagesDataGrid.Columns["Group"].HeaderText = "Группа";
-            
+
             PackagesDataGrid.Columns["MainOrderID"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
             PackagesDataGrid.Columns["MainOrderID"].Width = 120;
             PackagesDataGrid.Columns["PackageID"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
@@ -2375,11 +2376,11 @@ namespace Infinium.Modules.Packages.Trays
             DecorContentDataGrid.Columns["Count"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
             DecorContentDataGrid.Columns["Count"].Width = 90;
         }
-        
+
         #endregion
 
         #region Filters
-        
+
         private void FillFrontsContent(int PackageID, int Group)
         {
             FrontsContentDataTable.Clear();
@@ -2651,7 +2652,7 @@ namespace Infinium.Modules.Packages.Trays
 
             if (Prefix == "001" || Prefix == "002")
             {
-                using (SqlDataAdapter DA = new SqlDataAdapter("SELECT PackageID FROM Packages WHERE PackageID = " + Convert.ToInt32(Barcode.Substring(3, 9)), 
+                using (SqlDataAdapter DA = new SqlDataAdapter("SELECT PackageID FROM Packages WHERE PackageID = " + Convert.ToInt32(Barcode.Substring(3, 9)),
                     ConnectionStrings.ZOVOrdersConnectionString))
                 {
                     using (DataTable DT = new DataTable())
@@ -2673,7 +2674,7 @@ namespace Infinium.Modules.Packages.Trays
 
             if (Prefix == "003" || Prefix == "004")
             {
-                using (SqlDataAdapter DA = new SqlDataAdapter("SELECT PackageID FROM Packages WHERE PackageID = " + Convert.ToInt32(Barcode.Substring(3, 9)), 
+                using (SqlDataAdapter DA = new SqlDataAdapter("SELECT PackageID FROM Packages WHERE PackageID = " + Convert.ToInt32(Barcode.Substring(3, 9)),
                     ConnectionStrings.MarketingOrdersConnectionString))
                 {
                     using (DataTable DT = new DataTable())
@@ -2702,7 +2703,7 @@ namespace Infinium.Modules.Packages.Trays
 
             if (Prefix == "005")
             {
-                using (SqlDataAdapter DA = new SqlDataAdapter("SELECT TrayID FROM Trays WHERE TrayID = " + Convert.ToInt32(Barcode.Substring(3, 9)), 
+                using (SqlDataAdapter DA = new SqlDataAdapter("SELECT TrayID FROM Trays WHERE TrayID = " + Convert.ToInt32(Barcode.Substring(3, 9)),
                     ConnectionStrings.ZOVOrdersConnectionString))
                 {
                     using (DataTable DT = new DataTable())
@@ -2720,7 +2721,7 @@ namespace Infinium.Modules.Packages.Trays
 
             if (Prefix == "006")
             {
-                using (SqlDataAdapter DA = new SqlDataAdapter("SELECT TrayID FROM Trays WHERE TrayID = " + Convert.ToInt32(Barcode.Substring(3, 9)), 
+                using (SqlDataAdapter DA = new SqlDataAdapter("SELECT TrayID FROM Trays WHERE TrayID = " + Convert.ToInt32(Barcode.Substring(3, 9)),
                     ConnectionStrings.MarketingOrdersConnectionString))
                 {
                     using (DataTable DT = new DataTable())
@@ -2742,7 +2743,7 @@ namespace Infinium.Modules.Packages.Trays
         public bool IsTrayNotEmpty(string Barcode)
         {
             string Prefix = Barcode.Substring(0, 3);
-            
+
             if (Prefix == "005")
             {
                 using (SqlDataAdapter DA = new SqlDataAdapter("SELECT TrayID FROM Packages WHERE TrayID = " + Convert.ToInt32(Barcode.Substring(3, 9)), ConnectionStrings.ZOVOrdersConnectionString))
@@ -3150,7 +3151,7 @@ namespace Infinium.Modules.Packages.Trays
                         LabelInfo.OrderDate = Convert.ToDateTime(DT.Rows[0]["DocDateTime"]).ToString("dd.MM.yyyy");
                         LabelInfo.MegaOrderNumber = DT.Rows[0]["MegaOrderID"].ToString();
                         LabelInfo.MainOrderNumber = DT.Rows[0]["DocNumber"].ToString();
-                        
+
                         //SetTotalLabel(TotalPackCount);
                     }
                 }
@@ -3262,7 +3263,7 @@ namespace Infinium.Modules.Packages.Trays
         }
 
         #endregion
-        
+
         public void Clear()
         {
             FrontsPackContentDataTable.Clear();
@@ -3767,5 +3768,5 @@ namespace Infinium.Modules.Packages.Trays
 
     }
 
-    
+
 }

@@ -1,8 +1,9 @@
-﻿using System;
-using System.Windows.Forms;
-using System.Threading;
-using Infinium.Modules.Marketing.NewOrders;
+﻿using Infinium.Modules.Marketing.NewOrders;
+
+using System;
 using System.Drawing;
+using System.Threading;
+using System.Windows.Forms;
 
 namespace Infinium
 {
@@ -141,7 +142,7 @@ namespace Infinium
             dgvDiscountFactoring.DataSource = DiscountsManager.DiscountFactoringBS;
             dgvGridsSettings();
         }
-        
+
         private void dgvGridsSettings()
         {
             dgvDiscountOrderSum.Columns["DiscountOrderSumID"].Visible = false;
@@ -165,7 +166,7 @@ namespace Infinium
             dgvDiscountFactoring.Columns["Discount"].HeaderText = "Скидка";
             dgvDiscountFactoring.Columns["DaysCount"].HeaderText = "Кол-во дней";
         }
-        
+
         private void btnSaveDiscountOrderSum_Click(object sender, EventArgs e)
         {
             for (int i = 0; i < dgvDiscountOrderSum.Rows.Count; i++)
@@ -179,7 +180,7 @@ namespace Infinium
                 }
             }
 
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение данных.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение данных.\r\nПодождите..."); });
             T.Start();
             while (!SplashWindow.bSmallCreated) ;
 
@@ -198,7 +199,7 @@ namespace Infinium
                 InfiniumTips.ShowTip(this, 50, 85, "Сохранено", 1700);
             }
         }
-        
+
         private void dgvDiscountOrderSum_DefaultValuesNeeded(object sender, DataGridViewRowEventArgs e)
         {
             e.Row.Cells["DiscountOrderSumID"].Value = DiscountsManager.NextDiscountOrderSumID();
@@ -211,7 +212,7 @@ namespace Infinium
                 kryptonContextMenu1.Show(new Point(Cursor.Position.X - 212, Cursor.Position.Y - 10));
             }
         }
-        
+
         private void kryptonContextMenuItem1_Click(object sender, EventArgs e)
         {
             bool OKCancel = Infinium.LightMessageBox.Show(ref TopForm, true,

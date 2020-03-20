@@ -1,10 +1,11 @@
-﻿using System;
-using System.Linq;
+﻿using NPOI.HSSF.UserModel;
+using NPOI.HSSF.Util;
+
+using System;
 using System.Data;
 using System.Data.SqlClient;
 using System.IO;
-using NPOI.HSSF.UserModel;
-using NPOI.HSSF.Util;
+using System.Linq;
 using System.Net;
 
 namespace Infinium.Modules.ZOV.ReportToDBF
@@ -1522,7 +1523,7 @@ namespace Infinium.Modules.ZOV.ReportToDBF
             int FrontID = Convert.ToInt32(FrontsOrdersRow["FrontID"]);
             if (FrontID == 30504 || FrontID == 30505 || FrontID == 30506 ||
                 FrontID == 30364 || FrontID == 30366 || FrontID == 30367 ||
-                FrontID == 30501 || FrontID == 30502 || FrontID == 30503 || 
+                FrontID == 30501 || FrontID == 30502 || FrontID == 30503 ||
                 FrontID == 16269 || FrontID == 28945 || FrontID == 27914 || FrontID == 3727 || FrontID == 3728 || FrontID == 3729 ||
                 FrontID == 3730 || FrontID == 3731 || FrontID == 3732 || FrontID == 3733 || FrontID == 3734 ||
                 FrontID == 3735 || FrontID == 3736 || FrontID == 3737 || FrontID == 3739 || FrontID == 3740 ||
@@ -2693,7 +2694,7 @@ namespace Infinium.Modules.ZOV.ReportToDBF
 
         public InvoiceReportToDBF(ref DecorCatalogOrder DecorCatalogOrder, ref FrontsCalculate FC)
         {
-            FrontsReport = new  InvoiceFrontsReportToDBF(ref FC);
+            FrontsReport = new InvoiceFrontsReportToDBF(ref FC);
             DecorReport = new InvoiceDecorReportToDBF(ref DecorCatalogOrder);
 
             CreateProfilReportTable();
@@ -3003,7 +3004,7 @@ namespace Infinium.Modules.ZOV.ReportToDBF
             TotalProfil = Decimal.Round(TotalProfil, 3, MidpointRounding.AwayFromZero);
             TotalTPS = Decimal.Round(TotalTPS, 3, MidpointRounding.AwayFromZero);
             TotalCost = Decimal.Round(TotalCost, 3, MidpointRounding.AwayFromZero);
-            
+
             #region
 
             #region Create fonts and styles
@@ -3164,7 +3165,7 @@ namespace Infinium.Modules.ZOV.ReportToDBF
             sheet1.SetColumnWidth(7, 10 * 256);
 
             HSSFCell Cell1;
-            
+
             int RowCount = 1;
 
             Cell1 = sheet1.CreateRow(pos++).CreateCell(0);
@@ -3347,19 +3348,19 @@ namespace Infinium.Modules.ZOV.ReportToDBF
                     Cell1.CellStyle = WeightCS;
                     pos++;
                 }
-                
-                    Cell1 = sheet1.CreateRow(pos).CreateCell(0);
-                    Cell1.SetCellValue("Заказ, " + Currency + ":");
-                    Cell1.CellStyle = SummaryWithoutBorderBelCS;
-                    Cell1 = sheet1.CreateRow(pos++).CreateCell(5);
-                    Cell1.SetCellValue(Convert.ToDouble(TotalTPS));
-                    Cell1.CellStyle = SummaryWithoutBorderBelCS;
-                    Cell1 = sheet1.CreateRow(pos - 1).CreateCell(6);
-                    Cell1.SetCellValue(Convert.ToDouble(WeightTPS));
-                    Cell1.CellStyle = SummaryWeightCS;
+
+                Cell1 = sheet1.CreateRow(pos).CreateCell(0);
+                Cell1.SetCellValue("Заказ, " + Currency + ":");
+                Cell1.CellStyle = SummaryWithoutBorderBelCS;
+                Cell1 = sheet1.CreateRow(pos++).CreateCell(5);
+                Cell1.SetCellValue(Convert.ToDouble(TotalTPS));
+                Cell1.CellStyle = SummaryWithoutBorderBelCS;
+                Cell1 = sheet1.CreateRow(pos - 1).CreateCell(6);
+                Cell1.SetCellValue(Convert.ToDouble(WeightTPS));
+                Cell1.CellStyle = SummaryWeightCS;
             }
             pos++;
-            
+
             Cell1 = sheet1.CreateRow(pos).CreateCell(0);
             Cell1.SetCellValue("Итого, " + Currency + ":");
             Cell1.CellStyle = SummaryWithBorderBelCS;
@@ -4680,7 +4681,7 @@ namespace Infinium.Modules.ZOV.ReportToDBF
             int FrontID = Convert.ToInt32(FrontsOrdersRow["FrontID"]);
             if (FrontID == 30504 || FrontID == 30505 || FrontID == 30506 ||
                 FrontID == 30364 || FrontID == 30366 || FrontID == 30367 ||
-                FrontID == 30501 || FrontID == 30502 || FrontID == 30503 || 
+                FrontID == 30501 || FrontID == 30502 || FrontID == 30503 ||
                 FrontID == 16269 || FrontID == 28945 || FrontID == 27914 || FrontID == 3727 || FrontID == 3728 || FrontID == 3729 ||
                 FrontID == 3730 || FrontID == 3731 || FrontID == 3732 || FrontID == 3733 || FrontID == 3734 ||
                 FrontID == 3735 || FrontID == 3736 || FrontID == 3737 || FrontID == 3739 || FrontID == 3740 ||
@@ -6951,7 +6952,7 @@ namespace Infinium.Modules.ZOV.ReportToDBF
             }
             pos++;
             pos++;
-            
+
             if (CurrencyType == 0)
             {
                 Cell1 = sheet1.CreateRow(pos).CreateCell(0);

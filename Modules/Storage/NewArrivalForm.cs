@@ -1,10 +1,11 @@
-﻿using System;
+﻿using Infinium.Store;
+
+using System;
 using System.Data;
 using System.Drawing;
-using System.Windows.Forms;
 using System.Globalization;
 using System.Threading;
-using Infinium.Store;
+using System.Windows.Forms;
 
 namespace Infinium
 {
@@ -29,11 +30,11 @@ namespace Infinium
         public NewArrivalForm()
         {
             InitializeComponent();
-            
-            this.MaximumSize = Screen.PrimaryScreen.WorkingArea.Size;            
+
+            this.MaximumSize = Screen.PrimaryScreen.WorkingArea.Size;
 
             Initialize();
-            
+
             while (!SplashForm.bCreated) ;
         }
 
@@ -88,7 +89,7 @@ namespace Infinium
 
         private void Initialize()
         {
-            StoreInvoiceManager = new StoreInvoiceManager(ref GroupsDataGrid, 
+            StoreInvoiceManager = new StoreInvoiceManager(ref GroupsDataGrid,
                 ref SubGroupsDataGrid, ref StoreDataGrid);
 
             cbManufacturers.DataSource = StoreInvoiceManager.ManufacturersList;
@@ -406,7 +407,7 @@ namespace Infinium
             StoreDataGrid.Columns["Cost"].DefaultCellStyle.FormatProvider = nfi1;
             StoreDataGrid.Columns["VATCost"].DefaultCellStyle.Format = "N";
             StoreDataGrid.Columns["VATCost"].DefaultCellStyle.FormatProvider = nfi1;
-            
+
             StoreDataGrid.Columns["BatchNumber"].MinimumWidth = 60;
             StoreDataGrid.Columns["BatchNumber"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             StoreDataGrid.Columns["Produced"].MinimumWidth = 60;
@@ -582,7 +583,7 @@ namespace Infinium
             FormEvent = eClose;
             AnimateTimer.Enabled = true;
         }
-        
+
         private void GroupsDataGrid_SelectionChanged(object sender, EventArgs e)
         {
             if (StoreInvoiceManager == null)
@@ -629,9 +630,9 @@ namespace Infinium
             if (ColorsComboBox.Items.Count > 0)
                 ColorsComboBox.SelectedIndex = 0;
             if (PatinaComboBox.Items.Count > 0)
-            PatinaComboBox.SelectedIndex = 0;
+                PatinaComboBox.SelectedIndex = 0;
             if (CoversComboBox.Items.Count > 0)
-            CoversComboBox.SelectedIndex = 0;
+                CoversComboBox.SelectedIndex = 0;
             CountTextBox.Text = string.Empty;
             PriceTextBox.Text = string.Empty;
 
@@ -699,7 +700,7 @@ namespace Infinium
             }
             flowLayoutPanel1.ResumeLayout();
         }
-        
+
         private void CheckItemsColumns()
         {
             foreach (DataGridViewColumn Column in ItemsDataGrid.Columns)
@@ -933,7 +934,7 @@ namespace Infinium
             FactoryID = Convert.ToInt32(FactoryIDComboBox.SelectedValue);
             Notes = tbNotes.Text;
 
-            StoreInvoiceManager.AddItem(StoreItemID, Length, Width, Height, Thickness, Diameter, Admission, 
+            StoreInvoiceManager.AddItem(StoreItemID, Length, Width, Height, Thickness, Diameter, Admission,
                 Capacity, Weight, ColorID, PatinaID, CoverID,
                 Price, Count, CurrencyTypeID, FactoryID,
                 ProducedCheckBox.Checked, BestBeforeCheckBox.Checked, ProducedDatePicker.Value, BestBeforeDatePicker.Value, ManufacturerID, BatchNumber, Notes,
@@ -983,7 +984,7 @@ namespace Infinium
                         "Сохранение накладной");
                 return;
             }
-            
+
             bool OKCancel = Infinium.LightMessageBox.Show(ref TopForm, true,
                     "Сохранить на МОЛ?",
                     "Сохранение накладной");
@@ -1038,7 +1039,7 @@ namespace Infinium
 
                 if (PressOK)
                 {
-                    Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение.\r\nПодождите..."); });
+                    Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение.\r\nПодождите..."); });
                     T.Start();
 
                     while (!SplashWindow.bSmallCreated) ;
@@ -1059,7 +1060,7 @@ namespace Infinium
             bool OKCancel = Infinium.LightMessageBox.Show(ref TopForm, true,
                     "Позиция будет удалена. Продолжить?",
                     "Редактирование накладной");
-            
+
             if (OKCancel)
             {
                 StoreInvoiceManager.RemoveItem();
@@ -1107,7 +1108,7 @@ namespace Infinium
             if (SubGroupsDataGrid.SelectedRows[0].Cells["TechStoreSubGroupID"].Value != DBNull.Value)
                 TechStoreSubGroupID = Convert.ToInt32(SubGroupsDataGrid.SelectedRows[0].Cells["TechStoreSubGroupID"].Value);
             StoreInvoiceManager.UpdateStoreItems(TechStoreSubGroupID);
-            
+
             CheckItemsColumns();
         }
 
@@ -1186,7 +1187,7 @@ namespace Infinium
             Point p = new Point(ColorsComboBox.Location.X + 120, 0);
             string text = ColorsComboBox.GetItemText(ColorsComboBox.Items[e.Index]);
             string tooltipText = StoreInvoiceManager.GetSellerCode(Convert.ToInt32(ColorsComboBox.SelectedValue));
-            
+
             e.DrawBackground();
             using (SolidBrush br = new SolidBrush(e.ForeColor))
             { e.Graphics.DrawString(text, e.Font, br, e.Bounds); }

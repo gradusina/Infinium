@@ -2,8 +2,8 @@
 using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Windows.Forms;
 using System.Threading;
+using System.Windows.Forms;
 
 namespace Infinium
 {
@@ -21,7 +21,7 @@ namespace Infinium
 
         Form TopForm = null;
         LightStartForm LightStartForm;
-        
+
 
         Infinium.Modules.Packages.Trays.ZOVTraysManager ZOVTraysManager;
         Infinium.Modules.Packages.Trays.TrayLabel TrayLabel;
@@ -32,11 +32,11 @@ namespace Infinium
             InitializeComponent();
             LightStartForm = tLightStartForm;
 
-            
+
             this.MaximumSize = Screen.PrimaryScreen.WorkingArea.Size;
 
             Initialize();
-            while (!SplashForm.bCreated);
+            while (!SplashForm.bCreated) ;
         }
 
         private void ZOVTraysForm_Shown(object sender, EventArgs e)
@@ -58,17 +58,17 @@ namespace Infinium
 
                     if (FormEvent == eClose)
                     {
-                       
+
                         LightStartForm.CloseForm(this);
                     }
 
                     if (FormEvent == eHide)
                     {
-                        
+
                         LightStartForm.HideForm(this);
                     }
 
-                    
+
                     return;
                 }
 
@@ -91,16 +91,16 @@ namespace Infinium
 
                     if (FormEvent == eClose)
                     {
-                       
+
                         LightStartForm.CloseForm(this);
                     }
 
                     if (FormEvent == eHide)
                     {
-                        
+
                         LightStartForm.HideForm(this);
                     }
-                    
+
                 }
 
                 return;
@@ -173,7 +173,7 @@ namespace Infinium
                 }
             }
         }
-        
+
         protected override void WndProc(ref Message m)
         {
             base.WndProc(ref m);
@@ -231,11 +231,11 @@ namespace Infinium
 
             for (int j = 0; j < Trays.Count(); j++)
             {
-            LabelInfo.GroupType = "ЗОВ";
+                LabelInfo.GroupType = "ЗОВ";
 
                 LabelInfo.TrayID = Trays[j];
                 LabelInfo.BarcodeNumber = TrayLabel.GetBarcodeNumber(BarcodeType, Trays[j]);
-            TrayLabel.AddLabelInfo(ref LabelInfo);
+                TrayLabel.AddLabelInfo(ref LabelInfo);
             }
 
             PrintDialog.Document = TrayLabel.PD;
@@ -250,8 +250,8 @@ namespace Infinium
         {
             ZOVTraysManager.TraysBindingSource.Position = CurrentRowIndex;
             int TrayID = Convert.ToInt32(((DataRowView)ZOVTraysManager.TraysBindingSource.Current)["TrayID"]);
-           
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Создание документа Excel.\r\nПодождите..."); });
+
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Создание документа Excel.\r\nПодождите..."); });
             T.Start();
 
             while (!SplashWindow.bSmallCreated) ;

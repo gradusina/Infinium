@@ -13,7 +13,7 @@ namespace Infinium
         int FormEvent = 0;
 
         LightStartForm LightStartForm;
-        
+
         Form TopForm = null;
         public AdminModulesAccess AdminModulesAccess;
 
@@ -21,15 +21,15 @@ namespace Infinium
         public AdminModulesAccessForm(LightStartForm tLightStartForm)
         {
             InitializeComponent();
-            
+
             LightStartForm = tLightStartForm;
 
-            
+
             this.MaximumSize = Screen.PrimaryScreen.WorkingArea.Size;
 
             Initialize();
 
-            while(!SplashForm.bCreated);
+            while (!SplashForm.bCreated) ;
         }
 
         private void AdminModulesAccessForm_Shown(object sender, EventArgs e)
@@ -133,7 +133,7 @@ namespace Infinium
             AnimateTimer.Enabled = true;
         }
 
-        
+
 
         private void Initialize()
         {

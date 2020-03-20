@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Data;
 using System.Drawing;
-using System.Windows.Forms;
 using System.Runtime.InteropServices;
+using System.Windows.Forms;
 
 namespace Infinium
 {
@@ -31,7 +31,7 @@ namespace Infinium
         public ExpeditionLabelCheckForm(LightStartForm tLightStartForm)
         {
             InitializeComponent();
-            
+
             LightStartForm = tLightStartForm;
 
             this.MaximumSize = Screen.PrimaryScreen.WorkingArea.Size;
@@ -42,7 +42,7 @@ namespace Infinium
 
             Initialize();
 
-            while (!SplashForm.bCreated);
+            while (!SplashForm.bCreated) ;
         }
 
         private void LabelCheckProfilForm_Shown(object sender, EventArgs e)
@@ -86,7 +86,7 @@ namespace Infinium
 
                     if (FormEvent == eClose)
                     {
-                       
+
                         LightStartForm.CloseForm(this);
                     }
 
@@ -97,7 +97,7 @@ namespace Infinium
                     }
 
                     //ScanEvents.AddEvent(EventsDataTable, "Закрыл форму сканирования на экспедицию", 0);
-                   
+
                     return;
                 }
 
@@ -120,7 +120,7 @@ namespace Infinium
 
                     if (FormEvent == eClose)
                     {
-                       
+
                         LightStartForm.CloseForm(this);
 
                     }
@@ -132,7 +132,7 @@ namespace Infinium
                     }
                     //ScanEvents.AddEvent(EventsDataTable, "Закрыл форму сканирования на экспедицию", 0);
 
-                    
+
                 }
 
                 return;
@@ -160,7 +160,7 @@ namespace Infinium
             FormEvent = eClose;
             AnimateTimer.Enabled = true;
         }
-        
+
         private void Initialize()
         {
             CheckLabel = new ExpeditionCheckLabel(ref FrontsPackContentDataGrid, ref DecorPackContentDataGrid, ref PackagesDataGrid);
@@ -483,7 +483,7 @@ namespace Infinium
                 }
             }
 
-            
+
         }
 
         private void BarcodeTextBox_KeyPress(object sender, KeyPressEventArgs e)
@@ -500,7 +500,7 @@ namespace Infinium
                     e.Handled = true;
             }
         }
-        
+
         private void timer1_Tick(object sender, EventArgs e)
         {
             if (!CanAction)

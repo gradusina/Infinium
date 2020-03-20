@@ -23,7 +23,7 @@ namespace Infinium
             MainForm = tMainForm;
             SplitStruct = tSplitStruct;
             TopForm = this;
-            while (!SplashForm.bCreated);
+            while (!SplashForm.bCreated) ;
         }
 
         private void AnimateTimer_Tick(object sender, EventArgs e)
@@ -110,7 +110,7 @@ namespace Infinium
             FormEvent = eClose;
             AnimateTimer.Enabled = true;
         }
-        
+
         private void OKButton_Click(object sender, EventArgs e)
         {
             if (NotEqualOrdersButton.Checked)
@@ -147,13 +147,13 @@ namespace Infinium
 
                 SplitStruct.OrdersCount = SplitStruct.TotalCount / SplitStruct.EqualCount;
                 SplitStruct.LastCount = SplitStruct.TotalCount - SplitStruct.OrdersCount * SplitStruct.EqualCount;
-                    
+
                 SplitStruct.IsEqual = true;
             }
 
             SplitStruct.IsSplit = true;
             FormEvent = eClose;
-            AnimateTimer.Enabled = true;           
+            AnimateTimer.Enabled = true;
         }
 
         private void CancelPackButton_Click(object sender, EventArgs e)

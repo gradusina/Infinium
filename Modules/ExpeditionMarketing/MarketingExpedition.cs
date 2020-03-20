@@ -1,21 +1,22 @@
-﻿using System;
-using System.Linq;
-using System.Data;
-using System.Drawing;
-using System.Data.SqlClient;
-using System.Windows.Forms;
-using System.Globalization;
-using System.Collections;
-using System.IO;
+﻿using NPOI.HPSF;
 using NPOI.HSSF.UserModel;
-using NPOI.HPSF;
-using NPOI.HSSF.Util;
 using NPOI.HSSF.UserModel.Contrib;
+using NPOI.HSSF.Util;
+
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
+using System.Drawing;
+using System.Globalization;
+using System.IO;
+using System.Linq;
+using System.Net;
 using System.Net.Mail;
 using System.Net.Mime;
 using System.Text;
-using System.Net;
-using System.Collections.Generic;
+using System.Windows.Forms;
 
 namespace Infinium.Modules.Marketing.Expedition
 {
@@ -1193,7 +1194,7 @@ namespace Infinium.Modules.Marketing.Expedition
                             //if (Convert.ToInt32(ORow[0]["ColorID"]) == -1)
                             //    NewRow["ColorID"] = 0;
                             //else
-                                NewRow["ColorID"] = ORow[0]["ColorID"];
+                            NewRow["ColorID"] = ORow[0]["ColorID"];
 
                             NewRow["Height"] = ORow[0]["Height"];
                             NewRow["Length"] = ORow[0]["Length"];
@@ -1284,7 +1285,7 @@ namespace Infinium.Modules.Marketing.Expedition
                             //if (Convert.ToInt32(ORow[0]["ColorID"]) == -1)
                             //    NewRow["ColorID"] = 0;
                             //else
-                                NewRow["ColorID"] = ORow[0]["ColorID"];
+                            NewRow["ColorID"] = ORow[0]["ColorID"];
 
                             NewRow["Height"] = ORow[0]["Height"];
                             NewRow["Length"] = ORow[0]["Length"];
@@ -1780,7 +1781,7 @@ namespace Infinium.Modules.Marketing.Expedition
             {
                 DA.Fill(BatchDetailsDataTable);
             }
-            
+
             using (DataView DV = new DataView(BatchDetailsDataTable))
             {
                 DV.Sort = "MegaBatchID";
@@ -2017,7 +2018,7 @@ namespace Infinium.Modules.Marketing.Expedition
                 MegaOrderTPSExpCount = GetMegaOrderExpCount(Convert.ToInt32(MegaOrdersDataTable.Rows[i]["MegaOrderID"]), 2);
                 MegaOrderTPSDispCount = GetMegaOrderDispCount(Convert.ToInt32(MegaOrdersDataTable.Rows[i]["MegaOrderID"]), 2);
                 MegaOrderTPSAllCount = Convert.ToInt32(MegaOrdersDataTable.Rows[i]["TPSPackCount"]);
-                
+
                 ProfilPackProgressVal = 0;
                 ProfilStoreProgressVal = 0;
                 ProfilExpProgressVal = 0;
@@ -3945,7 +3946,7 @@ namespace Infinium.Modules.Marketing.Expedition
             PackagesBindingSource.MoveFirst();
 
         }
-        
+
         public void FilterProductsByPackage()
         {
             CurrentMainOrderID = -1;
@@ -4667,7 +4668,7 @@ namespace Infinium.Modules.Marketing.Expedition
                 DA.Fill(AllMegaBatchNumbersDT);
             }
         }
-        
+
         public decimal GetDispatchSum(int MutualSettlementID)
         {
             decimal DispatchSum = 0;
@@ -4861,7 +4862,7 @@ namespace Infinium.Modules.Marketing.Expedition
                 PaidStatus = 0;
             return PaidStatus;
         }
-        
+
         private int GetMegaBatchID(int MainOrderID)
         {
             int MegaBatchID = 0;
@@ -5527,23 +5528,23 @@ namespace Infinium.Modules.Marketing.Expedition
             return MainOrders.OfType<Int32>().ToArray();
         }
 
-//        public int GetCurrencyType(int[] Dispatches)
-//        {
-//            int CurrencyTypeID = 1;
+        //        public int GetCurrencyType(int[] Dispatches)
+        //        {
+        //            int CurrencyTypeID = 1;
 
-//            using (SqlDataAdapter DA = new SqlDataAdapter(@"SELECT CurrencyTypeID FROM MegaOrders WHERE MegaOrderID IN (SELECT MegaOrderID FROM MainOrders
-//                WHERE MainOrderID IN (SELECT MainOrderID FROM Packages" +
-//                " WHERE DispatchID IN (" + string.Join(",", Dispatches) + ")))", ConnectionStrings.MarketingOrdersConnectionString))
-//            {
-//                using (DataTable DT = new DataTable())
-//                {
-//                    if (DA.Fill(DT) > 0 )
-//                        CurrencyTypeID = Convert.ToInt32(DT.Rows[0]["CurrencyTypeID"]);
-//                }
-//            }
+        //            using (SqlDataAdapter DA = new SqlDataAdapter(@"SELECT CurrencyTypeID FROM MegaOrders WHERE MegaOrderID IN (SELECT MegaOrderID FROM MainOrders
+        //                WHERE MainOrderID IN (SELECT MainOrderID FROM Packages" +
+        //                " WHERE DispatchID IN (" + string.Join(",", Dispatches) + ")))", ConnectionStrings.MarketingOrdersConnectionString))
+        //            {
+        //                using (DataTable DT = new DataTable())
+        //                {
+        //                    if (DA.Fill(DT) > 0 )
+        //                        CurrencyTypeID = Convert.ToInt32(DT.Rows[0]["CurrencyTypeID"]);
+        //                }
+        //            }
 
-//            return CurrencyTypeID;
-//        }
+        //            return CurrencyTypeID;
+        //        }
 
         public DataTable GetMegaOrdersInDispatch(int DispatchID)
         {
@@ -5772,7 +5773,7 @@ namespace Infinium.Modules.Marketing.Expedition
             return true;
         }
     }
-    
+
     public struct MegaOrderInfo
     {
         public decimal DiscountPaymentCondition;
@@ -7803,7 +7804,7 @@ namespace Infinium.Modules.Marketing.Expedition
 
 
 
-    
+
     public struct PackagesCount
     {
         public int ProfilPackedPackages;
@@ -8030,7 +8031,7 @@ namespace Infinium.Modules.Marketing.Expedition
             DecorResultDataTable.Columns.Add(new DataColumn(("ConfirmDateTime"), System.Type.GetType("System.String")));
             DecorResultDataTable.Columns.Add(new DataColumn(("PackageStatusID"), System.Type.GetType("System.Int32")));
         }
-        
+
         public bool IsMegaComplaint(int MegaOrderID)
         {
             bool IsComplaint = false;
@@ -8179,7 +8180,7 @@ namespace Infinium.Modules.Marketing.Expedition
             //if (ClientID == 101)
             //    return Rows[0]["OldName"].ToString();
             //else
-                return Rows[0]["Name"].ToString();
+            return Rows[0]["Name"].ToString();
         }
 
         public bool HasParameter(int ProductID, string Parameter)
@@ -8188,7 +8189,7 @@ namespace Infinium.Modules.Marketing.Expedition
 
             return Convert.ToBoolean(Rows[0][Parameter]);
         }
-        
+
         private decimal GetSquare(DataTable DT)
         {
             decimal Square = 0;
@@ -8468,7 +8469,7 @@ namespace Infinium.Modules.Marketing.Expedition
                             //if (Convert.ToInt32(ORow[0]["ColorID"]) == -1)
                             //    NewRow["ColorID"] = 0;
                             //else
-                                NewRow["ColorID"] = ORow[0]["ColorID"];
+                            NewRow["ColorID"] = ORow[0]["ColorID"];
 
                             NewRow["Count"] = Row["Count"];
                             NewRow["PackNumber"] = Row["PackNumber"];
@@ -9393,7 +9394,7 @@ namespace Infinium.Modules.Marketing.Expedition
             cell10.CellStyle = TotalStyle;
         }
     }
-    
+
     public class DispatchReport
     {
         PackingReport PackingReport;
@@ -10134,7 +10135,7 @@ namespace Infinium.Modules.Marketing.Expedition
                 MessageBox.Show("Выбранный заказ пуст");
                 return;
             }
-            
+
             if (Attach)
             {
                 PackingReport = new PackingReport()
@@ -10453,7 +10454,7 @@ namespace Infinium.Modules.Marketing.Expedition
 
             return BarcodeNumber.ToString();
         }
-        
+
         public void CreateBarcode(int PermitID)
         {
             Barcode Barcode = new Barcode();
@@ -11301,7 +11302,7 @@ namespace Infinium.Modules.Marketing.Expedition
             //if (ClientID == 101)
             //    return Rows[0]["OldName"].ToString();
             //else
-                return Rows[0]["Name"].ToString();
+            return Rows[0]["Name"].ToString();
         }
 
         public bool HasParameter(int ProductID, string Parameter)
@@ -11575,7 +11576,7 @@ namespace Infinium.Modules.Marketing.Expedition
                             //if (Convert.ToInt32(ORow[0]["ColorID"]) == -1)
                             //    NewRow["ColorID"] = 0;
                             //else
-                                NewRow["ColorID"] = ORow[0]["ColorID"];
+                            NewRow["ColorID"] = ORow[0]["ColorID"];
 
                             NewRow["Count"] = Row["Count"];
                             NewRow["PackNumber"] = Row["PackNumber"];
@@ -11685,7 +11686,7 @@ namespace Infinium.Modules.Marketing.Expedition
             return value.Trim();
         }
 
-        public void CreateReport(ref HSSFWorkbook thssfworkbook, ref HSSFSheet sheet1, ref HSSFSheet sheet2, ref int RowIndex1, ref int RowIndex2, 
+        public void CreateReport(ref HSSFWorkbook thssfworkbook, ref HSSFSheet sheet1, ref HSSFSheet sheet2, ref int RowIndex1, ref int RowIndex2,
             DataTable OrderDT, int iClientID, int DispatchID, int FactoryID, string sClientName, string DispatchDate)
         {
             DataTable DT = new DataTable();
@@ -11994,7 +11995,7 @@ namespace Infinium.Modules.Marketing.Expedition
             RowIndex++;
         }
 
-        private void CreateDecorExcel(ref HSSFWorkbook hssfworkbook, ref HSSFSheet sheet1, ref int RowIndex, DataTable OrdersDT, 
+        private void CreateDecorExcel(ref HSSFWorkbook hssfworkbook, ref HSSFSheet sheet1, ref int RowIndex, DataTable OrdersDT,
             int DispatchID, int FactoryID, string DispatchDate)
         {
             HSSFFont TotalFont = hssfworkbook.CreateFont();
@@ -12386,7 +12387,7 @@ namespace Infinium.Modules.Marketing.Expedition
 
             ConfirmStyle = hssfworkbook1.CreateCellStyle();
             ConfirmStyle.SetFont(HeaderFont1);
-            
+
             HeaderStyle1 = hssfworkbook1.CreateCellStyle();
             HeaderStyle1.BorderBottom = HSSFCellStyle.BORDER_THIN;
             HeaderStyle1.BottomBorderColor = HSSFColor.BLACK.index;
@@ -12604,7 +12605,7 @@ namespace Infinium.Modules.Marketing.Expedition
             using (DataTable DT = new DataTable())
             {
                 using (SqlDataAdapter DA = new SqlDataAdapter("SELECT ClientID, ClientName FROM Clients" +
-                    " WHERE ClientID=(SELECT ClientID FROM infiniu2_marketingorders.dbo.Dispatch WHERE DispatchID=" + DispatchID + ")", 
+                    " WHERE ClientID=(SELECT ClientID FROM infiniu2_marketingorders.dbo.Dispatch WHERE DispatchID=" + DispatchID + ")",
                     ConnectionStrings.MarketingReferenceConnectionString))
                 {
                     DA.Fill(DT);

@@ -21,8 +21,8 @@ namespace Infinium
         {
             InitializeComponent();
             EqualPackagesButton.Checked = true;
-            
-            while (!SplashForm.bCreated);
+
+            while (!SplashForm.bCreated) ;
         }
 
         private void AnimateTimer_Tick(object sender, EventArgs e)

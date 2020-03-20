@@ -1,16 +1,17 @@
-﻿using System;
-using System.Linq;
-using System.Data;
-using System.Drawing;
-using System.Data.SqlClient;
-using System.Windows.Forms;
-using System.IO;
-using System.Collections;
-using System.Globalization;
+﻿using NPOI.HPSF;
 using NPOI.HSSF.UserModel;
-using NPOI.HSSF.Util;
 using NPOI.HSSF.UserModel.Contrib;
-using NPOI.HPSF;
+using NPOI.HSSF.Util;
+
+using System;
+using System.Collections;
+using System.Data;
+using System.Data.SqlClient;
+using System.Drawing;
+using System.Globalization;
+using System.IO;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace Infinium.Modules.ZOV.WeeklyPlanning
 {
@@ -300,7 +301,7 @@ namespace Infinium.Modules.ZOV.WeeklyPlanning
             TechnoInsetTypesSummaryBindingSource = new BindingSource();
             TechnoInsetColorsSummaryBindingSource = new BindingSource();
             SizesSummaryBindingSource = new BindingSource();
-            
+
             DecorProductsSummaryBindingSource = new BindingSource();
             DecorItemsSummaryBindingSource = new BindingSource();
             DecorColorsSummaryBindingSource = new BindingSource();
@@ -314,7 +315,7 @@ namespace Infinium.Modules.ZOV.WeeklyPlanning
             PreTechnoInsetTypesSummaryBindingSource = new BindingSource();
             PreTechnoInsetColorsSummaryBindingSource = new BindingSource();
             PreSizesSummaryBindingSource = new BindingSource();
-            
+
             PreDecorProductsSummaryBindingSource = new BindingSource();
             PreDecorItemsSummaryBindingSource = new BindingSource();
             PreDecorColorsSummaryBindingSource = new BindingSource();
@@ -4731,7 +4732,7 @@ namespace Infinium.Modules.ZOV.WeeklyPlanning
                     MainProductionStatus = "(ProfilStorageStatusID=2 OR TPSStorageStatusID=2)";
                 }
             }
-            
+
             if (Dispatched)
             {
                 if (MainProductionStatus.Length > 0)
@@ -11257,8 +11258,8 @@ namespace Infinium.Modules.ZOV.WeeklyPlanning
 
                 foreach (DataRow Row in Rows)
                 {
-                        Product = DecorCatalog.DecorProductsDataTable.Rows[i]["ProductName"].ToString() + " " +
-                                         DecorCatalog.GetItemName(Convert.ToInt32(Row["DecorID"]));
+                    Product = DecorCatalog.DecorProductsDataTable.Rows[i]["ProductName"].ToString() + " " +
+                                     DecorCatalog.GetItemName(Convert.ToInt32(Row["DecorID"]));
 
                     Count = Convert.ToInt32(Row["Count"]);
 
@@ -12091,7 +12092,7 @@ namespace Infinium.Modules.ZOV.WeeklyPlanning
                 MessageBox.Show(ex.Message);
             }
 
-            System.Threading.Thread T = new System.Threading.Thread(delegate()
+            System.Threading.Thread T = new System.Threading.Thread(delegate ()
             {
                 FM.DownloadFile(sDestFolder + "/" + sSourceFileName, sSourceFolder + @"\" + sSourceFileName, iFileSize, Configs.FTPType);
             });
@@ -12728,7 +12729,7 @@ namespace Infinium.Modules.ZOV.WeeklyPlanning
                 MessageBox.Show(ex.Message);
             }
 
-            System.Threading.Thread T = new System.Threading.Thread(delegate()
+            System.Threading.Thread T = new System.Threading.Thread(delegate ()
             {
                 FM.DownloadFile(sDestFolder + "/" + sSourceFileName, sSourceFolder + @"\" + sSourceFileName, iFileSize, Configs.FTPType);
             });

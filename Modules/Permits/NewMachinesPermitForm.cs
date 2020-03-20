@@ -1,6 +1,7 @@
-﻿using System;
+﻿using Infinium.Modules.Permits;
+
+using System;
 using System.Windows.Forms;
-using Infinium.Modules.Permits;
 
 namespace Infinium
 {
@@ -44,13 +45,13 @@ namespace Infinium
                 tbVisitMission.Focus();
                 return;
             }
-            
+
             NewPermit.VisitorName = tbVisitorName.Text;
             NewPermit.VisitMission = tbVisitMission.Text;
             NewPermit.AddresseeID = 0;
             NewPermit.AddresseeName = string.Empty;
 
-            NewPermit.Validity = dtpValidity.Value;            
+            NewPermit.Validity = dtpValidity.Value;
             NewPermit.bCreatePermit = true;
             FormEvent = eClose;
             AnimateTimer.Enabled = true;

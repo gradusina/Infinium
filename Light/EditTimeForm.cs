@@ -95,7 +95,7 @@ namespace Infinium
             if (((DateTime)timeEdit1.EditValue).ToString("dd.MM.yyyy") == "01.01.0001")
                 timeEdit1.EditValue = OverduedDateTime;
         }
-        
+
         protected override void WndProc(ref Message m)
         {
             base.WndProc(ref m);

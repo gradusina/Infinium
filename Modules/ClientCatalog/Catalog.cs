@@ -1,15 +1,16 @@
-﻿using System;
-using System.Linq;
+﻿using Infinium.Modules.Packages.ZOV;
+
+using System;
+using System.Collections;
 using System.Data;
 using System.Data.SqlClient;
-using System.Windows.Forms;
-using System.Collections;
 using System.Drawing;
-using System.IO;
+using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.Drawing.Printing;
-using Infinium.Modules.Packages.ZOV;
-using System.Drawing.Drawing2D;
+using System.IO;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace Infinium
 {
@@ -1811,7 +1812,7 @@ namespace Infinium
                 return false;
             return true;
         }
-        
+
         public void Fuck1()
         {
             ClientsCatalogFrontsConfigDT = new DataTable();
@@ -3003,7 +3004,7 @@ namespace Infinium
 
             TempFrontsConfigDataTable.Clear();
             TempFrontsConfigDataTable = ConstFrontsConfigDataTable;
-            
+
             if (PatinaID > 1000)
             {
                 DataRow[] fRows = PatinaRALDataTable.Select("PatinaRALID=" + PatinaID);
@@ -4237,7 +4238,7 @@ namespace Infinium
             ItemPatinaDataTable.AcceptChanges();
 
             DataRow[] DCR = DecorConfigDataTable.Select(filter + " AND ColorID = " + ColorID.ToString());
-            
+
             for (int d = 0; d < DCR.Count(); d++)
             {
                 if (d == 0)
@@ -4322,7 +4323,7 @@ namespace Infinium
             }
             else
                 filter = "DecorID <> - 1";
-            
+
             ItemInsetTypesDataTable.Clear();
             ItemInsetTypesDataTable.AcceptChanges();
 
@@ -4394,7 +4395,7 @@ namespace Infinium
             }
             else
                 filter = "DecorID <> - 1";
-            
+
             ItemInsetColorsDataTable.Clear();
             ItemInsetColorsDataTable.AcceptChanges();
 
@@ -4769,7 +4770,7 @@ namespace Infinium
             ZOVPriceDataTable.AcceptChanges();
 
             DataRow[] DCR = DecorConfigDataTable.Select(filter +
-                " AND ColorID = " + ColorID.ToString() + " AND PatinaID = " + PatinaID.ToString() + 
+                " AND ColorID = " + ColorID.ToString() + " AND PatinaID = " + PatinaID.ToString() +
                 " AND InsetTypeID = " + InsetTypeID.ToString() + " AND InsetColorID = " + InsetColorID.ToString() +
                 " AND Length = " + Length.ToString() + " AND Height = " + Height.ToString() +
                 " AND Width = " + Width.ToString());
@@ -5394,7 +5395,7 @@ namespace Infinium
             string filter = string.Empty;
             if (TempItemsDataTable.Rows.Count > 0)
                 DecorID = Convert.ToInt32(TempItemsDataTable.Rows[0]["DecorID"]);
-            
+
             return DecorID;
 
         }
@@ -6272,7 +6273,7 @@ namespace Infinium
 
             Rectangle rect1 = new Rectangle(0, 5, 488, 35);
             ev.Graphics.DrawString(((CabFurInfo)LabelInfo[CurrentLabelNumber]).SubGroupNotes1, HeaderFont, FontBrush, rect1, stringFormat);
-            
+
             //ev.Graphics.DrawLine(Pen, 371, 33, 371, 67);
 
             DrawTable(ev);
@@ -6280,7 +6281,7 @@ namespace Infinium
             //ev.Graphics.DrawImage(Barcode.GetBarcode(Barcode.BarcodeLength.Medium, 46, ((CabFurInfo)LabelInfo[CurrentLabelNumber]).BarcodeNumber), 10, 317);
 
             //Barcode.DrawBarcodeText(Barcode.BarcodeLength.Medium, ev.Graphics, ((CabFurInfo)LabelInfo[CurrentLabelNumber]).BarcodeNumber, 9, 366);
-            
+
             ev.Graphics.DrawImage(EAC, 20, 210, 70, 55);
 
             //ev.Graphics.DrawLine(Pen, 11, 315, 467, 315);
@@ -6532,7 +6533,7 @@ namespace Infinium
                 ev.Graphics.DrawLine(Pen, VertLine6, TopLineY, VertLine6, BottomLineY);
                 ev.Graphics.DrawLine(Pen, VertLine7, TopLineY, VertLine7, BottomLineY);
                 ev.Graphics.DrawLine(Pen, VertLine9, TopLineY, VertLine9, BottomLineY);
-                
+
                 for (int i = 0, p = 10; i < ((CabFurInfo)LabelInfo[CurrentLabelNumber]).OrderData.Rows.Count; i++, p += 24)
                 {
                     if (((CabFurInfo)LabelInfo[CurrentLabelNumber]).OrderData.Rows[i]["Color"].ToString().Length > 24)

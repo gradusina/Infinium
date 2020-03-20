@@ -137,8 +137,8 @@ namespace Infinium
         private void CreateButton_Click(object sender, EventArgs e)
         {
             if (ContractorID > -1)
-            { 
-                foreach(DataRow Row in ContactsDataTable.Rows)
+            {
+                foreach (DataRow Row in ContactsDataTable.Rows)
                 {
                     if (Row.RowState == DataRowState.Deleted)
                         continue;

@@ -1,12 +1,12 @@
-﻿using System;
+﻿using NPOI.HSSF.UserModel;
+
+using System;
 using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-using System.Threading;
 using System.IO;
-using NPOI.HSSF.UserModel;
+using System.Text;
+using System.Threading;
+using System.Windows.Forms;
 
 namespace Infinium
 {
@@ -25,9 +25,9 @@ namespace Infinium
         int FormEvent = 0;
         int CurrentRowIndex = 0;
         int CurrentColumnIndex = 0;
-        
+
         LightStartForm LightStartForm;
-        
+
         Form TopForm = null;
         Infinium.Modules.Marketing.Clients.Clients Clients;
 
@@ -35,9 +35,9 @@ namespace Infinium
         {
             InitializeComponent();
             LightStartForm = tLightStartForm;
-            
+
             this.MaximumSize = Screen.PrimaryScreen.WorkingArea.Size;
-            
+
             Initialize();
 
             Clients.GetPermissions(Security.CurrentUserID, this.Name);
@@ -61,13 +61,13 @@ namespace Infinium
                 ToolsPanel.Visible = false;
             }
 
-            while (!SplashForm.bCreated);
+            while (!SplashForm.bCreated) ;
         }
-        
+
         private void MarketingClientsForm_Shown(object sender, EventArgs e)
         {
             while (!SplashForm.bCreated) ;
-            
+
             FormEvent = eShow;
             AnimateTimer.Enabled = true;
         }
@@ -300,7 +300,7 @@ namespace Infinium
         {
             kryptonContextMenu2.Show(new Point(Cursor.Position.X - 10, Cursor.Position.Y - 10));
         }
-        
+
         private void ClientsDataGrid_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
         {
             PercentageDataGrid grid = (PercentageDataGrid)sender;
@@ -591,7 +591,7 @@ namespace Infinium
             bool OKCancel = Infinium.LightMessageBox.ShowClientDeleteForm(ref TopForm, ref bDeleteOrders);
             if (!OKCancel)
                 return;
-            
+
             Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
             T.Start();
 
@@ -604,7 +604,7 @@ namespace Infinium
             }
             Clients.RemoveClient(ClientID);
             Clients.FixOrderEvent(ClientID, "Клиент удален");
-            
+
             while (SplashWindow.bSmallCreated)
                 SmallWaitForm.CloseS = true;
         }

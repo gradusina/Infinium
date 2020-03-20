@@ -14,7 +14,7 @@ namespace Infinium
 
         Form TopForm = null;
         LightStartForm LightStartForm;
-        
+
 
         public AdminUsersManagement AdminUsersManagement = null;
 
@@ -22,15 +22,15 @@ namespace Infinium
         public AdminUsersForm(LightStartForm tLightStartForm)
         {
             InitializeComponent();
-            
+
             LightStartForm = tLightStartForm;
 
-            
+
             this.MaximumSize = Screen.PrimaryScreen.WorkingArea.Size;
 
             Initialize();
 
-            while(!SplashForm.bCreated);
+            while (!SplashForm.bCreated) ;
         }
 
         private void AdminUsersForm_Shown(object sender, EventArgs e)
@@ -53,7 +53,7 @@ namespace Infinium
 
                     if (FormEvent == eClose)
                     {
-                       
+
                         LightStartForm.CloseForm(this);
                     }
 
@@ -63,7 +63,7 @@ namespace Infinium
                         LightStartForm.HideForm(this);
                     }
 
-                    
+
                     return;
                 }
 
@@ -86,7 +86,7 @@ namespace Infinium
 
                     if (FormEvent == eClose)
                     {
-                       
+
                         LightStartForm.CloseForm(this);
                     }
 
@@ -95,7 +95,7 @@ namespace Infinium
 
                         LightStartForm.HideForm(this);
                     }
-                    
+
                 }
 
                 return;
@@ -162,7 +162,7 @@ namespace Infinium
 
         private void AddButton_Click(object sender, EventArgs e)
         {
-            if(NameTextBox.Text.Length < 1)
+            if (NameTextBox.Text.Length < 1)
                 return;
 
             AdminUsersManagement.Add(NameTextBox.Text);

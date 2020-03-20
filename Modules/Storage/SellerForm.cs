@@ -1,9 +1,10 @@
-﻿using System;
+﻿using Infinium.Store;
+
+using System;
 using System.Data;
 using System.Linq;
-using System.Windows.Forms;
 using System.Threading;
-using Infinium.Store;
+using System.Windows.Forms;
 
 namespace Infinium
 {
@@ -15,8 +16,8 @@ namespace Infinium
         const int eMainMenu = 4;
 
         int FormEvent = 0;
-        
-        
+
+
         Form TopForm = null;
         LightStartForm LightStartForm;
         SellersManager SellersManager;
@@ -28,11 +29,11 @@ namespace Infinium
             InitializeComponent();
             LightStartForm = tLightStartForm;
 
-            
+
             this.MaximumSize = Screen.PrimaryScreen.WorkingArea.Size;
             RolePermissionsDataTable = RolesAndPermissionsManager.GetPermissions(Security.CurrentUserID, this.Name);
             Initialize();
-            while (!SplashForm.bCreated);
+            while (!SplashForm.bCreated) ;
         }
 
         private bool PermissionGranted(int PermissionID)
@@ -86,16 +87,16 @@ namespace Infinium
 
                     if (FormEvent == eClose)
                     {
-                       
+
                         LightStartForm.CloseForm(this);
                     }
 
                     if (FormEvent == eHide)
                     {
-                        
+
                         LightStartForm.HideForm(this);
                     }
-                    
+
 
                     return;
                 }
@@ -119,16 +120,16 @@ namespace Infinium
 
                     if (FormEvent == eClose)
                     {
-                       
+
                         LightStartForm.CloseForm(this);
                     }
 
                     if (FormEvent == eHide)
                     {
-                        
+
                         LightStartForm.HideForm(this);
                     }
-                    
+
                 }
 
                 return;
@@ -154,7 +155,7 @@ namespace Infinium
             FormEvent = eClose;
             AnimateTimer.Enabled = true;
         }
-        
+
         private void NavigateMenuHerculesButton_Click(object sender, EventArgs e)
         {
             FormEvent = eMainMenu;
@@ -165,8 +166,8 @@ namespace Infinium
         private void Initialize()
         {
             SellersManager = new SellersManager(
-                ref SellersDataGrid, 
-                ref SellerGroupsDataGrid, 
+                ref SellersDataGrid,
+                ref SellerGroupsDataGrid,
                 ref SellerSubGroupsDataGrid,
                 ref SellerInfoDataGrid);
             SellerGroupTextBox.DataBindings.Add("Text", SellerGroupsDataGrid.DataSource, "SellerGroup");
@@ -189,7 +190,7 @@ namespace Infinium
             if (SellersManager == null || SellersManager.SubGroupsCount == 0)
                 return;
 
-            Thread T = new Thread(delegate() { SplashWindow.CreateSplash(); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSplash(); });
             T.Start();
 
             while (!SplashForm.bCreated) ;
@@ -205,7 +206,7 @@ namespace Infinium
 
             TopForm = null;
         }
-        
+
         private void RemoveItemButton_Click(object sender, EventArgs e)
         {
             if (SellersDataGrid.SelectedRows.Count > 0)
@@ -234,7 +235,7 @@ namespace Infinium
         {
             if (SellersDataGrid.SelectedRows.Count > 0)
             {
-                Thread T = new Thread(delegate() { SplashWindow.CreateSplash(); });
+                Thread T = new Thread(delegate () { SplashWindow.CreateSplash(); });
                 T.Start();
 
                 while (!SplashForm.bCreated) ;

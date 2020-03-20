@@ -1,6 +1,7 @@
-﻿using System;
+﻿using Infinium.Modules.Marketing.NewOrders;
+
+using System;
 using System.Windows.Forms;
-using Infinium.Modules.Marketing.NewOrders;
 
 namespace Infinium
 {
@@ -36,7 +37,7 @@ namespace Infinium
 
                     if (FormEvent == eClose)
                     {
-                       
+
                         this.Close();
                     }
 
@@ -68,7 +69,7 @@ namespace Infinium
 
                     if (FormEvent == eClose)
                     {
-                       
+
                         this.Close();
                     }
 

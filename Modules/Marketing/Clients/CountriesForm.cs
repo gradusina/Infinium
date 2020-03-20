@@ -1,6 +1,7 @@
-﻿using System;
+﻿using Infinium.Modules.Marketing.Clients;
+
+using System;
 using System.Windows.Forms;
-using Infinium.Modules.Marketing.Clients;
 
 namespace Infinium
 {
@@ -10,7 +11,7 @@ namespace Infinium
         const int eShow = 1;
         const int eClose = 3;
         const int eMainMenu = 4;
-        
+
         int FormEvent = 0;
 
         Form MainForm = null;
@@ -102,7 +103,7 @@ namespace Infinium
         {
             Clients.GetCountries();
             dgvCountries.DataSource = Clients.NewCountriesBindingSource;
-            
+
             dgvCountries.Columns["CountryID"].Visible = false;
         }
 
@@ -123,7 +124,7 @@ namespace Infinium
         private void CountriesForm_Load(object sender, EventArgs e)
         {
         }
-        
+
         private void btnAddCountry_Click(object sender, EventArgs e)
         {
             if (tbNewCountry.Text.Length > 0)

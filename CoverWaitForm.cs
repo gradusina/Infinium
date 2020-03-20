@@ -22,7 +22,7 @@ namespace Infinium
         }
 
         public CoverWaitForm(bool bSmall)
-        {          
+        {
             InitializeComponent();
 
             if (bSmall)
@@ -72,7 +72,7 @@ namespace Infinium
 
                 if (FormEvent == eClose)
                 {
-                    
+
                     this.Close();
                     return;
                 }
@@ -87,7 +87,7 @@ namespace Infinium
                     AnimateTimer.Enabled = false;
                     if (FormEvent == eClose)
                     {
-                        
+
                         this.Close();
                     }
                 }

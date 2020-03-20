@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Windows.Forms;
 using System.Threading;
+using System.Windows.Forms;
 
 namespace Infinium
 {
@@ -31,10 +31,10 @@ namespace Infinium
 
             Initialize();
 
-            while(!SplashForm.bCreated);
+            while (!SplashForm.bCreated) ;
         }
 
-      
+
         private void EditDepartmentsForm_Shown(object sender, EventArgs e)
         {
             FormEvent = eShow;
@@ -166,7 +166,7 @@ namespace Infinium
 
         private void PhotoEditButton_Click(object sender, EventArgs e)
         {
-            Thread T = new Thread(delegate() { SplashWindow.CreateSplash(); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSplash(); });
             T.Start();
 
             while (!SplashForm.bCreated) ;

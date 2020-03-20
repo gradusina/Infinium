@@ -1,6 +1,7 @@
-﻿using System;
+﻿using Infinium.Modules.ZOV.Clients;
+
+using System;
 using System.Windows.Forms;
-using Infinium.Modules.ZOV.Clients;
 
 namespace Infinium
 {

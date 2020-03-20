@@ -1,12 +1,13 @@
-﻿using System;
+﻿using Infinium.Modules.ZOV.Samples;
+
+using System;
 using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Windows.Forms;
-using System.Threading;
-using Infinium.Modules.ZOV.Samples;
-using System.IO;
 using System.Globalization;
+using System.IO;
+using System.Linq;
+using System.Threading;
+using System.Windows.Forms;
 
 namespace Infinium
 {
@@ -27,7 +28,7 @@ namespace Infinium
         int FormEvent = 0;
 
         LightStartForm LightStartForm;
-        
+
         Form TopForm = null;
 
         DataTable RolePermissionsDataTable;
@@ -49,7 +50,7 @@ namespace Infinium
             InitializeComponent();
             LightStartForm = tLightStartForm;
 
-            
+
             this.MaximumSize = Screen.PrimaryScreen.WorkingArea.Size;
 
             Initialize();
@@ -73,7 +74,7 @@ namespace Infinium
             //    RoleType = RoleTypes.Director;
             //}
 
-            while (!SplashForm.bCreated);
+            while (!SplashForm.bCreated) ;
         }
 
         private bool PermissionGranted(int RoleID)
@@ -102,18 +103,18 @@ namespace Infinium
 
                     if (FormEvent == eClose)
                     {
-                       
+
                         LightStartForm.CloseForm(this);
                         this.Close();
                     }
 
                     if (FormEvent == eHide)
                     {
-                        
+
                         LightStartForm.HideForm(this);
                     }
 
-                    
+
                     return;
                 }
 
@@ -136,17 +137,17 @@ namespace Infinium
 
                     if (FormEvent == eClose)
                     {
-                       
+
                         LightStartForm.CloseForm(this);
                         this.Close();
                     }
 
                     if (FormEvent == eHide)
                     {
-                        
+
                         LightStartForm.HideForm(this);
                     }
-                    
+
                 }
 
                 return;
@@ -407,7 +408,7 @@ namespace Infinium
             object ZDispDateFrom = dtpZDispDateFrom.Value;
             object ZDispDateTo = dtpZDispDateTo.Value;
 
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
             T.Start();
             while (!SplashWindow.bSmallCreated) ;
             OrdersManager.FilterOrders(
@@ -611,7 +612,7 @@ namespace Infinium
             bool bZDispDate = cbZDispDate.Checked;
             object ZDispDateFrom = dtpZDispDateFrom.Value;
             object ZDispDateTo = dtpZDispDateTo.Value;
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
             T.Start();
             while (!SplashWindow.bSmallCreated) ;
             OrdersManager.SaveMDescription();
@@ -652,7 +653,7 @@ namespace Infinium
             int MainOrderID = -1;
             if (dgvMainOrders.SelectedRows.Count > 0 && dgvMainOrders.SelectedRows[0].Cells["MainOrderID"].Value != DBNull.Value)
                 MainOrderID = Convert.ToInt32(dgvMainOrders.SelectedRows[0].Cells["MainOrderID"].Value);
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
             T.Start();
             while (!SplashWindow.bSmallCreated) ;
             if (Convert.ToInt32(dgvMainOrders.SelectedRows[0].Cells["FirmType"].Value) == 1)
@@ -696,11 +697,11 @@ namespace Infinium
             int MainOrderID = -1;
             if (dgvMainOrders.SelectedRows.Count > 0 && dgvMainOrders.SelectedRows[0].Cells["MainOrderID"].Value != DBNull.Value)
                 MainOrderID = Convert.ToInt32(dgvMainOrders.SelectedRows[0].Cells["MainOrderID"].Value);
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
             T.Start();
             while (!SplashWindow.bSmallCreated) ;
             if (Convert.ToInt32(dgvMainOrders.SelectedRows[0].Cells["FirmType"].Value) == 1)
-                OrdersManager.DetachMFoto( MainOrderID);
+                OrdersManager.DetachMFoto(MainOrderID);
             if (Convert.ToInt32(dgvMainOrders.SelectedRows[0].Cells["FirmType"].Value) == 0)
                 OrdersManager.DetachZFoto(MainOrderID);
             OrdersManager.FilterOrders(
@@ -733,7 +734,7 @@ namespace Infinium
         }
 
         private void dgvMainOrders_CellMouseEnter(object sender, DataGridViewCellEventArgs e)
-        { 
+        {
             PercentageDataGrid dataGridView = (PercentageDataGrid)sender;
             if (e.ColumnIndex > -1 && e.RowIndex > -1 && dataGridView.Columns[e.ColumnIndex].Name == "ShopAddresses" && dataGridView.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString().Length > 0)
                 dataGridView.Cursor = Cursors.Hand;

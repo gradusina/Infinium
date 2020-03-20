@@ -1,7 +1,8 @@
-﻿using System;
+﻿using Infinium.Modules.Marketing.Payments;
+
+using System;
 using System.Data;
 using System.Windows.Forms;
-using Infinium.Modules.Marketing.Payments;
 
 namespace Infinium
 {

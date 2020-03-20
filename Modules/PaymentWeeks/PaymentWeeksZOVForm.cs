@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Drawing;
-using System.Windows.Forms;
 using System.Threading;
+using System.Windows.Forms;
 
 namespace Infinium
 {
@@ -34,7 +34,7 @@ namespace Infinium
 
             Initialize();
 
-            while (!SplashForm.bCreated);
+            while (!SplashForm.bCreated) ;
         }
 
         private void PaymentWeeksZOVForm_Shown(object sender, EventArgs e)
@@ -137,7 +137,7 @@ namespace Infinium
 
         private void Initialize()
         {
-            PaymentWeeks = new Modules.PaymentWeeks.PaymentWeeks(ref ResultTotalDataGrid, ref WriteOffDataGrid, ref CalcWriteOffDataGrid, 
+            PaymentWeeks = new Modules.PaymentWeeks.PaymentWeeks(ref ResultTotalDataGrid, ref WriteOffDataGrid, ref CalcWriteOffDataGrid,
                                                                  ref WriteOffDetailGrid, ref ResultLabel, ref CalcWriteOffResultLabel,
                                                                  ref WriteOffResultLabel);
             PaymentWeeks.Load(PaymentWeekID);
@@ -171,7 +171,7 @@ namespace Infinium
         private void btnMoveToExpedition_Click(object sender, EventArgs e)
         {
             string DocNumber = WriteOffDetailGrid.SelectedRows[0].Cells["DocNumber"].Value.ToString();
-            Thread T = new Thread(delegate() { SplashWindow.CreateSplash(); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSplash(); });
             T.Start();
 
             while (!SplashForm.bCreated) ;

@@ -1,7 +1,8 @@
-﻿using System;
+﻿using Infinium.Modules.Marketing.ClientMessages;
+
+using System;
 using System.Data;
 using System.Windows.Forms;
-using Infinium.Modules.Marketing.ClientMessages;
 
 namespace Infinium
 {
@@ -28,7 +29,7 @@ namespace Infinium
             Initialize();
 
             ClientGrid.DataSource = ConnectClient.ClientBindingSource;
-            ClientGrid.Columns["ClientID"].Visible=false;
+            ClientGrid.Columns["ClientID"].Visible = false;
             ClientGrid.Columns["ClientName"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             ClientGrid.Columns["ClientName"].Width = 300;
             ClientGrid.Columns["ClientName"].HeaderText = "Клиенты";
@@ -47,7 +48,7 @@ namespace Infinium
             MessagersGrid.Columns.Add(UsersColumn);
             MessagersGrid.Columns["Blogger"].HeaderText = "Блоггер";
             MessagersGrid.Columns["Blogger"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-       //     MessagersGrid.Columns["Blogger"].Width = 400;
+            //     MessagersGrid.Columns["Blogger"].Width = 400;
 
             MessagersGrid.Columns["ChatPermissionID"].Visible = false;
             MessagersGrid.Columns["ClientID"].Visible = false;

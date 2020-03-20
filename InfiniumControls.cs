@@ -1,15 +1,16 @@
-﻿using System;
+﻿using ComponentFactory.Krypton.Toolkit;
+
+using System;
+using System.Collections;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Windows.Forms;
-using System.Drawing.Text;
-using System.Runtime.InteropServices;
-using System.Collections;
 using System.Drawing.Design;
+using System.Drawing.Text;
 using System.IO;
-using ComponentFactory.Krypton.Toolkit;
+using System.Linq;
+using System.Runtime.InteropServices;
+using System.Windows.Forms;
 
 namespace Infinium
 
@@ -41,7 +42,7 @@ namespace Infinium
         protected override void OnPaint(PaintEventArgs e)
         {
             e.Graphics.FillRectangle(brBackBrush, ClientRectangle);
-            
+
             base.OnPaint(e);
         }
 
@@ -128,8 +129,9 @@ namespace Infinium
             get { return iTotalControlHeight; }
             set
             {
-                iTotalControlHeight = value; InitializeThumb(); 
-                this.Refresh(); }
+                iTotalControlHeight = value; InitializeThumb();
+                this.Refresh();
+            }
         }
 
 
@@ -265,19 +267,19 @@ namespace Infinium
             }
             else
                 if (Pos * ThumbOneStepWidth < 0)
-                {
-                    iThumbPosition = 0;
-                    iOffset = 0;
-                    this.Refresh();
+            {
+                iThumbPosition = 0;
+                iOffset = 0;
+                this.Refresh();
 
-                    OnScrollPositionChanged(Offset);
+                OnScrollPositionChanged(Offset);
 
-                    return;
-                }
-                else
-                {
-                    iOffset = Convert.ToInt32(ThumbOneStepWidth * Pos);
-                }
+                return;
+            }
+            else
+            {
+                iOffset = Convert.ToInt32(ThumbOneStepWidth * Pos);
+            }
 
 
             iThumbPosition = Pos;
@@ -317,7 +319,7 @@ namespace Infinium
             //        return;
             //    }
             //}
-            
+
             if (bThumbClicked)
             {
                 SetPosition(e.Y - iThumbYClicked);
@@ -593,19 +595,19 @@ namespace Infinium
             }
             else
                 if (Pos * ThumbOneStepWidth < 0)
-                {
-                    iThumbPosition = 0;
-                    iOffset = 0;
-                    this.Refresh();
+            {
+                iThumbPosition = 0;
+                iOffset = 0;
+                this.Refresh();
 
-                    OnScrollPositionChanged(Offset);
+                OnScrollPositionChanged(Offset);
 
-                    return;
-                }
-                else
-                {
-                    iOffset = Convert.ToInt32(ThumbOneStepWidth * Pos);
-                }
+                return;
+            }
+            else
+            {
+                iOffset = Convert.ToInt32(ThumbOneStepWidth * Pos);
+            }
 
 
             iThumbPosition = Pos;
@@ -1119,25 +1121,25 @@ namespace Infinium
                 else
                     if (FileLabel[i].Extension.Equals(".doc", StringComparison.InvariantCultureIgnoreCase) ||
                         FileLabel[i].Extension.Equals(".docx", StringComparison.InvariantCultureIgnoreCase))
-                    {
-                        WordFileBMP.SetResolution(e.Graphics.DpiX, e.Graphics.DpiY);
-                        e.Graphics.DrawImage(WordFileBMP, 4, FileLabel[i].Top - 2, 24, 24);
-                    }
-                    else
+                {
+                    WordFileBMP.SetResolution(e.Graphics.DpiX, e.Graphics.DpiY);
+                    e.Graphics.DrawImage(WordFileBMP, 4, FileLabel[i].Top - 2, 24, 24);
+                }
+                else
                         if (FileLabel[i].Extension.Equals(".xls", StringComparison.InvariantCultureIgnoreCase) ||
                             FileLabel[i].Extension.Equals(".xlsx", StringComparison.InvariantCultureIgnoreCase))
-                        {
-                            ExcelFileBMP.SetResolution(e.Graphics.DpiX, e.Graphics.DpiY);
-                            e.Graphics.DrawImage(ExcelFileBMP, 4, FileLabel[i].Top - 2, 24, 24);
-                        }
-                        else
+                {
+                    ExcelFileBMP.SetResolution(e.Graphics.DpiX, e.Graphics.DpiY);
+                    e.Graphics.DrawImage(ExcelFileBMP, 4, FileLabel[i].Top - 2, 24, 24);
+                }
+                else
                             if (FileLabel[i].Extension.Equals(".zip", StringComparison.InvariantCultureIgnoreCase) ||
                                 FileLabel[i].Extension.Equals(".rar", StringComparison.InvariantCultureIgnoreCase))
-                            {
-                                ArchiveFileBMP.SetResolution(e.Graphics.DpiX, e.Graphics.DpiY);
-                                e.Graphics.DrawImage(ArchiveFileBMP, 4, FileLabel[i].Top - 2, 24, 24);
-                            }
-                            else
+                {
+                    ArchiveFileBMP.SetResolution(e.Graphics.DpiX, e.Graphics.DpiY);
+                    e.Graphics.DrawImage(ArchiveFileBMP, 4, FileLabel[i].Top - 2, 24, 24);
+                }
+                else
                                 if (FileLabel[i].Extension.Equals(".jpg", StringComparison.InvariantCultureIgnoreCase) ||
                                     FileLabel[i].Extension.Equals(".jpeg", StringComparison.InvariantCultureIgnoreCase) ||
                                     FileLabel[i].Extension.Equals(".png", StringComparison.InvariantCultureIgnoreCase) ||
@@ -1149,15 +1151,15 @@ namespace Infinium
                                     FileLabel[i].Extension.Equals(".psd", StringComparison.InvariantCultureIgnoreCase) ||
                                     FileLabel[i].Extension.Equals(".wmf", StringComparison.InvariantCultureIgnoreCase) ||
                                     FileLabel[i].Extension.Equals(".emf", StringComparison.InvariantCultureIgnoreCase))
-                                {
-                                    ImageFileBMP.SetResolution(e.Graphics.DpiX, e.Graphics.DpiY);
-                                    e.Graphics.DrawImage(ImageFileBMP, 4, FileLabel[i].Top - 2, 24, 24);
-                                }
-                                else
-                                {
-                                    OtherFileBMP.SetResolution(e.Graphics.DpiX, e.Graphics.DpiY);
-                                    e.Graphics.DrawImage(OtherFileBMP, 4, FileLabel[i].Top - 2, 24, 24);
-                                }
+                {
+                    ImageFileBMP.SetResolution(e.Graphics.DpiX, e.Graphics.DpiY);
+                    e.Graphics.DrawImage(ImageFileBMP, 4, FileLabel[i].Top - 2, 24, 24);
+                }
+                else
+                {
+                    OtherFileBMP.SetResolution(e.Graphics.DpiX, e.Graphics.DpiY);
+                    e.Graphics.DrawImage(OtherFileBMP, 4, FileLabel[i].Top - 2, 24, 24);
+                }
             }
 
             //e.Graphics.DrawRectangle(new Pen(Color.Black, 1), new Rectangle(1, 1, this.Width - 2, this.Height - 2));
@@ -1372,7 +1374,7 @@ namespace Infinium
             {
                 for (int i = 0; i < NewsItems.Count(); i++)
                 {
-                    if(NewsItems[i] != null)
+                    if (NewsItems[i] != null)
                         NewsItems[i].Dispose();
                 }
             }
@@ -2294,7 +2296,7 @@ namespace Infinium
 
         private void Initialize()
         {
-            if(AttachmentsList != null)
+            if (AttachmentsList != null)
                 AttachmentsList.Dispose();
 
             if (AttachmentsRows.Count() > 0)
@@ -2315,7 +2317,7 @@ namespace Infinium
                 this.Height += 10;
             }
 
-            if(ControlButtons != null)
+            if (ControlButtons != null)
                 ControlButtons.Dispose();
 
             //if (sNewsText.Contains("распространяется нашим"))
@@ -2346,7 +2348,7 @@ namespace Infinium
 
             this.Height += 36;//for splitter
 
-            if(CommentsTextBox != null)
+            if (CommentsTextBox != null)
                 CommentsTextBox.Dispose();
 
             CommentsTextBox = new InfiniumNewsCommentsRichTextBox()
@@ -2432,7 +2434,7 @@ namespace Infinium
                         if (CommentsRows[i]["UserTypeID"].ToString() == "0")
                         {
                             int index = Array.FindIndex(UsersImages, UI => UI.UserID == CommentsItems[i].SenderID);
-                            if(index > -1)
+                            if (index > -1)
                                 CommentsItems[i].SenderImage = UsersImages[index].Photo;
                             CommentsItems[i].SenderName = UsersDT.Select("UserID = " + CommentsRows[i]["UserID"])[0]["Name"].ToString();
                         }
@@ -2543,7 +2545,7 @@ namespace Infinium
             if (ControlButtons != null)
                 ControlButtons.Top += YOffset;
 
-            if(CommentsTextBox != null)
+            if (CommentsTextBox != null)
                 CommentsTextBox.Top += YOffset;
 
             if (CommentsItems != null)
@@ -2613,7 +2615,7 @@ namespace Infinium
 
             DrawMainSplitter(e.Graphics, this.Height - 1);
 
-            
+
         }
 
         protected override void OnPaintBackground(PaintEventArgs pevent)
@@ -2721,7 +2723,7 @@ namespace Infinium
                             //if (CurrentRowString[CurrentRowString.Length - (CurrentRowString.Length - LastSpace)] == ' ')
                             //    i -= (CurrentRowString.Length - LastSpace - 1);
                             //else
-                                i -= (CurrentRowString.Length - LastSpace);
+                            i -= (CurrentRowString.Length - LastSpace);
                         }
 
 
@@ -2792,7 +2794,7 @@ namespace Infinium
                             //if (CurrentRowString[CurrentRowString.Length - (CurrentRowString.Length - LastSpace)] == ' ')
                             //    i -= (CurrentRowString.Length - LastSpace - 1);
                             //else
-                                i -= (CurrentRowString.Length - LastSpace);
+                            i -= (CurrentRowString.Length - LastSpace);
                         }
 
 
@@ -2890,7 +2892,7 @@ namespace Infinium
 
                             if (LastSpace == 0)
                             {
- 
+
                             }
                             else
                             {
@@ -4726,19 +4728,19 @@ namespace Infinium
             }
             else
                 if (Pos * ThumbOneStepWidth < 0)
-                {
-                    iThumbPosition = 0;
-                    iOffset = 0;
-                    this.Refresh();
+            {
+                iThumbPosition = 0;
+                iOffset = 0;
+                this.Refresh();
 
-                    OnScrollPositionChanged(Offset);
+                OnScrollPositionChanged(Offset);
 
-                    return;
-                }
-                else
-                {
-                    iOffset = Convert.ToInt32(ThumbOneStepWidth * Pos);
-                }
+                return;
+            }
+            else
+            {
+                iOffset = Convert.ToInt32(ThumbOneStepWidth * Pos);
+            }
 
 
             iThumbPosition = Pos;
@@ -5869,7 +5871,7 @@ namespace Infinium
             {
                 if (iSelected == value)
                     return;
-                
+
                 iSelected = value;
 
                 if (GroupItems != null)
@@ -6074,7 +6076,7 @@ namespace Infinium
         public DataTable UsersDataTable
         {
             get { return UsersDT; }
-            set 
+            set
             {
                 //bool bVis = false;
 
@@ -6084,12 +6086,12 @@ namespace Infinium
                     //    if (UsersItems.Count() == 0)
                     //        bUsersVisible = false;
                     //    else
-                            HideUsers();
+                    HideUsers();
                     //}
-                   // bVis = true;
+                    // bVis = true;
                 }
 
-                UsersDT = value; 
+                UsersDT = value;
                 CreateUsersItems();
 
                 //if (bVis && UsersDT.Rows.Count > 0)
@@ -6100,7 +6102,7 @@ namespace Infinium
         public DataTable DepartmentsDataTable
         {
             get { return DepartmentsDT; }
-            set 
+            set
             {
                 //bool bVis = false;
 
@@ -6109,12 +6111,12 @@ namespace Infinium
                     //if (DepartmentsItems.Count() == 0)
                     //    bDepartmentsVisible = false;
                     //else
-                        HideDepartments();
+                    HideDepartments();
 
                     //bVis = true;
                 }
 
-                DepartmentsDT = value; 
+                DepartmentsDT = value;
                 CreateDepartmentsItems();
 
                 //if (bVis && DepartmentsDT.Rows.Count > 0)
@@ -6178,11 +6180,11 @@ namespace Infinium
                 }
                 else
                     if (bUsersVisible)
-                    {
-                        if (UsersItems.Count() == 0)
-                            this.Height = this.Height;
-                        HideUsers();
-                    }
+                {
+                    if (UsersItems.Count() == 0)
+                        this.Height = this.Height;
+                    HideUsers();
+                }
             }
             else//departments           
             {
@@ -6202,7 +6204,7 @@ namespace Infinium
                     }
                     else
                         if (bDepartmentsVisible)
-                            HideDepartments();
+                        HideDepartments();
                 }
                 else//all
                 {
@@ -6241,7 +6243,7 @@ namespace Infinium
             //    {
             //        if(bDepartmentsVisible)
             //            HideDepartments();
-                    
+
             //        return;
             //    }
             //}
@@ -6285,8 +6287,8 @@ namespace Infinium
                 return;
 
             int w = GroupItems[1].Top + GroupItems[1].Height;
-            
-            if(UsersItems.Count() > 0)
+
+            if (UsersItems.Count() > 0)
                 iUsersHeight = 0;
 
             foreach (InfiniumProjectsFilterGroupItem Item in UsersItems)
@@ -6418,7 +6420,7 @@ namespace Infinium
         private void OnUsersItemClick(object sender, EventArgs e)
         {
             if (UsersItems != null)
-                for (int i = 0; i < UsersItems.Count();i++ )
+                for (int i = 0; i < UsersItems.Count(); i++)
                 {
                     if (UsersItems[i] != sender)
                         UsersItems[i].Selected = false;
@@ -6560,7 +6562,7 @@ namespace Infinium
             fCaptionFont = new Font("Segoe UI", 18.0f, FontStyle.Regular, GraphicsUnit.Pixel);
 
             brCaptionBrush = new SolidBrush(cCaptionColor);
-           
+
             this.BackColor = Color.Transparent;
 
             SetInitialSize();
@@ -6594,7 +6596,7 @@ namespace Infinium
             }
 
             using (Graphics G = this.CreateGraphics())
-            {               
+            {
                 this.Width = Convert.ToInt32(G.MeasureString(sCaption, fCaptionFont).Width);
 
                 this.Height = Convert.ToInt32(G.MeasureString(sCaption, fCaptionFont).Height);
@@ -6763,7 +6765,7 @@ namespace Infinium
 
             DepartmentsMembersItem = new InfiniumProjectsMembersItem[0];
 
-            if(UsersCaption != null)
+            if (UsersCaption != null)
                 UsersCaption.Dispose();
 
             if (DepartmentsCaption != null)
@@ -7128,12 +7130,12 @@ namespace Infinium
         public int Selected
         {
             get { return iSelected; }
-            set 
-            { 
-                iSelected = value; 
-                
-                if(GroupItems != null)
-                    GroupItems[iSelected].Selected = true; 
+            set
+            {
+                iSelected = value;
+
+                if (GroupItems != null)
+                    GroupItems[iSelected].Selected = true;
             }
         }
 
@@ -7219,7 +7221,7 @@ namespace Infinium
         {
             foreach (InfiniumProjectsFilterStateItem GroupItem in GroupItems)
             {
-                GroupItem.Selected = false;    
+                GroupItem.Selected = false;
             }
 
             iSelected = -1;
@@ -7651,8 +7653,8 @@ namespace Infinium
         public DataTable ProjectsDataTable
         {
             get { return ProjectsDT; }
-            set 
-            { 
+            set
+            {
                 ProjectsDT = value;
                 Selected = -1;
             }
@@ -7662,7 +7664,7 @@ namespace Infinium
         {
             get { return iSelected; }
             set
-            { 
+            {
                 iSelected = value;
 
                 if (iSelected == -1)
@@ -7685,9 +7687,9 @@ namespace Infinium
 
                 iProjectID = Convert.ToInt32(ProjectsDT.Rows[iSelected]["ProjectID"]);
 
-                for(int i = 0; i < ProjectItems.Count(); i++)
-                { 
-                    if(i != iSelected)
+                for (int i = 0; i < ProjectItems.Count(); i++)
+                {
+                    if (i != iSelected)
                         ProjectItems[i].Selected = false;
                     else
                         ProjectItems[i].Selected = true;
@@ -7699,13 +7701,13 @@ namespace Infinium
 
         public int ProjectID
         {
-            get 
+            get
             {
                 if (iSelected > -1)
                     return Convert.ToInt32(ProjectsDT.Rows[iSelected]["ProjectID"]);
                 else
-                    return -1;    
-            }           
+                    return -1;
+            }
         }
 
         public void Filter()
@@ -8045,7 +8047,7 @@ namespace Infinium
 
                             if (LastSpace == 0)
                             {
-                               
+
                             }
                             else
                             {
@@ -10750,67 +10752,67 @@ namespace Infinium
             }
             else
                 if (sExtension == "folder")//folder
-                {
-                    IconFolder.SetResolution(e.Graphics.DpiX, e.Graphics.DpiY);
+            {
+                IconFolder.SetResolution(e.Graphics.DpiX, e.Graphics.DpiY);
 
-                    e.Graphics.DrawImage(IconFolder, 5 + iCheckWidthWithMargin, (this.Height - IconFolder.Height) / 2 - 2);
-                }
-                else//file
+                e.Graphics.DrawImage(IconFolder, 5 + iCheckWidthWithMargin, (this.Height - IconFolder.Height) / 2 - 2);
+            }
+            else//file
+            {
+                if (Extension.Equals("pdf", StringComparison.InvariantCultureIgnoreCase))
                 {
-                    if (Extension.Equals("pdf", StringComparison.InvariantCultureIgnoreCase))
-                    {
-                        PDFFileBMP.SetResolution(e.Graphics.DpiX, e.Graphics.DpiY);
-                        e.Graphics.DrawImage(PDFFileBMP, 5 + iCheckWidthWithMargin, (this.Height - 25) / 2,
-                                                             PDFFileBMP.Width * 25 / PDFFileBMP.Height, 25);
-                    }
-                    else
-                        if (Extension.Equals("doc", StringComparison.InvariantCultureIgnoreCase) ||
-                            Extension.Equals("docx", StringComparison.InvariantCultureIgnoreCase))
-                        {
-                            WordFileBMP.SetResolution(e.Graphics.DpiX, e.Graphics.DpiY);
-                            e.Graphics.DrawImage(WordFileBMP, 5 + iCheckWidthWithMargin, (this.Height - 25) / 2,
-                                                                  WordFileBMP.Width * 25 / WordFileBMP.Height, 25);
-                        }
-                        else
-                            if (Extension.Equals("xls", StringComparison.InvariantCultureIgnoreCase) ||
-                                Extension.Equals("xlsx", StringComparison.InvariantCultureIgnoreCase))
-                            {
-                                ExcelFileBMP.SetResolution(e.Graphics.DpiX, e.Graphics.DpiY);
-                                e.Graphics.DrawImage(ExcelFileBMP, 5 + iCheckWidthWithMargin, (this.Height - 25) / 2,
-                                                                       ExcelFileBMP.Width * 25 / ExcelFileBMP.Height, 25);
-                            }
-                            else
-                                if (Extension.Equals("zip", StringComparison.InvariantCultureIgnoreCase) ||
-                                    Extension.Equals("rar", StringComparison.InvariantCultureIgnoreCase))
-                                {
-                                    ArchiveFileBMP.SetResolution(e.Graphics.DpiX, e.Graphics.DpiY);
-                                    e.Graphics.DrawImage(ArchiveFileBMP, 5 + iCheckWidthWithMargin, (this.Height - 25) / 2,
-                                                             ArchiveFileBMP.Width * 25 / ArchiveFileBMP.Height, 25);
-                                }
-                                else
-                                    if (Extension.Equals("jpg", StringComparison.InvariantCultureIgnoreCase) ||
-                                        Extension.Equals("jpeg", StringComparison.InvariantCultureIgnoreCase) ||
-                                        Extension.Equals("png", StringComparison.InvariantCultureIgnoreCase) ||
-                                        Extension.Equals("bmp", StringComparison.InvariantCultureIgnoreCase) ||
-                                        Extension.Equals("tiff", StringComparison.InvariantCultureIgnoreCase) ||
-                                        Extension.Equals("tif", StringComparison.InvariantCultureIgnoreCase) ||
-                                        Extension.Equals("gif", StringComparison.InvariantCultureIgnoreCase) ||
-                                        Extension.Equals("tga", StringComparison.InvariantCultureIgnoreCase) ||
-                                        Extension.Equals("psd", StringComparison.InvariantCultureIgnoreCase) ||
-                                        Extension.Equals("wmf", StringComparison.InvariantCultureIgnoreCase) ||
-                                        Extension.Equals("emf", StringComparison.InvariantCultureIgnoreCase))
-                                    {
-                                        ImageFileBMP.SetResolution(e.Graphics.DpiX, e.Graphics.DpiY);
-                                        e.Graphics.DrawImage(ImageFileBMP, 5 + iCheckWidthWithMargin, (this.Height - 25) / 2,
-                                                             ImageFileBMP.Width * 25 / ImageFileBMP.Height, 25);
-                                    }
-                                    else
-                                    {
-                                        OtherFileBMP.SetResolution(e.Graphics.DpiX, e.Graphics.DpiY);
-                                        e.Graphics.DrawImage(OtherFileBMP, 5 + iCheckWidthWithMargin, (this.Height - 25) / 2,
-                                                             OtherFileBMP.Width * 25 / OtherFileBMP.Height, 25);
-                                    }
+                    PDFFileBMP.SetResolution(e.Graphics.DpiX, e.Graphics.DpiY);
+                    e.Graphics.DrawImage(PDFFileBMP, 5 + iCheckWidthWithMargin, (this.Height - 25) / 2,
+                                                         PDFFileBMP.Width * 25 / PDFFileBMP.Height, 25);
                 }
+                else
+                    if (Extension.Equals("doc", StringComparison.InvariantCultureIgnoreCase) ||
+                        Extension.Equals("docx", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    WordFileBMP.SetResolution(e.Graphics.DpiX, e.Graphics.DpiY);
+                    e.Graphics.DrawImage(WordFileBMP, 5 + iCheckWidthWithMargin, (this.Height - 25) / 2,
+                                                          WordFileBMP.Width * 25 / WordFileBMP.Height, 25);
+                }
+                else
+                        if (Extension.Equals("xls", StringComparison.InvariantCultureIgnoreCase) ||
+                            Extension.Equals("xlsx", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    ExcelFileBMP.SetResolution(e.Graphics.DpiX, e.Graphics.DpiY);
+                    e.Graphics.DrawImage(ExcelFileBMP, 5 + iCheckWidthWithMargin, (this.Height - 25) / 2,
+                                                           ExcelFileBMP.Width * 25 / ExcelFileBMP.Height, 25);
+                }
+                else
+                            if (Extension.Equals("zip", StringComparison.InvariantCultureIgnoreCase) ||
+                                Extension.Equals("rar", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    ArchiveFileBMP.SetResolution(e.Graphics.DpiX, e.Graphics.DpiY);
+                    e.Graphics.DrawImage(ArchiveFileBMP, 5 + iCheckWidthWithMargin, (this.Height - 25) / 2,
+                                             ArchiveFileBMP.Width * 25 / ArchiveFileBMP.Height, 25);
+                }
+                else
+                                if (Extension.Equals("jpg", StringComparison.InvariantCultureIgnoreCase) ||
+                                    Extension.Equals("jpeg", StringComparison.InvariantCultureIgnoreCase) ||
+                                    Extension.Equals("png", StringComparison.InvariantCultureIgnoreCase) ||
+                                    Extension.Equals("bmp", StringComparison.InvariantCultureIgnoreCase) ||
+                                    Extension.Equals("tiff", StringComparison.InvariantCultureIgnoreCase) ||
+                                    Extension.Equals("tif", StringComparison.InvariantCultureIgnoreCase) ||
+                                    Extension.Equals("gif", StringComparison.InvariantCultureIgnoreCase) ||
+                                    Extension.Equals("tga", StringComparison.InvariantCultureIgnoreCase) ||
+                                    Extension.Equals("psd", StringComparison.InvariantCultureIgnoreCase) ||
+                                    Extension.Equals("wmf", StringComparison.InvariantCultureIgnoreCase) ||
+                                    Extension.Equals("emf", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    ImageFileBMP.SetResolution(e.Graphics.DpiX, e.Graphics.DpiY);
+                    e.Graphics.DrawImage(ImageFileBMP, 5 + iCheckWidthWithMargin, (this.Height - 25) / 2,
+                                         ImageFileBMP.Width * 25 / ImageFileBMP.Height, 25);
+                }
+                else
+                {
+                    OtherFileBMP.SetResolution(e.Graphics.DpiX, e.Graphics.DpiY);
+                    e.Graphics.DrawImage(OtherFileBMP, 5 + iCheckWidthWithMargin, (this.Height - 25) / 2,
+                                         OtherFileBMP.Width * 25 / OtherFileBMP.Height, 25);
+                }
+            }
 
 
             if (bSelected)
@@ -10820,7 +10822,7 @@ namespace Infinium
                 e.Graphics.DrawString(text, fCaptionFont, brCaptionBrush, 5 + iCheckWidthWithMargin + IconFolder.Width + 3,
                                       (this.Height - e.Graphics.MeasureString(sCaption, fCaptionFont).Height) / 2 - 1);
 
-            if(iFileSize > 0)
+            if (iFileSize > 0)
                 e.Graphics.DrawString(GetFileSizeInKB(iFileSize), fFileSizeFont, brFileSizeBrush, this.Width / 100 * iMarginForFileSizePercents,
                                       (this.Height - e.Graphics.MeasureString(iFileSize.ToString(), fFileSizeFont).Height) / 2);
 
@@ -10961,7 +10963,7 @@ namespace Infinium
             }
 
             SetScrollHeight();
-            
+
         }
 
         private void SetScrollHeight()
@@ -10989,11 +10991,11 @@ namespace Infinium
 
         public DataTable ItemsDataTable
         {
-            get 
+            get
             {
                 if (bCheckVisible)
                 {
-                    if(FileItems.Count() > 0)
+                    if (FileItems.Count() > 0)
                         for (int i = 0; i < FileItems.Count(); i++)
                         {
                             if (FileItems[i] == null)
@@ -11006,7 +11008,7 @@ namespace Infinium
                         }
                 }
 
-                return ItemsDT; 
+                return ItemsDT;
             }
             set
             {
@@ -11016,9 +11018,9 @@ namespace Infinium
                     Selected = -1;
                 else
                     if (ItemsDT.Rows.Count == 0)
-                    {
-                        Selected = -1;
-                    }
+                {
+                    Selected = -1;
+                }
 
                 InitializeItems();
             }
@@ -11054,7 +11056,7 @@ namespace Infinium
                         FileItems[i].Selected = true;
                 }
 
-                if(iSelected > -1)
+                if (iSelected > -1)
                     OnSelectedChanged(this, ((InfiniumFileListItem)FileItems[iSelected]).FolderID, ((InfiniumFileListItem)FileItems[iSelected]).FileID);
                 else
                     OnSelectedChanged(this, -1, -1);
@@ -11073,7 +11075,7 @@ namespace Infinium
         public bool CheckVisible
         {
             get { return bCheckVisible; }
-            set 
+            set
             {
 
 
@@ -11089,7 +11091,7 @@ namespace Infinium
                     return;
                 }
 
-                if(value == true)
+                if (value == true)
                     if (bCheckVisible)
                         return;
                     else
@@ -11102,7 +11104,7 @@ namespace Infinium
                         bCheckVisible = true;
                     }
 
-                if(value == false)
+                if (value == false)
                     if (!bCheckVisible)
                         return;
                     else
@@ -11113,8 +11115,8 @@ namespace Infinium
                         }
 
                         bCheckVisible = false;
-                    }                    
-                }
+                    }
+            }
         }
 
         public void EnterInFolder(int FolderID)
@@ -11141,7 +11143,7 @@ namespace Infinium
 
         public int GetIndex(int FolderID)
         {
-            for(int i = 0; i < FileItems.Count(); i++)
+            for (int i = 0; i < FileItems.Count(); i++)
             {
                 if (FileItems[i].FolderID == FolderID)
                     return i;
@@ -11153,7 +11155,7 @@ namespace Infinium
         public void RootOutFolder(int FolderID)
         {
             if (Entered > -1)
-                FileItems[GetIndex(iEntered)].Selected = true;               
+                FileItems[GetIndex(iEntered)].Selected = true;
             else
                 FileItems[0].Selected = true;
 
@@ -11172,7 +11174,7 @@ namespace Infinium
 
             if (ItemsDT.Select("FolderID = " + FolderID)[0]["Extension"].ToString() == "root")
                 OnRootDoubleClicked(sender, FolderID, FileID);
-            else                
+            else
                 OnItemDoubleClicked(sender, FolderID, FileID);
         }
 
@@ -11405,7 +11407,7 @@ namespace Infinium
         {
             get { return cSelectedCaptionColor; }
             set { cSelectedCaptionColor = value; brSelectedCaptionBrush.Color = cSelectedCaptionColor; this.Refresh(); }
-        }     
+        }
 
         public Color BackSelectedColor
         {
@@ -12458,7 +12460,7 @@ namespace Infinium
 
             //if (ItemsDT.DefaultView.Count > 0)
             //{
-                
+
             //}
 
             //SetScrollHeight();
@@ -12527,7 +12529,7 @@ namespace Infinium
             if (AttributesDataTable.Rows.Count == 0)
             {
                 e.Graphics.DrawString("нет аттрибутов", fAttributeItemFont, brAttributeItemFontBrush,
-                                                  (this.Width - e.Graphics.MeasureString("нет аттрибутов",fAttributeItemFont).Width) / 2,
+                                                  (this.Width - e.Graphics.MeasureString("нет аттрибутов", fAttributeItemFont).Width) / 2,
                                                   (this.Height - e.Graphics.MeasureString("нет аттрибутов", fAttributeItemFont).Height) / 2);
                 return;
             }
@@ -12540,7 +12542,7 @@ namespace Infinium
             bSignButtonVisible = false;
             bReadButtonVisible = false;
 
-            for (int i = 0; i < AttributesDataTable.Rows.Count;i++ )
+            for (int i = 0; i < AttributesDataTable.Rows.Count; i++)
             {
                 int iMA = 0;
 
@@ -12571,7 +12573,7 @@ namespace Infinium
 
                 if (AttributesDataTable.Rows[i]["AttributeName"].ToString() == "Подписи")
                 {
-                    for (int j = 0; j < SignsDT.Rows.Count;j++ )
+                    for (int j = 0; j < SignsDT.Rows.Count; j++)
                     {
                         int iM = 0;
 
@@ -12585,7 +12587,7 @@ namespace Infinium
                         iCurTextPosY += Convert.ToInt32(e.Graphics.MeasureString(UsersDataTable.Select("UserID = " + SignsDT.Rows[j]["UserID"])[0]["Name"].ToString(),
                                                         fAttributeItemFont).Height) + iM;
 
-                        
+
 
                         if (Convert.ToBoolean(SignsDT.Rows[j]["IsSigned"]) == true)
                         {
@@ -12613,7 +12615,7 @@ namespace Infinium
                                 e.Graphics.DrawString("нет", fAttributeItemFont, brAttributeValueNotSetBrush, 10, iCurTextPosY + iMarginToAttributeData);
                                 iCurTextPosY += Convert.ToInt32(e.Graphics.MeasureString("нет", fAttributeItemFont).Height) + iMarginToAttributeData;
                             }
-                            
+
                         }
 
                     }
@@ -12761,7 +12763,7 @@ namespace Infinium
                 }
         }
 
-     
+
         private void OnVerticalScrollVisibleChanged(object sender, EventArgs e)
         {
             if (VerticalScroll.Visible)
@@ -12819,12 +12821,12 @@ namespace Infinium
                     }
                 }
             }
-            else                    
+            else
                 if (bReadButtonTrack)
-                {
-                    bReadButtonTrack = false;
-                    this.Cursor = Cursors.Default;
-                }            
+            {
+                bReadButtonTrack = false;
+                this.Cursor = Cursors.Default;
+            }
         }
 
         private void OnScrollContainerMouseLeave(object sender, EventArgs e)
@@ -13011,7 +13013,7 @@ namespace Infinium
 
             for (int i = 0; i < DepsItemsDT.Rows.Count; i++)
             {
-                string sDep = DepartmentsDataTable.Select("DepartmentID = " + 
+                string sDep = DepartmentsDataTable.Select("DepartmentID = " +
                                       DepsItemsDT.Rows[i]["DepartmentID"])[0]["DepartmentName"].ToString();
                 e.Graphics.DrawString(sDep, fAttributeItemFont, brAttributeItemFontBrush, iLeftMargin + 2, iCurTextPosY);
                 iCurTextPosY += Convert.ToInt32(e.Graphics.MeasureString(sDep, fAttributeItemFont).Height) + iMarginToNextUser;
@@ -13211,7 +13213,7 @@ namespace Infinium
         public string ToolTipText
         {
             get { return sToolTipText; }
-            set { sToolTipText = value; ToolTip.SetToolTip(this, value);}
+            set { sToolTipText = value; ToolTip.SetToolTip(this, value); }
         }
 
         public Color BorderColor
@@ -13223,7 +13225,7 @@ namespace Infinium
         public Color BackTrackColor
         {
             get { return cTrackBackColor; }
-            set { cTrackBackColor = value;}
+            set { cTrackBackColor = value; }
         }
 
         public override Color ForeColor
@@ -13258,7 +13260,7 @@ namespace Infinium
 
             Image.SetResolution(e.Graphics.DpiX, e.Graphics.DpiY);
 
-            if(bDisImage != null)
+            if (bDisImage != null)
                 bDisImage.SetResolution(e.Graphics.DpiX, e.Graphics.DpiY);
 
             if (sCaption.Length > 0)
@@ -13278,8 +13280,8 @@ namespace Infinium
 
             if (sCaption.Length > 0)
                 e.Graphics.DrawString(sCaption, this.Font, brFontBrush, 7 + Image.Width + 2, (this.Height - e.Graphics.MeasureString(sCaption, this.Font).Height) / 2 + iTextYMargin);
-            
-            if(bTracking)
+
+            if (bTracking)
                 e.Graphics.DrawRectangle(pBorderPen, rBorderRect);
 
             //if (this.Width != 7 + Image.Width + 2 + e.Graphics.MeasureString(sCaption, this.Font).Width + 5)
@@ -13323,7 +13325,7 @@ namespace Infinium
 
 
 
-    
+
 
 
 
@@ -13552,7 +13554,7 @@ namespace Infinium
 
             e.Graphics.FillRectangle(brSamplesBack, rSmallSampleRect);
 
-            e.Graphics.DrawImage(SmallSample2, iMarginLeft + rBigSampleRect.Width + 6 + ((iSmallSampleWidth - SmallSample2.Width) / 2), 
+            e.Graphics.DrawImage(SmallSample2, iMarginLeft + rBigSampleRect.Width + 6 + ((iSmallSampleWidth - SmallSample2.Width) / 2),
                                  rHeaderRect.Height + 20 + rSmallSampleRect.Height + 6 + ((iSmallSampleHeight - SmallSample2.Height) / 2));
 
             //small sample3
@@ -13571,15 +13573,15 @@ namespace Infinium
 
                 e.Graphics.DrawImage(imAuthorPhoto, iMarginLeft, rHeaderRect.Height + 20 + iBigSampleHeight + 6, iAuthorPictureWidth, iAuthorPictureHeight);
             }
-            
 
-            if(sAuthorName.Length > 0)
+
+            if (sAuthorName.Length > 0)
                 e.Graphics.DrawString(sAuthorName, fAuthorFont, brAuthorFontBrush, iMarginLeft + iAuthorPictureWidth + 3,
                                       rHeaderRect.Height + 20 + iBigSampleHeight + 6 - 2);
 
             if (sDateTime.Length > 0)
                 e.Graphics.DrawString(sDateTime, fDateFont, brDateFontBrush, iMarginLeft + iAuthorPictureWidth + 3,
-                                      rHeaderRect.Height + 20 + iBigSampleHeight + 6 - 2 + 
+                                      rHeaderRect.Height + 20 + iBigSampleHeight + 6 - 2 +
                                       e.Graphics.MeasureString(sDateTime, fDateFont).Height - 2);
 
             e.Graphics.FillRectangle(brBottomPanelBrush, rBottomPanelRect);
@@ -13679,7 +13681,7 @@ namespace Infinium
 
         private void DrawShadow(Graphics G, bool bUp)
         {
-            
+
 
             int iM = 1;
 
@@ -13687,7 +13689,7 @@ namespace Infinium
                 iM = 0;
 
             //right
-            if(bUp)
+            if (bUp)
                 G.DrawLine(pShadowPen0, this.Width - 5, 9 + iM, this.Width - 5, this.Height - 5);
             G.DrawLine(pShadowPen1, this.Width - 5 + iM, 9 + iM, this.Width - 5 + iM, this.Height - 5 + iM);
             G.DrawLine(pShadowPen2, this.Width - 4 + iM, 9 + iM, this.Width - 4 + iM, this.Height - 4 + iM);
@@ -13723,7 +13725,7 @@ namespace Infinium
             rHeaderRect.Width = this.Width - 7;
             rHeaderRect.Height = 40;
             rHeaderRect.Y = 1;
-            rHeaderRect.X = 1;            
+            rHeaderRect.X = 1;
         }
 
         protected override void OnMouseMove(MouseEventArgs e)
@@ -13823,8 +13825,8 @@ namespace Infinium
         public DataTable ItemsDataTable
         {
             get { return ItemsDT; }
-            set 
-            { 
+            set
+            {
                 ItemsDT = value;
             }
         }
@@ -13832,7 +13834,7 @@ namespace Infinium
 
         public void InitializeItems()
         {
-           if (AlbumItems != null)
+            if (AlbumItems != null)
             {
                 for (int i = 0; i < AlbumItems.Count(); i++)
                 {
@@ -13884,7 +13886,7 @@ namespace Infinium
 
                     byte[] b = (byte[])ItemsDT.DefaultView[i]["AuthorPhoto"];
 
-                    using(MemoryStream ms = new MemoryStream(b))
+                    using (MemoryStream ms = new MemoryStream(b))
                     {
                         AlbumItems[i].AuthorPhoto = (Bitmap)Image.FromStream(ms);
                     }
@@ -13981,7 +13983,7 @@ namespace Infinium
         }
 
         private int GetMaxCountInRow()
-        { 
+        {
             return (this.Width + iMarginToNextItem) / (iItemWidth + iMarginToNextItem);
         }
 
@@ -14186,7 +14188,7 @@ namespace Infinium
                 e.Graphics.DrawImage(LikeActiveBMP, this.Width - (int)W - LikeActiveBMP.Width, iLikePicTop);
 
                 iLikePicLeft = this.Width - (int)W - LikeActiveBMP.Width;
-                
+
                 e.Graphics.DrawString(iLikesCount.ToString(), fLikesAndCommentsFont, brLikesAndCommentsFontBrush, this.Width - W,
                                      this.Height - iMarginForLikes + (iMarginForLikes - e.Graphics.MeasureString(iLikesCount.ToString(), fLikesAndCommentsFont).Height) / 2);
             }
@@ -14199,7 +14201,7 @@ namespace Infinium
                 e.Graphics.DrawImage(LikeInactiveBMP, this.Width - LikeActiveBMP.Width, iLikePicTop);
 
                 iLikePicLeft = this.Width - LikeActiveBMP.Width;
-                
+
             }
 
             if (this.Width > Image.Width)
@@ -14606,7 +14608,7 @@ namespace Infinium
         {
             this.Height = 130;
             this.Width = 300;
-            
+
             fCaptionFont = new Font("Segoe UI", 18, FontStyle.Regular, GraphicsUnit.Pixel);
             fDescriptionFont = new System.Drawing.Font("Segoe UI", 13, FontStyle.Regular, GraphicsUnit.Pixel);
 
@@ -14672,7 +14674,7 @@ namespace Infinium
             if (sCaption.Length > 0)
             {
                 sCapt = GetFormattedString(e.Graphics, fCaptionFont, sCaption, this.Width - iImageWidth - iMarginTextLeft);
-           
+
                 e.Graphics.DrawString(sCapt, fCaptionFont, brCaptionFontBrush, iImageWidth + iMarginTextLeft, 8);
             }
 
@@ -14948,7 +14950,7 @@ namespace Infinium
                         {
                             InfiniumTiles[i].Image = (Bitmap)Image.FromStream(ms);
                         }
-                    }                   
+                    }
 
                     InfiniumTiles[i].Parent = ScrollContainer;
                     if (iCurRow == 0)
@@ -15089,7 +15091,7 @@ namespace Infinium
         public virtual void OnItemClicked(object sender, string FormName)
         {
             ItemClicked?.Invoke(sender, FormName);//Raise the event
-        }       
+        }
 
         public virtual void OnRightMouseClicked(object sender, string FormName)
         {
@@ -15205,7 +15207,7 @@ namespace Infinium
             else
                 text = sCaption;
 
-            e.Graphics.DrawString(text, fCaptionFont, brCaptionBrush, 50 + 18, 
+            e.Graphics.DrawString(text, fCaptionFont, brCaptionBrush, 50 + 18,
                                  (this.Height - e.Graphics.MeasureString(sCaption, fCaptionFont).Height) / 2);
 
             DrawCount(e.Graphics);
@@ -15244,7 +15246,7 @@ namespace Infinium
         {
             base.OnClick(e);
 
-            if(Parent != null)
+            if (Parent != null)
                 Parent.Focus();
         }
     }
@@ -15331,7 +15333,7 @@ namespace Infinium
                 for (int i = 0; i < ItemsDT.DefaultView.Count; i++)
                 {
                     Items[i] = new InfiniumNotifyItem();
-                    
+
                     Items[i].Top = i * (Items[i].ItemHeight + iMarginToNextItem);
                     Items[i].Caption = ItemsDT.DefaultView[i]["ModuleName"].ToString();
                     Items[i].Count = Convert.ToInt32(ItemsDT.DefaultView[i]["Count"]);
@@ -15346,9 +15348,9 @@ namespace Infinium
                         {
                             Items[i].Image = (Bitmap)Image.FromStream(ms);
                         }
-                    }                    
+                    }
 
-                    Items[i].Parent = ScrollContainer;                    
+                    Items[i].Parent = ScrollContainer;
                     Items[i].Width = ScrollContainer.Width;
                     Items[i].Anchor = AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top;
                     Items[i].Click += OnItemClick;
@@ -15609,7 +15611,7 @@ namespace Infinium
             //    e.Graphics.DrawString(sCaption, fCaptionFont, brTrackFontBrush, 0,
             //                                     (this.Height - e.Graphics.MeasureString(sCaption, fCaptionFont).Height) / 2);
             //else
-            if(bSelected)
+            if (bSelected)
                 e.Graphics.DrawString(sCaption, fCaptionFont, brSelectedFontBrush, 0,
                                  (this.Height - e.Graphics.MeasureString(sCaption, fCaptionFont).Height) / 2);
             else
@@ -15812,10 +15814,10 @@ namespace Infinium
         public int Selected
         {
             get { return iSelected; }
-            set 
-            { 
-                iSelected = value; 
-                if(Items != null)
+            set
+            {
+                iSelected = value;
+                if (Items != null)
                     if (Items.Count() > 0)
                     {
                         Items[iSelected].Selected = true;
@@ -15894,16 +15896,16 @@ namespace Infinium
                 {
                     iSelected = ItemsDataTable.Rows.IndexOf(ItemsDataTable.Select("MenuItemName = '" + Item.Caption + "'")[0]);
                     Item.Selected = true;
-                    OnItemClicked(sender, ((InfiniumStartMenuItem)sender).Caption, 
-                        Convert.ToInt32(ItemsDataTable.Select("MenuItemName = '"+((InfiniumStartMenuItem)sender).Caption + "'")[0]["MenuItemID"]));
-                }                   
+                    OnItemClicked(sender, ((InfiniumStartMenuItem)sender).Caption,
+                        Convert.ToInt32(ItemsDataTable.Select("MenuItemName = '" + ((InfiniumStartMenuItem)sender).Caption + "'")[0]["MenuItemID"]));
+                }
                 else
                 {
-                    if(Item.Selected)
+                    if (Item.Selected)
                         Item.Selected = false;
                 }
             }
-            
+
         }
 
 
@@ -16031,8 +16033,8 @@ namespace Infinium
         protected override void OnMouseMove(MouseEventArgs e)
         {
             base.OnMouseMove(e);
-            
-            if(Parent != null)
+
+            if (Parent != null)
                 if (!Parent.Focused)
                     Parent.Focus();
 
@@ -16058,7 +16060,7 @@ namespace Infinium
         {
             base.OnClick(e);
 
-            if(Parent != null)
+            if (Parent != null)
                 Parent.Focus();
         }
 
@@ -16229,7 +16231,7 @@ namespace Infinium
 
         public void RemoveModule(string FormName)
         {
-            for(int i = 0; i < ItemsArray.Count; i++)
+            for (int i = 0; i < ItemsArray.Count; i++)
             {
                 if (((Form)ItemsArray[i]).Name == FormName)
                 {
@@ -16600,7 +16602,7 @@ namespace Infinium
             if (ItemsDT == null)
                 return;
 
-            
+
 
             if (ItemsDT.DefaultView.Count > 0)
             {
@@ -16699,7 +16701,7 @@ namespace Infinium
             if (Items == null)
                 return null;
 
-            foreach(InfiniumFilesMenuItem Item in Items)
+            foreach (InfiniumFilesMenuItem Item in Items)
             {
                 if (Item.FolderID == FolderID)
                     return Item;
@@ -17414,7 +17416,7 @@ namespace Infinium
                     else
                         return;
                 }
-                
+
                 iSelected = value;
                 if (Items != null)
                     if (Items.Count() > 0)
@@ -17639,7 +17641,7 @@ namespace Infinium
             }
 
             if (bSelected)
-            {                
+            {
                 text = TrimText(e.Graphics, sCaption, this.Width - iImageWidth - 12 - iN);
 
                 e.Graphics.DrawString(text, fCaptionFont, brSelectedFontBrush, 0 + iImageWidth + 4, iY +
@@ -17647,21 +17649,21 @@ namespace Infinium
             }
             else
                 if (bTrack)
-                {
-                    text = TrimText(e.Graphics, sCaption, this.Width - iImageWidth - 12 - iN);
+            {
+                text = TrimText(e.Graphics, sCaption, this.Width - iImageWidth - 12 - iN);
 
-                    e.Graphics.DrawString(text, fCaptionFont, brTrackFontBrush, 0 + iImageWidth + 4,
-                                        (iImageHeight - e.Graphics.MeasureString(text, fCaptionFont).Height) / 2);
+                e.Graphics.DrawString(text, fCaptionFont, brTrackFontBrush, 0 + iImageWidth + 4,
+                                    (iImageHeight - e.Graphics.MeasureString(text, fCaptionFont).Height) / 2);
 
-                }
-                else
-                {
-                    text = TrimText(e.Graphics, sCaption, this.Width - iImageWidth - 12 - iN);
+            }
+            else
+            {
+                text = TrimText(e.Graphics, sCaption, this.Width - iImageWidth - 12 - iN);
 
-                    e.Graphics.DrawString(text, fCaptionFont, brCaptionBrush, 0 + iImageWidth + 4,
-                                        (iImageHeight - e.Graphics.MeasureString(text, fCaptionFont).Height) / 2);
-                }
-                    
+                e.Graphics.DrawString(text, fCaptionFont, brCaptionBrush, 0 + iImageWidth + 4,
+                                    (iImageHeight - e.Graphics.MeasureString(text, fCaptionFont).Height) / 2);
+            }
+
             Image.SetResolution(e.Graphics.DpiX, e.Graphics.DpiY);
 
             if (Online)
@@ -17687,7 +17689,7 @@ namespace Infinium
             {
                 DrawRoundedRectangle(e.Graphics, rCountRect, 4, pCountPen, cCountBackColor);
                 e.Graphics.DrawString(Count.ToString(), fCountFont, brCountFontBrush, this.Width - 12 - 20 - 4 - 25 + Convert.ToInt32((25 - e.Graphics.MeasureString(Count.ToString(), fCountFont).Width) / 2) + 1, (iImageHeight - 20) / 2 + 2);
-            }           
+            }
         }
 
         private string TrimText(Graphics g, string sText, int MaxWidth)
@@ -17892,7 +17894,7 @@ namespace Infinium
                     }
                     else
                         Items[i].Image = Properties.Resources.NoImage;
-                                     
+
                     Items[i].Parent = ScrollContainer;
                     Items[i].Width = ScrollContainer.Width;
                     Items[i].Anchor = AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top;
@@ -17917,7 +17919,7 @@ namespace Infinium
 
         //            if (i == Items.Count() - 1)//new user
         //            { 
-                        
+
         //            }
         //        } 
         //    }          
@@ -18124,7 +18126,7 @@ namespace Infinium
 
         public delegate void ItemClickedEventHandler(object sender, string Name, int UserID);
         public delegate void CloseClickedEventHandler(object sender, int UserID);
-              
+
 
         public virtual void OnCloseClicked(object sender, int UserID)
         {
@@ -18257,15 +18259,15 @@ namespace Infinium
                                         (iImageHeight - e.Graphics.MeasureString(sCaption, fCaptionFont).Height) / 2);
             else
                 if (bTrack)
-                {
-                    e.Graphics.DrawString(sCaption, fCaptionFont, brTrackFontBrush, 0 + iImageWidth + 4,
-                                        (iImageHeight - e.Graphics.MeasureString(sCaption, fCaptionFont).Height) / 2);
+            {
+                e.Graphics.DrawString(sCaption, fCaptionFont, brTrackFontBrush, 0 + iImageWidth + 4,
+                                    (iImageHeight - e.Graphics.MeasureString(sCaption, fCaptionFont).Height) / 2);
 
 
-                }
-                else
-                    e.Graphics.DrawString(sCaption, fCaptionFont, brCaptionBrush, 0 + iImageWidth + 4,
-                                        (iImageHeight - e.Graphics.MeasureString(sCaption, fCaptionFont).Height) / 2);
+            }
+            else
+                e.Graphics.DrawString(sCaption, fCaptionFont, brCaptionBrush, 0 + iImageWidth + 4,
+                                    (iImageHeight - e.Graphics.MeasureString(sCaption, fCaptionFont).Height) / 2);
 
 
             Image.SetResolution(e.Graphics.DpiX, e.Graphics.DpiY);
@@ -18273,7 +18275,7 @@ namespace Infinium
             if (Online)
                 e.Graphics.DrawString("Online", fOnlineFont, brOnlineColorBrush, 2, iY + iImageHeight);
 
-            e.Graphics.DrawImage(Image, 0, iY, iImageWidth, iImageHeight);        
+            e.Graphics.DrawImage(Image, 0, iY, iImageWidth, iImageHeight);
         }
 
         protected override void OnMouseMove(MouseEventArgs e)
@@ -18315,7 +18317,7 @@ namespace Infinium
 
         public event ItemClickedEventHandler ItemClicked;
 
-       //public delegate void CloseClickedEventHandler(object sender, int UserID);
+        //public delegate void CloseClickedEventHandler(object sender, int UserID);
         public delegate void ItemClickedEventHandler(object sender, string Name, int UserID);
 
         //public virtual void OnCloseClicked(object sender, int UserID)
@@ -18650,7 +18652,7 @@ namespace Infinium
     public class InfiniumMessageItem : Control
     {
         int iCurTextPosY = 0;
-        int iMarginTextRows = 5; 
+        int iMarginTextRows = 5;
 
         Color cMeTextColor = Color.FromArgb(0, 0, 0);
         Color cMeColor = Color.FromArgb(0, 120, 202);
@@ -18713,8 +18715,8 @@ namespace Infinium
                 DrawText(brSenderTextFontBrush, e.Graphics, ref iCurTextPosY);
                 e.Graphics.DrawString(DateTime, fDateFont, brSenderTextFontBrush, this.Width - iMarginForDate - 12, 0);
             }
-            
-            
+
+
         }
 
         public string Message
@@ -18981,7 +18983,7 @@ namespace Infinium
                         Items[i].Me = true;
                     else
                         Items[i].Me = false;
-                    
+
                     Items[i].Anchor = AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top;
                     Items[i].Refresh();
 
@@ -18995,7 +18997,7 @@ namespace Infinium
         }
 
         public void ScrollDown()
-        { 
+        {
             //if (Offset < ScrollContainer.Height - this.Height)
 
             Offset = ScrollContainer.Height - this.Height;
@@ -19633,10 +19635,10 @@ namespace Infinium
         public bool Selected
         {
             get { return bSelected; }
-            set 
-            { 
-                bSelected = value;  
-                this.Refresh(); 
+            set
+            {
+                bSelected = value;
+                this.Refresh();
             }
         }
 
@@ -19693,7 +19695,7 @@ namespace Infinium
                 e.Graphics.DrawString(Count.ToString(), fCountFont, brCountBrush, this.Width - e.Graphics.MeasureString(Count.ToString(), fCountFont).Width - 10,
                                      (this.Height - e.Graphics.MeasureString(Count.ToString(), fCountFont).Height) / 2 + 1);
             }
-            
+
         }
 
         protected override void OnMouseMove(MouseEventArgs e)
@@ -19876,14 +19878,14 @@ namespace Infinium
         public int Selected
         {
             get { return iSelected; }
-            set 
-            { 
+            set
+            {
                 iSelected = value;
 
                 if (Items == null)
                     return;
-                
-                Items[value].Selected = true; 
+
+                Items[value].Selected = true;
                 SelectedName = Items[value].Caption;
 
                 foreach (InfiniumDocumentsMenuItem Item in Items)
@@ -19987,7 +19989,7 @@ namespace Infinium
 
         private void OnItemClicked(object sender, string Name, int index, bool bSelected)
         {
-            if(index == iSelected)
+            if (index == iSelected)
                 return;
 
             iSelected = index;
@@ -20008,7 +20010,7 @@ namespace Infinium
 
         public delegate void SelectedChangedEventHandler(object sender, string Name, int index);
 
-        
+
         public virtual void OnSelectedChanged(object sender, string Name, int index)
         {
             iSelected = index;
@@ -20147,7 +20149,7 @@ namespace Infinium
 
         ToolTip ToolTip;
 
-        
+
 
         public InfiniumDocumentItem()
         {
@@ -20186,7 +20188,7 @@ namespace Infinium
 
             e.Graphics.DrawString(sDate, fDateFont, brDateBrush, iBorderMargin + 5 + iImageWidth + e.Graphics.MeasureString(sUserName, fUserNameFont).Width, iBorderMargin + 1);
 
-            if(sDescription.Length > 0)
+            if (sDescription.Length > 0)
                 e.Graphics.DrawString(sDescription, fDescriptionFont, brDescriptionBrush, iBorderMargin + 5 + iImageWidth + 1, iBorderMargin + 25);
             else
                 e.Graphics.DrawString("нет описания", fDescriptionFont, brNoBrush, iBorderMargin + 5 + iImageWidth + 1, iBorderMargin + 25);
@@ -20347,15 +20349,15 @@ namespace Infinium
                 return i.ToString() + " " + sMain + s1suf;
             else
                 if ((s[0] == '2' && s[1] != '1') || (s[0] == '3' && s[1] != '1') || (s[0] == '4' && s[1] != '1'))
-                    return i.ToString() + " " + sMain + s2suf;
-                else
-                    return i.ToString() + " " + sMain + s3suf;
+                return i.ToString() + " " + sMain + s2suf;
+            else
+                return i.ToString() + " " + sMain + s3suf;
         }
 
         public string ToolTipText
         {
             get { return sToolTipText; }
-            set { sToolTipText = value; ToolTip.SetToolTip(this, value);}
+            set { sToolTipText = value; ToolTip.SetToolTip(this, value); }
         }
 
         protected override void OnClick(EventArgs e)
@@ -20597,7 +20599,7 @@ namespace Infinium
                     if (ItemsDataTable.Columns["CorrespondentID"] != null)
                         if (Convert.ToInt32(ItemsDataTable.DefaultView[i]["CorrespondentID"]) != -1)
                             Items[i].sCorrespondent = CorrespondentsDataTable.Select("CorrespondentID = " + ItemsDataTable.DefaultView[i]["CorrespondentID"])[0]["CorrespondentName"].ToString();
-                    
+
                     Items[i].sRegNumber = ItemsDataTable.DefaultView[i]["RegNumber"].ToString();
                     Items[i].sFactory = FactoryDataTable.Select("FactoryID = " + ItemsDataTable.DefaultView[i]["FactoryID"])[0]["Factory"].ToString();
                     if (Items[i].iDocumentCategoryID == 1)//income
@@ -20820,7 +20822,7 @@ namespace Infinium
 
         public static int iInitialHeight = 410;
 
-        
+
 
         ToolTip ToolTip;
 
@@ -20848,7 +20850,7 @@ namespace Infinium
         public string sFactory = "";
         public string sIncomeNumber = "";
         public string sRegNumber = "";
-        
+
         public int UserID = -1;
         public int iItemIndex = -1;
         public int iDocumentID = -1;
@@ -20942,7 +20944,7 @@ namespace Infinium
         public string ToolTipText
         {
             get { return sToolTipText; }
-            set { sToolTipText = value; ToolTip.SetToolTip(this, value);}
+            set { sToolTipText = value; ToolTip.SetToolTip(this, value); }
         }
 
         public void ChangeItemSize(int Height)
@@ -20991,13 +20993,13 @@ namespace Infinium
                 if (iDocumentCategoryID == 2)
                 {
                     e.Graphics.DrawString("к", fTextFont, brTextBrush, 7 + iImageWidth + iBorderMargin + 135 + e.Graphics.MeasureString(sCategory, fCategoryFont).Width, iBorderMargin + 21);
-                        e.Graphics.DrawString(sCorrespondent, fCorrespondentFont, brCorrespondentBrush, 7 + iImageWidth + iBorderMargin + 135 + e.Graphics.MeasureString(sCategory, fCategoryFont).Width + 20, iBorderMargin + 21);
+                    e.Graphics.DrawString(sCorrespondent, fCorrespondentFont, brCorrespondentBrush, 7 + iImageWidth + iBorderMargin + 135 + e.Graphics.MeasureString(sCategory, fCategoryFont).Width + 20, iBorderMargin + 21);
                 }
                 else
                 {
                     e.Graphics.DrawString("от", fTextFont, brTextBrush, 7 + iImageWidth + iBorderMargin + 135 + e.Graphics.MeasureString(sCategory, fCategoryFont).Width, iBorderMargin + 21);
                     e.Graphics.DrawString(sCorrespondent, fCorrespondentFont, brCorrespondentBrush, 7 + iImageWidth + iBorderMargin + 135 + e.Graphics.MeasureString(sCategory, fCategoryFont).Width + 25, iBorderMargin + 21);
-                }     
+                }
             }
 
 
@@ -21006,7 +21008,7 @@ namespace Infinium
 
             e.Graphics.DrawString("Описание", fLabelsFont, brLabelsBrush, 7 + iImageWidth + iBorderMargin + 200 + 1, iBorderMargin + 65);
 
-            if(sDescription.Length > 0)
+            if (sDescription.Length > 0)
                 e.Graphics.DrawString(sDescription, fParametersFont, brParametersBrush, iImageWidth + iBorderMargin + 7 + 200 + 2, iBorderMargin + 85);
             else
                 e.Graphics.DrawString("нет описания", fParametersFont, brNoBrush, iImageWidth + iBorderMargin + 7 + 200 + 2, iBorderMargin + 85);
@@ -21016,7 +21018,7 @@ namespace Infinium
 
             e.Graphics.DrawString("Регистрационный номер", fLabelsFont, brLabelsBrush, 7 + iImageWidth + iBorderMargin + 200 + 1, iBorderMargin + 115);
 
-            if(sRegNumber.Length > 0)
+            if (sRegNumber.Length > 0)
                 e.Graphics.DrawString(sRegNumber, fParametersFont, brParametersBrush, 7 + iImageWidth + iBorderMargin + 200 + 2, iBorderMargin + 135);
             else
                 e.Graphics.DrawString("нет", fParametersFont, brNoBrush, 7 + iImageWidth + iBorderMargin + 200 + 2, iBorderMargin + 135);
@@ -21175,7 +21177,7 @@ namespace Infinium
         Font fCaptionFont = new Font("Segoe UI", 22.0f, FontStyle.Regular, GraphicsUnit.Pixel);
 
         SolidBrush brCaptionBrush = new SolidBrush(Color.FromArgb(110, 110, 110));
-        
+
         public int Offset = 0;
 
         int iTempScrollWheelOffset = 0;
@@ -21283,20 +21285,20 @@ namespace Infinium
                         sCategory = DocumentsCategoriesDataTable.Select("DocumentCategoryID = " + ItemsDataTable.DefaultView[i]["DocumentCategoryID"])[0]["DocumentCategory"].ToString()
                     };
                     if (ItemsDataTable.DefaultView[i]["CorrespondentID"] != DBNull.Value)
-                        if(Convert.ToInt32(ItemsDataTable.DefaultView[i]["CorrespondentID"]) != -1)
+                        if (Convert.ToInt32(ItemsDataTable.DefaultView[i]["CorrespondentID"]) != -1)
                             Items[i].sCorrespondent = CorrespondentsDataTable.Select("CorrespondentID = " + ItemsDataTable.DefaultView[i]["CorrespondentID"])[0]["CorrespondentName"].ToString();
                     Items[i].sDate = Convert.ToDateTime(ItemsDataTable.DefaultView[i]["DateTime"]).ToString("dd.MM.yyyy HH:mm");
                     Items[i].sDescription = ItemsDataTable.DefaultView[i]["Description"].ToString();
                     Items[i].sRegNumber = ItemsDataTable.DefaultView[i]["RegNumber"].ToString();
                     Items[i].sFactory = FactoryDataTable.Select("FactoryID = " + ItemsDataTable.DefaultView[i]["FactoryID"])[0]["Factory"].ToString();
-                    if(Items[i].iDocumentCategoryID == 1)//income
+                    if (Items[i].iDocumentCategoryID == 1)//income
                         Items[i].sIncomeNumber = ItemsDataTable.DefaultView[i]["IncomeNumber"].ToString();
 
                     if (RecipientsDataTable.Select("UserID = " + Items[i].UserID + " AND DocumentCategoryID = " + Items[i].iDocumentCategoryID + " AND DocumentID = " + Items[i].iDocumentID).Count() > 0)
                         Items[i].bInRecipients = true;
 
                     Items[i].iItemIndex = i;
-                    
+
 
                     if (UsersDataTable.Select("UserID = " + Items[i].UserID)[0]["Photo"] != DBNull.Value)
                     {
@@ -21329,7 +21331,7 @@ namespace Infinium
                         }
                     }
 
-                                 
+
                     //recipients
                     Items[i].RecipientsDataTable = new DataTable();
                     Items[i].RecipientsDataTable = RecipientsDataTable.Clone();
@@ -21348,7 +21350,7 @@ namespace Infinium
                     {
                         Items[i].FilesDataTable.Rows.Add(rRow.ItemArray);
                     }
-                    
+
                     //confirms
                     Items[i].ConfirmsDataTable = new DataTable();
                     Items[i].ConfirmsDataTable = ConfirmsDataTable.Clone();
@@ -21361,7 +21363,7 @@ namespace Infinium
                     Items[i].ConfirmsRecipientsDataTable = new DataTable();
                     Items[i].ConfirmsRecipientsDataTable = ConfirmsRecipientsDataTable.Clone();
 
-                    if(Items[i].ConfirmsDataTable.Rows.Count > 0)
+                    if (Items[i].ConfirmsDataTable.Rows.Count > 0)
                         foreach (DataRow cRow in ConfirmsRecipientsDataTable.Select("DocumentConfirmationID = " + Items[i].ConfirmsDataTable.Rows[0]["DocumentConfirmationID"]))
                         {
                             Items[i].ConfirmsRecipientsDataTable.Rows.Add(cRow.ItemArray);
@@ -21461,7 +21463,7 @@ namespace Infinium
         {
             e.Graphics.TextRenderingHint = TextRenderingHint.ClearTypeGridFit;
 
-            if(Items == null || (Items != null && Items.Count() == 0))
+            if (Items == null || (Items != null && Items.Count() == 0))
                 e.Graphics.DrawString("Нет обновлений", fCaptionFont, brCaptionBrush,
                                         (this.Width - e.Graphics.MeasureString("Нет обновлений", fCaptionFont).Width) / 2,
                                         (this.Height - e.Graphics.MeasureString("Нет обновлений", fCaptionFont).Height) / 2);
@@ -21561,7 +21563,7 @@ namespace Infinium
         {
             DocumentCommentID = iDocumentCommentID;
 
-            InfiniumDocumentsUpdatesItem Item = (InfiniumDocumentsUpdatesItem)sender;        
+            InfiniumDocumentsUpdatesItem Item = (InfiniumDocumentsUpdatesItem)sender;
 
             int iComPos = Item.Top - Offset + Item.ControlPanel.Top + Item.ControlPanel.CommentsTextBox.Top + Item.ControlPanel.CommentsTextBox.RichTextBox.Top;
 
@@ -21636,7 +21638,7 @@ namespace Infinium
         {
             if (ConfirmsDataTable.Select("DocumentID = " + iDocumentID + " AND DocumentCategoryID = " + iDocumentCategoryID).Count() > 0)
             {
-                if(AddConfirmClicked != null)
+                if (AddConfirmClicked != null)
                     OnConfirmEditClicked(this, Convert.ToInt32(ConfirmsDataTable.Select("DocumentID = " + iDocumentID + " AND DocumentCategoryID = " + iDocumentCategoryID)[0]["DocumentConfirmationID"]));
             }
             else
@@ -21696,10 +21698,10 @@ namespace Infinium
 
         public int iItemHeight = 61;
         public int iItemWidth = 46;
-        
+
         public int iImageWidth = 44;
         public int iImageHeight = 41;
-        
+
         bool bTrack = false;
         public Bitmap Image;
 
@@ -22315,22 +22317,22 @@ namespace Infinium
                     else
                         if (Ext.Equals(".doc", StringComparison.InvariantCultureIgnoreCase) ||
                             Ext.Equals(".docx", StringComparison.InvariantCultureIgnoreCase))
-                        {
-                            Items[i].Image = WordFileBMP;
-                        }
-                        else
+                    {
+                        Items[i].Image = WordFileBMP;
+                    }
+                    else
                             if (Ext.Equals(".xls", StringComparison.InvariantCultureIgnoreCase) ||
                                 Ext.Equals(".xlsx", StringComparison.InvariantCultureIgnoreCase))
-                            {
-                                Items[i].Image = ExcelFileBMP;
-                            }
-                            else
+                    {
+                        Items[i].Image = ExcelFileBMP;
+                    }
+                    else
                                 if (Ext.Equals(".zip", StringComparison.InvariantCultureIgnoreCase) ||
                                     Ext.Equals(".rar", StringComparison.InvariantCultureIgnoreCase))
-                                {
-                                    Items[i].Image = ArchiveFileBMP;
-                                }
-                                else
+                    {
+                        Items[i].Image = ArchiveFileBMP;
+                    }
+                    else
                                     if (Ext.Equals(".jpg", StringComparison.InvariantCultureIgnoreCase) ||
                                         Ext.Equals(".jpeg", StringComparison.InvariantCultureIgnoreCase) ||
                                         Ext.Equals(".png", StringComparison.InvariantCultureIgnoreCase) ||
@@ -22342,13 +22344,13 @@ namespace Infinium
                                         Ext.Equals(".psd", StringComparison.InvariantCultureIgnoreCase) ||
                                         Ext.Equals(".wmf", StringComparison.InvariantCultureIgnoreCase) ||
                                         Ext.Equals(".emf", StringComparison.InvariantCultureIgnoreCase))
-                                    {
-                                        Items[i].Image = ImageFileBMP;
-                                    }
-                                    else
-                                    {
-                                        Items[i].Image = OtherFileBMP;
-                                    }
+                    {
+                        Items[i].Image = ImageFileBMP;
+                    }
+                    else
+                    {
+                        Items[i].Image = OtherFileBMP;
+                    }
 
 
                     Items[i].Parent = ScrollContainer;
@@ -22632,7 +22634,7 @@ namespace Infinium
         public string ToolTipText
         {
             get { return sToolTipText; }
-            set { sToolTipText = value; ToolTip.SetToolTip(this, value);}
+            set { sToolTipText = value; ToolTip.SetToolTip(this, value); }
         }
 
 
@@ -22640,7 +22642,7 @@ namespace Infinium
         {
             base.OnPaint(e);
 
-            
+
             e.Graphics.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
 
             rBorderRect = this.ClientRectangle;
@@ -22682,14 +22684,14 @@ namespace Infinium
         private void OnRichTextBoxSizeChanged(object sender, int iHeight)
         {
             this.Height += iHeight;
-            OnControlPanelSizeChanged(this, iHeight);         
+            OnControlPanelSizeChanged(this, iHeight);
         }
 
         private void OnCommentsContainerSizeChanged(object sender, int iHeight)
         {
             this.Height += iHeight;
             CommentsTextBox.Top += iHeight;
-            OnControlPanelSizeChanged(this, iHeight); 
+            OnControlPanelSizeChanged(this, iHeight);
         }
 
         private void OnEditCommentClick(object sender, int iDocumentCommentID, string Text)
@@ -22710,7 +22712,7 @@ namespace Infinium
                 CommentsTextBox.iDocumentCommentID = iDocumentCommentID;
             }
 
-            OnEditCommentClicked(this, iDocumentCommentID);   
+            OnEditCommentClicked(this, iDocumentCommentID);
         }
 
         private void OnDeleteCommentClick(object sender, int iDocumentCommentID, string Text)
@@ -22818,8 +22820,8 @@ namespace Infinium
 
     public class InfiniumDocumentsCommentsItem : Control
     {
-        int iMarginTextRows = 5; 
-        
+        int iMarginTextRows = 5;
+
         Color cBackColor = Color.White;
         //Color cBorderColor = Color.FromArgb(192, 192, 192);
 
@@ -22851,7 +22853,7 @@ namespace Infinium
         string sToolTipText = "";
         public int iDocumentCommentID = -1;
         public Bitmap Image = null;
-        
+
         public bool bCanEdit = false;
 
         public string sUserName = "";
@@ -22976,15 +22978,15 @@ namespace Infinium
         public string ToolTipText
         {
             get { return sToolTipText; }
-            set { sToolTipText = value; ToolTip.SetToolTip(this, value);}
+            set { sToolTipText = value; ToolTip.SetToolTip(this, value); }
         }
 
         public string CommentText
         {
             get { return sText; }
-            set 
-            { 
-                sText = value; 
+            set
+            {
+                sText = value;
                 this.Height = GetInitialHeight();
 
                 if (FilesDataTable.Rows.Count > 0)
@@ -23003,7 +23005,7 @@ namespace Infinium
                     FileList.ItemClicked += OnFileClicked;
 
                     this.Height += FileList.Height + 2;
-                }            
+                }
             }
         }
 
@@ -23134,7 +23136,7 @@ namespace Infinium
             {
                 if (e.Y >= -1 && e.Y <= 19 && e.X >= iEditLeft && e.X <= iEditLeft + 20)
                 {
-                    if(this.Cursor != Cursors.Hand)
+                    if (this.Cursor != Cursors.Hand)
                         this.Cursor = Cursors.Hand;
 
                     if (ToolTipText != "Редактировать")
@@ -23227,7 +23229,7 @@ namespace Infinium
         public DataTable ItemsDataTable;
         public DataTable UsersDataTable = null;
         public DataTable FilesDataTable = null;
-        
+
 
         public InfiniumDocumentsCommentsList()
         {
@@ -23355,7 +23357,7 @@ namespace Infinium
 
                     iAllCommentsHeight = iCurPosY;
 
-                    iCurPosY += iMarginToNextItem;                    
+                    iCurPosY += iMarginToNextItem;
                 }
             }
 
@@ -23391,7 +23393,7 @@ namespace Infinium
             else
             {
                 AllCommentsLabel.Visible = true;
-                
+
                 AllCommentsLabel.Text = GetLabelText(Items.Count());
                 this.Height = iCurPosY + iMarginForLabel;
                 iAllCommentsHeight += iMarginForLabel;
@@ -23429,9 +23431,9 @@ namespace Infinium
                 return i.ToString() + " комментарий";
             else
                 if ((s[0] == '2' && s[1] != '1') || (s[0] == '3' && s[1] != '1') || (s[0] == '4' && s[1] != '1'))
-                    return i.ToString() + " комментария";
-                else
-                    return i.ToString() + " комментариев";
+                return i.ToString() + " комментария";
+            else
+                return i.ToString() + " комментариев";
         }
 
         private void OnLabelClick(object sender, EventArgs e)
@@ -23638,7 +23640,7 @@ namespace Infinium
             e.Graphics.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
             e.Graphics.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
 
-            
+
 
             if (iStatus == 1)
             {
@@ -23707,7 +23709,7 @@ namespace Infinium
             base.OnMouseDown(e);
 
             if (bCanEdit)
-            {               
+            {
                 if (e.Y >= 3 && e.Y <= this.Height - 3 && e.X >= iConfirmLeft && e.X <= iConfirmLeft + iConfirmWidth)
                 {
                     if (iStatus == 0)
@@ -23745,7 +23747,7 @@ namespace Infinium
                 }
                 else if (e.Y >= 3 && e.Y <= this.Height - 3 && e.X >= iCancelLeft && e.X <= iCancelLeft + iCancelWidth)
                 {
-                    if(this.Cursor != Cursors.Hand)
+                    if (this.Cursor != Cursors.Hand)
                         this.Cursor = Cursors.Hand;
                 }
                 else
@@ -23864,7 +23866,7 @@ namespace Infinium
         public string ToolTipText
         {
             get { return sToolTipText; }
-            set { sToolTipText = value; ToolTip.SetToolTip(this, value);}
+            set { sToolTipText = value; ToolTip.SetToolTip(this, value); }
         }
 
 
@@ -23896,7 +23898,7 @@ namespace Infinium
 
             Items = new InfiniumDocumentsConfirmItem[ConfirmsRecipientsDataTable.Rows.Count];
 
-            for(int i = 0; i < ConfirmsRecipientsDataTable.Rows.Count; i++)
+            for (int i = 0; i < ConfirmsRecipientsDataTable.Rows.Count; i++)
             {
                 Items[i] = new InfiniumDocumentsConfirmItem()
                 {
@@ -23966,7 +23968,7 @@ namespace Infinium
                 e.Graphics.DrawImage(DeleteBMP, iDeleteLeft, -1, 20, 20);
             }
 
-            if(bIsComments)
+            if (bIsComments)
                 e.Graphics.DrawLine(pBorderPen, 0, this.Height - 1, this.Width, this.Height - 1);
         }
 
@@ -24070,7 +24072,7 @@ namespace Infinium
 
 
 
-   
+
 
 
 
@@ -24127,10 +24129,10 @@ namespace Infinium
         public string ToolTipText
         {
             get { return sToolTipText; }
-            set { sToolTipText = value; ToolTip.SetToolTip(this, value);}
+            set { sToolTipText = value; ToolTip.SetToolTip(this, value); }
         }
 
-        
+
         public InfiniumDocumentsUpdatesCommentsTextBox()
         {
             SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
@@ -24375,7 +24377,7 @@ namespace Infinium
 
             if (bConfirmTrack)
             {
-                OnAddConfirmClicked();                    
+                OnAddConfirmClicked();
             }
 
             if (bUserTrack)
@@ -24565,7 +24567,7 @@ namespace Infinium
         public string ToolTipText
         {
             get { return sToolTipText; }
-            set { sToolTipText = value; ToolTip.SetToolTip(this, value);}
+            set { sToolTipText = value; ToolTip.SetToolTip(this, value); }
         }
 
         public string Caption
@@ -24604,7 +24606,7 @@ namespace Infinium
                                                                          (this.Height - e.Graphics.MeasureString(sCaption, fCaptionFont).Height) / 2);
                 e.Graphics.DrawLine(pLinePen, 15, this.Height - 6, this.Width - 15, this.Height - 6);
             }
-           
+
         }
 
         protected override void OnClick(EventArgs e)
@@ -24669,7 +24671,7 @@ namespace Infinium
         public string ToolTipText
         {
             get { return sToolTipText; }
-            set { sToolTipText = value; ToolTip.SetToolTip(this, value);}
+            set { sToolTipText = value; ToolTip.SetToolTip(this, value); }
         }
 
 
@@ -24686,11 +24688,11 @@ namespace Infinium
         public string Caption
         {
             get { return sCaption; }
-            set 
-            { 
-                sCaption = value; 
+            set
+            {
+                sCaption = value;
 
-                this.Refresh(); 
+                this.Refresh();
             }
         }
 
@@ -24786,7 +24788,7 @@ namespace Infinium
         {
             base.OnSizeChanged(e);
 
-            using(Graphics G = this.CreateGraphics())
+            using (Graphics G = this.CreateGraphics())
             {
                 if (G.MeasureString(sCaption, fCaptionFont).Width > this.Width - rColorRect.Width - rColorRect.X - 10 - 8)
                     ToolTipText = sCaption;
@@ -24975,7 +24977,7 @@ namespace Infinium
 
         public Color SelectedColor
         {
-            get 
+            get
             {
                 if (Selected > -1)
                     return Items[Selected].ItemColor;
@@ -25623,7 +25625,7 @@ namespace Infinium
         ToolTip ToolTip;
 
         string sToolTipText = "";
-        
+
         public InfiniumContractorsTextBox(Color cBackColor)
         {
             ToolTip = new System.Windows.Forms.ToolTip();
@@ -26207,7 +26209,7 @@ namespace Infinium
 
                     Items[i].Anchor = AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top;
 
-                    Items[i].ItemSizeChanged += OnItemSizeChanged;     
+                    Items[i].ItemSizeChanged += OnItemSizeChanged;
                     Items[i].EditClicked += OnEditClicked;
                     Items[i].DeleteClicked += OnDeleteClicked;
                     Items[i].ReadDescriptionClicked += OnReadDescriptionClicked;
@@ -26248,7 +26250,7 @@ namespace Infinium
                 iH += Item.Height;
                 iH += iMarginToNextItem;
             }
-            
+
             if (this.Height >= iH)
             {
                 ScrollContainer.Height = this.Height;
@@ -26521,17 +26523,17 @@ namespace Infinium
                 TextBox.Width = MaxWidth;
 
                 string s = GetCaption(sText, G, MaxWidth);
-                
-                if(s != sText)
+
+                if (s != sText)
                     TextBox.ToolTipText = sText;
-            } 
+            }
             else
                 TextBox.Text = GetCaption(sText, G, MaxWidth);
 
             if (TextBox.Text != sText)
                 TextBox.ToolTipText = sText;
 
-            
+
         }
 
         public string GetCaption(string Caption, Graphics G, int iW)
@@ -26571,7 +26573,7 @@ namespace Infinium
 
             e.Graphics.DrawRectangle(pBorderPen, rBorderRect);
 
-            
+
             if (ContactsDataTable != null)
             {
                 if (ContactsDataTable.Rows.Count > 0)
@@ -26582,7 +26584,7 @@ namespace Infinium
                     iLinkHeight = (int)e.Graphics.MeasureString(sLink, fLinkFont).Height;
 
                     e.Graphics.DrawString(sLink, fLinkFont, brLinkBrush, iLinkLeft, 7);
-                  
+
                     if (bExpanded)
                     {
                         ContactUpBMP.SetResolution(e.Graphics.DpiX, e.Graphics.DpiY);
@@ -26602,15 +26604,15 @@ namespace Infinium
             else
                 e.Graphics.DrawString(sLink, fLinkFont, brNoLinkBrush, iBorderMargin + iTextMargin, 7);
 
-            if(bExpanded)
+            if (bExpanded)
             {
                 for (int i = 0; i < ContactsDataTable.Rows.Count; i++)
                 {
                     rColorRect.Y = i * (iItemHeight + iMarginToNextItem) + iBorderMargin + 29;
-                    
+
                     e.Graphics.FillRectangle(brColorBrush, rColorRect);
 
-                    e.Graphics.DrawString("Имя:", fLabelsFont, brLabelsBrush, iBorderMargin + iTextMargin, 
+                    e.Graphics.DrawString("Имя:", fLabelsFont, brLabelsBrush, iBorderMargin + iTextMargin,
                                                     i * (iItemHeight + iMarginToNextItem) + iBorderMargin + 25);
 
                     e.Graphics.DrawString("Должность:", fLabelsFont, brLabelsBrush, iBorderMargin + iTextMargin,
@@ -26641,7 +26643,7 @@ namespace Infinium
                     e.Graphics.DrawString("Описание:", fLabelsFont, brLabelsBrush, iBorderMargin + 650,
                                                     i * (iItemHeight + iMarginToNextItem) + iBorderMargin + 85);
                 }
-            }               
+            }
         }
 
 
@@ -26649,9 +26651,9 @@ namespace Infinium
         {
             base.OnMouseMove(e);
 
-            if(iLinkWidth > 0)
+            if (iLinkWidth > 0)
             {
-                if(e.X >= iLinkLeft && e.X <= iLinkLeft + iLinkWidth && e.Y >= iLinkTop && e.Y <= iLinkTop + iLinkHeight)
+                if (e.X >= iLinkLeft && e.X <= iLinkLeft + iLinkWidth && e.Y >= iLinkTop && e.Y <= iLinkTop + iLinkHeight)
                 {
                     if (this.Cursor != Cursors.Hand)
                         this.Cursor = Cursors.Hand;
@@ -26687,7 +26689,7 @@ namespace Infinium
                         this.Refresh();
                         OnControlPanelSizeChanged(this, iInitialHeight - this.Height);
                         this.Height = iInitialHeight;
-                    }            
+                    }
                 }
             }
         }

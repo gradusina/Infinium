@@ -118,7 +118,7 @@ namespace Infinium
             LabelsWidth = textBox9.Text;
             PositionsCount = textBox10.Text;
             LabelsCount = textBox11.Text;
-            
+
             FormEvent = eClose;
             AnimateTimer.Enabled = true;
         }

@@ -1,7 +1,8 @@
-﻿using System;
-using System.Windows.Forms;
+﻿using Infinium.Modules.Marketing.MutualSettlements;
+
+using System;
 using System.Collections;
-using Infinium.Modules.Marketing.MutualSettlements;
+using System.Windows.Forms;
 
 namespace Infinium
 {

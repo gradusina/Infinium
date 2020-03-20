@@ -1,9 +1,10 @@
-﻿using System;
+﻿using Infinium.Store;
+
+using System;
 using System.Drawing;
-using System.Windows.Forms;
-using System.Threading;
 using System.Globalization;
-using Infinium.Store;
+using System.Threading;
+using System.Windows.Forms;
 
 namespace Infinium
 {
@@ -39,7 +40,7 @@ namespace Infinium
             Year = iYear;
             Initialize();
             label1.Text = "Infinium. Склад готовой продукции. Инвентаризация. " + new DateTime(Year, Month, 1).ToString("MMMM", CultureInfo.CurrentCulture);
-            while (!SplashForm.bCreated);
+            while (!SplashForm.bCreated) ;
         }
 
         private void InventoryForm_Shown(object sender, EventArgs e)
@@ -62,7 +63,7 @@ namespace Infinium
 
                     if (FormEvent == eClose)
                     {
-                       
+
                         this.Close();
                     }
 
@@ -93,7 +94,7 @@ namespace Infinium
 
                     if (FormEvent == eClose)
                     {
-                       
+
                         this.Close();
                     }
 
@@ -386,7 +387,7 @@ namespace Infinium
                 InventoryManager.ChangeCurrentFields(FactCount, Notes);
                 InventoryManager.InventaryEndEdit(true);
                 CheckStoreColumns(ref StoreDG);
-                
+
             }
             else
             {
@@ -440,7 +441,7 @@ namespace Infinium
 
         private void SaveButton_Click(object sender, EventArgs e)
         {
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение данных.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение данных.\r\nПодождите..."); });
             T.Start();
 
             while (!SplashWindow.bSmallCreated) ;
@@ -475,7 +476,7 @@ namespace Infinium
                 StoreDG.Rows[e.RowIndex].DefaultCellStyle.ForeColor = Color.White;
             }
             else
-            {                
+            {
                 if (Convert.ToBoolean(StoreDG.Rows[e.RowIndex].Cells["EditEnd"].Value))
                 {
                     StoreDG.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.FromArgb(31, 158, 0);
@@ -515,7 +516,7 @@ namespace Infinium
 
             if (NeedSplash)
             {
-                Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Обновление данных.\r\nПодождите..."); });
+                Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Обновление данных.\r\nПодождите..."); });
                 T.Start();
 
                 while (!SplashWindow.bSmallCreated) ;
@@ -540,7 +541,7 @@ namespace Infinium
 
         private void AddExcessButton_Click(object sender, EventArgs e)
         {
-            Thread T = new Thread(delegate() { SplashWindow.CreateSplash(); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSplash(); });
             T.Start();
 
             while (!SplashForm.bCreated) ;
@@ -565,7 +566,7 @@ namespace Infinium
             if (CurrentFactoryID == 2)
                 InventoryName = "Инвентаризационная опись, ЗОВ-ТПС, " + DateTimeFormatInfo.CurrentInfo.GetMonthName(Month) + " " + Year.ToString();
 
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Создание документа Excel.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Создание документа Excel.\r\nПодождите..."); });
             T.Start();
 
             while (!SplashWindow.bSmallCreated) ;
@@ -591,7 +592,7 @@ namespace Infinium
                 InventoryManager.CreateMonthInventory();
             }
 
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Создание новой\r\nинвентаризации. Подождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Создание новой\r\nинвентаризации. Подождите..."); });
             T.Start();
 
             while (!SplashWindow.bSmallCreated) ;

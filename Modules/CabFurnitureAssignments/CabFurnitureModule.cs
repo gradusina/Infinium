@@ -1,16 +1,17 @@
-﻿using System;
-using System.Linq;
-using System.Data;
-using System.Windows.Forms;
-using System.Data.SqlClient;
-using System.IO;
-using NPOI.HSSF.UserModel;
+﻿using NPOI.HSSF.UserModel;
 using NPOI.HSSF.Util;
-using System.Text;
-using System.Drawing.Printing;
+
+using System;
 using System.Collections;
-using System.Drawing;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
+using System.Drawing;
+using System.Drawing.Printing;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Windows.Forms;
 
 namespace Infinium.Modules.CabFurnitureModule
 {
@@ -213,7 +214,7 @@ namespace Infinium.Modules.CabFurnitureModule
         SqlDataAdapter NewAssignmentDA;
         SqlDataAdapter AllAssignmentsDA;
 
-        DataTable ComplementLabelDataDT = null;        
+        DataTable ComplementLabelDataDT = null;
         DataTable PackageLabelDataDT = null;
 
         public bool NewAssignment
@@ -274,7 +275,7 @@ namespace Infinium.Modules.CabFurnitureModule
             InProductionDetailDT = new DataTable();
             OnStorageDetailDT = new DataTable();
             OnExpeditionDetailDT = new DataTable();
-            
+
             TechStoreGroupsDT = new DataTable();
             TechStoreSubGroupsDT = new DataTable();
             TechStoreDT = new DataTable();
@@ -293,7 +294,7 @@ namespace Infinium.Modules.CabFurnitureModule
             InProductionDetailBS = new BindingSource();
             OnStorageDetailBS = new BindingSource();
             OnExpeditionDetailBS = new BindingSource();
-            
+
             AllAssignmentsBS = new BindingSource();
             DocumentsBS = new BindingSource();
             NewAssignmentDetailsBS = new BindingSource();
@@ -523,7 +524,7 @@ namespace Infinium.Modules.CabFurnitureModule
                 using (DataTable DT = new DataTable())
                 {
                     DA.Fill(DT);
-                    
+
                     for (int i = 0; i < DT.Rows.Count; i++)
                     {
                         DataRow NewRow = CoversDT.NewRow();
@@ -836,7 +837,7 @@ namespace Infinium.Modules.CabFurnitureModule
                 return Column;
             }
         }
-        
+
         public DataGridViewComboBoxColumn ColorColumn
         {
             get
@@ -931,7 +932,7 @@ namespace Infinium.Modules.CabFurnitureModule
                 return Column;
             }
         }
-        
+
         public DataGridViewComboBoxColumn PatinaColumn2
         {
             get
@@ -969,7 +970,7 @@ namespace Infinium.Modules.CabFurnitureModule
                 return Column;
             }
         }
-        
+
         public DataGridViewComboBoxColumn InsetTypeColumn
         {
             get
@@ -988,7 +989,7 @@ namespace Infinium.Modules.CabFurnitureModule
                 return Column;
             }
         }
-        
+
         public DataGridViewComboBoxColumn InsetColorColumn
         {
             get
@@ -1091,7 +1092,7 @@ namespace Infinium.Modules.CabFurnitureModule
                 }
             }
         }
-        
+
         public void SaveNewAssignment()
         {
             NewAssignmentDA.Update(NewAssignmentDetailsDT);
@@ -1244,7 +1245,7 @@ namespace Infinium.Modules.CabFurnitureModule
                 else
                     AllAssignmentsBS.Position = Pos;
         }
-        
+
         public DataTable GetPermissions(int UserID, string FormName)
         {
             using (SqlDataAdapter DA = new SqlDataAdapter("SELECT * FROM UserRoles WHERE UserID = " + UserID +
@@ -1410,7 +1411,7 @@ namespace Infinium.Modules.CabFurnitureModule
             else
                 iCabFurAssignmentID = 0;
         }
-        
+
         public void NonAgreementOrders(bool bClient, ref decimal TPSCount)
         {
             //НА СОГЛАСОВАНИИ
@@ -1671,7 +1672,7 @@ namespace Infinium.Modules.CabFurnitureModule
 
             AllAssignmentsBS.Filter = filtr1;
         }
-        
+
         public void FilterDocuments(int CabFurAssignmentID)
         {
             DocumentsBS.Filter = "CabFurAssignmentID = " + CabFurAssignmentID;
@@ -1857,7 +1858,7 @@ namespace Infinium.Modules.CabFurnitureModule
             }
             return string.Empty;
         }
-        
+
         public void SaveComplementsCount(int CabFurAssignmentID, int ComplementsCount)
         {
             string SelectCommand = @"SELECT * FROM CabFurnitureAssignments WHERE CabFurAssignmentID=" + CabFurAssignmentID;
@@ -1933,7 +1934,7 @@ namespace Infinium.Modules.CabFurnitureModule
 
             return TechStoreSubGroupID;
         }
-        
+
         private void CreatePackageDetails(int CabFurniturePackageID, int CoverID, int PatinaID, int InsetColorID, DataTable dt1)
         {
             using (SqlDataAdapter DA = new SqlDataAdapter("SELECT TOP 0 * FROM CabFurniturePackageDetails ORDER BY CabFurniturePackageID DESC",
@@ -2053,7 +2054,7 @@ namespace Infinium.Modules.CabFurnitureModule
                 SavePackagesCount(CabFurAssignmentID, AllPackagesCount);
             CabFurnitureAssignmentDetailsDT.Dispose();
         }
-        
+
         public void ClearCabFurnitureComplenents(int MainOrderID)
         {
             using (SqlDataAdapter DA = new SqlDataAdapter("DELETE CabFurnitureComplementDetails WHERE CabFurnitureComplementID IN" +
@@ -2097,7 +2098,7 @@ namespace Infinium.Modules.CabFurnitureModule
             }
             SavePackagesCount(CabFurAssignmentID, 0);
         }
-        
+
         private DataTable GetCabFurPackages(int TechStoreID)
         {
             DataTable dt = new DataTable();
@@ -2644,7 +2645,7 @@ WHERE dbo.CabFurniturePackages.CabFurAssignmentDetailID = " + CabFurAssignmentDe
         private DataTable StorageStatusesDataTable = null;
         private DataTable ExpeditionStatusesDataTable = null;
         private DataTable DispatchStatusesDataTable = null;
-        
+
         public DataGridViewComboBoxColumn ProductionStatusColumn = null;
         public DataGridViewComboBoxColumn StorageStatusColumn = null;
         public DataGridViewComboBoxColumn ExpeditionStatusColumn = null;
@@ -2662,12 +2663,12 @@ WHERE dbo.CabFurniturePackages.CabFurAssignmentDetailID = " + CabFurAssignmentDe
             MainOrdersBS = new BindingSource();
             ComplementLabelsBS = new BindingSource();
             ComplementDetailsBS = new BindingSource();
-            
+
             ProductionStatusesDataTable = new DataTable();
             StorageStatusesDataTable = new DataTable();
             ExpeditionStatusesDataTable = new DataTable();
             DispatchStatusesDataTable = new DataTable();
-            
+
             using (SqlDataAdapter DA = new SqlDataAdapter("SELECT * FROM ProductionStatuses WHERE ProductionStatusID <> -1", ConnectionStrings.MarketingReferenceConnectionString))
             {
                 DA.Fill(ProductionStatusesDataTable);
@@ -2687,7 +2688,7 @@ WHERE dbo.CabFurniturePackages.CabFurAssignmentDetailID = " + CabFurAssignmentDe
             {
                 DA.Fill(DispatchStatusesDataTable);
             }
-            
+
             string SelectCommand = @"SELECT TOP 0 CabFurnitureComplementID, PackNumber, MainOrderID, TechStoreSubGroupID, PrintDateTime, PackingDateTime FROM CabFurnitureComplements";
             ComplementLabelsDA = new SqlDataAdapter(SelectCommand, ConnectionStrings.StorageConnectionString);
             ComplementLabelsDA.Fill(ComplementLabelsDT);
@@ -2765,7 +2766,7 @@ INNER JOIN infiniu2_marketingorders.dbo.MainOrders AS M ON C.MainOrderID=M.MainO
                 DisplayStyle = DataGridViewComboBoxDisplayStyle.Nothing
             };
         }
-        
+
         public void FilterComplements(bool bPacked, bool bNotPacked, bool bPartPacked, bool bPrinted, bool bNotPrinted, bool bPartPrinted)
         {
             string filtr1 = string.Empty;
@@ -2907,7 +2908,7 @@ INNER JOIN infiniu2_marketingorders.dbo.MainOrders AS M ON C.MainOrderID=M.MainO
             {
                 DA.Fill(TempComplementLabelsDT);
             }
-            
+
             for (int i = 0; i < ComplementsDT.Rows.Count; i++)
             {
                 int ClientID = Convert.ToInt32(ComplementsDT.Rows[i]["ClientID"]);
@@ -2949,7 +2950,7 @@ INNER JOIN infiniu2_marketingorders.dbo.MainOrders AS M ON C.MainOrderID=M.MainO
                 ComplementsDT.Rows[i]["ComplementsCount"] = ComplementsCount;
                 ComplementsDT.Rows[i]["PackedCount"] = PackedCount + " / " + ComplementsCount;
                 ComplementsDT.Rows[i]["PackedPercentage"] = PackedPercentage;
-            }            
+            }
         }
 
         public void FilterMainOrders(int ClientID, int OrderNumber)
@@ -2966,7 +2967,7 @@ INNER JOIN infiniu2_marketingorders.dbo.MainOrders AS M ON C.MainOrderID=M.MainO
             {
                 DA.Fill(TempComplementLabelsDT);
             }
-            
+
             for (int i = 0; i < MainOrdersDT.Rows.Count; i++)
             {
                 int MainOrderID = Convert.ToInt32(MainOrdersDT.Rows[i]["MainOrderID"]);
@@ -2989,7 +2990,7 @@ INNER JOIN infiniu2_marketingorders.dbo.MainOrders AS M ON C.MainOrderID=M.MainO
                     PackedProgressVal = Convert.ToDecimal(Convert.ToDecimal(PackedCount) / Convert.ToDecimal(ComplementsCount));
                 d2 = PackedProgressVal * 100;
                 PackedPercentage = Convert.ToInt32(Math.Truncate(d2));
-                
+
                 MainOrdersDT.Rows[i]["PackedCount"] = PackedCount + " / " + ComplementsCount;
                 MainOrdersDT.Rows[i]["PackedPercentage"] = PackedPercentage;
             }
@@ -3067,7 +3068,7 @@ INNER JOIN infiniu2_marketingorders.dbo.MainOrders AS M ON C.MainOrderID=M.MainO
         DataTable PackagesDT = null;
         public BindingSource PackagesBS = null;
         SqlDataAdapter PackagesDA;
-        
+
         DataTable PackageLabelsDT = null;
         DataTable TempPackageLabelsDT = null;
         public BindingSource PackageLabelsBS = null;
@@ -3076,7 +3077,7 @@ INNER JOIN infiniu2_marketingorders.dbo.MainOrders AS M ON C.MainOrderID=M.MainO
         DataTable PackageDetailsDT = null;
         public BindingSource PackageDetailsBS = null;
         SqlDataAdapter PackageDetailsDA;
-        
+
         public PackagesManager()
         {
             PackagesDT = new DataTable();
@@ -3087,7 +3088,7 @@ INNER JOIN infiniu2_marketingorders.dbo.MainOrders AS M ON C.MainOrderID=M.MainO
             PackagesBS = new BindingSource();
             PackageLabelsBS = new BindingSource();
             PackageDetailsBS = new BindingSource();
-            
+
 
             string SelectCommand = @"SELECT TOP 0 CabFurniturePackageID, CabFurAssignmentDetailID, PackNumber, PackagesCount, TechStoreSubGroupID, PrintDateTime, AddToStorageDateTime, RemoveFromStorageDateTime FROM CabFurniturePackages";
             PackageLabelsDA = new SqlDataAdapter(SelectCommand, ConnectionStrings.StorageConnectionString);
@@ -3352,7 +3353,7 @@ INNER JOIN infiniu2_marketingorders.dbo.MainOrders AS M ON C.MainOrderID=M.MainO
             public Color TotalLabelColor;
             public Color RemoveTotalLabelColor;
         }
-        
+
         public LabelInfo lInfo;
 
         public bool WaitScanComplement;
@@ -3491,7 +3492,7 @@ INNER JOIN infiniu2_marketingorders.dbo.MainOrders AS M ON C.MainOrderID=M.MainO
                         int TotalPackCount = 0;
 
                         GetPackagesCount(CabFurAssignmentID, ref PackedCount, ref TotalRemoveCount, ref TotalPackCount);
-                        
+
                         lInfo.PackedToTotal = PackedCount.ToString() + "/" + TotalPackCount.ToString();
                         lInfo.RemoveTotal = TotalRemoveCount.ToString() + "/" + TotalPackCount.ToString();
 
@@ -3562,7 +3563,7 @@ INNER JOIN infiniu2_marketingorders.dbo.MainOrders AS M ON C.MainOrderID=M.MainO
                 ScanPackageDetailsDT.Clear();
                 DA.Fill(ScanPackageDetailsDT);
             }
-            
+
         }
 
         private void AddToStorage(int CabFurniturePackageID, DateTime AddToStorageDateTime)
@@ -3659,7 +3660,7 @@ INNER JOIN infiniu2_marketingorders.dbo.MainOrders AS M ON C.MainOrderID=M.MainO
                 }
             }
         }
-        
+
         public void Clear()
         {
             ScanContentDT.Clear();
@@ -3782,7 +3783,7 @@ INNER JOIN infiniu2_marketingorders.dbo.MainOrders AS M ON C.MainOrderID=M.MainO
             bool bProduced, DateTime ProducedDate, int ManufacturerID, string Notes, DateTime IncomeDate)
         {
             DataRow NewRow = StoreDT.NewRow();
-            
+
             NewRow["StoreItemID"] = StoreItemID;
             if (Length > -1)
                 NewRow["Length"] = Length;
@@ -3841,7 +3842,7 @@ INNER JOIN infiniu2_marketingorders.dbo.MainOrders AS M ON C.MainOrderID=M.MainO
         {
             int PurchaseInvoiceID = 0;
             try
-            {                
+            {
                 using (SqlDataAdapter DA = new SqlDataAdapter("SELECT TOP 0 * FROM PurchaseInvoices", ConnectionStrings.StorageConnectionString))
                 {
                     using (SqlCommandBuilder CB = new SqlCommandBuilder(DA))
@@ -3849,7 +3850,7 @@ INNER JOIN infiniu2_marketingorders.dbo.MainOrders AS M ON C.MainOrderID=M.MainO
                         using (DataTable DT = new DataTable())
                         {
                             DA.Fill(DT);
-                            
+
                             DataRow NewRow = DT.NewRow();
                             NewRow["IncomeDate"] = IncomeDate;
                             NewRow["SellerID"] = SellerID;
@@ -3898,7 +3899,7 @@ INNER JOIN infiniu2_marketingorders.dbo.MainOrders AS M ON C.MainOrderID=M.MainO
             return PurchaseInvoiceID;
         }
 
-        private void SaveMovementInvoiceDetails(int StoreIDFrom, int StoreIDTo, decimal Count, 
+        private void SaveMovementInvoiceDetails(int StoreIDFrom, int StoreIDTo, decimal Count,
             DateTime CreateDateTime, int MovementInvoiceID)
         {
             string SelectCommand = @"SELECT TOP 0 * FROM MovementInvoiceDetails";
@@ -3944,7 +3945,7 @@ INNER JOIN infiniu2_marketingorders.dbo.MainOrders AS M ON C.MainOrderID=M.MainO
             string ClientName, string Notes, DateTime CreateDateTime)
         {
             int LastMovementInvoiceID = 0;
-                        
+
             string SelectCommand = @"SELECT TOP 1 * FROM MovementInvoices ORDER BY MovementInvoiceID DESC";
             try
             {
@@ -4057,7 +4058,7 @@ INNER JOIN infiniu2_marketingorders.dbo.MainOrders AS M ON C.MainOrderID=M.MainO
                                 WriteOffStoreID = Convert.ToInt32(DT.Rows[0]["WriteOffStoreID"]);
                             if (WriteOffStoreID != 0)
                             {
-                                SaveMovementInvoiceDetails(Convert.ToInt32(row["StoreID"]), WriteOffStoreID, 
+                                SaveMovementInvoiceDetails(Convert.ToInt32(row["StoreID"]), WriteOffStoreID,
                                     Convert.ToDecimal(row["CurrentCount"]), CreateDateTime, MovementInvoiceID);
                             }
                         }
@@ -4078,7 +4079,7 @@ INNER JOIN infiniu2_marketingorders.dbo.MainOrders AS M ON C.MainOrderID=M.MainO
         {
             string SelectCommand = @"SELECT * FROM Store WHERE PurchaseInvoiceID = " + PurchaseInvoiceID;
             DateTime CreateDateTime = Security.GetCurrentDate();
-            int MovementInvoiceID = SaveMovementInvoices(CreateDateTime, 2, 13, 0, 0, string.Empty, Security.CurrentUserID, 
+            int MovementInvoiceID = SaveMovementInvoices(CreateDateTime, 2, 13, 0, 0, string.Empty, Security.CurrentUserID,
                 144, 144, "ЗОВ-ТПС", "Списание корпусной мебели со склада", CreateDateTime);
             using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.StorageConnectionString))
             {
@@ -4330,7 +4331,7 @@ INNER JOIN infiniu2_marketingorders.dbo.MainOrders AS M ON C.MainOrderID=M.MainO
             Algorithm08DT.Columns.Add(new DataColumn("Count", Type.GetType("System.Decimal")));
             Algorithm08DT.Columns.Add(new DataColumn("Worker", Type.GetType("System.String")));
             Algorithm08DT.Columns.Add(new DataColumn("Square", Type.GetType("System.Decimal")));
-            
+
             Algorithm04DT = new DataTable();
             Algorithm04DT.Columns.Add(new DataColumn("NameMCover", Type.GetType("System.String")));
             Algorithm04DT.Columns.Add(new DataColumn("Length", Type.GetType("System.Int32")));
@@ -4341,7 +4342,7 @@ INNER JOIN infiniu2_marketingorders.dbo.MainOrders AS M ON C.MainOrderID=M.MainO
             Algorithm04DT.Columns.Add(new DataColumn("NameMCover1", Type.GetType("System.String")));
             Algorithm04DT.Columns.Add(new DataColumn("Length1", Type.GetType("System.Int32")));
             Algorithm04DT.Columns.Add(new DataColumn("Square", Type.GetType("System.Decimal")));
-            
+
             Algorithm05DT = new DataTable();
             Algorithm05DT.Columns.Add(new DataColumn("NameM", Type.GetType("System.String")));
             Algorithm05DT.Columns.Add(new DataColumn("Cover", Type.GetType("System.String")));
@@ -4351,7 +4352,7 @@ INNER JOIN infiniu2_marketingorders.dbo.MainOrders AS M ON C.MainOrderID=M.MainO
             Algorithm05DT.Columns.Add(new DataColumn("Count", Type.GetType("System.Decimal")));
             Algorithm05DT.Columns.Add(new DataColumn("Worker", Type.GetType("System.String")));
             Algorithm05DT.Columns.Add(new DataColumn("Square", Type.GetType("System.Decimal")));
-            
+
             Algorithm16DT = new DataTable();
             Algorithm16DT.Columns.Add(new DataColumn("NameM", Type.GetType("System.String")));
             Algorithm16DT.Columns.Add(new DataColumn("Length", Type.GetType("System.Int32")));
@@ -4510,7 +4511,7 @@ INNER JOIN infiniu2_marketingorders.dbo.MainOrders AS M ON C.MainOrderID=M.MainO
                             int CoverID1 = 0;
                             int PatinaID1 = 0;
                             GetCoverPatinaName(TechCatalogStoreDetailID, CoverID, PatinaID, TechStoreID, ref CoverID2, ref PatinaID2);
-                            
+
                             DataRow NewRow = dt.NewRow();
                             NewRow["NameMCover"] = NameM + " " + AssignmentsManager.GetCoverName(CoverID2);
                             NewRow["Notes1"] = Notes1;
@@ -4727,7 +4728,7 @@ INNER JOIN infiniu2_marketingorders.dbo.MainOrders AS M ON C.MainOrderID=M.MainO
                     NewRow["Count"] = count * ItemsCount;
                     dt.Rows.Add(NewRow);
                 }
-            }            
+            }
             if (dt.Rows.Count > 0)
             {
                 foreach (DataRow row in dt.Rows)
@@ -5628,7 +5629,7 @@ INNER JOIN infiniu2_marketingorders.dbo.MainOrders AS M ON C.MainOrderID=M.MainO
                 int CoverID2 = 0;
                 int PatinaID2 = 0;
                 GetCoverPatinaName(TechCatalogStoreDetailID, CoverID, PatinaID, TechStoreID, ref CoverID2, ref PatinaID2);
-                
+
                 {
                     DataRow[] prevRows = SumStoreDetailDT.Select("TechCatalogStoreDetailID=" + PrevStoreDetailID);
                     if (prevRows.Count() > 0 && prevRows[0]["Height"] != DBNull.Value)
@@ -5745,7 +5746,7 @@ INNER JOIN infiniu2_marketingorders.dbo.MainOrders AS M ON C.MainOrderID=M.MainO
         }
 
         //FORM 08
-        
+
         private void Algorithm16(DataRow[] rows)
         {
             DataTable dt = Algorithm16DT.Clone();
@@ -5940,7 +5941,7 @@ INNER JOIN infiniu2_marketingorders.dbo.MainOrders AS M ON C.MainOrderID=M.MainO
                 int CoverID2 = 0;
                 int PatinaID2 = 0;
                 GetCoverPatinaName(TechCatalogStoreDetailID, CoverID, PatinaID, TechStoreID, ref CoverID2, ref PatinaID2);
-                
+
                 {
                     DataRow[] prevRows = SumStoreDetailDT.Select("TechCatalogStoreDetailID=" + PrevStoreDetailID);
                     if (prevRows.Count() > 0 && prevRows[0]["Length"] != DBNull.Value)
@@ -6844,7 +6845,7 @@ INNER JOIN infiniu2_marketingorders.dbo.MainOrders AS M ON C.MainOrderID=M.MainO
             }
             dt.Dispose();
         }
-        
+
         //FORM 03
 
         private void Algorithm12(DataRow[] rows)
@@ -7548,7 +7549,7 @@ INNER JOIN infiniu2_marketingorders.dbo.MainOrders AS M ON C.MainOrderID=M.MainO
                 int CoverID2 = 0;
                 int PatinaID2 = 0;
                 GetCoverPatinaName(TechCatalogStoreDetailID, CoverID, PatinaID, TechStoreID, ref CoverID2, ref PatinaID2);
-                
+
                 DataRow NewRow = dt.NewRow();
                 NewRow["NameM"] = NameM;
                 NewRow["NotesM"] = NotesM;
@@ -7992,7 +7993,7 @@ INNER JOIN infiniu2_marketingorders.dbo.MainOrders AS M ON C.MainOrderID=M.MainO
                         GetCoverPatinaName(TechCatalogStoreDetailID, CoverID, PatinaID, TechStoreID, ref CoverID2, ref PatinaID2);
                         NewRow["NotesMNameM"] = Notes + " " + Name;
                         NewRow["Cover"] = AssignmentsManager.GetCoverName(CoverID2);
-                        
+
                         if (prevRows[0]["Height"] != DBNull.Value)
                             NewRow["Height"] = Convert.ToDecimal(prevRows[0]["Height"]);
                         else
@@ -8180,7 +8181,7 @@ INNER JOIN infiniu2_marketingorders.dbo.MainOrders AS M ON C.MainOrderID=M.MainO
                             NewRow["Width"] = Convert.ToDecimal(prevRows[0]["Width"]);
                         else
                             NewRow["Width"] = -1;
-                        
+
                         //вычисление кол-ва элементов
                         bool b = true;
                         decimal count = 1;
@@ -8316,7 +8317,7 @@ INNER JOIN infiniu2_marketingorders.dbo.MainOrders AS M ON C.MainOrderID=M.MainO
                 DataRow NewRow = dt.NewRow();
                 NewRow["NotesMNameM"] = Notes + " " + Name;
                 NewRow["Cover"] = AssignmentsManager.GetCoverName(CoverID2);
-                
+
                 if (row["Height"] != DBNull.Value)
                     NewRow["Height"] = Convert.ToDecimal(row["Height"]);
                 else
@@ -8876,7 +8877,7 @@ INNER JOIN infiniu2_marketingorders.dbo.MainOrders AS M ON C.MainOrderID=M.MainO
                 NewRow["NotesMNameM"] = Notes + " " + Name;
                 NewRow["Cover"] = AssignmentsManager.GetCoverName(CoverID2);
                 NewRow["Patina"] = AssignmentsManager.GetPatinaName(PatinaID2);
-                
+
                 if (row["Height"] != DBNull.Value)
                     NewRow["Height"] = Convert.ToDecimal(row["Height"]);
                 else
@@ -8983,7 +8984,7 @@ INNER JOIN infiniu2_marketingorders.dbo.MainOrders AS M ON C.MainOrderID=M.MainO
                 int CoverID2 = 0;
                 int PatinaID2 = 0;
                 GetCoverPatinaName(TechCatalogStoreDetailID, CoverID, PatinaID, TechStoreID, ref CoverID2, ref PatinaID2);
-                
+
                 //вычисление кол-ва элементов. 1 шаг(-а) вверх
                 bool b = true;
                 decimal count = 1;
@@ -9024,7 +9025,7 @@ INNER JOIN infiniu2_marketingorders.dbo.MainOrders AS M ON C.MainOrderID=M.MainO
                     NewRow["Width"] = Convert.ToDecimal(row["Width"]);
                 else
                     NewRow["Width"] = -1;
-                
+
                 NewRow["Count"] = count * ItemsCount;
 
                 if (NewRow["Height"] != DBNull.Value && NewRow["Width"] != DBNull.Value)
@@ -9367,7 +9368,7 @@ INNER JOIN infiniu2_marketingorders.dbo.MainOrders AS M ON C.MainOrderID=M.MainO
                         }
                         else
                             filter = " AND TechCatalogOperationsGroupID <> - 1";
-                        
+
                         DataRow[] prevRows = SumStoreDetailDT.Select("CabFurDocTypeID<>-1 " + filter);
                         if (prevRows.Count() > 0)
                         {
@@ -9378,7 +9379,7 @@ INNER JOIN infiniu2_marketingorders.dbo.MainOrders AS M ON C.MainOrderID=M.MainO
 
                 }
                 int FormNumber = Convert.ToInt32(rows[0]["AssignmentID"]);
-                
+
                 string GroupOperationName = rows[0]["GroupName"].ToString();
                 string OperationName1 = rows[0]["MachinesOperationName"].ToString();
                 string OperationName = DocName;
@@ -9396,17 +9397,17 @@ INNER JOIN infiniu2_marketingorders.dbo.MainOrders AS M ON C.MainOrderID=M.MainO
         {
             //for (int i = 0; i < rows.Count(); i++)
             //{
-                int FormNumber = Convert.ToInt32(rows[0]["AssignmentID"]);
-                
-                string GroupOperationName = rows[0]["GroupName"].ToString();
-                string OperationName1 = rows[0]["MachinesOperationName"].ToString();
-                string OperationName = DocName;
-                string Sector = rows[0]["SectorName"].ToString();
-                string SubSector = rows[0]["SubSectorName"].ToString();
-                string CupboardsName = TechStoreName;
-                string JobNumber = "№ " + iCabFurAssignmentID.ToString();
+            int FormNumber = Convert.ToInt32(rows[0]["AssignmentID"]);
 
-                SelectAlgorithm(CabFurAlgorithmID, FormNumber, r, rows, MachineName, OperationName, CupboardsName, JobNumber);
+            string GroupOperationName = rows[0]["GroupName"].ToString();
+            string OperationName1 = rows[0]["MachinesOperationName"].ToString();
+            string OperationName = DocName;
+            string Sector = rows[0]["SectorName"].ToString();
+            string SubSector = rows[0]["SubSectorName"].ToString();
+            string CupboardsName = TechStoreName;
+            string JobNumber = "№ " + iCabFurAssignmentID.ToString();
+
+            SelectAlgorithm(CabFurAlgorithmID, FormNumber, r, rows, MachineName, OperationName, CupboardsName, JobNumber);
             //}
         }
 
@@ -9713,7 +9714,7 @@ INNER JOIN infiniu2_marketingorders.dbo.MainOrders AS M ON C.MainOrderID=M.MainO
                 foreach (DataRow item in rows)
                 {
                     int StoreDetailID = Convert.ToInt32(item["TechCatalogStoreDetailID"]);
-                    
+
                     if (!CheckStoreDetailConditions(StoreDetailID, CoverID, PatinaID))
                         continue;
 
@@ -10224,7 +10225,7 @@ INNER JOIN infiniu2_marketingorders.dbo.MainOrders AS M ON C.MainOrderID=M.MainO
             sheet11.SetColumnWidth(2, 8 * 256);
             sheet11.SetColumnWidth(3, 8 * 256);
             sheet11.SetColumnWidth(4, 20 * 256);
-            
+
             sheet12 = hssfworkbook.CreateSheet("12");
             sheet12.PrintSetup.PaperSize = (short)PaperSizeType.A4;
             sheet12.SetMargin(HSSFSheet.LeftMargin, (double).12);
@@ -10371,12 +10372,12 @@ INNER JOIN infiniu2_marketingorders.dbo.MainOrders AS M ON C.MainOrderID=M.MainO
             csSignatures.Alignment = HSSFCellStyle.ALIGN_RIGHT;
             csSignatures.SetFont(fSignatures);
         }
-        
+
         public void ClearReport()
         {
 
         }
-        
+
         public void Form01(string MachineName, string OperationName, string CupboardsName, string JobNumber,
             DataTable table1, DataTable table2)
         {
@@ -10391,7 +10392,7 @@ INNER JOIN infiniu2_marketingorders.dbo.MainOrders AS M ON C.MainOrderID=M.MainO
                 Cell1 = sheet01.CreateRow(pos01++).CreateCell(1);
                 Cell1.SetCellValue("Материал");
                 Cell1.CellStyle = csHeader;
-                
+
                 Cell1 = sheet01.CreateRow(pos01++).CreateCell(0);
                 Cell1.SetCellValue(JobNumber);
                 Cell1.CellStyle = csHeader;
@@ -11395,7 +11396,7 @@ INNER JOIN infiniu2_marketingorders.dbo.MainOrders AS M ON C.MainOrderID=M.MainO
             Cell1 = sheet06.CreateRow(pos06++).CreateCell(1);
             Cell1.SetCellValue(MachineName);
             Cell1.CellStyle = csHeader;
-            
+
             Cell1 = sheet06.CreateRow(pos06++).CreateCell(1);
             Cell1.SetCellValue(OperationName);
             Cell1.CellStyle = csHeader;
@@ -11829,11 +11830,11 @@ INNER JOIN infiniu2_marketingorders.dbo.MainOrders AS M ON C.MainOrderID=M.MainO
             Cell1 = sheet08.CreateRow(pos08++).CreateCell(1);
             Cell1.SetCellValue(OperationName);
             Cell1.CellStyle = csHeader;
-            
+
             Cell1 = sheet08.CreateRow(pos08++).CreateCell(1);
             Cell1.SetCellValue(CupboardsName);
             Cell1.CellStyle = csHeader;
-            
+
             Cell1 = sheet08.CreateRow(pos08++).CreateCell(0);
             Cell1.SetCellValue(JobNumber);
             Cell1.CellStyle = csHeader;
@@ -12206,7 +12207,7 @@ INNER JOIN infiniu2_marketingorders.dbo.MainOrders AS M ON C.MainOrderID=M.MainO
             Cell1 = sheet10.CreateRow(pos10++).CreateCell(1);
             Cell1.SetCellValue(OperationName);
             Cell1.CellStyle = csHeader;
-            
+
             Cell1 = sheet10.CreateRow(pos10++).CreateCell(1);
             Cell1.SetCellValue(CupboardsName);
             Cell1.CellStyle = csHeader;
@@ -12340,7 +12341,7 @@ INNER JOIN infiniu2_marketingorders.dbo.MainOrders AS M ON C.MainOrderID=M.MainO
             //pos10++;
             //pos10++;
         }
-        
+
         public void Form11(string MachineName, string OperationName, string CupboardsName, string JobNumber,
             DataTable table)
         {
@@ -12457,7 +12458,7 @@ INNER JOIN infiniu2_marketingorders.dbo.MainOrders AS M ON C.MainOrderID=M.MainO
             //pos12++;
             //pos12++;
         }
-        
+
         public void Form12(string MachineName, string OperationName, string CupboardsName, string JobNumber,
             DataTable table)
         {
@@ -12636,7 +12637,7 @@ INNER JOIN infiniu2_marketingorders.dbo.MainOrders AS M ON C.MainOrderID=M.MainO
                 System.Diagnostics.Process.Start(file.FullName);
         }
     }
-    
+
 
     public class TestAssignments
     {
@@ -12782,7 +12783,7 @@ INNER JOIN infiniu2_marketingorders.dbo.MainOrders AS M ON C.MainOrderID=M.MainO
 
         public int CurrentOperationsDetail
         {
-            get 
+            get
             {
                 if (OperationsDetailDS.Tables.Contains("OperationsDetail" + iPanelCounter))
                     return OperationsDetailDS.Tables["OperationsDetail" + iPanelCounter].DefaultView.Count;
@@ -12946,10 +12947,10 @@ INNER JOIN infiniu2_marketingorders.dbo.MainOrders AS M ON C.MainOrderID=M.MainO
                                         decimal Count = 0;
                                         if (DT.Rows[j]["Count"] != DBNull.Value)
                                             Count = Convert.ToDecimal(DT.Rows[j]["Count"]);
-                                        AddMaterial(Convert.ToInt32(DT.Rows[j]["TechCatalogStoreDetailID"]), Convert.ToInt32(DT.Rows[j]["TechCatalogOperationsDetailID"]), 
+                                        AddMaterial(Convert.ToInt32(DT.Rows[j]["TechCatalogStoreDetailID"]), Convert.ToInt32(DT.Rows[j]["TechCatalogOperationsDetailID"]),
                                             Convert.ToInt32(DT.Rows[j]["TechStoreID"]), DT.Rows[j]["MachinesOperationName"].ToString(), DT.Rows[j]["TechStoreName"].ToString(),
                                             Count, DT.Rows[j]["Measure"].ToString(), PanelCounter);
-                                        if (OperationsDetailDS.Tables["OperationsDetail" + PanelCounter].Rows[i]["CanClick"] != DBNull.Value && 
+                                        if (OperationsDetailDS.Tables["OperationsDetail" + PanelCounter].Rows[i]["CanClick"] != DBNull.Value &&
                                             !Convert.ToBoolean(OperationsDetailDS.Tables["OperationsDetail" + PanelCounter].Rows[i]["CanClick"]))
                                             OperationsDetailDS.Tables["OperationsDetail" + PanelCounter].Rows[i]["CanClick"] = false;
                                     }
@@ -12987,7 +12988,7 @@ INNER JOIN infiniu2_marketingorders.dbo.MainOrders AS M ON C.MainOrderID=M.MainO
                 SelectCommand = @"SELECT TechCatalogOperationsGroupID FROM TechCatalogOperationsGroups WHERE TechStoreID=" + TechStoreID;
                 using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.CatalogConnectionString))
                 {
-                    using (DataTable  DT = new DataTable())
+                    using (DataTable DT = new DataTable())
                     {
                         if (DA.Fill(DT) > 0)
                             StoreDetailDS.Tables["StoreDetail" + PanelCounter].Rows[i]["CanClick"] = true;
@@ -13195,12 +13196,12 @@ INNER JOIN infiniu2_marketingorders.dbo.MainOrders AS M ON C.MainOrderID=M.MainO
     public class DetailsReport
     {
         List<ComplementLabelInfo> Labels;
-        
+
         public DetailsReport()
         {
 
         }
-        
+
         public void CreateReport(List<ComplementLabelInfo> lLabels)
         {
             HSSFWorkbook hssfworkbook = new HSSFWorkbook();
@@ -13704,7 +13705,7 @@ INNER JOIN infiniu2_marketingorders.dbo.MainOrders AS M ON C.MainOrderID=M.MainO
                 ev.Graphics.DrawString(((ComplementLabelInfo)LabelInfo[CurrentLabelNumber]).OrderData.Rows[i]["Count"].ToString(), DecorOrderFont, FontBrush, VertLine8, OrderTopY + p);
             }
         }
-        
+
         public void ClearLabelInfo()
         {
             CurrentLabelNumber = 0;
@@ -13757,7 +13758,7 @@ INNER JOIN infiniu2_marketingorders.dbo.MainOrders AS M ON C.MainOrderID=M.MainO
             ev.Graphics.DrawString(((ComplementLabelInfo)LabelInfo[CurrentLabelNumber]).PackNumber.ToString() + "(" +
                 ((ComplementLabelInfo)LabelInfo[CurrentLabelNumber]).TotalPackCount.ToString() + ")", DocFont, FontBrush, 371, HorizLineClientBot + 2);
             ev.Graphics.DrawLine(Pen, 371, HorizLineClientBot, 371, HorizLinOrderBot);
-            
+
             DrawTable(ev);
 
             ev.Graphics.DrawImage(Barcode.GetBarcode(Barcode.BarcodeLength.Medium, 46, ((ComplementLabelInfo)LabelInfo[CurrentLabelNumber]).BarcodeNumber), 10, 317);
@@ -14004,7 +14005,7 @@ INNER JOIN infiniu2_marketingorders.dbo.MainOrders AS M ON C.MainOrderID=M.MainO
             int HorizLinOrderBot = 62;
             ev.Graphics.DrawLine(Pen, 11, HorizLinOrderBot, 467, HorizLinOrderBot);
             ev.Graphics.DrawString("№" + ((PackageLabelInfo)LabelInfo[CurrentLabelNumber]).CabFurAssignmentID + " " + ((PackageLabelInfo)LabelInfo[CurrentLabelNumber]).AssignmentCreateDateTime, DocFont, FontBrush, 8, HorizLinOrderBot + 2);
-            
+
             int HorizLinTableTop = 115;
             ev.Graphics.DrawLine(Pen, 11, HorizLinTableTop, 467, HorizLinTableTop);
 
@@ -14017,7 +14018,7 @@ INNER JOIN infiniu2_marketingorders.dbo.MainOrders AS M ON C.MainOrderID=M.MainO
             ev.Graphics.DrawImage(Barcode.GetBarcode(Barcode.BarcodeLength.Medium, 46, ((PackageLabelInfo)LabelInfo[CurrentLabelNumber]).BarcodeNumber), 10, 317);
 
             Barcode.DrawBarcodeText(Barcode.BarcodeLength.Medium, ev.Graphics, ((PackageLabelInfo)LabelInfo[CurrentLabelNumber]).BarcodeNumber, 9, 366);
-            
+
             ev.Graphics.DrawImage(Barcode.GetBarcode(Barcode.BarcodeLength.Short, 15, ((PackageLabelInfo)LabelInfo[CurrentLabelNumber]).BarcodeNumber), 342, 54, 130, 15);
 
             if (((PackageLabelInfo)LabelInfo[CurrentLabelNumber]).FactoryType == 2)
@@ -14048,7 +14049,7 @@ INNER JOIN infiniu2_marketingorders.dbo.MainOrders AS M ON C.MainOrderID=M.MainO
             ev.Graphics.DrawString("Изготовлено: " + ((PackageLabelInfo)LabelInfo[CurrentLabelNumber]).AddToStorageDateTime, InfoFont, FontBrush, 305, 368);
             ev.Graphics.DrawString("Распечатено: " + Security.GetCurrentDate().ToString(), InfoFont, FontBrush, 305, 378);
             ev.Graphics.DrawString(((PackageLabelInfo)LabelInfo[CurrentLabelNumber]).DispatchDate, DispatchFont, FontBrush, 237, 374);
-            
+
             if (CurrentLabelNumber == LabelInfo.Count - 1 || PrintedCount >= LabelInfo.Count)
                 ev.HasMorePages = false;
 

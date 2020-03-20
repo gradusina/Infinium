@@ -1,10 +1,10 @@
 ﻿using System;
-using System.Linq;
 using System.Data;
-using System.Windows.Forms;
 using System.Data.SqlClient;
 using System.Drawing;
 using System.IO;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace Infinium.Modules.Marketing.Clients
 {
@@ -210,7 +210,7 @@ namespace Infinium.Modules.Marketing.Clients
         BindingSource JournalBS;
         BindingSource AdmissionsBS;
         BindingSource TechnicalFilesBS;
-        
+
         BindingSource MachinesSummaryBS;
         BindingSource MainParametersBS;
         BindingSource TempMachinesBS;
@@ -484,7 +484,7 @@ namespace Infinium.Modules.Marketing.Clients
             EquipmentFilesBS = new BindingSource();
 
             TechnicalFilesBS = new BindingSource();
-            
+
             OperatingInstructionsBS = new BindingSource();
             ServiceInstructionsBS = new BindingSource();
             LaborProtInstructionsBS = new BindingSource();
@@ -591,7 +591,7 @@ namespace Infinium.Modules.Marketing.Clients
             FactoryBS.DataSource = FactoryDT;
             SectorsBS.DataSource = SectorsDT;
             SubSectorsBS.DataSource = SubSectorsDT;
-            
+
             AspirationDetailsBS.DataSource = AspirationDetailsDT;
             MechanicsDetailsBS.DataSource = MechanicsDetailsDT;
             ElectricsDetailsBS.DataSource = ElectricsDetailsDT;
@@ -910,10 +910,10 @@ namespace Infinium.Modules.Marketing.Clients
             bool b2 = int.TryParse(((DataRowView)MachinesBS.Current).Row["CompressedAirConsumption"].ToString(), out int i2);
 
             if (((DataRowView)MachinesBS.Current).Row["OperatingPressure"] != null
-                && ((DataRowView)MachinesBS.Current).Row["OperatingPressure"] != DBNull.Value 
+                && ((DataRowView)MachinesBS.Current).Row["OperatingPressure"] != DBNull.Value
                 && b1 && Convert.ToInt32(i1) == -1
                 && ((DataRowView)MachinesBS.Current).Row["CompressedAirConsumption"] != null
-                && ((DataRowView)MachinesBS.Current).Row["CompressedAirConsumption"] != DBNull.Value 
+                && ((DataRowView)MachinesBS.Current).Row["CompressedAirConsumption"] != DBNull.Value
                 && b2 && Convert.ToInt32(i2) == -1)
                 FillMainParameter("CompressedAir", "Нет");
 
@@ -928,7 +928,7 @@ namespace Infinium.Modules.Marketing.Clients
             b1 = int.TryParse(((DataRowView)MachinesBS.Current).Row["AspirationCapacity"].ToString(), out i1);
             b2 = int.TryParse(((DataRowView)MachinesBS.Current).Row["AspirationFlowRate"].ToString(), out i2);
 
-            if (((DataRowView)MachinesBS.Current).Row["AspirationCapacity"] != null 
+            if (((DataRowView)MachinesBS.Current).Row["AspirationCapacity"] != null
                 && ((DataRowView)MachinesBS.Current).Row["AspirationCapacity"] != DBNull.Value
                 && b1 && Convert.ToInt32(i1) == -1
                 && ((DataRowView)MachinesBS.Current).Row["AspirationFlowRate"] != null
@@ -1120,7 +1120,7 @@ namespace Infinium.Modules.Marketing.Clients
             };
             return Column;
         }
-        
+
         public DataGridViewComboBoxColumn ElectricsUnitColumn(MachineFileTypes Type)
         {
             DataGridViewComboBoxColumn Column = new DataGridViewComboBoxColumn()
@@ -1179,7 +1179,7 @@ namespace Infinium.Modules.Marketing.Clients
         {
             string filter = string.Empty;
             DataRow[] rows = TempMachineDocumentsDT.Select("MachineDetailID=" + MachineDetailID + " AND FileType = " + Convert.ToInt32(Type));
-            
+
             if (rows.Count() > 0)
             {
                 foreach (DataRow item in rows)

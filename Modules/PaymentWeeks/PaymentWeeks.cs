@@ -1,8 +1,8 @@
 ﻿using System;
-using System.Windows.Forms;
 using System.Data;
 using System.Data.SqlClient;
 using System.Globalization;
+using System.Windows.Forms;
 
 namespace Infinium.Modules.PaymentWeeks
 {
@@ -347,7 +347,7 @@ namespace Infinium.Modules.PaymentWeeks
             };
             ResultTotalDataGrid.Columns["Cost"].DefaultCellStyle.Format = "C";
             ResultTotalDataGrid.Columns["Cost"].DefaultCellStyle.FormatProvider = nfi1;
-            
+
             ResultTotalDataGrid.Columns["Cost"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
             ResultTotalDataGrid.Columns["Cost"].Width = 150;
 
@@ -448,7 +448,7 @@ namespace Infinium.Modules.PaymentWeeks
         {
             PaymentDetailDataTable.Clear();
 
-            using (SqlDataAdapter DA = new SqlDataAdapter("SELECT * FROM PaymentDetail WHERE PaymentWeekID = "+ PaymentWeekID, ConnectionStrings.ZOVOrdersConnectionString))
+            using (SqlDataAdapter DA = new SqlDataAdapter("SELECT * FROM PaymentDetail WHERE PaymentWeekID = " + PaymentWeekID, ConnectionStrings.ZOVOrdersConnectionString))
             {
                 DA.Fill(PaymentDetailDataTable);
             }
@@ -459,9 +459,9 @@ namespace Infinium.Modules.PaymentWeeks
             {
                 DA.Fill(PaymentWeeksDataTable);
 
-                decimal TotalWriteOff = Convert.ToDecimal(PaymentWeeksDataTable.Rows[0]["TotalCalcWriteOffCost"])+
+                decimal TotalWriteOff = Convert.ToDecimal(PaymentWeeksDataTable.Rows[0]["TotalCalcWriteOffCost"]) +
                                               Convert.ToDecimal(PaymentWeeksDataTable.Rows[0]["TotalWriteOffCost"]) +
-                                              ((Convert.ToDecimal(PaymentWeeksDataTable.Rows[0]["ErrorWriteOffCost"]) - 
+                                              ((Convert.ToDecimal(PaymentWeeksDataTable.Rows[0]["ErrorWriteOffCost"]) -
                                                 Convert.ToDecimal(PaymentWeeksDataTable.Rows[0]["CompensationCost"])));
 
                 AddResultRow("Стоимость заказов", PaymentWeeksDataTable.Rows[0]["TotalCost"]);
@@ -485,9 +485,9 @@ namespace Infinium.Modules.PaymentWeeks
                 AddWriteOffRow("Образцы", PaymentWeeksDataTable.Rows[0]["SamplesWriteOffCost"]);
                 AddWriteOffRow("Ошибка списания", PaymentWeeksDataTable.Rows[0]["ErrorWriteOffCost"]);
                 AddWriteOffRow("Компенсация", PaymentWeeksDataTable.Rows[0]["CompensationCost"]);
-                
+
                 WriteOffResultLabel.Text = "Итого списано: " + (Convert.ToDecimal(PaymentWeeksDataTable.Rows[0]["TotalWriteOffCost"]) +
-                    (Convert.ToDecimal(PaymentWeeksDataTable.Rows[0]["ErrorWriteOffCost"]) - 
+                    (Convert.ToDecimal(PaymentWeeksDataTable.Rows[0]["ErrorWriteOffCost"]) -
                             Convert.ToDecimal(PaymentWeeksDataTable.Rows[0]["CompensationCost"]))).ToString();
             }
         }

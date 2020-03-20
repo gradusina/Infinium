@@ -1,12 +1,13 @@
-﻿using System;
+﻿using Infinium.Modules.TechnologyCatalog;
+
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Windows.Forms;
 using System.Threading;
-using Infinium.Modules.TechnologyCatalog;
+using System.Windows.Forms;
 
 namespace Infinium
 {
@@ -49,7 +50,7 @@ namespace Infinium
             this.MaximumSize = Screen.PrimaryScreen.WorkingArea.Size;
 
             Initialize();
-            while (!SplashForm.bCreated);
+            while (!SplashForm.bCreated) ;
         }
 
         public TechStorageItemsForm(TechStoreManager tTechStoreManager, int iTechCatalogOperationsDetailID)
@@ -200,7 +201,7 @@ namespace Infinium
             if (SubGroupsDataGrid.SelectedRows.Count == 0 || SubGroupsDataGrid.SelectedRows[0].Cells["TechStoreSubGroupID"].Value == DBNull.Value)
                 return;
 
-            Thread T = new Thread(delegate() { SplashWindow.CreateSplash(); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSplash(); });
             T.Start();
 
             while (!SplashForm.bCreated) ;
@@ -246,7 +247,7 @@ namespace Infinium
 
             if (OKCancel)
             {
-                Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
+                Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
                 T.Start();
 
                 while (!SplashWindow.bSmallCreated) ;
@@ -288,7 +289,7 @@ namespace Infinium
             if (SubGroupsDataGrid.SelectedRows.Count > 0 && SubGroupsDataGrid.SelectedRows[0].Cells["Notes2"].Value != DBNull.Value)
                 SubGroupNotes2 = SubGroupsDataGrid.SelectedRows[0].Cells["Notes2"].Value.ToString();
 
-            Thread T = new Thread(delegate() { SplashWindow.CreateSplash(); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSplash(); });
             T.Start();
 
             while (!SplashForm.bCreated) ;
@@ -462,7 +463,7 @@ namespace Infinium
             if (SubGroupsDataGrid.SelectedRows.Count > 0 && SubGroupsDataGrid.SelectedRows[0].Cells["Notes2"].Value != DBNull.Value)
                 SubGroupNotes2 = SubGroupsDataGrid.SelectedRows[0].Cells["Notes2"].Value.ToString();
 
-            Thread T = new Thread(delegate() { SplashWindow.CreateSplash(); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSplash(); });
             T.Start();
 
             while (!SplashForm.bCreated) ;
@@ -579,7 +580,7 @@ namespace Infinium
         {
             if (!ItemsDataGrid.Columns.Contains("InsetColorsColumn"))
                 return;
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
             T.Start();
 
             while (!SplashWindow.bSmallCreated) ;
@@ -612,11 +613,11 @@ namespace Infinium
         {
             if (!ItemsDataGrid.Columns.Contains("InsetTypesColumn"))
                 return;
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
             T.Start();
 
             while (!SplashWindow.bSmallCreated) ;
-            
+
             for (int i = 0; i < ItemsDataGrid.Rows.Count; i++)
             {
                 if (Convert.ToBoolean(ItemsDataGrid.Rows[i].Cells["InsetTypesColumn"].Value))

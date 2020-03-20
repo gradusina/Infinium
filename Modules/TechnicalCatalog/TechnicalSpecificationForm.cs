@@ -1,6 +1,7 @@
-﻿using System;
+﻿using Infinium.Modules.Marketing.Clients;
+
+using System;
 using System.Windows.Forms;
-using Infinium.Modules.Marketing.Clients;
 
 namespace Infinium
 {
@@ -41,7 +42,7 @@ namespace Infinium
             {
                 if (dgvGroups.SelectedRows.Count > 0 &&
                     dgvGroups.SelectedRows[0].Cells["Group"].Value != DBNull.Value)
-                MachinesCatalogManager.PreSaveTechnicalSpecification(false, dgvGroups.SelectedRows[0].Cells["Group"].Value.ToString());
+                    MachinesCatalogManager.PreSaveTechnicalSpecification(false, dgvGroups.SelectedRows[0].Cells["Group"].Value.ToString());
             }
             //MachinesCatalogManager.CurrentTechnicalSpecification = MachinesCatalogManager.GetTechnicalSpecification();
             //MachinesCatalogManager.SaveMachines();

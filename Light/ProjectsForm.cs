@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Drawing;
-using System.Windows.Forms;
 using System.Threading;
+using System.Windows.Forms;
 
 namespace Infinium
 {
@@ -31,7 +31,7 @@ namespace Infinium
         public ProjectsForm(LightStartForm tLightStartForm)
         {
             InitializeComponent();
-            
+
             LightStartForm = tLightStartForm;
             this.MaximumSize = Screen.PrimaryScreen.WorkingArea.Size;
 
@@ -39,7 +39,7 @@ namespace Infinium
 
             InfiniumProjects = new InfiniumProjects();
             InfiniumProjects.Fill();
-            InfiniumProjects.FillProjects(infiniumProjectsFilterStates1.Selected, infiniumProjectsFilterGroups1.Selected, 
+            InfiniumProjects.FillProjects(infiniumProjectsFilterStates1.Selected, infiniumProjectsFilterGroups1.Selected,
                                           infiniumProjectsFilterGroups1.SelectedUser, infiniumProjectsFilterGroups1.SelectedDepartment);
             InfiniumProjects.FillProjectSubs();
             InfiniumProjects.FillComments();
@@ -111,7 +111,7 @@ namespace Infinium
             if (bNeedSplash)
             {
                 bNeedNewsSplash = false;
-                Thread T = new Thread(delegate()
+                Thread T = new Thread(delegate ()
                 {
                     SplashWindow.CreateCoverSplash(UpdatePanel.Top, UpdatePanel.Left,
                                                    UpdatePanel.Height, UpdatePanel.Width);
@@ -154,7 +154,7 @@ namespace Infinium
 
                     if (FormEvent == eClose)
                     {
-                       
+
                         LightStartForm.CloseForm(this);
                     }
 
@@ -162,7 +162,7 @@ namespace Infinium
                     {
                         LightStartForm.HideForm(this);
                     }
-                 
+
                     InfiniumProjects.ClearAllSubs();//clear news and comments subs
 
                     ActiveNotifySystem.ClearSubscribesRecords(Security.CurrentUserID, this.Name);
@@ -193,7 +193,7 @@ namespace Infinium
                     AnimateTimer.Enabled = false;
 
                     if (FormEvent == eClose)
-                    {                     
+                    {
                         LightStartForm.CloseForm(this);
                     }
 
@@ -201,8 +201,8 @@ namespace Infinium
                     {
                         LightStartForm.HideForm(this);
                     }
-                    
-                    
+
+
 
                     InfiniumProjects.ClearAllSubs();//clear news and comments subs
 
@@ -288,7 +288,7 @@ namespace Infinium
                 ProposCountLabel.Text = pr.ToString();
             }
 
-           // ActiveNotifySystem.ClearNewUpdates("ProjectsButton");
+            // ActiveNotifySystem.ClearNewUpdates("ProjectsButton");
         }
 
 
@@ -303,7 +303,7 @@ namespace Infinium
             TopForm = AddProjectForm;
 
             AddProjectForm.ShowDialog();
-            
+
             int ProjectID = -1;
 
             if (!AddProjectForm.Canceled)
@@ -320,7 +320,7 @@ namespace Infinium
             if (bNeedSplash)
             {
                 bNeedNewsSplash = false;
-                Thread T = new Thread(delegate()
+                Thread T = new Thread(delegate ()
                 {
                     SplashWindow.CreateCoverSplash(UpdatePanel.Top, UpdatePanel.Left,
                                                    UpdatePanel.Height, UpdatePanel.Width);
@@ -332,7 +332,7 @@ namespace Infinium
 
 
             //clear new projects and messages/////////////////////////////////
-            
+
 
             if (bNewProjectsSelected)
             {
@@ -381,16 +381,16 @@ namespace Infinium
 
                 InfiniumProjects.AddSubscribeForNewProject(ProjectID);
                 SelectNewProject(ProjectID);
-            }               
+            }
 
-            
+
 
             if (bNeedSplash)
                 bC = true;
 
             bNeedNewsSplash = true;
 
-            
+
         }
 
         private void infiniumProjectsFilterStates1_ItemClicked(object sender, EventArgs e)
@@ -398,7 +398,7 @@ namespace Infinium
             if (bNeedSplash)
             {
                 bNeedNewsSplash = false;
-                Thread T = new Thread(delegate()
+                Thread T = new Thread(delegate ()
                 {
                     SplashWindow.CreateCoverSplash(UpdatePanel.Top, UpdatePanel.Left,
                                                    UpdatePanel.Height, UpdatePanel.Width);
@@ -431,7 +431,7 @@ namespace Infinium
                 bNewProjectsSelected = false;
             }
 
-            if(bNewMessagesSelected)
+            if (bNewMessagesSelected)
             {
                 NewMessagesCountLabel.Text = "";
                 NewMessagesLabel.ForeColor = Color.FromArgb(180, 180, 180);
@@ -477,7 +477,7 @@ namespace Infinium
 
         private void infiniumProjectsFilterGroups1_DepartmentItemClicked(object sender, EventArgs e)
         {
-            
+
         }
 
         private void infiniumProjectsFilterGroups1_SelectedChanged(object sender, EventArgs e)
@@ -485,7 +485,7 @@ namespace Infinium
             if (bNeedSplash)
             {
                 bNeedNewsSplash = false;
-                Thread T = new Thread(delegate()
+                Thread T = new Thread(delegate ()
                 {
                     SplashWindow.CreateCoverSplash(UpdatePanel.Top, UpdatePanel.Left,
                                                    UpdatePanel.Height, UpdatePanel.Width);
@@ -527,14 +527,14 @@ namespace Infinium
         {
             if (bNeedNewsSplash)
             {
-                Thread T = new Thread(delegate()
+                Thread T = new Thread(delegate ()
                 {
                     SplashWindow.CreateCoverSplash(panel4.Top + UpdatePanel.Top, panel4.Left + UpdatePanel.Left + 1,
                                                    panel4.Height, panel4.Width);
                 });
                 T.Start();
 
-                while (!SplashWindow.bSmallCreated);
+                while (!SplashWindow.bSmallCreated) ;
             }
 
             if (infiniumProjectsList1.Selected != -1)
@@ -552,34 +552,34 @@ namespace Infinium
                     SubscribeItLabel.Visible = true;
                     SubscribeItLabel.Text = "Отписаться";
                 }
-                else 
-                    if(iRes == 0)
-                    {
-                        SubscribeItPicture.Visible = true;
-                        SubscribeItLabel.Visible = true;
-                        SubscribeItLabel.Text = "Подписаться";
-                    }
-                    else 
+                else
+                    if (iRes == 0)
+                {
+                    SubscribeItPicture.Visible = true;
+                    SubscribeItLabel.Visible = true;
+                    SubscribeItLabel.Text = "Подписаться";
+                }
+                else
                         if (iRes == -1)
-                        {
-                            SubscribeItPicture.Visible = false;
-                            SubscribeItLabel.Visible = false;
-                        }
+                {
+                    SubscribeItPicture.Visible = false;
+                    SubscribeItLabel.Visible = false;
+                }
 
                 ProjectCaptionLabel.Text = InfiniumProjects.ProjectsDataTable.Rows[infiniumProjectsList1.Selected]["ProjectName"].ToString();
-                
-                AuthorLabel.Text = 
+
+                AuthorLabel.Text =
                      InfiniumProjects.GetUserName(Convert.ToInt32(
                            InfiniumProjects.ProjectsDataTable.Rows[infiniumProjectsList1.Selected]["AuthorID"])) + ", " +
                      Convert.ToDateTime(
                          InfiniumProjects.ProjectsDataTable.Rows[infiniumProjectsList1.Selected]["CreationDate"]).ToString("dd MMMM yyyy HH:mm");
-                
+
                 AuthorPhotoBox.Image = InfiniumProjects.GetUserPhoto(
                     Convert.ToInt32(InfiniumProjects.ProjectsDataTable.Rows[infiniumProjectsList1.Selected]["AuthorID"]));
-                
-                infiniumProjectsDescriptionBox1.DescriptionItem.DescriptionText = 
+
+                infiniumProjectsDescriptionBox1.DescriptionItem.DescriptionText =
                     InfiniumProjects.ProjectsDataTable.Rows[infiniumProjectsList1.Selected]["ProjectDescription"].ToString();
-                
+
                 InfiniumProjects.FillProjectNews(Convert.ToInt32(InfiniumProjects.ProjectsDataTable.Rows[infiniumProjectsList1.Selected]["ProjectID"]));
                 InfiniumProjects.FillComments();
                 InfiniumProjects.FillLikes();
@@ -607,8 +607,8 @@ namespace Infinium
                 {
                     StatusStartActivePicture.BringToFront();
                     StartProjectDateLabel.Text = Convert.ToDateTime(infiniumProjectsList1.ProjectsDataTable.Select("ProjectID = " + infiniumProjectsList1.ProjectID)[0]["StartDate"]).ToString("dd MMMM yyyy HH:mm");
-                    
-                    if(infiniumProjectsList1.ProjectsDataTable.Select("ProjectID = " + infiniumProjectsList1.ProjectID)[0]["ProjectStatusID"].ToString() == "0")
+
+                    if (infiniumProjectsList1.ProjectsDataTable.Select("ProjectID = " + infiniumProjectsList1.ProjectID)[0]["ProjectStatusID"].ToString() == "0")
                         StartProjectDateLabel.ForeColor = Color.FromArgb(31, 158, 0);
                 }
 
@@ -708,7 +708,7 @@ namespace Infinium
         {
             if (infiniumProjectsList1.ProjectID == -1)
                 return;
-            
+
             PhantomForm PhantomForm = new PhantomForm();
             PhantomForm.Show();
 
@@ -726,9 +726,9 @@ namespace Infinium
             if (AddProjectNewsForm.Canceled)
                 return;
 
-            Thread T = new Thread(delegate()
+            Thread T = new Thread(delegate ()
             {
-                SplashWindow.CreateCoverSplash(NewsContainer.Top + panel4.Top + UpdatePanel.Top, 
+                SplashWindow.CreateCoverSplash(NewsContainer.Top + panel4.Top + UpdatePanel.Top,
                                                NewsContainer.Left + panel4.Left + UpdatePanel.Left,
                                                NewsContainer.Height, NewsContainer.Width);
             });
@@ -795,7 +795,7 @@ namespace Infinium
 
             if (LightMessageBoxForm.OKCancel)
             {
-                Thread T = new Thread(delegate()
+                Thread T = new Thread(delegate ()
                 {
                     SplashWindow.CreateCoverSplash(NewsContainer.Top + panel4.Top + UpdatePanel.Top,
                                                NewsContainer.Left + panel4.Left + UpdatePanel.Left,
@@ -859,7 +859,7 @@ namespace Infinium
             PhantomForm PhantomForm = new PhantomForm();
             PhantomForm.Show();
 
-            AddProjectNewsForm AddProjectNewsForm = new AddProjectNewsForm(ref InfiniumProjects, 
+            AddProjectNewsForm AddProjectNewsForm = new AddProjectNewsForm(ref InfiniumProjects,
                              Convert.ToInt32(InfiniumProjects.ProjectsDataTable.Rows[infiniumProjectsList1.Selected]["ProjectID"]),
                                                       InfiniumProjects.GetThisNewsBodyText(NewsID),
                                                       NewsID, InfiniumProjects.GetThisNewsDateTime(NewsID), ref TopForm);
@@ -876,7 +876,7 @@ namespace Infinium
             if (AddProjectNewsForm.Canceled)
                 return;
 
-            Thread T = new Thread(delegate()
+            Thread T = new Thread(delegate ()
             {
                 SplashWindow.CreateCoverSplash(NewsContainer.Top + panel4.Top + UpdatePanel.Top,
                                                NewsContainer.Left + panel4.Left + UpdatePanel.Left,
@@ -912,7 +912,7 @@ namespace Infinium
 
         private void NewsContainer_CommentSendButtonClicked(object sender, string Text, int NewsID, int SenderID, bool bEdit, int NewsCommentID, bool bNoNotify)
         {
-            Thread T = new Thread(delegate()
+            Thread T = new Thread(delegate ()
             {
                 SplashWindow.CreateCoverSplash(NewsContainer.Top + panel4.Top + UpdatePanel.Top,
                                                NewsContainer.Left + panel4.Left + UpdatePanel.Left,
@@ -925,7 +925,7 @@ namespace Infinium
             if (bEdit)
                 InfiniumProjects.EditComments(SenderID, NewsCommentID, Text);
             else
-                InfiniumProjects.AddComments(SenderID, 
+                InfiniumProjects.AddComments(SenderID,
                                              Convert.ToInt32(InfiniumProjects.ProjectsDataTable.Rows[infiniumProjectsList1.Selected]["ProjectID"]),
                                              NewsID, Text, bNoNotify);
 
@@ -964,7 +964,7 @@ namespace Infinium
 
             if (LightMessageBoxForm.OKCancel)
             {
-                Thread T = new Thread(delegate()
+                Thread T = new Thread(delegate ()
                 {
                     SplashWindow.CreateCoverSplash(NewsContainer.Top + panel4.Top + UpdatePanel.Top,
                                                NewsContainer.Left + panel4.Left + UpdatePanel.Left,
@@ -1012,22 +1012,22 @@ namespace Infinium
 
         private void NewMessagesLabel_MouseMove(object sender, MouseEventArgs e)
         {
-            
+
         }
 
         private void NewProjectsLabel_MouseMove(object sender, MouseEventArgs e)
         {
-           
+
         }
 
         private void NewProjectsLabel_MouseLeave(object sender, EventArgs e)
         {
-            
+
         }
 
         private void NewMessagesLabel_MouseLeave(object sender, EventArgs e)
         {
-            
+
         }
 
         private void NewProjectsLabel_Click(object sender, EventArgs e)
@@ -1055,7 +1055,7 @@ namespace Infinium
             if (bNeedSplash)
             {
                 bNeedNewsSplash = false;
-                Thread T = new Thread(delegate()
+                Thread T = new Thread(delegate ()
                 {
                     SplashWindow.CreateCoverSplash(UpdatePanel.Top, UpdatePanel.Left,
                                                    UpdatePanel.Height, UpdatePanel.Width);
@@ -1090,7 +1090,7 @@ namespace Infinium
 
 
             NewProjectsCountLabel.Text = "";
-            
+
         }
 
         private void NewMessagesLabel_Click(object sender, EventArgs e)
@@ -1117,7 +1117,7 @@ namespace Infinium
             if (bNeedSplash)
             {
                 bNeedNewsSplash = false;
-                Thread T = new Thread(delegate()
+                Thread T = new Thread(delegate ()
                 {
                     SplashWindow.CreateCoverSplash(UpdatePanel.Top, UpdatePanel.Left,
                                                    UpdatePanel.Height, UpdatePanel.Width);
@@ -1158,7 +1158,7 @@ namespace Infinium
         {
             if (infiniumProjectsList1.ProjectID == -1)
                 return;
-            
+
             if (InfiniumProjects.CanRemove(infiniumProjectsList1.ProjectID) == false)
             {
                 InfiniumTips.ShowTip(this, 50, 85, "Только автор проекта может его удалить", 2200);
@@ -1176,7 +1176,7 @@ namespace Infinium
             if (bNeedSplash)
             {
                 bNeedNewsSplash = false;
-                Thread T = new Thread(delegate()
+                Thread T = new Thread(delegate ()
                 {
                     SplashWindow.CreateCoverSplash(UpdatePanel.Top, UpdatePanel.Left,
                                                    UpdatePanel.Height, UpdatePanel.Width);
@@ -1226,7 +1226,7 @@ namespace Infinium
             NewsContainer.Refresh();
         }
 
-       
+
         private void EditProjectLabel_Click(object sender, EventArgs e)
         {
             if (infiniumProjectsList1.ProjectID == -1)
@@ -1266,7 +1266,7 @@ namespace Infinium
             if (bNeedSplash)
             {
                 bNeedNewsSplash = false;
-                Thread T = new Thread(delegate()
+                Thread T = new Thread(delegate ()
                 {
                     SplashWindow.CreateCoverSplash(UpdatePanel.Top, UpdatePanel.Left,
                                                    UpdatePanel.Height, UpdatePanel.Width);
@@ -1359,7 +1359,7 @@ namespace Infinium
             if (bNeedSplash)
             {
                 bNeedNewsSplash = false;
-                Thread T = new Thread(delegate()
+                Thread T = new Thread(delegate ()
                 {
                     SplashWindow.CreateCoverSplash(UpdatePanel.Top, UpdatePanel.Left,
                                                    UpdatePanel.Height, UpdatePanel.Width);
@@ -1428,7 +1428,7 @@ namespace Infinium
             if (bNeedSplash)
             {
                 bNeedNewsSplash = false;
-                Thread T = new Thread(delegate()
+                Thread T = new Thread(delegate ()
                 {
                     SplashWindow.CreateCoverSplash(UpdatePanel.Top, UpdatePanel.Left,
                                                    UpdatePanel.Height, UpdatePanel.Width);
@@ -1497,7 +1497,7 @@ namespace Infinium
             if (bNeedSplash)
             {
                 bNeedNewsSplash = false;
-                Thread T = new Thread(delegate()
+                Thread T = new Thread(delegate ()
                 {
                     SplashWindow.CreateCoverSplash(UpdatePanel.Top, UpdatePanel.Left,
                                                    UpdatePanel.Height, UpdatePanel.Width);
@@ -1565,7 +1565,7 @@ namespace Infinium
             if (bNeedSplash)
             {
                 bNeedNewsSplash = false;
-                Thread T = new Thread(delegate()
+                Thread T = new Thread(delegate ()
                 {
                     SplashWindow.CreateCoverSplash(UpdatePanel.Top, UpdatePanel.Left,
                                                    UpdatePanel.Height, UpdatePanel.Width);
@@ -1637,7 +1637,7 @@ namespace Infinium
             InfiniumProjects.FillMoreNews(NewsContainer.NewsCount + 20, infiniumProjectsList1.ProjectID);
             NewsContainer.NewsDataTable = InfiniumProjects.ProjectNewsDataTable.Copy();
             NewsContainer.CreateNews();
-            NewsContainer.ScrollToNews(iNewsCount);           
+            NewsContainer.ScrollToNews(iNewsCount);
             MoreNewsLabel.Visible = false;
             NewsContainer.bNeedMoreNews = false;
         }
@@ -1664,7 +1664,7 @@ namespace Infinium
                 InfiniumProjects.RemoveSubscribeToUpdates(128, Convert.ToInt32(InfiniumProjects.ProjectsDataTable.Rows[infiniumProjectsList1.Selected]["ProjectID"]), Security.CurrentUserID);
                 SubscribeItLabel.Text = "Подписаться";
             }
-            
+
         }
 
         private void MinimizeButton_Click(object sender, EventArgs e)
@@ -1696,7 +1696,7 @@ namespace Infinium
             if (bNeedSplash)
             {
                 bNeedNewsSplash = false;
-                Thread T = new Thread(delegate()
+                Thread T = new Thread(delegate ()
                 {
                     SplashWindow.CreateCoverSplash(UpdatePanel.Top, UpdatePanel.Left,
                                                    UpdatePanel.Height, UpdatePanel.Width);

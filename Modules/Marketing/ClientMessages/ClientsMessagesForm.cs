@@ -1,8 +1,9 @@
-﻿using System;
+﻿using Infinium.Modules.Marketing.ClientMessages;
+
+using System;
 using System.Data;
-using System.Windows.Forms;
 using System.Threading;
-using Infinium.Modules.Marketing.ClientMessages;
+using System.Windows.Forms;
 namespace Infinium
 {
     public partial class ClientsMessagesForm : InfiniumForm
@@ -14,7 +15,7 @@ namespace Infinium
         int FormEvent = 0;
 
         LightStartForm LightStartForm;
-        
+
 
         Form TopForm = null;
         MenuClientsMessagesForm MenuClientsMessagesForm;
@@ -28,7 +29,7 @@ namespace Infinium
             InitializeComponent();
 
             LightStartForm = tLightStartForm;
-            
+
             this.MaximumSize = Screen.PrimaryScreen.WorkingArea.Size;
 
             RolePermissionsDataTable = RolesAndPermissionsManager.GetPermissions(Security.CurrentUserID, this.Name);
@@ -40,7 +41,7 @@ namespace Infinium
 
             UsersListDataGrid.DataSource = ConnectClientMessage.ClientBindingSource;
             UsersListDataGrid.Columns["ClientID"].Visible = false;
-            
+
             SelectedUsersGrid.Columns["ClientID"].Visible = false;
             SelectedUsersGrid.Columns["UpdatesCount"].Visible = false;
 
@@ -90,16 +91,16 @@ namespace Infinium
 
                     if (FormEvent == eClose)
                     {
-                       
+
                         LightStartForm.CloseForm(this);
                     }
 
                     if (FormEvent == eHide)
                     {
-                        
+
                         LightStartForm.HideForm(this);
                     }
-                    
+
 
                     return;
                 }
@@ -123,16 +124,16 @@ namespace Infinium
 
                     if (FormEvent == eClose)
                     {
-                       
+
                         LightStartForm.CloseForm(this);
                     }
 
                     if (FormEvent == eHide)
                     {
-                        
+
                         LightStartForm.HideForm(this);
                     }
-                    
+
                 }
 
                 return;
@@ -314,7 +315,7 @@ namespace Infinium
 
         private void AddButton_Click(object sender, EventArgs e)
         {
-            Thread T = new Thread(delegate() { SplashWindow.CreateSplash(); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSplash(); });
             T.Start();
 
             while (!SplashForm.bCreated) ;
@@ -344,7 +345,7 @@ namespace Infinium
             if (ConnectClientMessage.IsEmptyMessage(richTextBox1.Text))
                 return;
 
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Отправка сообщений.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Отправка сообщений.\r\nПодождите..."); });
             T.Start();
 
             while (!SplashWindow.bSmallCreated) ;

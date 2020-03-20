@@ -12,7 +12,7 @@ namespace Infinium
         int FormEvent = 0;
 
         LightStartForm LightStartForm;
-        
+
         Form TopForm = null;
 
         AdminWebServiceManager AdminWebServiceManager;
@@ -23,7 +23,7 @@ namespace Infinium
 
             LightStartForm = tLightStartForm;
 
-            
+
             this.MaximumSize = Screen.PrimaryScreen.WorkingArea.Size;
 
             Initialize();
@@ -31,7 +31,7 @@ namespace Infinium
             while (!SplashForm.bCreated) ;
         }
 
-      
+
         private void AdminJournalDetailForm_Shown(object sender, EventArgs e)
         {
             while (!SplashForm.bCreated) ;
@@ -52,7 +52,7 @@ namespace Infinium
 
                     if (FormEvent == eClose)
                     {
-                       
+
                         LightStartForm.CloseForm(this);
                     }
 
@@ -61,7 +61,7 @@ namespace Infinium
 
                         LightStartForm.HideForm(this);
                     }
-                    
+
 
                     return;
                 }
@@ -85,7 +85,7 @@ namespace Infinium
 
                     if (FormEvent == eClose)
                     {
-                       
+
                         LightStartForm.CloseForm(this);
                     }
 
@@ -94,7 +94,7 @@ namespace Infinium
 
                         LightStartForm.HideForm(this);
                     }
-                    
+
                 }
 
                 return;

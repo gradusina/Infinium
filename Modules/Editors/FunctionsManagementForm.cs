@@ -59,7 +59,7 @@ namespace Infinium
         {
             bFromStartMenu = false;
             InitializeComponent();
-            
+
             this.MaximumSize = Screen.PrimaryScreen.WorkingArea.Size;
 
             StaffListID = iStaffListID;
@@ -226,7 +226,7 @@ namespace Infinium
             int FunctionID = Convert.ToInt32(dgvAllFunctions.SelectedRows[0].Cells["FunctionID"].Value);
             string FunctionName = dgvAllFunctions.SelectedRows[0].Cells["FunctionName"].Value.ToString();
             string FunctionDescription = dgvAllFunctions.SelectedRows[0].Cells["FunctionDescription"].Value.ToString();
-            
+
             PhantomForm PhantomForm = new Infinium.PhantomForm();
             PhantomForm.Show();
 
@@ -362,7 +362,7 @@ namespace Infinium
                 {
                     AdminFunctionsEdit.ChangeDepartment(CurrentFunctionID, Convert.ToInt32(DepartmentsDataGrid.Rows[hittest.RowIndex].Cells["DepartmentID"].Value));
                     AdminFunctionsEdit.Save();
-                    InfiniumTips.ShowTip(this, 50, 85, "Обязанность перенесена в отдел \"" + 
+                    InfiniumTips.ShowTip(this, 50, 85, "Обязанность перенесена в отдел \"" +
                         DepartmentsDataGrid.Rows[hittest.RowIndex].Cells["DepartmentName"].Value.ToString() + "\"", 1700);
                 }
             }

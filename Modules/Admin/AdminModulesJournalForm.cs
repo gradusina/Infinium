@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Windows.Forms;
 using System.Threading;
+using System.Windows.Forms;
 
 namespace Infinium
 {
@@ -14,7 +14,7 @@ namespace Infinium
         int FormEvent = 0;
 
         LightStartForm LightStartForm;
-        
+
         Form TopForm = null;
         public AdminModulesJournal AdminModulesJournal = null;
         AdminModulesJournalToExcel AdminModulesJournalToExcel = null;
@@ -22,17 +22,17 @@ namespace Infinium
         public AdminModulesJournalForm(LightStartForm tLightStartForm)
         {
             InitializeComponent();
-            
+
 
             LightStartForm = tLightStartForm;
 
-            
+
             this.MaximumSize = Screen.PrimaryScreen.WorkingArea.Size;
 
 
             Initialize();
 
-            while(!SplashForm.bCreated);
+            while (!SplashForm.bCreated) ;
         }
 
         private void AdminModulesJournalForm_Shown(object sender, EventArgs e)
@@ -55,7 +55,7 @@ namespace Infinium
 
                     if (FormEvent == eClose)
                     {
-                       
+
                         LightStartForm.CloseForm(this);
                     }
 
@@ -65,7 +65,7 @@ namespace Infinium
                         LightStartForm.HideForm(this);
                     }
 
-                    
+
                     return;
                 }
 
@@ -88,7 +88,7 @@ namespace Infinium
 
                     if (FormEvent == eClose)
                     {
-                       
+
                         LightStartForm.CloseForm(this);
                     }
 
@@ -97,7 +97,7 @@ namespace Infinium
 
                         LightStartForm.HideForm(this);
                     }
-                    
+
                 }
 
                 return;
@@ -136,7 +136,7 @@ namespace Infinium
             AnimateTimer.Enabled = true;
         }
 
-        
+
 
         private void Initialize()
         {
@@ -231,7 +231,7 @@ namespace Infinium
             if (!AllModulesCheckBox.Checked)
                 ModuleID = Convert.ToInt32(ModulesDataGrid.SelectedRows[0].Cells["ModuleID"].Value);
 
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
             T.Start();
 
             while (!SplashWindow.bSmallCreated) ;
@@ -261,11 +261,11 @@ namespace Infinium
 
         private void btnToExcel_Click(object sender, EventArgs e)
         {
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Создание документа Excel.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Создание документа Excel.\r\nПодождите..."); });
             T.Start();
 
             while (!SplashWindow.bSmallCreated) ;
-            
+
             AdminModulesJournalToExcel = new AdminModulesJournalToExcel();
             AdminModulesJournalToExcel.CreateSheet1(AdminModulesJournal.ModulesJournalDT);
             AdminModulesJournalToExcel.CreateSheet2(AdminModulesJournal.ResultUsersTimeDT, AdminModulesJournal.TotalResultUsersDT);
@@ -273,7 +273,7 @@ namespace Infinium
             AdminModulesJournalToExcel.SaveOpenReport(CalendarFrom.SelectionEnd, CalendarTo.SelectionEnd);
 
             while (SplashWindow.bSmallCreated)
-                SmallWaitForm.CloseS = true;   
+                SmallWaitForm.CloseS = true;
         }
     }
 }

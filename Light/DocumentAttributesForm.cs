@@ -41,7 +41,7 @@ namespace Infinium
 
             InfiniumDocumentsAttributesList.ItemsDataTable = InfiniumDocuments.DocumentAttributesDataTable;
 
-            TopForm = tTopForm;          
+            TopForm = tTopForm;
         }
 
         protected override void WndProc(ref Message m)
@@ -125,7 +125,7 @@ namespace Infinium
         }
 
         private void PictureViewForm_Shown(object sender, EventArgs e)
-        { 
+        {
             FormEvent = eShow;
             AnimateTimer.Enabled = true;
         }
@@ -164,22 +164,22 @@ namespace Infinium
             }
             else
                 if (AttributeName == "Ознакомлен")
-                {
-                    UsersComboBox.Visible = true;
-                    AddUserButton.Visible = true;
-                    InfiniumDocumentsUsersList.Visible = true;
-                    FirstSignCheckBox.Visible = true;
+            {
+                UsersComboBox.Visible = true;
+                AddUserButton.Visible = true;
+                InfiniumDocumentsUsersList.Visible = true;
+                FirstSignCheckBox.Visible = true;
 
-                    InfiniumDocumentsUsersList.ItemsDataTable = InfiniumDocuments.CurrentReadDataTable;
-                    InfiniumDocumentsUsersList.InitializeItems();
-                }
-                else
-                    {
-                        UsersComboBox.Visible = false;
-                        AddUserButton.Visible = false;
-                        InfiniumDocumentsUsersList.Visible = false;
-                        FirstSignCheckBox.Visible = false;
-                    }
+                InfiniumDocumentsUsersList.ItemsDataTable = InfiniumDocuments.CurrentReadDataTable;
+                InfiniumDocumentsUsersList.InitializeItems();
+            }
+            else
+            {
+                UsersComboBox.Visible = false;
+                AddUserButton.Visible = false;
+                InfiniumDocumentsUsersList.Visible = false;
+                FirstSignCheckBox.Visible = false;
+            }
         }
 
         private void DocumentSamlesForm_Load(object sender, EventArgs e)
@@ -234,7 +234,7 @@ namespace Infinium
 
                 if (Item.Caption == "Подписи")
                     bFirstSign = FirstSignCheckBox.Checked;
-            }        
+            }
 
             FormEvent = eClose;
             AnimateTimer.Enabled = true;

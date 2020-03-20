@@ -1,18 +1,19 @@
-﻿using System;
-using System.Linq;
-using System.Text;
-using System.Data;
-using System.Drawing;
-using System.Data.SqlClient;
-using System.Windows.Forms;
-using System.Globalization;
-using System.Drawing.Printing;
-using System.Collections;
-using System.IO;
+﻿using NPOI.HPSF;
 using NPOI.HSSF.UserModel;
-using NPOI.HPSF;
 using NPOI.HSSF.UserModel.Contrib;
 using NPOI.HSSF.Util;
+
+using System;
+using System.Collections;
+using System.Data;
+using System.Data.SqlClient;
+using System.Drawing;
+using System.Drawing.Printing;
+using System.Globalization;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Windows.Forms;
 
 namespace Infinium.Modules.Packages.ZOV
 {
@@ -1075,7 +1076,7 @@ namespace Infinium.Modules.Packages.ZOV
                 ConnectionStrings.ZOVOrdersConnectionString);
             SqlCommandBuilder PackageDetailsCB = new SqlCommandBuilder(PackageDetailsDA);
             PackageDetailsDA.Fill(PackageDetailsDT);
-                                                              
+
             using (SqlDataAdapter DA = new SqlDataAdapter(@"SELECT PackageDetails.PackNumber,
             FrontsOrders.FrontID, FrontsOrders.PatinaID, FrontsOrders.InsetTypeID, FrontsOrders.ColorID, FrontsOrders.InsetColorID, FrontsOrders.TechnoColorID, FrontsOrders.TechnoInsetTypeID, FrontsOrders.TechnoInsetColorID, 
             FrontsOrders.Height, FrontsOrders.Width, FrontsOrders.Count, PackageDetails.Count
@@ -1564,7 +1565,7 @@ namespace Infinium.Modules.Packages.ZOV
                             //if (Convert.ToInt32(ORow[0]["ColorID"]) == -1)
                             //    NewRow["ColorID"] = 0;
                             //else
-                                NewRow["ColorID"] = ORow[0]["ColorID"];
+                            NewRow["ColorID"] = ORow[0]["ColorID"];
 
                             NewRow["Height"] = ORow[0]["Height"];
                             NewRow["Length"] = ORow[0]["Length"];
@@ -1974,16 +1975,16 @@ namespace Infinium.Modules.Packages.ZOV
             SqlCommandBuilder PackageDetailsCB = new SqlCommandBuilder(PackageDetailsDA);
             PackageDetailsDA.Fill(PackageDetailsDT);
 
-//            using (SqlDataAdapter DA = new SqlDataAdapter(@"SELECT PackageDetails.PackNumber,
-//            DecorOrders.ProductID, DecorOrders.DecorID, DecorOrders.ColorID, 
-//            DecorOrders.Height, DecorOrders.Length, DecorOrders.Width, DecorOrders.Count, PackageDetails.Count
-//            FROM PackageDetails 
-//            INNER JOIN DecorOrders ON PackageDetails.OrderID = DecorOrders.DecorOrderID
-//            WHERE PackageDetails.PackageID IN
-//            (SELECT PackageID FROM Packages WHERE ProductType = 1 AND MainOrderID IN
-//            (SELECT MainOrderID FROM MainOrders WHERE DocNumber = '" + DebtDocNumber + @"'))
-//            ORDER BY PackageDetails.PackNumber, DecorOrders.Height, DecorOrders.Length, DecorOrders.Width",
-//            ConnectionStrings.ZOVOrdersConnectionString))
+            //            using (SqlDataAdapter DA = new SqlDataAdapter(@"SELECT PackageDetails.PackNumber,
+            //            DecorOrders.ProductID, DecorOrders.DecorID, DecorOrders.ColorID, 
+            //            DecorOrders.Height, DecorOrders.Length, DecorOrders.Width, DecorOrders.Count, PackageDetails.Count
+            //            FROM PackageDetails 
+            //            INNER JOIN DecorOrders ON PackageDetails.OrderID = DecorOrders.DecorOrderID
+            //            WHERE PackageDetails.PackageID IN
+            //            (SELECT PackageID FROM Packages WHERE ProductType = 1 AND MainOrderID IN
+            //            (SELECT MainOrderID FROM MainOrders WHERE DocNumber = '" + DebtDocNumber + @"'))
+            //            ORDER BY PackageDetails.PackNumber, DecorOrders.Height, DecorOrders.Length, DecorOrders.Width",
+            //            ConnectionStrings.ZOVOrdersConnectionString))
 
             using (SqlDataAdapter DA = new SqlDataAdapter(@"SELECT PackageDetails.PackNumber,
             DecorOrders.ProductID, DecorOrders.DecorID, DecorOrders.ColorID, 
@@ -2001,7 +2002,7 @@ namespace Infinium.Modules.Packages.ZOV
                         return;
 
                     DT.Columns.Add(new DataColumn("Ready", Type.GetType("System.Boolean")));
-                    
+
                     foreach (DataRow Row in DT.Rows)
                     {
                         //if (Convert.ToInt32(Row["ColorID"]) == -1)
@@ -2490,7 +2491,7 @@ namespace Infinium.Modules.Packages.ZOV
             MainOrdersDataGrid.Columns["IsSample"].DisplayIndex = 10;
             MainOrdersDataGrid.Columns["Notes"].DisplayIndex = 11;
             MainOrdersDataGrid.Columns["FactoryTypeColumn"].DisplayIndex = 12;
-            
+
 
             MainOrdersDataGrid.Columns["FrontsSquare"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
             MainOrdersDataGrid.Columns["Weight"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
@@ -2555,7 +2556,7 @@ namespace Infinium.Modules.Packages.ZOV
             MegaOrdersDataGrid.Columns["PackAllocStatus"].DisplayIndex = 3;
             MegaOrdersDataGrid.Columns["Weight"].DisplayIndex = 4;
             MegaOrdersDataGrid.Columns["Square"].DisplayIndex = 5;
-            
+
             MegaOrdersDataGrid.Columns["Weight"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
             MegaOrdersDataGrid.Columns["Square"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
 
@@ -2650,7 +2651,7 @@ namespace Infinium.Modules.Packages.ZOV
             MainOrdersDataTable.Clear();
 
             using (SqlDataAdapter DA = new SqlDataAdapter("SELECT MainOrderID, MegaOrderID, MainOrders.ClientID, DocNumber, DebtDocNumber, DebtTypeID, FrontsSquare," +
-                " Weight, DocDateTime, IsSample, Notes, FactoryID, " + PackAllocStatusID + ", " + PackCount + ", " + 
+                " Weight, DocDateTime, IsSample, Notes, FactoryID, " + PackAllocStatusID + ", " + PackCount + ", " +
                 " AllocPackDateTime, infiniu2_zovreference.dbo.Clients.ClientName FROM MainOrders" +
                 " INNER JOIN infiniu2_zovreference.dbo.Clients ON MainOrders.ClientID = infiniu2_zovreference.dbo.Clients.ClientID" +
                 " WHERE MegaOrderID=" + MegaOrderID +
@@ -3210,7 +3211,7 @@ namespace Infinium.Modules.Packages.ZOV
                 }
             }
         }
-        
+
         private int[] GetPackageIDs(int MainOrderID, int ProductType)
         {
             int[] PackageIDs = { 0 };
@@ -4427,7 +4428,7 @@ namespace Infinium.Modules.Packages.ZOV
         public ZOVPackagesPrintDecorOrders(ref PercentageDataGrid tMainOrdersDecorOrdersDataGrid)
         {
             MainOrdersDecorOrdersDataGrid = tMainOrdersDecorOrdersDataGrid;
-            
+
             Initialize();
         }
 
@@ -4801,7 +4802,7 @@ namespace Infinium.Modules.Packages.ZOV
                             //if (Convert.ToInt32(ORow[0]["ColorID"]) == -1)
                             //    NewRow["ColorID"] = 0;
                             //else
-                                NewRow["ColorID"] = ORow[0]["ColorID"];
+                            NewRow["ColorID"] = ORow[0]["ColorID"];
 
                             NewRow["Height"] = ORow[0]["Height"];
                             NewRow["Length"] = ORow[0]["Length"];
@@ -5107,7 +5108,7 @@ namespace Infinium.Modules.Packages.ZOV
             string.Join(",", Fronts) + ")" +
             " AND FactoryID=" + FactoryID + ")))" +
             " ORDER BY DispatchDate";
-            
+
             MegaOrdersDataAdapter = new SqlDataAdapter(SellectionCommand, ConnectionStrings.ZOVOrdersConnectionString);
             MegaOrdersSqlCommandBuilder = new SqlCommandBuilder(MegaOrdersDataAdapter);
             MegaOrdersDataAdapter.Fill(MegaOrdersDataTable);
@@ -5117,7 +5118,7 @@ namespace Infinium.Modules.Packages.ZOV
                 ConnectionStrings.ZOVOrdersConnectionString);
             MainOrdersSqlCommandBuilder = new SqlCommandBuilder(MainOrdersDataAdapter);
             MainOrdersDataAdapter.Fill(MainOrdersDataTable);
-            
+
             using (SqlDataAdapter DA = new SqlDataAdapter("SELECT * FROM PackAllocStatuses",
                 ConnectionStrings.CatalogConnectionString))
             {
@@ -5761,7 +5762,7 @@ namespace Infinium.Modules.Packages.ZOV
 
             System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
             sw.Start();
-            
+
             MegaOrdersDataAdapter = new SqlDataAdapter(SellectionCommand, ConnectionStrings.ZOVOrdersConnectionString);
             MegaOrdersSqlCommandBuilder = new SqlCommandBuilder(MegaOrdersDataAdapter);
             MegaOrdersDataAdapter.Fill(MegaOrdersDataTable);
@@ -5861,7 +5862,7 @@ namespace Infinium.Modules.Packages.ZOV
 
             System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
             sw.Start();
-            
+
             using (SqlDataAdapter DA = new SqlDataAdapter(SelectionCommand,
                 ConnectionStrings.ZOVOrdersConnectionString))
             {
@@ -6393,7 +6394,7 @@ namespace Infinium.Modules.Packages.ZOV
         }
 
         #region Реализация интерфейса IReference
-                
+
         public string GetMainOrderNotes(int MainOrderID)
         {
             string Notes = null;
@@ -6431,7 +6432,7 @@ namespace Infinium.Modules.Packages.ZOV
             using (DataTable DT = new DataTable())
             {
                 using (SqlDataAdapter DA = new SqlDataAdapter("SELECT DocNumber FROM MainOrders" +
-                    " WHERE MainOrderID=" +  MainOrderID, ConnectionStrings.ZOVOrdersConnectionString))
+                    " WHERE MainOrderID=" + MainOrderID, ConnectionStrings.ZOVOrdersConnectionString))
                 {
                     DA.Fill(DT);
                     if (DT.Rows.Count > 0)
@@ -6449,7 +6450,7 @@ namespace Infinium.Modules.Packages.ZOV
             using (DataTable DT = new DataTable())
             {
                 using (SqlDataAdapter DA = new SqlDataAdapter("SELECT ClientID FROM MainOrders" +
-                    " WHERE MainOrderID=" +  MainOrderID, ConnectionStrings.ZOVOrdersConnectionString))
+                    " WHERE MainOrderID=" + MainOrderID, ConnectionStrings.ZOVOrdersConnectionString))
                 {
                     DA.Fill(DT);
                     if (DT.Rows.Count > 0)
@@ -6861,7 +6862,7 @@ namespace Infinium.Modules.Packages.ZOV
             int[] Fronts = FrontIDs.OfType<int>().ToArray();
 
             DataTable OriginalFrontsOrdersDataTable = new DataTable();
-            
+
             using (SqlDataAdapter DA = new SqlDataAdapter("SELECT * FROM FrontsOrders WHERE MainOrderID = " + MainOrderID +
                 " AND FactoryID=" + FactoryID + " AND FrontID IN (" + string.Join(",", Fronts) + ")",
                 ConnectionStrings.ZOVOrdersConnectionString))
@@ -6968,7 +6969,7 @@ namespace Infinium.Modules.Packages.ZOV
                             //if (Convert.ToInt32(ORow[0]["ColorID"]) == -1)
                             //    NewRow["ColorID"] = 0;
                             //else
-                                NewRow["ColorID"] = ORow[0]["ColorID"];
+                            NewRow["ColorID"] = ORow[0]["ColorID"];
 
                             NewRow["Height"] = ORow[0]["Height"];
                             NewRow["Length"] = ORow[0]["Length"];
@@ -7590,7 +7591,7 @@ namespace Infinium.Modules.Packages.ZOV
                                 continue;
                             }
                         }
-                        
+
                         RowIndex++;
                     }
                 }
@@ -7608,12 +7609,12 @@ namespace Infinium.Modules.Packages.ZOV
                 if (IsFronts)
                     RowIndex++;
 
-                
+
                 RowIndex++;
             }
 
-                for (int y = 0; y < FrontsResultDataTable.Columns.Count; y++)
-                {
+            for (int y = 0; y < FrontsResultDataTable.Columns.Count; y++)
+            {
                 HSSFCell cell = sheet1.CreateRow(RowIndex).CreateCell(y);
                 HSSFCellStyle cellStyle = hssfworkbook.CreateCellStyle();
                 cellStyle.BorderTop = HSSFCellStyle.BORDER_MEDIUM;
@@ -8038,9 +8039,9 @@ namespace Infinium.Modules.Packages.ZOV
                 RowIndex++;
             }
 
-            
-                    for (int y = 0; y < DecorResultDataTable.Columns.Count; y++)
-                    {
+
+            for (int y = 0; y < DecorResultDataTable.Columns.Count; y++)
+            {
                 HSSFCell cell = sheet1.CreateRow(RowIndex).CreateCell(y);
                 HSSFCellStyle cellStyle = hssfworkbook.CreateCellStyle();
                 cellStyle.BorderTop = HSSFCellStyle.BORDER_MEDIUM;
@@ -8287,7 +8288,7 @@ namespace Infinium.Modules.Packages.ZOV
         }
 
         #region Реализация интерфейса IReference
-                
+
         public string GetMainOrderNotes(int MainOrderID)
         {
             string Notes = null;
@@ -8311,7 +8312,7 @@ namespace Infinium.Modules.Packages.ZOV
             using (DataTable DT = new DataTable())
             {
                 using (SqlDataAdapter DA = new SqlDataAdapter("SELECT DocNumber FROM MainOrders" +
-                    " WHERE MainOrderID=" +  MainOrderID, ConnectionStrings.ZOVOrdersConnectionString))
+                    " WHERE MainOrderID=" + MainOrderID, ConnectionStrings.ZOVOrdersConnectionString))
                 {
                     DA.Fill(DT);
                     if (DT.Rows.Count > 0)
@@ -8329,7 +8330,7 @@ namespace Infinium.Modules.Packages.ZOV
             using (DataTable DT = new DataTable())
             {
                 using (SqlDataAdapter DA = new SqlDataAdapter("SELECT ClientID FROM MainOrders" +
-                    " WHERE MainOrderID=" +  MainOrderID, ConnectionStrings.ZOVOrdersConnectionString))
+                    " WHERE MainOrderID=" + MainOrderID, ConnectionStrings.ZOVOrdersConnectionString))
                 {
                     DA.Fill(DT);
                     if (DT.Rows.Count > 0)
@@ -8848,7 +8849,7 @@ namespace Infinium.Modules.Packages.ZOV
                             //if (Convert.ToInt32(ORow[0]["ColorID"]) == -1)
                             //    NewRow["ColorID"] = 0;
                             //else
-                                NewRow["ColorID"] = ORow[0]["ColorID"];
+                            NewRow["ColorID"] = ORow[0]["ColorID"];
 
                             NewRow["Height"] = ORow[0]["Height"];
                             NewRow["Length"] = ORow[0]["Length"];
@@ -9377,7 +9378,7 @@ namespace Infinium.Modules.Packages.ZOV
             ev.Graphics.DrawLine(Pen, 11, 144, 467, 144);
 
             if (((Info)LabelInfo[CurrentLabelNumber]).PackAllocStatusID == 2)
-                ev.Graphics.DrawString(((Info)LabelInfo[CurrentLabelNumber]).PackNumber.ToString() + "(" + 
+                ev.Graphics.DrawString(((Info)LabelInfo[CurrentLabelNumber]).PackNumber.ToString() + "(" +
                 ((Info)LabelInfo[CurrentLabelNumber]).TotalPackCount.ToString() + ")", DocFont, FontBrush, 371, 34);
             else
                 ev.Graphics.DrawString(((Info)LabelInfo[CurrentLabelNumber]).PackNumber.ToString(), DocFont, FontBrush, 388, 34);
@@ -9386,7 +9387,7 @@ namespace Infinium.Modules.Packages.ZOV
 
             //OrderData
             //if (Convert.ToBoolean(((Info)LabelInfo[CurrentLabelNumber]).TechnoInset))
-                DrawTableWithTechnoFront(ev);
+            DrawTableWithTechnoFront(ev);
             //else
             //    DrawTable(ev);
 
@@ -9450,7 +9451,7 @@ namespace Infinium.Modules.Packages.ZOV
                 Printed = true;
                 PD.PrintPage += new PrintPageEventHandler(PrintPage);
             }
-            
+
             PD.Print();
         }
 

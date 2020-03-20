@@ -1,8 +1,8 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Data;
-using System.Windows.Forms;
 using System.Threading;
+using System.Windows.Forms;
 
 namespace Infinium
 {
@@ -127,10 +127,10 @@ namespace Infinium
 
             if (!cbNewsToSite.Checked)
                 if (N == false)
-            {
-                InfiniumTips.ShowTip(this, 50, 93, "Не выбраны клиенты", 3000);
-                return;
-            }
+                {
+                    InfiniumTips.ShowTip(this, 50, 93, "Не выбраны клиенты", 3000);
+                    return;
+                }
 
             if (BodyTextEdit.Text.Length < 1)
             {
@@ -259,7 +259,7 @@ namespace Infinium
                     Application.DoEvents();
 
                     Date = LightNews.AddNews(Security.CurrentUserID, 0, HeaderTextEdit.Text, BodyTextEdit.Text, -1, -1);
-                    
+
                     LightNews.ClearPending(Date, -1);
 
                     LightNews.AddSubscribeForNews(Date, -1, -1);
@@ -298,7 +298,7 @@ namespace Infinium
                     int CurrentUploadedFile = 0;
                     int TotalFilesCount = 0;
 
-                    Thread T = new Thread(delegate() { Ok = LightNews.EditAttachments(iNewsIDEdit, AttachmentsDataTable, ref CurrentUploadedFile, ref TotalFilesCount); });
+                    Thread T = new Thread(delegate () { Ok = LightNews.EditAttachments(iNewsIDEdit, AttachmentsDataTable, ref CurrentUploadedFile, ref TotalFilesCount); });
                     T.Start();
 
                     this.Activate();
@@ -401,7 +401,7 @@ namespace Infinium
                 NewRow["FileName"] = System.IO.Path.GetFileName(FileName);
                 NewRow["Path"] = FileName;
                 AttachmentsDataTable.Rows.Add(NewRow);
-            }          
+            }
         }
 
         private void AnimateTimer_Tick(object sender, EventArgs e)
@@ -524,7 +524,7 @@ namespace Infinium
             AttachmentsGrid.Enabled = !cbNewsToSite.Checked;
             DetachButton.Enabled = !cbNewsToSite.Checked;
             AllClientsCheckBox.Enabled = !cbNewsToSite.Checked;
-            
+
             foreach (DataRow Row in LightNews.ClientsSelectDataTable.Rows)
             {
                 Row["Check"] = false;

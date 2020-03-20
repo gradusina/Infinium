@@ -1,9 +1,9 @@
 ﻿using System;
-using System.Drawing;
-using System.Windows.Forms;
-using System.Threading;
-using System.Runtime.InteropServices;
 using System.Collections;
+using System.Drawing;
+using System.Runtime.InteropServices;
+using System.Threading;
+using System.Windows.Forms;
 
 namespace Infinium
 {
@@ -211,7 +211,7 @@ namespace Infinium
                     int PackageID = Convert.ToInt32(BarcodeLabel.Text.Substring(3, 9));
                     if (CheckLabel.HasPackages(BarcodeLabel.Text))
                     {
-                        CheckLabel.GetPackageInfo(PackageID);                        
+                        CheckLabel.GetPackageInfo(PackageID);
                         CheckLabel.FillPackagesByPackage(BarcodeLabel.Text);
                         CheckLabel.AddPackageToTempTable();
 
@@ -277,7 +277,7 @@ namespace Infinium
                 }
             }
 
-            
+
         }
 
         private void BarcodeTextBox_KeyPress(object sender, KeyPressEventArgs e)
@@ -357,7 +357,7 @@ namespace Infinium
         {
             if (!CanAction)
                 return;
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение данных.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение данных.\r\nПодождите..."); });
             T.Start();
 
             while (!SplashWindow.bSmallCreated) ;

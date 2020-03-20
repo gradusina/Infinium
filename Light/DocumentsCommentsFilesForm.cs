@@ -23,7 +23,7 @@ namespace Infinium
 
         public DataTable CurrentFilesDataTable = null;
 
-        
+
 
         public DocumentsCommentsFilesForm(ref Form tTopForm, ref InfiniumDocuments tInfiniumDocuments, DataTable tFilesDataTable)
         {

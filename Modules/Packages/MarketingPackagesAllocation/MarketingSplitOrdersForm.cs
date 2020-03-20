@@ -1,9 +1,10 @@
-﻿using System;
-using System.Data;
-using System.Windows.Forms;
-using System.Threading;
+﻿using Infinium.Modules.Marketing.NewOrders;
 using Infinium.Modules.Packages;
-using Infinium.Modules.Marketing.NewOrders;
+
+using System;
+using System.Data;
+using System.Threading;
+using System.Windows.Forms;
 
 namespace Infinium
 {
@@ -40,7 +41,7 @@ namespace Infinium
             this.MaximumSize = Screen.PrimaryScreen.WorkingArea.Size;
 
             Initialize();
-            while (!SplashForm.bCreated);
+            while (!SplashForm.bCreated) ;
         }
 
         private void MarketingSplitOrdersForm_Shown(object sender, EventArgs e)
@@ -244,7 +245,7 @@ namespace Infinium
                     decimal PaymentRate = 0;
                     object ConfirmDateTime = DBNull.Value;
                     OrdersCalculate.GetMegaOrderDiscount(MegaOrderID, ref CurrencyTypeID, ref PaymentRate, ref ProfilDiscountDirector, ref TPSDiscountDirector, ref ProfilTotalDiscount, ref TPSTotalDiscount, ref DiscountPaymentCondition, ref ConfirmDateTime);
-                    OrdersCalculate.CalculateOrder(MegaOrderID, OldMainOrderID, ProfilDiscountDirector, TPSDiscountDirector, ProfilTotalDiscount, TPSTotalDiscount, DiscountPaymentCondition,CurrencyTypeID, PaymentRate, ConfirmDateTime);
+                    OrdersCalculate.CalculateOrder(MegaOrderID, OldMainOrderID, ProfilDiscountDirector, TPSDiscountDirector, ProfilTotalDiscount, TPSTotalDiscount, DiscountPaymentCondition, CurrencyTypeID, PaymentRate, ConfirmDateTime);
                     MarketingSplitMainOrders.Filter();
                 }
             }
@@ -264,7 +265,7 @@ namespace Infinium
                 TopForm = SplitOrdersForm;
                 SplitOrdersForm.ShowDialog();
                 TopForm = null;
-                
+
                 SplitOrdersForm.Dispose();
                 SplitOrdersForm = null;
                 GC.Collect();
@@ -281,8 +282,8 @@ namespace Infinium
                     int CurrencyTypeID = 0;
                     decimal PaymentRate = 0;
                     object ConfirmDateTime = DBNull.Value;
-                    OrdersCalculate.GetMegaOrderDiscount(MegaOrderID, ref CurrencyTypeID, ref PaymentRate, ref ProfilDiscountDirector, ref TPSDiscountDirector, ref ProfilTotalDiscount, ref TPSTotalDiscount,ref DiscountPaymentCondition,  ref ConfirmDateTime);
-                    OrdersCalculate.CalculateOrder(MegaOrderID, OldMainOrderID, ProfilDiscountDirector, TPSDiscountDirector, ProfilTotalDiscount, TPSTotalDiscount, DiscountPaymentCondition,CurrencyTypeID, PaymentRate, ConfirmDateTime);
+                    OrdersCalculate.GetMegaOrderDiscount(MegaOrderID, ref CurrencyTypeID, ref PaymentRate, ref ProfilDiscountDirector, ref TPSDiscountDirector, ref ProfilTotalDiscount, ref TPSTotalDiscount, ref DiscountPaymentCondition, ref ConfirmDateTime);
+                    OrdersCalculate.CalculateOrder(MegaOrderID, OldMainOrderID, ProfilDiscountDirector, TPSDiscountDirector, ProfilTotalDiscount, TPSTotalDiscount, DiscountPaymentCondition, CurrencyTypeID, PaymentRate, ConfirmDateTime);
                     MarketingSplitMainOrders.Filter();
                 }
             }

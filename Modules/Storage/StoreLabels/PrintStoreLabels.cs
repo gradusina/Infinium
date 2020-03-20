@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Drawing.Printing;
 using System.Collections;
 using System.Drawing;
+using System.Drawing.Printing;
 
 namespace Infinium.Modules.Storage.StoreLabels
 {
@@ -65,15 +65,15 @@ namespace Infinium.Modules.Storage.StoreLabels
                 return;
             else
                 PrintedCount++;
-            
+
             ev.Graphics.Clear(Color.White);
-            
+
             ev.Graphics.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAliasGridFit;
 
             ev.Graphics.DrawImage(Barcode.GetBarcode(Barcode.BarcodeLength.Short, 30, ((Info)LabelInfo[CurrentLabelNumber]).BarcodeNumber), 0, 10);
 
             Barcode.DrawBarcodeText(Barcode.BarcodeLength.Short, ev.Graphics, ((Info)LabelInfo[CurrentLabelNumber]).BarcodeNumber, 4, 41);
-            
+
             if (CurrentLabelNumber == LabelInfo.Count - 1 || PrintedCount >= LabelInfo.Count)
                 ev.HasMorePages = false;
 

@@ -1,9 +1,10 @@
-﻿using System;
-using System.Windows.Forms;
-using System.Threading;
-using System.Globalization;
+﻿using Infinium.Modules.StatisticsMarketing;
+
+using System;
 using System.Drawing;
-using Infinium.Modules.StatisticsMarketing;
+using System.Globalization;
+using System.Threading;
+using System.Windows.Forms;
 
 namespace Infinium
 {
@@ -20,7 +21,7 @@ namespace Infinium
         int FormEvent = 0;
         MarketingBatchStatistics BatchStatistics;
         LightStartForm LightStartForm;
-        
+
         Form TopForm = null;
 
         public ZOVBatchStatisticsForm(LightStartForm tLightStartForm)
@@ -28,12 +29,12 @@ namespace Infinium
             InitializeComponent();
 
             LightStartForm = tLightStartForm;
-            
+
             this.MaximumSize = Screen.PrimaryScreen.WorkingArea.Size;
 
             Initialize();
 
-            while (!SplashForm.bCreated);
+            while (!SplashForm.bCreated) ;
         }
 
         private void MarketingBatchStatisticsForm_Shown(object sender, EventArgs e)
@@ -403,7 +404,7 @@ namespace Infinium
         {
 
         }
-        
+
         private void dgvGeneralSummary_SelectionChanged(object sender, EventArgs e)
         {
             lbAllSFSquare.Text = string.Empty;
@@ -485,7 +486,7 @@ namespace Infinium
                 MegaBatchID = Convert.ToInt32(dgvGeneralSummary.SelectedRows[0].Cells["MegaBatchID"].Value);
             if (NeedSplash)
             {
-                Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
+                Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
                 T.Start();
 
                 while (!SplashWindow.bSmallCreated) ;
@@ -587,7 +588,7 @@ namespace Infinium
 
             dgvGeneralSummary.SelectionChanged -= dgvGeneralSummary_SelectionChanged;
             NeedSplash = false;
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
             T.Start();
 
             while (!SplashWindow.bSmallCreated) ;
@@ -656,7 +657,7 @@ namespace Infinium
                 return;
 
             NeedSplash = false;
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
             T.Start();
 
             while (!SplashWindow.bSmallCreated) ;

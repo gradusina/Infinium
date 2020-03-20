@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Drawing;
-using System.Windows.Forms;
 using System.Threading;
+using System.Windows.Forms;
 
 namespace Infinium
 {
@@ -82,7 +82,7 @@ namespace Infinium
                     LoginComboBox.SelectedIndex = Security.UsersBindingSource.Find("UserID", CurID);
                     //Security.CheckConding(CurID);
                 }
-                catch 
+                catch
                 {
                     LoginComboBox.SelectedIndex = 0;
                 }
@@ -141,7 +141,7 @@ namespace Infinium
 
             Security.CreateJournalRecord();
 
-            Thread T = new Thread(delegate() { SplashWindow.CreateSplash(); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSplash(); });
             T.Start();
 
             while (!SplashForm.bCreated) ;
@@ -151,13 +151,13 @@ namespace Infinium
         }
 
         private void LogOutButton_Click(object sender, EventArgs e)
-        {           
+        {
             this.Close();
         }
 
         private void PasswordComboBox_KeyDown(object sender, KeyEventArgs e)
         {
-            
+
         }
 
         private void LoginComboBox_SelectionChanged(object sender, EventArgs e)
@@ -201,7 +201,7 @@ namespace Infinium
         private int GetTimeLabelLength(string Text)
         {
             int W = 0;
-            
+
             Graphics G = this.CreateGraphics();
             Font F = new System.Drawing.Font("Segoe UI Semilight", 90, FontStyle.Regular, GraphicsUnit.Pixel);
 

@@ -1,15 +1,16 @@
-﻿using System;
-using System.Linq;
+﻿using NPOI.HPSF;
+using NPOI.HSSF.UserModel;
+using NPOI.HSSF.UserModel.Contrib;
+using NPOI.HSSF.Util;
+
+using System;
+using System.Collections;
 using System.Data;
 using System.Data.SqlClient;
-using System.Windows.Forms;
 using System.Globalization;
 using System.IO;
-using NPOI.HSSF.UserModel;
-using NPOI.HPSF;
-using NPOI.HSSF.Util;
-using NPOI.HSSF.UserModel.Contrib;
-using System.Collections;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace Infinium.Modules.Dispatch
 {
@@ -1768,7 +1769,7 @@ namespace Infinium.Modules.Dispatch
             //if (ClientID == 101)
             //    return Rows[0]["OldName"].ToString();
             //else
-                return Rows[0]["Name"].ToString();
+            return Rows[0]["Name"].ToString();
         }
 
         public bool HasParameter(int ProductID, string Parameter)
@@ -2016,7 +2017,7 @@ namespace Infinium.Modules.Dispatch
             DecorOrdersDataTable.Clear();
 
             DataTable OriginalDecorOrdersDataTable = new DataTable();
-            
+
             using (SqlDataAdapter DA = new SqlDataAdapter("SELECT DecorOrders.*, MegaOrders.ConfirmDateTime FROM DecorOrders" +
                 " INNER JOIN MainOrders ON DecorOrders.MainOrderID = MainOrders.MainOrderID" +
                 " INNER JOIN MegaOrders ON MainOrders.MegaOrderID = MegaOrders.MegaOrderID" +
@@ -2054,7 +2055,7 @@ namespace Infinium.Modules.Dispatch
                             //if (Convert.ToInt32(ORow[0]["ColorID"]) == -1)
                             //    NewRow["ColorID"] = 0;
                             //else
-                                NewRow["ColorID"] = ORow[0]["ColorID"];
+                            NewRow["ColorID"] = ORow[0]["ColorID"];
                             NewRow["Count"] = Row["Count"];
                             NewRow["PackNumber"] = Row["PackNumber"];
                             NewRow["PackageStatusID"] = Row["PackageStatusID"];
@@ -5534,7 +5535,7 @@ namespace Infinium.Modules.Dispatch
                             //if (Convert.ToInt32(ORow[0]["ColorID"]) == -1)
                             //    NewRow["ColorID"] = 0;
                             //else
-                                NewRow["ColorID"] = ORow[0]["ColorID"];
+                            NewRow["ColorID"] = ORow[0]["ColorID"];
 
                             //NewRow["Height"] = ORow[0]["Height"];
                             //NewRow["Length"] = ORow[0]["Length"];
@@ -7533,7 +7534,7 @@ namespace Infinium.Modules.Dispatch
                             //if (Convert.ToInt32(ORow[0]["ColorID"]) == -1)
                             //    NewRow["ColorID"] = 0;
                             //else
-                                NewRow["ColorID"] = ORow[0]["ColorID"];
+                            NewRow["ColorID"] = ORow[0]["ColorID"];
 
                             //NewRow["Height"] = ORow[0]["Height"];
                             //NewRow["Length"] = ORow[0]["Length"];
@@ -9876,7 +9877,7 @@ namespace Infinium.Modules.Dispatch
                             //if (Convert.ToInt32(ORow[0]["ColorID"]) == -1)
                             //    NewRow["ColorID"] = 0;
                             //else
-                                NewRow["ColorID"] = ORow[0]["ColorID"];
+                            NewRow["ColorID"] = ORow[0]["ColorID"];
 
                             //NewRow["Height"] = ORow[0]["Height"];
                             //NewRow["Length"] = ORow[0]["Length"];
@@ -12250,7 +12251,7 @@ namespace Infinium.Modules.Dispatch
 
             grid.Columns["StorageDateTime"].DefaultCellStyle.Format = "dd.MM.yyyy HH:mm";
             grid.Columns["ExpeditionDateTime"].DefaultCellStyle.Format = "dd.MM.yyyy HH:mm";
-            grid.Columns["PackNumber"].HeaderText =  "№\r\nупак.";
+            grid.Columns["PackNumber"].HeaderText = "№\r\nупак.";
             grid.Columns["StorageDateTime"].HeaderText = "Принято\r\nна склад";
             grid.Columns["ExpeditionDateTime"].HeaderText = "Дата\r\nэкспедиции";
             grid.Columns["PackageID"].HeaderText = "ID";
@@ -12661,7 +12662,7 @@ namespace Infinium.Modules.Dispatch
         public void DispatchPackages()
         {
             DateTime CurrentDate = Security.GetCurrentDate();
-            
+
             using (SqlDataAdapter DA = new SqlDataAdapter("SELECT * FROM Packages WHERE DispatchID IN (" + string.Join(",", DispatchIDs.OfType<Int32>().ToArray()) + ")",
                 ConnectionStrings.ZOVOrdersConnectionString))
             {
@@ -12756,36 +12757,36 @@ namespace Infinium.Modules.Dispatch
                 dt1 = DV.ToTable(true, new string[] { "MainOrderID" });
             }
 
-//            DataTable DebtsDT = new DataTable();
-//            DataTable ReOrdersDT = new DataTable();
-//            SqlDataAdapter DebtsDA;
-//            SqlDataAdapter ReOrdersDA;
-//            SqlCommandBuilder DebtsCB;
-//            string SelectCommand = string.Empty;
+            //            DataTable DebtsDT = new DataTable();
+            //            DataTable ReOrdersDT = new DataTable();
+            //            SqlDataAdapter DebtsDA;
+            //            SqlDataAdapter ReOrdersDA;
+            //            SqlCommandBuilder DebtsCB;
+            //            string SelectCommand = string.Empty;
 
-//            SelectCommand = @"SELECT MainOrderID, DocNumber, ReorderDocNumber FROM MainOrders
-//                WHERE ReorderDocNumber IS NOT NULL AND MegaOrderID = " + MegaOrderID;
-//            DebtsDA = new SqlDataAdapter(SelectCommand, ConnectionStrings.ZOVOrdersConnectionString);
-//            DebtsCB = new SqlCommandBuilder(DebtsDA);
-//            DebtsDA.Fill(DebtsDT);
+            //            SelectCommand = @"SELECT MainOrderID, DocNumber, ReorderDocNumber FROM MainOrders
+            //                WHERE ReorderDocNumber IS NOT NULL AND MegaOrderID = " + MegaOrderID;
+            //            DebtsDA = new SqlDataAdapter(SelectCommand, ConnectionStrings.ZOVOrdersConnectionString);
+            //            DebtsCB = new SqlCommandBuilder(DebtsDA);
+            //            DebtsDA.Fill(DebtsDT);
 
-//            SelectCommand = @"SELECT MainOrderID, DocNumber FROM MainOrders
-//                WHERE DocNumber IN (SELECT ReorderDocNumber FROM MainOrders
-//                WHERE ReorderDocNumber IS NOT NULL AND MegaOrderID = " + MegaOrderID + ")";
-//            ReOrdersDA = new SqlDataAdapter(SelectCommand, ConnectionStrings.ZOVOrdersConnectionString);
-//            ReOrdersDA.Fill(ReOrdersDT);
+            //            SelectCommand = @"SELECT MainOrderID, DocNumber FROM MainOrders
+            //                WHERE DocNumber IN (SELECT ReorderDocNumber FROM MainOrders
+            //                WHERE ReorderDocNumber IS NOT NULL AND MegaOrderID = " + MegaOrderID + ")";
+            //            ReOrdersDA = new SqlDataAdapter(SelectCommand, ConnectionStrings.ZOVOrdersConnectionString);
+            //            ReOrdersDA.Fill(ReOrdersDT);
 
-//            for (int i = 0; i < DebtsDT.Rows.Count; i++)
-//            {
-//                int DebtMainOrderID = Convert.ToInt32(DebtsDT.Rows[i]["MainOrderID"]);
-//                string ReorderDocNumber = DebtsDT.Rows[i]["ReorderDocNumber"].ToString();
-//                DataRow[] rows = ReOrdersDT.Select("DocNumber='" + ReorderDocNumber + "'");
-//                if (rows.Count() == 0)
-//                    continue;
-//                int ReOrderMainOrderID = Convert.ToInt32(rows[0]["MainOrderID"]);
-//                //if (IsMainOrderDispatched(ReOrderMainOrderID))
-//                //    SetMainOrderDispatch(DebtMainOrderID);
-//            }
+            //            for (int i = 0; i < DebtsDT.Rows.Count; i++)
+            //            {
+            //                int DebtMainOrderID = Convert.ToInt32(DebtsDT.Rows[i]["MainOrderID"]);
+            //                string ReorderDocNumber = DebtsDT.Rows[i]["ReorderDocNumber"].ToString();
+            //                DataRow[] rows = ReOrdersDT.Select("DocNumber='" + ReorderDocNumber + "'");
+            //                if (rows.Count() == 0)
+            //                    continue;
+            //                int ReOrderMainOrderID = Convert.ToInt32(rows[0]["MainOrderID"]);
+            //                //if (IsMainOrderDispatched(ReOrderMainOrderID))
+            //                //    SetMainOrderDispatch(DebtMainOrderID);
+            //            }
         }
 
         public bool IsDispatchAllowed(int DispatchID)
@@ -14156,7 +14157,7 @@ namespace Infinium.Modules.Dispatch
         public void DispatchPackages()
         {
             DateTime CurrentDate = Security.GetCurrentDate();
-            
+
             using (SqlDataAdapter DA = new SqlDataAdapter("SELECT * FROM Packages WHERE DispatchID IN (" + string.Join(",", DispatchIDs.OfType<Int32>().ToArray()) + ")",
                 ConnectionStrings.MarketingOrdersConnectionString))
             {
@@ -14459,7 +14460,7 @@ namespace Infinium.Modules.Dispatch
                 RecipientStoreAllocID = 13;
             }
             int MovementInvoiceID = SaveMovementInvoices(SellerStoreAllocID, RecipientStoreAllocID, 0, iUserID, Security.CurrentUserShortName, iUserID, CurrentClientID, 0, string.Empty, "Отгрузка");
-            DateTime CreateDateTime = Security.GetCurrentDate(); 
+            DateTime CreateDateTime = Security.GetCurrentDate();
             DataTable DT = new DataTable();
             using (DataView DV = new DataView(PackageDetailsDT))
             {

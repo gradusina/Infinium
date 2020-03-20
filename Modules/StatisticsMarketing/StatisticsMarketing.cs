@@ -1,17 +1,18 @@
-﻿using System;
-using System.Linq;
-using System.Data;
-using System.Drawing;
-using System.Data.SqlClient;
-using System.Windows.Forms;
-using System.Collections;
-using System.Globalization;
+﻿using NPOI.HPSF;
 using NPOI.HSSF.UserModel;
-using NPOI.HPSF;
-using NPOI.HSSF.Util;
 using NPOI.HSSF.UserModel.Contrib;
+using NPOI.HSSF.Util;
+
+using System;
+using System.Collections;
+using System.Data;
+using System.Data.SqlClient;
+using System.Drawing;
+using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Net;
+using System.Windows.Forms;
 using System.Xml;
 
 namespace Infinium.Modules.StatisticsMarketing
@@ -57,7 +58,7 @@ namespace Infinium.Modules.StatisticsMarketing
         private DataTable ProfilZOVProducedDT = null;
         private DataTable ProfilZOVDispatchDT = null;
         public DataTable AllProfilDT = null;
-        
+
         private DataTable TPSMarketingStartCountDT = null;
         private DataTable TPSMarketingEndCountDT = null;
         private DataTable TPSMarketingProducedDT = null;
@@ -67,7 +68,7 @@ namespace Infinium.Modules.StatisticsMarketing
         private DataTable TPSZOVProducedDT = null;
         private DataTable TPSZOVDispatchDT = null;
         public DataTable AllTPSDT = null;
-        
+
         public FrontsProduced()
         {
             Create();
@@ -1460,7 +1461,7 @@ namespace Infinium.Modules.StatisticsMarketing
                 {
                     if (IsAluminium(LRows[i]) != -1)
                         continue;
-                    
+
                     CountLacomat += Convert.ToDecimal(LRows[i]["Count"]) *
                                 GetInsetSquare(Convert.ToInt32(LRows[i]["FrontID"]),
                                               Convert.ToInt32(LRows[i]["Height"]),
@@ -1882,7 +1883,7 @@ namespace Infinium.Modules.StatisticsMarketing
                 //ФИЛЕНКА
                 filter = " AND InsetTypeID IN (2069,2070,2071,2073,2075,2077,2233,3644,29043,29531)";
                 Rows = OrdersDataTable.Select("FrontID = " + Fronts.Rows[i]["FrontID"].ToString() + " AND (Width <> -1)" + filter);
-                if (Rows.Count() > 0)MarketingCost = GetMarketingCost(Convert.ToInt32(Rows[0]["FrontConfigID"]));
+                if (Rows.Count() > 0) MarketingCost = GetMarketingCost(Convert.ToInt32(Rows[0]["FrontConfigID"]));
                 for (int r = 0; r < Rows.Count(); r++)
                 {
                     if (GetMeasureType(Convert.ToInt32(Rows[r]["FrontConfigID"])) == 3)
@@ -1989,7 +1990,8 @@ namespace Infinium.Modules.StatisticsMarketing
                 {
                     if (GetMeasureType(Convert.ToInt32(Rows[r]["FrontConfigID"])) == 3)
                         LuxMegaCount += Decimal.Round(Convert.ToDecimal(Rows[r]["Height"]) * Convert.ToDecimal(Rows[r]["Width"]) / 1000000, 3, MidpointRounding.AwayFromZero) *
-                                      Convert.ToDecimal(Rows[r]["Count"]);else
+                                      Convert.ToDecimal(Rows[r]["Count"]);
+                    else
                         LuxMegaCount += Convert.ToDecimal(Rows[r]["Square"]);
 
                     if (GetMeasureType(Convert.ToInt32(Rows[r]["FrontConfigID"])) == 3)
@@ -2973,7 +2975,7 @@ namespace Infinium.Modules.StatisticsMarketing
             int FrontID = Convert.ToInt32(FrontsOrdersRow["FrontID"]);
             if (FrontID == 30504 || FrontID == 30505 || FrontID == 30506 ||
                 FrontID == 30364 || FrontID == 30366 || FrontID == 30367 ||
-                FrontID == 30501 || FrontID == 30502 || FrontID == 30503 || 
+                FrontID == 30501 || FrontID == 30502 || FrontID == 30503 ||
                 FrontID == 16269 || FrontID == 28945 || FrontID == 27914 || FrontID == 3727 || FrontID == 3728 || FrontID == 3729 ||
                 FrontID == 3730 || FrontID == 3731 || FrontID == 3732 || FrontID == 3733 || FrontID == 3734 ||
                 FrontID == 3735 || FrontID == 3736 || FrontID == 3737 || FrontID == 3739 || FrontID == 3740 ||
@@ -3096,7 +3098,7 @@ namespace Infinium.Modules.StatisticsMarketing
 
             return InvDataTables;
         }
-        
+
         public void DispReport(DateTime date1, DateTime date2, bool ZOV, bool IsSample, bool IsNotSample, ArrayList MClients, ArrayList MClientGroups)
         {
             string MClientFilter = string.Empty;
@@ -3653,7 +3655,7 @@ namespace Infinium.Modules.StatisticsMarketing
             string MClientFilter = string.Empty;
             if (MClients.Count > 0)
             {
-                    MClientFilter = " WHERE ClientID IN (" + string.Join(",", MClients.OfType<Int32>().ToArray()) + ")";
+                MClientFilter = " WHERE ClientID IN (" + string.Join(",", MClients.OfType<Int32>().ToArray()) + ")";
             }
             if (MClientGroups.Count > 0)
             {
@@ -4836,7 +4838,7 @@ ORDER BY infiniu2_zovreference.dbo.Clients.ClientName, MainOrders.DocNumber";
             ProfilReportDataTable.Columns.Add(new DataColumn("Cost", Type.GetType("System.String")));
             ProfilReportDataTable.Columns.Add(new DataColumn("Weight", Type.GetType("System.String")));
             ProfilReportDataTable.Columns.Add(new DataColumn("MarketingCost", Type.GetType("System.String")));
-            
+
             AllProfilDT = new DataTable();
             AllProfilDT.Columns.Add(new DataColumn("AccountingName", Type.GetType("System.String")));
             AllProfilDT.Columns.Add(new DataColumn("InvNumber", Type.GetType("System.String")));
@@ -5558,7 +5560,7 @@ ORDER BY infiniu2_zovreference.dbo.Clients.ClientName, MainOrders.DocNumber";
                                     Decimal.Round(Convert.ToDecimal(Rows[r]["Height"]) * Convert.ToDecimal(Rows[r]["Width"]) / 1000000, 3, MidpointRounding.AwayFromZero)
                                     * Convert.ToDecimal(Rows[r]["Count"]);
                                 if (Convert.ToDecimal(Rows[r]["Length"]) != -1)
-                                    InvRows[0]["Count"] = Convert.ToDecimal(InvRows[0]["Count"]) + 
+                                    InvRows[0]["Count"] = Convert.ToDecimal(InvRows[0]["Count"]) +
                                         Decimal.Round(Convert.ToDecimal(Rows[r]["Length"]) * Convert.ToDecimal(Rows[r]["Width"]) / 1000000, 3, MidpointRounding.AwayFromZero)
                                     * Convert.ToDecimal(Rows[r]["Count"]);
                             }
@@ -7033,7 +7035,7 @@ FROM            PackageDetails INNER JOIN
                          MegaOrders ON MainOrders.MegaOrderID = MegaOrders.MegaOrderID " + MClientFilter + @" INNER JOIN
                          infiniu2_marketingreference.dbo.Clients ON MegaOrders.ClientID = infiniu2_marketingreference.dbo.Clients.ClientID INNER JOIN
                          infiniu2_catalog.dbo.Measures ON infiniu2_catalog.dbo.DecorConfig.MeasureID = infiniu2_catalog.dbo.Measures.MeasureID
-WHERE dbo.PackageDetails.PackageID IN (SELECT TOP (100) PERCENT PackageID FROM dbo.Packages WHERE PackingDateTime < '" + 
+WHERE dbo.PackageDetails.PackageID IN (SELECT TOP (100) PERCENT PackageID FROM dbo.Packages WHERE PackingDateTime < '" +
 date1.ToString("yyyy-MM-dd") + @" 23:59:59' AND ProductType = 1 AND (DispatchDateTime IS NULL OR DispatchDateTime > '" + date1.ToString("yyyy-MM-dd") + @" 23:59:59')) 
 ORDER BY infiniu2_marketingreference.dbo.Clients.ClientName, dbo.MegaOrders.OrderNumber";
             using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.MarketingOrdersConnectionString))
@@ -7132,7 +7134,7 @@ ORDER BY infiniu2_zovreference.dbo.Clients.ClientName, MainOrders.DocNumber";
 
             Collect(ProfilZOVEndCountDT, TPSZOVEndCountDT);
         }
-        
+
         public void StartEndProducedDispatchReport(DateTime date1, DateTime date2, bool IsSample, bool IsNotSample, ArrayList MClients, ArrayList MClientGroups)
         {
             MarketingProduced(date1, date2, IsSample, IsNotSample, MClients, MClientGroups);
@@ -7147,7 +7149,7 @@ ORDER BY infiniu2_zovreference.dbo.Clients.ClientName, MainOrders.DocNumber";
                 ZOVStartCount(date1, IsSample, IsNotSample);
             if (date2 < new DateTime(2016, 07, 01))
                 ZOVEndCount(date2, IsSample, IsNotSample);
-            
+
             CollectProfilOrders();
             CollectTPSOrders();
         }
@@ -9835,7 +9837,7 @@ ORDER BY infiniu2_zovreference.dbo.Clients.ClientName, MainOrders.DocNumber";
                 item["TotalWeight"] = TotalWeight;
             }
         }
-        
+
         public void ClearReport()
         {
             MarketingFrontsWeightDT.Clear();
@@ -9858,7 +9860,7 @@ ORDER BY infiniu2_zovreference.dbo.Clients.ClientName, MainOrders.DocNumber";
             string MainOrdersList = string.Empty;
 
             int pos = 0;
-            
+
             //Export to excel
             HSSFWorkbook hssfworkbook = new HSSFWorkbook();
 
@@ -10032,7 +10034,7 @@ ORDER BY infiniu2_zovreference.dbo.Clients.ClientName, MainOrders.DocNumber";
             sheet2.SetMargin(HSSFSheet.RightMargin, (double).07);
             sheet2.SetMargin(HSSFSheet.TopMargin, (double).20);
             sheet2.SetMargin(HSSFSheet.BottomMargin, (double).20);
-            
+
             sheet2.SetColumnWidth(0, 13 * 256);
             sheet2.SetColumnWidth(1, 50 * 256);
             sheet2.SetColumnWidth(2, 13 * 256);
@@ -10045,7 +10047,7 @@ ORDER BY infiniu2_zovreference.dbo.Clients.ClientName, MainOrders.DocNumber";
             {
                 //Профиль
                 pos += 2;
-                
+
                 Cell1 = sheet1.CreateRow(pos).CreateCell(0);
                 Cell1.SetCellValue("Клиент");
                 Cell1.CellStyle = SimpleHeaderCS;
@@ -10894,7 +10896,7 @@ ORDER BY infiniu2_zovreference.dbo.Clients.ClientName, MainOrders.DocNumber";
         DataTable DecorDT = null;
         DataTable DecorProfilDT = null;
         DataTable DecorTPSDT = null;
-        
+
         public ClientStoreReport()
         {
             FrontsDT = new DataTable();
@@ -11057,7 +11059,7 @@ ORDER BY infiniu2_marketingreference.dbo.Clients.ClientName, dbo.MegaOrders.Orde
             DecorProfilDT.Clear();
             DecorTPSDT.Clear();
         }
-        
+
         public void Report(string FileName)
         {
             DivideByFactory();
@@ -11119,7 +11121,7 @@ ORDER BY infiniu2_marketingreference.dbo.Clients.ClientName, dbo.MegaOrders.Orde
             CountDecCS.BorderTop = HSSFCellStyle.BORDER_THIN;
             CountDecCS.TopBorderColor = HSSFColor.BLACK.index;
             CountDecCS.SetFont(SimpleF);
-            
+
             HSSFCellStyle CountCS = hssfworkbook.CreateCellStyle();
             CountCS.DataFormat = hssfworkbook.CreateDataFormat().GetFormat("### ### ##0");
             CountCS.BorderBottom = HSSFCellStyle.BORDER_THIN;
@@ -11131,7 +11133,7 @@ ORDER BY infiniu2_marketingreference.dbo.Clients.ClientName, dbo.MegaOrders.Orde
             CountCS.BorderTop = HSSFCellStyle.BORDER_THIN;
             CountCS.TopBorderColor = HSSFColor.BLACK.index;
             CountCS.SetFont(SimpleF);
-            
+
             HSSFCellStyle SimpleHeaderCS = hssfworkbook.CreateCellStyle();
             SimpleHeaderCS.BorderBottom = HSSFCellStyle.BORDER_MEDIUM;
             SimpleHeaderCS.BottomBorderColor = HSSFColor.BLACK.index;
@@ -11157,7 +11159,7 @@ ORDER BY infiniu2_marketingreference.dbo.Clients.ClientName, dbo.MegaOrders.Orde
                 sheet1.SetMargin(HSSFSheet.RightMargin, (double).07);
                 sheet1.SetMargin(HSSFSheet.TopMargin, (double).20);
                 sheet1.SetMargin(HSSFSheet.BottomMargin, (double).20);
-                
+
                 pos += 2;
                 int ColIndex = 0;
                 Cell1 = sheet1.CreateRow(pos).CreateCell(ColIndex++);
@@ -11213,7 +11215,7 @@ ORDER BY infiniu2_marketingreference.dbo.Clients.ClientName, dbo.MegaOrders.Orde
                 Cell1.CellStyle = SimpleHeaderCS;
 
                 pos++;
-                
+
                 for (int i = 0; i < FrontsProfilDT.Rows.Count; i++)
                 {
                     ColIndex = 0;
@@ -11282,7 +11284,7 @@ ORDER BY infiniu2_marketingreference.dbo.Clients.ClientName, dbo.MegaOrders.Orde
                 sheet1.SetMargin(HSSFSheet.RightMargin, (double).07);
                 sheet1.SetMargin(HSSFSheet.TopMargin, (double).20);
                 sheet1.SetMargin(HSSFSheet.BottomMargin, (double).20);
-                
+
                 pos += 2;
                 int ColIndex = 0;
                 Cell1 = sheet1.CreateRow(pos).CreateCell(ColIndex++);
@@ -11408,7 +11410,7 @@ ORDER BY infiniu2_marketingreference.dbo.Clients.ClientName, dbo.MegaOrders.Orde
                 sheet1.SetMargin(HSSFSheet.RightMargin, (double).07);
                 sheet1.SetMargin(HSSFSheet.TopMargin, (double).20);
                 sheet1.SetMargin(HSSFSheet.BottomMargin, (double).20);
-                
+
                 pos += 2;
                 int ColIndex = 0;
                 Cell1 = sheet1.CreateRow(pos).CreateCell(ColIndex++);
@@ -11521,7 +11523,7 @@ ORDER BY infiniu2_marketingreference.dbo.Clients.ClientName, dbo.MegaOrders.Orde
                 sheet1.SetMargin(HSSFSheet.RightMargin, (double).07);
                 sheet1.SetMargin(HSSFSheet.TopMargin, (double).20);
                 sheet1.SetMargin(HSSFSheet.BottomMargin, (double).20);
-                
+
                 pos += 2;
                 int ColIndex = 0;
                 Cell1 = sheet1.CreateRow(pos).CreateCell(ColIndex++);
@@ -11624,7 +11626,7 @@ ORDER BY infiniu2_marketingreference.dbo.Clients.ClientName, dbo.MegaOrders.Orde
                     pos++;
                 }
             }
-            
+
 
             string tempFolder = System.Environment.GetEnvironmentVariable("TEMP");
             FileInfo file = new FileInfo(tempFolder + @"\" + FileName + ".xls");
@@ -13192,7 +13194,7 @@ ORDER BY infiniu2_marketingreference.dbo.Clients.ClientName, dbo.MegaOrders.Orde
         DataTable PatinaRALDataTable = null;
         public DataTable InsetTypesDataTable = null;
         public DataTable InsetColorsDataTable = null;
-        
+
         public BindingSource NonAgreementBindingSource = null;
         public BindingSource AgreementBindingSource = null;
         public BindingSource OnProductionBindingSource = null;
@@ -13487,7 +13489,7 @@ ORDER BY infiniu2_marketingreference.dbo.Clients.ClientName, dbo.MegaOrders.Orde
             ClientGroupsList.SetItemChecked(1, false);
         }
 
-        private void FillSummaryTable(DataTable Table, decimal ProfilSquare, decimal ProfilPogon, decimal ProfilCount, 
+        private void FillSummaryTable(DataTable Table, decimal ProfilSquare, decimal ProfilPogon, decimal ProfilCount,
             decimal TPSSquare, decimal TPSPogon, decimal TPSCount, decimal CurvedCount)
         {
             DataRow NewRow1 = Table.NewRow();
@@ -13568,7 +13570,7 @@ ORDER BY infiniu2_marketingreference.dbo.Clients.ClientName, dbo.MegaOrders.Orde
             decimal NonAgreementTPSSquare = 0;
             decimal NonAgreementTPSPogon = 0;
             decimal NonAgreementTPSCount = 0;
-            int NonAgreementCurvedCount = 0;            
+            int NonAgreementCurvedCount = 0;
 
             GeneralNonAgreementOrders(ref NonAgreementProfilSquare, ref NonAgreementProfilPogon, ref NonAgreementProfilCount,
                 ref NonAgreementTPSSquare, ref NonAgreementTPSPogon, ref NonAgreementTPSCount, ref NonAgreementCurvedCount);
@@ -15127,7 +15129,7 @@ ORDER BY infiniu2_marketingreference.dbo.Clients.ClientName, dbo.MegaOrders.Orde
                     " UNION" +
                     " SELECT * FROM FrontsOrders" +
                     " WHERE FactoryID=1 AND MainOrderID IN (SELECT MainOrderID FROM MainOrders" +
-                    " WHERE ProfilProductionStatusID = 1 AND ProfilStorageStatusID = 1 AND ProfilExpeditionStatusID=2 AND ProfilDispatchStatusID = 1)" + MegaOrderFilter, 
+                    " WHERE ProfilProductionStatusID = 1 AND ProfilStorageStatusID = 1 AND ProfilExpeditionStatusID=2 AND ProfilDispatchStatusID = 1)" + MegaOrderFilter,
                     ConnectionStrings.MarketingOrdersConnectionString))
                 {
                     DT.Clear();
@@ -15189,7 +15191,7 @@ ORDER BY infiniu2_marketingreference.dbo.Clients.ClientName, dbo.MegaOrders.Orde
                     " UNION" +
                     " SELECT * FROM FrontsOrders" +
                     " WHERE FactoryID=2 AND MainOrderID IN (SELECT MainOrderID FROM MainOrders" +
-                    " WHERE TPSProductionStatusID = 1 AND TPSStorageStatusID = 1 AND TPSExpeditionStatusID=2 AND TPSDispatchStatusID = 1)" + MegaOrderFilter, 
+                    " WHERE TPSProductionStatusID = 1 AND TPSStorageStatusID = 1 AND TPSExpeditionStatusID=2 AND TPSDispatchStatusID = 1)" + MegaOrderFilter,
                     ConnectionStrings.MarketingOrdersConnectionString))
                 {
                     DT.Clear();
@@ -15250,7 +15252,7 @@ ORDER BY infiniu2_marketingreference.dbo.Clients.ClientName, dbo.MegaOrders.Orde
                     " SELECT DecorOrders.*, infiniu2_catalog.dbo.DecorConfig.MeasureID FROM DecorOrders" +
                     " INNER JOIN infiniu2_catalog.dbo.DecorConfig ON DecorOrders.DecorConfigID=infiniu2_catalog.dbo.DecorConfig.DecorConfigID" +
                     " WHERE DecorOrders.FactoryID=1 AND MainOrderID IN (SELECT MainOrderID FROM MainOrders" +
-                    " WHERE ProfilProductionStatusID = 1 AND ProfilStorageStatusID = 1 AND ProfilExpeditionStatusID=2 AND ProfilDispatchStatusID = 1)" + MegaOrderFilter, 
+                    " WHERE ProfilProductionStatusID = 1 AND ProfilStorageStatusID = 1 AND ProfilExpeditionStatusID=2 AND ProfilDispatchStatusID = 1)" + MegaOrderFilter,
                     ConnectionStrings.MarketingOrdersConnectionString))
                 {
                     DT.Clear();
@@ -15320,7 +15322,7 @@ ORDER BY infiniu2_marketingreference.dbo.Clients.ClientName, dbo.MegaOrders.Orde
                     " SELECT DecorOrders.*, infiniu2_catalog.dbo.DecorConfig.MeasureID FROM DecorOrders" +
                     " INNER JOIN infiniu2_catalog.dbo.DecorConfig ON DecorOrders.DecorConfigID=infiniu2_catalog.dbo.DecorConfig.DecorConfigID" +
                     " WHERE DecorOrders.FactoryID=2 AND MainOrderID IN (SELECT MainOrderID FROM MainOrders" +
-                    " WHERE TPSProductionStatusID = 1 AND TPSStorageStatusID = 1 AND TPSExpeditionStatusID=2 AND TPSDispatchStatusID = 1)" + MegaOrderFilter, 
+                    " WHERE TPSProductionStatusID = 1 AND TPSStorageStatusID = 1 AND TPSExpeditionStatusID=2 AND TPSDispatchStatusID = 1)" + MegaOrderFilter,
                     ConnectionStrings.MarketingOrdersConnectionString))
                 {
                     DT.Clear();
@@ -15584,7 +15586,7 @@ ORDER BY infiniu2_marketingreference.dbo.Clients.ClientName, dbo.MegaOrders.Orde
                 " NewFrontsOrders.Square, NewFrontsOrders.FactoryID FROM NewFrontsOrders" +
                 " INNER JOIN NewMainOrders ON NewFrontsOrders.MainOrderID = NewMainOrders.MainOrderID" +
                 " INNER JOIN NewMegaOrders ON NewMainOrders.MegaOrderID = NewMegaOrders.MegaOrderID" + FactoryFilter,
-                
+
                 ConnectionStrings.MarketingOrdersConnectionString))
             {
                 DA.Fill(FrontsOrdersDataTable);
@@ -15715,7 +15717,7 @@ ORDER BY infiniu2_marketingreference.dbo.Clients.ClientName, dbo.MegaOrders.Orde
                 IncomeDataTable.Rows.Add(NewRow);
             }
         }
-            
+
 
         private void Binding()
         {
@@ -16030,7 +16032,7 @@ ORDER BY infiniu2_marketingreference.dbo.Clients.ClientName, dbo.MegaOrders.Orde
                 DA.Fill(DecorItemsDT);
             }
 
-             SelectCommand = @"SELECT TechStoreID AS FrontID, TechStoreName AS FrontName FROM TechStore 
+            SelectCommand = @"SELECT TechStoreID AS FrontID, TechStoreName AS FrontName FROM TechStore 
                 WHERE TechStoreID IN (SELECT FrontID FROM FrontsConfig WHERE Enabled = 1)
                 ORDER BY TechStoreName";
             using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.CatalogConnectionString))
@@ -18216,8 +18218,8 @@ ORDER BY infiniu2_marketingreference.dbo.Clients.ClientName, dbo.MegaOrders.Orde
         {
             for (int i = 0; i < FrontsSummaryDT.Rows.Count; i++)
             {
-                    Square += Convert.ToDecimal(FrontsSummaryDT.Rows[i]["Square"]);
-                    Count += Convert.ToInt32(FrontsSummaryDT.Rows[i]["Count"]);
+                Square += Convert.ToDecimal(FrontsSummaryDT.Rows[i]["Square"]);
+                Count += Convert.ToInt32(FrontsSummaryDT.Rows[i]["Count"]);
                 Cost += Convert.ToDecimal(FrontsSummaryDT.Rows[i]["Cost"]);
             }
 
@@ -18537,7 +18539,7 @@ ORDER BY infiniu2_marketingreference.dbo.Clients.ClientName, dbo.MegaOrders.Orde
         private object GetCreationDate(int MegaOrderID)
         {
             string ConnectionString = ConnectionStrings.MarketingOrdersConnectionString;
-            
+
             object DocDateTime = null;
 
             using (SqlDataAdapter DA = new SqlDataAdapter("SELECT OrderDate FROM MegaOrders" +
@@ -20973,7 +20975,7 @@ ORDER BY infiniu2_marketingreference.dbo.Clients.ClientName, dbo.MegaOrders.Orde
                 using (DataTable DT = new DataTable())
                 {
                     DA.Fill(DT);
-                    
+
                     if (DT.Rows.Count > 0 && DT.Rows[0]["StorageDate"] != DBNull.Value)
                         StorageDateTime = Convert.ToDateTime(DT.Rows[0]["StorageDate"]);
                 }
@@ -21751,7 +21753,7 @@ ORDER BY infiniu2_marketingreference.dbo.Clients.ClientName, dbo.MegaOrders.Orde
                     continue;
 
                 filter += ClientGroupsDataTable.Rows[i]["ClientGroupID"].ToString() + ",";
-            } 
+            }
             if (filter.Length > 0)
                 filter = "ClientGroupID IN (" + filter + ")";
             using (DataView DV = new DataView(MarketingClientsDT, filter, string.Empty, DataViewRowState.CurrentRows))
@@ -22330,7 +22332,7 @@ ORDER BY infiniu2_marketingreference.dbo.Clients.ClientName, dbo.MegaOrders.Orde
 
             string ClientFilter = string.Empty;
             string PackageFactoryFilter = string.Empty;
-            
+
             if (ClientID != -1)
                 ClientFilter = " AND ClientID = " + ClientID;
             if (FactoryID != 0)
@@ -22405,7 +22407,7 @@ ORDER BY infiniu2_marketingreference.dbo.Clients.ClientName, dbo.MegaOrders.Orde
 
             string ClientFilter = string.Empty;
             string PackageFactoryFilter = string.Empty;
-            
+
             if (ClientID != -1)
                 ClientFilter = " AND ClientID = " + ClientID;
             if (FactoryID != 0)
@@ -25501,9 +25503,9 @@ ORDER BY infiniu2_marketingreference.dbo.Clients.ClientName, dbo.MegaOrders.Orde
                 MegaOrderID = Convert.ToInt32(MarketingClientsDT.Rows[i]["MegaOrderID"]);
 
                 ClientName = MarketingClientsDT.Rows[i]["ClientName"].ToString();
-                
-                    d1 = 0;
-                    d2 = 0;
+
+                d1 = 0;
+                d2 = 0;
 
                 if (FactoryID == 0)
                 {
@@ -27110,7 +27112,7 @@ ORDER BY infiniu2_marketingreference.dbo.Clients.ClientName, dbo.MegaOrders.Orde
                     "' AND ((TPSOnProductionDate IS NULL AND TPSProductionStatusID = 1 AND TPSStorageStatusID = 1 AND TPSDispatchStatusID = 1) OR (TPSOnProductionDate > '" +
                     FixingDate.ToString("yyyy-MM-dd HH:mm:ss") + "')))";
             }
-            
+
             if (ClientGroups.Count > 0)
             {
                 ClientFilter = " WHERE ClientID IN" +
@@ -27182,7 +27184,7 @@ ORDER BY infiniu2_marketingreference.dbo.Clients.ClientName, dbo.MegaOrders.Orde
                     "' AND ((TPSOnProductionDate IS NULL AND TPSProductionStatusID = 1 AND TPSStorageStatusID = 1 AND TPSDispatchStatusID = 1) OR (TPSOnProductionDate > '" +
                     FixingDate.ToString("yyyy-MM-dd HH:mm:ss") + "')))";
             }
-                        
+
             if (ClientGroups.Count > 0)
             {
                 ClientFilter = " WHERE ClientID IN" +
@@ -27256,7 +27258,7 @@ ORDER BY infiniu2_marketingreference.dbo.Clients.ClientName, dbo.MegaOrders.Orde
                     "' AND ((TPSOnProductionDate IS NULL AND TPSProductionStatusID = 1 AND TPSStorageStatusID = 1 AND TPSDispatchStatusID = 1) OR (TPSOnProductionDate > '" +
                     FixingDate.ToString("yyyy-MM-dd HH:mm:ss") + "')))";
             }
-                        
+
             if (ClientGroups.Count > 0)
             {
                 ClientFilter = " WHERE ClientID IN" +
@@ -27328,7 +27330,7 @@ ORDER BY infiniu2_marketingreference.dbo.Clients.ClientName, dbo.MegaOrders.Orde
                     "' AND ((TPSOnProductionDate IS NULL AND TPSProductionStatusID = 1 AND TPSStorageStatusID = 1 AND TPSDispatchStatusID = 1) OR (TPSOnProductionDate > '" +
                     FixingDate.ToString("yyyy-MM-dd HH:mm:ss") + "')))";
             }
-            
+
             if (ClientGroups.Count > 0)
             {
                 ClientFilter = " WHERE ClientID IN" +
@@ -28511,7 +28513,7 @@ ORDER BY infiniu2_marketingreference.dbo.Clients.ClientName, dbo.MegaOrders.Orde
         public BindingSource DecorItemsSummaryBindingSource = null;
         public BindingSource DecorColorsSummaryBindingSource = null;
         public BindingSource DecorSizesSummaryBindingSource = null;
-        
+
         public CommonStatistics()
         {
             Initialize();
@@ -28795,7 +28797,7 @@ ORDER BY infiniu2_marketingreference.dbo.Clients.ClientName, dbo.MegaOrders.Orde
                 //if (Convert.ToInt32(ClientGroupsDataTable.Rows[i]["ClientGroupID"]) == 1)
                 //    ClientGroupsDataTable.Rows[i]["Check"] = false;
             }
-            
+
             using (SqlDataAdapter DA = new SqlDataAdapter("SELECT ClientID, ClientName FROM Clients", ConnectionStrings.MarketingReferenceConnectionString))
             {
                 DA.Fill(ClientsDataTable);
@@ -28805,7 +28807,7 @@ ORDER BY infiniu2_marketingreference.dbo.Clients.ClientName, dbo.MegaOrders.Orde
             {
                 ClientsDataTable.Rows[i]["Check"] = false;
             }
-            
+
             //using (SqlDataAdapter DA = new SqlDataAdapter("SELECT * FROM DecorConfig", ConnectionStrings.CatalogConnectionString))
             //{
             //    DA.Fill(DecorConfigDataTable);
@@ -28842,7 +28844,7 @@ ORDER BY infiniu2_marketingreference.dbo.Clients.ClientName, dbo.MegaOrders.Orde
             GetTechnoInsetTypes();
             GetTechnoInsetColors();
             GetSizes();
-            
+
             //decor
             using (SqlDataAdapter DA = new SqlDataAdapter("SELECT TOP 0 DecorOrders.ProductID, DecorOrders.DecorID, DecorOrders.ColorID,DecorOrders.PatinaID," +
                 " DecorOrders.Height, DecorOrders.Length, DecorOrders.Width, DecorOrders.Count, DecorOrders.Cost, DecorOrders.DecorConfigID, " +
@@ -28869,7 +28871,7 @@ ORDER BY infiniu2_marketingreference.dbo.Clients.ClientName, dbo.MegaOrders.Orde
         }
 
         public void FilterByPlanDispatch(
-            DateTime DateFrom, DateTime DateTo, 
+            DateTime DateFrom, DateTime DateTo,
             int FactoryID, bool IsSample, bool IsNotSample)
         {
             string MClientFilter = string.Empty;
@@ -28949,7 +28951,7 @@ ORDER BY infiniu2_marketingreference.dbo.Clients.ClientName, dbo.MegaOrders.Orde
                 " ON FrontsOrders.FrontConfigID=infiniu2_catalog.dbo.FrontsConfig.FrontConfigID" +
                 " WHERE " + MFrontsFactoryFilter + MFSampleFilter + " FrontsOrders.MainOrderID IN (SELECT MainOrderID FROM MainOrders WHERE MegaOrderID IN" +
                 " (SELECT MegaOrderID FROM MegaOrders " + MClientFilter + " ))";
-  
+
             using (SqlDataAdapter DA = new SqlDataAdapter(MarketingSelectCommand,
                 ConnectionStrings.MarketingOrdersConnectionString))
             {
@@ -29011,7 +29013,7 @@ ORDER BY infiniu2_marketingreference.dbo.Clients.ClientName, dbo.MegaOrders.Orde
                 MFrontsFactoryFilter = " NewFrontsOrders.FactoryID = " + FactoryID + " AND ";
                 MDecorFactoryFilter = " NewDecorOrders.FactoryID = " + FactoryID + " AND ";
             }
-            
+
             MFilter = " CAST(DocDateTime AS DATE) >= '" + DateFrom.ToString("yyyy-MM-dd") +
                 "' AND CAST(DocDateTime AS DATE) <= '" + DateTo.ToString("yyyy-MM-dd") + "' ";
 
@@ -29034,7 +29036,7 @@ ORDER BY infiniu2_marketingreference.dbo.Clients.ClientName, dbo.MegaOrders.Orde
                         " (SELECT ClientID FROM infiniu2_marketingreference.dbo.Clients" +
                         " WHERE ClientGroupID IN (" + string.Join(",", MClientGroups.OfType<Int32>().ToArray()) + "))";
             }
-            
+
             if (MClients.Count < 1 && MClientGroups.Count < 1)
                 MClientFilter = " WHERE ClientID = -1";
 
@@ -29089,7 +29091,7 @@ ORDER BY infiniu2_marketingreference.dbo.Clients.ClientName, dbo.MegaOrders.Orde
                 " LEFT OUTER JOIN JoinMainOrders ON NewDecorOrders.MainOrderID = JoinMainOrders.MarketMainOrderID" +
                 " INNER JOIN infiniu2_catalog.dbo.DecorConfig" +
                 " ON NewDecorOrders.DecorConfigID=infiniu2_catalog.dbo.DecorConfig.DecorConfigID" +
-                " WHERE " + MDecorFactoryFilter + MDSampleFilter + " NewDecorOrders.MainOrderID IN (SELECT MainOrderID FROM NewMainOrders WHERE " + MFilter + 
+                " WHERE " + MDecorFactoryFilter + MDSampleFilter + " NewDecorOrders.MainOrderID IN (SELECT MainOrderID FROM NewMainOrders WHERE " + MFilter +
                 " AND MegaOrderID IN" +
                 " (SELECT MegaOrderID FROM NewMegaOrders " + MClientFilter + " ))";
 
@@ -29257,7 +29259,7 @@ ORDER BY infiniu2_marketingreference.dbo.Clients.ClientName, dbo.MegaOrders.Orde
                 MFrontsFactoryFilter = " FrontsOrders.FactoryID = " + FactoryID + " AND ";
                 MDecorFactoryFilter = " DecorOrders.FactoryID = " + FactoryID + " AND ";
             }
-            
+
             MFilter = " WHERE CAST(ConfirmDateTime AS DATE) >= '" + DateFrom.ToString("yyyy-MM-dd") +
                 "' AND CAST(ConfirmDateTime AS DATE) <= '" + DateTo.ToString("yyyy-MM-dd") + "' ";
 
@@ -29352,6 +29354,121 @@ ORDER BY infiniu2_marketingreference.dbo.Clients.ClientName, dbo.MegaOrders.Orde
             GetDecorSizes();
         }
 
+        public void FilterByOnConfirmDate(
+            DateTime DateFrom, DateTime DateTo,
+            int FactoryID, bool IsSample, bool IsNotSample)
+        {
+            string MClientFilter = string.Empty;
+            string MFilter = string.Empty;
+
+            string MFrontsFactoryFilter = string.Empty;
+            string MDecorFactoryFilter = string.Empty;
+
+            string MarketingSelectCommand = string.Empty;
+
+            ArrayList MClients = SelectedMarketingClients;
+            ArrayList MClientGroups = SelectedMarketingClientGroups;
+
+            if (FactoryID != 0)
+            {
+                MFrontsFactoryFilter = " FrontsOrders.FactoryID = " + FactoryID + " AND ";
+                MDecorFactoryFilter = " DecorOrders.FactoryID = " + FactoryID + " AND ";
+            }
+
+            MFilter = " WHERE CAST(OnConfirmDateTime AS DATE) >= '" + DateFrom.ToString("yyyy-MM-dd") +
+                "' AND CAST(OnConfirmDateTime AS DATE) <= '" + DateTo.ToString("yyyy-MM-dd") + "' ";
+
+            if (MClients.Count > 0)
+            {
+                if (MClientFilter.Length > 0)
+                    MClientFilter += " AND ClientID IN (" + string.Join(",", MClients.OfType<Int32>().ToArray()) + ")";
+                else
+                    MClientFilter = " AND ClientID IN (" + string.Join(",", MClients.OfType<Int32>().ToArray()) + ")";
+            }
+
+            if (MClientGroups.Count > 0)
+            {
+                if (MClientFilter.Length > 0)
+                    MClientFilter += " AND ClientID IN" +
+                        " (SELECT ClientID FROM infiniu2_marketingreference.dbo.Clients" +
+                        " WHERE ClientGroupID IN (" + string.Join(",", MClientGroups.OfType<Int32>().ToArray()) + "))";
+                else
+                    MClientFilter = " AND ClientID IN" +
+                        " (SELECT ClientID FROM infiniu2_marketingreference.dbo.Clients" +
+                        " WHERE ClientGroupID IN (" + string.Join(",", MClientGroups.OfType<Int32>().ToArray()) + "))";
+            }
+
+            if (MClients.Count < 1 && MClientGroups.Count < 1)
+                MClientFilter = " AND ClientID = -1";
+
+            string MFSampleFilter = string.Empty;
+            string MDSampleFilter = string.Empty;
+
+            if (!IsSample || !IsNotSample)
+            {
+                if (IsSample)
+                    MFSampleFilter = " FrontsOrders.IsSample = 1 AND";
+                if (IsNotSample)
+                    MFSampleFilter = " FrontsOrders.IsSample = 0 AND";
+                if (IsSample)
+                    MDSampleFilter = " (DecorOrders.IsSample = 1 OR (DecorOrders.ProductID=42 AND DecorOrders.IsSample = 0)) AND";
+                if (IsNotSample)
+                    MDSampleFilter = " DecorOrders.IsSample = 0 AND";
+            }
+            MarketingSelectCommand = "SELECT MegaOrders.OnConfirmDateTime, MegaOrders.MegaOrderID, MegaOrders.OrderNumber, FrontsOrders.MainOrderID, FrontsOrders.FrontID, FrontsOrders.PatinaID, FrontsOrders.ColorID, FrontsOrders.InsetTypeID," +
+                " FrontsOrders.InsetColorID, FrontsOrders.TechnoColorID, FrontsOrders.TechnoInsetTypeID, FrontsOrders.TechnoInsetColorID, FrontsOrders.Height, FrontsOrders.Width," +
+                " FrontsOrders.Count, FrontsOrders.IsSample, FrontsOrders.Square, FrontsOrders.Cost, MeasureID, ClientID, JoinMainOrders.ZOVClientID FROM FrontsOrders" +
+                " INNER JOIN MainOrders ON FrontsOrders.MainOrderID = MainOrders.MainOrderID" +
+                " INNER JOIN MegaOrders ON MainOrders.MegaOrderID = MegaOrders.MegaOrderID" +
+                " LEFT OUTER JOIN JoinMainOrders ON FrontsOrders.MainOrderID = JoinMainOrders.MarketMainOrderID" +
+                " INNER JOIN infiniu2_catalog.dbo.FrontsConfig" +
+                " ON FrontsOrders.FrontConfigID=infiniu2_catalog.dbo.FrontsConfig.FrontConfigID" +
+                " WHERE " + MFrontsFactoryFilter + MFSampleFilter + " FrontsOrders.MainOrderID IN (SELECT MainOrderID FROM MainOrders" +
+                " WHERE MegaOrderID IN" +
+                " (SELECT MegaOrderID FROM MegaOrders " + MFilter + MClientFilter + " ))";
+
+            using (SqlDataAdapter DA = new SqlDataAdapter(MarketingSelectCommand,
+                ConnectionStrings.MarketingOrdersConnectionString))
+            {
+                FrontsOrdersDataTable.Clear();
+                DA.Fill(FrontsOrdersDataTable);
+            }
+
+            GetFronts();
+            GetFrameColors();
+            GetTechnoColors();
+            GetInsetTypes();
+            GetInsetColors();
+            GetTechnoInsetTypes();
+            GetTechnoInsetColors();
+            GetSizes();
+
+            //decor
+            MarketingSelectCommand = "SELECT MegaOrders.OnConfirmDateTime, MegaOrders.MegaOrderID, MegaOrders.OrderNumber, DecorOrders.MainOrderID, DecorOrders.ProductID, DecorOrders.DecorID, DecorOrders.ColorID,DecorOrders.PatinaID," +
+                " DecorOrders.Height, DecorOrders.Length, DecorOrders.Width, DecorOrders.Count, DecorOrders.IsSample, DecorOrders.Cost, DecorOrders.DecorConfigID, " +
+                " MeasureID, ClientID, JoinMainOrders.ZOVClientID FROM DecorOrders" +
+                " INNER JOIN MainOrders ON DecorOrders.MainOrderID = MainOrders.MainOrderID" +
+                " INNER JOIN MegaOrders ON MainOrders.MegaOrderID = MegaOrders.MegaOrderID" +
+                " LEFT OUTER JOIN JoinMainOrders ON DecorOrders.MainOrderID = JoinMainOrders.MarketMainOrderID" +
+                " INNER JOIN infiniu2_catalog.dbo.DecorConfig" +
+                " ON DecorOrders.DecorConfigID=infiniu2_catalog.dbo.DecorConfig.DecorConfigID" +
+                " WHERE " + MDecorFactoryFilter + MDSampleFilter + " DecorOrders.MainOrderID IN (SELECT MainOrderID FROM MainOrders" +
+                " WHERE MegaOrderID IN" +
+                " (SELECT MegaOrderID FROM MegaOrders " + MFilter + MClientFilter + " ))";
+
+            using (SqlDataAdapter DA = new SqlDataAdapter(MarketingSelectCommand,
+                ConnectionStrings.MarketingOrdersConnectionString))
+            {
+                DecorOrdersDataTable.Clear();
+                DA.Fill(DecorOrdersDataTable);
+            }
+
+            GetDecorProducts();
+            GetDecorItems();
+            GetDecorColors();
+            GetDecorSizes();
+        }
+
         public void FilterByPackages(
             DateTime DateFrom, DateTime DateTo,
             int PackageStatusID,
@@ -29385,7 +29502,7 @@ ORDER BY infiniu2_marketingreference.dbo.Clients.ClientName, dbo.MegaOrders.Orde
 
             if (FactoryID != 0)
                 PackageFactoryFilter = " AND FactoryID = " + FactoryID;
-            
+
             PackageProductFilter = " AND ProductType = 0";
             MFrontsPackageFilter = " PackageID IN" +
                 " (SELECT PackageID FROM Packages WHERE " + DateFilter + PackageFactoryFilter + PackageProductFilter + ")";
@@ -29560,7 +29677,7 @@ ORDER BY infiniu2_marketingreference.dbo.Clients.ClientName, dbo.MegaOrders.Orde
 
         private void SetGrids()
         {
-            
+
         }
 
         public void FilterFrameColors(int FrontID)
@@ -29591,7 +29708,7 @@ ORDER BY infiniu2_marketingreference.dbo.Clients.ClientName, dbo.MegaOrders.Orde
 
         public void FilterTechnoInsetTypes(int FrontID, int ColorID, int PatinaID, int TechnoColorID, int InsetTypeID, int InsetColorID)
         {
-            TechnoInsetTypesSummaryBindingSource.Filter = "FrontID=" + FrontID + " AND PatinaID=" + PatinaID + 
+            TechnoInsetTypesSummaryBindingSource.Filter = "FrontID=" + FrontID + " AND PatinaID=" + PatinaID +
                 " AND TechnoColorID=" + TechnoColorID + " AND InsetColorID=" + InsetColorID + " AND InsetTypeID=" + InsetTypeID +
                 " AND ColorID=" + ColorID;
             TechnoInsetTypesSummaryBindingSource.MoveFirst();
@@ -29599,9 +29716,9 @@ ORDER BY infiniu2_marketingreference.dbo.Clients.ClientName, dbo.MegaOrders.Orde
 
         public void FilterTechnoInsetColors(int FrontID, int ColorID, int PatinaID, int TechnoColorID, int InsetTypeID, int InsetColorID, int TechnoInsetTypeID)
         {
-            TechnoInsetColorsSummaryBindingSource.Filter = "FrontID=" + FrontID + " AND PatinaID=" + PatinaID + 
+            TechnoInsetColorsSummaryBindingSource.Filter = "FrontID=" + FrontID + " AND PatinaID=" + PatinaID +
                 " AND InsetTypeID=" + InsetTypeID +
-                " AND ColorID=" + ColorID + " AND TechnoColorID=" + TechnoColorID + 
+                " AND ColorID=" + ColorID + " AND TechnoColorID=" + TechnoColorID +
                 " AND InsetColorID=" + InsetColorID + " AND TechnoInsetTypeID=" + TechnoInsetTypeID;
             TechnoInsetColorsSummaryBindingSource.MoveFirst();
         }
@@ -29633,7 +29750,7 @@ ORDER BY infiniu2_marketingreference.dbo.Clients.ClientName, dbo.MegaOrders.Orde
                 " AND DecorID=" + DecorID + " AND ColorID=" + ColorID + " AND MeasureID=" + MeasureID;
             DecorSizesSummaryBindingSource.MoveFirst();
         }
-        
+
         private void GetFronts()
         {
             decimal FrontCost = 0;
@@ -30066,14 +30183,14 @@ ORDER BY infiniu2_marketingreference.dbo.Clients.ClientName, dbo.MegaOrders.Orde
 
             using (DataView DV = new DataView(FrontsOrdersDataTable))
             {
-                Table = DV.ToTable(true, new string[] { "FrontID", "ColorID", "PatinaID", "TechnoColorID", "InsetTypeID", "InsetColorID", "TechnoInsetTypeID"});
+                Table = DV.ToTable(true, new string[] { "FrontID", "ColorID", "PatinaID", "TechnoColorID", "InsetTypeID", "InsetColorID", "TechnoInsetTypeID" });
             }
 
             for (int i = 0; i < Table.Rows.Count; i++)
             {
                 DataRow[] Rows = FrontsOrdersDataTable.Select("FrontID=" + Convert.ToInt32(Table.Rows[i]["FrontID"]) +
-                    " AND ColorID=" + Convert.ToInt32(Table.Rows[i]["ColorID"]) + 
-                    " AND TechnoColorID=" + Convert.ToInt32(Table.Rows[i]["TechnoColorID"]) + 
+                    " AND ColorID=" + Convert.ToInt32(Table.Rows[i]["ColorID"]) +
+                    " AND TechnoColorID=" + Convert.ToInt32(Table.Rows[i]["TechnoColorID"]) +
                     " AND PatinaID=" + Convert.ToInt32(Table.Rows[i]["PatinaID"]) +
                     " AND Width<>-1 AND InsetTypeID=" + Convert.ToInt32(Table.Rows[i]["InsetTypeID"]) +
                     " AND InsetColorID=" + Convert.ToInt32(Table.Rows[i]["InsetColorID"]) +
@@ -30107,7 +30224,7 @@ ORDER BY infiniu2_marketingreference.dbo.Clients.ClientName, dbo.MegaOrders.Orde
                 }
 
                 DataRow[] CurvedRows = FrontsOrdersDataTable.Select("FrontID=" + Convert.ToInt32(Table.Rows[i]["FrontID"]) +
-                    " AND ColorID=" + Convert.ToInt32(Table.Rows[i]["ColorID"]) + 
+                    " AND ColorID=" + Convert.ToInt32(Table.Rows[i]["ColorID"]) +
                     " AND TechnoColorID=" + Convert.ToInt32(Table.Rows[i]["TechnoColorID"]) +
                     " AND Width=-1 AND InsetTypeID=" + Convert.ToInt32(Table.Rows[i]["InsetTypeID"]) +
                     " AND InsetColorID=" + Convert.ToInt32(Table.Rows[i]["InsetColorID"]) +
@@ -30159,8 +30276,8 @@ ORDER BY infiniu2_marketingreference.dbo.Clients.ClientName, dbo.MegaOrders.Orde
             for (int i = 0; i < Table.Rows.Count; i++)
             {
                 DataRow[] Rows = FrontsOrdersDataTable.Select("FrontID=" + Convert.ToInt32(Table.Rows[i]["FrontID"]) +
-                    " AND ColorID=" + Convert.ToInt32(Table.Rows[i]["ColorID"]) + 
-                    " AND TechnoColorID=" + Convert.ToInt32(Table.Rows[i]["TechnoColorID"]) + 
+                    " AND ColorID=" + Convert.ToInt32(Table.Rows[i]["ColorID"]) +
+                    " AND TechnoColorID=" + Convert.ToInt32(Table.Rows[i]["TechnoColorID"]) +
                     " AND PatinaID=" + Convert.ToInt32(Table.Rows[i]["PatinaID"]) +
                     " AND Width<>-1 AND InsetTypeID=" + Convert.ToInt32(Table.Rows[i]["InsetTypeID"]) +
                     " AND InsetColorID=" + Convert.ToInt32(Table.Rows[i]["InsetColorID"]) +
@@ -30247,7 +30364,7 @@ ORDER BY infiniu2_marketingreference.dbo.Clients.ClientName, dbo.MegaOrders.Orde
             for (int i = 0; i < Table.Rows.Count; i++)
             {
                 DataRow[] Rows = FrontsOrdersDataTable.Select("FrontID=" + Convert.ToInt32(Table.Rows[i]["FrontID"]) +
-                    " AND Width<>-1 AND ColorID=" + Convert.ToInt32(Table.Rows[i]["ColorID"]) + 
+                    " AND Width<>-1 AND ColorID=" + Convert.ToInt32(Table.Rows[i]["ColorID"]) +
                     " AND PatinaID=" + Convert.ToInt32(Table.Rows[i]["PatinaID"]) +
                     " AND InsetTypeID=" + Convert.ToInt32(Table.Rows[i]["InsetTypeID"]) +
                     " AND InsetColorID=" + Convert.ToInt32(Table.Rows[i]["InsetColorID"]) +
@@ -30840,7 +30957,7 @@ ORDER BY infiniu2_marketingreference.dbo.Clients.ClientName, dbo.MegaOrders.Orde
                     MarginWidth = Convert.ToInt32(Rows[0]["InsetWidthAdmission"]);
             }
         }
-        
+
         public ArrayList SelectedMarketingClients
         {
             get
@@ -31137,7 +31254,7 @@ ORDER BY infiniu2_marketingreference.dbo.Clients.ClientName, dbo.MegaOrders.Orde
 
         public DataTable FrontsOrdersDataTable = null;
         public DataTable DecorOrdersDataTable = null;
-        
+
         DataTable ZOVClientsDataTable = null;
         DataTable ZOVClientGroupsDataTable = null;
 
@@ -31179,7 +31296,7 @@ ORDER BY infiniu2_marketingreference.dbo.Clients.ClientName, dbo.MegaOrders.Orde
         public BindingSource DecorItemsSummaryBindingSource = null;
         public BindingSource DecorColorsSummaryBindingSource = null;
         public BindingSource DecorSizesSummaryBindingSource = null;
-        
+
         public ZOVOrdersStatistics()
         {
             Initialize();
@@ -31452,7 +31569,7 @@ ORDER BY infiniu2_marketingreference.dbo.Clients.ClientName, dbo.MegaOrders.Orde
                 ZOVClientGroupsDataTable.Rows[i]["Check"] = false;
             }
 
-            
+
             using (SqlDataAdapter DA = new SqlDataAdapter("SELECT ClientID, ClientName, ClientsGroups.ClientGroupName, Clients.ClientGroupID FROM Clients " +
                 " INNER JOIN ClientsGroups ON Clients.ClientGroupID=ClientsGroups.ClientGroupID", ConnectionStrings.ZOVReferenceConnectionString))
             {
@@ -31605,7 +31722,7 @@ ORDER BY infiniu2_marketingreference.dbo.Clients.ClientName, dbo.MegaOrders.Orde
             if (FactoryID == 2)
                 ZFilter = " WHERE CAST(TPSDispatchDate AS DATE) >= '" + DateFrom.ToString("yyyy-MM-dd") +
                     "' AND CAST(TPSDispatchDate AS DATE) <= '" + DateTo.ToString("yyyy-MM-dd") + "' ";
-            
+
             string ZFSampleFilter = string.Empty;
             string ZDSampleFilter = string.Empty;
             if (IsSample)
@@ -31644,7 +31761,7 @@ ORDER BY infiniu2_marketingreference.dbo.Clients.ClientName, dbo.MegaOrders.Orde
             GetTechnoInsetTypes();
             GetTechnoInsetColors();
             GetSizes();
-            
+
             ZOVSelectCommand = "SELECT DecorOrders.ProductID, DecorOrders.DecorID, DecorOrders.ColorID,DecorOrders.PatinaID," +
                 " DecorOrders.Height, DecorOrders.Length, DecorOrders.Width, DecorOrders.Count,DecorOrders.IsSample, " +
                 " DecorOrders.Cost, DecorOrders.DecorConfigID, " +
@@ -31774,7 +31891,7 @@ ORDER BY infiniu2_marketingreference.dbo.Clients.ClientName, dbo.MegaOrders.Orde
                 DecorOrdersDataTable.Clear();
                 DA.Fill(DecorOrdersDataTable);
             }
-            
+
             GetDecorProducts();
             GetDecorItems();
             GetDecorColors();
@@ -31970,7 +32087,7 @@ ORDER BY infiniu2_marketingreference.dbo.Clients.ClientName, dbo.MegaOrders.Orde
             GetInsetColors();
             GetTechnoInsetTypes();
             GetTechnoInsetColors();
-            
+
             ZOVSelectCommand = "SELECT DecorOrders.ProductID, DecorOrders.DecorID, DecorOrders.ColorID,DecorOrders.PatinaID," +
                 " DecorOrders.Height, DecorOrders.Length, DecorOrders.Width, DecorOrders.Count,DecorOrders.IsSample, " +
                 " DecorOrders.Cost, DecorOrders.DecorConfigID, " +
@@ -31988,7 +32105,7 @@ ORDER BY infiniu2_marketingreference.dbo.Clients.ClientName, dbo.MegaOrders.Orde
                 DecorOrdersDataTable.Clear();
                 DA.Fill(DecorOrdersDataTable);
             }
-            
+
             GetDecorProducts();
             GetDecorItems();
             GetDecorColors();
@@ -32059,7 +32176,7 @@ ORDER BY infiniu2_marketingreference.dbo.Clients.ClientName, dbo.MegaOrders.Orde
                 ZDSampleFilter = " AND (DecorOrders.IsSample = 1 OR (DecorOrders.ProductID=42 AND DecorOrders.IsSample = 0))";
             if (IsNotSample)
                 ZDSampleFilter = " AND DecorOrders.IsSample = 0";
-            
+
             ZOVSelectCommand = "SELECT FrontsOrdersID, FrontsOrders.FrontID, FrontsOrders.PatinaID," +
                 " FrontsOrders.ColorID, FrontsOrders.InsetTypeID," +
                 " FrontsOrders.InsetColorID, FrontsOrders.TechnoColorID, FrontsOrders.TechnoInsetTypeID, FrontsOrders.TechnoInsetColorID, FrontsOrders.Height, FrontsOrders.Width, FrontsOrders.IsSample," +
@@ -32183,7 +32300,7 @@ ORDER BY infiniu2_marketingreference.dbo.Clients.ClientName, dbo.MegaOrders.Orde
 
         private void SetGrids()
         {
-                        
+
         }
 
         public void FilterFrameColors(int FrontID)
@@ -34893,11 +35010,11 @@ ORDER BY infiniu2_marketingreference.dbo.Clients.ClientName, dbo.MegaOrders.Orde
                             ProfilOnProductionPerc--;
                         else
                             ProfilReadyPerc--;
-                        else
+                    else
                         if (ProfilInProductionPerc > ProfilReadyPerc)
-                            ProfilInProductionPerc--;
-                        else
-                            ProfilReadyPerc--;
+                        ProfilInProductionPerc--;
+                    else
+                        ProfilReadyPerc--;
                 }
 
                 TPSOnProductionPerc = Convert.ToInt32(Math.Round(d4, 1, MidpointRounding.AwayFromZero));
@@ -34917,9 +35034,9 @@ ORDER BY infiniu2_marketingreference.dbo.Clients.ClientName, dbo.MegaOrders.Orde
                             TPSReadyPerc--;
                     else
                         if (TPSInProductionPerc > TPSReadyPerc)
-                            TPSInProductionPerc--;
-                        else
-                            TPSReadyPerc--;
+                        TPSInProductionPerc--;
+                    else
+                        TPSReadyPerc--;
                 }
 
                 string ProductionDate = EnterInProdDate(GroupType, MegaBatchID, 1);
@@ -35116,9 +35233,9 @@ ORDER BY infiniu2_marketingreference.dbo.Clients.ClientName, dbo.MegaOrders.Orde
                             ProfilReadyPerc--;
                     else
                         if (ProfilInProductionPerc > ProfilReadyPerc)
-                            ProfilInProductionPerc--;
-                        else
-                            ProfilReadyPerc--;
+                        ProfilInProductionPerc--;
+                    else
+                        ProfilReadyPerc--;
                 }
 
                 TPSOnProductionPerc = Convert.ToInt32(Math.Round(d4, 1, MidpointRounding.AwayFromZero));
@@ -35134,9 +35251,9 @@ ORDER BY infiniu2_marketingreference.dbo.Clients.ClientName, dbo.MegaOrders.Orde
                             TPSReadyPerc--;
                     else
                         if (TPSInProductionPerc > TPSReadyPerc)
-                            TPSInProductionPerc--;
-                        else
-                            TPSReadyPerc--;
+                        TPSInProductionPerc--;
+                    else
+                        TPSReadyPerc--;
                 }
 
                 string ProductionDate = EnterInProdDate(GroupType, MegaBatchID, 1);
@@ -35323,9 +35440,9 @@ ORDER BY infiniu2_marketingreference.dbo.Clients.ClientName, dbo.MegaOrders.Orde
                             ProfilReadyPerc--;
                     else
                         if (ProfilInProductionPerc > ProfilReadyPerc)
-                            ProfilInProductionPerc--;
-                        else
-                            ProfilReadyPerc--;
+                        ProfilInProductionPerc--;
+                    else
+                        ProfilReadyPerc--;
                 }
 
                 TPSOnProductionPerc = Convert.ToInt32(Math.Round(d4, 1, MidpointRounding.AwayFromZero));
@@ -35341,9 +35458,9 @@ ORDER BY infiniu2_marketingreference.dbo.Clients.ClientName, dbo.MegaOrders.Orde
                             TPSReadyPerc--;
                     else
                         if (TPSInProductionPerc > TPSReadyPerc)
-                            TPSInProductionPerc--;
-                        else
-                            TPSReadyPerc--;
+                        TPSInProductionPerc--;
+                    else
+                        TPSReadyPerc--;
                 }
 
                 string ProductionDate = EnterInProdDate(GroupType, MegaBatchID, 1);
@@ -37110,7 +37227,7 @@ ORDER BY infiniu2_marketingreference.dbo.Clients.ClientName, dbo.MegaOrders.Orde
                         " AND Height=" + Convert.ToInt32(Table.Rows[j]["Height"]) +
                         " AND Width=" + Convert.ToInt32(Table.Rows[j]["Width"]) +
                         " AND IsSample=" + Convert.ToInt32(Table.Rows[j]["IsSample"]) +
-                        " AND ClientID=" + Convert.ToInt32(Table.Rows[j]["ClientID"]) + 
+                        " AND ClientID=" + Convert.ToInt32(Table.Rows[j]["ClientID"]) +
                         " AND ZOVClientID = " + Convert.ToInt32(Table.Rows[j]["ZOVClientID"]);
 
                     DataRow[] Rows = DecorOrdersDataTable.Select(QueryString);
@@ -37693,7 +37810,7 @@ ORDER BY infiniu2_marketingreference.dbo.Clients.ClientName, dbo.MegaOrders.Orde
             SimpleCellStyle.BorderTop = HSSFCellStyle.BORDER_THIN;
             SimpleCellStyle.TopBorderColor = HSSFColor.BLACK.index;
             SimpleCellStyle.SetFont(SimpleFont);
-            
+
             HSSFCellStyle cellStyle = hssfworkbook.CreateCellStyle();
             cellStyle.DataFormat = HSSFDataFormat.GetBuiltinFormat("0.000");
             cellStyle.BorderBottom = HSSFCellStyle.BORDER_THIN;
@@ -37873,7 +37990,7 @@ ORDER BY infiniu2_marketingreference.dbo.Clients.ClientName, dbo.MegaOrders.Orde
 
             if (DecorOrdersDataTable.Rows.Count > 0)
                 DecorReport(hssfworkbook, HeaderStyle, SimpleFont, SimpleCellStyle, cellStyle, DecorOrdersDataTable, ZOV);
-            
+
             string ReportFilePath = string.Empty;
 
             //ReportFilePath = ReadReportFilePath("StatisticsReportPath.config");
@@ -37915,7 +38032,7 @@ ORDER BY infiniu2_marketingreference.dbo.Clients.ClientName, dbo.MegaOrders.Orde
             System.Diagnostics.Process.Start(file.FullName);
         }
 
-        private int FrontsReport(HSSFWorkbook hssfworkbook, HSSFCellStyle HeaderStyle, HSSFFont PackNumberFont, 
+        private int FrontsReport(HSSFWorkbook hssfworkbook, HSSFCellStyle HeaderStyle, HSSFFont PackNumberFont,
             HSSFFont SimpleFont, HSSFCellStyle SimpleCellStyle, HSSFCellStyle cellStyle,
             DataTable FrontsOrdersDataTable, bool ZOV)
         {
@@ -38595,7 +38712,7 @@ ORDER BY infiniu2_marketingreference.dbo.Clients.ClientName, dbo.MegaOrders.Orde
 
             using (DataView DV = new DataView(FrontsOrdersDataTable))
             {
-                Table = DV.ToTable(true, new string[] { "FrontID", 
+                Table = DV.ToTable(true, new string[] { "FrontID",
                     "ColorID", "TechnoColorID", "PatinaID","InsetTypeID", "InsetColorID", "TechnoInsetTypeID", "TechnoInsetColorID", "Height", "Width"});
             }
 
@@ -38694,7 +38811,7 @@ ORDER BY infiniu2_marketingreference.dbo.Clients.ClientName, dbo.MegaOrders.Orde
 
             using (DataView DV = new DataView(FrontsOrdersDataTable, string.Empty, string.Empty, DataViewRowState.CurrentRows))
             {
-                Table = DV.ToTable(true, new string[] { "FrontID", 
+                Table = DV.ToTable(true, new string[] { "FrontID",
                     "ColorID", "TechnoColorID", "PatinaID","InsetTypeID", "InsetColorID", "TechnoInsetTypeID", "TechnoInsetColorID", "Height", "Width"});
             }
 
@@ -38829,7 +38946,7 @@ ORDER BY infiniu2_marketingreference.dbo.Clients.ClientName, dbo.MegaOrders.Orde
                     "ProductID = " + Convert.ToInt32(TempDecorProductsDT.Rows[i]["ProductID"]),
                     string.Empty, DataViewRowState.CurrentRows))
                 {
-                    Table = DV.ToTable(true, new string[] { "DecorID", "ColorID", "MeasureID", "Length", "Height", "Width"});
+                    Table = DV.ToTable(true, new string[] { "DecorID", "ColorID", "MeasureID", "Length", "Height", "Width" });
                 }
 
                 for (int j = 0; j < Table.Rows.Count; j++)
@@ -39236,7 +39353,7 @@ ORDER BY infiniu2_marketingreference.dbo.Clients.ClientName, dbo.MegaOrders.Orde
             SimpleCellStyle.BorderTop = HSSFCellStyle.BORDER_THIN;
             SimpleCellStyle.TopBorderColor = HSSFColor.BLACK.index;
             SimpleCellStyle.SetFont(SimpleFont);
-            
+
             HSSFCellStyle cellStyle = hssfworkbook.CreateCellStyle();
             cellStyle.DataFormat = HSSFDataFormat.GetBuiltinFormat("0.000");
             cellStyle.BorderBottom = HSSFCellStyle.BORDER_THIN;
@@ -39457,7 +39574,7 @@ ORDER BY infiniu2_marketingreference.dbo.Clients.ClientName, dbo.MegaOrders.Orde
             System.Diagnostics.Process.Start(file.FullName);
         }
 
-        private int FrontsReport(HSSFWorkbook hssfworkbook, HSSFCellStyle HeaderStyle, HSSFFont PackNumberFont, 
+        private int FrontsReport(HSSFWorkbook hssfworkbook, HSSFCellStyle HeaderStyle, HSSFFont PackNumberFont,
             HSSFFont SimpleFont, HSSFCellStyle SimpleCellStyle, HSSFCellStyle cellStyle,
             DataTable FrontsOrdersDataTable)
         {
@@ -39486,7 +39603,7 @@ ORDER BY infiniu2_marketingreference.dbo.Clients.ClientName, dbo.MegaOrders.Orde
             sheet1.SetColumnWidth(DisplayIndex++, 6 * 256);
             sheet1.SetColumnWidth(DisplayIndex++, 16 * 256);
             sheet1.SetColumnWidth(DisplayIndex++, 14 * 256);
-            
+
             decimal Square = 0;
             int FrontsCount = 0;
             int CurvedCount = 0;
@@ -39554,7 +39671,7 @@ ORDER BY infiniu2_marketingreference.dbo.Clients.ClientName, dbo.MegaOrders.Orde
                         {
                             HSSFCell cell = sheet1.CreateRow(RowIndex).CreateCell(y);
                             cell.SetCellValue(Convert.ToDouble(FrontsResultDataTable.Rows[x][y]));
-                            
+
                             cell.CellStyle = cellStyle;
                             continue;
                         }
@@ -39603,7 +39720,7 @@ ORDER BY infiniu2_marketingreference.dbo.Clients.ClientName, dbo.MegaOrders.Orde
             return RowIndex;
         }
 
-        private int DecorReport(HSSFWorkbook hssfworkbook, HSSFCellStyle HeaderStyle, 
+        private int DecorReport(HSSFWorkbook hssfworkbook, HSSFCellStyle HeaderStyle,
             HSSFFont SimpleFont, HSSFCellStyle SimpleCellStyle, HSSFCellStyle cellStyle,
             DataTable DecorOrdersDataTable)
         {

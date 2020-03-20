@@ -1,11 +1,12 @@
-﻿using System;
+﻿using Infinium.Modules.Marketing.MutualSettlements;
+
+using System;
 using System.Data;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Threading;
 using System.Windows.Forms;
-using Infinium.Modules.Marketing.MutualSettlements;
 
 namespace Infinium
 {
@@ -346,7 +347,7 @@ namespace Infinium
             dgvMutualSettlements.Columns.Add(MutualSettlementsManager.CurrencyTypeColumn);
             dgvMutualSettlements.Columns.Add(MutualSettlementsManager.InvoiceDateTimeColumn);
             dgvMutualSettlements.Columns.Add(MutualSettlementsManager.PaymentConditionColumn);
-            
+
             if (dgvMutualSettlements.Columns.Contains("DelayOfPayment"))
                 dgvMutualSettlements.Columns["DelayOfPayment"].Visible = false;
             if (dgvMutualSettlements.Columns.Contains("ClientID"))
@@ -822,7 +823,7 @@ namespace Infinium
             if (ClientID == -1)
                 return;
 
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение данных.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение данных.\r\nПодождите..."); });
             T.Start();
 
             while (!SplashWindow.bSmallCreated) ;
@@ -1122,7 +1123,7 @@ namespace Infinium
 
         private void btnCreateReportVAT_Click(object sender, EventArgs e)
         {
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Создание отчета.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Создание отчета.\r\nПодождите..."); });
             T.Start();
 
             while (!SplashWindow.bSmallCreated) ;
@@ -1157,7 +1158,7 @@ namespace Infinium
 
         private void btnCreateInternationalContract_Click(object sender, EventArgs e)
         {
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Создание отчета.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Создание отчета.\r\nПодождите..."); });
             T.Start();
 
             while (!SplashWindow.bSmallCreated) ;
@@ -1191,7 +1192,7 @@ namespace Infinium
 
         private void btnCreateReportDelayOfPayment_Click(object sender, EventArgs e)
         {
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Создание отчета.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Создание отчета.\r\nПодождите..."); });
             T.Start();
 
             while (!SplashWindow.bSmallCreated) ;
@@ -1244,7 +1245,7 @@ namespace Infinium
             if (CashReportParameters.Cancel)
                 return;
 
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Создание отчета.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Создание отчета.\r\nПодождите..."); });
             T.Start();
 
             while (!SplashWindow.bSmallCreated) ;
@@ -1412,7 +1413,7 @@ namespace Infinium
                 CurrencyTypeID = 2;
             if (kryptonRadioButton4.Checked)
                 CurrencyTypeID = 1;
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Создание отчета.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Создание отчета.\r\nПодождите..."); });
             T.Start();
 
             while (!SplashWindow.bSmallCreated) ;
@@ -1683,7 +1684,7 @@ namespace Infinium
                 return;
 
             PercentageDataGrid grid = (PercentageDataGrid)sender;
-            
+
             if (e.Value != null)
             {
                 DataGridViewCell cell =

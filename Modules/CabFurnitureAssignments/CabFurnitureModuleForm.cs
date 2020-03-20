@@ -1,13 +1,14 @@
-﻿using System;
+﻿using ComponentFactory.Krypton.Toolkit;
+
+using Infinium.Modules.CabFurnitureModule;
+
+using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
-using System.Windows.Forms;
-using System.Threading;
-using ComponentFactory.Krypton.Toolkit;
-using Infinium.Modules.CabFurnitureModule;
-using System.Collections;
-using System.Collections.Generic;
 using System.Runtime.InteropServices;
+using System.Threading;
+using System.Windows.Forms;
 
 namespace Infinium
 {
@@ -280,7 +281,7 @@ namespace Infinium
             dgvPackages.DataSource = PackagesManager.PackagesBS;
             dgvPackagesLabels.DataSource = PackagesManager.PackageLabelsBS;
             dgvPackagesDetails.DataSource = PackagesManager.PackageDetailsBS;
-            
+
             dgvDocuments.DataSource = AssignmentsManager.DocumentsBS;
             dgvNewAssignment.DataSource = AssignmentsManager.NewAssignmentDetailsBS;
             percentageDataGrid1.DataSource = AssignmentsManager.NewAssignmentDetailsBS;
@@ -621,7 +622,7 @@ namespace Infinium
             grid.Columns["Weight"].HeaderText = "Вес, кг.";
             grid.Columns["PackedCount"].HeaderText = "Упаковано, кол-во";
             grid.Columns["PackedPercentage"].HeaderText = "Упаковано, %";
-            grid.Columns["AllocPackDateTime"].HeaderText = "Дата\r\nраспределения";            
+            grid.Columns["AllocPackDateTime"].HeaderText = "Дата\r\nраспределения";
 
             foreach (DataGridViewColumn Column in grid.Columns)
             {
@@ -744,7 +745,7 @@ namespace Infinium
         private void dgvPackagesSetting(ref PercentageDataGrid grid)
         {
             grid.AutoGenerateColumns = false;
-            
+
             grid.Columns["ClientName"].HeaderText = "Клиент";
             grid.Columns["CabFurAssignmentID"].HeaderText = "№ задания";
             grid.Columns["PackagesCount"].HeaderText = "Кол-во этикеток";
@@ -1265,7 +1266,7 @@ namespace Infinium
             {
                 AssignmentsManager.MoveToAssignmentID(AssignmentsManager.CabFurAssignmentID);
             }
-            
+
             NeedSplash = true;
             while (SplashWindow.bSmallCreated)
                 SmallWaitForm.CloseS = true;
@@ -1474,7 +1475,7 @@ namespace Infinium
                 NeedSplash = false;
 
                 AssignmentsManager.FilterDocuments(CabFurAssignmentID);
-                
+
                 AssignmentsManager.UpdateNewAssignment(CabFurAssignmentID);
                 CheckColumns(ref percentageDataGrid1);
 
@@ -1914,7 +1915,7 @@ namespace Infinium
                     SmallWaitForm.CloseS = true;
             }
         }
-        
+
         private void kryptonContextMenuItem10_Click(object sender, EventArgs e)
         {
             bool OKCancel = Infinium.LightMessageBox.Show(ref TopForm, true,
@@ -1944,7 +1945,7 @@ namespace Infinium
         private void kryptonContextMenuItem11_Click(object sender, EventArgs e)
         {
         }
-        
+
         private void dgvComplementLabels_SelectionChanged(object sender, EventArgs e)
         {
             int CabFurnitureComplementID = 0;
@@ -1966,7 +1967,7 @@ namespace Infinium
             if (dgvComplementLabels.SelectedRows.Count == 0)
                 return;
             complementLabel.ClearLabelInfo();
-            
+
             int ComplementsCount = 0;
             int MainOrderID = 0;
 
@@ -2000,7 +2001,7 @@ namespace Infinium
             }
 
             ComplementsManager.PrintComplements(CabFurnitureComplementID);
-           
+
             if (NeedSplash)
             {
                 Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
@@ -2097,7 +2098,7 @@ namespace Infinium
                 TechStoreSubGroupID = Convert.ToInt32(dgvPackagesLabels.SelectedRows[0].Cells["TechStoreSubGroupID"].Value);
             PackagesManager.FilterPackagesDetails(CabFurniturePackageID);
         }
-        
+
         private void kryptonContextMenuItem16_Click(object sender, EventArgs e)
         {
             if (dgvPackagesLabels.SelectedRows.Count == 0)
@@ -2170,7 +2171,7 @@ namespace Infinium
                 BarcodeTextBox.Focus();
             }
         }
-        
+
         private int GetChar(KeyEventArgs e)
         {
             int c = -1;
@@ -2278,7 +2279,7 @@ namespace Infinium
 
                 BarcodeLabel.Text = "";
                 CheckPicture.Visible = false;
-                
+
                 BarcodeLabel.ForeColor = Color.FromArgb(240, 0, 0);
 
                 ClearControls();
@@ -2304,15 +2305,15 @@ namespace Infinium
 
                     return;
                 }
-                
+
                 BarcodeLabel.Text = BarcodeTextBox.Text;
                 BarcodeTextBox.Clear();
-                
+
                 //комплектация
                 if (Prefix == "020")
                 {
                     int CabFurnitureComplementID = Convert.ToInt32(BarcodeLabel.Text.Substring(3, 9));
-                    
+
                     if (CheckLabel.GetComplementInfo(CabFurnitureComplementID))
                     {
                         CheckLabel.GetComplementContent(CabFurnitureComplementID);
@@ -2441,7 +2442,7 @@ namespace Infinium
                     }
                 }
             }
-            
+
         }
 
         public void SetGridColor(bool IsAccept)
@@ -2698,7 +2699,7 @@ namespace Infinium
             List<ComplementLabelInfo> Labels = AssignmentsManager.CreateComplementLabels(CabFurnitureComplementID, Index, ComplementsCount);
             if (Labels.Count == 0)
                 return;
-            
+
             if (NeedSplash)
             {
                 Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });

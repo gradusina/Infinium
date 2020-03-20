@@ -1,8 +1,9 @@
-﻿using System;
-using System.Windows.Forms;
+﻿using Infinium.Store;
+
+using System;
 using System.Globalization;
 using System.Threading;
-using Infinium.Store;
+using System.Windows.Forms;
 
 namespace Infinium
 {
@@ -13,7 +14,7 @@ namespace Infinium
         const int eClose = 3;
 
         int FormEvent = 0;
-        
+
         //bool EditMode = false;
 
         Form TopForm = null;
@@ -142,7 +143,7 @@ namespace Infinium
             ManufactureStoreDataGrid.DataSource = StoreMovementManager.ManufactureStoreList;
             WriteOffStoreDataGrid.DataSource = StoreMovementManager.WriteOffStoreList;
             PersonalStoreDataGrid.DataSource = StoreMovementManager.PersonalStoreList;
-            
+
             CurrencyTypesComboBox.DataSource = StoreMovementManager.CurrencyTypesList;
             CurrencyTypesComboBox.DisplayMember = "CurrencyType";
             CurrencyTypesComboBox.ValueMember = "CurrencyTypeID";
@@ -1650,7 +1651,7 @@ namespace Infinium
         {
             if (!MovementInvoices.DBConnectionStatus())
                 return;
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение.\r\nПодождите..."); });
             T.Start();
 
             while (!SplashWindow.bSmallCreated) ;
@@ -1666,7 +1667,7 @@ namespace Infinium
                 MovementInvoices.SaveMovementInvoices(StoreMovementManager.CurrentMovementInvoiceID,
                     Parameters.SellerStoreAllocID, Parameters.RecipientStoreAllocID, Parameters.RecipientSectorID,
                     Parameters.PersonID, Parameters.PersonName, Parameters.StoreKeeperID, Parameters.ClientID, Parameters.SellerID, Parameters.ClientName, Parameters.Notes);
-                
+
                 if (Parameters.SellerStoreAllocID == 9)
                 {
                     StoreMovementManager.UpdateStoreGroups(true, Parameters.PersonID);

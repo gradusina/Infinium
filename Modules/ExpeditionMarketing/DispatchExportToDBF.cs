@@ -1,12 +1,14 @@
-﻿using System;
-using System.Linq;
-using System.Data;
-using System.Data.SqlClient;
-using System.Data.OleDb;
-using System.IO;
+﻿using Infinium.Modules.Marketing.Orders;
+
 using NPOI.HSSF.UserModel;
 using NPOI.HSSF.Util;
-using Infinium.Modules.Marketing.Orders;
+
+using System;
+using System.Data;
+using System.Data.OleDb;
+using System.Data.SqlClient;
+using System.IO;
+using System.Linq;
 using System.Text;
 
 namespace Infinium.Modules.Marketing.Dispatch
@@ -244,7 +246,7 @@ namespace Infinium.Modules.Marketing.Dispatch
             return Row[0]["FrontName"].ToString();
         }
 
-        private void SplitTables(DataTable FrontsOrdersDataTable, ref DataTable ProfilDT, ref DataTable TPSDT, 
+        private void SplitTables(DataTable FrontsOrdersDataTable, ref DataTable ProfilDT, ref DataTable TPSDT,
             bool ProfilVerify, bool TPSVerify, int ClientID, int DiscountPaymentConditionID, bool Old)
         {
             for (int i = 0; i < FrontsOrdersDataTable.Rows.Count; i++)
@@ -541,7 +543,7 @@ namespace Infinium.Modules.Marketing.Dispatch
 
             return Convert.ToDecimal(Rows[0]["ZOVNonStandMargin"]);
         }
-          
+
         private void GetSimpleFronts(DataTable OrdersDataTable, DataTable ReportDataTable, bool IsNonStandard)
         {
             string IsNonStandardFilter = "IsNonStandard=0";
@@ -647,7 +649,7 @@ namespace Infinium.Modules.Marketing.Dispatch
                         Convert.ToInt32(Rows[r]["FrontID"]) == 3744 || Convert.ToInt32(Rows[r]["FrontID"]) == 3745 || Convert.ToInt32(Rows[r]["FrontID"]) == 3746)
                     {
                         SolidCount += Convert.ToDecimal(Rows[r]["Square"]);
-                            SolidCost += Convert.ToDecimal(Rows[r]["FrontPrice"]) * Convert.ToDecimal(Rows[r]["Square"]) + 5 * Convert.ToDecimal(Rows[r]["Count"]);
+                        SolidCost += Convert.ToDecimal(Rows[r]["FrontPrice"]) * Convert.ToDecimal(Rows[r]["Square"]) + 5 * Convert.ToDecimal(Rows[r]["Count"]);
 
                         WithTransportSolidCost += Convert.ToDecimal(Rows[r]["CostWithTransport"]);
                         decimal FrontWeight = 0;
@@ -661,7 +663,7 @@ namespace Infinium.Modules.Marketing.Dispatch
                     {
                         FilenkaCount += Convert.ToDecimal(Rows[r]["Square"]);
 
-                            FilenkaCost += Convert.ToDecimal(Rows[r]["FrontPrice"]) * Convert.ToDecimal(Rows[r]["Square"]) + 5 * Convert.ToDecimal(Rows[r]["Count"]);
+                        FilenkaCost += Convert.ToDecimal(Rows[r]["FrontPrice"]) * Convert.ToDecimal(Rows[r]["Square"]) + 5 * Convert.ToDecimal(Rows[r]["Count"]);
 
                         WithTransportFilenkaCost += Convert.ToDecimal(Rows[r]["CostWithTransport"]);
                         decimal FrontWeight = 0;
@@ -680,7 +682,7 @@ namespace Infinium.Modules.Marketing.Dispatch
                 {
                     FilenkaCount += Convert.ToDecimal(Rows[r]["Square"]);
 
-                        FilenkaCost += Convert.ToDecimal(Rows[r]["FrontPrice"]) * Convert.ToDecimal(Rows[r]["Square"]);
+                    FilenkaCost += Convert.ToDecimal(Rows[r]["FrontPrice"]) * Convert.ToDecimal(Rows[r]["Square"]);
 
                     WithTransportFilenkaCost += Convert.ToDecimal(Rows[r]["CostWithTransport"]);
                     decimal FrontWeight = 0;
@@ -741,7 +743,7 @@ namespace Infinium.Modules.Marketing.Dispatch
                         }
                     }
 
-                        VitrinaCount += Convert.ToDecimal(Rows[r]["Square"]);
+                    VitrinaCount += Convert.ToDecimal(Rows[r]["Square"]);
 
                     if (IsAluminium(Rows[r]) > -1)
                     {
@@ -750,7 +752,7 @@ namespace Infinium.Modules.Marketing.Dispatch
                     }
                     else
                     {
-                            VitrinaCost += Convert.ToDecimal(Rows[r]["FrontPrice"]) * Convert.ToDecimal(Rows[r]["Square"]);
+                        VitrinaCost += Convert.ToDecimal(Rows[r]["FrontPrice"]) * Convert.ToDecimal(Rows[r]["Square"]);
 
                         decimal FrontWeight = 0;
                         decimal InsetWeight = 0;
@@ -768,9 +770,9 @@ namespace Infinium.Modules.Marketing.Dispatch
                 Rows = OrdersDataTable.Select("FrontID = " + Fronts.Rows[i]["FrontID"].ToString() + " AND (Width <> -1)" + filter + IsNonStandardFilter);
                 for (int r = 0; r < Rows.Count(); r++)
                 {
-                        LuxMegaCount += Convert.ToDecimal(Rows[r]["Square"]);
+                    LuxMegaCount += Convert.ToDecimal(Rows[r]["Square"]);
 
-                        LuxMegaCost += Convert.ToDecimal(Rows[r]["FrontPrice"]) * Convert.ToDecimal(Rows[r]["Square"]);
+                    LuxMegaCost += Convert.ToDecimal(Rows[r]["FrontPrice"]) * Convert.ToDecimal(Rows[r]["Square"]);
 
                     WithTransportLuxMegaCost += Convert.ToDecimal(Rows[r]["CostWithTransport"]);
                     decimal FrontWeight = 0;
@@ -1750,7 +1752,7 @@ namespace Infinium.Modules.Marketing.Dispatch
             int FrontID = Convert.ToInt32(FrontsOrdersRow["FrontID"]);
             if (FrontID == 30504 || FrontID == 30505 || FrontID == 30506 ||
                 FrontID == 30364 || FrontID == 30366 || FrontID == 30367 ||
-                FrontID == 30501 || FrontID == 30502 || FrontID == 30503 || 
+                FrontID == 30501 || FrontID == 30502 || FrontID == 30503 ||
                 FrontID == 16269 || FrontID == 28945 || FrontID == 27914 || FrontID == 3727 || FrontID == 3728 || FrontID == 3729 ||
                 FrontID == 3730 || FrontID == 3731 || FrontID == 3732 || FrontID == 3733 || FrontID == 3734 ||
                 FrontID == 3735 || FrontID == 3736 || FrontID == 3737 || FrontID == 3739 || FrontID == 3740 ||
@@ -1904,7 +1906,7 @@ namespace Infinium.Modules.Marketing.Dispatch
                     ProfilFrontsOrdersDataTable = DT.Clone();
                     TPSFrontsOrdersDataTable = DT.Clone();
 
-                    SplitTables(DT, ref ProfilFrontsOrdersDataTable, ref TPSFrontsOrdersDataTable, 
+                    SplitTables(DT, ref ProfilFrontsOrdersDataTable, ref TPSFrontsOrdersDataTable,
                         ProfilVerify, TPSVerify, ClientID, DiscountPaymentConditionID, Old);
 
                     //get count of different covertypes
@@ -1977,7 +1979,7 @@ namespace Infinium.Modules.Marketing.Dispatch
             }
         }
 
-        public void Report(int[] DispatchID, int CurrencyTypeID, int ClientID, 
+        public void Report(int[] DispatchID, int CurrencyTypeID, int ClientID,
             bool ProfilVerify, bool TPSVerify, int DiscountPaymentConditionID, bool IsSample, bool Old)
         {
             ProfilFrontsOrdersDataTable.Clear();
@@ -2034,7 +2036,7 @@ namespace Infinium.Modules.Marketing.Dispatch
                     ProfilFrontsOrdersDataTable = DT.Clone();
                     TPSFrontsOrdersDataTable = DT.Clone();
 
-                    SplitTables(DT, ref ProfilFrontsOrdersDataTable, ref TPSFrontsOrdersDataTable, 
+                    SplitTables(DT, ref ProfilFrontsOrdersDataTable, ref TPSFrontsOrdersDataTable,
                         ProfilVerify, TPSVerify, ClientID, DiscountPaymentConditionID, Old);
 
                     //get count of different covertypes
@@ -3184,7 +3186,7 @@ namespace Infinium.Modules.Marketing.Dispatch
                 DistRatesDT = DV.ToTable(true, new string[] { "PaymentRate" });
             }
 
-            for (int i = 0; i < Items.Rows.Count; i++) 
+            for (int i = 0; i < Items.Rows.Count; i++)
             {
                 for (int j = 0; j < DistRatesDT.Rows.Count; j++)
                 {
@@ -3273,7 +3275,7 @@ namespace Infinium.Modules.Marketing.Dispatch
 
         }
 
-        public void Report(int[] DispatchID, int CurrencyTypeID, int ClientID, 
+        public void Report(int[] DispatchID, int CurrencyTypeID, int ClientID,
             bool ProfilVerify, bool TPSVerify, int DiscountPaymentConditionID, bool IsSample, bool Old)
         {
             DecorOrdersDataTable.Clear();
@@ -3427,7 +3429,7 @@ namespace Infinium.Modules.Marketing.Dispatch
                         Count += Convert.ToDecimal(InvRows[j]["Count"]);
                         Cost += Convert.ToDecimal(InvRows[j]["Cost"]) * PaymentRate / VAT;
                         CostWithTransport += Convert.ToDecimal(InvRows[j]["CostWithTransport"]) * PaymentRate / VAT;
-                    } 
+                    }
                     Cost = Math.Ceiling(Cost / 0.01m) * 0.01m;
                     CostWithTransport = Math.Ceiling(CostWithTransport / 0.01m) * 0.01m;
                     Price = Cost / Count;
@@ -3514,7 +3516,7 @@ namespace Infinium.Modules.Marketing.Dispatch
                         Count += Convert.ToDecimal(InvRows[j]["Count"]);
                         Cost += Convert.ToDecimal(InvRows[j]["Cost"]) * PaymentRate / VAT;
                         CostWithTransport += Convert.ToDecimal(InvRows[j]["CostWithTransport"]) * PaymentRate / VAT;
-                    } 
+                    }
                     Cost = Math.Ceiling(Cost / 0.01m) * 0.01m;
                     CostWithTransport = Math.Ceiling(CostWithTransport / 0.01m) * 0.01m;
                     Price = Cost / Count;
@@ -3653,7 +3655,7 @@ namespace Infinium.Modules.Marketing.Dispatch
             };
             dtGroup.Clear();
             dtGroup = dv.ToTable();
-            
+
             //returning grouped/counted result
             return dtGroup;
         }
@@ -5831,7 +5833,7 @@ namespace Infinium.Modules.Marketing.Dispatch
 
 
 
-    
+
     public class FrontsReport
     {
         FrontsCalculate FC = null;
@@ -6044,7 +6046,7 @@ namespace Infinium.Modules.Marketing.Dispatch
             return Row[0]["FrontName"].ToString();
         }
 
-        private void SplitTables(DataTable FrontsOrdersDataTable, ref DataTable ProfilDT, ref DataTable TPSDT, 
+        private void SplitTables(DataTable FrontsOrdersDataTable, ref DataTable ProfilDT, ref DataTable TPSDT,
             bool ProfilVerify, bool TPSVerify, int ClientID, int DiscountPaymentConditionID, bool Old)
         {
             for (int i = 0; i < FrontsOrdersDataTable.Rows.Count; i++)
@@ -6146,7 +6148,7 @@ namespace Infinium.Modules.Marketing.Dispatch
                     GlassMarginWidth = Convert.ToInt32(Rows[0]["InsetWidthAdmission"]);
             }
         }
-        
+
         private decimal GetNonStandardMargin(int FrontConfigID)
         {
             DataRow[] Rows = FrontsConfigDataTable.Select("FrontConfigID = " + FrontConfigID);
@@ -7437,7 +7439,7 @@ namespace Infinium.Modules.Marketing.Dispatch
             int FrontID = Convert.ToInt32(FrontsOrdersRow["FrontID"]);
             if (FrontID == 30504 || FrontID == 30505 || FrontID == 30506 ||
                 FrontID == 30364 || FrontID == 30366 || FrontID == 30367 ||
-                FrontID == 30501 || FrontID == 30502 || FrontID == 30503 || 
+                FrontID == 30501 || FrontID == 30502 || FrontID == 30503 ||
                 FrontID == 16269 || FrontID == 28945 || FrontID == 27914 || FrontID == 3727 || FrontID == 3728 || FrontID == 3729 ||
                 FrontID == 3730 || FrontID == 3731 || FrontID == 3732 || FrontID == 3733 || FrontID == 3734 ||
                 FrontID == 3735 || FrontID == 3736 || FrontID == 3737 || FrontID == 3739 || FrontID == 3740 ||
@@ -7540,7 +7542,7 @@ namespace Infinium.Modules.Marketing.Dispatch
                     ProfilFrontsOrdersDataTable = DT.Clone();
                     TPSFrontsOrdersDataTable = DT.Clone();
 
-                    SplitTables(DT, ref ProfilFrontsOrdersDataTable, ref TPSFrontsOrdersDataTable, 
+                    SplitTables(DT, ref ProfilFrontsOrdersDataTable, ref TPSFrontsOrdersDataTable,
                         ProfilVerify, TPSVerify, ClientID, DiscountPaymentConditionID, Old);
 
                     //get count of different covertypes
@@ -7605,7 +7607,7 @@ namespace Infinium.Modules.Marketing.Dispatch
 
         }
 
-        public void Report(int[] DispatchID, int CurrencyTypeID, 
+        public void Report(int[] DispatchID, int CurrencyTypeID,
             bool ProfilVerify, bool TPSVerify, int ClientID, int DiscountPaymentConditionID, bool IsSample, bool Old)
         {
             ProfilFrontsOrdersDataTable.Clear();
@@ -7660,7 +7662,7 @@ namespace Infinium.Modules.Marketing.Dispatch
                     ProfilFrontsOrdersDataTable = DT.Clone();
                     TPSFrontsOrdersDataTable = DT.Clone();
 
-                    SplitTables(DT, ref ProfilFrontsOrdersDataTable, ref TPSFrontsOrdersDataTable, 
+                    SplitTables(DT, ref ProfilFrontsOrdersDataTable, ref TPSFrontsOrdersDataTable,
                         ProfilVerify, TPSVerify, ClientID, DiscountPaymentConditionID, Old);
 
                     //get count of different covertypes
@@ -7857,7 +7859,7 @@ namespace Infinium.Modules.Marketing.Dispatch
             }
             return false;
         }
-        
+
         private int GetReportMeasureTypeID(int DecorConfigID)
         {
             DataRow[] Row = DecorConfigDataTable.Select("DecorConfigID = " + DecorConfigID);
@@ -9215,7 +9217,7 @@ namespace Infinium.Modules.Marketing.Dispatch
 
         }
 
-        public void Report(int[] DispatchID, int CurrencyTypeID, 
+        public void Report(int[] DispatchID, int CurrencyTypeID,
             bool ProfilVerify, bool TPSVerify, int ClientID, int DiscountPaymentConditionID, bool IsSample, bool Old)
         {
             DecorOrdersDataTable.Clear();
@@ -12548,7 +12550,7 @@ namespace Infinium.Modules.Marketing.Dispatch
                 TransportCost, AdditionalCost, TotalCost, CurrencyTypeID, TotalWeight, RowIndex, ProfilVerify, TPSVerify, DiscountPaymentConditionID, Old);
         }
 
-        public void CreateReport(ref HSSFWorkbook hssfworkbook, int[] DispatchID, int[] OrderNumbers, int[] MainOrdersIDs, 
+        public void CreateReport(ref HSSFWorkbook hssfworkbook, int[] DispatchID, int[] OrderNumbers, int[] MainOrdersIDs,
             int ClientID, string ClientName, bool ProfilVerify, bool TPSVerify, int DiscountPaymentConditionID, bool IsSample, bool Old)
         {
             ClearReport();

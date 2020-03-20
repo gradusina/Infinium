@@ -1,10 +1,11 @@
-﻿using System;
-using System.Linq;
-using ComponentFactory.Krypton.Toolkit;
+﻿using ComponentFactory.Krypton.Toolkit;
+
+using System;
 using System.Data;
 using System.Data.SqlClient;
-using System.Windows.Forms;
 using System.Drawing;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace Infinium
 {
@@ -256,12 +257,12 @@ namespace Infinium
             MarktClientsDataTable = new DataTable();
             ZOVClientsDataTable = new DataTable();
 
-            using(SqlDataAdapter DA= new SqlDataAdapter("SELECT ClientID, ClientName FROM Clients", ConnectionStrings.MarketingReferenceConnectionString))
+            using (SqlDataAdapter DA = new SqlDataAdapter("SELECT ClientID, ClientName FROM Clients", ConnectionStrings.MarketingReferenceConnectionString))
             {
                 DA.Fill(MarktClientsDataTable);
             }
 
-            using(SqlDataAdapter DA= new SqlDataAdapter("SELECT ClientID, ClientName FROM Clients", ConnectionStrings.ZOVReferenceConnectionString))
+            using (SqlDataAdapter DA = new SqlDataAdapter("SELECT ClientID, ClientName FROM Clients", ConnectionStrings.ZOVReferenceConnectionString))
             {
                 DA.Fill(ZOVClientsDataTable);
             }
@@ -624,8 +625,8 @@ namespace Infinium
         }
 
         public void GetLabelInfo(string Barcode)
-        { 
-            string BarType = Barcode.Substring(0,3);
+        {
+            string BarType = Barcode.Substring(0, 3);
 
             if (BarType == "001" || BarType == "002")//ЗОВ
             {
@@ -654,7 +655,7 @@ namespace Infinium
 
                                 SetPacked(Barcode, "ЗОВ");
 
-                                if(MegaDT.Rows[0]["DispatchDate"] != DBNull.Value)
+                                if (MegaDT.Rows[0]["DispatchDate"] != DBNull.Value)
                                     LabelInfo.DispatchDate = Convert.ToDateTime(MegaDT.Rows[0]["DispatchDate"]).ToString("dd.MM.yyyy");
 
                                 if (LabelInfo.Factory == "Профиль")
@@ -685,7 +686,7 @@ namespace Infinium
                                 }
 
 
-                                if(LabelInfo.DispatchDate.Length > 0)
+                                if (LabelInfo.DispatchDate.Length > 0)
                                     if (Convert.ToDateTime(LabelInfo.DispatchDate) < Convert.ToDateTime(GetCurrentDate.ToString("dd.MM.yyyy")))
                                         LabelInfo.DispatchDateColor = Color.Red;
                                     else
@@ -741,7 +742,7 @@ namespace Infinium
                 {
                     using (DataTable DT = new DataTable())
                     {
-                        
+
                         DA.Fill(DT);
 
                         using (SqlDataAdapter MegaDA = new SqlDataAdapter("SELECT MegaOrderID, ClientID, ProfilDispatchDate, TPSDispatchDate, OrderDate, OrderNumber FROM MegaOrders WHERE MegaOrderID = " + DT.Rows[0]["MegaOrderID"], ConnectionStrings.MarketingOrdersConnectionString))
@@ -750,9 +751,9 @@ namespace Infinium
                             {
                                 MegaDA.Fill(MegaDT);
 
-                                
+
                                 LabelInfo.ClientName = MarktClientsDataTable.Select("ClientID = " + MegaDT.Rows[0]["ClientID"])[0]["ClientName"].ToString();
-                                
+
                                 if (BarType == "003")//profil markt
                                     LabelInfo.Factory = "Профиль";
                                 else
@@ -789,7 +790,7 @@ namespace Infinium
 
                                     LabelInfo.PackedToTotal = PackedCount.ToString() + "/" + TotalPackCount.ToString();
 
-                                    if(PackedCount == TotalPackCount)
+                                    if (PackedCount == TotalPackCount)
                                         LabelInfo.TotalLabelColor = Color.FromArgb(82, 169, 24);
                                     else
                                         LabelInfo.TotalLabelColor = Color.White;
@@ -810,7 +811,7 @@ namespace Infinium
 
                                 LabelInfo.Group = "Маркетинг";
 
-                                
+
 
                                 using (SqlDataAdapter pDA = new SqlDataAdapter("SELECT PackNumber FROM Packages WHERE PackageID = " + Convert.ToInt32(Barcode.Substring(3, 9)), ConnectionStrings.MarketingOrdersConnectionString))
                                 {
@@ -844,8 +845,8 @@ namespace Infinium
         }
 
         public bool CheckBarcode(string Barcode)
-        { 
-            string Prefix = Barcode.Substring(0,3);
+        {
+            string Prefix = Barcode.Substring(0, 3);
 
             FrontsPackContentDataTable.Clear();
             DecorPackContentDataTable.Clear();
@@ -873,20 +874,20 @@ namespace Infinium
                     }
                 }
             }
-         
+
             return false;
         }
 
         private void SetPacked(string Barcode, string Group)
         {
             string ConnectionString;
-            
+
             if (Group == "Маркетинг")
                 ConnectionString = ConnectionStrings.MarketingOrdersConnectionString;
             else
                 ConnectionString = ConnectionStrings.ZOVOrdersConnectionString;
 
-            using (SqlDataAdapter DA = new SqlDataAdapter("SELECT PackageID, PackageStatusID, PackingDateTime, PackUserID FROM Packages WHERE PackageID = " + 
+            using (SqlDataAdapter DA = new SqlDataAdapter("SELECT PackageID, PackageStatusID, PackingDateTime, PackUserID FROM Packages WHERE PackageID = " +
                 Convert.ToInt32(Barcode.Substring(3, 9)), ConnectionString))
             {
                 using (SqlCommandBuilder CB = new SqlCommandBuilder(DA))
@@ -973,7 +974,7 @@ namespace Infinium
                 ConnectionString = ConnectionStrings.ZOVOrdersConnectionString;
 
             using (SqlDataAdapter DA = new SqlDataAdapter(
-                "SELECT PackageID FROM Packages WHERE FactoryID = "+FactoryID + " AND MainOrderID = "+MainOrderID + " AND (PackageStatusID = 1 OR PackageStatusID = 2)", 
+                "SELECT PackageID FROM Packages WHERE FactoryID = " + FactoryID + " AND MainOrderID = " + MainOrderID + " AND (PackageStatusID = 1 OR PackageStatusID = 2)",
                 ConnectionString))
             {
                 using (DataTable DT = new DataTable())
@@ -1042,7 +1043,7 @@ namespace Infinium
         private int GetMegaOrderID(int MainOrderID)
         {
             int MegaOrderID = 0;
-            using (SqlDataAdapter DA = new SqlDataAdapter("SELECT MegaOrderID FROM MainOrders WHERE MainOrderID = " + MainOrderID, 
+            using (SqlDataAdapter DA = new SqlDataAdapter("SELECT MegaOrderID FROM MainOrders WHERE MainOrderID = " + MainOrderID,
                 ConnectionStrings.MarketingOrdersConnectionString))
             {
                 using (DataTable DT = new DataTable())
@@ -1170,7 +1171,7 @@ namespace Infinium
 
             Initialize();
         }
-        
+
         private void Create()
         {
             FrontsDataTable = new DataTable();
@@ -1721,7 +1722,7 @@ namespace Infinium
             if (BarType == "001" || BarType == "002")//ЗОВ
             {
                 using (SqlDataAdapter DA = new SqlDataAdapter("SELECT MainOrderID, MegaOrderID, DocNumber, ClientID, ProfilPackCount, TPSPackCount, DocDateTime FROM MainOrders" +
-                    " WHERE MainOrderID IN (SELECT MainOrderID FROM Packages WHERE PackageID = " + Convert.ToInt32(Barcode.Substring(3, 9)) + ")", 
+                    " WHERE MainOrderID IN (SELECT MainOrderID FROM Packages WHERE PackageID = " + Convert.ToInt32(Barcode.Substring(3, 9)) + ")",
                     ConnectionStrings.ZOVOrdersConnectionString))
                 {
                     using (DataTable DT = new DataTable())
@@ -1833,7 +1834,7 @@ namespace Infinium
             if (BarType == "003" || BarType == "004")//Маркетинг
             {
                 using (SqlDataAdapter DA = new SqlDataAdapter("SELECT MainOrderID, MegaOrderID, ProfilPackCount, TPSPackCount FROM MainOrders" +
-                    " WHERE MainOrderID IN (SELECT MainOrderID FROM Packages WHERE PackageID = " + Convert.ToInt32(Barcode.Substring(3, 9)) + ")", 
+                    " WHERE MainOrderID IN (SELECT MainOrderID FROM Packages WHERE PackageID = " + Convert.ToInt32(Barcode.Substring(3, 9)) + ")",
                     ConnectionStrings.MarketingOrdersConnectionString))
                 {
                     using (DataTable DT = new DataTable())
@@ -1911,7 +1912,7 @@ namespace Infinium
 
 
 
-                                using (SqlDataAdapter pDA = new SqlDataAdapter("SELECT PackNumber FROM Packages WHERE PackageID = " + 
+                                using (SqlDataAdapter pDA = new SqlDataAdapter("SELECT PackNumber FROM Packages WHERE PackageID = " +
                                     Convert.ToInt32(Barcode.Substring(3, 9)), ConnectionStrings.MarketingOrdersConnectionString))
                                 {
                                     using (DataTable pDT = new DataTable())
@@ -2085,7 +2086,7 @@ namespace Infinium
             else
                 ConnectionString = ConnectionStrings.ZOVOrdersConnectionString;
 
-            using (SqlDataAdapter DA = new SqlDataAdapter("SELECT PackageID FROM Packages"+
+            using (SqlDataAdapter DA = new SqlDataAdapter("SELECT PackageID FROM Packages" +
                 " WHERE FactoryID = " + FactoryID + " AND MainOrderID = " + MainOrderID + " AND (PackageStatusID = 1 OR PackageStatusID = 2)", ConnectionString))
             {
                 using (DataTable DT = new DataTable())
@@ -3652,81 +3653,81 @@ namespace Infinium
             }
         }
 
-//        public bool PreExpPackage(bool IsMarketing, int PackageID, ref string Message)
-//        {
-//            string ConnectionString;
+        //        public bool PreExpPackage(bool IsMarketing, int PackageID, ref string Message)
+        //        {
+        //            string ConnectionString;
 
-//            if (CurrentGroup == 1)//ZOV
-//                ConnectionString = ConnectionStrings.ZOVOrdersConnectionString;
-//            else
-//                ConnectionString = ConnectionStrings.MarketingOrdersConnectionString;
+        //            if (CurrentGroup == 1)//ZOV
+        //                ConnectionString = ConnectionStrings.ZOVOrdersConnectionString;
+        //            else
+        //                ConnectionString = ConnectionStrings.MarketingOrdersConnectionString;
 
-//            using (SqlDataAdapter DA = new SqlDataAdapter(@"SELECT PackageID, PackageStatusID, 
-//                PackingDateTime, StorageDateTime, ExpeditionDateTime, DispatchDateTime FROM Packages" +
-//                " WHERE PackageID = " + PackageID, ConnectionString))
-//            {
-//                using (SqlCommandBuilder CB = new SqlCommandBuilder(DA))
-//                {
-//                    using (DataTable DT = new DataTable())
-//                    {
-//                        if (DA.Fill(DT) > 0)
-//                        {
-//                            if (DT.Rows[0]["StorageDateTime"] == DBNull.Value)
-//                            {
-//                                Message = "Упаковка №" + DT.Rows[0]["PackageID"].ToString() + " не была принята на склад";
-//                                return false;
-//                            }
-//                            else
-//                                return true;
-//                        }
-//                        else
-//                        {
-//                            Message = "Упаковка №" + PackageID + " не существует";
-//                            return false;
-//                        }
-//                    }
-//                }
-//            }
-//        }
+        //            using (SqlDataAdapter DA = new SqlDataAdapter(@"SELECT PackageID, PackageStatusID, 
+        //                PackingDateTime, StorageDateTime, ExpeditionDateTime, DispatchDateTime FROM Packages" +
+        //                " WHERE PackageID = " + PackageID, ConnectionString))
+        //            {
+        //                using (SqlCommandBuilder CB = new SqlCommandBuilder(DA))
+        //                {
+        //                    using (DataTable DT = new DataTable())
+        //                    {
+        //                        if (DA.Fill(DT) > 0)
+        //                        {
+        //                            if (DT.Rows[0]["StorageDateTime"] == DBNull.Value)
+        //                            {
+        //                                Message = "Упаковка №" + DT.Rows[0]["PackageID"].ToString() + " не была принята на склад";
+        //                                return false;
+        //                            }
+        //                            else
+        //                                return true;
+        //                        }
+        //                        else
+        //                        {
+        //                            Message = "Упаковка №" + PackageID + " не существует";
+        //                            return false;
+        //                        }
+        //                    }
+        //                }
+        //            }
+        //        }
 
-//        public bool PreExpTray(bool IsMarketing, int TrayID, ref string Message)
-//        {
-//            string ConnectionString;
+        //        public bool PreExpTray(bool IsMarketing, int TrayID, ref string Message)
+        //        {
+        //            string ConnectionString;
 
-//            if (CurrentGroup == 1)//ZOV
-//                ConnectionString = ConnectionStrings.ZOVOrdersConnectionString;
-//            else
-//                ConnectionString = ConnectionStrings.MarketingOrdersConnectionString;
+        //            if (CurrentGroup == 1)//ZOV
+        //                ConnectionString = ConnectionStrings.ZOVOrdersConnectionString;
+        //            else
+        //                ConnectionString = ConnectionStrings.MarketingOrdersConnectionString;
 
-//            using (SqlDataAdapter DA = new SqlDataAdapter(@"SELECT PackageID, PackageStatusID, 
-//                PackingDateTime, StorageDateTime, ExpeditionDateTime, DispatchDateTime FROM Packages" +
-//                " WHERE TrayID = " + TrayID, ConnectionString))
-//            {
-//                using (SqlCommandBuilder CB = new SqlCommandBuilder(DA))
-//                {
-//                    using (DataTable DT = new DataTable())
-//                    {
-//                        if (DA.Fill(DT) > 0)
-//                        {
-//                            for (int i = 0; i < DT.Rows.Count; i++)
-//                            {
-//                                if (DT.Rows[i]["StorageDateTime"] == DBNull.Value)
-//                                {
-//                                    Message = "Упаковка №" + DT.Rows[i]["PackageID"].ToString() + " не была принята на склад";
-//                                    return false;
-//                                }
-//                            }
-//                            return true;
-//                        }
-//                        else
-//                        {
-//                            Message = "На поддоне нет упаковок";
-//                            return false;
-//                        }
-//                    }
-//                }
-//            }
-//        }
+        //            using (SqlDataAdapter DA = new SqlDataAdapter(@"SELECT PackageID, PackageStatusID, 
+        //                PackingDateTime, StorageDateTime, ExpeditionDateTime, DispatchDateTime FROM Packages" +
+        //                " WHERE TrayID = " + TrayID, ConnectionString))
+        //            {
+        //                using (SqlCommandBuilder CB = new SqlCommandBuilder(DA))
+        //                {
+        //                    using (DataTable DT = new DataTable())
+        //                    {
+        //                        if (DA.Fill(DT) > 0)
+        //                        {
+        //                            for (int i = 0; i < DT.Rows.Count; i++)
+        //                            {
+        //                                if (DT.Rows[i]["StorageDateTime"] == DBNull.Value)
+        //                                {
+        //                                    Message = "Упаковка №" + DT.Rows[i]["PackageID"].ToString() + " не была принята на склад";
+        //                                    return false;
+        //                                }
+        //                            }
+        //                            return true;
+        //                        }
+        //                        else
+        //                        {
+        //                            Message = "На поддоне нет упаковок";
+        //                            return false;
+        //                        }
+        //                    }
+        //                }
+        //            }
+        //        }
 
         /// <summary>
         /// Выставляет статус "Экспедиция" для одной упаковки
@@ -3759,7 +3760,7 @@ namespace Infinium
                             //DT.Rows[0]["DispUserID"] = DBNull.Value;
                             //DT.Rows[0]["DispatchDateTime"] = DBNull.Value;
                             DT.Rows[0]["PackageStatusID"] = 4;
-                        }                        
+                        }
                         if (DT.Rows[0]["PackingDateTime"] == DBNull.Value)
                             DT.Rows[0]["PackingDateTime"] = CurrentDate;
                         if (DT.Rows[0]["StorageDateTime"] == DBNull.Value)
@@ -4072,7 +4073,7 @@ namespace Infinium
                 RecipientStoreAllocID = 11;
             }
             int MovementInvoiceID = SaveMovementInvoices(SellerStoreAllocID, RecipientStoreAllocID, 0, iUserID, Security.CurrentUserShortName, iUserID, CurrentClientID, 0, string.Empty, "Экспедиция");
-            DateTime CreateDateTime = Security.GetCurrentDate(); 
+            DateTime CreateDateTime = Security.GetCurrentDate();
             DataTable DT = new DataTable();
             using (DataView DV = new DataView(PackageDetailsDT))
             {

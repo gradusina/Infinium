@@ -1,9 +1,10 @@
-﻿using System;
-using System.Data;
-using System.Windows.Forms;
-using System.Globalization;
+﻿using Infinium.Store;
+
+using System;
 using System.Collections;
-using Infinium.Store;
+using System.Data;
+using System.Globalization;
+using System.Windows.Forms;
 
 namespace Infinium
 {
@@ -78,7 +79,7 @@ namespace Infinium
                     ReportMenu.QuarterNumber = 4;
                     ReportMenu.FirstDate = new DateTime(Convert.ToInt32(cbxYears.SelectedValue), 10, 1);
                     ReportMenu.SecondDate = ReportMenu.FirstDate.AddMonths(3);
-                }            
+                }
             }
 
             for (int i = 0; i < SubGroupsDT.Rows.Count; i++)
@@ -195,7 +196,7 @@ namespace Infinium
             for (int i = 1; i <= 4; i++)
             {
                 Quarters.Add(i);
-            } 
+            }
             for (int i = 2013; i <= LastDay.Year; i++)
             {
                 Years.Add(i);

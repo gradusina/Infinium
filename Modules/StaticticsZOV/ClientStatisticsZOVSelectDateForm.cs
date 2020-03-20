@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Data;
-using System.Windows.Forms;
 using System.Threading;
+using System.Windows.Forms;
 
 namespace Infinium
 {
@@ -16,7 +16,7 @@ namespace Infinium
 
         Form TopForm = null;
         LightStartForm LightStartForm;
-        
+
 
         ClientStatisticsZOVDetailForm ClientStatisticsZOVDetailForm;
 
@@ -27,15 +27,15 @@ namespace Infinium
         public ClientStatisticsZOVSelectDateForm(LightStartForm tLightStartForm)
         {
             InitializeComponent();
-            
+
             LightStartForm = tLightStartForm;
 
-            
+
             this.MaximumSize = Screen.PrimaryScreen.WorkingArea.Size;
 
             Initialize();
 
-            while (!SplashForm.bCreated);
+            while (!SplashForm.bCreated) ;
         }
 
         private void DispatchZOVDateForm_Shown(object sender, EventArgs e)
@@ -58,7 +58,7 @@ namespace Infinium
 
                     if (FormEvent == eClose)
                     {
-                       
+
                         LightStartForm.CloseForm(this);
                     }
 
@@ -67,7 +67,7 @@ namespace Infinium
 
                         LightStartForm.HideForm(this);
                     }
-                    
+
 
                     return;
                 }
@@ -91,7 +91,7 @@ namespace Infinium
 
                     if (FormEvent == eClose)
                     {
-                       
+
                         LightStartForm.CloseForm(this);
                     }
 
@@ -100,7 +100,7 @@ namespace Infinium
 
                         LightStartForm.HideForm(this);
                     }
-                    
+
                 }
 
                 return;
@@ -147,7 +147,7 @@ namespace Infinium
 
         private void Initialize()
         {
-            ClientStatisticsZOV = new Modules.StaticticsZOV.ClientStatisticsZOV(ref ClientsDataGrid);   
+            ClientStatisticsZOV = new Modules.StaticticsZOV.ClientStatisticsZOV(ref ClientsDataGrid);
         }
 
         private void NextButton_Click(object sender, EventArgs e)
@@ -163,7 +163,7 @@ namespace Infinium
                 return;
             }
 
-            Thread T = new Thread(delegate() { SplashWindow.CreateSplash(); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSplash(); });
             T.Start();
 
             while (!SplashForm.bCreated) ;

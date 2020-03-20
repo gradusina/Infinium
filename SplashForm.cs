@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Windows.Forms;
 using System.Diagnostics;
+using System.Windows.Forms;
 
 namespace Infinium
 {
@@ -51,7 +51,7 @@ namespace Infinium
                     return;
                 }
             }
-            
+
             if (FormEvent == eClose)
             {
                 if (Convert.ToDecimal(this.Opacity) != Convert.ToDecimal(0.00))
@@ -61,7 +61,7 @@ namespace Infinium
                     AnimateTimer.Enabled = false;
                     if (FormEvent == eClose)
                     {
-                        
+
                         this.Close();
                     }
                 }
@@ -70,7 +70,7 @@ namespace Infinium
             }
 
 
-            if(FormEvent == eShow)
+            if (FormEvent == eShow)
             {
                 if (this.Opacity != 1)
                     this.Opacity += 0.05;

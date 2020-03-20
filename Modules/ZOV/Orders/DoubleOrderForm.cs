@@ -1,8 +1,9 @@
-﻿using System;
-using System.Windows.Forms;
-using Infinium.Modules.ZOV;
+﻿using Infinium.Modules.ZOV;
+
+using System;
 using System.Drawing;
 using System.Threading;
+using System.Windows.Forms;
 
 namespace Infinium
 {
@@ -43,7 +44,7 @@ namespace Infinium
             NewOrderInfo = tNewOrderInfo;
             Initialize();
             this.MaximumSize = Screen.PrimaryScreen.WorkingArea.Size;
-            
+
             while (!SplashForm.bCreated) ;
         }
 
@@ -262,7 +263,7 @@ namespace Infinium
             OldFrontsOrdersDataGrid.Columns["TechnoProfilesColumn"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             OldFrontsOrdersDataGrid.Columns["TechnoFrameColorsColumn"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             OldFrontsOrdersDataGrid.Columns["TechnoInsetTypesColumn"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            OldFrontsOrdersDataGrid.Columns["TechnoInsetColorsColumn"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells; 
+            OldFrontsOrdersDataGrid.Columns["TechnoInsetColorsColumn"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             OldFrontsOrdersDataGrid.Columns["CupboardString"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
             OldFrontsOrdersDataGrid.Columns["CupboardString"].MinimumWidth = 165;
             OldFrontsOrdersDataGrid.Columns["Height"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
@@ -383,7 +384,7 @@ namespace Infinium
             NewFrontsOrdersDataGrid.Columns["TechnoProfilesColumn"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             NewFrontsOrdersDataGrid.Columns["TechnoFrameColorsColumn"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             NewFrontsOrdersDataGrid.Columns["TechnoInsetTypesColumn"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            NewFrontsOrdersDataGrid.Columns["TechnoInsetColorsColumn"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells; 
+            NewFrontsOrdersDataGrid.Columns["TechnoInsetColorsColumn"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             NewFrontsOrdersDataGrid.Columns["CupboardString"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
             NewFrontsOrdersDataGrid.Columns["CupboardString"].MinimumWidth = 165;
             NewFrontsOrdersDataGrid.Columns["Height"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
@@ -757,7 +758,7 @@ namespace Infinium
             int FirstErrorsCount = 0;
             int SecondErrorsCount = 0;
 
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение заказа.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение заказа.\r\nПодождите..."); });
             T.Start();
 
             while (!SplashWindow.bSmallCreated) ;
@@ -792,7 +793,7 @@ namespace Infinium
             }
             else
                 if (NewOrderInfo.DispatchDate != null)
-                    OrdersManager.TotalCalcMegaOrder(Convert.ToDateTime(NewOrderInfo.DispatchDate));
+                OrdersManager.TotalCalcMegaOrder(Convert.ToDateTime(NewOrderInfo.DispatchDate));
 
             while (SplashWindow.bSmallCreated)
                 SmallWaitForm.CloseS = true;
@@ -841,7 +842,7 @@ namespace Infinium
             //DateTime FirstSaveDateTime = Convert.ToDateTime(OrdersManager.GetFirstSaveDateTime(OrdersManager.CurrentMainOrderID));
             //DateTime SecondDocDateTime = Convert.ToDateTime(NewOrderInfo.DocDateTime);
             //DateTime SecondSaveDateTime = Security.GetCurrentDate();
-            
+
             //OrdersManager.RemoveCurrentMainOrder(OrdersManager.CurrentMainOrderID);
             //OrdersManager.RefreshMainOrders();
 

@@ -1,17 +1,18 @@
-﻿using System;
+﻿using NPOI.HPSF;
+using NPOI.HSSF.UserModel;
+using NPOI.HSSF.UserModel.Contrib;
+using NPOI.HSSF.Util;
+
+using System;
+using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Data;
-using System.Windows.Forms;
 using System.Data.SqlClient;
 using System.Drawing;
 using System.IO;
-using NPOI.HSSF.UserModel;
-using NPOI.HPSF;
-using NPOI.HSSF.Util;
-using NPOI.HSSF.UserModel.Contrib;
-using System.Collections;
+using System.Linq;
+using System.Text;
+using System.Windows.Forms;
 
 namespace Infinium.Modules.DyeingAssignments
 {
@@ -2587,14 +2588,14 @@ namespace Infinium.Modules.DyeingAssignments
 
         public void UpdateDyeingAssignments(DateTime DateFrom, DateTime DateTo)
         {
-//            using (SqlDataAdapter DA = new SqlDataAdapter(@"SELECT DyeingAssignments.*, infiniu2_catalog.dbo.TechCatalogOperationsGroups.GroupName FROM DyeingAssignments
-//                INNER JOIN infiniu2_catalog.dbo.TechCatalogOperationsGroups ON DyeingAssignments.TechCatalogOperationsGroupID=infiniu2_catalog.dbo.TechCatalogOperationsGroups.TechCatalogOperationsGroupID
-//                WHERE DyeingAssignmentID IN (SELECT TOP 100 DyeingAssignmentID FROM DyeingAssignments 
-//                ORDER BY DyeingAssignmentID DESC) ORDER BY DyeingAssignmentID DESC", ConnectionStrings.StorageConnectionString))
-//            {
-//                DyeingAssignmentsDT.Clear();
-//                DA.Fill(DyeingAssignmentsDT);
-//            }
+            //            using (SqlDataAdapter DA = new SqlDataAdapter(@"SELECT DyeingAssignments.*, infiniu2_catalog.dbo.TechCatalogOperationsGroups.GroupName FROM DyeingAssignments
+            //                INNER JOIN infiniu2_catalog.dbo.TechCatalogOperationsGroups ON DyeingAssignments.TechCatalogOperationsGroupID=infiniu2_catalog.dbo.TechCatalogOperationsGroups.TechCatalogOperationsGroupID
+            //                WHERE DyeingAssignmentID IN (SELECT TOP 100 DyeingAssignmentID FROM DyeingAssignments 
+            //                ORDER BY DyeingAssignmentID DESC) ORDER BY DyeingAssignmentID DESC", ConnectionStrings.StorageConnectionString))
+            //            {
+            //                DyeingAssignmentsDT.Clear();
+            //                DA.Fill(DyeingAssignmentsDT);
+            //            }
             string SelectCommand = @"SELECT DyeingAssignments.*, infiniu2_catalog.dbo.TechCatalogOperationsGroups.GroupName FROM DyeingAssignments
                 INNER JOIN infiniu2_catalog.dbo.TechCatalogOperationsGroups ON DyeingAssignments.TechCatalogOperationsGroupID=infiniu2_catalog.dbo.TechCatalogOperationsGroups.TechCatalogOperationsGroupID
                 WHERE CAST(CreationDateTime AS DATE) >= '" + DateFrom.ToString("yyyy-MM-dd") +
@@ -2609,13 +2610,13 @@ namespace Infinium.Modules.DyeingAssignments
                 else
                     iDyeingAssignmentID = 0;
             }
-//            SelectCommand = @"SELECT DISTINCT WorkAssignmentID, GroupType FROM DyeingAssignmentDetails
-//                WHERE DyeingAssignmentID IN (SELECT DyeingAssignmentID FROM DyeingAssignments WHERE PrintDateTime IS NULL)";
-//            using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.StorageConnectionString))
-//            {
-//                PrintedDyeingAssignmentsDetailsDT.Clear();
-//                DA.Fill(PrintedDyeingAssignmentsDetailsDT);
-//            }
+            //            SelectCommand = @"SELECT DISTINCT WorkAssignmentID, GroupType FROM DyeingAssignmentDetails
+            //                WHERE DyeingAssignmentID IN (SELECT DyeingAssignmentID FROM DyeingAssignments WHERE PrintDateTime IS NULL)";
+            //            using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.StorageConnectionString))
+            //            {
+            //                PrintedDyeingAssignmentsDetailsDT.Clear();
+            //                DA.Fill(PrintedDyeingAssignmentsDetailsDT);
+            //            }
         }
 
         public void IsWorkAssignmentPrinted()
@@ -2638,23 +2639,23 @@ namespace Infinium.Modules.DyeingAssignments
             {
                 WorkAssignmentID = Convert.ToInt32(WorkAssignmentsDT.Rows[i]["WorkAssignmentID"]);
 
-//                SelectCommand = @"SELECT WorkAssignmentID, DyeingAssignmentDetails.DyeingAssignmentID, DyeingAssignments.PrintDateTime FROM DyeingAssignmentDetails
-//                INNER JOIN DyeingAssignments ON DyeingAssignmentDetails.DyeingAssignmentID=DyeingAssignments.DyeingAssignmentID
-//                WHERE WorkAssignmentID=" + WorkAssignmentID;
-//                using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.StorageConnectionString))
-//                {
-//                    PrintedDyeingAssignmentsDetailsDT.Clear();
-//                    DA.Fill(PrintedDyeingAssignmentsDetailsDT);
-//                    if (PrintedDyeingAssignmentsDetailsDT.Rows.Count == 0)
-//                        WorkAssignmentsDT.Rows[i]["Printed"] = false;
-//                    else
-//                    {
-//                        if (PrintedDyeingAssignmentsDetailsDT.Rows[0]["PrintDateTime"] != DBNull.Value)
-//                            WorkAssignmentsDT.Rows[i]["Printed"] = true;
-//                        else
-//                            WorkAssignmentsDT.Rows[i]["Printed"] = false;
-//                    }
-//                }
+                //                SelectCommand = @"SELECT WorkAssignmentID, DyeingAssignmentDetails.DyeingAssignmentID, DyeingAssignments.PrintDateTime FROM DyeingAssignmentDetails
+                //                INNER JOIN DyeingAssignments ON DyeingAssignmentDetails.DyeingAssignmentID=DyeingAssignments.DyeingAssignmentID
+                //                WHERE WorkAssignmentID=" + WorkAssignmentID;
+                //                using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.StorageConnectionString))
+                //                {
+                //                    PrintedDyeingAssignmentsDetailsDT.Clear();
+                //                    DA.Fill(PrintedDyeingAssignmentsDetailsDT);
+                //                    if (PrintedDyeingAssignmentsDetailsDT.Rows.Count == 0)
+                //                        WorkAssignmentsDT.Rows[i]["Printed"] = false;
+                //                    else
+                //                    {
+                //                        if (PrintedDyeingAssignmentsDetailsDT.Rows[0]["PrintDateTime"] != DBNull.Value)
+                //                            WorkAssignmentsDT.Rows[i]["Printed"] = true;
+                //                        else
+                //                            WorkAssignmentsDT.Rows[i]["Printed"] = false;
+                //                    }
+                //                }
 
                 DataRow[] rows = PrintedDyeingAssignmentsDetailsDT.Select("WorkAssignmentID=" + WorkAssignmentID);
                 if (rows.Count() == 0)

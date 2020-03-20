@@ -1,8 +1,9 @@
-﻿using System;
-using System.Windows.Forms;
-using System.Drawing;
+﻿using Infinium.Modules.TechnologyCatalog;
+
+using System;
 using System.ComponentModel;
-using Infinium.Modules.TechnologyCatalog;
+using System.Drawing;
+using System.Windows.Forms;
 
 namespace Infinium
 {

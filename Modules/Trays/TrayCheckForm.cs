@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Data;
 using System.Drawing;
-using System.Windows.Forms;
-using System.Threading;
 using System.Runtime.InteropServices;
+using System.Threading;
+using System.Windows.Forms;
 
 namespace Infinium
 {
@@ -24,7 +24,7 @@ namespace Infinium
         int ScanTrayID = 0;
 
         LightStartForm LightStartForm;
-        
+
         Form TopForm;
         public Modules.Packages.Trays.CheckTray CheckTray;
 
@@ -35,14 +35,14 @@ namespace Infinium
         public TrayCheckForm(LightStartForm tLightStartForm)
         {
             InitializeComponent();
-            
+
             LightStartForm = tLightStartForm;
 
-            
+
             this.MaximumSize = Screen.PrimaryScreen.WorkingArea.Size;
 
             Initialize();
-            while (!SplashForm.bCreated);
+            while (!SplashForm.bCreated) ;
         }
 
         private void TrayCheckForm_Shown(object sender, EventArgs e)
@@ -65,7 +65,7 @@ namespace Infinium
                     AnimateTimer.Enabled = false;
                     if (FormEvent == eClose)
                     {
-                       
+
                         LightStartForm.CloseForm(this);
                     }
 
@@ -75,7 +75,7 @@ namespace Infinium
                     }
                     CheckTray.AddEvent(false, -1, -1, -1, -1, string.Empty, string.Empty, "Закрыл форму формирования поддона");
                     CheckTray.SaveEvents();
-                    
+
                     return;
                 }
 
@@ -98,7 +98,7 @@ namespace Infinium
 
                     if (FormEvent == eClose)
                     {
-                       
+
                         LightStartForm.CloseForm(this);
                     }
 
@@ -108,7 +108,7 @@ namespace Infinium
                     }
                     CheckTray.AddEvent(false, -1, -1, -1, -1, string.Empty, string.Empty, "Закрыл форму формирования поддона");
                     CheckTray.SaveEvents();
-                    
+
                 }
 
                 return;
@@ -137,7 +137,7 @@ namespace Infinium
             FormEvent = eClose;
             AnimateTimer.Enabled = true;
         }
-        
+
         private int GetChar(KeyEventArgs e)
         {
             int c = -1;
@@ -151,50 +151,70 @@ namespace Infinium
                 switch (e.KeyCode)
                 {
                     case Keys.NumPad1:
-                        { c = 1; } break;
+                        { c = 1; }
+                        break;
                     case Keys.NumPad2:
-                        { c = 2; } break;
+                        { c = 2; }
+                        break;
                     case Keys.NumPad3:
-                        { c = 3; } break;
+                        { c = 3; }
+                        break;
                     case Keys.NumPad4:
-                        { c = 4; } break;
+                        { c = 4; }
+                        break;
                     case Keys.NumPad5:
-                        { c = 5; } break;
+                        { c = 5; }
+                        break;
                     case Keys.NumPad6:
-                        { c = 6; } break;
+                        { c = 6; }
+                        break;
                     case Keys.NumPad7:
-                        { c = 7; } break;
+                        { c = 7; }
+                        break;
                     case Keys.NumPad8:
-                        { c = 8; } break;
+                        { c = 8; }
+                        break;
                     case Keys.NumPad9:
-                        { c = 9; } break;
+                        { c = 9; }
+                        break;
                     case Keys.NumPad0:
-                        { c = 0; } break;
+                        { c = 0; }
+                        break;
 
 
                     case Keys.D1:
-                        { c = 1; } break;
+                        { c = 1; }
+                        break;
                     case Keys.D2:
-                        { c = 2; } break;
+                        { c = 2; }
+                        break;
                     case Keys.D3:
-                        { c = 3; } break;
+                        { c = 3; }
+                        break;
                     case Keys.D4:
-                        { c = 4; } break;
+                        { c = 4; }
+                        break;
                     case Keys.D5:
-                        { c = 5; } break;
+                        { c = 5; }
+                        break;
                     case Keys.D6:
-                        { c = 6; } break;
+                        { c = 6; }
+                        break;
                     case Keys.D7:
-                        { c = 7; } break;
+                        { c = 7; }
+                        break;
                     case Keys.D8:
-                        { c = 8; } break;
+                        { c = 8; }
+                        break;
                     case Keys.D9:
-                        { c = 9; } break;
+                        { c = 9; }
+                        break;
                     case Keys.D0:
-                        { c = 0; } break;
+                        { c = 0; }
+                        break;
                 }
 
-                
+
             }
             return c;
         }
@@ -230,7 +250,7 @@ namespace Infinium
             if (!BarcodeTextBox.Focused)
             {
                 BarcodeTextBox.Focus();
-            }            
+            }
         }
 
         private void BarcodeTextBox_Leave(object sender, EventArgs e)
@@ -448,7 +468,7 @@ namespace Infinium
 
                     CheckTray.SetGridColor(CheckTray.LabelInfo.ProductType, false);
                 }
-            }           
+            }
         }
 
         private void BarcodeTextBox_KeyPress(object sender, KeyPressEventArgs e)
@@ -463,7 +483,7 @@ namespace Infinium
                     e.Handled = true;
             }
         }
-        
+
         private void timer1_Tick(object sender, EventArgs e)
         {
             //if (!FormOnTop)
@@ -478,7 +498,7 @@ namespace Infinium
         {
             if (CheckTray == null || CheckTray.PackagesBindingSource.Count < 1)
                 return;
-            
+
             int PackageID = Convert.ToInt32(((DataRowView)CheckTray.PackagesBindingSource.Current)["PackageID"]);
             string Group = ((DataRowView)CheckTray.PackagesBindingSource.Current)["Group"].ToString();
 
@@ -544,7 +564,7 @@ namespace Infinium
             CheckTray.AddEvent(false, -1, -1, -1, -1, string.Empty, string.Empty, "Нажата кнопка Назад; ScanPackagesPanel");
             if (CheckTray.ScanPackgesCount != 0)
             {
-                CheckTray.AddEvent(true, -1, -1, -1, -1, string.Empty, string.Empty, 
+                CheckTray.AddEvent(true, -1, -1, -1, -1, string.Empty, string.Empty,
                     "Вернуться в предыдущее меню невозможно, так как одна или несколько этикеток уже были отстрелены; ScanPackagesPanel; return");
                 Infinium.LightMessageBox.Show(ref TopForm, false, "Вернуться в предыдущее меню невозможно, так как одна или несколько этикеток уже были отстрелены", "Внимание");
                 return;
@@ -590,34 +610,34 @@ namespace Infinium
                 Infinium.LightMessageBox.Show(ref TopForm, false, "Не отсканировано ни одной этикетки", "Внимание");
                 return;
             }
-            
+
             CheckTimer.Enabled = false;
-            
+
             if (CheckTray.ScanPackgesCount != TotalPackCount)
             {
-                CheckTray.AddEvent(true, -1, -1, -1, -1, string.Empty, string.Empty, 
+                CheckTray.AddEvent(true, -1, -1, -1, -1, string.Empty, string.Empty,
                     "Количество отсканированных этикеток не равно первоначально заявленному. Продолжить?; ScanPackagesPanel");
                 bool OKCancel = Infinium.LightMessageBox.Show(ref TopForm, true,
                                 "Количество отсканированных этикеток не равно " + TotalPackCount + ". Всё равно продолжить?", "Внимание");
 
                 if (!OKCancel)
                 {
-                    CheckTray.AddEvent(false, -1, -1, -1, -1, string.Empty, string.Empty, 
+                    CheckTray.AddEvent(false, -1, -1, -1, -1, string.Empty, string.Empty,
                         "Количество отсканированных этикеток не равно первоначально заявленному. Задумался; ScanPackagesPanel");
                     CheckTimer.Enabled = true;
                     BarcodeTextBox.Focus();
                     return;
                 }
 
-                CheckTray.AddEvent(true, -1, -1, -1, -1, string.Empty, string.Empty, 
+                CheckTray.AddEvent(true, -1, -1, -1, -1, string.Empty, string.Empty,
                     "Количество отсканированных этикеток не равно первоначально заявленному. Игнорирование!; ScanPackagesPanel");
             }
 
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
             T.Start();
 
             while (!SplashWindow.bSmallCreated) ;
-            
+
             CheckTray.FillPackages();
 
             while (SplashWindow.bSmallCreated)
@@ -626,7 +646,7 @@ namespace Infinium
             CheckTray.Clear();
             ErrorPackLabel.Visible = false;
 
-            CheckTray.AddEvent(false, -1, -1, -1, -1, string.Empty, string.Empty, 
+            CheckTray.AddEvent(false, -1, -1, -1, -1, string.Empty, string.Empty,
                 "Количество отсканированных этикеток не равно первоначально заявленному. Игнорирование!; ScanPackagesPanel; CheckPackagesPanel.BringToFront()");
             CheckPackagesPanel.BringToFront();
         }
@@ -673,9 +693,9 @@ namespace Infinium
             CheckTray.AddEvent(false, CheckTray.CurrentGroupType, -1, -1, -1, string.Empty, string.Empty, "Нажата кнопка Далее; SelectPanel");
             if (string.IsNullOrWhiteSpace(PackagesCountTextBox.Text) || Convert.ToInt32(PackagesCountTextBox.Text) == 0)
             {
-                CheckTray.AddEvent(true, CheckTray.CurrentGroupType, -1, -1, -1, string.Empty, string.Empty, 
+                CheckTray.AddEvent(true, CheckTray.CurrentGroupType, -1, -1, -1, string.Empty, string.Empty,
                     "Не введено кол-во упаковок на поддоне либо кол-во=0; SelectPanel; return");
-                Infinium.LightMessageBox.Show(ref TopForm, false, 
+                Infinium.LightMessageBox.Show(ref TopForm, false,
                     "Не введено кол-во упаковок на поддоне либо кол-во равно нулю", "Внимание");
                 PackagesCountTextBox.Focus();
                 return;
@@ -692,7 +712,7 @@ namespace Infinium
                 CheckTray.AddEvent(false, CheckTray.CurrentGroupType, -1, -1, -1, string.Empty, string.Empty,
                     "Выбран клиент: " + CheckTray.CurrentClientName);
 
-            CheckTray.AddEvent(false, CheckTray.CurrentGroupType, -1, -1, -1, string.Empty, string.Empty, 
+            CheckTray.AddEvent(false, CheckTray.CurrentGroupType, -1, -1, -1, string.Empty, string.Empty,
                 "Формирование поддона продолжено; SelectPanel; ScanPackagesPanel.BringToFront()");
         }
 
@@ -739,7 +759,7 @@ namespace Infinium
                 return;
             }
 
-            Thread T1 = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение.\r\nПодождите..."); });
+            Thread T1 = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение.\r\nПодождите..."); });
             T1.Start();
 
             while (!SplashWindow.bSmallCreated) ;
@@ -975,7 +995,7 @@ namespace Infinium
 
         private void kryptonButton3_Click(object sender, EventArgs e)
         {
-            CheckPackagesPanel.BringToFront();      
+            CheckPackagesPanel.BringToFront();
         }
 
         private void ChangeTrayBracodeTextBox_KeyDown(object sender, KeyEventArgs e)
@@ -1029,7 +1049,7 @@ namespace Infinium
                             "Поддон под клиентом: " + CheckTray.CurrentClientName);
                     }
 
-                    CheckTray.AddEvent(false, CheckTray.CurrentGroupType, -1, TrayID, -1, string.Empty, string.Empty, 
+                    CheckTray.AddEvent(false, CheckTray.CurrentGroupType, -1, TrayID, -1, string.Empty, string.Empty,
                         "Поддон успешно отсканирован; ScanPackagesPanel.BringToFront()");
 
                     ScanPackagesPanel.BringToFront();

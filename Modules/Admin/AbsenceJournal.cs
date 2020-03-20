@@ -1,9 +1,10 @@
-﻿using System;
+﻿using ComponentFactory.Krypton.Toolkit;
+
+using System;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Windows.Forms;
-using ComponentFactory.Krypton.Toolkit;
 
 namespace Infinium.Modules.Admin
 {
@@ -240,7 +241,7 @@ namespace Infinium.Modules.Admin
                 return true;
             }
         }
-        
+
         private int FindHourInProdShedule(DateTime date)
         {
             int hour = -1;

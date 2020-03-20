@@ -1,8 +1,8 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Windows.Forms;
-using System.Collections;
 
 namespace Infinium
 {
@@ -42,7 +42,7 @@ namespace Infinium
             CheckAllFrontsButton.Checked = true;
             CheckAllFrontsButton_Click(null, null);
 
-            while (!SplashForm.bCreated);
+            while (!SplashForm.bCreated) ;
         }
 
         private void Initialize()
@@ -59,7 +59,7 @@ namespace Infinium
             using (System.Data.SqlClient.SqlDataAdapter DA = new System.Data.SqlClient.SqlDataAdapter(SelectCommand, ConnectionStrings.CatalogConnectionString))
             {
                 DA.Fill(Fronts);
-            }    
+            }
             //using (System.Data.SqlClient.SqlDataAdapter DA = new System.Data.SqlClient.SqlDataAdapter(
             //    "SELECT FrontID, FrontName FROM Fronts WHERE FrontID IN (SELECT FrontID FROM infiniu2_catalog.dbo.FrontsConfig WHERE FactoryID = " + FactoryID + ") ORDER BY FrontName",
             //    ConnectionStrings.CatalogConnectionString))
@@ -216,7 +216,7 @@ namespace Infinium
                 listBox2_selectionhistory.Clear();
                 listBox2_selectionhistory.Add(DecorCheckedListBox.SelectedIndex);
             }
-        }        
+        }
 
         private void CheckAllFrontsButton_Click(object sender, EventArgs e)
         {

@@ -1,8 +1,8 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Data;
-using System.Windows.Forms;
 using System.Threading;
+using System.Windows.Forms;
 
 namespace Infinium
 {
@@ -140,7 +140,7 @@ namespace Infinium
                     int CurrentUploadedFile = 0;
                     int TotalFilesCount = AttachmentsDataTable.Rows.Count;
 
-                    Thread T = new Thread(delegate() { Ok = LightNews.Attach(AttachmentsDataTable, Date, ref CurrentUploadedFile); });
+                    Thread T = new Thread(delegate () { Ok = LightNews.Attach(AttachmentsDataTable, Date, ref CurrentUploadedFile); });
                     T.Start();
 
                     this.Activate();
@@ -226,7 +226,7 @@ namespace Infinium
                     int CurrentUploadedFile = 0;
                     int TotalFilesCount = 0;
 
-                    Thread T = new Thread(delegate() { Ok = LightNews.EditAttachments(iNewsIDEdit, AttachmentsDataTable, ref CurrentUploadedFile, ref TotalFilesCount); });
+                    Thread T = new Thread(delegate () { Ok = LightNews.EditAttachments(iNewsIDEdit, AttachmentsDataTable, ref CurrentUploadedFile, ref TotalFilesCount); });
                     T.Start();
 
                     this.Activate();
@@ -328,7 +328,7 @@ namespace Infinium
                 NewRow["FileName"] = System.IO.Path.GetFileName(FileName);
                 NewRow["Path"] = FileName;
                 AttachmentsDataTable.Rows.Add(NewRow);
-            }          
+            }
         }
 
         private void AnimateTimer_Tick(object sender, EventArgs e)

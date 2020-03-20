@@ -1,16 +1,17 @@
-﻿using System;
-using System.Linq;
-using System.Data;
-using System.Data.SqlClient;
-using System.Windows.Forms;
-using System.Drawing;
-using System.IO;
-using System.Drawing.Imaging;
+﻿using NPOI.HPSF;
 using NPOI.HSSF.UserModel;
 using NPOI.HSSF.Util;
-using NPOI.HPSF;
-using System.Xml;
+
+using System;
+using System.Data;
+using System.Data.SqlClient;
+using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
+using System.Linq;
 using System.Net;
+using System.Windows.Forms;
+using System.Xml;
 
 namespace Infinium
 {
@@ -4105,7 +4106,7 @@ namespace Infinium
                     totalPlanTime += planHour - absenceHour;
 
                     if (absenceTypeId == 0)
-                        continue;;
+                        continue; ;
 
                     if (absenceTypeId != 12 && absenceTypeId != 13)
                         totalAbsenceTime += absenceHour;
@@ -4175,7 +4176,7 @@ namespace Infinium
                     row[j + 1] = absenceTypeString;
                 }
 
-                row[dtTimeSheet.Columns.Count - 1] = Decimal.Round(totalAbsenceTime, 1, MidpointRounding.AwayFromZero)+ " " + Math.Round(totalWorkTime, 1)+ "/" + Decimal.Round(totalPlanTime, 1, MidpointRounding.AwayFromZero);
+                row[dtTimeSheet.Columns.Count - 1] = Decimal.Round(totalAbsenceTime, 1, MidpointRounding.AwayFromZero) + " " + Math.Round(totalWorkTime, 1) + "/" + Decimal.Round(totalPlanTime, 1, MidpointRounding.AwayFromZero);
                 dtTimeSheet.Rows.InsertAt(row, ++i);
             }
 

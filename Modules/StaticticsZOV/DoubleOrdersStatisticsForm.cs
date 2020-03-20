@@ -1,7 +1,8 @@
-﻿using System;
-using System.Windows.Forms;
-using Infinium.Modules.StatisticsMarketing;
+﻿using Infinium.Modules.StatisticsMarketing;
+
+using System;
 using System.Data;
+using System.Windows.Forms;
 
 namespace Infinium
 {
@@ -23,7 +24,7 @@ namespace Infinium
             InitializeComponent();
 
             LightStartForm = tLightStartForm;
-            
+
             this.MaximumSize = Screen.PrimaryScreen.WorkingArea.Size;
 
             while (!SplashForm.bCreated) ;
@@ -50,7 +51,7 @@ namespace Infinium
 
                     if (FormEvent == eClose)
                     {
-                       
+
                         LightStartForm.CloseForm(this);
                     }
 
@@ -59,7 +60,7 @@ namespace Infinium
 
                         LightStartForm.HideForm(this);
                     }
-                    
+
 
                     return;
                 }
@@ -83,7 +84,7 @@ namespace Infinium
 
                     if (FormEvent == eClose)
                     {
-                       
+
                         LightStartForm.CloseForm(this);
 
                     }
@@ -92,7 +93,7 @@ namespace Infinium
                     {
                         LightStartForm.HideForm(this);
                     }
-                    
+
                 }
 
                 return;

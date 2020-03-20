@@ -1,4 +1,5 @@
 ﻿using Infinium.Modules.TechnologyCatalog;
+
 using System;
 using System.Data;
 using System.Data.SqlClient;

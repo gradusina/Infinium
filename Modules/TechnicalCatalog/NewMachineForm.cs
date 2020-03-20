@@ -1,7 +1,8 @@
-﻿using System;
+﻿using Infinium.Modules.Marketing.Clients;
+
+using System;
 using System.Data;
 using System.Windows.Forms;
-using Infinium.Modules.Marketing.Clients;
 
 namespace Infinium
 {
@@ -34,7 +35,7 @@ namespace Infinium
             Initialize();
         }
 
-        public NewMachineForm(Form tMainForm, ref MachinesCatalog tMachinesCatalogManager, 
+        public NewMachineForm(Form tMainForm, ref MachinesCatalog tMachinesCatalogManager,
             int iMachineID, string sMachineName)
         {
             EditMachine = true;

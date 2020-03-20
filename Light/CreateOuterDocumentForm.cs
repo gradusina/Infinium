@@ -1,8 +1,8 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Data;
-using System.Windows.Forms;
 using System.Threading;
+using System.Windows.Forms;
 
 namespace Infinium
 {
@@ -346,9 +346,9 @@ namespace Infinium
 
             if (!bEdit)
             {
-                T = new Thread(delegate()
+                T = new Thread(delegate ()
                 {
-                    Ok = InfiniumDocuments.AddOuterDocument(DocumentType, 
+                    Ok = InfiniumDocuments.AddOuterDocument(DocumentType,
                                                         Security.GetCurrentDate(), Security.CurrentUserID, iCorrespondentID, RecipientsDataTable,
                                                         Description, RegNumberTextBox.Text, DocumentState, AttachmentsDataTable,
                                                         ref iCurrentUploadedFile, FactoryID);
@@ -357,7 +357,7 @@ namespace Infinium
             }
             else
             {
-                T = new Thread(delegate()
+                T = new Thread(delegate ()
                 {
                     Ok = InfiniumDocuments.EditOuterDocument(OuterDocumentID, DocumentType, Security.CurrentUserID, iCorrespondentID, RecipientsDataTable,
                                                         Description, RegNumberTextBox.Text, DocumentState, AttachmentsDataTable,
@@ -423,7 +423,7 @@ namespace Infinium
                 InfiniumTips.ShowTip(this, 50, 85, "Корреспондент добавлен в базу данных", 3800);
 
                 InfiniumDocuments.RefillCorrespondents();
-                RecipientComboBox.SelectedValue = Convert.ToInt32(InfiniumDocuments.CorrespondentsDataTable.Select("CorrespondentName = '" + CorName + "'")[0]["CorrespondentID"]);                
+                RecipientComboBox.SelectedValue = Convert.ToInt32(InfiniumDocuments.CorrespondentsDataTable.Select("CorrespondentName = '" + CorName + "'")[0]["CorrespondentID"]);
 
                 return;
             }

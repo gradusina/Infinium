@@ -1,9 +1,10 @@
-﻿using System;
+﻿using Infinium.Store;
+
+using System;
 using System.Drawing;
-using System.Windows.Forms;
-using System.Threading;
 using System.Globalization;
-using Infinium.Store;
+using System.Threading;
+using System.Windows.Forms;
 
 namespace Infinium
 {
@@ -40,7 +41,7 @@ namespace Infinium
             Year = iYear;
             Initialize();
             label1.Text = "Infinium. Основной склад. Инвентаризация. " + new DateTime(Year, Month, 1).ToString("MMMM", CultureInfo.CurrentCulture);
-            while (!SplashForm.bCreated);
+            while (!SplashForm.bCreated) ;
         }
 
         private void InventoryForm_Shown(object sender, EventArgs e)
@@ -63,7 +64,7 @@ namespace Infinium
 
                     if (FormEvent == eClose)
                     {
-                       
+
                         this.Close();
                     }
 
@@ -94,7 +95,7 @@ namespace Infinium
 
                     if (FormEvent == eClose)
                     {
-                       
+
                         this.Close();
                     }
 
@@ -150,7 +151,7 @@ namespace Infinium
             if (!NeedCheckAll)
                 return;
             DateTime CurrentDate = Security.GetCurrentDate();
-            StoreDG.CellValueChanged -= StoreDG_CellValueChanged;                
+            StoreDG.CellValueChanged -= StoreDG_CellValueChanged;
             for (int i = 0; i < StoreDG.RowCount; i++)
             {
                 int StoreID = Convert.ToInt32(StoreDG["StoreID", i].Value);
@@ -469,7 +470,7 @@ namespace Infinium
                 InventoryManager.ChangeCurrentFields(FactCount, Notes);
                 InventoryManager.InventaryEndEdit(true);
                 CheckStoreColumns(ref StoreDG);
-                
+
             }
             else
             {
@@ -538,7 +539,7 @@ namespace Infinium
         {
             if (!MovementInvoices.DBConnectionStatus())
                 return;
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение данных.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение данных.\r\nПодождите..."); });
             T.Start();
 
             while (!SplashWindow.bSmallCreated) ;
@@ -565,7 +566,7 @@ namespace Infinium
                 StoreDG.Rows[e.RowIndex].DefaultCellStyle.ForeColor = Color.White;
             }
             else
-            {                
+            {
                 if (Convert.ToBoolean(StoreDG.Rows[e.RowIndex].Cells["EditEnd"].Value))
                 {
                     StoreDG.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.FromArgb(31, 158, 0);
@@ -605,7 +606,7 @@ namespace Infinium
 
             if (NeedSplash)
             {
-                Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Обновление данных.\r\nПодождите..."); });
+                Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Обновление данных.\r\nПодождите..."); });
                 T.Start();
 
                 while (!SplashWindow.bSmallCreated) ;
@@ -638,7 +639,7 @@ namespace Infinium
             if (CurrentFactoryID == 2)
                 InventoryName = "Инвентаризационная опись, ЗОВ-ТПС, " + DateTimeFormatInfo.CurrentInfo.GetMonthName(Month) + " " + Year.ToString();
 
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Создание документа Excel.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Создание документа Excel.\r\nПодождите..."); });
             T.Start();
 
             while (!SplashWindow.bSmallCreated) ;
@@ -654,7 +655,7 @@ namespace Infinium
         {
             if (InventoryManager == null)
                 return;
-            
+
             DateTime date = new DateTime(Year, Month, 01).AddMonths(1);
             int result = DateTime.Compare(date, DateTime.Now);
             bool canCreateInventory = result <= 0;
@@ -663,7 +664,7 @@ namespace Infinium
                 MessageBox.Show("Нельзя создать инвентаризацию раньше окончания месяца", "Ошибка создания инвентаризации");
                 return;
             }
-            
+
             if (!InventoryManager.InventoryExist(Month, Year))
             {
                 //Infinium.LightMessageBox.Show(ref TopForm, false,
@@ -673,7 +674,7 @@ namespace Infinium
                 InventoryManager.CreateMonthInventory();
             }
 
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Создание новой\r\nинвентаризации. Подождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Создание новой\r\nинвентаризации. Подождите..."); });
             T.Start();
 
             while (!SplashWindow.bSmallCreated) ;
@@ -688,7 +689,7 @@ namespace Infinium
 
         private void AddExcessButton_Click_1(object sender, EventArgs e)
         {
-            Thread T = new Thread(delegate() { SplashWindow.CreateSplash(); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSplash(); });
             T.Start();
 
             while (!SplashForm.bCreated) ;
@@ -764,7 +765,7 @@ namespace Infinium
         private void cbShowOnlyNotEdit_CheckedChanged(object sender, EventArgs e)
         {
             EditEnd = !EditEnd;
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Обновление данных.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Обновление данных.\r\nПодождите..."); });
             T.Start();
 
             while (!SplashWindow.bSmallCreated) ;

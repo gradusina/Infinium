@@ -1,10 +1,11 @@
-﻿using System;
+﻿using ComponentFactory.Krypton.Toolkit;
+
+using System;
 using System.Drawing;
-using System.Linq;
-using System.Windows.Forms;
 using System.Globalization;
+using System.Linq;
 using System.Threading;
-using ComponentFactory.Krypton.Toolkit;
+using System.Windows.Forms;
 
 namespace Infinium
 {
@@ -286,7 +287,7 @@ namespace Infinium
             grid.Columns["MainOrderID"].Width = 100;
             grid.Columns["DeleteColumn"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
             grid.Columns["DeleteColumn"].Width = 100;
-            
+
             grid.Columns["ClientNameColumn"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             grid.Columns["ClientNameColumn"].MinimumWidth = 80;
             grid.Columns["TechStoreColumn"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
@@ -323,7 +324,7 @@ namespace Infinium
                         grid.Columns[Column.Index].Visible = false;
                 }
             }
-            
+
             if (grid.Columns.Contains("LabelType"))
                 grid.Columns["LabelType"].Visible = false;
             if (grid.Columns.Contains("DecorAssignmentsLabelID"))
@@ -409,7 +410,7 @@ namespace Infinium
 
         private void kryptonContextMenuItem2_Click(object sender, EventArgs e)
         {
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение данных.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение данных.\r\nПодождите..."); });
             T.Start();
             while (!SplashWindow.bSmallCreated) ;
 
@@ -465,7 +466,7 @@ namespace Infinium
                 if (dgvFactLabels.SelectedRows[i].Cells["DecorAssignmentsLabelID"].Value != DBNull.Value)
                     DecorAssignmentsLabelID[i] = Convert.ToInt32(dgvFactLabels.SelectedRows[i].Cells["DecorAssignmentsLabelID"].Value);
             }
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Удаление данных.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Удаление данных.\r\nПодождите..."); });
             T.Start();
             while (!SplashWindow.bSmallCreated) ;
 
@@ -479,7 +480,7 @@ namespace Infinium
 
         private void btnSaveLabels_Click(object sender, EventArgs e)
         {
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение данных.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение данных.\r\nПодождите..."); });
             T.Start();
             while (!SplashWindow.bSmallCreated) ;
 
@@ -498,7 +499,7 @@ namespace Infinium
         {
             if (dgvFactLabels.SelectedRows.Count == 0)
                 return;
-            
+
             bool NeedUserName = Infinium.LightMessageBox.Show(ref TopForm, true,
                     "Ввести номер смены?",
                     "Ась?");
@@ -655,7 +656,7 @@ namespace Infinium
 
         private void btnDefectSaveLabels_Click(object sender, EventArgs e)
         {
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение данных.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение данных.\r\nПодождите..."); });
             T.Start();
             while (!SplashWindow.bSmallCreated) ;
 
@@ -695,7 +696,7 @@ namespace Infinium
 
         private void btnDisprepancySaveLabels_Click(object sender, EventArgs e)
         {
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение данных.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение данных.\r\nПодождите..."); });
             T.Start();
             while (!SplashWindow.bSmallCreated) ;
 
@@ -720,7 +721,7 @@ namespace Infinium
 
         private void kryptonContextMenuItem4_Click(object sender, EventArgs e)
         {
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение данных.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение данных.\r\nПодождите..."); });
             T.Start();
             while (!SplashWindow.bSmallCreated) ;
 
@@ -737,7 +738,7 @@ namespace Infinium
 
         private void kryptonContextMenuItem7_Click(object sender, EventArgs e)
         {
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение данных.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение данных.\r\nПодождите..."); });
             T.Start();
             while (!SplashWindow.bSmallCreated) ;
 
@@ -992,7 +993,7 @@ namespace Infinium
                 if (dgvDisprepancyLabels.SelectedRows[i].Cells["DecorAssignmentsLabelID"].Value != DBNull.Value)
                     DecorAssignmentsLabelID[i] = Convert.ToInt32(dgvDisprepancyLabels.SelectedRows[i].Cells["DecorAssignmentsLabelID"].Value);
             }
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Удаление данных.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Удаление данных.\r\nПодождите..."); });
             T.Start();
             while (!SplashWindow.bSmallCreated) ;
 
@@ -1015,7 +1016,7 @@ namespace Infinium
                 if (dgvDefectLabels.SelectedRows[i].Cells["DecorAssignmentsLabelID"].Value != DBNull.Value)
                     DecorAssignmentsLabelID[i] = Convert.ToInt32(dgvDefectLabels.SelectedRows[i].Cells["DecorAssignmentsLabelID"].Value);
             }
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Удаление данных.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Удаление данных.\r\nПодождите..."); });
             T.Start();
             while (!SplashWindow.bSmallCreated) ;
 

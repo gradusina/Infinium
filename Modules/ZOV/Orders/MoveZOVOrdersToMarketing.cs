@@ -3,6 +3,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Net;
 using System.Xml;
+
 using MInvoiceReportToDBF = Infinium.Modules.Marketing.NewOrders.InvoiceReportToDBF;
 using MOrdersCalculate = Infinium.Modules.Marketing.NewOrders.OrdersCalculate;
 
@@ -272,7 +273,7 @@ namespace Infinium.Modules.ZOV.Orders
 
         public void SetCurrencyCost(int MegaOrderID, decimal ComplaintProfilCost, decimal ComplaintTPSCost, string ComplaintNotes, bool IsComplaint, int DelayOfPayment,
             decimal TransportCost, decimal AdditionalCost, int CurrencyTypeID, decimal OriginalCurrency, decimal PaymentCurrency,
-            int DiscountPaymentConditionID, int DiscountFactoringID, decimal ProfilDiscountOrderSum, decimal TPSDiscountOrderSum, decimal ProfilDiscountDirector, 
+            int DiscountPaymentConditionID, int DiscountFactoringID, decimal ProfilDiscountOrderSum, decimal TPSDiscountOrderSum, decimal ProfilDiscountDirector,
             decimal TPSDiscountDirector, decimal CurrencyTotalCost)
         {
             using (SqlDataAdapter DA = new SqlDataAdapter(@"SELECT MegaOrderID, OrderStatusID, AgreementStatusID, OrderCost,
@@ -617,7 +618,7 @@ namespace Infinium.Modules.ZOV.Orders
                         NewRow["DocDateTime"] = Security.GetCurrentDate();
                         NewRow["MegaOrderID"] = MegaOrderID;
                         NewRow["WillPercentID"] = 1;
-                        NewRow["Notes"] = ClientName + ", "+ DocNumber;
+                        NewRow["Notes"] = ClientName + ", " + DocNumber;
                         mDT.Rows.Add(NewRow);
                     }
                     DA.Update(mDT);

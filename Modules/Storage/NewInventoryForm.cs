@@ -1,8 +1,9 @@
-﻿using System;
+﻿using Infinium.Store;
+
+using System;
 using System.Data;
-using System.Windows.Forms;
 using System.Globalization;
-using Infinium.Store;
+using System.Windows.Forms;
 
 namespace Infinium
 {
@@ -131,7 +132,7 @@ namespace Infinium
 
             DateTime LastDay = new System.DateTime(DateTime.Now.Year, 12, 31);
             System.Collections.ArrayList Years = new System.Collections.ArrayList();
-            
+
             for (int i = 2013; i <= LastDay.Year; i++)
             {
                 Years.Add(i);

@@ -26,7 +26,7 @@ namespace Infinium.Modules.Editors
 
             ParamsBS.DataSource = ParamsDT;
         }
-        
+
         public void Save()
         {
             ParamsDA.Update(ParamsDT);

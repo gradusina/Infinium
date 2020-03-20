@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Windows.Forms;
 using System.Globalization;
 using System.Threading;
+using System.Windows.Forms;
 
 namespace Infinium
 {
@@ -396,7 +396,7 @@ namespace Infinium
                     delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение данных.\r\nПодождите..."); });
             T.Start();
             while (!SplashWindow.bSmallCreated) ;
-            
+
             StaffListManager.DeleteStaffFunctions(Convert.ToInt32((dgvStaffList.SelectedRows[0].Cells["StaffListID"].Value)));
             StaffListManager.DeleteStaff(Convert.ToInt32((dgvStaffList.SelectedRows[0].Cells["StaffListID"].Value)));
 

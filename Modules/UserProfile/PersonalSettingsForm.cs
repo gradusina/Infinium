@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Data;
 using System.Drawing;
-using System.Windows.Forms;
 using System.Threading;
+using System.Windows.Forms;
 
 namespace Infinium
 {
@@ -15,8 +15,8 @@ namespace Infinium
         int FormEvent = 0;
 
         LightStartForm LightStartForm;
-        
-        
+
+
         Form TopForm = null;
 
         UserProfile.Contacts Contacts;
@@ -47,17 +47,17 @@ namespace Infinium
             PersonalInform = UserProfile.GetPersonalInform();
 
             Security = new Infinium.Security();
-            
 
-            label1.Text = "Infinium. Профиль пользователя. "+ UserProfile.GetUserName();
+
+            label1.Text = "Infinium. Профиль пользователя. " + UserProfile.GetUserName();
 
             //PositionComboBox.DataSource = UserProfile.PositionsBindingSource;
             //PositionComboBox.DisplayMember = "Position";
             //PositionComboBox.ValueMember = "PositionID";
-            
+
             PersonalToControls();
-            
-            while(!SplashForm.bCreated);
+
+            while (!SplashForm.bCreated) ;
         }
 
         private void ContactsToControls()
@@ -75,7 +75,7 @@ namespace Infinium
             SkypeTextBox.Text = "";
             EmailTextBox.Text = "";
             ICQTextBox.Text = "";
-            
+
             if (Contacts.PersonalMobilePhone.Length == 12)
             {
                 MobPersCCodeTextBox.Text = Contacts.PersonalMobilePhone.Substring(0, 3);
@@ -99,7 +99,7 @@ namespace Infinium
 
             }
 
-            if(Contacts.WorkExtPhone.Length > 0)
+            if (Contacts.WorkExtPhone.Length > 0)
                 WorkExtTextBox.Text = Contacts.WorkExtPhone;
 
             if (Contacts.Skype.Length > 0)
@@ -125,7 +125,7 @@ namespace Infinium
             EduComboBox.SelectedIndex = -1;
             MilitaryRankComboBox.SelectedIndex = -1;
 
-            if(PersonalInform.Education.Length > 0)
+            if (PersonalInform.Education.Length > 0)
                 EduComboBox.SelectedIndex = EduComboBox.Items.IndexOf(PersonalInform.Education);
 
             EduPlace.Text = PersonalInform.EducationPlace;
@@ -219,7 +219,7 @@ namespace Infinium
 
                     if (FormEvent == eClose)
                     {
-                       
+
                         LightStartForm.CloseForm(this);
                     }
 
@@ -250,7 +250,7 @@ namespace Infinium
 
                     if (FormEvent == eClose)
                     {
-                       
+
                         LightStartForm.CloseForm(this);
 
                     }
@@ -290,8 +290,8 @@ namespace Infinium
         {
             FormEvent = eHide;
             AnimateTimer.Enabled = true;
-        }     
-        
+        }
+
 
         private void Initialize()
         {
@@ -452,7 +452,7 @@ namespace Infinium
                 if (MobPersOpCodeTextBox.Text.Length == 2)
                     if (MobPersNumberTextBox.Text.Length == 9)
                     {
-                        Contacts.PersonalMobilePhone = MobPersCCodeTextBox.Text + MobPersOpCodeTextBox.Text + 
+                        Contacts.PersonalMobilePhone = MobPersCCodeTextBox.Text + MobPersOpCodeTextBox.Text +
                                         UserProfile.PhoneFormatToNumberFormat(MobPersNumberTextBox.Text);
                     }
 
@@ -536,7 +536,7 @@ namespace Infinium
             PhotoEditForm PhotoEditForm = new PhotoEditForm(ref UserProfile, true, -1);
 
             TopForm = PhotoEditForm;
-            
+
             PhotoEditForm.ShowDialog();
 
             TopForm = null;
@@ -550,7 +550,7 @@ namespace Infinium
         {
             UserProfile.PersonalInform PersonalInform = new UserProfile.PersonalInform();
 
-            if(BirthDateTextEdit.Text.Length > 0)
+            if (BirthDateTextEdit.Text.Length > 0)
                 PersonalInform.BirthDate = BirthDateTextEdit.Text;
 
             //PersonalInform.PositionID = Convert.ToInt32(PositionComboBox.SelectedValue);
@@ -596,10 +596,10 @@ namespace Infinium
                     TopForm.Activate();
             }
         }
-        
+
         private void lightBackButton1_Click(object sender, EventArgs e)
         {
-            Thread T = new Thread(delegate() { SplashWindow.CreateSplash(); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSplash(); });
             T.Start();
 
             while (!SplashForm.bCreated) ;
@@ -609,7 +609,7 @@ namespace Infinium
 
         private void lightBackButton2_Click(object sender, EventArgs e)
         {
-            Thread T = new Thread(delegate() { SplashWindow.CreateSplash(); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSplash(); });
             T.Start();
 
             while (!SplashForm.bCreated) ;

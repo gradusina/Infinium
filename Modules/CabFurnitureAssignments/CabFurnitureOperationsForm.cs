@@ -1,7 +1,8 @@
-﻿using System;
-using System.Windows.Forms;
+﻿using Infinium.Modules.CabFurnitureModule;
+
+using System;
 using System.Threading;
-using Infinium.Modules.CabFurnitureModule;
+using System.Windows.Forms;
 
 namespace Infinium
 {
@@ -10,14 +11,14 @@ namespace Infinium
         const int eHide = 2;
         const int eShow = 1;
         const int eClose = 3;
-        
+
         int FormEvent = 0;
         int TechStoreID, CoverID, PatinaID, TechLength, TechHeight, TechWidth = 0;
         string TechStoreName, CoverName, PatinaName = string.Empty;
         int ItemsCount = 0;
         Form MainForm = null;
         Form TopForm = null;
-        
+
         AssignmentsManager AssignmentsManager;
 
         public CabFurnitureOperationsForm(Form tMainForm, string sTechStoreName, int iTechStoreID, int iCoverID, int iPatinaID, int iLength, int iHeight, int iWidth, string sCoverName, string sPatinaName, int iItemsCount, AssignmentsManager tAssignmentsManager)
@@ -144,7 +145,7 @@ namespace Infinium
             //ClassManager = new CalculateMaterial(TechStoreName, TechStoreID, CoverID, PatinaID, TechLength, TechHeight, TechWidth, CoverName, PatinaName, ItemsCount, AssignmentsManager);
             //ClassManager.Initialize();
             //ClassManager.MainFunction(1);
-            
+
             while (SplashWindow.bSmallCreated)
                 SmallWaitForm.CloseS = true;
         }

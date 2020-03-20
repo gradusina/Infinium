@@ -1,16 +1,17 @@
-﻿using System;
+﻿using ComponentFactory.Krypton.Toolkit;
+
+using System;
+using System.Collections;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Windows.Forms;
-using System.Drawing.Text;
-using System.Drawing.Imaging;
-using System.Runtime.InteropServices;
-using System.Collections;
 using System.Drawing.Design;
+using System.Drawing.Imaging;
+using System.Drawing.Text;
 using System.IO;
-using ComponentFactory.Krypton.Toolkit;
+using System.Linq;
+using System.Runtime.InteropServices;
+using System.Windows.Forms;
 
 namespace Infinium
 {
@@ -173,11 +174,11 @@ namespace Infinium
             this.RowTemplate.Height = 40;
             this.RowHeadersVisible = false;
 
-            
+
 
             this.StateCommon.Background.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
 
-            
+
 
             this.StateCommon.DataCell.Content.Font = DataCellFont;
             this.StateCommon.DataCell.Content.Color1 = Color.Black;
@@ -748,34 +749,19 @@ namespace Infinium
             }
 
             //Updates
-                if (e.ColumnIndex == Columns["OnlineColumn"].Index)
+            if (e.ColumnIndex == Columns["OnlineColumn"].Index)
+            {
+                if (sOnlineStatusColumnName == "")
+                    return;
+
+                if (sNewMessagesColumnName == "")
+                    return;
+
+                if (Convert.ToInt32(Rows[e.RowIndex].Cells[sNewMessagesColumnName].Value) > 0)
                 {
-                    if (sOnlineStatusColumnName == "")
-                        return;
-
-                    if (sNewMessagesColumnName == "")
-                        return;
-
-                    if (Convert.ToInt32(Rows[e.RowIndex].Cells[sNewMessagesColumnName].Value) > 0)
+                    if (bDrawOnlineImage)
                     {
-                        if (bDrawOnlineImage)
-                        {
 
-                            if (Rows[e.RowIndex].Cells[sOnlineStatusColumnName].Value != DBNull.Value)
-                            {
-                                if (e.Value != DBNull.Value)
-                                {
-                                    if (Convert.ToBoolean(Rows[e.RowIndex].Cells[sOnlineStatusColumnName].Value) == true)
-                                        e.Graphics.DrawImage(OnlineBMP, e.CellBounds.Left + ((e.CellBounds.Right - e.CellBounds.Left) / 2 - (OnlineBMP.Width - 5) / 2), e.CellBounds.Top + ((e.CellBounds.Bottom - e.CellBounds.Top) / 2 - (OnlineBMP.Height - 5) / 2) - 1, OnlineBMP.Width - 5, OnlineBMP.Height - 5);
-                                    else
-                                        e.Graphics.DrawImage(OfflineBMP, e.CellBounds.Left + ((e.CellBounds.Right - e.CellBounds.Left) / 2 - (OfflineBMP.Width - 5) / 2), e.CellBounds.Top + ((e.CellBounds.Bottom - e.CellBounds.Top) / 2 - (OfflineBMP.Height - 5) / 2) - 1, OfflineBMP.Width - 5, OfflineBMP.Height - 5);
-                                }
-
-                            }
-                        }
-                    }
-                    else
-                    {
                         if (Rows[e.RowIndex].Cells[sOnlineStatusColumnName].Value != DBNull.Value)
                         {
                             if (e.Value != DBNull.Value)
@@ -789,6 +775,21 @@ namespace Infinium
                         }
                     }
                 }
+                else
+                {
+                    if (Rows[e.RowIndex].Cells[sOnlineStatusColumnName].Value != DBNull.Value)
+                    {
+                        if (e.Value != DBNull.Value)
+                        {
+                            if (Convert.ToBoolean(Rows[e.RowIndex].Cells[sOnlineStatusColumnName].Value) == true)
+                                e.Graphics.DrawImage(OnlineBMP, e.CellBounds.Left + ((e.CellBounds.Right - e.CellBounds.Left) / 2 - (OnlineBMP.Width - 5) / 2), e.CellBounds.Top + ((e.CellBounds.Bottom - e.CellBounds.Top) / 2 - (OnlineBMP.Height - 5) / 2) - 1, OnlineBMP.Width - 5, OnlineBMP.Height - 5);
+                            else
+                                e.Graphics.DrawImage(OfflineBMP, e.CellBounds.Left + ((e.CellBounds.Right - e.CellBounds.Left) / 2 - (OfflineBMP.Width - 5) / 2), e.CellBounds.Top + ((e.CellBounds.Bottom - e.CellBounds.Top) / 2 - (OfflineBMP.Height - 5) / 2) - 1, OfflineBMP.Width - 5, OfflineBMP.Height - 5);
+                        }
+
+                    }
+                }
+            }
 
 
             //Percents
@@ -1193,36 +1194,36 @@ namespace Infinium
             //Checkbox
             if (this.Columns[e.ColumnIndex] is DataGridViewCheckBoxColumn)
             {
-                if(this.SelectedRows.Count > 0)
-                if (e.RowIndex == this.SelectedRows[0].Index)
-                {
-                    e.Graphics.FillRectangle(SelectedCellBackBrush, e.CellBounds.Left + ((e.CellBounds.Right - e.CellBounds.Left) / 2 - CheckedBMPCommon.Width / 2), e.CellBounds.Top + 3, 32, 32);
+                if (this.SelectedRows.Count > 0)
+                    if (e.RowIndex == this.SelectedRows[0].Index)
+                    {
+                        e.Graphics.FillRectangle(SelectedCellBackBrush, e.CellBounds.Left + ((e.CellBounds.Right - e.CellBounds.Left) / 2 - CheckedBMPCommon.Width / 2), e.CellBounds.Top + 3, 32, 32);
 
-                    pCheckedRectPen.Color = Color.White;
+                        pCheckedRectPen.Color = Color.White;
 
-                    rCheckBoxRect.Y = e.CellBounds.Top + (e.CellBounds.Height - rCheckBoxRect.Height) / 2;
-                    rCheckBoxRect.X = e.CellBounds.Left + (e.CellBounds.Width - rCheckBoxRect.Width) / 2;
+                        rCheckBoxRect.Y = e.CellBounds.Top + (e.CellBounds.Height - rCheckBoxRect.Height) / 2;
+                        rCheckBoxRect.X = e.CellBounds.Left + (e.CellBounds.Width - rCheckBoxRect.Width) / 2;
 
-                    e.Graphics.DrawRectangle(pCheckedRectPen, rCheckBoxRect);
+                        e.Graphics.DrawRectangle(pCheckedRectPen, rCheckBoxRect);
 
-                    if (Convert.ToBoolean(e.Value) == true)
-                        e.Graphics.DrawImage(CheckedBMPSelected, e.CellBounds.Left + ((e.CellBounds.Right - e.CellBounds.Left) / 2 - CheckedBMPCommon.Width / 2) + 1, e.CellBounds.Top + 2, CheckedBMPCommon.Width, CheckedBMPCommon.Height);
-                }
-                else
-                {
-                    e.Graphics.FillRectangle(CommonCellBackBrush, e.CellBounds.Left + ((e.CellBounds.Right - e.CellBounds.Left) / 2 - CheckedBMPCommon.Width / 2), e.CellBounds.Top + 3, 32, 32);
-
-                    pCheckedRectPen.Color = Color.FromArgb(121, 121, 121);
-
-                    rCheckBoxRect.Y = e.CellBounds.Top + (e.CellBounds.Height - rCheckBoxRect.Height) / 2;
-                    rCheckBoxRect.X = e.CellBounds.Left + (e.CellBounds.Width - rCheckBoxRect.Width) / 2;
-
-                    e.Graphics.DrawRectangle(pCheckedRectPen, rCheckBoxRect);
-
-                    if (e.Value != DBNull.Value)
                         if (Convert.ToBoolean(e.Value) == true)
-                            e.Graphics.DrawImage(CheckedBMPCommon, e.CellBounds.Left + ((e.CellBounds.Right - e.CellBounds.Left) / 2 - CheckedBMPCommon.Width / 2) + 1, e.CellBounds.Top + 2, CheckedBMPCommon.Width, CheckedBMPCommon.Height);
-                }
+                            e.Graphics.DrawImage(CheckedBMPSelected, e.CellBounds.Left + ((e.CellBounds.Right - e.CellBounds.Left) / 2 - CheckedBMPCommon.Width / 2) + 1, e.CellBounds.Top + 2, CheckedBMPCommon.Width, CheckedBMPCommon.Height);
+                    }
+                    else
+                    {
+                        e.Graphics.FillRectangle(CommonCellBackBrush, e.CellBounds.Left + ((e.CellBounds.Right - e.CellBounds.Left) / 2 - CheckedBMPCommon.Width / 2), e.CellBounds.Top + 3, 32, 32);
+
+                        pCheckedRectPen.Color = Color.FromArgb(121, 121, 121);
+
+                        rCheckBoxRect.Y = e.CellBounds.Top + (e.CellBounds.Height - rCheckBoxRect.Height) / 2;
+                        rCheckBoxRect.X = e.CellBounds.Left + (e.CellBounds.Width - rCheckBoxRect.Width) / 2;
+
+                        e.Graphics.DrawRectangle(pCheckedRectPen, rCheckBoxRect);
+
+                        if (e.Value != DBNull.Value)
+                            if (Convert.ToBoolean(e.Value) == true)
+                                e.Graphics.DrawImage(CheckedBMPCommon, e.CellBounds.Left + ((e.CellBounds.Right - e.CellBounds.Left) / 2 - CheckedBMPCommon.Width / 2) + 1, e.CellBounds.Top + 2, CheckedBMPCommon.Width, CheckedBMPCommon.Height);
+                    }
 
 
             }
@@ -1676,7 +1677,7 @@ namespace Infinium
 
                     e.Graphics.DrawRectangle(pCheckedRectPen, rCheckBoxRect);
 
-                    if(e.Value != DBNull.Value)
+                    if (e.Value != DBNull.Value)
                         if (Convert.ToBoolean(e.Value) == true)
                             e.Graphics.DrawImage(CheckedBMPSelected, e.CellBounds.Left + ((e.CellBounds.Right - e.CellBounds.Left) / 2 - CheckedBMPCommon.Width / 2) + 1, e.CellBounds.Top + 2, CheckedBMPCommon.Width, CheckedBMPCommon.Height);
                 }
@@ -1691,7 +1692,7 @@ namespace Infinium
 
                     e.Graphics.DrawRectangle(pCheckedRectPen, rCheckBoxRect);
 
-                    if(e.Value != DBNull.Value)
+                    if (e.Value != DBNull.Value)
                         if (Convert.ToBoolean(e.Value) == true)
                             e.Graphics.DrawImage(CheckedBMPCommon, e.CellBounds.Left + ((e.CellBounds.Right - e.CellBounds.Left) / 2 - CheckedBMPCommon.Width / 2) + 1, e.CellBounds.Top + 2, CheckedBMPCommon.Width, CheckedBMPCommon.Height);
                 }
@@ -2309,7 +2310,7 @@ namespace Infinium
             this.SizeMode = PictureBoxSizeMode.Zoom;
         }
 
-       
+
 
 
 
@@ -2333,7 +2334,7 @@ namespace Infinium
 
             pe.Graphics.FillRectangle(ResizeRectBrush, FramePosition.X + CurrentFrameSize.Width - 5, FramePosition.Y + CurrentFrameSize.Height - 5, 9, 9);
 
-           
+
         }
 
         void DrawHorizFrame(Graphics G)
@@ -2406,9 +2407,9 @@ namespace Infinium
             else
                 if (e.X >= FramePosition.X && e.X <= FramePosition.X + CurrentFrameSize.Width &&
                     e.Y >= FramePosition.Y && e.Y <= FramePosition.Y + CurrentFrameSize.Height)
-                    this.Cursor = Cursors.SizeAll;//MoveCursor
-                else
-                    this.Cursor = Cursors.Default;
+                this.Cursor = Cursors.SizeAll;//MoveCursor
+            else
+                this.Cursor = Cursors.Default;
 
 
 
@@ -3063,7 +3064,7 @@ namespace Infinium
                     int iNameWidth = Convert.ToInt32(e.Graphics.MeasureString(sName, fUserNameFont).Width);
                     int iNameHeight = Convert.ToInt32(e.Graphics.MeasureString(sName, fUserNameFont).Height);
 
-                    if(iTracking != i)
+                    if (iTracking != i)
                         e.Graphics.DrawString(sName, fUserNameFont, brUserNameBrush,
                                             iMarginForImageWidth, i * (iItemHeight) - 5 - iOffset * iItemHeight);
                     else
@@ -3246,7 +3247,7 @@ namespace Infinium
                     return;
             }
 
-                //Shaft
+            //Shaft
             G.FillRectangle(brVerticalScrollCommonShaftBackBrush, VerticalScrollShaftRect);
         }
 
@@ -3273,7 +3274,7 @@ namespace Infinium
 
             G.FillRectangle(brVerticalScrollCommonThumbButtonBrush, new Rectangle(VerticalScrollShaftRect.X + 2, posY,
                                                                                   10 - 4, Convert.ToInt32(Th)));
-        }    
+        }
 
         protected override void OnVisibleChanged(EventArgs e)
         {
@@ -3397,7 +3398,7 @@ namespace Infinium
         {
             if (dUsersDataTable == null)
                 return;
-            
+
             Graphics G = this.CreateGraphics();
 
             ItemsPositions.Clear();
@@ -3506,7 +3507,7 @@ namespace Infinium
             get { return eDCT; }
             set
             {
-                eDCT = value;  this.Refresh();
+                eDCT = value; this.Refresh();
             }
         }
 
@@ -3554,7 +3555,7 @@ namespace Infinium
                 {
                     Pen.Color = Color.White;
                     e.Graphics.DrawImage(bForwardImageWhite, 0, 0);
-                }           
+                }
             }
             else
             {
@@ -3587,9 +3588,9 @@ namespace Infinium
                 {
                     Pen.Color = Color.White;
                     e.Graphics.DrawImage(bForwardImageWhite, 0, 0);
-                }  
+                }
             }
-            
+
             e.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
             e.Graphics.DrawEllipse(Pen, Rect);
         }
@@ -3640,7 +3641,7 @@ namespace Infinium
             SetStyle(ControlStyles.AllPaintingInWmPaint, true);
             SetStyle(ControlStyles.DoubleBuffer, true);
 
-            
+
             Back = new Bitmap(Properties.Resources.n2);
         }
 
@@ -3870,7 +3871,7 @@ namespace Infinium
 
             e.Graphics.TextRenderingHint = TextRenderingHint.ClearTypeGridFit;
             e.Graphics.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBilinear;
-            
+
             DataRow Row = UpdatesDataTable.Rows[iCurrentRow];
 
             DrawImage(e.Graphics, Row);
@@ -3884,7 +3885,7 @@ namespace Infinium
         {
             rTileRect.X = 8;
             rTileRect.Y = 16;
-            
+
             brTileBackBrush.Color = Color.FromArgb(Convert.ToInt32(Row["Color"]));
 
             G.FillRectangle(brTileBackBrush, rTileRect);
@@ -3903,7 +3904,7 @@ namespace Infinium
         private void DrawNameAndUpdates(Graphics G, DataRow Row)
         {
             G.DrawString(Row["Name"].ToString(), fNameFont, brNameFontBrush, 16 + 72, 14);
-            G.DrawString("+" + Row["Count"].ToString()+" "+Row["EntrySuffix"].ToString(), fUpdatesFont, brUpdatesFontBrush, 16 + 72, 40);
+            G.DrawString("+" + Row["Count"].ToString() + " " + Row["EntrySuffix"].ToString(), fUpdatesFont, brUpdatesFontBrush, 16 + 72, 40);
         }
 
         protected override void OnClick(EventArgs e)
@@ -3934,7 +3935,7 @@ namespace Infinium
             }
         }
 
-        
+
     }
 
 
@@ -3971,7 +3972,7 @@ namespace Infinium
 
             HideCaret(this.Handle);
         }
-        
+
 
         private const int WM_PAINT = 15;
 
@@ -4095,10 +4096,10 @@ namespace Infinium
                 return;
             }
 
-            if(CurrentMessages.Count > 0)
-                if(Convert.ToInt32(CurrentMessages[CurrentMessages.Count-1]) == Convert.ToInt32(dtMessagesDataTable.DefaultView[dtMessagesDataTable.DefaultView.Count - 1]["MessageID"]))
+            if (CurrentMessages.Count > 0)
+                if (Convert.ToInt32(CurrentMessages[CurrentMessages.Count - 1]) == Convert.ToInt32(dtMessagesDataTable.DefaultView[dtMessagesDataTable.DefaultView.Count - 1]["MessageID"]))
                     //if (Convert.ToInt32(CurrentMessages[dtMessagesDataTable.DefaultView.Count - 1]) == Convert.ToInt32(dtMessagesDataTable.DefaultView[dtMessagesDataTable.DefaultView.Count - 1]["MessageID"]))
-                        return;
+                    return;
 
             this.BeginUpdate();
 
@@ -4115,7 +4116,7 @@ namespace Infinium
                 AddText(dtMessagesDataTable.DefaultView[i]["Text"].ToString());
 
                 CurrentMessages.Add(dtMessagesDataTable.DefaultView[i]["MessageID"]);
-            }           
+            }
 
             this.ScrollToCaret();
 
@@ -4125,7 +4126,7 @@ namespace Infinium
         public void AddSender(string Sender)
         {
             string tempsender = Sender;
-            
+
             if (this.Text.Length > 0)
                 Sender = "\n\n" + Sender + "\n";
             else
@@ -4917,7 +4918,7 @@ namespace Infinium
             brVerticalScrollCommonShaftBackBrush = new SolidBrush(cVerticalScrollCommonShaftBackColor);
             brVerticalScrollCommonThumbButtonBrush = new SolidBrush(cVerticalScrollCommonThumbButtonColor);
             brSelectedBrush = new SolidBrush(cSelectedBackColor);
-            
+
 
             pItemLinePen = new Pen(new SolidBrush(cItemLineColor));
             pBorderPen = new Pen(new SolidBrush(cBorderColor));
@@ -5060,7 +5061,7 @@ namespace Infinium
                 if (this.Height <= (i) * ItemHeight - iOffset * ItemHeight)
                     break;
 
-                string sNotesName = NotesDataTable.DefaultView[i]["NotesName"].ToString();              
+                string sNotesName = NotesDataTable.DefaultView[i]["NotesName"].ToString();
                 string sDate = NotesDataTable.DefaultView[i]["CreationDateTime"].ToString();
                 string sTextSample = NotesDataTable.DefaultView[i]["NotesText"].ToString();
                 bool iPriority = Convert.ToBoolean(NotesDataTable.DefaultView[i]["Priority"]);
@@ -5068,7 +5069,7 @@ namespace Infinium
                 if (bScrollVisible)
                     iMarginForScroll = VerticalScrollShaftRect.Width;
 
-                
+
 
                 if (i == iClicked)
                 {
@@ -5094,11 +5095,11 @@ namespace Infinium
                                         this.Width - VerticalScrollShaftRect.Width + 1, i * (ItemHeight) - iOffset * ItemHeight + ItemHeight);
                 else
                     e.Graphics.DrawLine(pItemLinePen, 0, i * (ItemHeight) - iOffset * ItemHeight + ItemHeight,
-                                                            this.Width, i * (ItemHeight) - iOffset * ItemHeight + ItemHeight);                   
+                                                            this.Width, i * (ItemHeight) - iOffset * ItemHeight + ItemHeight);
 
                 DrawPriority(e.Graphics, i, iPriority);
             }
-            
+
 
             DrawVerticalScrollShaft(e.Graphics);
             DrawVertScrollThumb(e.Graphics);
@@ -5261,7 +5262,7 @@ namespace Infinium
 
 
         private void DrawTextSample(string text, int MaxWidth, int index, Graphics G)
-        { 
+        {
             string shorttext = "";
 
 
@@ -5291,7 +5292,7 @@ namespace Infinium
                 else
                     shorttext = text;
             }
-                
+
 
             G.DrawString(shorttext, fNotesTextSampleFont, brNotesTextSampleBrush, 7 + ImageSize + 5, index * (ItemHeight) + 55 - iOffset * ItemHeight);
         }
@@ -5436,7 +5437,7 @@ namespace Infinium
 
             rBorderRect.Height = this.Height - 1;
             rBorderRect.Width = this.Width - 1;
-       }
+        }
 
         protected override void OnSizeChanged(EventArgs e)
         {
@@ -5459,7 +5460,7 @@ namespace Infinium
 
             iSelected = SelectItem(e.X, e.Y);
         }
-        
+
         private int SelectItem(int X, int Y)
         {
             if (NotesDataTable == null)
@@ -5491,7 +5492,7 @@ namespace Infinium
             this.Refresh();
         }
 
-        
+
 
         protected override void OnMouseWheel(MouseEventArgs e)
         {
@@ -5586,7 +5587,7 @@ namespace Infinium
             {
                 if (iAlpha < 255)
                 {
-                    if(iAlpha + 7 > 255)
+                    if (iAlpha + 7 > 255)
                         Brush.Color = Color.FromArgb(iAlpha = 255, cTextColor);
                     else
                         Brush.Color = Color.FromArgb(iAlpha += 7, cTextColor);
@@ -5698,7 +5699,7 @@ namespace Infinium
 
         public InfiniumProgressBar()
         {
-            Brush = new SolidBrush(Color.FromArgb(56,184,238));
+            Brush = new SolidBrush(Color.FromArgb(56, 184, 238));
             FontBrush = new SolidBrush(Color.Black);
 
             Rect = new Rectangle(0, 0, this.Width, this.Height);
@@ -5721,7 +5722,7 @@ namespace Infinium
             if (iValue >= 70 && iValue <= 79)
                 Brush.Color = C70;
             if (iValue >= 60 && iValue <= 69)
-                Brush.Color = C60;;
+                Brush.Color = C60; ;
             if (iValue >= 50 && iValue <= 59)
                 Brush.Color = C50;
             if (iValue >= 40 && iValue <= 49)
@@ -5746,7 +5747,7 @@ namespace Infinium
             Rect.Width = Convert.ToInt32(Convert.ToDecimal(this.Width) * Convert.ToDecimal(iValue) / 100);
 
             e.Graphics.FillRectangle(Brush, Rect);
-        
+
             e.Graphics.DrawString(iValue.ToString() + "%", fValueFont, FontBrush, (this.Width - e.Graphics.MeasureString(iValue.ToString() + "%", fValueFont).Width) / 2, (this.Height - e.Graphics.MeasureString(iValue.ToString() + "%", fValueFont).Height) / 2);
         }
     }
@@ -5834,7 +5835,7 @@ namespace Infinium
             e.Graphics.DrawString(this.Text, Font, brFontBrush, this.Width - W,
                                                                 (this.Height - H) / 2);
 
-            for (int i = 0; i < (this.Width - W); i+=6)
+            for (int i = 0; i < (this.Width - W); i += 6)
             {
                 e.Graphics.FillEllipse(brLineBrush, i, (this.Height - H) / 2 + H - 9, 1, 2);
             }
@@ -6680,7 +6681,7 @@ namespace Infinium
 
                 return;
             }
-            
+
 
             int CurTextPosY = 0;
 
@@ -6689,7 +6690,7 @@ namespace Infinium
                 int iNameTextY = 0;
 
                 if (i == iSelected)
-                    if(dtFunctionsDataTable.DefaultView[iSelected]["Position"] != DBNull.Value)
+                    if (dtFunctionsDataTable.DefaultView[iSelected]["Position"] != DBNull.Value)
                         DrawBack(i, e.Graphics, ref CurTextPosY);
 
                 DrawPriority(i, Convert.ToInt32(dtFunctionsDataTable.DefaultView[i]["FunctionExecTypeID"]), e.Graphics, ref CurTextPosY);
@@ -6741,20 +6742,20 @@ namespace Infinium
                 }
             }
             else
+            {
+                for (int i = 0; i < InfiniumTimePickers.Count(); i++)
                 {
-                    for (int i = 0; i < InfiniumTimePickers.Count(); i++)
-                    {
                     if (InfiniumTimePickers[i] != null)
                     {
                         InfiniumTimePickers[i].Dispose();
                         InfiniumTimePickers[i] = null;
                     }
-                    }
+                }
 
-                    InfiniumTimePickers = new InfiniumTimePicker[FunctionsDataTable.Rows.Count];
+                InfiniumTimePickers = new InfiniumTimePicker[FunctionsDataTable.Rows.Count];
 
-                    for (int i = 0; i < FunctionsDataTable.Rows.Count; i++)
-                    {
+                for (int i = 0; i < FunctionsDataTable.Rows.Count; i++)
+                {
                     InfiniumTimePickers[i] = new InfiniumTimePicker()
                     {
                         Name = i.ToString(),
@@ -6765,8 +6766,8 @@ namespace Infinium
                         Minutes = Convert.ToInt32(FunctionsDataTable.Rows[i]["Minutes"])
                     };
                     InfiniumTimePickers[i].TimeChanged += new InfiniumTimePicker.TimeChangedEventHandler(TimeChange);
-                    }
                 }
+            }
         }
 
         private void DrawComplete(int index, Graphics G, bool IsComplete)

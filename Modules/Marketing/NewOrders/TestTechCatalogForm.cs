@@ -1,7 +1,8 @@
-﻿using System;
+﻿using Infinium.Modules.TechnologyCatalog;
+
+using System;
 using System.Drawing;
 using System.Windows.Forms;
-using Infinium.Modules.TechnologyCatalog;
 
 namespace Infinium
 {
@@ -154,7 +155,7 @@ namespace Infinium
             //    NeedSplash = true;
             //}
             //else
-                //TafelManager.FilterOrdersByMainOrder(GroupType, MainOrderID);
+            //TafelManager.FilterOrdersByMainOrder(GroupType, MainOrderID);
         }
 
         private void TestTechCatalogForm_Load(object sender, EventArgs e)

@@ -1,8 +1,8 @@
 ﻿using System;
-using System.Linq;
 using System.Data;
-using System.Windows.Forms;
 using System.Data.SqlClient;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace Infinium.Modules.Packages.Trays
 {
@@ -375,7 +375,7 @@ namespace Infinium.Modules.Packages.Trays
             FrontsOrdersDataGrid.Columns["Width"].DisplayIndex = DisplayIndex++;
             FrontsOrdersDataGrid.Columns["Count"].DisplayIndex = DisplayIndex++;
             FrontsOrdersDataGrid.Columns["Notes"].DisplayIndex = DisplayIndex++;
-            
+
             FrontsOrdersDataGrid.ScrollBars = ScrollBars.Both;
 
             foreach (DataGridViewColumn Column in FrontsOrdersDataGrid.Columns)
@@ -969,7 +969,7 @@ namespace Infinium.Modules.Packages.Trays
                             //if (Convert.ToInt32(ORow[0]["ColorID"]) == -1)
                             //    NewRow["ColorID"] = 0;
                             //else
-                                NewRow["ColorID"] = ORow[0]["ColorID"];
+                            NewRow["ColorID"] = ORow[0]["ColorID"];
 
                             NewRow["Height"] = ORow[0]["Height"];
                             NewRow["Length"] = ORow[0]["Length"];

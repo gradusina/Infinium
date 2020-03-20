@@ -1,8 +1,8 @@
-﻿using System;
-using System.Windows.Forms;
+﻿using Infinium.Modules.Editors;
+
+using System;
 using System.Threading;
-using System.Drawing;
-using Infinium.Modules.Editors;
+using System.Windows.Forms;
 
 namespace Infinium
 {
@@ -138,7 +138,7 @@ namespace Infinium
             dgvParams.DataSource = ParamsManager.ParamsBS;
             dgvGridsSettings();
         }
-        
+
         private void dgvGridsSettings()
         {
             dgvParams.Columns["LabelParamID"].Visible = false;
@@ -160,7 +160,7 @@ namespace Infinium
             dgvParams.Columns["EnglishParam"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             dgvParams.Columns["EnglishParam"].MinimumWidth = 150;
         }
-                
+
         private void btnSave_Click(object sender, EventArgs e)
         {
             Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение данных.\r\nПодождите..."); });

@@ -1,9 +1,10 @@
-﻿using System;
+﻿using Infinium.Modules.Marketing.Clients;
+
+using System;
+using System.Collections;
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using System.Collections;
-using Infinium.Modules.Marketing.Clients;
-using System.Drawing;
 
 namespace Infinium
 {
@@ -32,7 +33,7 @@ namespace Infinium
         private void OKButton_Click(object sender, EventArgs e)
         {
             ArrayList array = new ArrayList();
-            
+
             for (int i = 0; i < dgvMachines.Rows.Count; i++)
             {
                 if (Convert.ToBoolean(dgvMachines.Rows[i].Cells["Check"].Value))

@@ -1,13 +1,14 @@
-﻿using System;
+﻿using Infinium.Modules.Marketing.NewOrders;
+using Infinium.Modules.Marketing.WeeklyPlanning;
+
+using System;
+using System.Collections;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Windows.Forms;
 using System.Threading;
-using System.Collections;
-using Infinium.Modules.Marketing.NewOrders;
-using Infinium.Modules.Marketing.WeeklyPlanning;
+using System.Windows.Forms;
 
 namespace Infinium
 {
@@ -27,11 +28,11 @@ namespace Infinium
 
         const int iAgreedProfil = 104;
         const int iAgreedTPS = 106;
-        
+
         bool NeedRefresh = false;
         bool NeedSplash = false;
         bool bFrontType = false;
-        bool bFrameColor = false; 
+        bool bFrameColor = false;
         bool PickUpFronts = false;
 
         //bool ConfirmBatch = false;
@@ -40,7 +41,7 @@ namespace Infinium
         bool AddToBatch = false;
         bool InProduction = false;
         bool CloseBatch = false;
-        
+
         bool bMegaBatchClose = false;
 
         int FactoryID = 1;
@@ -68,7 +69,7 @@ namespace Infinium
         Bitmap Unlock_BW = new Bitmap(Properties.Resources.UnlockSmallBlack);
 
         LightStartForm LightStartForm;
-        
+
         Form TopForm = null;
         MarketingPickFrontsSelectForm PickFrontsSelectForm;
         DataTable RolePermissionsDataTable;
@@ -82,7 +83,7 @@ namespace Infinium
             InitializeComponent();
             LightStartForm = tLightStartForm;
 
-            
+
             this.MaximumSize = Screen.PrimaryScreen.WorkingArea.Size;
 
             RolePermissionsDataTable = RolesAndPermissionsManager.GetPermissions(Security.CurrentUserID, this.Name);
@@ -167,7 +168,7 @@ namespace Infinium
 
             FormEvent = eShow;
             AnimateTimer.Enabled = true;
-            
+
             NeedSplash = true;
         }
 
@@ -183,18 +184,18 @@ namespace Infinium
 
                     if (FormEvent == eClose)
                     {
-                       
+
                         LightStartForm.CloseForm(this);
                         this.Close();
                     }
 
                     if (FormEvent == eHide)
                     {
-                        
+
                         LightStartForm.HideForm(this);
                     }
 
-                    
+
                     return;
                 }
 
@@ -218,17 +219,17 @@ namespace Infinium
 
                     if (FormEvent == eClose)
                     {
-                       
+
                         LightStartForm.CloseForm(this);
                         this.Close();
                     }
 
                     if (FormEvent == eHide)
                     {
-                        
+
                         LightStartForm.HideForm(this);
                     }
-                    
+
                 }
 
                 return;
@@ -332,7 +333,7 @@ namespace Infinium
 
             if (NeedSplash)
             {
-                Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
+                Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
                 T.Start();
 
                 while (!SplashWindow.bSmallCreated) ;
@@ -377,7 +378,7 @@ namespace Infinium
 
                         if (NeedSplash)
                         {
-                            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
+                            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
                             T.Start();
 
                             while (!SplashWindow.bSmallCreated) ;
@@ -479,13 +480,13 @@ namespace Infinium
 
                         if (NeedSplash)
                         {
-                            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
+                            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
                             T.Start();
 
                             while (!SplashWindow.bSmallCreated) ;
 
                             NeedSplash = false;
-                            
+
                             BatchManager.FilterMainOrdersByMegaOrder(
                                     Convert.ToInt32(((DataRowView)BatchManager.MegaOrdersBindingSource.Current)["MegaOrderID"]),
                                     FactoryID, OnProduction, NotProduction, InProduction);
@@ -530,7 +531,7 @@ namespace Infinium
                             IsComplaint = Convert.ToBoolean(((DataRowView)BatchManager.MegaOrdersBindingSource.Current)["IsComplaint"]);
                         if (((DataRowView)BatchManager.MegaOrdersBindingSource.Current)["ConfirmDateTime"] != DBNull.Value)
                             ConfirmDate = Convert.ToDateTime(((DataRowView)BatchManager.MegaOrdersBindingSource.Current)["ConfirmDateTime"]).ToString("dd.MM.yyyy");
-                        
+
                         string ClientInfo = ClientName;
                         string OrderInfo = "Заказ: №" + OrderNumber;
                         string ConfirmDateInfo = "Согласован: " + ConfirmDate;
@@ -638,7 +639,7 @@ namespace Infinium
 
                         if (NeedSplash)
                         {
-                            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
+                            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
                             T.Start();
 
                             while (!SplashWindow.bSmallCreated) ;
@@ -861,7 +862,7 @@ namespace Infinium
 
             if (NeedSplash)
             {
-                Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
+                Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
                 T.Start();
 
                 while (!SplashWindow.bSmallCreated) ;
@@ -883,7 +884,7 @@ namespace Infinium
                 int[] BatchMegaOrders = BatchManager.GetBatchMegaOrders().OfType<int>().ToArray();
                 BatchManager.Filter(FactoryID,
                     NotConfirm, Confirm, OnProduction, NotProduction, InProduction, PickUpFronts);
-                
+
                 BatchManager.FilterBatchMegaOrders(BatchID, FactoryID,
                     BatchOnProduction, BatchNotProduction, BatchInProduction, BatchOnStorage, BatchOnExp, BatchDispatched,
                     PickUpFronts);
@@ -957,7 +958,7 @@ namespace Infinium
             if (!BatchManager.HasOrders(MegaOrders, FactoryID))
                 return;
 
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Создание документа Excel.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Создание документа Excel.\r\nПодождите..."); });
             T.Start();
 
             while (!SplashWindow.bSmallCreated) ;
@@ -984,7 +985,7 @@ namespace Infinium
             bool BatchDispatched = BatchDispatchCheckBox.Checked;
 
             BatchManager.FilterBatchMegaOrders(BatchID, FactoryID,
-                BatchOnProduction, BatchNotProduction, BatchInProduction, BatchOnStorage, BatchOnExp, BatchDispatched, 
+                BatchOnProduction, BatchNotProduction, BatchInProduction, BatchOnStorage, BatchOnExp, BatchDispatched,
                 PickUpFronts);
 
 
@@ -1007,7 +1008,7 @@ namespace Infinium
 
             if (MegaOrders.Count() < 1)
                 return;
-            
+
             int BatchID = Convert.ToInt32(((DataRowView)BatchManager.BatchBindingSource.Current)["BatchID"]);
             int MegaBatchID = Convert.ToInt32(((DataRowView)BatchManager.MegaBatchBindingSource.Current)["MegaBatchID"]);
 
@@ -1016,7 +1017,7 @@ namespace Infinium
             if (!BatchManager.HasOrders(MegaOrders, FactoryID))
                 return;
 
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Создание документа Excel.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Создание документа Excel.\r\nПодождите..."); });
             T.Start();
 
             while (!SplashWindow.bSmallCreated) ;
@@ -1039,7 +1040,7 @@ namespace Infinium
             bool BatchDispatched = BatchDispatchCheckBox.Checked;
 
             BatchManager.FilterBatchMegaOrders(BatchID, FactoryID,
-                BatchOnProduction, BatchNotProduction, BatchInProduction, BatchOnStorage, BatchOnExp, BatchDispatched, 
+                BatchOnProduction, BatchNotProduction, BatchInProduction, BatchOnStorage, BatchOnExp, BatchDispatched,
                 PickUpFronts);
 
             int[] BatchMegaOrders = BatchManager.GetBatchMegaOrders().OfType<int>().ToArray();
@@ -1357,7 +1358,7 @@ namespace Infinium
                     GC.Collect();
 
                     NeedSplash = false;
-                    Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
+                    Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
                     T.Start();
 
                     while (!SplashWindow.bSmallCreated) ;
@@ -1448,8 +1449,8 @@ namespace Infinium
                 if (BatchManager.MegaBatchBindingSource.Count > 0)
                 {
                     if (FactoryID == 1)
-                    if (((DataRowView)BatchManager.MegaBatchBindingSource.Current)["ProfilBatchClose"] != DBNull.Value)
-                        bMegaBatchClose = Convert.ToBoolean(((DataRowView)BatchManager.MegaBatchBindingSource.Current)["ProfilBatchClose"]);
+                        if (((DataRowView)BatchManager.MegaBatchBindingSource.Current)["ProfilBatchClose"] != DBNull.Value)
+                            bMegaBatchClose = Convert.ToBoolean(((DataRowView)BatchManager.MegaBatchBindingSource.Current)["ProfilBatchClose"]);
                     if (FactoryID == 2)
                         if (((DataRowView)BatchManager.MegaBatchBindingSource.Current)["TPSBatchClose"] != DBNull.Value)
                             bMegaBatchClose = Convert.ToBoolean(((DataRowView)BatchManager.MegaBatchBindingSource.Current)["TPSBatchClose"]);
@@ -1534,7 +1535,7 @@ namespace Infinium
             if (!OKCancel)
                 return;
 
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Создание документа Excel.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Создание документа Excel.\r\nПодождите..."); });
             T.Start();
 
             while (!SplashWindow.bSmallCreated) ;
@@ -1639,7 +1640,7 @@ namespace Infinium
             PhantomForm.Dispose();
             SelectMenuForm.Dispose();
             TopForm = null;
-            
+
             if (BatchManager.NewBatch)
             {
                 //int[] MegaOrders = MegaOrdersArray.OfType<int>().ToArray();
@@ -1688,7 +1689,7 @@ namespace Infinium
             bool BatchDispatched = BatchDispatchCheckBox.Checked;
 
             int[] MainOrders = MainOrdersArray.OfType<int>().ToArray();
-            
+
             //int[] MainOrders = BatchManager.GetBatchMainOrders(MegaOrders, FactoryID,
             //    BatchOnProduction, BatchNotProduction, BatchInProduction, BatchOnStorage,BatchOnExp, BatchDispatched, PickUpFronts).OfType<int>().ToArray();
             //if (FactoryID == 1)
@@ -2156,13 +2157,13 @@ namespace Infinium
 
         private void MegaBatchDataGrid_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
         {
-            if ((RoleType == RoleTypes.Admin || RoleType == RoleTypes.Control || RoleType == RoleTypes.Direction) 
+            if ((RoleType == RoleTypes.Admin || RoleType == RoleTypes.Control || RoleType == RoleTypes.Direction)
                 && e.Button == System.Windows.Forms.MouseButtons.Right)
             {
                 kryptonContextMenu1.Show(new Point(Cursor.Position.X - 212, Cursor.Position.Y - 10));
             }
 
-            if ((PermissionGranted(iAgreedProfil) || PermissionGranted(iAgreedTPS)) 
+            if ((PermissionGranted(iAgreedProfil) || PermissionGranted(iAgreedTPS))
                 && e.Button == System.Windows.Forms.MouseButtons.Right)
             {
                 kryptonContextMenu1.Show(new Point(Cursor.Position.X - 212, Cursor.Position.Y - 10));
@@ -2177,7 +2178,7 @@ namespace Infinium
             kryptonCheckBox1.Enabled = GroupsCheckBox.Checked;
             ZOVProfilCheckBox.Enabled = GroupsCheckBox.Checked;
             ZOVTPSCheckBox.Enabled = GroupsCheckBox.Checked;
-            
+
             MegaBatchDataGrid_SelectionChanged(null, null);
         }
 
@@ -2206,7 +2207,7 @@ namespace Infinium
 
         private void cmiExportToExcel_Click(object sender, EventArgs e)
         {
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Создание отчета.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Создание отчета.\r\nПодождите..."); });
             T.Start();
 
             while (!SplashWindow.bSmallCreated) ;
@@ -2584,7 +2585,7 @@ namespace Infinium
                     return;
             }
             NeedSplash = false;
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных.\r\nПодождите..."); });
             T.Start();
 
             while (!SplashWindow.bSmallCreated) ;
@@ -2622,7 +2623,7 @@ namespace Infinium
                     return;
             }
             NeedSplash = false;
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных.\r\nПодождите..."); });
             T.Start();
 
             while (!SplashWindow.bSmallCreated) ;
@@ -2855,7 +2856,7 @@ namespace Infinium
         {
             if (e.RowIndex == -1)
                 return;
-            
+
             PercentageDataGrid grid = (PercentageDataGrid)sender;
             if (grid.Columns[e.ColumnIndex].Name == "ProfilEnabledColumn")
             {
@@ -2905,7 +2906,7 @@ namespace Infinium
         {
             if (e.RowIndex == -1)
                 return;
-            
+
             PercentageDataGrid grid = (PercentageDataGrid)sender;
             if (grid.Columns[e.ColumnIndex].Name == "ProfilEnabledColumn")
             {

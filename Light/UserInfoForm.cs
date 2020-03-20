@@ -292,9 +292,9 @@ namespace Infinium
                 if (TPSPosition.Length > 0)
                     PositionLabel.Text = TPSPosition;
             }
-            
+
             DepartmentLabel.Text = OneLineToTwo(UserProfile.GetDepartmentName(PersonalInform.DepartmentID));
-            
+
             if (PersonalInform.Education.Length == 0)
                 EducationLabel.Text = "не указано";
             else
@@ -304,12 +304,12 @@ namespace Infinium
                 EduPlaceLabel.Text = "не указано";
             else
                 EduPlaceLabel.Text = OneLineToTwo(PersonalInform.EducationPlace);
-            
+
             if (PersonalInform.BirthDate.Length == 0)
                 BirthDateLabel.Text = "не указана";
             else
                 BirthDateLabel.Text = PersonalInform.BirthDate;
-            
+
             AgeLabel.Text = GetAge(PersonalInform.BirthDate).ToString();
 
             if (PersonalInform.Language.Length == 0)
@@ -323,12 +323,12 @@ namespace Infinium
             MobilePersonalLabel.Text = LightUsers.GetPhoneFormat(Contacts.PersonalMobilePhone);
             MobileWorkLabel.Text = LightUsers.GetPhoneFormat(Contacts.WorkMobilePhone);
             CityWorkPhoneLabel.Text = LightUsers.GetPhoneFormat(Contacts.WorkStatPhone);
-            
+
             if (Contacts.WorkExtPhone.Length == 0)
                 WorkExtPhoneLabel.Text = "не указан";
             else
                 WorkExtPhoneLabel.Text = Contacts.WorkExtPhone;
-            
+
             if (Contacts.Skype.Length == 0)
                 SkypeLabel.Text = "не указан";
             else
@@ -430,8 +430,8 @@ namespace Infinium
         {
             FormEvent = eHide;
             AnimateTimer.Enabled = true;
-        }     
-        
+        }
+
 
         private void Initialize()
         {

@@ -1,6 +1,7 @@
-﻿using System;
+﻿using Infinium.Modules.TechnologyCatalog;
+
+using System;
 using System.Windows.Forms;
-using Infinium.Modules.TechnologyCatalog;
 
 namespace Infinium
 {
@@ -230,7 +231,7 @@ namespace Infinium
             TechStoreManager.AddMachinesOperation(MachinesOperationNameTextBox.Text, Norm, PreparatoryNorm,
                 Convert.ToInt32(MeasureComboBox.SelectedValue), ArticleTextBox.Text, Convert.ToInt32(cbPositions.SelectedValue), Convert.ToInt32(tbRank.Text),
                 Convert.ToInt32(cbPositions2.SelectedValue), Convert.ToInt32(tbRank2.Text), Convert.ToInt32(cbDocTypes.SelectedValue), Convert.ToInt32(cbAlgorithms.SelectedValue));
-            
+
             MachinesOperationsBS.DataSource = TechStoreManager.MachinesOperationsDT.Copy();
             MachinesOperationsBS.MoveLast();
         }

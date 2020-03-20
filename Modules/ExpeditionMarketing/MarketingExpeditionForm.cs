@@ -1,18 +1,20 @@
-﻿using System;
+﻿using Infinium.Modules.Marketing.Dispatch;
+using Infinium.Modules.Marketing.Expedition;
+using Infinium.Modules.Marketing.Orders;
+
+using NPOI.HPSF;
+using NPOI.HSSF.UserModel;
+
+using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Windows.Forms;
-using System.Threading;
 using System.Globalization;
-using Infinium.Modules.Marketing.Expedition;
-using System.Collections;
-using Infinium.Modules.Marketing.Dispatch;
 using System.IO;
-using NPOI.HSSF.UserModel;
-using Infinium.Modules.Marketing.Orders;
-using System.Collections.Generic;
-using NPOI.HPSF;
+using System.Linq;
+using System.Threading;
+using System.Windows.Forms;
 
 namespace Infinium
 {
@@ -83,7 +85,7 @@ namespace Infinium
             InitializeComponent();
             LightStartForm = tLightStartForm;
 
-            
+
             this.MaximumSize = Screen.PrimaryScreen.WorkingArea.Size;
 
             //RolePermissionsDataTable = RolesAndPermissionsManager.GetPermissions(Security.CurrentUserID, this.Name);
@@ -225,7 +227,7 @@ namespace Infinium
                 kryptonContextMenuItem14.Visible = false;
             }
 
-            while (!SplashForm.bCreated);
+            while (!SplashForm.bCreated) ;
         }
 
         public MarketingExpeditionForm(Form tMainForm, DateTime dPrepareDispatchDateTime, int iDispatchID)
@@ -392,7 +394,7 @@ namespace Infinium
         private void Initialize()
         {
             MarketingExpeditionManager = new Modules.Marketing.Expedition.MarketingExpeditionManager(
-                ref MegaOrdersDataGrid, ref MainOrdersDataGrid, ref PackagesDataGrid, 
+                ref MegaOrdersDataGrid, ref MainOrdersDataGrid, ref PackagesDataGrid,
                 ref MainOrdersFrontsOrdersDataGrid, ref MainOrdersDecorOrdersDataGrid, ref MainOrdersTabControl);
 
             FilterClientsDataGrid.DataSource = MarketingExpeditionManager.FilterClientsBindingSource;
@@ -483,7 +485,7 @@ namespace Infinium
 
                         if (NeedSplash)
                         {
-                            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
+                            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
                             T.Start();
 
                             while (!SplashWindow.bSmallCreated) ;
@@ -581,7 +583,7 @@ namespace Infinium
                 NeedRefresh = false;
             }
         }
-       
+
         private void PackagesDataGrid_SelectionChanged(object sender, EventArgs e)
         {
             if (MarketingExpeditionManager != null)
@@ -669,7 +671,7 @@ namespace Infinium
                 //    MarketingExpeditionManager.FilterMegaBatch(bClient, false, true, false, true, !bNoDispatched, ClientID, FactoryID);
                 //}
 
-                Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
+                Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
                 T.Start();
 
                 while (!SplashWindow.bSmallCreated) ;
@@ -703,7 +705,7 @@ namespace Infinium
                 //int ClientID = Convert.ToInt32(FilterClientsDataGrid.SelectedRows[0].Cells["ClientID"].Value);
                 //MarketingExpeditionManager.FilterMegaBatch(bClient, false, true, false, true, !bNoDispatched, ClientID, FactoryID);
 
-                Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
+                Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
                 T.Start();
 
                 while (!SplashWindow.bSmallCreated) ;
@@ -744,7 +746,7 @@ namespace Infinium
 
             if (NeedSplash)
             {
-                Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
+                Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
                 T.Start();
 
                 while (!SplashWindow.bSmallCreated) ;
@@ -792,7 +794,7 @@ namespace Infinium
 
             if (NeedSplash)
             {
-                Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
+                Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
                 T.Start();
 
                 while (!SplashWindow.bSmallCreated) ;
@@ -813,7 +815,7 @@ namespace Infinium
         {
             if (MarketingExpeditionManager != null)
             {
-                Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
+                Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
                 T.Start();
 
                 while (!SplashWindow.bSmallCreated) ;
@@ -832,7 +834,7 @@ namespace Infinium
         {
             if (MarketingExpeditionManager != null)
             {
-                Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
+                Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
                 T.Start();
 
                 while (!SplashWindow.bSmallCreated) ;
@@ -851,7 +853,7 @@ namespace Infinium
         {
             if (MarketingExpeditionManager != null)
             {
-                Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
+                Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
                 T.Start();
 
                 while (!SplashWindow.bSmallCreated) ;
@@ -870,12 +872,12 @@ namespace Infinium
         {
             if (AllPackagesCheckBox.Checked)
             {
-               MainOrdersDataGrid.SelectionChanged -= MainOrdersDataGrid_SelectionChanged;
+                MainOrdersDataGrid.SelectionChanged -= MainOrdersDataGrid_SelectionChanged;
 
                 if (NeedSplash)
                 {
                     NeedSplash = false;
-                    Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
+                    Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
                     T.Start();
 
                     while (!SplashWindow.bSmallCreated) ;
@@ -941,7 +943,7 @@ namespace Infinium
             {
                 if (MarketingExpeditionManager != null)
                     FilterOrders();
-            }               
+            }
         }
 
         private void MegaBatchCheckBox_CheckedChanged(object sender, EventArgs e)
@@ -993,7 +995,7 @@ namespace Infinium
         {
             if (MarketingExpeditionManager != null)
             {
-                Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
+                Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
                 T.Start();
 
                 while (!SplashWindow.bSmallCreated) ;
@@ -1012,7 +1014,7 @@ namespace Infinium
         {
             if (MarketingExpeditionManager != null)
             {
-                Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
+                Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
                 T.Start();
 
                 while (!SplashWindow.bSmallCreated) ;
@@ -1031,7 +1033,7 @@ namespace Infinium
         {
             if (MarketingExpeditionManager != null)
             {
-                Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
+                Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
                 T.Start();
 
                 while (!SplashWindow.bSmallCreated) ;
@@ -1050,7 +1052,7 @@ namespace Infinium
         {
             if (MarketingExpeditionManager != null)
             {
-                Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
+                Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
                 T.Start();
 
                 while (!SplashWindow.bSmallCreated) ;
@@ -1069,7 +1071,7 @@ namespace Infinium
         {
             if (MarketingExpeditionManager != null)
             {
-                Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
+                Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
                 T.Start();
 
                 while (!SplashWindow.bSmallCreated) ;
@@ -1093,7 +1095,7 @@ namespace Infinium
 
         private void MegaOrdersDataGrid_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
         {
-            if ((RoleType == RoleTypes.AdminRole || RoleType == RoleTypes.LogisticsRole) 
+            if ((RoleType == RoleTypes.AdminRole || RoleType == RoleTypes.LogisticsRole)
                 && e.Button == System.Windows.Forms.MouseButtons.Right)
             {
                 kryptonContextMenu1.Show(new Point(Cursor.Position.X - 212, Cursor.Position.Y - 10));
@@ -1146,7 +1148,7 @@ namespace Infinium
         {
             if (MarketingExpeditionManager != null)
             {
-                Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
+                Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
                 T.Start();
 
                 while (!SplashWindow.bSmallCreated) ;
@@ -1364,7 +1366,7 @@ namespace Infinium
             {
                 if (NeedSplash)
                 {
-                    Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
+                    Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
                     T.Start();
 
                     while (!SplashWindow.bSmallCreated) ;
@@ -1562,7 +1564,7 @@ namespace Infinium
 
             if (NeedSplash)
             {
-                Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
+                Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
                 T.Start();
 
                 while (!SplashWindow.bSmallCreated) ;
@@ -1606,7 +1608,7 @@ namespace Infinium
                 CanEditDispatch = false;
             }
 
-            Thread T = new Thread(delegate() { SplashWindow.CreateSplash(); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSplash(); });
             T.Start();
 
             while (!SplashForm.bCreated) ;
@@ -1625,7 +1627,7 @@ namespace Infinium
             MarketingNewDispatchForm.Close();
             MarketingNewDispatchForm.Dispose();
 
-            Thread T1 = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
+            Thread T1 = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
             T1.Start();
 
             while (!SplashWindow.bSmallCreated) ;
@@ -1726,7 +1728,7 @@ namespace Infinium
             int DispatchID = Convert.ToInt32(dgvDispatch.SelectedRows[0].Cells["DispatchID"].Value);
             DateTime DispatchDate = Convert.ToDateTime(dgvDispatchDates.SelectedRows[0].Cells["PrepareDispatchDateTime"].Value);
 
-            Thread T = new Thread(delegate() { SplashWindow.CreateSplash(); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSplash(); });
             T.Start();
 
             while (!SplashForm.bCreated) ;
@@ -1739,7 +1741,7 @@ namespace Infinium
             MarketingNewDispatchForm.Close();
             MarketingNewDispatchForm.Dispose();
 
-            Thread T1 = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
+            Thread T1 = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
             T1.Start();
 
             while (!SplashWindow.bSmallCreated) ;
@@ -1771,7 +1773,7 @@ namespace Infinium
             PressOK = MarketingNewDispatchMenu.PressOK;
             ClientID = MarketingNewDispatchMenu.ClientID;
             DispatchDate = MarketingNewDispatchMenu.DispatchDate;
-            
+
             PhantomForm.Close();
             PhantomForm.Dispose();
             MarketingNewDispatchMenu.Dispose();
@@ -1780,7 +1782,7 @@ namespace Infinium
             if (!PressOK)
                 return;
 
-            Thread T = new Thread(delegate() { SplashWindow.CreateSplash(); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSplash(); });
             T.Start();
 
             while (!SplashForm.bCreated) ;
@@ -1795,7 +1797,7 @@ namespace Infinium
             MarketingNewDispatchForm.Close();
             MarketingNewDispatchForm.Dispose();
 
-            Thread T1 = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
+            Thread T1 = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
             T1.Start();
 
             while (!SplashWindow.bSmallCreated) ;
@@ -1851,7 +1853,7 @@ namespace Infinium
             MarketingDispatchInfoMenu.Dispose();
             TopForm = null;
 
-            Thread T1 = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Создание документа Excel.\r\nПодождите..."); });
+            Thread T1 = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Создание документа Excel.\r\nПодождите..."); });
             T1.Start();
 
             while (!SplashWindow.bSmallCreated) ;
@@ -1919,7 +1921,7 @@ namespace Infinium
             MarketingDispatchInfoMenu.Dispose();
             TopForm = null;
 
-            Thread T1 = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Создание документа Excel.\r\nПодождите..."); });
+            Thread T1 = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Создание документа Excel.\r\nПодождите..."); });
             T1.Start();
 
             while (!SplashWindow.bSmallCreated) ;
@@ -1986,7 +1988,7 @@ namespace Infinium
             MarketingDispatchInfoMenu.Dispose();
             TopForm = null;
 
-            Thread T1 = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Создание документа Excel.\r\nПодождите..."); });
+            Thread T1 = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Создание документа Excel.\r\nПодождите..."); });
             T1.Start();
 
             while (!SplashWindow.bSmallCreated) ;
@@ -2083,7 +2085,7 @@ namespace Infinium
             MarketingDispatchInfoMenu.Dispose();
             TopForm = null;
 
-            Thread T1 = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Создание документа Excel.\r\nПодождите..."); });
+            Thread T1 = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Создание документа Excel.\r\nПодождите..."); });
             T1.Start();
 
             while (!SplashWindow.bSmallCreated) ;
@@ -2151,7 +2153,7 @@ namespace Infinium
             MarketingDispatchInfoMenu.Dispose();
             TopForm = null;
 
-            Thread T1 = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Создание документа Excel.\r\nПодождите..."); });
+            Thread T1 = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Создание документа Excel.\r\nПодождите..."); });
             T1.Start();
 
             while (!SplashWindow.bSmallCreated) ;
@@ -2219,7 +2221,7 @@ namespace Infinium
             MarketingDispatchInfoMenu.Dispose();
             TopForm = null;
 
-            Thread T1 = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Создание документа Excel.\r\nПодождите..."); });
+            Thread T1 = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Создание документа Excel.\r\nПодождите..."); });
             T1.Start();
 
             while (!SplashWindow.bSmallCreated) ;
@@ -2251,13 +2253,13 @@ namespace Infinium
             if (dgvDispatch.Rows.Count == 0)
                 return;
 
-            if ((RoleType != RoleTypes.AdminRole && RoleType != RoleTypes.LogisticsRole) 
+            if ((RoleType != RoleTypes.AdminRole && RoleType != RoleTypes.LogisticsRole)
                 || dgvDispatch.SelectedRows[0].Cells["DispatchStatus"].Value.ToString() == "Отгружена")
             {
                 CanEditDispatch = false;
             }
 
-            Thread T = new Thread(delegate() { SplashWindow.CreateSplash(); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSplash(); });
             T.Start();
 
             while (!SplashForm.bCreated) ;
@@ -2274,7 +2276,7 @@ namespace Infinium
             MarketingNewDispatchForm.Close();
             MarketingNewDispatchForm.Dispose();
 
-            Thread T1 = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
+            Thread T1 = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
             T1.Start();
 
             while (!SplashWindow.bSmallCreated) ;
@@ -2310,7 +2312,7 @@ namespace Infinium
                 return;
             }
 
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
             T.Start();
 
             while (!SplashWindow.bSmallCreated) ;
@@ -2350,7 +2352,7 @@ namespace Infinium
                 return;
             }
 
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
             T.Start();
 
             while (!SplashWindow.bSmallCreated) ;
@@ -2395,7 +2397,7 @@ namespace Infinium
 
             if (PressOK && DispatchDate != null)
             {
-                Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
+                Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
                 T.Start();
 
                 while (!SplashWindow.bSmallCreated) ;
@@ -2418,7 +2420,7 @@ namespace Infinium
             if (dgvDispatch.SelectedRows.Count == 0)
                 return;
 
-            Thread T = new Thread(delegate() { SplashWindow.CreateSplash(); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSplash(); });
             T.Start();
 
             while (!SplashForm.bCreated) ;
@@ -2512,7 +2514,7 @@ namespace Infinium
                 s = "Следующие отгрузки не могут быть отгружены, так как не утверждены: " + s.Substring(0, s.Length - 1);
                 Infinium.LightMessageBox.Show(ref TopForm, false, s, "Ошибка");
             }
-            Thread T1 = new Thread(delegate() { SplashWindow.CreateSplash(); });
+            Thread T1 = new Thread(delegate () { SplashWindow.CreateSplash(); });
             T1.Start();
 
             while (!SplashForm.bCreated) ;
@@ -2539,7 +2541,7 @@ namespace Infinium
 
         private void kryptonContextMenuItem1_Click_1(object sender, EventArgs e)
         {
-            Thread T1 = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Создание документа Excel.\r\nПодождите..."); });
+            Thread T1 = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Создание документа Excel.\r\nПодождите..."); });
             T1.Start();
 
             while (!SplashWindow.bSmallCreated) ;
@@ -2566,7 +2568,7 @@ namespace Infinium
             if (dgvDispatch.SelectedRows.Count == 0)
                 return;
 
-            Thread T1 = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Создание документа Excel.\r\nПодождите..."); });
+            Thread T1 = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Создание документа Excel.\r\nПодождите..."); });
             T1.Start();
 
             while (!SplashWindow.bSmallCreated) ;
@@ -2585,10 +2587,10 @@ namespace Infinium
             while (SplashWindow.bSmallCreated)
                 SmallWaitForm.CloseS = true;
         }
-        
+
         private void kryptonContextMenuItem4_Click(object sender, EventArgs e)
         {
-            Thread T1 = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Создание документа Excel.\r\nПодождите..."); });
+            Thread T1 = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Создание документа Excel.\r\nПодождите..."); });
             T1.Start();
 
             while (!SplashWindow.bSmallCreated) ;
@@ -2610,7 +2612,7 @@ namespace Infinium
 
         private void kryptonContextMenuItem3_Click(object sender, EventArgs e)
         {
-            Thread T1 = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Создание документа Excel.\r\nПодождите..."); });
+            Thread T1 = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Создание документа Excel.\r\nПодождите..."); });
             T1.Start();
 
             while (!SplashWindow.bSmallCreated) ;
@@ -2640,7 +2642,7 @@ namespace Infinium
             int[] Dispatches = new int[dgvDispatch.SelectedRows.Count];
             for (int i = 0; i < dgvDispatch.SelectedRows.Count; i++)
                 Dispatches[i] = Convert.ToInt32(dgvDispatch.SelectedRows[i].Cells["DispatchID"].Value);
-            
+
             int ClientCountryID = OrdersManager.GetClientCountry(ClientID);
             int iDiscountPaymentConditionID = 0;
             string ClientLogin = OrdersManager.GetClientLogin(ClientID);
@@ -3171,7 +3173,7 @@ namespace Infinium
             }
         }
 
-        private void NewMethod(int ClientID, string ClientName, int[] Dispatches, int iDiscountPaymentConditionID, string ClientLogin, 
+        private void NewMethod(int ClientID, string ClientName, int[] Dispatches, int iDiscountPaymentConditionID, string ClientLogin,
             bool ProfilVerify, bool TPSVerify, string FilePath, bool Old)
         {
             decimal TotalProfil = 0;
@@ -3707,7 +3709,7 @@ namespace Infinium
             if (!PressOK)
                 return;
 
-            Thread T1 = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Создание документа Excel.\r\nПодождите..."); });
+            Thread T1 = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Создание документа Excel.\r\nПодождите..."); });
             T1.Start();
 
             while (!SplashWindow.bSmallCreated) ;
@@ -3778,17 +3780,17 @@ namespace Infinium
             decimal DispatchSum = MutualSettlementsManager.GetDispatchSum(MutualSettlementID1);
             if (MutualSettlementID1 != 0)
                 bProfilVerify = MutualSettlementsManager.VerifyTransaction(MutualSettlementID1, DispatchSum, ref DiscountPaymentCondition);
-            
+
             bool bTPSVerify = false;
             MutualSettlementID2 = MutualSettlementsManager.FindMutualSettlementIDByOrderNumber(ClientID, 2, OrderNumbers.OfType<Int32>().ToArray());
             DispatchSum = MutualSettlementsManager.GetDispatchSum(MutualSettlementID2);
             if (MutualSettlementID2 != 0)
                 bTPSVerify = MutualSettlementsManager.VerifyTransaction(MutualSettlementID2, DispatchSum, ref DiscountPaymentCondition);
 
-            DBFReport.CreateReport(ref hssfworkbook, Dispatches, MainOrders, NewClientID, ClientName, 
+            DBFReport.CreateReport(ref hssfworkbook, Dispatches, MainOrders, NewClientID, ClientName,
                 ref TotalProfil, ref TotalTPS, bProfilVerify, bTPSVerify, DiscountPaymentConditionID, false);
             DBFReport.SaveDBF(FilePath, ReportName, ref ProfilDBFName, ref TPSDBFName);
-            DetailsReport.CreateReport(ref hssfworkbook, Dispatches, OrderNumbers.OfType<Int32>().ToArray(), MainOrders, NewClientID, ClientName, 
+            DetailsReport.CreateReport(ref hssfworkbook, Dispatches, OrderNumbers.OfType<Int32>().ToArray(), MainOrders, NewClientID, ClientName,
                 bProfilVerify, bTPSVerify, DiscountPaymentConditionID, false);
 
             FileInfo file = new FileInfo(FilePath + @"\" + ReportName + ".xls");
@@ -3832,7 +3834,7 @@ namespace Infinium
                 return;
             }
 
-            T1 = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Создание документа Excel.\r\nПодождите..."); });
+            T1 = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Создание документа Excel.\r\nПодождите..."); });
             T1.Start();
 
             while (!SplashWindow.bSmallCreated) ;
@@ -3891,7 +3893,7 @@ namespace Infinium
                         MegaOrderInfo m = MarketingDispatchManager.GetMegaOrders(MegaOrderID);
                         decimal D = DiscountPaymentCondition;
                         DiscountPaymentConditionID = m.DiscountPaymentConditionID;
-                        
+
                         if (DiscountPaymentConditionID == 1)
                             D = 0;
                         if (DiscountPaymentCondition == 0)
@@ -3913,7 +3915,7 @@ namespace Infinium
                             m.ProfilTotalDiscount = m.ProfilDiscountDirector;
                             //TPSTotalDiscount = TPSDiscountDirector;
                         }
-                        
+
                         decimal CurrencyTotalCost = iDBFReport.CalcCurrencyCost(MegaOrderID, ClientID, m.PaymentRate);
                         OrdersCalculate.Recalculate(MegaOrderID, m.ProfilDiscountDirector, m.TPSDiscountDirector,
                             (m.ProfilTotalDiscount - m.ProfilDiscountDirector), (m.TPSTotalDiscount - m.TPSDiscountDirector), m.DiscountPaymentCondition, CurrencyTypeID, m.PaymentRate, m.ConfirmDateTime, CurrencyTotalCost, !bProfilVerify);
@@ -3932,7 +3934,7 @@ namespace Infinium
                         MegaOrderInfo m = MarketingDispatchManager.GetMegaOrders(MegaOrderID);
                         decimal D = DiscountPaymentCondition;
                         DiscountPaymentConditionID = m.DiscountPaymentConditionID;
-                        
+
                         if (DiscountPaymentConditionID == 1)
                             D = 0;
                         if (DiscountPaymentCondition == 0)
@@ -4347,7 +4349,7 @@ namespace Infinium
                     while (!SplashWindow.bSmallCreated) ;
 
                     NeedSplash = false;
-                    
+
                     cbxYears.SelectedValue = Convert.ToDateTime(PrepareDispatchDateTime).Year;
                     cbxMonths.SelectedValue = Convert.ToDateTime(PrepareDispatchDateTime).Month;
                     UpdateDispatchDate();

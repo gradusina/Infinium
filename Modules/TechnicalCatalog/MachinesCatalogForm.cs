@@ -1,13 +1,15 @@
-﻿using System;
+﻿using ComponentFactory.Krypton.Toolkit;
+
+using Infinium.Modules.Marketing.Clients;
+
+using System;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Windows.Forms;
-using System.Threading;
 using System.IO;
-using Infinium.Modules.Marketing.Clients;
-using ComponentFactory.Krypton.Toolkit;
+using System.Linq;
+using System.Threading;
+using System.Windows.Forms;
 
 namespace Infinium
 {
@@ -118,9 +120,9 @@ namespace Infinium
             LightStartForm = tLightStartForm;
 
             this.MaximumSize = Screen.PrimaryScreen.WorkingArea.Size;
-            
+
             dgvMainParameters.ReadOnly = false;
-            while(!SplashForm.bCreated);
+            while (!SplashForm.bCreated) ;
         }
 
         private bool PermissionGranted(int PermissionID)
@@ -304,13 +306,13 @@ namespace Infinium
             dgvEquipmentFiles.DataSource = MachinesCatalogManager.EquipmentFilesList;
 
             dgvMachinesStructure.DataSource = MachinesCatalogManager.MachinesStructureList;
-            
+
             dgvExploitationTools.DataSource = MachinesCatalogManager.ExploitationToolsList;
             dgvRepairTools.DataSource = MachinesCatalogManager.RepairToolsList;
             dgvServiceTools.DataSource = MachinesCatalogManager.ServiceToolsList;
             dgvLubricant.DataSource = MachinesCatalogManager.LubricantList;
             dgvEquipment.DataSource = MachinesCatalogManager.EquipmentList;
-            
+
             dgvAspirationDetails.DataSource = MachinesCatalogManager.AspirationDetailsList;
             dgvMechanicsDetails.DataSource = MachinesCatalogManager.MechanicsDetailsList;
             dgvElectricsDetails.DataSource = MachinesCatalogManager.ElectricsDetailsList;
@@ -743,7 +745,7 @@ namespace Infinium
             PanelNameNewRow("pnlSparesCatalog", "Каталог запчастей");
             PanelNameNewRow("pnlDetailsPage", "Запчасти");
             PanelNameNewRow("pnlInstructions", "Документация");
-            
+
             cbPagesNavigation1.DataSource = new DataView(PanelsNamesDT);
             cbPagesNavigation1.ValueMember = "ValueMember";
             cbPagesNavigation1.DisplayMember = "DisplayMember";
@@ -790,7 +792,7 @@ namespace Infinium
 
             Initialize();
             NeedAddColumns = false;
-            
+
             lblMachineName.Text = MachineName;
             DefinePageName(CurrentPanelName);
 
@@ -869,7 +871,7 @@ namespace Infinium
             if (NeedSplash)
             {
                 NeedSplash = false;
-                Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
+                Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
                 T.Start();
 
                 while (!SplashWindow.bSmallCreated) ;
@@ -1157,7 +1159,7 @@ namespace Infinium
                     if (NeedSplash)
                     {
                         NeedSplash = false;
-                        Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение данных.\r\nПодождите..."); });
+                        Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение данных.\r\nПодождите..."); });
                         T.Start();
 
                         while (!SplashWindow.bSmallCreated) ;
@@ -1202,7 +1204,7 @@ namespace Infinium
                     if (NeedSplash)
                     {
                         NeedSplash = false;
-                        Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение данных.\r\nПодождите..."); });
+                        Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение данных.\r\nПодождите..."); });
                         T.Start();
 
                         while (!SplashWindow.bSmallCreated) ;
@@ -1247,7 +1249,7 @@ namespace Infinium
                     if (NeedSplash)
                     {
                         NeedSplash = false;
-                        Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение данных.\r\nПодождите..."); });
+                        Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение данных.\r\nПодождите..."); });
                         T.Start();
 
                         while (!SplashWindow.bSmallCreated) ;
@@ -1292,7 +1294,7 @@ namespace Infinium
                     if (NeedSplash)
                     {
                         NeedSplash = false;
-                        Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение данных.\r\nПодождите..."); });
+                        Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение данных.\r\nПодождите..."); });
                         T.Start();
 
                         while (!SplashWindow.bSmallCreated) ;
@@ -1336,7 +1338,7 @@ namespace Infinium
                     if (NeedSplash)
                     {
                         NeedSplash = false;
-                        Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение данных.\r\nПодождите..."); });
+                        Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение данных.\r\nПодождите..."); });
                         T.Start();
 
                         while (!SplashWindow.bSmallCreated) ;
@@ -1380,7 +1382,7 @@ namespace Infinium
                     if (NeedSplash)
                     {
                         NeedSplash = false;
-                        Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение данных.\r\nПодождите..."); });
+                        Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение данных.\r\nПодождите..."); });
                         T.Start();
 
                         while (!SplashWindow.bSmallCreated) ;
@@ -1424,7 +1426,7 @@ namespace Infinium
                     if (NeedSplash)
                     {
                         NeedSplash = false;
-                        Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение данных.\r\nПодождите..."); });
+                        Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение данных.\r\nПодождите..."); });
                         T.Start();
 
                         while (!SplashWindow.bSmallCreated) ;
@@ -1468,7 +1470,7 @@ namespace Infinium
                     if (NeedSplash)
                     {
                         NeedSplash = false;
-                        Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение данных.\r\nПодождите..."); });
+                        Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение данных.\r\nПодождите..."); });
                         T.Start();
 
                         while (!SplashWindow.bSmallCreated) ;
@@ -1502,7 +1504,7 @@ namespace Infinium
                     if (NeedSplash)
                     {
                         NeedSplash = false;
-                        Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
+                        Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
                         T.Start();
 
                         while (!SplashWindow.bSmallCreated) ;
@@ -1724,12 +1726,12 @@ namespace Infinium
             string temppath = string.Empty;
             int MachineDocumentID = Convert.ToInt32(((PercentageDataGrid)sender).CurrentRow.Cells["MachineDocumentID"].Value);
             {
-                T = new System.Threading.Thread(delegate()
+                T = new System.Threading.Thread(delegate ()
                 {
-                    Thread T1 = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Открытие файла.\r\nПодождите..."); });
+                    Thread T1 = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Открытие файла.\r\nПодождите..."); });
                     T1.Start();
 
-                    while (!SplashWindow.bSmallCreated) ; 
+                    while (!SplashWindow.bSmallCreated) ;
                     temppath = MachinesCatalogManager.SaveMachineDocuments(MachineDocumentID);
                     while (SplashWindow.bSmallCreated)
                         SmallWaitForm.CloseS = true;
@@ -1760,7 +1762,7 @@ namespace Infinium
                 return;
             int MachineID = Convert.ToInt32(dgvMachines.CurrentRow.Cells["MachineID"].Value);
 
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение данных.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение данных.\r\nПодождите..."); });
             T.Start();
             while (!SplashWindow.bSmallCreated) ;
             NeedSplash = false;
@@ -1782,8 +1784,8 @@ namespace Infinium
             int MachineID = 0;
             if (dgvMachines.SelectedCells.Count != 0 && dgvMachines.CurrentRow.Cells["MachineID"].Value != DBNull.Value)
                 MachineID = Convert.ToInt32(dgvMachines.CurrentRow.Cells["MachineID"].Value);
-            
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение данных.\r\nПодождите..."); });
+
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение данных.\r\nПодождите..."); });
             T.Start();
             while (!SplashWindow.bSmallCreated) ;
             NeedSplash = false;
@@ -2416,7 +2418,7 @@ namespace Infinium
                 return;
             int MachineID = Convert.ToInt32(dgvMachines.CurrentRow.Cells["MachineID"].Value);
 
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение данных.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение данных.\r\nПодождите..."); });
             T.Start();
             while (!SplashWindow.bSmallCreated) ;
 
@@ -2792,7 +2794,7 @@ namespace Infinium
             NewRow["Extension"] = fileInfo.Extension;
             NewRow["Path"] = openFileDialog9.FileName;
             AttachsDT.Rows.Add(NewRow);
-            
+
             if (AttachsDT.Rows.Count != 0)
             {
                 if (dgvMachines.SelectedCells.Count == 1 && CurrentMachineDetailID != 0)
@@ -2801,7 +2803,7 @@ namespace Infinium
                     if (NeedSplash)
                     {
                         NeedSplash = false;
-                        Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение данных.\r\nПодождите..."); });
+                        Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение данных.\r\nПодождите..."); });
                         T.Start();
 
                         while (!SplashWindow.bSmallCreated) ;
@@ -2884,7 +2886,7 @@ namespace Infinium
             if (OKCancel)
             {
                 NeedSplash = false;
-                Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение данных.\r\nПодождите..."); });
+                Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение данных.\r\nПодождите..."); });
                 T.Start();
                 MachinesCatalogManager.RemoveMachineDocuments(CurrentMachineDocumentID);
                 MachinesCatalogManager.ClearMachineDocuments();
@@ -3190,7 +3192,7 @@ namespace Infinium
                 return;
             int MachineID = Convert.ToInt32(dgvMachines.CurrentRow.Cells["MachineID"].Value);
 
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение данных.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение данных.\r\nПодождите..."); });
             T.Start();
             while (!SplashWindow.bSmallCreated) ;
 
@@ -3231,7 +3233,7 @@ namespace Infinium
                 return;
             int MachineID = Convert.ToInt32(dgvMachines.CurrentRow.Cells["MachineID"].Value);
 
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение данных.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение данных.\r\nПодождите..."); });
             T.Start();
             while (!SplashWindow.bSmallCreated) ;
             NeedSplash = false;
@@ -3282,7 +3284,7 @@ namespace Infinium
                 CurrentGrid = dgvAspirationUnits;
                 CurrentType = MachineFileTypes.MachineAspiration;
                 ((PercentageDataGrid)sender).Rows[e.RowIndex].Selected = true;
-                
+
                 kryptonContextMenu6.Show(new Point(Cursor.Position.X - 212, Cursor.Position.Y - 10));
             }
         }
@@ -3445,7 +3447,7 @@ namespace Infinium
                 MachineSpareGroupID = Convert.ToInt32(dgvHydraulicsSpareGroups.CurrentRow.Cells["MachineSpareGroupID"].Value);
             MachinesCatalogManager.FilterSpares(MachineSpareGroupID, MachineFileTypes.MachineHydraulics);
         }
-        
+
         private void dgvAspirationSpareGroups_SelectionChanged(object sender, EventArgs e)
         {
             if (MachinesCatalogManager == null)
@@ -3519,7 +3521,7 @@ namespace Infinium
             if (OKCancel)
             {
                 NeedSplash = false;
-                Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение данных.\r\nПодождите..."); });
+                Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение данных.\r\nПодождите..."); });
                 T.Start();
                 MachinesCatalogManager.RemoveMachineDocuments(CurrentMachineDocumentID);
                 MachinesCatalogManager.ClearMachineDocuments();
@@ -3625,7 +3627,7 @@ namespace Infinium
                 return;
             int MachineID = Convert.ToInt32(dgvMachines.CurrentRow.Cells["MachineID"].Value);
 
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение данных.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение данных.\r\nПодождите..."); });
             T.Start();
             while (!SplashWindow.bSmallCreated) ;
 
@@ -3653,7 +3655,7 @@ namespace Infinium
                 return;
             int MachineID = Convert.ToInt32(dgvMachines.CurrentRow.Cells["MachineID"].Value);
 
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение данных.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение данных.\r\nПодождите..."); });
             T.Start();
             while (!SplashWindow.bSmallCreated) ;
 
@@ -3705,7 +3707,7 @@ namespace Infinium
                 return;
             int MachineID = Convert.ToInt32(dgvMachines.CurrentRow.Cells["MachineID"].Value);
 
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение данных.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение данных.\r\nПодождите..."); });
             T.Start();
             while (!SplashWindow.bSmallCreated) ;
 
@@ -3728,7 +3730,7 @@ namespace Infinium
             {
                 CurrentGrid = (PercentageDataGrid)sender;
                 CurrentGrid.Rows[e.RowIndex].Selected = true;
-                
+
                 kryptonContextMenu9.Show(new Point(Cursor.Position.X - 212, Cursor.Position.Y - 10));
             }
         }
@@ -3737,7 +3739,7 @@ namespace Infinium
         {
             int MachineID = Convert.ToInt32(dgvMachines.CurrentRow.Cells["MachineID"].Value);
 
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение данных.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение данных.\r\nПодождите..."); });
             T.Start();
             while (!SplashWindow.bSmallCreated) ;
 
@@ -3848,7 +3850,7 @@ namespace Infinium
                 CurrentGrid = dgvElectricsUnits;
                 CurrentType = MachineFileTypes.MachineElectrics;
                 cmiSaveUnits_Click(null, null);
-            }         
+            }
         }
 
         private void dgvMechanicsUnits_KeyDown(object sender, KeyEventArgs e)
@@ -3858,7 +3860,7 @@ namespace Infinium
                 CurrentGrid = dgvMechanicsUnits;
                 CurrentType = MachineFileTypes.MachineMechanics;
                 cmiSaveUnits_Click(null, null);
-            }      
+            }
         }
 
         private void dgvHydraulicsUnits_KeyDown(object sender, KeyEventArgs e)
@@ -3868,7 +3870,7 @@ namespace Infinium
                 CurrentGrid = dgvHydraulicsUnits;
                 CurrentType = MachineFileTypes.MachineHydraulics;
                 cmiSaveUnits_Click(null, null);
-            }         
+            }
         }
 
         private void dgvPneumaticsUnits_KeyDown(object sender, KeyEventArgs e)
@@ -3878,7 +3880,7 @@ namespace Infinium
                 CurrentGrid = dgvPneumaticsUnits;
                 CurrentType = MachineFileTypes.MachineElectrics;
                 cmiSaveUnits_Click(null, null);
-            }         
+            }
         }
 
         private void dgvAspirationUnits_KeyDown(object sender, KeyEventArgs e)
@@ -4081,7 +4083,7 @@ namespace Infinium
             //    CopyDataGridViewToClipboard(ref dgvMachines);
             //}
         }
-        
+
         private void CopyDataGridViewToClipboard(ref PercentageDataGrid dgv)
         {
             string s = string.Empty;
@@ -4105,7 +4107,7 @@ namespace Infinium
                 return;
             int MachineID = Convert.ToInt32(dgvMachines.CurrentRow.Cells["MachineID"].Value);
 
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение данных.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение данных.\r\nПодождите..."); });
             T.Start();
             while (!SplashWindow.bSmallCreated) ;
 
@@ -4173,7 +4175,7 @@ namespace Infinium
             if (OKCancel)
             {
                 NeedSplash = false;
-                Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение данных.\r\nПодождите..."); });
+                Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение данных.\r\nПодождите..."); });
                 T.Start();
                 MachinesCatalogManager.RemoveMachineDocuments(CurrentMachineDocumentID);
                 MachinesCatalogManager.ClearMachineDocuments();
@@ -4209,7 +4211,7 @@ namespace Infinium
                     if (NeedSplash)
                     {
                         NeedSplash = false;
-                        Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение данных.\r\nПодождите..."); });
+                        Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение данных.\r\nПодождите..."); });
                         T.Start();
 
                         while (!SplashWindow.bSmallCreated) ;
@@ -4264,7 +4266,7 @@ namespace Infinium
             if (OKCancel)
             {
                 NeedSplash = false;
-                Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение данных.\r\nПодождите..."); });
+                Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение данных.\r\nПодождите..."); });
                 T.Start();
                 MachinesCatalogManager.RemoveMachineDocuments(CurrentMachineDocumentID);
                 MachinesCatalogManager.ClearMachineDocuments();
@@ -4311,7 +4313,7 @@ namespace Infinium
             if (OKCancel)
             {
                 NeedSplash = false;
-                Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение данных.\r\nПодождите..."); });
+                Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение данных.\r\nПодождите..."); });
                 T.Start();
                 MachinesCatalogManager.RemoveMachineDocuments(CurrentMachineDocumentID);
                 MachinesCatalogManager.ClearMachineDocuments();
@@ -4358,7 +4360,7 @@ namespace Infinium
             if (OKCancel)
             {
                 NeedSplash = false;
-                Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение данных.\r\nПодождите..."); });
+                Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение данных.\r\nПодождите..."); });
                 T.Start();
                 MachinesCatalogManager.RemoveMachineDocuments(CurrentMachineDocumentID);
                 MachinesCatalogManager.ClearMachineDocuments();
@@ -4434,7 +4436,7 @@ namespace Infinium
             if (OKCancel)
             {
                 NeedSplash = false;
-                Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение данных.\r\nПодождите..."); });
+                Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение данных.\r\nПодождите..."); });
                 T.Start();
                 MachinesCatalogManager.RemoveMachineDocuments(CurrentMachineDocumentID);
                 MachinesCatalogManager.ClearMachineDocuments();
@@ -5030,7 +5032,7 @@ namespace Infinium
             if (dgvMachines.SelectedCells.Count != 0 && dgvMachines.CurrentRow.Cells["MachineID"].Value != DBNull.Value)
                 MachineID = Convert.ToInt32(dgvMachines.CurrentRow.Cells["MachineID"].Value);
 
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение данных.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение данных.\r\nПодождите..."); });
             T.Start();
             while (!SplashWindow.bSmallCreated) ;
             NeedSplash = false;

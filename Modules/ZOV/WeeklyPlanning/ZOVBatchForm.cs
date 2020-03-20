@@ -1,13 +1,14 @@
-﻿using System;
+﻿using Infinium.Modules.Marketing.NewOrders;
+using Infinium.Modules.ZOV.WeeklyPlanning;
+
+using System;
+using System.Collections;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Windows.Forms;
 using System.Threading;
-using System.Collections;
-using Infinium.Modules.ZOV.WeeklyPlanning;
-using Infinium.Modules.Marketing.NewOrders;
+using System.Windows.Forms;
 
 namespace Infinium
 {
@@ -60,7 +61,7 @@ namespace Infinium
         Bitmap Unlock_BW = new Bitmap(Properties.Resources.UnlockSmallBlack);
 
         LightStartForm LightStartForm;
-        
+
         Form TopForm = null;
         ZOVPickFrontsSelectForm PickFrontsSelectForm;
 
@@ -75,7 +76,7 @@ namespace Infinium
             InitializeComponent();
             LightStartForm = tLightStartForm;
 
-            
+
             this.MaximumSize = Screen.PrimaryScreen.WorkingArea.Size;
 
             RolePermissionsDataTable = RolesAndPermissionsManager.GetPermissions(Security.CurrentUserID);
@@ -173,18 +174,18 @@ namespace Infinium
 
                     if (FormEvent == eClose)
                     {
-                       
+
                         LightStartForm.CloseForm(this);
                         this.Close();
                     }
 
                     if (FormEvent == eHide)
                     {
-                        
+
                         LightStartForm.HideForm(this);
                     }
 
-                    
+
                     return;
                 }
 
@@ -208,17 +209,17 @@ namespace Infinium
 
                     if (FormEvent == eClose)
                     {
-                       
+
                         LightStartForm.CloseForm(this);
                         this.Close();
                     }
 
                     if (FormEvent == eHide)
                     {
-                        
+
                         LightStartForm.HideForm(this);
                     }
-                    
+
                 }
 
                 return;
@@ -339,7 +340,7 @@ namespace Infinium
 
             if (NeedSplash)
             {
-                Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
+                Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
                 T.Start();
 
                 while (!SplashWindow.bSmallCreated) ;
@@ -384,7 +385,7 @@ namespace Infinium
 
                         if (NeedSplash)
                         {
-                            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
+                            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
                             T.Start();
 
                             while (!SplashWindow.bSmallCreated) ;
@@ -482,7 +483,7 @@ namespace Infinium
                         DocDateLabel.Text = DocDateInfo;
 
                         int[] MainOrders = BatchManager.GetSelectedMainOrders().OfType<int>().ToArray();
-                        
+
                         if (MainOrders.Count() > 0)
                         {
                             xtraTabControl3.TabPages[1].PageVisible = true;
@@ -541,7 +542,7 @@ namespace Infinium
 
                         if (NeedSplash)
                         {
-                            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
+                            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
                             T.Start();
 
                             while (!SplashWindow.bSmallCreated) ;
@@ -666,17 +667,17 @@ namespace Infinium
 
             int BatchID = Convert.ToInt32(((DataRowView)BatchManager.BatchBindingSource.Current).Row["BatchID"]);
             ArrayList MainOrders = BatchManager.GetSelectedMainOrders();
-            
+
             for (int i = 0; i < MainOrders.Count; i++)
             {
-                if (!BatchManager.IsDoubleOrder(Convert.ToInt32( MainOrders[i])))
+                if (!BatchManager.IsDoubleOrder(Convert.ToInt32(MainOrders[i])))
                 {
                     Infinium.LightMessageBox.Show(ref TopForm, false,
                            "Кухня " + MainOrders[i].ToString() + " не прошла двойное вбивание, её нельзя включить в партию",
                            "Ошибка добавления");
                     MainOrders.RemoveAt(i);
                 }
-            } 
+            }
             if (MainOrders.Count < 1)
                 return;
 
@@ -751,7 +752,7 @@ namespace Infinium
 
             if (OKCancel)
             {
-                Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Идёт обработка данных.\r\nПодождите..."); });
+                Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Идёт обработка данных.\r\nПодождите..."); });
                 T.Start();
 
                 while (!SplashWindow.bSmallCreated) ;
@@ -951,7 +952,7 @@ namespace Infinium
             int BatchID = Convert.ToInt32(((DataRowView)BatchManager.BatchBindingSource.Current)["BatchID"]);
 
             int[] MainOrders = BatchManager.GetSelectedBatchMainOrders(FactoryID);
-            
+
             if (!BatchManager.HasOrders(BatchID, FactoryID))
                 return;
             bool OKCancel = Infinium.LightMessageBox.Show(ref TopForm, true,
@@ -960,7 +961,7 @@ namespace Infinium
 
             if (OKCancel)
             {
-                Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Создание документа Excel.\r\nПодождите..."); });
+                Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Создание документа Excel.\r\nПодождите..."); });
                 T.Start();
 
                 while (!SplashWindow.bSmallCreated) ;
@@ -982,7 +983,7 @@ namespace Infinium
                     BatchOnProduction, BatchNotProduction, BatchInProduction, BatchOnStorage, BatchDispatched);
             }
         }
-        
+
         private void MoveOrdersButton_Click(object sender, EventArgs e)
         {
             int BatchID = Convert.ToInt32(((DataRowView)BatchManager.BatchBindingSource.Current).Row["BatchID"]);
@@ -1015,7 +1016,7 @@ namespace Infinium
             }
 
             ZOVBatchSelectMenu SelectMenuForm = new ZOVBatchSelectMenu(this, BatchManager, FactoryID);
-            
+
             TopForm = SelectMenuForm;
             SelectMenuForm.ShowDialog();
 
@@ -1050,7 +1051,7 @@ namespace Infinium
             {
                 AddBatchButton.Visible = false;
                 RemoveBatchButton.Visible = false;
-                PrintBatchButton.Visible = false;                                
+                PrintBatchButton.Visible = false;
                 MoveBatchButton.Visible = false;
                 EditBatchNameButton.Visible = false;
                 OKMoveOrdersButton.Visible = true;
@@ -1112,7 +1113,7 @@ namespace Infinium
                     GC.Collect();
 
                     NeedSplash = false;
-                    Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
+                    Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
                     T.Start();
 
                     while (!SplashWindow.bSmallCreated) ;
@@ -1765,7 +1766,7 @@ namespace Infinium
 
         private void kryptonContextMenuItem1_Click(object sender, EventArgs e)
         {
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Создание отчета.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Создание отчета.\r\nПодождите..."); });
             T.Start();
 
             while (!SplashWindow.bSmallCreated) ;

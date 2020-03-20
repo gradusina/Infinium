@@ -27,13 +27,13 @@ namespace Infinium
             InitializeComponent();
 
             bMyProfile = MyProfile;
-            iCurrentProfileUserID = CurrentProfileUserID; 
+            iCurrentProfileUserID = CurrentProfileUserID;
 
             UserProfile = tUserProfile;
 
             this.MaximumSize = Screen.PrimaryScreen.WorkingArea.Size;
 
-            if(bMyProfile)
+            if (bMyProfile)
                 PhotoBox.Image = UserProfile.GetUserPhoto();
             else
                 PhotoBox.Image = UserProfile.GetUserPhoto(CurrentProfileUserID);
@@ -41,7 +41,7 @@ namespace Infinium
             Initialize();
         }
 
-      
+
         private void PersonalSettingsForm_Shown(object sender, EventArgs e)
         {
             FormEvent = eShow;
@@ -131,8 +131,8 @@ namespace Infinium
             AnimateTimer.Enabled = true;
         }
 
-        
-        
+
+
 
         private void Initialize()
         {

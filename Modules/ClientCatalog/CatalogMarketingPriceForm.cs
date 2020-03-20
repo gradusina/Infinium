@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Data;
-using System.Windows.Forms;
 using System.Threading;
+using System.Windows.Forms;
 
 namespace Infinium
 {
@@ -27,7 +27,7 @@ namespace Infinium
 
             Initialize();
 
-            while (!SplashForm.bCreated);
+            while (!SplashForm.bCreated) ;
         }
 
         private void CatalogMarketingPriceForm_Shown(object sender, EventArgs e)
@@ -693,7 +693,7 @@ namespace Infinium
             if (DecorCatalog.WidthBindingSource.Count > 0)
             {
                 DecorCatalog.FilterLength(((DataRowView)DecorCatalog.DecorItemBindingSource.Current)["Name"].ToString(),
-                    Convert.ToInt32(((DataRowView)DecorCatalog.ItemColorsBindingSource.Current)["ColorID"]), 
+                    Convert.ToInt32(((DataRowView)DecorCatalog.ItemColorsBindingSource.Current)["ColorID"]),
                     Convert.ToInt32(((DataRowView)DecorCatalog.ItemPatinaBindingSource.Current)["PatinaID"]),
                     Convert.ToInt32(((DataRowView)DecorCatalog.ItemInsetTypesBindingSource.Current)["InsetTypeID"]),
                     Convert.ToInt32(((DataRowView)DecorCatalog.ItemInsetColorsBindingSource.Current)["InsetColorID"]));
@@ -722,7 +722,7 @@ namespace Infinium
                 int Height = Convert.ToInt32(((DataRowView)DecorCatalog.HeightBindingSource.Current)["Height"]);
 
                 DecorCatalog.FilterWidth(((DataRowView)DecorCatalog.DecorItemBindingSource.Current)["Name"].ToString(),
-                    Convert.ToInt32(((DataRowView)DecorCatalog.ItemColorsBindingSource.Current)["ColorID"]), 
+                    Convert.ToInt32(((DataRowView)DecorCatalog.ItemColorsBindingSource.Current)["ColorID"]),
                     Convert.ToInt32(((DataRowView)DecorCatalog.ItemPatinaBindingSource.Current)["PatinaID"]),
                     Convert.ToInt32(((DataRowView)DecorCatalog.ItemInsetTypesBindingSource.Current)["InsetTypeID"]),
                     Convert.ToInt32(((DataRowView)DecorCatalog.ItemInsetColorsBindingSource.Current)["InsetColorID"]), Length, Height);
@@ -739,7 +739,7 @@ namespace Infinium
                 int Width = Convert.ToInt32(((DataRowView)DecorCatalog.WidthBindingSource.Current)["Width"]);
 
                 DecorCatalog.FilterCatalogMarketingPrice(((DataRowView)DecorCatalog.DecorItemBindingSource.Current)["Name"].ToString(),
-                    Convert.ToInt32(((DataRowView)DecorCatalog.ItemColorsBindingSource.Current)["ColorID"]), 
+                    Convert.ToInt32(((DataRowView)DecorCatalog.ItemColorsBindingSource.Current)["ColorID"]),
                     Convert.ToInt32(((DataRowView)DecorCatalog.ItemPatinaBindingSource.Current)["PatinaID"]),
                     Convert.ToInt32(((DataRowView)DecorCatalog.ItemInsetTypesBindingSource.Current)["InsetTypeID"]),
                     Convert.ToInt32(((DataRowView)DecorCatalog.ItemInsetColorsBindingSource.Current)["InsetColorID"]), Length, Height, Width);
@@ -828,7 +828,7 @@ namespace Infinium
 
         private void TPSCheckButton_Click(object sender, EventArgs e)
         {
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
             T.Start();
 
             while (!SplashWindow.bSmallCreated) ;
@@ -847,7 +847,7 @@ namespace Infinium
 
         private void ProfilCheckButton_Click(object sender, EventArgs e)
         {
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
             T.Start();
 
             while (!SplashWindow.bSmallCreated) ;
@@ -919,7 +919,7 @@ namespace Infinium
 
             if (kryptonCheckSet2.CheckedButton.Name == "ProfilCheckButton")
             {
-                Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
+                Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
                 T.Start();
 
                 while (!SplashWindow.bSmallCreated) ;
@@ -937,7 +937,7 @@ namespace Infinium
             }
             else
             {
-                Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
+                Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
                 T.Start();
 
                 while (!SplashWindow.bSmallCreated) ;

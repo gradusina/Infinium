@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Data;
-using System.Windows.Forms;
 using System.Threading;
+using System.Windows.Forms;
 
 namespace Infinium
 {
@@ -14,7 +14,7 @@ namespace Infinium
         int FormEvent = 0;
 
         LightStartForm LightStartForm;
-        
+
         Form TopForm;
 
         DataTable SDT = new DataTable();
@@ -26,9 +26,9 @@ namespace Infinium
         public MarketingNewsForm(LightStartForm tLightStartForm)
         {
             InitializeComponent();
-            
+
             LightStartForm = tLightStartForm;
-            
+
             this.MaximumSize = Screen.PrimaryScreen.WorkingArea.Size;
 
             MarketingNews = new Infinium.MarketingNews();
@@ -88,11 +88,11 @@ namespace Infinium
             while (!SplashForm.bCreated) ;
         }
 
-      
+
         private void LightNewsForm_Shown(object sender, EventArgs e)
         {
             while (!SplashForm.bCreated) ;
-            
+
             LightNewsContainer.Visible = true;
             FormEvent = eShow;
             AnimateTimer.Enabled = true;
@@ -110,16 +110,16 @@ namespace Infinium
 
                     if (FormEvent == eClose)
                     {
-                       
+
                         LightStartForm.CloseForm(this);
                     }
 
                     if (FormEvent == eHide)
                     {
-                        
+
                         LightStartForm.HideForm(this);
                     }
-                    
+
 
                     return;
                 }
@@ -148,16 +148,16 @@ namespace Infinium
 
                     if (FormEvent == eClose)
                     {
-                       
+
                         LightStartForm.CloseForm(this);
                     }
 
                     if (FormEvent == eHide)
                     {
-                        
+
                         LightStartForm.HideForm(this);
                     }
-                    
+
                 }
 
                 return;
@@ -184,7 +184,7 @@ namespace Infinium
         private void NavigateMenuCloseButton_Click(object sender, EventArgs e)
         {
             LightNewsContainer.Visible = false;
-            
+
             FormEvent = eClose;
             AnimateTimer.Enabled = true;
         }
@@ -220,7 +220,7 @@ namespace Infinium
         {
             //LightNews.ClearCommentsSubs(Security.CurrentUserID);
         }
-        
+
         private void LightNewsForm_ANSUpdate(object sender)
         {
             int c = MarketingNews.GetNewsUpdatesCount();
@@ -235,7 +235,7 @@ namespace Infinium
         }
 
         bool bC = false;
-        
+
         private void timer1_Tick(object sender, EventArgs e)
         {
             if (bC)
@@ -246,7 +246,7 @@ namespace Infinium
                 bC = false;
             }
         }
-        
+
         private void AddNewsButton_Click(object sender, EventArgs e)
         {
             PhantomForm PhantomForm = new PhantomForm();
@@ -266,7 +266,7 @@ namespace Infinium
             if (AddNewsForm.Canceled)
                 return;
 
-            Thread T = new Thread(delegate()
+            Thread T = new Thread(delegate ()
             {
                 SplashWindow.CreateCoverSplash(LightNewsContainer.Top, LightNewsContainer.Left,
                                      LightNewsContainer.Height, LightNewsContainer.Width);
@@ -321,13 +321,16 @@ namespace Infinium
 
             if (LightMessageBoxForm.OKCancel)
             {
-                Thread T = new Thread(delegate() {SplashWindow.CreateCoverSplash(LightNewsContainer.Top, LightNewsContainer.Left,
-                                                  LightNewsContainer.Height, LightNewsContainer.Width);});
+                Thread T = new Thread(delegate ()
+                {
+                    SplashWindow.CreateCoverSplash(LightNewsContainer.Top, LightNewsContainer.Left,
+                    LightNewsContainer.Height, LightNewsContainer.Width);
+                });
                 T.Start();
 
                 while (!SplashWindow.bSmallCreated) ;
 
-            
+
                 MarketingNews.RemoveNews(NewsID);
                 if (cbtnClients.Checked)
                 {
@@ -352,7 +355,7 @@ namespace Infinium
                         MarketingNews.ReloadManagersNews(LightNewsContainer.NewsCount, ClientsManagersMenu.Items[ClientsManagersMenu.Selected].ClientID);
                     }
                 }
-                
+
                 MarketingNews.ReloadComments();
                 LightNewsContainer.NewsDataTable = MarketingNews.NewsDataTable.Copy();
                 LightNewsContainer.CommentsDT = MarketingNews.CommentsDataTable.Copy();
@@ -363,12 +366,12 @@ namespace Infinium
 
 
             bC = true;
-           
+
         }
 
         private void LightNewsContainer_CommentSendButtonClicked(object sender, string Text, int NewsID, int SenderID, bool bEdit, int NewsCommentID)
         {
-            Thread T = new Thread(delegate()
+            Thread T = new Thread(delegate ()
             {
                 SplashWindow.CreateCoverSplash(LightNewsContainer.Top, LightNewsContainer.Left,
                                      LightNewsContainer.Height, LightNewsContainer.Width);
@@ -376,7 +379,7 @@ namespace Infinium
             T.Start();
 
             while (!SplashWindow.bSmallCreated) ;
-            
+
             if (bEdit)
                 MarketingNews.EditComments(SenderID, NewsCommentID, Text);
             else
@@ -425,7 +428,7 @@ namespace Infinium
 
             if (LightMessageBoxForm.OKCancel)
             {
-                Thread T = new Thread(delegate()
+                Thread T = new Thread(delegate ()
                 {
                     SplashWindow.CreateCoverSplash(LightNewsContainer.Top, LightNewsContainer.Left,
                     LightNewsContainer.Height, LightNewsContainer.Width);
@@ -641,7 +644,7 @@ namespace Infinium
 
         private void UpdateNewsButton_Click(object sender, EventArgs e)
         {
-            Thread T = new Thread(delegate()
+            Thread T = new Thread(delegate ()
             {
                 SplashWindow.CreateCoverSplash(LightNewsContainer.Top, LightNewsContainer.Left,
                                      LightNewsContainer.Height, LightNewsContainer.Width);
@@ -742,7 +745,7 @@ namespace Infinium
         {
             if (bNeedSplash)
             {
-                Thread T = new Thread(delegate()
+                Thread T = new Thread(delegate ()
                 {
                     SplashWindow.CreateCoverSplash(LightNewsContainer.Top, LightNewsContainer.Left,
                                          LightNewsContainer.Height, LightNewsContainer.Width);
@@ -754,7 +757,7 @@ namespace Infinium
 
             if (NewClientsMenu.Selected > -1)
                 NewClientsMenu.Selected = -1;
-            
+
             MarketingNews.ReloadClientsNews(20, ClientID);//default
             MarketingNews.ReloadComments();
             MarketingNews.ReloadAttachments();
@@ -765,7 +768,7 @@ namespace Infinium
             LightNewsContainer.ScrollToTop();
             LightNewsContainer.Focus();
 
-            if(bNeedSplash)
+            if (bNeedSplash)
                 bC = true;
         }
 
@@ -775,7 +778,7 @@ namespace Infinium
 
             if (bNeedSplash)
             {
-                Thread T = new Thread(delegate()
+                Thread T = new Thread(delegate ()
                 {
                     SplashWindow.CreateCoverSplash(LightNewsContainer.Top, LightNewsContainer.Left,
                                          LightNewsContainer.Height, LightNewsContainer.Width);
@@ -796,7 +799,7 @@ namespace Infinium
             LightNewsContainer.Focus();
 
 
-            if(bNeedSplash)
+            if (bNeedSplash)
                 bC = true;
         }
 
@@ -804,7 +807,7 @@ namespace Infinium
         {
             if (bNeedSplash)
             {
-                Thread T = new Thread(delegate()
+                Thread T = new Thread(delegate ()
                 {
                     SplashWindow.CreateCoverSplash(LightNewsContainer.Top, LightNewsContainer.Left,
                                          LightNewsContainer.Height, LightNewsContainer.Width);
@@ -837,7 +840,7 @@ namespace Infinium
 
             if (bNeedSplash)
             {
-                Thread T = new Thread(delegate()
+                Thread T = new Thread(delegate ()
                 {
                     SplashWindow.CreateCoverSplash(LightNewsContainer.Top, LightNewsContainer.Left,
                                          LightNewsContainer.Height, LightNewsContainer.Width);
@@ -866,7 +869,7 @@ namespace Infinium
         {
             if (MarketingNews == null)
                 return;
-            Thread T = new Thread(delegate()
+            Thread T = new Thread(delegate ()
             {
                 SplashWindow.CreateCoverSplash(LightNewsContainer.Top, LightNewsContainer.Left,
                                      LightNewsContainer.Height, LightNewsContainer.Width);

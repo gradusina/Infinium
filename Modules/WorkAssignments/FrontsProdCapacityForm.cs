@@ -1,6 +1,7 @@
-﻿using System;
+﻿using Infinium.Modules.WorkAssignments;
+
+using System;
 using System.Windows.Forms;
-using Infinium.Modules.WorkAssignments;
 
 namespace Infinium
 {
@@ -9,10 +10,10 @@ namespace Infinium
         const int eHide = 2;
         const int eShow = 1;
         const int eClose = 3;
-        
+
         int FormEvent = 0;
         int TechStoreID, InsetTypeID, PatinaID, TechHeight, TechWidth = 0;
-        
+
         Form MainForm = null;
         Form TopForm = null;
 

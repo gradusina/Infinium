@@ -52,7 +52,7 @@ namespace Infinium.Modules.StatisticsMarketing
             using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.ZOVOrdersConnectionString))
             {
                 DA.Fill(FirstOperatorStatisticsDT);
-            } 
+            }
             SelectCommand = "SELECT TOP 0 ClientName, DoubleOrders.DocNumber," +
                 " SecondDocDateTime, SecondSaveDateTime, SecondErrors FROM DoubleOrders" +
                 " INNER JOIN MainOrders ON DoubleOrders.DocNumber = MainOrders.DocNumber" +

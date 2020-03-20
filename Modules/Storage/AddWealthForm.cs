@@ -1,7 +1,8 @@
-﻿using System;
+﻿using Infinium.Store;
+
+using System;
 using System.Data;
 using System.Windows.Forms;
-using Infinium.Store;
 
 namespace Infinium
 {
@@ -32,7 +33,7 @@ namespace Infinium
             this.MaximumSize = Screen.PrimaryScreen.WorkingArea.Size;
 
             Initialize();
-            
+
             while (!SplashForm.bCreated) ;
 
             GoodGrid.DataSource = ConnectUnloads.StoreBindingSource;
@@ -85,7 +86,7 @@ namespace Infinium
             GoodGrid.Columns["CurrencyType"].DisplayIndex = 4;
         }
 
-      
+
         private void LightNotesForm_Shown(object sender, EventArgs e)
         {
             FormEvent = eShow;

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Windows.Forms;
-using System.Threading;
 
 namespace Infinium
 {
@@ -145,7 +144,7 @@ namespace Infinium
 
             dgvDateRates.Columns["Date"].HeaderText = "Дата";
         }
-                
+
         private void btnDeleteResponsibility_Click(object sender, EventArgs e)
         {
             bool OKCancel = Infinium.LightMessageBox.Show(ref TopForm, true,
@@ -157,7 +156,7 @@ namespace Infinium
                 DateTime Date = Convert.ToDateTime(dgvDateRates.SelectedRows[0].Cells["Date"].Value);
                 int DateRateID = Convert.ToInt32(dgvDateRates.SelectedRows[0].Cells["DateRateID"].Value);
                 DateRatesEdit.DeleteDateRate(DateRateID);
-                bool  b = DateRatesEdit.GetDateRates(Date);
+                bool b = DateRatesEdit.GetDateRates(Date);
                 DateRatesEdit.SaveDateRates();
                 InfiniumTips.ShowTip(this, 50, 85, "Удалено", 1700);
                 if (!b)
@@ -165,6 +164,6 @@ namespace Infinium
                          "Курс не взят. Возможная причина - нет связи с банком без авторизации в kerio control. Войдите в kerio и повторите попытку",
                          "Новые курсы валют");
             }
-        }        
+        }
     }
 }

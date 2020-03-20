@@ -33,8 +33,8 @@ namespace Infinium
             CountTextBox.Text = CurrentCount.ToString();
             CountTextBox.Focus();
             CountTextBox.SelectAll();
-            
-            while (!SplashForm.bCreated);
+
+            while (!SplashForm.bCreated) ;
         }
 
         private void Initialize()

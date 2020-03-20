@@ -1,8 +1,9 @@
-﻿using System;
+﻿using Infinium.Modules.Marketing.Expedition;
+
+using System;
 using System.ComponentModel;
-using System.Windows.Forms;
 using System.Threading;
-using Infinium.Modules.Marketing.Expedition;
+using System.Windows.Forms;
 
 namespace Infinium
 {
@@ -1093,7 +1094,7 @@ namespace Infinium
                 DataGridViewCheckBoxCell checkCell =
                        (DataGridViewCheckBoxCell)dgvPackages.
                        Rows[e.RowIndex].Cells["CheckBoxColumn"];
-               
+
                 int FactoryID = Convert.ToInt32(dgvMainOrders.SelectedRows[0].Cells["FactoryID"].Value);
                 int ProfilPackAllocStatusID = Convert.ToInt32(dgvMainOrders.SelectedRows[0].Cells["ProfilPackAllocStatusID"].Value);
                 int TPSPackAllocStatusID = Convert.ToInt32(dgvMainOrders.SelectedRows[0].Cells["TPSPackAllocStatusID"].Value);

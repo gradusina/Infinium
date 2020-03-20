@@ -1,11 +1,9 @@
-﻿using System;
-using System.ComponentModel;
+﻿using Infinium.Modules.Permits;
+
+using System;
 using System.Drawing;
-using System.Windows.Forms;
 using System.Threading;
-using Infinium.Modules.Permits;
-using System.Data;
-using System.Globalization;
+using System.Windows.Forms;
 
 namespace Infinium
 {
@@ -22,7 +20,7 @@ namespace Infinium
 
         bool NeedFilter = false;
         bool NeedSplash = false;
-        
+
         int FormEvent = 0;
 
         Form TopForm = null;
@@ -229,7 +227,7 @@ namespace Infinium
                 dgvPermits.Columns["PrintUserID"].Visible = false;
             if (dgvPermits.Columns.Contains("AgreedUserID"))
                 dgvPermits.Columns["AgreedUserID"].Visible = false;
-            
+
             if (dgvPermits.Columns.Contains("DeleteUserID"))
                 dgvPermits.Columns["DeleteUserID"].Visible = false;
             if (dgvPermits.Columns.Contains("PermitEnable"))
@@ -255,7 +253,7 @@ namespace Infinium
             dgvPermits.Columns["SecurityChecked"].HeaderText = "Отметка\nна проходной";
             dgvPermits.Columns["VisitMission"].HeaderText = "Цель визита";
             dgvPermits.Columns["Validity"].HeaderText = "Срок\nдействия";
-            
+
             dgvPermits.Columns["OutputEnable"].HeaderText = "Выход\nразрешен";
             dgvPermits.Columns["OutputDeniedTime"].HeaderText = "Выезд\nзапрещен";
             dgvPermits.Columns["OutputDone"].HeaderText = "Выезд\nпроизведен";
@@ -587,7 +585,7 @@ namespace Infinium
                 OutputEnable = Convert.ToBoolean(grid.Rows[e.RowIndex].Cells["OutputEnable"].Value);
             if (grid.Rows[e.RowIndex].Cells["OutputDone"].Value != DBNull.Value)
                 OutputDone = Convert.ToBoolean(grid.Rows[e.RowIndex].Cells["OutputDone"].Value);
-           
+
             if (OutputEnable && !OutputDone)
             {
                 grid.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.Green;

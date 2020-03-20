@@ -1,8 +1,8 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Windows.Forms;
-using System.Collections;
 
 namespace Infinium
 {
@@ -39,7 +39,7 @@ namespace Infinium
 
             Initialize();
 
-            while (!SplashForm.bCreated);
+            while (!SplashForm.bCreated) ;
         }
 
         private void Initialize()
@@ -167,7 +167,7 @@ namespace Infinium
                 listBox2_selectionhistory.Clear();
                 listBox2_selectionhistory.Add(DecorCheckedListBox.SelectedIndex);
             }
-        }        
+        }
 
         private void CheckAllDecorButton_Click(object sender, EventArgs e)
         {

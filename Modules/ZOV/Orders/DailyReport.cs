@@ -1,8 +1,8 @@
 ﻿using System;
-using System.Linq;
+using System.Collections.Specialized;
 using System.Data;
 using System.Data.SqlClient;
-using System.Collections.Specialized;
+using System.Linq;
 
 
 namespace Infinium.Modules.ZOV.DailyReport
@@ -460,7 +460,7 @@ namespace Infinium.Modules.ZOV.DailyReport
                             ReportParams += ", " + Row[Params[i]];
                     }
                 }
-                    NewRow["ItemName"] = TableName + " " + DecorCatalogOrder.GetItemName(Convert.ToInt32(Row["DecorID"])) + ReportParams;
+                NewRow["ItemName"] = TableName + " " + DecorCatalogOrder.GetItemName(Convert.ToInt32(Row["DecorID"])) + ReportParams;
 
                 string Measure = GetMeasure(Convert.ToInt32(Row["DecorConfigID"]));
 

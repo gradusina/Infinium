@@ -1,12 +1,13 @@
-﻿using System;
-using System.Linq;
-using System.Data;
-using System.Data.SqlClient;
-using System.Data.OleDb;
-using System.IO;
+﻿using NPOI.HPSF;
 using NPOI.HSSF.UserModel;
 using NPOI.HSSF.Util;
-using NPOI.HPSF;
+
+using System;
+using System.Data;
+using System.Data.OleDb;
+using System.Data.SqlClient;
+using System.IO;
+using System.Linq;
 using System.Net;
 using System.Xml;
 
@@ -489,7 +490,7 @@ namespace Infinium.Modules.ZOV.ReportToDBF
 
             return Convert.ToDecimal(Rows[0]["ZOVNonStandMargin"]);
         }
-          
+
         private decimal GetInsetSquare(int FrontID, int Height, int Width)
         {
             decimal GridHeight = 0;
@@ -1543,7 +1544,7 @@ namespace Infinium.Modules.ZOV.ReportToDBF
             int FrontID = Convert.ToInt32(FrontsOrdersRow["FrontID"]);
             if (FrontID == 30504 || FrontID == 30505 || FrontID == 30506 ||
                 FrontID == 30364 || FrontID == 30366 || FrontID == 30367 ||
-                FrontID == 30501 || FrontID == 30502 || FrontID == 30503 || 
+                FrontID == 30501 || FrontID == 30502 || FrontID == 30503 ||
                 FrontID == 16269 || FrontID == 28945 || FrontID == 27914 || FrontID == 3727 || FrontID == 3728 || FrontID == 3729 ||
                 FrontID == 3730 || FrontID == 3731 || FrontID == 3732 || FrontID == 3733 || FrontID == 3734 ||
                 FrontID == 3735 || FrontID == 3736 || FrontID == 3737 || FrontID == 3739 || FrontID == 3740 ||

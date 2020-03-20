@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Windows.Forms;
-using System.Threading;
 using System.Globalization;
+using System.Linq;
+using System.Threading;
+using System.Windows.Forms;
 
 namespace Infinium
 {
@@ -25,7 +25,7 @@ namespace Infinium
         InfiniumFunctionsContainer[] ProfilFunctionsContainers;
         InfiniumFunctionsContainer[] TPSFunctionsContainers;
         UsersResponsibilities AdminResponsibilities;
-        
+
         LightWorkDay LightWorkDay;
         DayStatus DayStatus;
         DayFactStatus DayFactStatus;
@@ -175,7 +175,7 @@ namespace Infinium
         public DayPlannerForm(LightStartForm tLightStartForm)
         {
             InitializeComponent();
-            
+
 
             LightStartForm = tLightStartForm;
 
@@ -184,7 +184,7 @@ namespace Infinium
             InfiniumProjects = new Infinium.InfiniumProjects();
             InfiniumProjects.Fill();
 
-            LightWorkDay = new LightWorkDay(); 
+            LightWorkDay = new LightWorkDay();
             LightWorkDay.GetDayStatus(Security.CurrentUserID);
 
             AdminResponsibilities = new UsersResponsibilities(0, 0, 0);
@@ -275,7 +275,7 @@ namespace Infinium
             {
                 Date = (DateTime)DayStartDate.Rows[i]["DayStartDateTime"];
                 Year = Date.ToString("yyyy");
-                
+
                 if (YearComboBox.Items.Count == 0 | YearComboBox.Items.IndexOf(Year) == -1)
                 {
                     YearComboBox.Items.Add(Year);
@@ -299,7 +299,7 @@ namespace Infinium
             if (bNeedSplash)
             {
                 bNeedNewsSplash = false;
-                Thread T = new Thread(delegate()
+                Thread T = new Thread(delegate ()
                 {
                     SplashWindow.CreateCoverSplash(UpdatePanel.Top, UpdatePanel.Left,
                                                    UpdatePanel.Height, UpdatePanel.Width);
@@ -341,16 +341,16 @@ namespace Infinium
 
                     if (FormEvent == eClose)
                     {
-                       
+
                         LightStartForm.CloseForm(this);
                     }
 
                     if (FormEvent == eHide)
                     {
-                        
+
                         LightStartForm.HideForm(this);
                     }
-                    
+
 
                     return;
                 }
@@ -376,16 +376,16 @@ namespace Infinium
 
                     if (FormEvent == eClose)
                     {
-                       
+
                         LightStartForm.CloseForm(this);
                     }
 
                     if (FormEvent == eHide)
                     {
-                        
+
                         LightStartForm.HideForm(this);
                     }
-                    
+
                 }
 
                 return;
@@ -411,11 +411,11 @@ namespace Infinium
         private void NavigateMenuCloseButton_Click(object sender, EventArgs e)
         {
             if (DayStatus.iDayStatus == LightWorkDay.sDayNotSaved)
-            { 
-                if(LightMessageBox.Show(ref TopForm, true, "Вы не сохранили рабочий день! Все равно закрыть модуль?", "Рабочий день") == false)
+            {
+                if (LightMessageBox.Show(ref TopForm, true, "Вы не сохранили рабочий день! Все равно закрыть модуль?", "Рабочий день") == false)
                     return;
             }
-                
+
             FormEvent = eClose;
             AnimateTimer.Enabled = true;
         }
@@ -518,7 +518,7 @@ namespace Infinium
             return W;
         }
 
-        
+
         private void YearComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             //MonthComboBox.Items.Clear();
@@ -531,7 +531,7 @@ namespace Infinium
             //    Date = (DateTime)DayStartDate.Rows[i]["DayStartDateTime"];
             //    Year = Date.ToString("yyyy");
             //    Month = Date.ToString("MMMM");
-                
+
             //    if (Year == YearComboBox.SelectedItem.ToString() && Month_mass.Items.IndexOf(Month) != -1)
             //    {
             //        Month_mass.Items.Remove(Month);
@@ -554,7 +554,7 @@ namespace Infinium
 
         private void ExportButton_Click(object sender, EventArgs e)
         {
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Создание документа Excel.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Создание документа Excel.\r\nПодождите..."); });
             T.Start();
 
             while (!SplashWindow.bSmallCreated) ;
@@ -584,9 +584,9 @@ namespace Infinium
 
             StatusToControls();
 
-            if(DayStatus.iDayStatus == LightWorkDay.sDayNotSaved)
+            if (DayStatus.iDayStatus == LightWorkDay.sDayNotSaved)
                 TodayMenuButton.Checked = true;
-              //  TodayPanel.BringToFront();
+            //  TodayPanel.BringToFront();
         }
 
         private void StatusToControls()
@@ -682,7 +682,7 @@ namespace Infinium
                 StatusLabel.Text = "Рабочий день завершен";
 
                 WorkDayStatusLabel.Text = StatusLabel.Text;
-            
+
                 if (DayStatus.DayEnded.DayOfYear != DateTime.Now.DayOfYear)
                     WorkDayStatusLabel.Text += " (" + DayStatus.DayEnded.ToShortDateString() + ")";
 
@@ -765,7 +765,7 @@ namespace Infinium
             ChangeDayEndLabel.Click -= ChangeDayEndLabel_Click;
             ChangeDayStartLabel.Click -= ChangeDayStartLabel_Click;
 
-            if (DayStatus.DayStarted.ToString("dd.MM.yyyy") != "01.01.0001" && DayStatus.iDayStatus!=LightWorkDay.sDayEnded)
+            if (DayStatus.DayStarted.ToString("dd.MM.yyyy") != "01.01.0001" && DayStatus.iDayStatus != LightWorkDay.sDayEnded)
             {
                 ChangeDayStartLabel.Click += ChangeDayStartLabel_Click;
                 ChangeDayStartLabel.Cursor = Cursors.Hand;
@@ -870,7 +870,7 @@ namespace Infinium
                 Minutes = (Convert.ToInt32((Convert.ToDateTime(DayStatus.DayEnded) - Convert.ToDateTime(DayStatus.DayStarted)).TotalMinutes) - Break);
 
                 infiniumWorkDayClock.bStarted = true;
-                
+
                 if (DayStatus.bBreak)
                 {
                     infiniumWorkDayClock.bBreakStart = true;
@@ -1013,14 +1013,14 @@ namespace Infinium
         private void DayTimer_Tick(object sender, EventArgs e)
         {
             //if (DayStatus.iDayStatus == LightWorkDay.sDayEnded)
-                //return;
+            //return;
 
             DayLengthLabel.Text = GetDayLength();
 
             if (DayLengthLabel.Text == "-- : --")
                 DayLengthLabel.ForeColor = Color.Gray;
             else
-                DayLengthLabel.ForeColor = Color.FromArgb(0, 102, 204);            
+                DayLengthLabel.ForeColor = Color.FromArgb(0, 102, 204);
         }
 
         private void panel4_Paint(object sender, PaintEventArgs e)
@@ -1334,7 +1334,7 @@ namespace Infinium
         {
             if (bNeedNewsSplash)
             {
-                Thread T = new Thread(delegate()
+                Thread T = new Thread(delegate ()
                 {
                     SplashWindow.CreateCoverSplash(ProjectsUpdatePanel.Top + UpdatePanel.Top + ProjectsPanel.Top, ProjectsPanel.Left + ProjectsUpdatePanel.Left + UpdatePanel.Left + 1,
                                                    ProjectsUpdatePanel.Height, ProjectsUpdatePanel.Width);
@@ -1368,7 +1368,7 @@ namespace Infinium
                 InfiniumProjects.FillComments();
                 InfiniumProjects.FillLikes();
                 InfiniumProjects.FillAttachments();
-             
+
 
                 NewsContainer.Clear();
                 NewsContainer.CurrentUserID = Security.CurrentUserID;
@@ -1450,7 +1450,7 @@ namespace Infinium
             if (AddProjectNewsForm.Canceled)
                 return;
 
-            Thread T = new Thread(delegate()
+            Thread T = new Thread(delegate ()
             {
                 SplashWindow.CreateCoverSplash(NewsContainer.Top + panel4.Top + UpdatePanel.Top,
                                                NewsContainer.Left + panel4.Left + UpdatePanel.Left,
@@ -1520,7 +1520,7 @@ namespace Infinium
 
         private void NewsContainer_CommentSendButtonClicked(object sender, string Text, int NewsID, int SenderID, bool bEdit, int NewsCommentID, bool bNoNotify)
         {
-            Thread T = new Thread(delegate()
+            Thread T = new Thread(delegate ()
             {
                 SplashWindow.CreateCoverSplash(NewsContainer.Top + panel4.Top + UpdatePanel.Top,
                                                NewsContainer.Left + panel4.Left + UpdatePanel.Left,
@@ -1584,7 +1584,7 @@ namespace Infinium
             if (AddProjectNewsForm.Canceled)
                 return;
 
-            Thread T = new Thread(delegate()
+            Thread T = new Thread(delegate ()
             {
                 SplashWindow.CreateCoverSplash(NewsContainer.Top + panel4.Top + UpdatePanel.Top,
                                                NewsContainer.Left + panel4.Left + UpdatePanel.Left,
@@ -1657,7 +1657,7 @@ namespace Infinium
 
             if (LightMessageBoxForm.OKCancel)
             {
-                Thread T = new Thread(delegate()
+                Thread T = new Thread(delegate ()
                 {
                     SplashWindow.CreateCoverSplash(NewsContainer.Top + panel4.Top + UpdatePanel.Top,
                                                NewsContainer.Left + panel4.Left + UpdatePanel.Left,
@@ -1703,7 +1703,7 @@ namespace Infinium
 
             if (LightMessageBoxForm.OKCancel)
             {
-                Thread T = new Thread(delegate()
+                Thread T = new Thread(delegate ()
                 {
                     SplashWindow.CreateCoverSplash(NewsContainer.Top + panel4.Top + UpdatePanel.Top,
                                                NewsContainer.Left + panel4.Left + UpdatePanel.Left,

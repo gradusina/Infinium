@@ -1,10 +1,11 @@
-﻿using System;
+﻿using Infinium.Modules.Marketing.Payments;
+
+using System;
 using System.ComponentModel;
 using System.Data;
-using System.Windows.Forms;
-using System.Threading;
 using System.Drawing;
-using Infinium.Modules.Marketing.Payments;
+using System.Threading;
+using System.Windows.Forms;
 
 namespace Infinium
 {
@@ -24,7 +25,7 @@ namespace Infinium
         int FormEvent = 0;
 
         LightStartForm LightStartForm;
-        
+
 
         Form TopForm = null;
 
@@ -48,7 +49,7 @@ namespace Infinium
             ClientPayments = new ClientPayments();
             LightStartForm = tLightStartForm;
 
-            
+
             this.MaximumSize = Screen.PrimaryScreen.WorkingArea.Size;
             CreateAttachments();
             Initialize();
@@ -197,7 +198,7 @@ namespace Infinium
             ErrorContractLabel.Visible = false;
             AllSumCheckBox.Visible = false;
             ClientPayments = new ClientPayments(ref ClientsPaymentsDataGrid, ref ClientContractDataGrid);
-            
+
             TableCurrency = ClientPayments.TableCurrency();
             TableClients = ClientPayments.TableClients();
             TableFactory = ClientPayments.TableFactory();
@@ -511,7 +512,7 @@ namespace Infinium
                     {
                         ClientPayments.SummMoneyBYRContracts();
                         CurrencyContractLabel.Text = "Рубль(BYN)";
-                        SumContractLabel.Text = ClientPayments.CostBYR.ToString("N", nfi1); 
+                        SumContractLabel.Text = ClientPayments.CostBYR.ToString("N", nfi1);
                     }
                 }
             }
@@ -522,7 +523,7 @@ namespace Infinium
             if (ClientContractDataGrid.SelectedRows.Count == 1)
             {
                 decimal SUMContract;
-                SUMContract =Convert.ToDecimal(ClientContractDataGrid.SelectedRows[0].Cells["Cost"].Value);
+                SUMContract = Convert.ToDecimal(ClientContractDataGrid.SelectedRows[0].Cells["Cost"].Value);
                 SumContractLabel.Text = SUMContract.ToString("N", nfi1);
                 if (ClientContractDataGrid.SelectedRows[0].Cells["CurrencyTypeID"].Value.ToString() == "1")
                     CurrencyContractLabel.Text = "Евро";
@@ -612,7 +613,7 @@ namespace Infinium
 
                 TopForm = null;
                 ClientPayments.Record();
-            } 
+            }
         }
 
         //private void DeleteContractButton_Click(object sender, EventArgs e)
@@ -806,9 +807,9 @@ namespace Infinium
 
                 if (ClientPayments != null)
                     AttachmentDocumentsDataTable.Clear();
-                    CopyAttachs(ClientContractDataGrid.SelectedRows[0].Cells["ContractId"].Value.ToString());
+                CopyAttachs(ClientContractDataGrid.SelectedRows[0].Cells["ContractId"].Value.ToString());
             }
-            
+
         }
 
         private void AllSumCheckBox_CheckedChanged(object sender, EventArgs e)
@@ -1019,7 +1020,7 @@ namespace Infinium
         {
             if (ClientsPaymentsDataGrid.ColumnCount != 0)
             {
-                Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Создание документа Excel.\r\nПодождите..."); });
+                Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Создание документа Excel.\r\nПодождите..."); });
                 T.Start();
 
                 while (!SplashWindow.bSmallCreated)
@@ -1083,7 +1084,7 @@ namespace Infinium
             string temppath = "";
 
             {
-                T = new System.Threading.Thread(delegate()
+                T = new System.Threading.Thread(delegate ()
                 { temppath = ClientPayments.SaveFile(AttachmentsDocumentGrid.SelectedRows[0].Cells["FileName"].Value.ToString()); });
                 T.Start();
 

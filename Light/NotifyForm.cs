@@ -29,7 +29,7 @@ namespace Infinium
 
         public NotifyForm(LightStartForm tLightStartForm, ref ActiveNotifySystem tActiveNotifySystem, int tModuleID, int Count, int MoreCount)
         {
-            InitializeComponent();  
+            InitializeComponent();
 
             ActiveNotifySystem = tActiveNotifySystem;
 
@@ -38,7 +38,7 @@ namespace Infinium
             if (MoreCount > 0)
             {
                 MoreUpdatesLabel.Visible = true;
-                MoreUpdatesLabel.Text = "и еще (" + MoreCount.ToString()+") обновлений";
+                MoreUpdatesLabel.Text = "и еще (" + MoreCount.ToString() + ") обновлений";
             }
 
             ModuleID = tModuleID;
@@ -51,7 +51,7 @@ namespace Infinium
         private void AnimateTimer_Tick(object sender, EventArgs e)
         {
             if (FormEvent == eClose || FormEvent == eHide)
-            {              
+            {
                 if (Convert.ToDecimal(this.Opacity) != Convert.ToDecimal(0.00))
                     this.Opacity = Convert.ToDouble(Convert.ToDecimal(this.Opacity) - Convert.ToDecimal(0.05));
                 else
@@ -76,14 +76,14 @@ namespace Infinium
                         //if (ClickEvent == nActivateInfinium)
                         //{
                         //    LightStartForm.Activate();
-                            
+
                         //    this.Close();
                         //    return;
                         //}
 
                         if (ClickEvent == nCloseNotifyOnly)
                         {
-                            
+
                             this.Close();
                             return;
                         }
@@ -120,7 +120,7 @@ namespace Infinium
             AnimateTimer.Enabled = true;
 
             this.StartPosition = FormStartPosition.Manual;
-            this.Left = Screen.PrimaryScreen.WorkingArea.Width - this.Width -5 ;
+            this.Left = Screen.PrimaryScreen.WorkingArea.Width - this.Width - 5;
             this.Top = Screen.PrimaryScreen.WorkingArea.Height - this.Height - 5;
 
             //Stream str = Properties.Resources._01_01;
@@ -143,9 +143,9 @@ namespace Infinium
         {
             //if (bCloseNotify)
             //{
-                //FormEvent = eClose;
-                //AnimateTimer.Enabled = true;
-                //LifeTimer.Enabled = false;
+            //FormEvent = eClose;
+            //AnimateTimer.Enabled = true;
+            //LifeTimer.Enabled = false;
             //}
         }
 
@@ -154,7 +154,7 @@ namespace Infinium
             ClickEvent = nActivateInfinium;
             FormEvent = eClose;
             AnimateTimer.Enabled = true;
-            WatchTimer.Enabled = false; 
+            WatchTimer.Enabled = false;
         }
 
         //private const int CS_DROPSHADOW = 0x20000;
@@ -193,7 +193,7 @@ namespace Infinium
             ClickEvent = nActivateInfinium;
             FormEvent = eClose;
             AnimateTimer.Enabled = true;
-            WatchTimer.Enabled = false; 
+            WatchTimer.Enabled = false;
         }
 
         private void panel1_Click(object sender, EventArgs e)
@@ -201,7 +201,7 @@ namespace Infinium
             ClickEvent = nActivateInfinium;
             FormEvent = eClose;
             AnimateTimer.Enabled = true;
-            WatchTimer.Enabled = false; 
+            WatchTimer.Enabled = false;
         }
 
         private void ansPopupNotify1_ClickUpdate(object sender, bool Open, string ModuleButtonName)

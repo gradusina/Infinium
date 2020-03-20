@@ -1,10 +1,10 @@
 ﻿using System;
+using System.Collections;
 using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Windows.Forms;
 using System.Threading;
-using System.Collections;
+using System.Windows.Forms;
 
 namespace Infinium
 {
@@ -31,7 +31,7 @@ namespace Infinium
         Form TopForm = null;
         ZOVFilterProductsForm ZOVFilterProductsForm;
         LightStartForm LightStartForm;
-        
+
 
         public Modules.Packages.ZOV.ZOVPackagesPrintManager ZOVPackagesPrintManager;
         private Modules.Packages.ZOV.PackingList PackingList;
@@ -43,11 +43,11 @@ namespace Infinium
             InitializeComponent();
             LightStartForm = tLightStartForm;
 
-            
+
             this.MaximumSize = Screen.PrimaryScreen.WorkingArea.Size;
-            
+
             Initialize();
-            while (!SplashForm.bCreated);
+            while (!SplashForm.bCreated) ;
         }
 
         private void ZOVPackagesPrintProfilForm_Shown(object sender, EventArgs e)
@@ -77,17 +77,17 @@ namespace Infinium
 
                     if (FormEvent == eClose)
                     {
-                       
+
                         LightStartForm.CloseForm(this);
                     }
 
                     if (FormEvent == eHide)
                     {
-                        
+
                         LightStartForm.HideForm(this);
                     }
 
-                    
+
                     return;
                 }
 
@@ -110,16 +110,16 @@ namespace Infinium
 
                     if (FormEvent == eClose)
                     {
-                       
+
                         LightStartForm.CloseForm(this);
                     }
 
                     if (FormEvent == eHide)
                     {
-                        
+
                         LightStartForm.HideForm(this);
                     }
-                    
+
                 }
 
                 return;
@@ -164,8 +164,8 @@ namespace Infinium
         private void Initialize()
         {
             ZOVPackagesPrintManager = new Modules.Packages.ZOV.ZOVPackagesPrintManager(
-                ref MegaOrdersDataGrid, ref MainOrdersDataGrid, ref PackagesDataGrid, ref 
-                MainOrdersFrontsOrdersDataGrid, ref MainOrdersDecorOrdersDataGrid, 
+                ref MegaOrdersDataGrid, ref MainOrdersDataGrid, ref PackagesDataGrid, ref
+                MainOrdersFrontsOrdersDataGrid, ref MainOrdersDecorOrdersDataGrid,
                 ref MainOrdersTabControl, FactoryID);
 
             PackingList = new Modules.Packages.ZOV.PackingList()
@@ -216,7 +216,7 @@ namespace Infinium
                         if (NeedSplash)
                         {
                             NeedSplash = false;
-                            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
+                            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
                             T.Start();
 
                             while (!SplashWindow.bSmallCreated) ;
@@ -255,7 +255,7 @@ namespace Infinium
                         if (NeedSplash)
                         {
                             NeedSplash = false;
-                            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
+                            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
                             T.Start();
 
                             while (!SplashWindow.bSmallCreated) ;
@@ -316,7 +316,7 @@ namespace Infinium
                 NeedRefresh = false;
             }
         }
-        
+
         private void MainOrdersFrontsOrdersDataGrid_Scroll(object sender, ScrollEventArgs e)
         {
             if (e.ScrollOrientation == ScrollOrientation.HorizontalScroll)
@@ -395,7 +395,7 @@ namespace Infinium
             int[] MainOrders = ZOVPackagesPrintManager.GetSelectedMainOrders();
 
             //PackagesOrdersManager.MainOrdersBindingSource.Position = CurrentRowIndex;
-            
+
             //int MainOrderID = Convert.ToInt32(((DataRowView)PackagesOrdersManager.MainOrdersBindingSource.Current)["MainOrderID"]);
             int PackNumber = 0;
             int PackageID = 0;
@@ -572,7 +572,7 @@ namespace Infinium
         //Распечатать все этикетки в одном заказе
         private void PrintMegaOrderContextMenuItem_Click(object sender, EventArgs e)
         {
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Создание этикеток.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Создание этикеток.\r\nПодождите..."); });
             T.Start();
 
             while (!SplashWindow.bSmallCreated) ;
@@ -639,7 +639,7 @@ namespace Infinium
 
                     LabelInfo.OrderData = DT;
                     LabelInfo.GroupType = "З";
-                   
+
                     PackageLabel.AddLabelInfo(ref LabelInfo);
 
 
@@ -687,7 +687,7 @@ namespace Infinium
                    "Ошибка");
                 return;
             }
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Создание документа Excel.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Создание документа Excel.\r\nПодождите..."); });
             T.Start();
 
             while (!SplashWindow.bSmallCreated) ;
@@ -725,7 +725,7 @@ namespace Infinium
             //PackagesOrdersManager.MainOrdersBindingSource.Position = CurrentRowIndex;
             //int MainOrderID = Convert.ToInt32(((DataRowView)PackagesOrdersManager.MainOrdersBindingSource.Current)["MainOrderID"]);
 
-            
+
 
             if (MainOrders.Count() == 0)
             {
@@ -734,7 +734,7 @@ namespace Infinium
                    "Ошибка");
                 return;
             }
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Создание документа Excel.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Создание документа Excel.\r\nПодождите..."); });
             T.Start();
 
             while (!SplashWindow.bSmallCreated) ;
@@ -767,7 +767,7 @@ namespace Infinium
                 GC.Collect();
 
                 NeedSplash = false;
-                Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
+                Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
                 T.Start();
 
                 while (!SplashWindow.bSmallCreated) ;
@@ -793,7 +793,7 @@ namespace Infinium
                 ZOVFilterProductsForm = null;
                 GC.Collect();
             }
-            
+
         }
 
         private void DocNumbersComboBox_KeyDown(object sender, KeyEventArgs e)
@@ -832,7 +832,7 @@ namespace Infinium
             if (!checkBox1.Checked)
             {
                 NeedSplash = false;
-                Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
+                Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
                 T.Start();
 
                 while (!SplashWindow.bSmallCreated) ;
@@ -858,7 +858,7 @@ namespace Infinium
         private void NoDispatchedCheckBox_CheckedChanged(object sender, EventArgs e)
         {
             NeedSplash = false;
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
             T.Start();
 
             while (!SplashWindow.bSmallCreated) ;
@@ -882,7 +882,7 @@ namespace Infinium
         private void cbNotPrintedPackages_CheckedChanged(object sender, EventArgs e)
         {
             NeedSplash = false;
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
             T.Start();
 
             while (!SplashWindow.bSmallCreated) ;

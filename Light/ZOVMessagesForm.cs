@@ -12,7 +12,7 @@ namespace Infinium
         int FormEvent = 0;
 
         LightStartForm LightStartForm;
-        
+
 
         Form TopForm = null;
 
@@ -23,10 +23,10 @@ namespace Infinium
             InitializeComponent();
 
             LightStartForm = tLightStartForm;
-            
+
             this.MaximumSize = Screen.PrimaryScreen.WorkingArea.Size;
 
-            
+
             Initialize();
 
             messagesContainer1.CurrentUserName = Security.GetUserNameByID(Security.CurrentUserID);
@@ -35,7 +35,7 @@ namespace Infinium
             UsersListDataGrid.DataSource = ZOVMessages.ManagersBindingSource;
             UsersListDataGrid.Columns["ManagerID"].Visible = false;
             //UsersListDataGrid.Columns["ClientID"].Visible = false;
-            
+
             //SelectedUsersGrid.Columns["ClientID"].Visible = false;
             SelectedUsersGrid.Columns["ManagerID"].Visible = false;
             SelectedUsersGrid.Columns["UpdatesCount"].Visible = false;
@@ -81,16 +81,16 @@ namespace Infinium
 
                     if (FormEvent == eClose)
                     {
-                       
+
                         LightStartForm.CloseForm(this);
                     }
 
                     if (FormEvent == eHide)
                     {
-                        
+
                         LightStartForm.HideForm(this);
                     }
-                    
+
 
                     return;
                 }
@@ -114,16 +114,16 @@ namespace Infinium
 
                     if (FormEvent == eClose)
                     {
-                       
+
                         LightStartForm.CloseForm(this);
                     }
 
                     if (FormEvent == eHide)
                     {
-                        
+
                         LightStartForm.HideForm(this);
                     }
-                    
+
                 }
 
                 return;

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Data;
-using System.Windows.Forms;
 using System.Threading;
+using System.Windows.Forms;
 
 namespace Infinium
 {
@@ -27,7 +27,7 @@ namespace Infinium
         public DataTable CityDT;
         public DataTable SubCategoriesDT;
         public DataTable ContactsDataTable;
-        
+
         public AddContractorForm(ref Form tTopForm, ref Contractors tContractors)
         {
             InitializeComponent();
@@ -227,7 +227,7 @@ namespace Infinium
         {
             if (bNeedSplash)
             {
-                Thread T = new Thread(delegate()
+                Thread T = new Thread(delegate ()
                 {
                     SplashWindow.CreateCoverSplash(this.Top, this.Left, this.Height, this.Width);
                 });
@@ -255,7 +255,7 @@ namespace Infinium
 
         private void CreateButton_Click(object sender, EventArgs e)
         {
-            if(NameTextBox.Text.Length == 0)
+            if (NameTextBox.Text.Length == 0)
             {
                 InfiniumTips.ShowTip(this, 50, 85, "Введите название", 2600);
                 return;
@@ -279,7 +279,7 @@ namespace Infinium
                     return;
                 }
             }
-            
+
             FormEvent = eClose;
             AnimateTimer.Enabled = true;
         }

@@ -1,6 +1,7 @@
-﻿using System;
+﻿using Infinium.Modules.WorkAssignments;
+
+using System;
 using System.Windows.Forms;
-using Infinium.Modules.WorkAssignments;
 
 namespace Infinium
 {

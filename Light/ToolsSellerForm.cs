@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Windows.Forms;
 using System.Threading;
+using System.Windows.Forms;
 
 namespace Infinium
 {
@@ -12,8 +12,8 @@ namespace Infinium
         const int eMainMenu = 4;
 
         int FormEvent = 0;
-        
-        
+
+
         Form TopForm = null;
         LightStartForm LightStartForm;
         ToolsSellersManager ToolsSellersManager;
@@ -23,11 +23,11 @@ namespace Infinium
             InitializeComponent();
             LightStartForm = tLightStartForm;
 
-            
+
             this.MaximumSize = Screen.PrimaryScreen.WorkingArea.Size;
 
             Initialize();
-            while (!SplashForm.bCreated);
+            while (!SplashForm.bCreated) ;
         }
 
         private void StorageForm_Shown(object sender, EventArgs e)
@@ -49,16 +49,16 @@ namespace Infinium
 
                     if (FormEvent == eClose)
                     {
-                       
+
                         LightStartForm.CloseForm(this);
                     }
 
                     if (FormEvent == eHide)
                     {
-                        
+
                         LightStartForm.HideForm(this);
                     }
-                    
+
 
                     return;
                 }
@@ -82,16 +82,16 @@ namespace Infinium
 
                     if (FormEvent == eClose)
                     {
-                       
+
                         LightStartForm.CloseForm(this);
                     }
 
                     if (FormEvent == eHide)
                     {
-                        
+
                         LightStartForm.HideForm(this);
                     }
-                    
+
                 }
 
                 return;
@@ -117,7 +117,7 @@ namespace Infinium
             FormEvent = eClose;
             AnimateTimer.Enabled = true;
         }
-        
+
         private void NavigateMenuHerculesButton_Click(object sender, EventArgs e)
         {
             FormEvent = eMainMenu;
@@ -128,9 +128,9 @@ namespace Infinium
         private void Initialize()
         {
             ToolsSellersManager = new ToolsSellersManager(
-                ref ToolsSellersDataGrid, 
+                ref ToolsSellersDataGrid,
                 ref ToolsSellerInfoDataGrid,
-                ref ToolsSellersGroupsDataGrid, 
+                ref ToolsSellersGroupsDataGrid,
                 ref ToolsSellersSubGroupsDataGrid);
         }
 
@@ -150,7 +150,7 @@ namespace Infinium
             if (ToolsSellersManager == null || ToolsSellersManager.ToolsSubGroupsCount == 0)
                 return;
 
-            Thread T = new Thread(delegate() { SplashWindow.CreateSplash(); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSplash(); });
             T.Start();
 
             while (!SplashForm.bCreated) ;
@@ -166,7 +166,7 @@ namespace Infinium
 
             TopForm = null;
         }
-        
+
         private void RemoveSellerButton_Click(object sender, EventArgs e)
         {
 
@@ -193,10 +193,10 @@ namespace Infinium
 
         private void EditSellerButton_Click(object sender, EventArgs e)
         {
-            if (ToolsSellersDataGrid.SelectedRows.Count > 0 
+            if (ToolsSellersDataGrid.SelectedRows.Count > 0
                 && ToolsSellersGroupsDataGrid.SelectedRows.Count > 0)
             {
-                Thread T = new Thread(delegate() { SplashWindow.CreateSplash(); });
+                Thread T = new Thread(delegate () { SplashWindow.CreateSplash(); });
                 T.Start();
 
                 while (!SplashForm.bCreated) ;
@@ -248,7 +248,7 @@ namespace Infinium
         private void SiteLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             string url;
-            if (SiteLabel.Text != null 
+            if (SiteLabel.Text != null
                 && (SiteLabel.Text.StartsWith("www.") | SiteLabel.Text.StartsWith("http:") | SiteLabel.Text.StartsWith("https:")))
                 url = SiteLabel.Text;
             else
@@ -284,7 +284,7 @@ namespace Infinium
 
         private void EditGroupButton_Click(object sender, EventArgs e)
         {
-            if (ToolsSellersGroupsDataGrid.SelectedRows.Count == 1 
+            if (ToolsSellersGroupsDataGrid.SelectedRows.Count == 1
                 && ToolsSellerGroupTextBox.Text != string.Empty)
             {
                 ToolsSellersManager.EditSellerGroup(ToolsSellerGroupTextBox.Text);
@@ -301,7 +301,7 @@ namespace Infinium
 
         private void EditSubGroupButton_Click(object sender, EventArgs e)
         {
-            if (ToolsSellersSubGroupsDataGrid.SelectedRows.Count == 1 
+            if (ToolsSellersSubGroupsDataGrid.SelectedRows.Count == 1
                 && ToolsSellerSubGroupTextBox.Text != string.Empty)
             {
                 ToolsSellersManager.EditSellerSubGroup(ToolsSellerSubGroupTextBox.Text);

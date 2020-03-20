@@ -1,10 +1,10 @@
 ﻿using System;
-using System.Linq;
 using System.Data;
-using System.Windows.Forms;
-using System.Threading;
 using System.Drawing;
 using System.IO;
+using System.Linq;
+using System.Threading;
+using System.Windows.Forms;
 
 namespace Infinium
 {
@@ -1009,7 +1009,7 @@ namespace Infinium
             {
 
                 DecorCatalog.FilterLength(((DataRowView)DecorCatalog.DecorItemBindingSource.Current)["Name"].ToString(),
-                    Convert.ToInt32(((DataRowView)DecorCatalog.ItemColorsBindingSource.Current)["ColorID"]), 
+                    Convert.ToInt32(((DataRowView)DecorCatalog.ItemColorsBindingSource.Current)["ColorID"]),
                     Convert.ToInt32(((DataRowView)DecorCatalog.ItemPatinaBindingSource.Current)["PatinaID"]),
                     Convert.ToInt32(((DataRowView)DecorCatalog.ItemInsetTypesBindingSource.Current)["InsetTypeID"]),
                     Convert.ToInt32(((DataRowView)DecorCatalog.ItemInsetColorsBindingSource.Current)["InsetColorID"]));
@@ -1024,7 +1024,7 @@ namespace Infinium
             {
                 int Length = Convert.ToInt32(((DataRowView)DecorCatalog.LengthBindingSource.Current)["Length"]);
                 DecorCatalog.FilterHeight(((DataRowView)DecorCatalog.DecorItemBindingSource.Current)["Name"].ToString(),
-                    Convert.ToInt32(((DataRowView)DecorCatalog.ItemColorsBindingSource.Current)["ColorID"]), 
+                    Convert.ToInt32(((DataRowView)DecorCatalog.ItemColorsBindingSource.Current)["ColorID"]),
                     Convert.ToInt32(((DataRowView)DecorCatalog.ItemPatinaBindingSource.Current)["PatinaID"]),
                     Convert.ToInt32(((DataRowView)DecorCatalog.ItemInsetTypesBindingSource.Current)["InsetTypeID"]),
                     Convert.ToInt32(((DataRowView)DecorCatalog.ItemInsetColorsBindingSource.Current)["InsetColorID"]), Length);
@@ -1109,7 +1109,7 @@ namespace Infinium
                 int Height = Convert.ToInt32(((DataRowView)DecorCatalog.HeightBindingSource.Current)["Height"]);
 
                 DecorCatalog.FilterWidth(((DataRowView)DecorCatalog.DecorItemBindingSource.Current)["Name"].ToString(),
-                    Convert.ToInt32(((DataRowView)DecorCatalog.ItemColorsBindingSource.Current)["ColorID"]), 
+                    Convert.ToInt32(((DataRowView)DecorCatalog.ItemColorsBindingSource.Current)["ColorID"]),
                     Convert.ToInt32(((DataRowView)DecorCatalog.ItemPatinaBindingSource.Current)["PatinaID"]),
                     Convert.ToInt32(((DataRowView)DecorCatalog.ItemInsetTypesBindingSource.Current)["InsetTypeID"]),
                     Convert.ToInt32(((DataRowView)DecorCatalog.ItemInsetColorsBindingSource.Current)["InsetColorID"]), Length, Height);
@@ -4534,7 +4534,7 @@ namespace Infinium
 
             int ConfigID = DecorCatalog.GetDecorAttachments(ProductID, DecorName, ColorID, PatinaID, InsetTypeID, InsetColorID);
             if (ConfigID != -1)
-                IsConfigImageToSite = DecorCatalog.IsConfigImageToSite(ConfigID, ref bLatest, ref Category,  ref NameProd, ref Description, ref Sizes, ref Material);
+                IsConfigImageToSite = DecorCatalog.IsConfigImageToSite(ConfigID, ref bLatest, ref Category, ref NameProd, ref Description, ref Sizes, ref Material);
             else
             {
                 MessageBox.Show("Изображение не найдено!");

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Data;
-using System.Windows.Forms;
 using System.Globalization;
+using System.Windows.Forms;
 
 namespace Infinium
 {
@@ -36,7 +36,7 @@ namespace Infinium
 
             Initialize();
 
-            while (!SplashForm.bCreated);
+            while (!SplashForm.bCreated) ;
         }
 
         private void ClientStatisticsZOVDetailForm_Shown(object sender, EventArgs e)
@@ -134,7 +134,7 @@ namespace Infinium
             AnimateTimer.Enabled = true;
         }
 
-        
+
 
         private void Initialize()
         {
@@ -152,8 +152,8 @@ namespace Infinium
                 CurrencySymbol = "",
                 CurrencyDecimalDigits = 0
             };
-            TotalSquareLabel.Text = ClientStatisticsZOV.TotalFrontsSquare.ToString("C", nfi1)+"  м.кв.";
-            TotalFrontsCountLabel.Text = ClientStatisticsZOV.TotalFrontsCount.ToString("C", nfi2)+"  шт.";
+            TotalSquareLabel.Text = ClientStatisticsZOV.TotalFrontsSquare.ToString("C", nfi1) + "  м.кв.";
+            TotalFrontsCountLabel.Text = ClientStatisticsZOV.TotalFrontsCount.ToString("C", nfi2) + "  шт.";
             TotalFrontsCostLabel.Text = ClientStatisticsZOV.TotalFrontsCost.ToString("C", nfi1) + "  €";
 
             SamplesCostLabel.Text = ClientStatisticsZOV.TotalSamplesCost.ToString("C", nfi1) + "  €";
@@ -171,10 +171,10 @@ namespace Infinium
             label1.Text = "Infinium. ЗОВ. Статистика. Клиент " + ClientStatisticsZOV.GetClientName(Convert.ToInt32(((DataRowView)ClientStatisticsZOV.ClientsBindingSource.Current)["ClientID"])) +
                           " за " + DateFrom.ToString("dd.MM.yyyy") + " - " + DateTo.ToString("dd.MM.yyyy");
 
-            
+
 
             //label3.Text = (1200).ToString("C", nfi1);
-            
+
             ClientStatisticsZOV.BindingDetailGrids(ref FrontsCountDataGrid, ref FrontsColorsDataGrid, ref DecorCountDataGrid);
         }
 

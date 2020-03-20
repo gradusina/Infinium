@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Windows.Forms;
 using System.Threading;
+using System.Windows.Forms;
 
 namespace Infinium
 {
@@ -12,7 +12,7 @@ namespace Infinium
 
         int FormEvent = 0;
 
-        
+
         LightUsers LightUsers;
         LightStartForm LightStartForm;
 
@@ -23,13 +23,13 @@ namespace Infinium
             InitializeComponent();
             LightStartForm = tLightStartForm;
 
-            
+
             this.MaximumSize = Screen.PrimaryScreen.WorkingArea.Size;
 
 
             Initialize();
 
-            while(!SplashForm.bCreated);
+            while (!SplashForm.bCreated) ;
         }
 
         private void UsersForm_Shown(object sender, EventArgs e)
@@ -52,17 +52,17 @@ namespace Infinium
 
                     if (FormEvent == eClose)
                     {
-                       
+
                         LightStartForm.CloseForm(this);
                     }
 
                     if (FormEvent == eHide)
                     {
-                        
+
                         LightStartForm.Activate();
                         this.Hide();
                     }
-                    
+
 
                     return;
                 }
@@ -85,17 +85,17 @@ namespace Infinium
 
                     if (FormEvent == eClose)
                     {
-                       
+
                         LightStartForm.CloseForm(this);
                     }
 
                     if (FormEvent == eHide)
                     {
-                        
+
                         LightStartForm.Activate();
                         this.Hide();
                     }
-                    
+
                 }
 
                 return;
@@ -139,7 +139,7 @@ namespace Infinium
             DepartmentsDataGrid.Columns["Count"].Visible = false;
             DepartmentsDataGrid.Columns["Name"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             DepartmentsDataGrid.Columns["Name"].MinimumWidth = 150;
-            
+
             UsersList.UsersDataTable = LightUsers.UsersDataTable;
         }
 
@@ -218,7 +218,7 @@ namespace Infinium
 
         private void UsersList_UserClick(object sender, string Name)
         {
-            Thread T = new Thread(delegate() { SplashWindow.CreateSplash(); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSplash(); });
             T.Start();
 
             while (!SplashForm.bCreated) ;

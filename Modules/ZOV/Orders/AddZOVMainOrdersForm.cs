@@ -1,9 +1,10 @@
-﻿using System;
-using System.Data;
-using System.Windows.Forms;
-using System.Threading;
+﻿using Infinium.Modules.ZOV;
+
+using System;
 using System.Collections;
-using Infinium.Modules.ZOV;
+using System.Data;
+using System.Threading;
+using System.Windows.Forms;
 
 namespace Infinium
 {
@@ -37,12 +38,12 @@ namespace Infinium
             InitializeComponent();
 
             this.MaximumSize = Screen.PrimaryScreen.WorkingArea.Size;
-            
+
             OrdersManager = tOrdersManager;
             NewOrderInfo = tNewOrderInfo;
             EditMainOrder = bEditMainOrder;
             OrdersCalculate = tOrdersCalculate;
-            
+
             while (!SplashForm.bCreated) ;
         }
 
@@ -737,7 +738,7 @@ namespace Infinium
             if (DecorItemsComboBox.SelectedItem == null)
                 return;
             int PatinaID = Convert.ToInt32(DecorPatinaComboBox.SelectedValue);
-            
+
             int L = DecorCatalogOrder.FilterLength(((DataRowView)DecorItemsComboBox.SelectedItem).Row["Name"].ToString(),
                 Convert.ToInt32(DecorColorsComboBox.SelectedValue),
                 Convert.ToInt32(DecorPatinaComboBox.SelectedValue),
@@ -767,7 +768,7 @@ namespace Infinium
                 Length = Convert.ToInt32(((DataRowView)DecorCatalogOrder.ItemLengthBindingSource.Current).Row["Length"]);
 
             int PatinaID = Convert.ToInt32(DecorPatinaComboBox.SelectedValue);
-            
+
             int H = DecorCatalogOrder.FilterHeight(((DataRowView)DecorItemsComboBox.SelectedItem).Row["Name"].ToString(),
                 Convert.ToInt32(DecorColorsComboBox.SelectedValue),
                 Convert.ToInt32(DecorPatinaComboBox.SelectedValue),
@@ -795,7 +796,7 @@ namespace Infinium
             int Length = -1;
             int Height = -1;
             int PatinaID = Convert.ToInt32(DecorPatinaComboBox.SelectedValue);
-            
+
             if (DecorCatalogOrder.ItemLengthBindingSource.Count > 0)
                 Length = Convert.ToInt32(((DataRowView)DecorCatalogOrder.ItemLengthBindingSource.Current).Row["Length"]);
             if (DecorCatalogOrder.ItemHeightBindingSource.Count > 0)
@@ -1103,7 +1104,7 @@ namespace Infinium
                 return;
             }
             TechnoInsetColorID = Convert.ToInt32(TechnoInsetColorsComboBox.SelectedValue);
-            
+
 
             //высота
             if (FrontsHeightComboBox.Text.Length < 1)
@@ -1182,7 +1183,7 @@ namespace Infinium
             //for (int i = 0; i < DT.Rows.Count; i++)
             //{
             //    int MegaOrderID = Convert.ToInt32(DT.Rows[i]["MegaOrderID"]);
-                
+
             //    //FrontsOrders.SaveFrontsOrder(MainOrderID, ref FactoryIDF);
             //    //DecorOrders.SaveDecorOrder(ref FactoryIDD);
 
@@ -1308,10 +1309,10 @@ namespace Infinium
 
             int ClientID = OrdersManager.GetCurrentClientID(MainOrderID);
             //if (ClientID != NewOrderInfo.ClientID)
-                //ChangeClient = true;
+            //ChangeClient = true;
 
 
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение заказа.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение заказа.\r\nПодождите..."); });
             T.Start();
 
             while (!SplashWindow.bSmallCreated) ;
@@ -1353,7 +1354,7 @@ namespace Infinium
             }
             else
                 if (NewOrderInfo.DispatchDate != null)
-                    OrdersManager.TotalCalcMegaOrder(Convert.ToDateTime(NewOrderInfo.DispatchDate));
+                OrdersManager.TotalCalcMegaOrder(Convert.ToDateTime(NewOrderInfo.DispatchDate));
             if (OrdersManager != null)
                 if (OrdersManager.MainOrdersBindingSource.Count > 0)
                 {
@@ -1428,9 +1429,9 @@ namespace Infinium
             ClientLabel.Visible = false;
             DocNumberLabel.Visible = false;
             PriceTypeLabel.Visible = false;
-            DebtLabel.Visible = false;            
-            SampleLabel.Visible = false;            
-            DoNotDispatchLabel.Visible = false;            
+            DebtLabel.Visible = false;
+            SampleLabel.Visible = false;
+            DoNotDispatchLabel.Visible = false;
             DebtLabel.Visible = false;
             NeedCalcLabel.Visible = false;
         }
@@ -1644,19 +1645,19 @@ namespace Infinium
                 return;
             }
             TechnoInsetColorID = Convert.ToInt32(TechnoInsetColorsComboBox.SelectedValue);
-            
+
             Count = Convert.ToInt32(FrontsCountComboBox.Text);
 
             int FactoryID = 0;
             int AreaID = 0;
             FrontsOrders.FrontsCatalogOrder.GetFrontConfigID(((DataRowView)FrontsComboBox.SelectedItem).Row["FrontName"].ToString(), ColorID, PatinaID, InsetTypeID,
-                   InsetColorID, TechnoProfileID, TechnoColorID, TechnoInsetTypeID, TechnoInsetColorID, Height, Width, ref FrontID, ref FactoryID,ref AreaID);
+                   InsetColorID, TechnoProfileID, TechnoColorID, TechnoInsetTypeID, TechnoInsetColorID, Height, Width, ref FrontID, ref FactoryID, ref AreaID);
             if (FrontID == -1)
                 return;
             FrontsOrders.AddFrontsOrderCupboards(ref CupboardsExportListBox, MainOrderID, FrontID, ColorID, PatinaID, InsetTypeID,
                 InsetColorID, TechnoProfileID, TechnoColorID, TechnoInsetTypeID, TechnoInsetColorID, Height, Width, Count, NewOrderInfo.IsSample);
         }
-       
+
         private void DecorAddButton_Click(object sender, EventArgs e)
         {
             int MainOrderID = OrdersManager.CurrentMainOrderID;
@@ -1744,7 +1745,7 @@ namespace Infinium
             int FactoryID = 0;
             int AreaID = 0;
             DecorOrders.DecorCatalogOrder.GetDecorConfigID(ProductID,
-                ((DataRowView)DecorItemsComboBox.SelectedItem).Row["Name"].ToString(), ColorID, PatinaID, InsetTypeID, InsetColorID, 
+                ((DataRowView)DecorItemsComboBox.SelectedItem).Row["Name"].ToString(), ColorID, PatinaID, InsetTypeID, InsetColorID,
                 Length, Height, Width, ref ItemID, ref FactoryID, ref AreaID);
             if (ItemID == -1)
                 return;
@@ -2367,7 +2368,7 @@ namespace Infinium
                 return;
             }
 
-            Thread T = new Thread(delegate() { SplashWindow.CreateSplash(); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSplash(); });
             T.Start();
 
             while (!SplashForm.bCreated) ;

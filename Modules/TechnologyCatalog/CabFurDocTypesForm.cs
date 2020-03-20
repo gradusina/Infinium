@@ -1,6 +1,7 @@
-﻿using System;
+﻿using Infinium.Modules.TechnologyCatalog;
+
+using System;
 using System.Windows.Forms;
-using Infinium.Modules.TechnologyCatalog;
 
 namespace Infinium
 {
@@ -90,7 +91,7 @@ namespace Infinium
             //    grid.Rows[e.RowIndex].DefaultCellStyle.SelectionForeColor = Color.White;
             //}
         }
-        
+
         private void dgvDocTypes_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             var senderGrid = (DataGridView)sender;
@@ -110,7 +111,7 @@ namespace Infinium
                     TechStoreManager.SaveCabFurDocTypes();
             }
         }
-        
+
         private void kryptonButton3_Click(object sender, EventArgs e)
         {
             int CabFurDocTypeID = 0;

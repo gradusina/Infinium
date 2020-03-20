@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Windows.Forms;
-using System.Threading;
 using System.Globalization;
+using System.Threading;
+using System.Windows.Forms;
 
 namespace Infinium
 {
@@ -17,7 +17,7 @@ namespace Infinium
         Form MainForm = null;
         PaymentWeeksZOVForm PaymentWeeksZOVForm = null;
         Form TopForm = null;
-        
+
         Modules.PaymentWeeks.SelectPaymentWeek SelectPaymentWeek = null;
 
         public PaymentWeeksZOVSelectDateForm(Form tMainForm)
@@ -26,12 +26,12 @@ namespace Infinium
 
             MainForm = tMainForm;
 
-            
+
             this.MaximumSize = Screen.PrimaryScreen.WorkingArea.Size;
 
             Initialize();
 
-            while (!SplashForm.bCreated);
+            while (!SplashForm.bCreated) ;
         }
 
         private void DispatchZOVDateForm_Shown(object sender, EventArgs e)
@@ -143,7 +143,7 @@ namespace Infinium
 
         private void NextButton_Click(object sender, EventArgs e)
         {
-            Thread T = new Thread(delegate() { SplashWindow.CreateSplash(); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSplash(); });
             T.Start();
 
             while (!SplashForm.bCreated) ;

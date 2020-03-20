@@ -16,13 +16,13 @@ namespace Infinium
 
         public AccessDeniedForm(LightStartForm tLightStartForm)
         {
-            InitializeComponent(); 
+            InitializeComponent();
 
             LightStartForm = tLightStartForm;
 
             this.MaximumSize = Screen.PrimaryScreen.WorkingArea.Size;
 
-            while(!SplashForm.bCreated);
+            while (!SplashForm.bCreated) ;
         }
 
         private void AccessDeniedForm_Shown(object sender, EventArgs e)
@@ -98,7 +98,7 @@ namespace Infinium
 
         private void lightBackButton1_Click(object sender, EventArgs e)
         {
-            
+
         }
 
         private void label3_Click(object sender, EventArgs e)

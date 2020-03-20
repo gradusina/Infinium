@@ -1,6 +1,7 @@
-﻿using System;
+﻿using Infinium.Store;
+
+using System;
 using System.Windows.Forms;
-using Infinium.Store;
 
 namespace Infinium
 {

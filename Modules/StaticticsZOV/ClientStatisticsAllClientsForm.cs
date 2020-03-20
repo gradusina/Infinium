@@ -13,7 +13,7 @@ namespace Infinium
         int FormEvent = 0;
 
         LightStartForm LightStartForm;
-        
+
         Form TopForm = null;
         public Modules.StaticticsZOV.AllClientsStatistics AllClientsStatistics;
 
@@ -21,17 +21,17 @@ namespace Infinium
         public StatisticsAllClientsZOVForm(LightStartForm tLightStartForm)
         {
             InitializeComponent();
-            
+
 
             LightStartForm = tLightStartForm;
 
-            
+
             this.MaximumSize = Screen.PrimaryScreen.WorkingArea.Size;
 
 
             Initialize();
 
-            while (!SplashForm.bCreated);
+            while (!SplashForm.bCreated) ;
         }
 
         private void StatisticsAllClientsZOVForm_Shown(object sender, EventArgs e)
@@ -53,16 +53,16 @@ namespace Infinium
 
                     if (FormEvent == eClose)
                     {
-                       
+
                         LightStartForm.CloseForm(this);
                     }
 
                     if (FormEvent == eHide)
                     {
-                        
+
                         LightStartForm.HideForm(this);
                     }
-                    
+
 
                     return;
                 }
@@ -86,16 +86,16 @@ namespace Infinium
 
                     if (FormEvent == eClose)
                     {
-                       
+
                         LightStartForm.CloseForm(this);
                     }
 
                     if (FormEvent == eHide)
                     {
-                        
+
                         LightStartForm.HideForm(this);
                     }
-                    
+
                 }
 
                 return;
@@ -134,7 +134,7 @@ namespace Infinium
             AnimateTimer.Enabled = true;
         }
 
-        
+
 
         private void Initialize()
         {

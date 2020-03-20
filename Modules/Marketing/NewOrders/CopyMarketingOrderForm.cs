@@ -1,4 +1,5 @@
 ﻿using Infinium.Modules.Marketing.NewOrders;
+
 using System;
 using System.Data;
 using System.Windows.Forms;

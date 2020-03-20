@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Data;
-using System.Windows.Forms;
 using System.Threading;
+using System.Windows.Forms;
 
 namespace Infinium
 {
@@ -167,7 +167,7 @@ namespace Infinium
         {
             if (bNeedSplash)
             {
-                Thread T = new Thread(delegate()
+                Thread T = new Thread(delegate ()
                 {
                     SplashWindow.CreateCoverSplash(UpdatePanel.Top, UpdatePanel.Left,
                                                    UpdatePanel.Height, UpdatePanel.Width);
@@ -182,7 +182,7 @@ namespace Infinium
         {
             if (bNeedSplash)
             {
-                Thread T = new Thread(delegate()
+                Thread T = new Thread(delegate ()
                 {
                     SplashWindow.CreateCoverSplash(this.Top, this.Left,
                                                    this.Height, this.Width);
@@ -213,7 +213,7 @@ namespace Infinium
 
         private void ProjectsForm_ANSUpdate(object sender)
         {
-            
+
         }
 
         private void timer1_Tick(object sender, EventArgs e)
@@ -326,7 +326,7 @@ namespace Infinium
 
                 Uncover();
             }
-                        
+
         }
 
         private void ContractorsList_ReadDescription(object sender, string sText)

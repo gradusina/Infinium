@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Drawing;
-using System.Windows.Forms;
 using System.Threading;
+using System.Windows.Forms;
 
 namespace Infinium
 {
@@ -26,7 +26,7 @@ namespace Infinium
         public WaitForm(Color BackColor, string LabelText, ref Thread tThread)
         {
             Thread = tThread;
-            
+
             InitializeComponent();
             this.MaximumSize = Screen.PrimaryScreen.WorkingArea.Size;
             this.BackColor = BackColor;
@@ -52,7 +52,7 @@ namespace Infinium
 
                     if (FormEvent == eClose)
                     {
-                        
+
                         this.Close();
                     }
                 }
@@ -61,7 +61,7 @@ namespace Infinium
             }
 
 
-            if(FormEvent == eShow)
+            if (FormEvent == eShow)
             {
                 if (this.Opacity != 1)
                     this.Opacity += 0.05;

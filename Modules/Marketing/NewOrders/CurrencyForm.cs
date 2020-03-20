@@ -1,8 +1,9 @@
-﻿using System;
+﻿using Infinium.Modules.Marketing.NewOrders;
+
+using System;
 using System.Data;
 using System.Drawing;
 using System.Windows.Forms;
-using Infinium.Modules.Marketing.NewOrders;
 
 namespace Infinium
 {
@@ -154,7 +155,7 @@ namespace Infinium
                        "Расчет заказа");
                 return;
             }
-            
+
             decimal DiscountPaymentCondition = OrdersManager.DiscountPaymentCondition(DiscountPaymentConditionID);
             string FactoringName = string.Empty;
             if (DiscountPaymentConditionID == 4)
@@ -423,12 +424,12 @@ namespace Infinium
             if (ConfirmDate != DBNull.Value)
             {
                 OrdersCalculate.GetFixedPaymentRate(Convert.ToInt32(((DataRowView)OrdersManager.MegaOrdersBindingSource.Current).Row["ClientID"]),
-                    Convert.ToDateTime(ConfirmDate), ref FixedPaymentRate, ref EURUSDCurrency, ref EURRUBCurrency, ref  EURBYRCurrency);
+                    Convert.ToDateTime(ConfirmDate), ref FixedPaymentRate, ref EURUSDCurrency, ref EURRUBCurrency, ref EURBYRCurrency);
                 CurrencyDateTimePicker.Value = Convert.ToDateTime(ConfirmDate);
             }
             else
                 OrdersCalculate.GetFixedPaymentRate(Convert.ToInt32(((DataRowView)OrdersManager.MegaOrdersBindingSource.Current).Row["ClientID"]),
-                    CurrencyDateTimePicker.Value.Date, ref FixedPaymentRate, ref EURUSDCurrency, ref EURRUBCurrency, ref  EURBYRCurrency);
+                    CurrencyDateTimePicker.Value.Date, ref FixedPaymentRate, ref EURUSDCurrency, ref EURRUBCurrency, ref EURBYRCurrency);
             if (FixedPaymentRate)
             {
                 USDRUBCurrency = 1;

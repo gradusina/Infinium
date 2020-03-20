@@ -14,7 +14,7 @@ namespace Infinium
         int FormEvent = 0;
 
         LightStartForm LightStartForm;
-        
+
         Form TopForm = null;
 
         AdminManagersJournalDetail AdminManagersJournalDetail;
@@ -27,7 +27,7 @@ namespace Infinium
 
             LightStartForm = tLightStartForm;
 
-            
+
             this.MaximumSize = Screen.PrimaryScreen.WorkingArea.Size;
 
             Initialize();
@@ -51,7 +51,7 @@ namespace Infinium
 
                     if (FormEvent == eClose)
                     {
-                       
+
                         LightStartForm.CloseForm(this);
                     }
 
@@ -60,7 +60,7 @@ namespace Infinium
 
                         LightStartForm.HideForm(this);
                     }
-                    
+
 
                     return;
                 }
@@ -84,7 +84,7 @@ namespace Infinium
 
                     if (FormEvent == eClose)
                     {
-                       
+
                         LightStartForm.CloseForm(this);
                     }
 
@@ -93,7 +93,7 @@ namespace Infinium
 
                         LightStartForm.HideForm(this);
                     }
-                    
+
                 }
 
                 return;
@@ -238,8 +238,8 @@ namespace Infinium
             {
                 if (ClientsDataGrid.Rows[e.RowIndex].Cells["IdleTime"].FormattedValue.ToString() != "-" && ClientsDataGrid.Rows[e.RowIndex].Cells["IdleTime"].FormattedValue.ToString() != "")
                 {
-                    int Total = Convert.ToDateTime(ClientsDataGrid.Rows[e.RowIndex].Cells["IdleTime"].FormattedValue.ToString()).Hour * 3600 + 
-                                Convert.ToDateTime(ClientsDataGrid.Rows[e.RowIndex].Cells["IdleTime"].FormattedValue.ToString()).Minute * 60 + 
+                    int Total = Convert.ToDateTime(ClientsDataGrid.Rows[e.RowIndex].Cells["IdleTime"].FormattedValue.ToString()).Hour * 3600 +
+                                Convert.ToDateTime(ClientsDataGrid.Rows[e.RowIndex].Cells["IdleTime"].FormattedValue.ToString()).Minute * 60 +
                                 Convert.ToDateTime(ClientsDataGrid.Rows[e.RowIndex].Cells["IdleTime"].FormattedValue.ToString()).Second;
 
                     if (Total < 30)

@@ -1,8 +1,8 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Data;
-using System.Windows.Forms;
 using System.Threading;
+using System.Windows.Forms;
 
 namespace Infinium
 {
@@ -280,122 +280,122 @@ namespace Infinium
         private void CreateButton_Click(object sender, EventArgs e)
         {
 
-                int iCorrespondentID = -1;
+            int iCorrespondentID = -1;
 
-                iCorrespondentID = Convert.ToInt32(RecipientComboBox.SelectedValue);
+            iCorrespondentID = Convert.ToInt32(RecipientComboBox.SelectedValue);
 
-                if (iCorrespondentID == 0)
+            if (iCorrespondentID == 0)
+            {
+                InfiniumTips.ShowTip(this, 50, 85, "Выберите получателя", 2000);
+                return;
+            }
+
+            if (AttachmentsDataTable.Rows.Count == 0)
+            {
+                InfiniumTips.ShowTip(this, 50, 85, "Не выбраны файлы", 2000);
+                return;
+            }
+
+            int iCurrentUploadedFile = 0;
+
+            bool Ok = false;
+
+            InfiniumDocuments.FM.bStopTransfer = false;
+
+            LoadLabel.Visible = true;
+            ProgressBar.Visible = true;
+            LoadLabel.Text = "Загрузка прикрепленных файлов...";
+            LoadTimer.Enabled = true;
+            CancelLoadingFilesButton.Visible = true;
+
+            Application.DoEvents();
+
+            int LastUploadedFile = 0;
+            int CurrentUploadedFile = 0;
+            int TotalFilesCount = AttachmentsDataTable.Rows.Count;
+
+            int DocumentType = Convert.ToInt32(DocumentsTypeComboBox.SelectedValue);
+            string Description = DescriptionTextBox.Text;
+            int DocumentState = Convert.ToInt32(DocumentsStatesComboBox.SelectedValue);
+            int FactoryID = Convert.ToInt32(FactoryTypesComboBox.SelectedValue);
+
+            if (DocumentType == 0)
+            {
+                InfiniumTips.ShowTip(this, 50, 85, "Выберите тип документа", 2000);
+                return;
+            }
+
+            RecipientsDataTable.Clear();
+
+            foreach (InfiniumDocumentsSelectUserItem Item in RecipientsList.Items)
+            {
+                if (Item.Checked)
                 {
-                    InfiniumTips.ShowTip(this, 50, 85, "Выберите получателя", 2000);
-                    return;
+                    DataRow NewRow = RecipientsDataTable.NewRow();
+                    NewRow["UserID"] = Item.UserID;
+                    RecipientsDataTable.Rows.Add(NewRow);
                 }
+            }
 
-                if (AttachmentsDataTable.Rows.Count == 0)
+            Thread T;
+
+            if (!bEdit)
+            {
+                T = new Thread(delegate ()
                 {
-                    InfiniumTips.ShowTip(this, 50, 85, "Не выбраны файлы", 2000);
-                    return;
-                }
+                    Ok = InfiniumDocuments.AddIncomeDocument(DocumentType,
+                                                        Security.GetCurrentDate(), Security.CurrentUserID, iCorrespondentID, RecipientsDataTable,
+                                                        Description, RegNumberTextBox.Text, IncomeNumberTextBox.Text, DocumentState, AttachmentsDataTable,
+                                                        ref iCurrentUploadedFile, FactoryID);
+                });
+                T.Start();
+            }
+            else
+            {
+                T = new Thread(delegate ()
+                {
+                    Ok = InfiniumDocuments.EditIncomeDocument(IncomeDocumentID, DocumentType, Security.CurrentUserID, iCorrespondentID, RecipientsDataTable,
+                                                        Description, RegNumberTextBox.Text, IncomeNumberTextBox.Text, DocumentState, AttachmentsDataTable,
+                                                        ref iCurrentUploadedFile, FactoryID);
+                });
+                T.Start();
+            }
 
-                int iCurrentUploadedFile = 0;
+            this.Activate();
+            Application.DoEvents();
 
-                bool Ok = false;
-
-                InfiniumDocuments.FM.bStopTransfer = false;
-
-                LoadLabel.Visible = true;
-                ProgressBar.Visible = true;
-                LoadLabel.Text = "Загрузка прикрепленных файлов...";
-                LoadTimer.Enabled = true;
-                CancelLoadingFilesButton.Visible = true;
-
+            while (T.IsAlive)
+            {
+                T.Join(50);
                 Application.DoEvents();
 
-                int LastUploadedFile = 0;
-                int CurrentUploadedFile = 0;
-                int TotalFilesCount = AttachmentsDataTable.Rows.Count;
-
-                int DocumentType = Convert.ToInt32(DocumentsTypeComboBox.SelectedValue);
-                string Description = DescriptionTextBox.Text;
-                int DocumentState = Convert.ToInt32(DocumentsStatesComboBox.SelectedValue);
-                int FactoryID = Convert.ToInt32(FactoryTypesComboBox.SelectedValue);
-
-                if (DocumentType == 0)
+                if (CurrentUploadedFile != LastUploadedFile)
                 {
-                    InfiniumTips.ShowTip(this, 50, 85, "Выберите тип документа", 2000);
-                    return;
+                    LoadLabel.Text = "Загрузка прикрепленных файлов(" + CurrentUploadedFile.ToString() + " из " + TotalFilesCount.ToString() + ")";
+                    LastUploadedFile = CurrentUploadedFile;
                 }
 
-                RecipientsDataTable.Clear();
-
-                foreach (InfiniumDocumentsSelectUserItem Item in RecipientsList.Items)
+                if (bStopTransfer)
                 {
-                    if (Item.Checked)
-                    {
-                        DataRow NewRow = RecipientsDataTable.NewRow();
-                        NewRow["UserID"] = Item.UserID;
-                        RecipientsDataTable.Rows.Add(NewRow);
-                    }
-                }
+                    InfiniumDocuments.FM.bStopTransfer = true;
+                    bStopTransfer = false;
+                    LoadTimer.Enabled = false;
+                    ProgressBar.Visible = false;
+                    LoadLabel.Text = "Отмена загрузки файлов...";
+                    DownloadLabel.Text = "";
+                    SpeedLabel.Text = "";
+                    PercentsLabel.Text = "";
+                    CancelLoadingFilesButton.Visible = false;
 
-                Thread T;
-
-                if (!bEdit)
-                {
-                    T = new Thread(delegate()
-                    {
-                        Ok = InfiniumDocuments.AddIncomeDocument(DocumentType,
-                                                            Security.GetCurrentDate(), Security.CurrentUserID, iCorrespondentID, RecipientsDataTable,
-                                                            Description, RegNumberTextBox.Text, IncomeNumberTextBox.Text, DocumentState, AttachmentsDataTable,
-                                                            ref iCurrentUploadedFile, FactoryID);
-                    });
-                    T.Start();
-                }
-                else
-                {
-                    T = new Thread(delegate()
-                    {
-                        Ok = InfiniumDocuments.EditIncomeDocument(IncomeDocumentID, DocumentType, Security.CurrentUserID, iCorrespondentID, RecipientsDataTable,
-                                                            Description, RegNumberTextBox.Text, IncomeNumberTextBox.Text, DocumentState, AttachmentsDataTable,
-                                                            ref iCurrentUploadedFile, FactoryID);
-                    });
-                    T.Start();
-                }
-
-                this.Activate();
-                Application.DoEvents();
-
-                while (T.IsAlive)
-                {
-                    T.Join(50);
                     Application.DoEvents();
 
-                    if (CurrentUploadedFile != LastUploadedFile)
-                    {
-                        LoadLabel.Text = "Загрузка прикрепленных файлов(" + CurrentUploadedFile.ToString() + " из " + TotalFilesCount.ToString() + ")";
-                        LastUploadedFile = CurrentUploadedFile;
-                    }
+                    while (T.IsAlive)
+                        Thread.Sleep(50);
 
-                    if (bStopTransfer)
-                    {
-                        InfiniumDocuments.FM.bStopTransfer = true;
-                        bStopTransfer = false;
-                        LoadTimer.Enabled = false;
-                        ProgressBar.Visible = false;
-                        LoadLabel.Text = "Отмена загрузки файлов...";
-                        DownloadLabel.Text = "";
-                        SpeedLabel.Text = "";
-                        PercentsLabel.Text = "";
-                        CancelLoadingFilesButton.Visible = false;
-
-                        Application.DoEvents();
-
-                        while (T.IsAlive)
-                            Thread.Sleep(50);
-
-                        FormEvent = eClose;
-                        AnimateTimer.Enabled = true;
-                    }
+                    FormEvent = eClose;
+                    AnimateTimer.Enabled = true;
                 }
+            }
 
 
             FormEvent = eClose;
@@ -419,7 +419,7 @@ namespace Infinium
                 InfiniumTips.ShowTip(this, 50, 85, "Корреспондент добавлен в базу данных", 3800);
 
                 InfiniumDocuments.RefillCorrespondents();
-                RecipientComboBox.SelectedValue = Convert.ToInt32(InfiniumDocuments.CorrespondentsDataTable.Select("CorrespondentName = '" + CorName + "'")[0]["CorrespondentID"]);                
+                RecipientComboBox.SelectedValue = Convert.ToInt32(InfiniumDocuments.CorrespondentsDataTable.Select("CorrespondentName = '" + CorName + "'")[0]["CorrespondentID"]);
 
                 return;
             }

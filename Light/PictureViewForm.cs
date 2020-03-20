@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Drawing;
-using System.Windows.Forms;
 using System.Threading;
+using System.Windows.Forms;
 
 namespace Infinium
 {
@@ -19,11 +19,11 @@ namespace Infinium
         InfiniumPicturesContainer PicturesContainer;
 
         int iAlbumID = -1;
-        int iPictureID =-1;
+        int iPictureID = -1;
 
         bool bC = false;
 
-        public PictureViewForm(ref Infinium.InfiniumPictures tInfiniumPictures, 
+        public PictureViewForm(ref Infinium.InfiniumPictures tInfiniumPictures,
                                ref InfiniumPicturesContainer tPicturesContainer, int AlbumID, int PictureID, ref Form tTopForm)
         {
             InitializeComponent();
@@ -33,26 +33,26 @@ namespace Infinium
             PicturesContainer = tPicturesContainer;
 
             iAlbumID = AlbumID;
-            iPictureID = PictureID;         
+            iPictureID = PictureID;
 
-            TopForm = tTopForm;          
+            TopForm = tTopForm;
         }
 
         public void LoadPic()
         {
-            Thread T = new Thread(delegate()
+            Thread T = new Thread(delegate ()
             {
                 SplashWindow.CreateCoverSplash(panel1.Top, panel1.Left,
-                                               panel1.Height, panel1.Width, Color.FromArgb(60,60,60));
+                                               panel1.Height, panel1.Width, Color.FromArgb(60, 60, 60));
             });
             T.Start();
 
-            while (!SplashWindow.bSmallCreated);
+            while (!SplashWindow.bSmallCreated) ;
 
             pictureBox1.Image = InfiniumPictures.GetPicture(iPictureID);
 
             int Count = PicturesContainer.PicItems[PicturesContainer.ItemsDataTable.Rows.IndexOf(
-                PicturesContainer.ItemsDataTable.Select("PictureID = "+iPictureID)[0])].LikesCount;
+                PicturesContainer.ItemsDataTable.Select("PictureID = " + iPictureID)[0])].LikesCount;
 
             if (Count > 0)
             {
@@ -153,7 +153,7 @@ namespace Infinium
         }
 
         private void PictureViewForm_Shown(object sender, EventArgs e)
-        { 
+        {
             FormEvent = eShow;
             AnimateTimer.Enabled = true;
         }
@@ -161,7 +161,7 @@ namespace Infinium
 
         private void NavigateMenuCloseButton_Click(object sender, EventArgs e)
         {
-            
+
         }
 
         private void BackButton_Click(object sender, EventArgs e)

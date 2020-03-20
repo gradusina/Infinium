@@ -1,10 +1,11 @@
-﻿using System;
+﻿using NPOI.HSSF.UserModel;
+using NPOI.HSSF.UserModel.Contrib;
+using NPOI.HSSF.Util;
+
+using System;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
-using NPOI.HSSF.UserModel;
-using NPOI.HSSF.UserModel.Contrib;
-using NPOI.HSSF.Util;
 
 namespace Infinium
 {
@@ -354,7 +355,7 @@ namespace Infinium
                 {
                     rows[0]["Cost2"] = Convert.ToDecimal(DT1.Rows[i]["OriginalPrice"]);
                 }
-            } 
+            }
             using (DataView DV = new DataView(DecorConfigDataTable))
             {
                 DV.RowFilter = "PatinaID<>-1";
@@ -799,27 +800,27 @@ namespace Infinium
                     //}
                     //else
                     //{
-                        {
-                            DataRow NewRow = TempTable.NewRow();
-                            NewRow["Color"] = string.Empty;
-                            NewRow["Patina"] = string.Empty;
-                            NewRow["Cost" + CoverType] = ResultDecorDataTable.Rows[i]["Cost" + CoverType].ToString();
-                            NewRow["Measure"] = ResultDecorDataTable.Rows[i]["Measure"].ToString();
-                            NewRow["CostGroup"] = true;
-                            NewRow["CoverType"] = CoverType;
-                            NewRow["Index"] = Index++;
-                            TempTable.Rows.Add(NewRow);
-                        }
-                        {
-                            DataRow NewRow = TempTable.NewRow();
-                            NewRow["Color"] = ResultDecorDataTable.Rows[i]["Color"].ToString();
-                            NewRow["Patina"] = ResultDecorDataTable.Rows[i]["Patina"].ToString();
-                            NewRow["Cost" + CoverType] = ResultDecorDataTable.Rows[i]["Cost" + CoverType].ToString();
-                            NewRow["Measure"] = ResultDecorDataTable.Rows[i]["Measure"].ToString();
-                            NewRow["CoverType"] = CoverType;
-                            NewRow["Index"] = Index++;
-                            TempTable.Rows.Add(NewRow);
-                        }
+                    {
+                        DataRow NewRow = TempTable.NewRow();
+                        NewRow["Color"] = string.Empty;
+                        NewRow["Patina"] = string.Empty;
+                        NewRow["Cost" + CoverType] = ResultDecorDataTable.Rows[i]["Cost" + CoverType].ToString();
+                        NewRow["Measure"] = ResultDecorDataTable.Rows[i]["Measure"].ToString();
+                        NewRow["CostGroup"] = true;
+                        NewRow["CoverType"] = CoverType;
+                        NewRow["Index"] = Index++;
+                        TempTable.Rows.Add(NewRow);
+                    }
+                    {
+                        DataRow NewRow = TempTable.NewRow();
+                        NewRow["Color"] = ResultDecorDataTable.Rows[i]["Color"].ToString();
+                        NewRow["Patina"] = ResultDecorDataTable.Rows[i]["Patina"].ToString();
+                        NewRow["Cost" + CoverType] = ResultDecorDataTable.Rows[i]["Cost" + CoverType].ToString();
+                        NewRow["Measure"] = ResultDecorDataTable.Rows[i]["Measure"].ToString();
+                        NewRow["CoverType"] = CoverType;
+                        NewRow["Index"] = Index++;
+                        TempTable.Rows.Add(NewRow);
+                    }
                     //}
                     continue;
                 }
@@ -851,27 +852,27 @@ namespace Infinium
                     //}
                     //else
                     //{
-                        {
-                            DataRow NewRow = TempTable.NewRow();
-                            NewRow["Color"] = string.Empty;
-                            NewRow["Patina"] = string.Empty;
-                            NewRow["Cost" + CoverType] = ResultDecorDataTable.Rows[i]["Cost" + CoverType].ToString();
-                            NewRow["Measure"] = ResultDecorDataTable.Rows[i]["Measure"].ToString();
-                            NewRow["CostGroup"] = true;
-                            NewRow["CoverType"] = CoverType;
-                            NewRow["Index"] = Index++;
-                            TempTable.Rows.Add(NewRow);
-                        }
-                        {
-                            DataRow NewRow = TempTable.NewRow();
-                            NewRow["Color"] = ResultDecorDataTable.Rows[i]["Color"].ToString();
-                            NewRow["Patina"] = ResultDecorDataTable.Rows[i]["Patina"].ToString();
-                            NewRow["Cost" + CoverType] = ResultDecorDataTable.Rows[i]["Cost" + CoverType].ToString();
-                            NewRow["Measure"] = ResultDecorDataTable.Rows[i]["Measure"].ToString();
-                            NewRow["CoverType"] = CoverType;
-                            NewRow["Index"] = Index++;
-                            TempTable.Rows.Add(NewRow);
-                        }
+                    {
+                        DataRow NewRow = TempTable.NewRow();
+                        NewRow["Color"] = string.Empty;
+                        NewRow["Patina"] = string.Empty;
+                        NewRow["Cost" + CoverType] = ResultDecorDataTable.Rows[i]["Cost" + CoverType].ToString();
+                        NewRow["Measure"] = ResultDecorDataTable.Rows[i]["Measure"].ToString();
+                        NewRow["CostGroup"] = true;
+                        NewRow["CoverType"] = CoverType;
+                        NewRow["Index"] = Index++;
+                        TempTable.Rows.Add(NewRow);
+                    }
+                    {
+                        DataRow NewRow = TempTable.NewRow();
+                        NewRow["Color"] = ResultDecorDataTable.Rows[i]["Color"].ToString();
+                        NewRow["Patina"] = ResultDecorDataTable.Rows[i]["Patina"].ToString();
+                        NewRow["Cost" + CoverType] = ResultDecorDataTable.Rows[i]["Cost" + CoverType].ToString();
+                        NewRow["Measure"] = ResultDecorDataTable.Rows[i]["Measure"].ToString();
+                        NewRow["CoverType"] = CoverType;
+                        NewRow["Index"] = Index++;
+                        TempTable.Rows.Add(NewRow);
+                    }
                     //}
                     continue;
                 }

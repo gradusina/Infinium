@@ -46,7 +46,7 @@ namespace Infinium
                 tbWidth.Visible = true;
             }
 
-            while (!SplashForm.bCreated);
+            while (!SplashForm.bCreated) ;
         }
 
         private void Initialize()

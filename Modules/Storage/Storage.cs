@@ -1,20 +1,21 @@
-﻿using System;
-using System.Linq;
-using System.Data;
-using System.Data.SqlClient;
-using System.Windows.Forms;
-using System.Collections;
-using System.Drawing;
-using System.IO;
-using System.Globalization;
-using System.Net;
+﻿using NPOI.HPSF;
 using NPOI.HSSF.UserModel;
-using NPOI.HPSF;
-using NPOI.HSSF.Util;
 using NPOI.HSSF.UserModel.Contrib;
-using System.Drawing.Printing;
+using NPOI.HSSF.Util;
+
+using System;
+using System.Collections;
+using System.Data;
 using System.Data.OleDb;
+using System.Data.SqlClient;
+using System.Drawing;
+using System.Drawing.Printing;
+using System.Globalization;
+using System.IO;
+using System.Linq;
+using System.Net;
 using System.Text;
+using System.Windows.Forms;
 using System.Xml;
 
 namespace Infinium.Store
@@ -158,7 +159,7 @@ namespace Infinium.Store
         {
             using (SqlDataAdapter DA = new SqlDataAdapter("SELECT TechStoreID, TechStoreName, SellerCode FROM TechStore WHERE TechStoreID=" + TechStoreID, ConnectionStrings.CatalogConnectionString))
             {
-                using (DataTable  DT=new DataTable())
+                using (DataTable DT = new DataTable())
                 {
                     DA.Fill(DT);
                     try
@@ -398,7 +399,7 @@ namespace Infinium.Store
 
         public void UpdateStoreItems(int TechStoreSubGroupID)
         {
-            using (SqlDataAdapter DA = new SqlDataAdapter("SELECT * FROM TechStore WHERE TechStoreSubGroupID=" + TechStoreSubGroupID +" ORDER BY TechStoreName", ConnectionStrings.CatalogConnectionString))
+            using (SqlDataAdapter DA = new SqlDataAdapter("SELECT * FROM TechStore WHERE TechStoreSubGroupID=" + TechStoreSubGroupID + " ORDER BY TechStoreName", ConnectionStrings.CatalogConnectionString))
             {
                 StoreItemsDataTable.Clear();
                 DA.Fill(StoreItemsDataTable);
@@ -491,12 +492,12 @@ namespace Infinium.Store
         {
             get { return StoreItemsBS; }
         }
-                
+
         public BindingSource ManufacturersList
         {
             get { return ManufacturersBS; }
         }
-        
+
         public DataGridViewComboBoxColumn ManufacturerColumn
         {
             get
@@ -1011,7 +1012,7 @@ namespace Infinium.Store
                 decimal Rate = 0;
                 decimal Price = 0;
                 decimal PriceEUR = 1;
-                
+
                 using (SqlDataAdapter DA = new SqlDataAdapter("SELECT TOP 0 * FROM PurchaseInvoices", ConnectionStrings.StorageConnectionString))
                 {
                     using (SqlCommandBuilder CB = new SqlCommandBuilder(DA))
@@ -1484,7 +1485,7 @@ namespace Infinium.Store
             return MovementInvoiceID;
         }
 
-        public void SaveMovementInvoices(DateTime DateTime, 
+        public void SaveMovementInvoices(DateTime DateTime,
             int SellerStoreAllocID, int RecipientStoreAllocID, int RecipientSectorID,
             int PersonID, string PersonName, int StoreKeeperID,
             int ClientID, int SellerID,
@@ -1492,33 +1493,33 @@ namespace Infinium.Store
         {
             try
             {
-            using (SqlDataAdapter DA = new SqlDataAdapter("SELECT TOP 0 * FROM MovementInvoices", ConnectionStrings.StorageConnectionString))
-            {
-                using (SqlCommandBuilder CB = new SqlCommandBuilder(DA))
+                using (SqlDataAdapter DA = new SqlDataAdapter("SELECT TOP 0 * FROM MovementInvoices", ConnectionStrings.StorageConnectionString))
                 {
-                    using (DataTable DT = new DataTable())
+                    using (SqlCommandBuilder CB = new SqlCommandBuilder(DA))
                     {
-                        DA.Fill(DT);
-                        DataRow NewRow = DT.NewRow();
-                        NewRow["DateTime"] = DateTime;
-                        NewRow["SellerStoreAllocID"] = SellerStoreAllocID;
-                        NewRow["RecipientStoreAllocID"] = RecipientStoreAllocID;
-                        NewRow["RecipientSectorID"] = RecipientSectorID;
-                        NewRow["PersonID"] = PersonID;
-                        NewRow["PersonName"] = PersonName;
-                        NewRow["StoreKeeperID"] = StoreKeeperID;
-                        NewRow["ClientName"] = ClientName;
-                        NewRow["ClientID"] = ClientID;
-                        NewRow["SellerID"] = SellerID;
-                        NewRow["Notes"] = Notes;
-                        NewRow["CreateUserID"] = Security.CurrentUserID;
-                        NewRow["CreateDateTime"] = Security.GetCurrentDate();
-                        DT.Rows.Add(NewRow);
-                        DA.Update(DT);
+                        using (DataTable DT = new DataTable())
+                        {
+                            DA.Fill(DT);
+                            DataRow NewRow = DT.NewRow();
+                            NewRow["DateTime"] = DateTime;
+                            NewRow["SellerStoreAllocID"] = SellerStoreAllocID;
+                            NewRow["RecipientStoreAllocID"] = RecipientStoreAllocID;
+                            NewRow["RecipientSectorID"] = RecipientSectorID;
+                            NewRow["PersonID"] = PersonID;
+                            NewRow["PersonName"] = PersonName;
+                            NewRow["StoreKeeperID"] = StoreKeeperID;
+                            NewRow["ClientName"] = ClientName;
+                            NewRow["ClientID"] = ClientID;
+                            NewRow["SellerID"] = SellerID;
+                            NewRow["Notes"] = Notes;
+                            NewRow["CreateUserID"] = Security.CurrentUserID;
+                            NewRow["CreateDateTime"] = Security.GetCurrentDate();
+                            DT.Rows.Add(NewRow);
+                            DA.Update(DT);
+                        }
                     }
                 }
             }
-        }
             catch (SqlException ex)
             {
                 MessageBox.Show(ex.Message + " \r\nSaveMovementInvoices НЕТ СОЕДИНЕНИЯ С БАЗОЙ. ЛЕНА, ПОЗОВИ МЕНЯ! :-)");
@@ -1533,83 +1534,83 @@ namespace Infinium.Store
         {
             try
             {
-            DataTable MovementInvoiceDetailsDT = new DataTable();
-            DataTable PersonalStoreDT = new DataTable();
-            DataTable StoreDT = new DataTable();
-            
-            SqlDataAdapter da1 = new SqlDataAdapter("SELECT TOP 0 * FROM MovementInvoiceDetails",
-                             ConnectionStrings.StorageConnectionString);
-            SqlDataAdapter da2 = new SqlDataAdapter("SELECT TOP 0 * FROM PersonalStore",
-                             ConnectionStrings.StorageConnectionString);
-            SqlDataAdapter da3 = new SqlDataAdapter("SELECT * FROM Store WHERE PurchaseInvoiceID = " + PurchaseInvoiceID,
+                DataTable MovementInvoiceDetailsDT = new DataTable();
+                DataTable PersonalStoreDT = new DataTable();
+                DataTable StoreDT = new DataTable();
+
+                SqlDataAdapter da1 = new SqlDataAdapter("SELECT TOP 0 * FROM MovementInvoiceDetails",
+                                 ConnectionStrings.StorageConnectionString);
+                SqlDataAdapter da2 = new SqlDataAdapter("SELECT TOP 0 * FROM PersonalStore",
+                                 ConnectionStrings.StorageConnectionString);
+                SqlDataAdapter da3 = new SqlDataAdapter("SELECT * FROM Store WHERE PurchaseInvoiceID = " + PurchaseInvoiceID,
+                        ConnectionStrings.StorageConnectionString);
+
+                SqlCommandBuilder cb1 = new SqlCommandBuilder(da1);
+                SqlCommandBuilder cb2 = new SqlCommandBuilder(da2);
+                SqlCommandBuilder cb3 = new SqlCommandBuilder(da3);
+
+                da1.Fill(MovementInvoiceDetailsDT);
+                da2.Fill(PersonalStoreDT);
+                da3.Fill(StoreDT);
+
+                for (int i = 0; i < StoreDT.Rows.Count; i++)
+                {
+                    DataRow NewRow = PersonalStoreDT.NewRow();
+                    NewRow["MovementInvoiceID"] = MovementInvoiceID;
+                    NewRow["StoreItemID"] = StoreDT.Rows[i]["StoreItemID"];
+                    NewRow["Length"] = StoreDT.Rows[i]["Length"];
+                    NewRow["Width"] = StoreDT.Rows[i]["Width"];
+                    NewRow["Height"] = StoreDT.Rows[i]["Height"];
+                    NewRow["Thickness"] = StoreDT.Rows[i]["Thickness"];
+                    NewRow["Diameter"] = StoreDT.Rows[i]["Diameter"];
+                    NewRow["Admission"] = StoreDT.Rows[i]["Admission"];
+                    NewRow["Capacity"] = StoreDT.Rows[i]["Capacity"];
+                    NewRow["Weight"] = StoreDT.Rows[i]["Weight"];
+                    NewRow["ColorID"] = StoreDT.Rows[i]["ColorID"];
+                    NewRow["CoverID"] = StoreDT.Rows[i]["CoverID"];
+                    NewRow["PatinaID"] = StoreDT.Rows[i]["PatinaID"];
+                    NewRow["InvoiceCount"] = StoreDT.Rows[i]["InvoiceCount"];
+                    NewRow["CurrentCount"] = StoreDT.Rows[i]["InvoiceCount"];
+                    NewRow["FactoryID"] = StoreDT.Rows[i]["FactoryID"];
+                    NewRow["Notes"] = StoreDT.Rows[i]["Notes"];
+                    NewRow["Price"] = StoreDT.Rows[i]["Price"];
+                    NewRow["PriceEUR"] = StoreDT.Rows[i]["PriceEUR"];
+                    NewRow["CurrencyTypeID"] = StoreDT.Rows[i]["CurrencyTypeID"];
+                    NewRow["Cost"] = StoreDT.Rows[i]["Cost"];
+                    NewRow["VAT"] = StoreDT.Rows[i]["VAT"];
+                    NewRow["VATCost"] = StoreDT.Rows[i]["VATCost"];
+                    PersonalStoreDT.Rows.Add(NewRow);
+                    StoreDT.Rows[i]["CurrentCount"] = 0;
+                }
+
+                da2.Update(PersonalStoreDT);
+                da3.Update(StoreDT);
+                da2.Dispose();
+                PersonalStoreDT.Clear();
+                da2 = new SqlDataAdapter("SELECT PersonalStoreID FROM PersonalStore WHERE MovementInvoiceID = " + MovementInvoiceID,
                     ConnectionStrings.StorageConnectionString);
+                da2.Fill(PersonalStoreDT);
+                for (int i = 0; i < PersonalStoreDT.Rows.Count; i++)
+                {
+                    DataRow NewRow1 = MovementInvoiceDetailsDT.NewRow();
+                    NewRow1["MovementInvoiceID"] = MovementInvoiceID;
+                    NewRow1["StoreIDFrom"] = StoreDT.Rows[i]["StoreID"];
+                    NewRow1["StoreIDTo"] = PersonalStoreDT.Rows[i]["PersonalStoreID"];
+                    NewRow1["Count"] = StoreDT.Rows[i]["InvoiceCount"];
+                    MovementInvoiceDetailsDT.Rows.Add(NewRow1);
+                }
+                da1.Update(MovementInvoiceDetailsDT);
 
-            SqlCommandBuilder cb1 = new SqlCommandBuilder(da1);
-            SqlCommandBuilder cb2 = new SqlCommandBuilder(da2);
-            SqlCommandBuilder cb3 = new SqlCommandBuilder(da3);
-
-            da1.Fill(MovementInvoiceDetailsDT);
-            da2.Fill(PersonalStoreDT);
-            da3.Fill(StoreDT);
-
-            for (int i = 0; i < StoreDT.Rows.Count; i++)
-            {
-                DataRow NewRow = PersonalStoreDT.NewRow();
-                NewRow["MovementInvoiceID"] = MovementInvoiceID;
-                NewRow["StoreItemID"] = StoreDT.Rows[i]["StoreItemID"];
-                NewRow["Length"] = StoreDT.Rows[i]["Length"];
-                NewRow["Width"] = StoreDT.Rows[i]["Width"];
-                NewRow["Height"] = StoreDT.Rows[i]["Height"];
-                NewRow["Thickness"] = StoreDT.Rows[i]["Thickness"];
-                NewRow["Diameter"] = StoreDT.Rows[i]["Diameter"];
-                NewRow["Admission"] = StoreDT.Rows[i]["Admission"];
-                NewRow["Capacity"] = StoreDT.Rows[i]["Capacity"];
-                NewRow["Weight"] = StoreDT.Rows[i]["Weight"];
-                NewRow["ColorID"] = StoreDT.Rows[i]["ColorID"];
-                NewRow["CoverID"] = StoreDT.Rows[i]["CoverID"];
-                NewRow["PatinaID"] = StoreDT.Rows[i]["PatinaID"];
-                NewRow["InvoiceCount"] = StoreDT.Rows[i]["InvoiceCount"];
-                NewRow["CurrentCount"] = StoreDT.Rows[i]["InvoiceCount"];
-                NewRow["FactoryID"] = StoreDT.Rows[i]["FactoryID"];
-                NewRow["Notes"] = StoreDT.Rows[i]["Notes"];
-                NewRow["Price"] = StoreDT.Rows[i]["Price"];
-                NewRow["PriceEUR"] = StoreDT.Rows[i]["PriceEUR"];
-                NewRow["CurrencyTypeID"] = StoreDT.Rows[i]["CurrencyTypeID"];
-                NewRow["Cost"] = StoreDT.Rows[i]["Cost"];
-                NewRow["VAT"] = StoreDT.Rows[i]["VAT"];
-                NewRow["VATCost"] = StoreDT.Rows[i]["VATCost"];
-                PersonalStoreDT.Rows.Add(NewRow);
-                StoreDT.Rows[i]["CurrentCount"] = 0;
+                MovementInvoiceDetailsDT.Dispose();
+                PersonalStoreDT.Dispose();
+                StoreDT.Dispose();
+                da1.Dispose();
+                da2.Dispose();
+                da3.Dispose();
+                cb1.Dispose();
+                cb2.Dispose();
+                cb3.Dispose();
             }
-
-            da2.Update(PersonalStoreDT);
-            da3.Update(StoreDT);
-            da2.Dispose();
-            PersonalStoreDT.Clear();
-            da2 = new SqlDataAdapter("SELECT PersonalStoreID FROM PersonalStore WHERE MovementInvoiceID = " + MovementInvoiceID,
-                ConnectionStrings.StorageConnectionString);
-            da2.Fill(PersonalStoreDT);
-            for (int i = 0; i < PersonalStoreDT.Rows.Count; i++)
-            {
-                DataRow NewRow1 = MovementInvoiceDetailsDT.NewRow();
-                NewRow1["MovementInvoiceID"] = MovementInvoiceID;
-                NewRow1["StoreIDFrom"] = StoreDT.Rows[i]["StoreID"];
-                NewRow1["StoreIDTo"] = PersonalStoreDT.Rows[i]["PersonalStoreID"];
-                NewRow1["Count"] = StoreDT.Rows[i]["InvoiceCount"];
-                MovementInvoiceDetailsDT.Rows.Add(NewRow1);
-            }
-            da1.Update(MovementInvoiceDetailsDT);
-
-            MovementInvoiceDetailsDT.Dispose();
-            PersonalStoreDT.Dispose();
-            StoreDT.Dispose();
-            da1.Dispose();
-            da2.Dispose();
-            da3.Dispose();
-            cb1.Dispose();
-            cb2.Dispose();
-            cb3.Dispose();
-        }
             catch (SqlException ex)
             {
                 MessageBox.Show(ex.Message + " \r\nНЕТ СОЕДИНЕНИЯ С БАЗОЙ. ЛЕНА, ПОЗОВИ МЕНЯ! :-)");
@@ -1752,7 +1753,7 @@ namespace Infinium.Store
                     if (Thickness < 0)
                         Amount = Length * Width * Height * Count / 1000000000;
                     if (Height < 0)
-                        Amount = Length * Width * Thickness * Count  / 1000000000;
+                        Amount = Length * Width * Thickness * Count / 1000000000;
                 }
 
                 //тыс.шт.
@@ -1931,7 +1932,7 @@ namespace Infinium.Store
             {
                 Directory.CreateDirectory(filePath);
             }
-            
+
             FileInfo f = new FileInfo(filePath + @"\" + fileName + ".dbf");
             int x = 1;
             while (f.Exists == true)
@@ -1947,7 +1948,7 @@ namespace Infinium.Store
         }
 
         public static void DataSetIntoDBF(DataTable table, string filePath, string fileName)
-        {                        
+        {
             if (File.Exists(filePath + fileName + ".dbf"))
             {
                 File.Delete(filePath + fileName + ".dbf");
@@ -1975,7 +1976,7 @@ namespace Infinium.Store
                 string insertSql = "insert into " + fileName +
                     " (UNN, Factory, GroupName, SubGroupName, Name, Measure, Diameter, Thickness, Length, Height, Width, Admission, Capacity, Weight, InvoiceCount, Amount, Price, Cost, VAT, VATCost, ID)" +
                     " values(UNN, Factory, TechStoreGroupName, TechStoreSubGroupName, TechStoreName, Measure, Diameter, Thickness, Length, Height, Width, Admission, Capacity, Weight, InvoiceCount, Amount, Price, Cost, VAT, VATCost, TechStoreID)";
-                
+
                 string TechStoreGroupName = row["TechStoreGroupName"].ToString();
                 string TechStoreSubGroupName = row["TechStoreSubGroupName"].ToString();
                 string TechStoreName = row["TechStoreName"].ToString();
@@ -2090,7 +2091,7 @@ namespace Infinium.Store
 
                 double Amount = Convert.ToDouble(row["Amount"]);
                 double Price = Convert.ToDouble(row["Price"]);
-                
+
                 string InvNumber = row["InvNumber1S"].ToString();
                 string CurrencyCode = row["CurrencyCode"].ToString();
                 string UNN = row["UNN"].ToString();
@@ -3377,85 +3378,85 @@ dbo.TechStoreGroups AS G ON SG.TechStoreGroupID = G.TechStoreGroupID ORDER BY Te
         {
             try
             {
-            int MovementInvoiceID = 121;
-            int PurchaseInvoiceID = 346;
-            DataTable MovementInvoiceDetailsDT = new DataTable();
-            DataTable PersonalStoreDT = new DataTable();
-            DataTable StoreDT = new DataTable();
+                int MovementInvoiceID = 121;
+                int PurchaseInvoiceID = 346;
+                DataTable MovementInvoiceDetailsDT = new DataTable();
+                DataTable PersonalStoreDT = new DataTable();
+                DataTable StoreDT = new DataTable();
 
-            SqlDataAdapter da1 = new SqlDataAdapter("SELECT TOP 0 * FROM MovementInvoiceDetails",
-                             ConnectionStrings.StorageConnectionString);
-            SqlDataAdapter da2 = new SqlDataAdapter("SELECT TOP 0 * FROM PersonalStore",
-                             ConnectionStrings.StorageConnectionString);
-            SqlDataAdapter da3 = new SqlDataAdapter("SELECT * FROM Store WHERE PurchaseInvoiceID = " + PurchaseInvoiceID,
+                SqlDataAdapter da1 = new SqlDataAdapter("SELECT TOP 0 * FROM MovementInvoiceDetails",
+                                 ConnectionStrings.StorageConnectionString);
+                SqlDataAdapter da2 = new SqlDataAdapter("SELECT TOP 0 * FROM PersonalStore",
+                                 ConnectionStrings.StorageConnectionString);
+                SqlDataAdapter da3 = new SqlDataAdapter("SELECT * FROM Store WHERE PurchaseInvoiceID = " + PurchaseInvoiceID,
+                        ConnectionStrings.StorageConnectionString);
+
+                SqlCommandBuilder cb1 = new SqlCommandBuilder(da1);
+                SqlCommandBuilder cb2 = new SqlCommandBuilder(da2);
+                SqlCommandBuilder cb3 = new SqlCommandBuilder(da3);
+
+                da1.Fill(MovementInvoiceDetailsDT);
+                da2.Fill(PersonalStoreDT);
+                da3.Fill(StoreDT);
+
+                for (int i = 0; i < StoreDT.Rows.Count; i++)
+                {
+                    DataRow NewRow = PersonalStoreDT.NewRow();
+                    NewRow["MovementInvoiceID"] = MovementInvoiceID;
+                    NewRow["StoreItemID"] = StoreDT.Rows[i]["StoreItemID"];
+                    NewRow["Length"] = StoreDT.Rows[i]["Length"];
+                    NewRow["Width"] = StoreDT.Rows[i]["Width"];
+                    NewRow["Height"] = StoreDT.Rows[i]["Height"];
+                    NewRow["Thickness"] = StoreDT.Rows[i]["Thickness"];
+                    NewRow["Diameter"] = StoreDT.Rows[i]["Diameter"];
+                    NewRow["Admission"] = StoreDT.Rows[i]["Admission"];
+                    NewRow["Capacity"] = StoreDT.Rows[i]["Capacity"];
+                    NewRow["Weight"] = StoreDT.Rows[i]["Weight"];
+                    NewRow["ColorID"] = StoreDT.Rows[i]["ColorID"];
+                    NewRow["CoverID"] = StoreDT.Rows[i]["CoverID"];
+                    NewRow["PatinaID"] = StoreDT.Rows[i]["PatinaID"];
+                    NewRow["InvoiceCount"] = StoreDT.Rows[i]["InvoiceCount"];
+                    NewRow["CurrentCount"] = StoreDT.Rows[i]["InvoiceCount"];
+                    NewRow["FactoryID"] = StoreDT.Rows[i]["FactoryID"];
+                    NewRow["Notes"] = StoreDT.Rows[i]["Notes"];
+                    NewRow["Price"] = StoreDT.Rows[i]["Price"];
+                    NewRow["PriceEUR"] = StoreDT.Rows[i]["PriceEUR"];
+                    NewRow["CurrencyTypeID"] = StoreDT.Rows[i]["CurrencyTypeID"];
+                    NewRow["Cost"] = StoreDT.Rows[i]["Cost"];
+                    NewRow["VAT"] = StoreDT.Rows[i]["VAT"];
+                    NewRow["VATCost"] = StoreDT.Rows[i]["VATCost"];
+                    PersonalStoreDT.Rows.Add(NewRow);
+                    StoreDT.Rows[i]["CurrentCount"] = 0;
+
+                }
+                da2.Update(PersonalStoreDT);
+                da3.Update(StoreDT);
+                da2.Dispose();
+                PersonalStoreDT.Clear();
+                da2 = new SqlDataAdapter("SELECT PersonalStoreID FROM PersonalStore WHERE MovementInvoiceID = " + MovementInvoiceID,
                     ConnectionStrings.StorageConnectionString);
+                da2.Fill(PersonalStoreDT);
+                for (int i = 0; i < PersonalStoreDT.Rows.Count; i++)
+                {
+                    DataRow NewRow1 = MovementInvoiceDetailsDT.NewRow();
+                    NewRow1["MovementInvoiceID"] = MovementInvoiceID;
+                    NewRow1["StoreIDFrom"] = StoreDT.Rows[i]["StoreID"];
+                    NewRow1["StoreIDTo"] = PersonalStoreDT.Rows[i]["PersonalStoreID"];
+                    NewRow1["Count"] = StoreDT.Rows[i]["InvoiceCount"];
+                    MovementInvoiceDetailsDT.Rows.Add(NewRow1);
+                }
+                da1.Update(MovementInvoiceDetailsDT);
 
-            SqlCommandBuilder cb1 = new SqlCommandBuilder(da1);
-            SqlCommandBuilder cb2 = new SqlCommandBuilder(da2);
-            SqlCommandBuilder cb3 = new SqlCommandBuilder(da3);
-
-            da1.Fill(MovementInvoiceDetailsDT);
-            da2.Fill(PersonalStoreDT);
-            da3.Fill(StoreDT);
-
-            for (int i = 0; i < StoreDT.Rows.Count; i++)
-            {
-                DataRow NewRow = PersonalStoreDT.NewRow();
-                NewRow["MovementInvoiceID"] = MovementInvoiceID;
-                NewRow["StoreItemID"] = StoreDT.Rows[i]["StoreItemID"];
-                NewRow["Length"] = StoreDT.Rows[i]["Length"];
-                NewRow["Width"] = StoreDT.Rows[i]["Width"];
-                NewRow["Height"] = StoreDT.Rows[i]["Height"];
-                NewRow["Thickness"] = StoreDT.Rows[i]["Thickness"];
-                NewRow["Diameter"] = StoreDT.Rows[i]["Diameter"];
-                NewRow["Admission"] = StoreDT.Rows[i]["Admission"];
-                NewRow["Capacity"] = StoreDT.Rows[i]["Capacity"];
-                NewRow["Weight"] = StoreDT.Rows[i]["Weight"];
-                NewRow["ColorID"] = StoreDT.Rows[i]["ColorID"];
-                NewRow["CoverID"] = StoreDT.Rows[i]["CoverID"];
-                NewRow["PatinaID"] = StoreDT.Rows[i]["PatinaID"];
-                NewRow["InvoiceCount"] = StoreDT.Rows[i]["InvoiceCount"];
-                NewRow["CurrentCount"] = StoreDT.Rows[i]["InvoiceCount"];
-                NewRow["FactoryID"] = StoreDT.Rows[i]["FactoryID"];
-                NewRow["Notes"] = StoreDT.Rows[i]["Notes"];
-                NewRow["Price"] = StoreDT.Rows[i]["Price"];
-                NewRow["PriceEUR"] = StoreDT.Rows[i]["PriceEUR"];
-                NewRow["CurrencyTypeID"] = StoreDT.Rows[i]["CurrencyTypeID"];
-                NewRow["Cost"] = StoreDT.Rows[i]["Cost"];
-                NewRow["VAT"] = StoreDT.Rows[i]["VAT"];
-                NewRow["VATCost"] = StoreDT.Rows[i]["VATCost"];
-                PersonalStoreDT.Rows.Add(NewRow);
-                StoreDT.Rows[i]["CurrentCount"] = 0;
-
+                MovementInvoiceDetailsDT.Dispose();
+                PersonalStoreDT.Dispose();
+                StoreDT.Dispose();
+                da1.Dispose();
+                da2.Dispose();
+                da3.Dispose();
+                cb1.Dispose();
+                cb2.Dispose();
+                cb3.Dispose();
             }
-            da2.Update(PersonalStoreDT);
-            da3.Update(StoreDT);
-            da2.Dispose();
-            PersonalStoreDT.Clear();
-            da2 = new SqlDataAdapter("SELECT PersonalStoreID FROM PersonalStore WHERE MovementInvoiceID = " + MovementInvoiceID,
-                ConnectionStrings.StorageConnectionString);
-            da2.Fill(PersonalStoreDT);
-            for (int i = 0; i < PersonalStoreDT.Rows.Count; i++)
-            {
-                DataRow NewRow1 = MovementInvoiceDetailsDT.NewRow();
-                NewRow1["MovementInvoiceID"] = MovementInvoiceID;
-                NewRow1["StoreIDFrom"] = StoreDT.Rows[i]["StoreID"];
-                NewRow1["StoreIDTo"] = PersonalStoreDT.Rows[i]["PersonalStoreID"];
-                NewRow1["Count"] = StoreDT.Rows[i]["InvoiceCount"];
-                MovementInvoiceDetailsDT.Rows.Add(NewRow1);
-            }
-            da1.Update(MovementInvoiceDetailsDT);
-
-            MovementInvoiceDetailsDT.Dispose();
-            PersonalStoreDT.Dispose();
-            StoreDT.Dispose();
-            da1.Dispose();
-            da2.Dispose();
-            da3.Dispose();
-            cb1.Dispose();
-            cb2.Dispose();
-            cb3.Dispose();
-        }
             catch (SqlException ex)
             {
                 MessageBox.Show(ex.Message + " \r\nНЕТ СОЕДИНЕНИЯ С БАЗОЙ. ЛЕНА, ПОЗОВИ МЕНЯ! :-)");
@@ -3528,24 +3529,24 @@ dbo.TechStoreGroups AS G ON SG.TechStoreGroupID = G.TechStoreGroupID ORDER BY Te
         {
             try
             {
-            using (SqlDataAdapter DA = new SqlDataAdapter("SELECT TOP 0 * FROM StoreGenetics", ConnectionStrings.StorageConnectionString))
-            {
-                using (SqlCommandBuilder CB = new SqlCommandBuilder(DA))
+                using (SqlDataAdapter DA = new SqlDataAdapter("SELECT TOP 0 * FROM StoreGenetics", ConnectionStrings.StorageConnectionString))
                 {
-                    using (DataTable DT = new DataTable())
+                    using (SqlCommandBuilder CB = new SqlCommandBuilder(DA))
                     {
-                        DA.Fill(DT);
-                        DataRow NewRow = DT.NewRow();
-                        NewRow["Created"] = Security.GetCurrentDate();
-                        NewRow["StoreID"] = StoreID;
-                        NewRow["FactoryID"] = FactoryID;
-                        NewRow["SerialNumber"] = GetStoreSerialNumber(TechStoreID) + 1;
-                        DT.Rows.Add(NewRow);
-                        DA.Update(DT);
+                        using (DataTable DT = new DataTable())
+                        {
+                            DA.Fill(DT);
+                            DataRow NewRow = DT.NewRow();
+                            NewRow["Created"] = Security.GetCurrentDate();
+                            NewRow["StoreID"] = StoreID;
+                            NewRow["FactoryID"] = FactoryID;
+                            NewRow["SerialNumber"] = GetStoreSerialNumber(TechStoreID) + 1;
+                            DT.Rows.Add(NewRow);
+                            DA.Update(DT);
+                        }
                     }
                 }
             }
-        }
             catch (SqlException ex)
             {
                 MessageBox.Show(ex.Message + " \r\nНЕТ СОЕДИНЕНИЯ С БАЗОЙ. ЛЕНА, ПОЗОВИ МЕНЯ! :-)");
@@ -3560,23 +3561,23 @@ dbo.TechStoreGroups AS G ON SG.TechStoreGroupID = G.TechStoreGroupID ORDER BY Te
         {
             try
             {
-            using (SqlDataAdapter DA = new SqlDataAdapter("SELECT StoreGeneticsID, PrintDateTime FROM StoreGenetics" +
-                " WHERE StoreID IN (" + string.Join(",", StoreID) + ")", ConnectionStrings.StorageConnectionString))
-            {
-                using (SqlCommandBuilder CB = new SqlCommandBuilder(DA))
+                using (SqlDataAdapter DA = new SqlDataAdapter("SELECT StoreGeneticsID, PrintDateTime FROM StoreGenetics" +
+                    " WHERE StoreID IN (" + string.Join(",", StoreID) + ")", ConnectionStrings.StorageConnectionString))
                 {
-                    using (DataTable DT = new DataTable())
+                    using (SqlCommandBuilder CB = new SqlCommandBuilder(DA))
                     {
-                        DA.Fill(DT);
-                        if (DT.Rows.Count > 0)
+                        using (DataTable DT = new DataTable())
                         {
-                            DT.Rows[0]["PrintDateTime"] = Security.GetCurrentDate();
-                            DA.Update(DT);
+                            DA.Fill(DT);
+                            if (DT.Rows.Count > 0)
+                            {
+                                DT.Rows[0]["PrintDateTime"] = Security.GetCurrentDate();
+                                DA.Update(DT);
+                            }
                         }
                     }
                 }
             }
-        }
             catch (SqlException ex)
             {
                 MessageBox.Show(ex.Message + " \r\nНЕТ СОЕДИНЕНИЯ С БАЗОЙ. ЛЕНА, ПОЗОВИ МЕНЯ! :-)");
@@ -4424,7 +4425,7 @@ dbo.TechStoreGroups AS G ON SG.TechStoreGroupID = G.TechStoreGroupID ORDER BY Te
                 if (FactoryID == 2)
                     Filter = " WHERE (SellerStoreAllocID = 4 OR RecipientStoreAllocID = 4)";
             }
-            
+
             if (Filter == " WHERE MovementInvoiceID<>-1 ")
                 Filter = " WHERE DateTime >= '" + DateTime.Now.AddDays(-30).ToString("yyyy-MM-dd") + "'";
             using (SqlDataAdapter DA = new SqlDataAdapter("SELECT MovementInvoices.*," +
@@ -4990,7 +4991,7 @@ dbo.TechStoreGroups AS G ON SG.TechStoreGroupID = G.TechStoreGroupID ORDER BY Te
             //        ColorsDT.Rows.InsertAt(ChoiceRow1, 1);
             //    }
             //}
-            
+
             GetColorsDT();
             using (SqlDataAdapter DA = new SqlDataAdapter("SELECT * FROM Patina", ConnectionStrings.CatalogConnectionString))
             {
@@ -5973,7 +5974,7 @@ dbo.TechStoreGroups AS G ON SG.TechStoreGroupID = G.TechStoreGroupID ORDER BY Te
             //        ColorsDT.Rows.InsertAt(ChoiceRow1, 1);
             //    }
             //}
-            
+
             GetColorsDT();
             using (SqlDataAdapter DA = new SqlDataAdapter("SELECT * FROM Patina", ConnectionStrings.CatalogConnectionString))
             {
@@ -6918,7 +6919,7 @@ dbo.TechStoreGroups AS G ON SG.TechStoreGroupID = G.TechStoreGroupID ORDER BY Te
             {
                 DA.Fill(FilterPersonsDataTable);
             }
-            using (SqlDataAdapter DA = new SqlDataAdapter("SELECT DISTINCT PersonName FROM MovementInvoices WHERE PersonID=0 ORDER BY PersonName", 
+            using (SqlDataAdapter DA = new SqlDataAdapter("SELECT DISTINCT PersonName FROM MovementInvoices WHERE PersonID=0 ORDER BY PersonName",
                 ConnectionStrings.StorageConnectionString))
             {
                 DA.Fill(FilterOtherPersonsDataTable);
@@ -7190,14 +7191,14 @@ dbo.TechStoreGroups AS G ON SG.TechStoreGroupID = G.TechStoreGroupID ORDER BY Te
 
             try
             {
-            using (SqlDataAdapter DA = new SqlDataAdapter("SELECT TOP 0 * FROM MovementInvoices", ConnectionStrings.StorageConnectionString))
-            {
-                using (SqlCommandBuilder CB = new SqlCommandBuilder(DA))
+                using (SqlDataAdapter DA = new SqlDataAdapter("SELECT TOP 0 * FROM MovementInvoices", ConnectionStrings.StorageConnectionString))
                 {
-                    DA.Update(InvoicesDataTable);
+                    using (SqlCommandBuilder CB = new SqlCommandBuilder(DA))
+                    {
+                        DA.Update(InvoicesDataTable);
+                    }
                 }
             }
-        }
             catch (SqlException ex)
             {
                 MessageBox.Show(ex.Message + " \r\nНЕТ СОЕДИНЕНИЯ С БАЗОЙ. ЛЕНА, ПОЗОВИ МЕНЯ! :-)");
@@ -7647,7 +7648,7 @@ dbo.TechStoreGroups AS G ON SG.TechStoreGroupID = G.TechStoreGroupID ORDER BY Te
             return MovementInvoiceID;
         }
 
-        public void SaveMovementInvoices(DateTime DateTime, 
+        public void SaveMovementInvoices(DateTime DateTime,
             int SellerStoreAllocID, int RecipientStoreAllocID, int RecipientSectorID,
             int PersonID, string PersonName, int StoreKeeperID,
             int ClientID, int SellerID,
@@ -7694,111 +7695,111 @@ dbo.TechStoreGroups AS G ON SG.TechStoreGroupID = G.TechStoreGroupID ORDER BY Te
         {
             try
             {
-            DataTable MovementInvoiceDetailsDT = new DataTable();
-            DataTable PersonalStoreDT = new DataTable();
-            DataTable StoreDT = new DataTable();
+                DataTable MovementInvoiceDetailsDT = new DataTable();
+                DataTable PersonalStoreDT = new DataTable();
+                DataTable StoreDT = new DataTable();
 
-            SqlDataAdapter da1 = new SqlDataAdapter("SELECT TOP 0 * FROM MovementInvoiceDetails",
-                ConnectionStrings.StorageConnectionString);
-            SqlDataAdapter da2 = new SqlDataAdapter("SELECT TOP 0 * FROM PersonalStore",
-                ConnectionStrings.StorageConnectionString);
-            SqlDataAdapter da3 = new SqlDataAdapter("SELECT * FROM PersonalStore WHERE PersonalStoreID IN (" + string.Join(",", PersonalStoreID) + ")",
-                ConnectionStrings.StorageConnectionString);
+                SqlDataAdapter da1 = new SqlDataAdapter("SELECT TOP 0 * FROM MovementInvoiceDetails",
+                    ConnectionStrings.StorageConnectionString);
+                SqlDataAdapter da2 = new SqlDataAdapter("SELECT TOP 0 * FROM PersonalStore",
+                    ConnectionStrings.StorageConnectionString);
+                SqlDataAdapter da3 = new SqlDataAdapter("SELECT * FROM PersonalStore WHERE PersonalStoreID IN (" + string.Join(",", PersonalStoreID) + ")",
+                    ConnectionStrings.StorageConnectionString);
 
-            SqlCommandBuilder cb1 = new SqlCommandBuilder(da1);
-            SqlCommandBuilder cb2 = new SqlCommandBuilder(da2);
-            SqlCommandBuilder cb3 = new SqlCommandBuilder(da3);
+                SqlCommandBuilder cb1 = new SqlCommandBuilder(da1);
+                SqlCommandBuilder cb2 = new SqlCommandBuilder(da2);
+                SqlCommandBuilder cb3 = new SqlCommandBuilder(da3);
 
-            da1.Fill(MovementInvoiceDetailsDT);
-            da2.Fill(PersonalStoreDT);
-            da3.Fill(StoreDT);
-            
-            for (int i = 0; i < StoreDT.Rows.Count; i++)
-            {
-                decimal CurrentCount = 0;
-                DataRow[] Rows = StoreDataTable.Select("PersonalStoreID = " + StoreDT.Rows[i]["PersonalStoreID"]);
-                if (Rows.Count() > 0)
+                da1.Fill(MovementInvoiceDetailsDT);
+                da2.Fill(PersonalStoreDT);
+                da3.Fill(StoreDT);
+
+                for (int i = 0; i < StoreDT.Rows.Count; i++)
                 {
-                    CurrentCount = Convert.ToDecimal(Rows[0]["CurrentCount"]);
+                    decimal CurrentCount = 0;
+                    DataRow[] Rows = StoreDataTable.Select("PersonalStoreID = " + StoreDT.Rows[i]["PersonalStoreID"]);
+                    if (Rows.Count() > 0)
+                    {
+                        CurrentCount = Convert.ToDecimal(Rows[0]["CurrentCount"]);
+                    }
+
+                    DataRow NewRow = PersonalStoreDT.NewRow();
+                    NewRow["MovementInvoiceID"] = MovementInvoiceID;
+                    NewRow["StoreItemID"] = StoreDT.Rows[i]["StoreItemID"];
+                    NewRow["Length"] = StoreDT.Rows[i]["Length"];
+                    NewRow["Width"] = StoreDT.Rows[i]["Width"];
+                    NewRow["Height"] = StoreDT.Rows[i]["Height"];
+                    NewRow["Thickness"] = StoreDT.Rows[i]["Thickness"];
+                    NewRow["Diameter"] = StoreDT.Rows[i]["Diameter"];
+                    NewRow["Admission"] = StoreDT.Rows[i]["Admission"];
+                    NewRow["Capacity"] = StoreDT.Rows[i]["Capacity"];
+                    NewRow["Weight"] = StoreDT.Rows[i]["Weight"];
+                    NewRow["ColorID"] = StoreDT.Rows[i]["ColorID"];
+                    NewRow["CoverID"] = StoreDT.Rows[i]["CoverID"];
+                    NewRow["PatinaID"] = StoreDT.Rows[i]["PatinaID"];
+                    NewRow["FactoryID"] = StoreDT.Rows[i]["FactoryID"];
+                    NewRow["Notes"] = StoreDT.Rows[i]["Notes"];
+                    NewRow["Price"] = StoreDT.Rows[i]["Price"];
+                    NewRow["PriceEUR"] = StoreDT.Rows[i]["PriceEUR"];
+                    NewRow["CurrencyTypeID"] = StoreDT.Rows[i]["CurrencyTypeID"];
+
+                    decimal Price = Convert.ToDecimal(StoreDT.Rows[i]["Price"]);
+                    decimal Cost = 0;
+                    decimal VAT = 0;
+                    decimal VATCost = 0;
+
+                    if (Price > -1)
+                    {
+                        Cost = CurrentCount * Price;
+                        VAT = Cost * 20 / 100;
+                        VATCost = Cost + VAT;
+
+                        NewRow["Cost"] = Cost;
+                        NewRow["VAT"] = VAT;
+                        NewRow["VATCost"] = VATCost;
+                    }
+
+                    NewRow["InvoiceCount"] = CurrentCount;
+                    NewRow["CurrentCount"] = CurrentCount;
+                    StoreDT.Rows[i]["CurrentCount"] = Convert.ToDecimal(StoreDT.Rows[i]["CurrentCount"]) - CurrentCount;
+
+                    PersonalStoreDT.Rows.Add(NewRow);
                 }
 
-                DataRow NewRow = PersonalStoreDT.NewRow();
-                NewRow["MovementInvoiceID"] = MovementInvoiceID;
-                NewRow["StoreItemID"] = StoreDT.Rows[i]["StoreItemID"];
-                NewRow["Length"] = StoreDT.Rows[i]["Length"];
-                NewRow["Width"] = StoreDT.Rows[i]["Width"];
-                NewRow["Height"] = StoreDT.Rows[i]["Height"];
-                NewRow["Thickness"] = StoreDT.Rows[i]["Thickness"];
-                NewRow["Diameter"] = StoreDT.Rows[i]["Diameter"];
-                NewRow["Admission"] = StoreDT.Rows[i]["Admission"];
-                NewRow["Capacity"] = StoreDT.Rows[i]["Capacity"];
-                NewRow["Weight"] = StoreDT.Rows[i]["Weight"];
-                NewRow["ColorID"] = StoreDT.Rows[i]["ColorID"];
-                NewRow["CoverID"] = StoreDT.Rows[i]["CoverID"];
-                NewRow["PatinaID"] = StoreDT.Rows[i]["PatinaID"];
-                NewRow["FactoryID"] = StoreDT.Rows[i]["FactoryID"];
-                NewRow["Notes"] = StoreDT.Rows[i]["Notes"];
-                NewRow["Price"] = StoreDT.Rows[i]["Price"];
-                NewRow["PriceEUR"] = StoreDT.Rows[i]["PriceEUR"];
-                NewRow["CurrencyTypeID"] = StoreDT.Rows[i]["CurrencyTypeID"];
-
-                decimal Price = Convert.ToDecimal(StoreDT.Rows[i]["Price"]);
-                decimal Cost = 0;
-                decimal VAT = 0;
-                decimal VATCost = 0;
-
-                if (Price > -1)
+                da2.Update(PersonalStoreDT);
+                da3.Update(StoreDT);
+                da2.Dispose();
+                PersonalStoreDT.Clear();
+                da2 = new SqlDataAdapter("SELECT PersonalStoreID FROM PersonalStore WHERE MovementInvoiceID = " + MovementInvoiceID,
+                    ConnectionStrings.StorageConnectionString);
+                da2.Fill(PersonalStoreDT);
+                for (int i = 0; i < PersonalStoreDT.Rows.Count; i++)
                 {
-                    Cost = CurrentCount * Price;
-                    VAT = Cost * 20 / 100;
-                    VATCost = Cost + VAT;
-
-                    NewRow["Cost"] = Cost;
-                    NewRow["VAT"] = VAT;
-                    NewRow["VATCost"] = VATCost;
+                    decimal CurrentCount = 0;
+                    DataRow[] Rows = StoreDataTable.Select("PersonalStoreID = " + StoreDT.Rows[i]["PersonalStoreID"]);
+                    if (Rows.Count() > 0)
+                    {
+                        CurrentCount = Convert.ToDecimal(Rows[0]["CurrentCount"]);
+                    }
+                    DataRow NewRow1 = MovementInvoiceDetailsDT.NewRow();
+                    NewRow1["MovementInvoiceID"] = MovementInvoiceID;
+                    NewRow1["StoreIDFrom"] = StoreDT.Rows[i]["PersonalStoreID"];
+                    NewRow1["StoreIDTo"] = PersonalStoreDT.Rows[i]["PersonalStoreID"];
+                    NewRow1["Count"] = CurrentCount;
+                    MovementInvoiceDetailsDT.Rows.Add(NewRow1);
                 }
+                da1.Update(MovementInvoiceDetailsDT);
 
-                NewRow["InvoiceCount"] = CurrentCount;
-                NewRow["CurrentCount"] = CurrentCount;
-                StoreDT.Rows[i]["CurrentCount"] = Convert.ToDecimal(StoreDT.Rows[i]["CurrentCount"]) - CurrentCount;
-
-                PersonalStoreDT.Rows.Add(NewRow);
+                MovementInvoiceDetailsDT.Dispose();
+                PersonalStoreDT.Dispose();
+                StoreDT.Dispose();
+                da1.Dispose();
+                da2.Dispose();
+                da3.Dispose();
+                cb1.Dispose();
+                cb2.Dispose();
+                cb3.Dispose();
             }
-
-            da2.Update(PersonalStoreDT);
-            da3.Update(StoreDT);
-            da2.Dispose();
-            PersonalStoreDT.Clear();
-            da2 = new SqlDataAdapter("SELECT PersonalStoreID FROM PersonalStore WHERE MovementInvoiceID = " + MovementInvoiceID,
-                ConnectionStrings.StorageConnectionString);
-            da2.Fill(PersonalStoreDT);
-            for (int i = 0; i < PersonalStoreDT.Rows.Count; i++)
-            {
-                decimal CurrentCount = 0;
-                DataRow[] Rows = StoreDataTable.Select("PersonalStoreID = " + StoreDT.Rows[i]["PersonalStoreID"]);
-                if (Rows.Count() > 0)
-                {
-                    CurrentCount = Convert.ToDecimal(Rows[0]["CurrentCount"]);
-                }
-                DataRow NewRow1 = MovementInvoiceDetailsDT.NewRow();
-                NewRow1["MovementInvoiceID"] = MovementInvoiceID;
-                NewRow1["StoreIDFrom"] = StoreDT.Rows[i]["PersonalStoreID"];
-                NewRow1["StoreIDTo"] = PersonalStoreDT.Rows[i]["PersonalStoreID"];
-                NewRow1["Count"] = CurrentCount;
-                MovementInvoiceDetailsDT.Rows.Add(NewRow1);
-            }
-            da1.Update(MovementInvoiceDetailsDT);
-
-            MovementInvoiceDetailsDT.Dispose();
-            PersonalStoreDT.Dispose();
-            StoreDT.Dispose();
-            da1.Dispose();
-            da2.Dispose();
-            da3.Dispose();
-            cb1.Dispose();
-            cb2.Dispose();
-            cb3.Dispose();
-        }
             catch (SqlException ex)
             {
                 MessageBox.Show(ex.Message + " \r\nНЕТ СОЕДИНЕНИЯ С БАЗОЙ. ЛЕНА, ПОЗОВИ МЕНЯ! :-)");
@@ -7872,7 +7873,7 @@ dbo.TechStoreGroups AS G ON SG.TechStoreGroupID = G.TechStoreGroupID ORDER BY Te
                     DA.Fill(EndRemainsDT);
                 }
             }
-            
+
 
             using (SqlDataAdapter DA = new SqlDataAdapter("SELECT MovementInvoiceID FROM MovementInvoices" +
                 " WHERE CAST(DateTime AS DATE) >= '" + FilterDate.ToString("yyyy-MM-dd") + " 00:00'" +
@@ -8209,7 +8210,7 @@ dbo.TechStoreGroups AS G ON SG.TechStoreGroupID = G.TechStoreGroupID ORDER BY Te
             //        ColorsDT.Rows.InsertAt(ChoiceRow1, 1);
             //    }
             //}
-            
+
             GetColorsDT();
             string SelectCommand = @"SELECT TOP 0 ManufactureStore.*, infiniu2_catalog.dbo.TechStore.TechStoreName FROM ManufactureStore
                 INNER JOIN infiniu2_catalog.dbo.TechStore ON ManufactureStore.StoreItemID=infiniu2_catalog.dbo.TechStore.TechStoreID
@@ -9624,7 +9625,7 @@ dbo.TechStoreGroups AS G ON SG.TechStoreGroupID = G.TechStoreGroupID ORDER BY Te
                     MessageBox.Show(ex.Message + " \r\nMoveBetweenStore КАКАЯ-ТО НЕВЕДОМАЯ ЁБАНАЯ ХУЙНЯ. ЛЕНА, ПОЗОВИ МЕНЯ!");
                 }
             }
-            
+
             return false;
         }
 
@@ -10008,7 +10009,7 @@ dbo.TechStoreGroups AS G ON SG.TechStoreGroupID = G.TechStoreGroupID ORDER BY Te
                 }
             }
         }
-        
+
 
         public bool MoveBetweenManufactureStore(bool bSummary, int ManufactureStoreID, int FactoryID, decimal Count)
         {
@@ -10732,7 +10733,7 @@ dbo.TechStoreGroups AS G ON SG.TechStoreGroupID = G.TechStoreGroupID ORDER BY Te
                                 NewRow["FactoryID"] = iFactoryID;
                                 NewRow["Notes"] = Rows[0]["Notes"];
                                 NewRow["DecorAssignmentID"] = Rows[0]["DecorAssignmentID"];
-                    
+
                                 dt.Rows.Add(NewRow);
                             }
                             DA.Update(dt);
@@ -10971,7 +10972,7 @@ WHERE FactoryID = " + iFactoryID + " AND CurrentCount > 0 ORDER BY TechStoreGrou
                 }
                 GroupsBS.DataSource = StoreGroupsDT;
                 GroupsBS.MoveFirst();
-                
+
                 //using (SqlDataAdapter DA = new SqlDataAdapter("SELECT * FROM TechStoreGroups" +
                 //    " WHERE TechStoreGroupID IN (SELECT TechStoreGroupID FROM TechStoreSubGroups WHERE TechStoreSubGroupID IN" +
                 //    " (SELECT TechStoreSubGroupID FROM TechStore WHERE TechStoreID IN (SELECT DISTINCT StoreItemID FROM infiniu2_storage.dbo." + sStoreName +
@@ -12202,8 +12203,8 @@ WHERE FactoryID = " + iFactoryID + " AND CurrentCount > 0 ORDER BY TechStoreGrou
 
             try
             {
-            SellersGroupsDA.Update(SellersGroupsDataTable);
-        }
+                SellersGroupsDA.Update(SellersGroupsDataTable);
+            }
             catch (SqlException ex)
             {
                 MessageBox.Show(ex.Message + " \r\nEditSellerGroup НЕТ СОЕДИНЕНИЯ С БАЗОЙ. ЛЕНА, ПОЗОВИ МЕНЯ! :-)");
@@ -12225,8 +12226,8 @@ WHERE FactoryID = " + iFactoryID + " AND CurrentCount > 0 ORDER BY TechStoreGrou
 
             try
             {
-            SellersSubGroupsDA.Update(SellersSubGroupsDataTable);
-        }
+                SellersSubGroupsDA.Update(SellersSubGroupsDataTable);
+            }
             catch (SqlException ex)
             {
                 MessageBox.Show(ex.Message + " \r\nEditSellerSubGroup НЕТ СОЕДИНЕНИЯ С БАЗОЙ. ЛЕНА, ПОЗОВИ МЕНЯ! :-)");
@@ -12276,10 +12277,10 @@ WHERE FactoryID = " + iFactoryID + " AND CurrentCount > 0 ORDER BY TechStoreGrou
         {
             try
             {
-            SellersDA.Update(SellersDataTable);
-            SellersDataTable.Clear();
-            SellersDA.Fill(SellersDataTable);
-        }
+                SellersDA.Update(SellersDataTable);
+                SellersDataTable.Clear();
+                SellersDA.Fill(SellersDataTable);
+            }
             catch (SqlException ex)
             {
                 MessageBox.Show(ex.Message + " \r\nSaveSellers НЕТ СОЕДИНЕНИЯ С БАЗОЙ. ЛЕНА, ПОЗОВИ МЕНЯ! :-)");
@@ -12294,10 +12295,10 @@ WHERE FactoryID = " + iFactoryID + " AND CurrentCount > 0 ORDER BY TechStoreGrou
         {
             try
             {
-            SellersGroupsDA.Update(SellersGroupsDataTable);
-            SellersGroupsDataTable.Clear();
-            SellersGroupsDA.Fill(SellersGroupsDataTable);
-        }
+                SellersGroupsDA.Update(SellersGroupsDataTable);
+                SellersGroupsDataTable.Clear();
+                SellersGroupsDA.Fill(SellersGroupsDataTable);
+            }
             catch (SqlException ex)
             {
                 MessageBox.Show(ex.Message + " \r\nSaveSellerGroups НЕТ СОЕДИНЕНИЯ С БАЗОЙ. ЛЕНА, ПОЗОВИ МЕНЯ! :-)");
@@ -12312,10 +12313,10 @@ WHERE FactoryID = " + iFactoryID + " AND CurrentCount > 0 ORDER BY TechStoreGrou
         {
             try
             {
-            SellersSubGroupsDA.Update(SellersSubGroupsDataTable);
-            SellersSubGroupsDataTable.Clear();
-            SellersSubGroupsDA.Fill(SellersSubGroupsDataTable);
-        }
+                SellersSubGroupsDA.Update(SellersSubGroupsDataTable);
+                SellersSubGroupsDataTable.Clear();
+                SellersSubGroupsDA.Fill(SellersSubGroupsDataTable);
+            }
             catch (SqlException ex)
             {
                 MessageBox.Show(ex.Message + " \r\nSaveSellerSubGroups НЕТ СОЕДИНЕНИЯ С БАЗОЙ. ЛЕНА, ПОЗОВИ МЕНЯ! :-)");
@@ -13162,7 +13163,7 @@ WHERE FactoryID = " + iFactoryID + " AND CurrentCount > 0 ORDER BY TechStoreGrou
             //        ColorsDT.Rows.InsertAt(ChoiceRow1, 1);
             //    }
             //}
-            
+
             GetColorsDT();
             using (SqlDataAdapter DA = new SqlDataAdapter("SELECT * FROM Patina", ConnectionStrings.CatalogConnectionString))
             {
@@ -13729,7 +13730,7 @@ WHERE FactoryID = " + iFactoryID + " AND CurrentCount > 0 ORDER BY TechStoreGrou
                         DA.Update(InventoryDetailsDT);
                         InventoryDetailsDT.Clear();
                         DA.Fill(InventoryDetailsDT);
-        }
+                    }
                 }
             }
             catch (SqlException ex)
@@ -13745,21 +13746,21 @@ WHERE FactoryID = " + iFactoryID + " AND CurrentCount > 0 ORDER BY TechStoreGrou
         public void SaveStore()
         {
             try
-        {
-            using (SqlDataAdapter DA = new SqlDataAdapter("SELECT TOP 0 * FROM PersonalStore", ConnectionStrings.StorageConnectionString))
             {
-                using (SqlCommandBuilder CB = new SqlCommandBuilder(DA))
+                using (SqlDataAdapter DA = new SqlDataAdapter("SELECT TOP 0 * FROM PersonalStore", ConnectionStrings.StorageConnectionString))
                 {
-                    if (StoreDT.GetChanges() != null)
+                    using (SqlCommandBuilder CB = new SqlCommandBuilder(DA))
                     {
-                        DataTable DT = StoreDT.GetChanges();
-                        DA.Update(DT);
-                        DT.Dispose();
+                        if (StoreDT.GetChanges() != null)
+                        {
+                            DataTable DT = StoreDT.GetChanges();
+                            DA.Update(DT);
+                            DT.Dispose();
+                        }
+                        //DA.Update(StoreDT);
                     }
-                    //DA.Update(StoreDT);
                 }
             }
-        }
             catch (SqlException ex)
             {
                 MessageBox.Show(ex.Message + " \r\nSaveStore НЕТ СОЕДИНЕНИЯ С БАЗОЙ. ЛЕНА, ПОЗОВИ МЕНЯ! :-)");
@@ -14923,7 +14924,7 @@ WHERE FactoryID = " + iFactoryID + " AND CurrentCount > 0 ORDER BY TechStoreGrou
             //        ColorsDT.Rows.InsertAt(ChoiceRow1, 1);
             //    }
             //}
-            
+
             GetColorsDT();
             using (SqlDataAdapter DA = new SqlDataAdapter("SELECT * FROM Patina", ConnectionStrings.CatalogConnectionString))
             {
@@ -15366,7 +15367,7 @@ WHERE FactoryID = " + iFactoryID + " AND CurrentCount > 0 ORDER BY TechStoreGrou
                 {
                     DA.Fill(DT);
                     return DT.Rows.Count > 0;
-        }
+                }
             }
         }
 
@@ -15627,17 +15628,17 @@ WHERE FactoryID = " + iFactoryID + " AND CurrentCount > 0 ORDER BY TechStoreGrou
         public void SaveStore()
         {
             try
-        {
-            using (SqlDataAdapter DA = new SqlDataAdapter("SELECT TOP 0 * FROM Store", ConnectionStrings.StorageConnectionString))
             {
-                using (SqlCommandBuilder CB = new SqlCommandBuilder(DA))
+                using (SqlDataAdapter DA = new SqlDataAdapter("SELECT TOP 0 * FROM Store", ConnectionStrings.StorageConnectionString))
                 {
-                    if (StoreDT.GetChanges() != null)
+                    using (SqlCommandBuilder CB = new SqlCommandBuilder(DA))
                     {
-                        DataTable DT = StoreDT.GetChanges();
-                        DA.Update(DT);
-                        DT.Dispose();
-                    }
+                        if (StoreDT.GetChanges() != null)
+                        {
+                            DataTable DT = StoreDT.GetChanges();
+                            DA.Update(DT);
+                            DT.Dispose();
+                        }
                     }
                 }
             }
@@ -15665,7 +15666,7 @@ WHERE FactoryID = " + iFactoryID + " AND CurrentCount > 0 ORDER BY TechStoreGrou
                 " INNER JOIN InventoryDetails ON (Store.StoreID = InventoryDetails.StoreID AND NOT (ConfirmDetail=1 AND InventoryDetails.StartMonthCount=0 AND InventoryDetails.EndMonthCount=0) AND InventoryDetails.InventoryID = " + iInventoryID + " AND EndMonthCount > 0)" +
                 " WHERE Store.CurrentCount > 0 AND TechStoreSubGroupID IN (SELECT TechStoreSubGroupID FROM infiniu2_catalog.dbo.TechStoreSubGroups" +
                 " WHERE TechStoreGroupID = " + iStoreGroupID + " AND FactoryID = " + iFactoryID + ")" +
-                " AND PurchaseInvoiceID IN (SELECT PurchaseInvoiceID FROM PurchaseInvoices WHERE DATEPART(month, IncomeDate) = DATEPART(month, '" + 
+                " AND PurchaseInvoiceID IN (SELECT PurchaseInvoiceID FROM PurchaseInvoices WHERE DATEPART(month, IncomeDate) = DATEPART(month, '" +
                 InventoryDate.ToString("yyyy-MM-dd") + "') AND DATEPART(year, IncomeDate) = DATEPART(year, '" + InventoryDate.ToString("yyyy-MM-dd") + "'))" +
                 " ORDER BY TechStoreName", ConnectionStrings.StorageConnectionString);
             StoreCB = new SqlCommandBuilder(StoreDA);
@@ -15765,7 +15766,7 @@ WHERE FactoryID = " + iFactoryID + " AND CurrentCount > 0 ORDER BY TechStoreGrou
                     }
                 }
             }
-            
+
             PurchaseInvoicesDT.Dispose();
             PurchaseInvoicesDT = new DataTable();
             using (SqlDataAdapter DA = new SqlDataAdapter("SELECT MovementInvoiceID FROM MovementInvoices" +
@@ -16141,7 +16142,7 @@ WHERE FactoryID = " + iFactoryID + " AND CurrentCount > 0 ORDER BY TechStoreGrou
             //        ColorsDT.Rows.InsertAt(ChoiceRow1, 1);
             //    }
             //}
-            
+
             GetColorsDT();
             using (SqlDataAdapter DA = new SqlDataAdapter("SELECT * FROM Patina", ConnectionStrings.CatalogConnectionString))
             {
@@ -16719,21 +16720,21 @@ WHERE FactoryID = " + iFactoryID + " AND CurrentCount > 0 ORDER BY TechStoreGrou
         public void SaveStore()
         {
             try
-        {
-            using (SqlDataAdapter DA = new SqlDataAdapter("SELECT TOP 0 * FROM ManufactureStore", ConnectionStrings.StorageConnectionString))
             {
-                using (SqlCommandBuilder CB = new SqlCommandBuilder(DA))
+                using (SqlDataAdapter DA = new SqlDataAdapter("SELECT TOP 0 * FROM ManufactureStore", ConnectionStrings.StorageConnectionString))
                 {
-                    if (StoreDT.GetChanges() != null)
+                    using (SqlCommandBuilder CB = new SqlCommandBuilder(DA))
                     {
-                        DataTable DT = StoreDT.GetChanges();
-                        DA.Update(DT);
-                        DT.Dispose();
+                        if (StoreDT.GetChanges() != null)
+                        {
+                            DataTable DT = StoreDT.GetChanges();
+                            DA.Update(DT);
+                            DT.Dispose();
+                        }
+                        //DA.Update(StoreDT);
                     }
-                    //DA.Update(StoreDT);
                 }
             }
-        }
             catch (SqlException ex)
             {
                 MessageBox.Show(ex.Message + " \r\nSaveStore НЕТ СОЕДИНЕНИЯ С БАЗОЙ. ЛЕНА, ПОЗОВИ МЕНЯ! :-)");
@@ -16763,7 +16764,7 @@ WHERE FactoryID = " + iFactoryID + " AND CurrentCount > 0 ORDER BY TechStoreGrou
             StoreCB = new SqlCommandBuilder(StoreDA);
             StoreDT.Clear();
             StoreDA.Fill(StoreDT);
-            
+
             for (int i = 0; i < StoreDT.Rows.Count; i++)
             {
                 DataRow[] Rows = InventoryDetailsDT.Select("StoreID = " + Convert.ToInt32(StoreDT.Rows[i]["ManufactureStoreID"]));
@@ -17218,7 +17219,7 @@ WHERE FactoryID = " + iFactoryID + " AND CurrentCount > 0 ORDER BY TechStoreGrou
             //        ColorsDT.Rows.InsertAt(ChoiceRow1, 1);
             //    }
             //}
-            
+
             GetColorsDT();
             using (SqlDataAdapter DA = new SqlDataAdapter("SELECT * FROM Patina", ConnectionStrings.CatalogConnectionString))
             {
@@ -17750,7 +17751,7 @@ WHERE FactoryID = " + iFactoryID + " AND CurrentCount > 0 ORDER BY TechStoreGrou
                         DA.Update(InventoryDetailsDT);
                         InventoryDetailsDT.Clear();
                         DA.Fill(InventoryDetailsDT);
-        }
+                    }
                 }
             }
             catch (SqlException ex)
@@ -17766,17 +17767,17 @@ WHERE FactoryID = " + iFactoryID + " AND CurrentCount > 0 ORDER BY TechStoreGrou
         public void SaveStore()
         {
             try
-        {
-            using (SqlDataAdapter DA = new SqlDataAdapter("SELECT TOP 0 * FROM ReadyStore", ConnectionStrings.StorageConnectionString))
             {
-                using (SqlCommandBuilder CB = new SqlCommandBuilder(DA))
+                using (SqlDataAdapter DA = new SqlDataAdapter("SELECT TOP 0 * FROM ReadyStore", ConnectionStrings.StorageConnectionString))
                 {
-                    if (StoreDT.GetChanges() != null)
+                    using (SqlCommandBuilder CB = new SqlCommandBuilder(DA))
                     {
-                        DataTable DT = StoreDT.GetChanges();
-                        DA.Update(DT);
-                        DT.Dispose();
-                    }
+                        if (StoreDT.GetChanges() != null)
+                        {
+                            DataTable DT = StoreDT.GetChanges();
+                            DA.Update(DT);
+                            DT.Dispose();
+                        }
                     }
                 }
             }
@@ -18174,7 +18175,7 @@ WHERE FactoryID = " + iFactoryID + " AND CurrentCount > 0 ORDER BY TechStoreGrou
             //        ColorsDT.Rows.InsertAt(ChoiceRow1, 1);
             //    }
             //}
-            
+
             GetColorsDT();
             using (SqlDataAdapter DA = new SqlDataAdapter("SELECT * FROM Measures", ConnectionStrings.CatalogConnectionString))
             {
@@ -18207,7 +18208,7 @@ WHERE FactoryID = " + iFactoryID + " AND CurrentCount > 0 ORDER BY TechStoreGrou
 
             CreateCoversDT();
             GetColorsDT();
-            
+
             using (SqlDataAdapter DA = new SqlDataAdapter("SELECT infiniu2_storage.dbo.Store.*, TechStore.MeasureID, TechStoreGroups.TechStoreGroupID, TechStoreSubGroups.TechStoreSubGroupID FROM infiniu2_storage.dbo.InventoryDetails" +
                 " INNER JOIN infiniu2_storage.dbo.Store ON infiniu2_storage.dbo.InventoryDetails.StoreID=infiniu2_storage.dbo.Store.StoreID AND infiniu2_storage.dbo.Store.FactoryID = " + FactoryID +
                 " INNER JOIN TechStore ON infiniu2_storage.dbo.Store.StoreItemID = TechStore.TechStoreID" +
@@ -19410,7 +19411,7 @@ WHERE FactoryID = " + iFactoryID + " AND CurrentCount > 0 ORDER BY TechStoreGrou
             //        ColorsDT.Rows.InsertAt(ChoiceRow1, 1);
             //    }
             //}
-            
+
             GetColorsDT();
             using (SqlDataAdapter DA = new SqlDataAdapter("SELECT * FROM Measures", ConnectionStrings.CatalogConnectionString))
             {
@@ -20614,7 +20615,7 @@ WHERE FactoryID = " + iFactoryID + " AND CurrentCount > 0 ORDER BY TechStoreGrou
             //        ColorsDT.Rows.InsertAt(ChoiceRow1, 1);
             //    }
             //}
-            
+
             GetColorsDT();
             using (SqlDataAdapter DA = new SqlDataAdapter("SELECT * FROM Measures", ConnectionStrings.CatalogConnectionString))
             {
@@ -21784,7 +21785,7 @@ WHERE FactoryID = " + iFactoryID + " AND CurrentCount > 0 ORDER BY TechStoreGrou
             //        ColorsDT.Rows.InsertAt(ChoiceRow1, 1);
             //    }
             //}
-            
+
             GetColorsDT();
             using (SqlDataAdapter DA = new SqlDataAdapter("SELECT * FROM Measures", ConnectionStrings.CatalogConnectionString))
             {
@@ -23014,7 +23015,7 @@ WHERE FactoryID = " + iFactoryID + " AND CurrentCount > 0 ORDER BY TechStoreGrou
 
             CreateCoversDT();
             int RecipientStoreAllocID = 0;
-            using (SqlDataAdapter DA = new SqlDataAdapter("SELECT * FROM MovementInvoices WHERE MovementInvoiceID=" + MovementInvoiceID, 
+            using (SqlDataAdapter DA = new SqlDataAdapter("SELECT * FROM MovementInvoices WHERE MovementInvoiceID=" + MovementInvoiceID,
                 ConnectionStrings.StorageConnectionString))
             {
                 if (DA.Fill(MovementInvoicesDT) > 0)
@@ -23203,7 +23204,7 @@ WHERE FactoryID = " + iFactoryID + " AND CurrentCount > 0 ORDER BY TechStoreGrou
                                     Length = Convert.ToDecimal(StoreDT.Rows[i]["SLength"]);
                                 else
                                     if (StoreDT.Rows[i]["SHeight"] != DBNull.Value)
-                                        Length = Convert.ToDecimal(StoreDT.Rows[i]["SHeight"]);
+                                    Length = Convert.ToDecimal(StoreDT.Rows[i]["SHeight"]);
                             }
                         }
                         if (StoreDT.Rows[i]["Width"] != DBNull.Value)
@@ -23793,7 +23794,7 @@ WHERE FactoryID = " + iFactoryID + " AND CurrentCount > 0 ORDER BY TechStoreGrou
             StoreParametersDT.Columns.Add("EndMonthCount", Type.GetType("System.Decimal"));
             StoreParametersDT.Columns.Add("EndMonthCost", Type.GetType("System.Decimal"));
         }
-        
+
         private void GetColorsDT()
         {
             ColorsDT = new DataTable();
@@ -23869,7 +23870,7 @@ WHERE FactoryID = " + iFactoryID + " AND CurrentCount > 0 ORDER BY TechStoreGrou
             //        ColorsDT.Rows.InsertAt(ChoiceRow1, 1);
             //    }
             //}
-        
+
             GetColorsDT();
             using (SqlDataAdapter DA = new SqlDataAdapter("SELECT * FROM Measures", ConnectionStrings.CatalogConnectionString))
             {
@@ -26977,7 +26978,7 @@ WHERE FactoryID = " + iFactoryID + " AND CurrentCount > 0 ORDER BY TechStoreGrou
             HeaderCell2_1.CellStyle = HeaderStyle;
             HeaderCell2 = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), DisplayIndex, "Ед.изм.");
             HeaderCell2.CellStyle = HeaderStyle;
-             HeaderCell2_1 = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex + 1), DisplayIndex, string.Empty);
+            HeaderCell2_1 = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex + 1), DisplayIndex, string.Empty);
             HeaderCell2_1.CellStyle = HeaderStyle;
             sheet1.AddMergedRegion(new CellRangeAddress(RowIndex, RowIndex + 1, DisplayIndex, DisplayIndex++));
             HSSFCell HeaderCell4 = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), DisplayIndex, "Облицовка");
@@ -31435,7 +31436,7 @@ WHERE FactoryID = " + iFactoryID + " AND CurrentCount > 0 ORDER BY TechStoreGrou
                             PatinaCell.CellStyle = StoreItemStyle;
 
                             HSSFCell LengthCell = sheet1.CreateRow(RowIndex + 1).CreateCell(DisplayIndex++);
-                            if (row["Diameter"] != DBNull.Value) 
+                            if (row["Diameter"] != DBNull.Value)
                                 LengthCell.SetCellValue(Convert.ToDouble(row["Diameter"]));
                             else
                                 LengthCell.SetCellValue(string.Empty);
@@ -32630,7 +32631,7 @@ WHERE FactoryID = " + iFactoryID + " AND CurrentCount > 0 ORDER BY TechStoreGrou
             stringFormat.LineAlignment = StringAlignment.Center;
             ev.Graphics.DrawString(((GeneticsInfo)LabelInfo[CurrentLabelNumber]).SerialNumber.ToString(), TechStoreNameSmallFont, FontBrush, rectF1, stringFormat);
             ev.Graphics.DrawLine(Pen, 367, 33, 367, 87);
-            
+
             ev.Graphics.DrawLine(Pen, 11, 87, 467, 87);
 
             int LocationX = 122;
@@ -32654,7 +32655,7 @@ WHERE FactoryID = " + iFactoryID + " AND CurrentCount > 0 ORDER BY TechStoreGrou
 
             ev.Graphics.DrawString("Параметры:", HeaderFont, FontBrush, 10, LocationY);
             ev.Graphics.DrawString("Примечание:", HeaderFont, FontBrush, LocationX, LocationY);
-            
+
             ev.Graphics.DrawLine(Pen, LocationX, LocationY, LocationX, 315);
 
             LocationY = 175;
@@ -32666,7 +32667,7 @@ WHERE FactoryID = " + iFactoryID + " AND CurrentCount > 0 ORDER BY TechStoreGrou
                 ev.Graphics.DrawString(((GeneticsInfo)LabelInfo[CurrentLabelNumber]).StoreNotes, SimpleFont, FontBrush, rectF1, stringFormat);
             }
             LocationY = 175;
-            LocationX = 119;            
+            LocationX = 119;
 
             ev.Graphics.DrawLine(Pen, 11, LocationY, 467, LocationY);
             if (((GeneticsInfo)LabelInfo[CurrentLabelNumber]).Cover.Length > 0)
@@ -33003,7 +33004,7 @@ WHERE FactoryID = " + iFactoryID + " AND CurrentCount > 0 ORDER BY TechStoreGrou
                             decimal EndMonthCount = Convert.ToDecimal(rows[0]["EndMonthCount"]);
                             decimal CurrentCount = Convert.ToDecimal(dtManufactureStore.Rows[i]["CurrentCount"]);
                             if (CurrentCount != EndMonthCount)
-                            dtManufactureStore.Rows[i]["CurrentCount"] = EndMonthCount;
+                                dtManufactureStore.Rows[i]["CurrentCount"] = EndMonthCount;
                         }
                     }
                     DA.Update(dtManufactureStore);

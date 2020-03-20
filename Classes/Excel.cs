@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Drawing;
 using System.IO;
-using System.Runtime.InteropServices;
 using System.Reflection;
+using System.Runtime.InteropServices;
 
 namespace Infinium
 {
     public class Excel
     {
-        string[] colNames = { "", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "AA", "AB", "AC", "AD", "AE", "AF", "AG", "AH"}; 
+        string[] colNames = { "", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "AA", "AB", "AC", "AD", "AE", "AF", "AG", "AH" };
 
         private object _excel = null;
         private object _workbooks = null;
@@ -165,7 +165,7 @@ namespace Infinium
             //Если параметр Saved = false, то рабочая книга будет закрываться сразу и не показывать окно на Сохранить как
             _workbook.GetType().InvokeMember("Saved", BindingFlags.SetProperty, null, _workbook, new object[] { false });
             _workbook.GetType().InvokeMember("Close", BindingFlags.InvokeMethod, null, _workbook, new object[] { true });
-            
+
             _workbook = null;
         }
         #endregion
@@ -233,7 +233,7 @@ namespace Infinium
         #endregion
 
         #region Шрифт ячейки
-        
+
         #endregion
         public void SetFont(int sheet, int row, int column, bool bold, bool italic, bool underline, int size)
         {
@@ -261,7 +261,7 @@ namespace Infinium
         /// <param name="hAlignment">Горизонтальное выравнивание в ячейке</param>
         /// <param name="vAlignment">Вертикальное выравнивание в ячейке</param>
         /// <param name="size">Размер шрифта</param>
-        public void WriteCell(int sheet, object value, string range, bool bold, bool italic, bool underline, 
+        public void WriteCell(int sheet, object value, string range, bool bold, bool italic, bool underline,
             AlignHorizontal hAlignment, AlignVertical vAlignment, int size)
         {
             //Получаем ссылку на нужную страницу
@@ -276,7 +276,7 @@ namespace Infinium
             _font.GetType().InvokeMember("HorizontalAlignment", BindingFlags.SetProperty, null, _range, new object[] { hAlignment });
             _font.GetType().InvokeMember("VerticalAlignment", BindingFlags.SetProperty, null, _range, new object[] { vAlignment });
             _font.GetType().InvokeMember("Value", BindingFlags.SetProperty, null, _range, new object[] { value });
-            
+
         }
         /// <summary>
         /// Запись значения в ячейку 
@@ -291,7 +291,7 @@ namespace Infinium
         /// <param name="hAlignment">Горизонтальное выравнивание в ячейке</param>
         /// <param name="vAlignment">Вертикльное выравнивание в ячейке</param>
         /// <param name="size">Размер шрифта</param>
-        public void WriteCell(int sheet, object value, int row, int column, bool bold, bool italic, bool underline, 
+        public void WriteCell(int sheet, object value, int row, int column, bool bold, bool italic, bool underline,
             AlignHorizontal hAlignment, AlignVertical vAlignment, int size)
         {
             if (value == null)
@@ -373,7 +373,7 @@ namespace Infinium
         #endregion
 
         #region Форматированный вывод
-        
+
         public void SetFormatValue(int sheet, string range, string value, string format, System.Globalization.CultureInfo culture)
         {
             _sheet = _sheets.GetType().InvokeMember("Item", BindingFlags.GetProperty, null, _sheets, new object[] { sheet });
@@ -417,7 +417,7 @@ namespace Infinium
             _range = _sheet.GetType().InvokeMember("Range", BindingFlags.GetProperty, null, _sheet, new object[] { cell });
             _interior = _range.GetType().InvokeMember("Interior", BindingFlags.GetProperty, null, _range, null);
             _range.GetType().InvokeMember("ColorIndex", BindingFlags.SetProperty, null, _interior, new object[] { color });
-            _interior.GetType().InvokeMember("Pattern", BindingFlags.SetProperty, null, _interior, new object[] { pattern }); 
+            _interior.GetType().InvokeMember("Pattern", BindingFlags.SetProperty, null, _interior, new object[] { pattern });
             return true;
         }
         #endregion
@@ -499,7 +499,7 @@ namespace Infinium
         {
             //Range.Interior.ColorIndex
             object PageSetup = _sheet.GetType().InvokeMember("PageSetup", BindingFlags.GetProperty, null, _sheet, null);
-            
+
             PageSetup.GetType().InvokeMember("Orientation", BindingFlags.SetProperty, null, PageSetup, new object[] { Orientation });
         }
         #endregion
@@ -842,7 +842,7 @@ namespace Infinium
         #endregion
 
         #region Выравнивания в ячейке
-///Вертикальное
+        ///Вертикальное
         /// <summary>
         /// Вертикальное выравнивание
         /// </summary>
@@ -874,7 +874,7 @@ namespace Infinium
             _range.GetType().InvokeMember("VerticalAlignment", BindingFlags.SetProperty, null, _range, args);
         }
 
-///Горизонтальное
+        ///Горизонтальное
         /// <summary>
         /// Горизонтальное выравнивание
         /// </summary>
@@ -885,7 +885,7 @@ namespace Infinium
         {
             //Получаем ссылку на нужную страницу
             _sheet = _sheets.GetType().InvokeMember("Item", BindingFlags.GetProperty, null, _sheets, new object[] { sheet });
-            _range = _sheet.GetType().InvokeMember("Range", BindingFlags.GetProperty,null, _sheet, new object[] { range });
+            _range = _sheet.GetType().InvokeMember("Range", BindingFlags.GetProperty, null, _sheet, new object[] { range });
             object[] args = new object[] { Alignment };
             _range.GetType().InvokeMember("HorizontalAlignment", BindingFlags.SetProperty, null, _range, args);
         }

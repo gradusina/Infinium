@@ -1,9 +1,10 @@
-﻿using System;
+﻿using Infinium.Modules.DyeingAssignments;
+
+using System;
 using System.Drawing;
-using System.Windows.Forms;
-using System.Threading;
-using Infinium.Modules.DyeingAssignments;
 using System.Runtime.InteropServices;
+using System.Threading;
+using System.Windows.Forms;
 
 namespace Infinium
 {
@@ -30,12 +31,12 @@ namespace Infinium
         {
             InitializeComponent();
             LightStartForm = tLightStartForm;
-            
+
             this.MaximumSize = Screen.PrimaryScreen.WorkingArea.Size;
 
             Initialize();
 
-            while (!SplashForm.bCreated);
+            while (!SplashForm.bCreated) ;
         }
 
         private void ScaningDyeingAssignmentsForm_Shown(object sender, EventArgs e)
@@ -124,7 +125,7 @@ namespace Infinium
             FormEvent = eClose;
             AnimateTimer.Enabled = true;
         }
-        
+
         private void Initialize()
         {
             RegistrationDyeingWorkW = new RegistrationDyeingWorkWoman();
@@ -563,7 +564,7 @@ namespace Infinium
 
         private void btnCreateReport_Click(object sender, EventArgs e)
         {
-            Thread T = new Thread(delegate() { SplashWindow.CreateSmallSplash(ref TopForm, "Создание отчета.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Создание отчета.\r\nПодождите..."); });
             T.Start();
             while (!SplashWindow.bSmallCreated) ;
 

@@ -1,10 +1,10 @@
 ﻿using System;
-using System.Linq;
+using System.Collections;
 using System.Data;
 using System.Data.SqlClient;
-using System.Windows.Forms;
 using System.Globalization;
-using System.Collections;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace Infinium.Modules.StaticticsZOV
 {
@@ -3376,7 +3376,7 @@ namespace Infinium.Modules.StaticticsZOV
                 Sort = "ClientName ASC"
             };
             ClientsDataGrid.DataSource = ClientsBindingSource;
-            
+
             ClientsDataGrid.Columns["ClientID"].Visible = false;
             ClientsDataGrid.Columns["ClientGroupID"].Visible = false;
 
@@ -4091,7 +4091,7 @@ namespace Infinium.Modules.StaticticsZOV
             }
 
             IncomeDataGrid.Columns["DateTime"].Visible = false;
-            
+
             IncomeDataGrid.Columns["Date"].HeaderText = "Месяц";
             IncomeDataGrid.Columns["Square"].HeaderText = "Квадратура";
             IncomeDataGrid.Columns["FrontsCost"].HeaderText = "Фасады, €";
