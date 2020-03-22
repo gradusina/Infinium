@@ -1550,6 +1550,7 @@ namespace Infinium
             //bool PrepareZOV = PrepareRadioButton.Checked;
             bool OrderDate = OrderDateRadioButton.Checked;
             bool ConfirmDate = ConfirmDateRadioButton.Checked;
+            bool OnAgreement = OnAgreementRadioButton.Checked;
             bool PackDate = PackDateRadioButton.Checked;
             bool StoreDate = StoreDateRadioButton.Checked;
             bool ExpDate = ExpDateRadioButton.Checked;
@@ -1597,6 +1598,9 @@ namespace Infinium
                     if (ConfirmDate)
                         AllProductsStatistics.FilterByConfirmDate(From, To, FactoryID, cbSamples.Checked, cbNotSamples.Checked);
 
+                    if (OnAgreement)
+                        AllProductsStatistics.FilterByOnAgreement(From, To, FactoryID, cbSamples.Checked, cbNotSamples.Checked);
+
                     //if (PrepareZOV)
                     //    AllProductsStatistics.FilterByPrepare(From, To);
 
@@ -1616,6 +1620,9 @@ namespace Infinium
 
                     if (ConfirmDate)
                         ZOVOrdersStatistics.FilterByConfirmDate(From, To, FactoryID, cbSamples.Checked, cbNotSamples.Checked);
+
+                    //if (OnAgreement)
+                    //    ZOVOrdersStatistics.FilterByOnConfirmDate(From, To, FactoryID, cbSamples.Checked, cbNotSamples.Checked);
 
                     //if (PrepareZOV)
                     //    ZOVOrdersStatistics.FilterByPrepare(From, To);
@@ -1832,9 +1839,9 @@ namespace Infinium
             FrontSquare = Decimal.Round(FrontSquare, 3, MidpointRounding.AwayFromZero);
 
             FrontsSquareLabel.Text = FrontSquare.ToString("N", nfi2);
-            FrontsCostLabel.Text = FrontCost.ToString("N", nfi2);
+            FrontsCostLabel.Text = FrontCost.ToString("N", nfi2) + " €";
             FrontsCountLabel.Text = FrontsCount.ToString();
-            CurvedCountLabel.Text = CurvedCount.ToString();
+            CurvedCountLabel.Text = CurvedCount.ToString() + " шт.";
 
         }
 

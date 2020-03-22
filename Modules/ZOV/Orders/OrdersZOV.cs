@@ -7862,6 +7862,13 @@ namespace Infinium.Modules.ZOV
         public void AddDecorOrder(int MainOrderID, int ProductID, int DecorID, int ColorID, int PatinaID, int InsetTypeID, int InsetColorID,
             int Length, int Height, int Width, int Count, string Notes, bool IsSample)
         {
+
+            if ((Height < 50 || Width < 50) && (DecorID == 4012 || DecorID == 4013))
+            {
+                MessageBox.Show("Высота и ширина вставки не могут быть меньше 50 мм", "Добавление вставки");
+                return;
+            }
+
             int index = DecorCatalogOrder.DecorProductsBindingSource.Find("ProductID", ProductID);
 
             DateTime CreateDateTime = Security.GetCurrentDate();

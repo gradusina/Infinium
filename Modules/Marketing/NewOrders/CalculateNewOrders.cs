@@ -346,7 +346,7 @@ namespace Infinium.Modules.Marketing.NewOrders
                             RUB = Convert.ToDecimal(DT.Rows[0]["RUB"]);
                             BYN = Convert.ToDecimal(DT.Rows[0]["BYN"]);
 
-                            BYN = 2.54m;
+                            //BYN = 2.54m;
                         }
                     }
                     else

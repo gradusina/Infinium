@@ -62,21 +62,20 @@
             this.kryptonBorderEdge280 = new ComponentFactory.Krypton.Toolkit.KryptonBorderEdge();
             this.kryptonBorderEdge281 = new ComponentFactory.Krypton.Toolkit.KryptonBorderEdge();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.label18 = new System.Windows.Forms.Label();
+            this.FrontsSquareLabel = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
+            this.FrontsCountLabel = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
             this.FrontsCostPanel = new System.Windows.Forms.Panel();
             this.label3 = new System.Windows.Forms.Label();
             this.FrontsCostLabel = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
             this.panel13 = new System.Windows.Forms.Panel();
             this.kryptonBorderEdge52 = new ComponentFactory.Krypton.Toolkit.KryptonBorderEdge();
             this.FrontsDataGrid = new Infinium.PercentageDataGrid();
             this.label13 = new System.Windows.Forms.Label();
-            this.label14 = new System.Windows.Forms.Label();
             this.CurvedCountLabel = new System.Windows.Forms.Label();
-            this.label16 = new System.Windows.Forms.Label();
-            this.FrontsCountLabel = new System.Windows.Forms.Label();
-            this.label17 = new System.Windows.Forms.Label();
-            this.FrontsSquareLabel = new System.Windows.Forms.Label();
-            this.label18 = new System.Windows.Forms.Label();
             this.kryptonBorderEdge1 = new ComponentFactory.Krypton.Toolkit.KryptonBorderEdge();
             this.kryptonBorderEdge2 = new ComponentFactory.Krypton.Toolkit.KryptonBorderEdge();
             this.kryptonBorderEdge4 = new ComponentFactory.Krypton.Toolkit.KryptonBorderEdge();
@@ -185,6 +184,7 @@
             this.cbSamples = new ComponentFactory.Krypton.Toolkit.KryptonCheckBox();
             this.ExportContextMenuButton = new ComponentFactory.Krypton.Toolkit.KryptonDropButton();
             this.panel12 = new System.Windows.Forms.Panel();
+            this.OnAgreementRadioButton = new ComponentFactory.Krypton.Toolkit.KryptonRadioButton();
             this.ExpDateRadioButton = new ComponentFactory.Krypton.Toolkit.KryptonRadioButton();
             this.OnProductionRadioButton = new ComponentFactory.Krypton.Toolkit.KryptonRadioButton();
             this.ConfirmDateRadioButton = new ComponentFactory.Krypton.Toolkit.KryptonRadioButton();
@@ -913,6 +913,7 @@
             this.panel113.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.TechnoInsetColorsDataGrid)).BeginInit();
             this.panel1.SuspendLayout();
+            this.flowLayoutPanel1.SuspendLayout();
             this.FrontsCostPanel.SuspendLayout();
             this.panel13.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.FrontsDataGrid)).BeginInit();
@@ -1702,16 +1703,11 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.flowLayoutPanel1);
             this.panel1.Controls.Add(this.FrontsCostPanel);
             this.panel1.Controls.Add(this.panel13);
             this.panel1.Controls.Add(this.label13);
-            this.panel1.Controls.Add(this.label14);
             this.panel1.Controls.Add(this.CurvedCountLabel);
-            this.panel1.Controls.Add(this.label16);
-            this.panel1.Controls.Add(this.FrontsCountLabel);
-            this.panel1.Controls.Add(this.label17);
-            this.panel1.Controls.Add(this.FrontsSquareLabel);
-            this.panel1.Controls.Add(this.label18);
             this.panel1.Controls.Add(this.kryptonBorderEdge1);
             this.panel1.Controls.Add(this.kryptonBorderEdge2);
             this.panel1.Controls.Add(this.kryptonBorderEdge4);
@@ -1723,11 +1719,91 @@
             this.panel1.Size = new System.Drawing.Size(293, 543);
             this.panel1.TabIndex = 68;
             // 
+            // flowLayoutPanel1
+            // 
+            this.flowLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.flowLayoutPanel1.Controls.Add(this.label18);
+            this.flowLayoutPanel1.Controls.Add(this.FrontsSquareLabel);
+            this.flowLayoutPanel1.Controls.Add(this.label17);
+            this.flowLayoutPanel1.Controls.Add(this.FrontsCountLabel);
+            this.flowLayoutPanel1.Controls.Add(this.label16);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(1, 458);
+            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(291, 25);
+            this.flowLayoutPanel1.TabIndex = 136;
+            // 
+            // label18
+            // 
+            this.label18.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label18.AutoSize = true;
+            this.label18.Font = new System.Drawing.Font("Segoe UI", 14.51F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.label18.ForeColor = System.Drawing.Color.Black;
+            this.label18.Location = new System.Drawing.Point(0, 0);
+            this.label18.Margin = new System.Windows.Forms.Padding(0);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(70, 20);
+            this.label18.TabIndex = 111;
+            this.label18.Text = "Прямые:";
+            // 
+            // FrontsSquareLabel
+            // 
+            this.FrontsSquareLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.FrontsSquareLabel.AutoSize = true;
+            this.FrontsSquareLabel.Font = new System.Drawing.Font("Segoe UI", 14.51F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.FrontsSquareLabel.ForeColor = System.Drawing.Color.Black;
+            this.FrontsSquareLabel.Location = new System.Drawing.Point(70, 0);
+            this.FrontsSquareLabel.Margin = new System.Windows.Forms.Padding(0);
+            this.FrontsSquareLabel.Name = "FrontsSquareLabel";
+            this.FrontsSquareLabel.Size = new System.Drawing.Size(17, 20);
+            this.FrontsSquareLabel.TabIndex = 112;
+            this.FrontsSquareLabel.Text = "0";
+            // 
+            // label17
+            // 
+            this.label17.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label17.AutoSize = true;
+            this.label17.Font = new System.Drawing.Font("Segoe UI", 14.51F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.label17.ForeColor = System.Drawing.Color.Black;
+            this.label17.Location = new System.Drawing.Point(87, 0);
+            this.label17.Margin = new System.Windows.Forms.Padding(0);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(41, 20);
+            this.label17.TabIndex = 113;
+            this.label17.Text = "м.кв.";
+            this.label17.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // FrontsCountLabel
+            // 
+            this.FrontsCountLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.FrontsCountLabel.AutoSize = true;
+            this.FrontsCountLabel.Font = new System.Drawing.Font("Segoe UI", 14.51F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.FrontsCountLabel.ForeColor = System.Drawing.Color.Black;
+            this.FrontsCountLabel.Location = new System.Drawing.Point(128, 0);
+            this.FrontsCountLabel.Margin = new System.Windows.Forms.Padding(0);
+            this.FrontsCountLabel.Name = "FrontsCountLabel";
+            this.FrontsCountLabel.Size = new System.Drawing.Size(17, 20);
+            this.FrontsCountLabel.TabIndex = 114;
+            this.FrontsCountLabel.Text = "0";
+            this.FrontsCountLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label16
+            // 
+            this.label16.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label16.AutoSize = true;
+            this.label16.Font = new System.Drawing.Font("Segoe UI", 14.51F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.label16.ForeColor = System.Drawing.Color.Black;
+            this.label16.Location = new System.Drawing.Point(145, 0);
+            this.label16.Margin = new System.Windows.Forms.Padding(0);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(30, 20);
+            this.label16.TabIndex = 115;
+            this.label16.Text = "шт.";
+            this.label16.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // FrontsCostPanel
             // 
             this.FrontsCostPanel.Controls.Add(this.label3);
             this.FrontsCostPanel.Controls.Add(this.FrontsCostLabel);
-            this.FrontsCostPanel.Controls.Add(this.label12);
             this.FrontsCostPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.FrontsCostPanel.Location = new System.Drawing.Point(1, 506);
             this.FrontsCostPanel.Name = "FrontsCostPanel";
@@ -1748,27 +1824,15 @@
             // 
             // FrontsCostLabel
             // 
+            this.FrontsCostLabel.AutoSize = true;
             this.FrontsCostLabel.Font = new System.Drawing.Font("Segoe UI", 14.51F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.FrontsCostLabel.ForeColor = System.Drawing.Color.Black;
             this.FrontsCostLabel.Location = new System.Drawing.Point(97, 2);
             this.FrontsCostLabel.Margin = new System.Windows.Forms.Padding(0);
             this.FrontsCostLabel.Name = "FrontsCostLabel";
-            this.FrontsCostLabel.Size = new System.Drawing.Size(92, 28);
+            this.FrontsCostLabel.Size = new System.Drawing.Size(17, 20);
             this.FrontsCostLabel.TabIndex = 128;
             this.FrontsCostLabel.Text = "0";
-            this.FrontsCostLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // label12
-            // 
-            this.label12.Font = new System.Drawing.Font("Segoe UI", 14.51F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.label12.ForeColor = System.Drawing.Color.Black;
-            this.label12.Location = new System.Drawing.Point(200, 2);
-            this.label12.Margin = new System.Windows.Forms.Padding(0);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(41, 28);
-            this.label12.TabIndex = 129;
-            this.label12.Text = "€";
-            this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // panel13
             // 
@@ -1859,96 +1923,18 @@
             this.label13.TabIndex = 118;
             this.label13.Text = "Гнутые:";
             // 
-            // label14
-            // 
-            this.label14.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label14.Font = new System.Drawing.Font("Segoe UI", 14.51F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.label14.ForeColor = System.Drawing.Color.Black;
-            this.label14.Location = new System.Drawing.Point(154, 483);
-            this.label14.Margin = new System.Windows.Forms.Padding(0);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(41, 28);
-            this.label14.TabIndex = 117;
-            this.label14.Text = "шт.";
-            this.label14.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
             // CurvedCountLabel
             // 
             this.CurvedCountLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.CurvedCountLabel.AutoSize = true;
             this.CurvedCountLabel.Font = new System.Drawing.Font("Segoe UI", 14.51F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.CurvedCountLabel.ForeColor = System.Drawing.Color.Black;
             this.CurvedCountLabel.Location = new System.Drawing.Point(73, 483);
             this.CurvedCountLabel.Margin = new System.Windows.Forms.Padding(0);
             this.CurvedCountLabel.Name = "CurvedCountLabel";
-            this.CurvedCountLabel.Size = new System.Drawing.Size(70, 28);
+            this.CurvedCountLabel.Size = new System.Drawing.Size(17, 20);
             this.CurvedCountLabel.TabIndex = 116;
             this.CurvedCountLabel.Text = "0";
-            this.CurvedCountLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // label16
-            // 
-            this.label16.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label16.Font = new System.Drawing.Font("Segoe UI", 14.51F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.label16.ForeColor = System.Drawing.Color.Black;
-            this.label16.Location = new System.Drawing.Point(251, 458);
-            this.label16.Margin = new System.Windows.Forms.Padding(0);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(41, 28);
-            this.label16.TabIndex = 115;
-            this.label16.Text = "шт.";
-            this.label16.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // FrontsCountLabel
-            // 
-            this.FrontsCountLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.FrontsCountLabel.Font = new System.Drawing.Font("Segoe UI", 14.51F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.FrontsCountLabel.ForeColor = System.Drawing.Color.Black;
-            this.FrontsCountLabel.Location = new System.Drawing.Point(195, 458);
-            this.FrontsCountLabel.Margin = new System.Windows.Forms.Padding(0);
-            this.FrontsCountLabel.Name = "FrontsCountLabel";
-            this.FrontsCountLabel.Size = new System.Drawing.Size(60, 28);
-            this.FrontsCountLabel.TabIndex = 114;
-            this.FrontsCountLabel.Text = "0";
-            this.FrontsCountLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // label17
-            // 
-            this.label17.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label17.Font = new System.Drawing.Font("Segoe UI", 14.51F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.label17.ForeColor = System.Drawing.Color.Black;
-            this.label17.Location = new System.Drawing.Point(154, 458);
-            this.label17.Margin = new System.Windows.Forms.Padding(0);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(57, 28);
-            this.label17.TabIndex = 113;
-            this.label17.Text = "м.кв.";
-            this.label17.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // FrontsSquareLabel
-            // 
-            this.FrontsSquareLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.FrontsSquareLabel.Font = new System.Drawing.Font("Segoe UI", 14.51F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.FrontsSquareLabel.ForeColor = System.Drawing.Color.Black;
-            this.FrontsSquareLabel.Location = new System.Drawing.Point(73, 458);
-            this.FrontsSquareLabel.Margin = new System.Windows.Forms.Padding(0);
-            this.FrontsSquareLabel.Name = "FrontsSquareLabel";
-            this.FrontsSquareLabel.Size = new System.Drawing.Size(70, 28);
-            this.FrontsSquareLabel.TabIndex = 112;
-            this.FrontsSquareLabel.Text = "0";
-            this.FrontsSquareLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // label18
-            // 
-            this.label18.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label18.AutoSize = true;
-            this.label18.Font = new System.Drawing.Font("Segoe UI", 14.51F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.label18.ForeColor = System.Drawing.Color.Black;
-            this.label18.Location = new System.Drawing.Point(3, 458);
-            this.label18.Margin = new System.Windows.Forms.Padding(0);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(70, 20);
-            this.label18.TabIndex = 111;
-            this.label18.Text = "Прямые:";
             // 
             // kryptonBorderEdge1
             // 
@@ -3265,7 +3251,7 @@
             // OrderDateRadioButton
             // 
             this.OrderDateRadioButton.Checked = true;
-            this.OrderDateRadioButton.Location = new System.Drawing.Point(5, 11);
+            this.OrderDateRadioButton.Location = new System.Drawing.Point(6, 4);
             this.OrderDateRadioButton.Name = "OrderDateRadioButton";
             this.OrderDateRadioButton.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2010Black;
             this.OrderDateRadioButton.Size = new System.Drawing.Size(131, 21);
@@ -3276,7 +3262,7 @@
             // 
             // PlanDispDateRadioButton
             // 
-            this.PlanDispDateRadioButton.Location = new System.Drawing.Point(5, 221);
+            this.PlanDispDateRadioButton.Location = new System.Drawing.Point(6, 228);
             this.PlanDispDateRadioButton.Name = "PlanDispDateRadioButton";
             this.PlanDispDateRadioButton.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2010Black;
             this.PlanDispDateRadioButton.Size = new System.Drawing.Size(138, 21);
@@ -3630,6 +3616,7 @@
             // 
             // panel12
             // 
+            this.panel12.Controls.Add(this.OnAgreementRadioButton);
             this.panel12.Controls.Add(this.ExpDateRadioButton);
             this.panel12.Controls.Add(this.OnProductionRadioButton);
             this.panel12.Controls.Add(this.ConfirmDateRadioButton);
@@ -3643,9 +3630,20 @@
             this.panel12.Size = new System.Drawing.Size(210, 289);
             this.panel12.TabIndex = 362;
             // 
+            // OnAgreementRadioButton
+            // 
+            this.OnAgreementRadioButton.Location = new System.Drawing.Point(6, 36);
+            this.OnAgreementRadioButton.Name = "OnAgreementRadioButton";
+            this.OnAgreementRadioButton.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2010Black;
+            this.OnAgreementRadioButton.Size = new System.Drawing.Size(127, 21);
+            this.OnAgreementRadioButton.StateCommon.ShortText.Color1 = System.Drawing.Color.White;
+            this.OnAgreementRadioButton.StateCommon.ShortText.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.OnAgreementRadioButton.TabIndex = 368;
+            this.OnAgreementRadioButton.Values.Text = "На согласовании";
+            // 
             // ExpDateRadioButton
             // 
-            this.ExpDateRadioButton.Location = new System.Drawing.Point(5, 186);
+            this.ExpDateRadioButton.Location = new System.Drawing.Point(6, 196);
             this.ExpDateRadioButton.Name = "ExpDateRadioButton";
             this.ExpDateRadioButton.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2010Black;
             this.ExpDateRadioButton.Size = new System.Drawing.Size(173, 21);
@@ -3656,7 +3654,7 @@
             // 
             // OnProductionRadioButton
             // 
-            this.OnProductionRadioButton.Location = new System.Drawing.Point(5, 81);
+            this.OnProductionRadioButton.Location = new System.Drawing.Point(6, 100);
             this.OnProductionRadioButton.Name = "OnProductionRadioButton";
             this.OnProductionRadioButton.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2010Black;
             this.OnProductionRadioButton.Size = new System.Drawing.Size(122, 21);
@@ -3667,7 +3665,7 @@
             // 
             // ConfirmDateRadioButton
             // 
-            this.ConfirmDateRadioButton.Location = new System.Drawing.Point(5, 46);
+            this.ConfirmDateRadioButton.Location = new System.Drawing.Point(6, 68);
             this.ConfirmDateRadioButton.Name = "ConfirmDateRadioButton";
             this.ConfirmDateRadioButton.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2010Black;
             this.ConfirmDateRadioButton.Size = new System.Drawing.Size(157, 21);
@@ -3678,7 +3676,7 @@
             // 
             // StoreDateRadioButton
             // 
-            this.StoreDateRadioButton.Location = new System.Drawing.Point(5, 151);
+            this.StoreDateRadioButton.Location = new System.Drawing.Point(6, 164);
             this.StoreDateRadioButton.Name = "StoreDateRadioButton";
             this.StoreDateRadioButton.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2010Black;
             this.StoreDateRadioButton.Size = new System.Drawing.Size(132, 21);
@@ -3689,7 +3687,7 @@
             // 
             // PackDateRadioButton
             // 
-            this.PackDateRadioButton.Location = new System.Drawing.Point(5, 116);
+            this.PackDateRadioButton.Location = new System.Drawing.Point(6, 132);
             this.PackDateRadioButton.Name = "PackDateRadioButton";
             this.PackDateRadioButton.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2010Black;
             this.PackDateRadioButton.Size = new System.Drawing.Size(114, 21);
@@ -3700,7 +3698,7 @@
             // 
             // FactDispDateRadioButton
             // 
-            this.FactDispDateRadioButton.Location = new System.Drawing.Point(5, 256);
+            this.FactDispDateRadioButton.Location = new System.Drawing.Point(6, 260);
             this.FactDispDateRadioButton.Name = "FactDispDateRadioButton";
             this.FactDispDateRadioButton.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2010Black;
             this.FactDispDateRadioButton.Size = new System.Drawing.Size(156, 21);
@@ -8724,7 +8722,7 @@
             this.mcBatchSecondDate.SelectionEnd = new System.DateTime(2019, 9, 8, 0, 0, 0, 0);
             this.mcBatchSecondDate.SelectionStart = new System.DateTime(2019, 9, 8, 0, 0, 0, 0);
             this.mcBatchSecondDate.ShowWeekNumbers = true;
-            this.mcBatchSecondDate.Size = new System.Drawing.Size(259, 188);
+            this.mcBatchSecondDate.Size = new System.Drawing.Size(259, 184);
             this.mcBatchSecondDate.StateCommon.Day.Content.ShortText.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.mcBatchSecondDate.StateCommon.DayOfWeek.Content.ShortText.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.mcBatchSecondDate.StateCommon.Header.Content.ShortText.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
@@ -8753,7 +8751,7 @@
             this.mcBatchFirstDate.SelectionEnd = new System.DateTime(2019, 9, 8, 0, 0, 0, 0);
             this.mcBatchFirstDate.SelectionStart = new System.DateTime(2019, 9, 8, 0, 0, 0, 0);
             this.mcBatchFirstDate.ShowWeekNumbers = true;
-            this.mcBatchFirstDate.Size = new System.Drawing.Size(259, 188);
+            this.mcBatchFirstDate.Size = new System.Drawing.Size(259, 184);
             this.mcBatchFirstDate.StateCommon.Day.Content.ShortText.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.mcBatchFirstDate.StateCommon.DayOfWeek.Content.ShortText.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.mcBatchFirstDate.StateCommon.Header.Content.ShortText.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
@@ -9266,7 +9264,7 @@
             this.DispatchDateTo.SelectionEnd = new System.DateTime(2019, 9, 8, 0, 0, 0, 0);
             this.DispatchDateTo.SelectionStart = new System.DateTime(2019, 9, 8, 0, 0, 0, 0);
             this.DispatchDateTo.ShowWeekNumbers = true;
-            this.DispatchDateTo.Size = new System.Drawing.Size(259, 188);
+            this.DispatchDateTo.Size = new System.Drawing.Size(259, 184);
             this.DispatchDateTo.StateCommon.Day.Content.ShortText.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.DispatchDateTo.StateCommon.DayOfWeek.Content.ShortText.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.DispatchDateTo.StateCommon.Header.Content.ShortText.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
@@ -9293,7 +9291,7 @@
             this.DispatchDateFrom.SelectionEnd = new System.DateTime(2019, 9, 8, 0, 0, 0, 0);
             this.DispatchDateFrom.SelectionStart = new System.DateTime(2019, 9, 8, 0, 0, 0, 0);
             this.DispatchDateFrom.ShowWeekNumbers = true;
-            this.DispatchDateFrom.Size = new System.Drawing.Size(259, 188);
+            this.DispatchDateFrom.Size = new System.Drawing.Size(259, 184);
             this.DispatchDateFrom.StateCommon.Day.Content.ShortText.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.DispatchDateFrom.StateCommon.DayOfWeek.Content.ShortText.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.DispatchDateFrom.StateCommon.Header.Content.ShortText.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
@@ -14318,6 +14316,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.TechnoInsetColorsDataGrid)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.flowLayoutPanel1.ResumeLayout(false);
+            this.flowLayoutPanel1.PerformLayout();
             this.FrontsCostPanel.ResumeLayout(false);
             this.FrontsCostPanel.PerformLayout();
             this.panel13.ResumeLayout(false);
@@ -14779,7 +14779,6 @@
         private ComponentFactory.Krypton.Toolkit.KryptonRadioButton StoreDateRadioButton;
         private ComponentFactory.Krypton.Toolkit.KryptonRadioButton PackDateRadioButton;
         private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label CurvedCountLabel;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Label FrontsCountLabel;
@@ -14801,7 +14800,6 @@
         private ComponentFactory.Krypton.Toolkit.KryptonBorderEdge kryptonBorderEdge75;
         private ComponentFactory.Krypton.Toolkit.KryptonBorderEdge kryptonBorderEdge93;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label FrontsCostLabel;
         private System.Windows.Forms.Panel FrontsCostPanel;
         private System.Windows.Forms.Panel DecorCostPanel;
@@ -15549,5 +15547,7 @@
         private System.Windows.Forms.Panel panel32;
         private ComponentFactory.Krypton.Toolkit.KryptonContextMenuItem kryptonContextMenuItem16;
         private ComponentFactory.Krypton.Toolkit.KryptonContextMenuItem kryptonContextMenuItem17;
+        private ComponentFactory.Krypton.Toolkit.KryptonRadioButton OnAgreementRadioButton;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
     }
 }

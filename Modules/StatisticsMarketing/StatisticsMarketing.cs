@@ -29014,8 +29014,8 @@ ORDER BY infiniu2_marketingreference.dbo.Clients.ClientName, dbo.MegaOrders.Orde
                 MDecorFactoryFilter = " NewDecorOrders.FactoryID = " + FactoryID + " AND ";
             }
 
-            MFilter = " CAST(DocDateTime AS DATE) >= '" + DateFrom.ToString("yyyy-MM-dd") +
-                "' AND CAST(DocDateTime AS DATE) <= '" + DateTo.ToString("yyyy-MM-dd") + "' ";
+            MFilter = " CAST(CreateDateTime AS DATE) >= '" + DateFrom.ToString("yyyy-MM-dd") +
+                "' AND CAST(CreateDateTime AS DATE) <= '" + DateTo.ToString("yyyy-MM-dd") + "' AND ";
 
             if (MClients.Count > 0)
             {
@@ -29062,8 +29062,7 @@ ORDER BY infiniu2_marketingreference.dbo.Clients.ClientName, dbo.MegaOrders.Orde
                 " LEFT OUTER JOIN JoinMainOrders ON NewFrontsOrders.MainOrderID = JoinMainOrders.MarketMainOrderID" +
                 " INNER JOIN infiniu2_catalog.dbo.FrontsConfig" +
                 " ON NewFrontsOrders.FrontConfigID=infiniu2_catalog.dbo.FrontsConfig.FrontConfigID" +
-                " WHERE " + MFrontsFactoryFilter + MFSampleFilter + " NewFrontsOrders.MainOrderID IN (SELECT MainOrderID FROM NewMainOrders WHERE " + MFilter +
-                " AND MegaOrderID IN" +
+                " WHERE " + MFilter + MFrontsFactoryFilter + MFSampleFilter + " NewFrontsOrders.MainOrderID IN (SELECT MainOrderID FROM NewMainOrders WHERE MegaOrderID IN" +
                 " (SELECT MegaOrderID FROM NewMegaOrders " + MClientFilter + " ))";
 
             using (SqlDataAdapter DA = new SqlDataAdapter(MarketingSelectCommand,
@@ -29091,8 +29090,7 @@ ORDER BY infiniu2_marketingreference.dbo.Clients.ClientName, dbo.MegaOrders.Orde
                 " LEFT OUTER JOIN JoinMainOrders ON NewDecorOrders.MainOrderID = JoinMainOrders.MarketMainOrderID" +
                 " INNER JOIN infiniu2_catalog.dbo.DecorConfig" +
                 " ON NewDecorOrders.DecorConfigID=infiniu2_catalog.dbo.DecorConfig.DecorConfigID" +
-                " WHERE " + MDecorFactoryFilter + MDSampleFilter + " NewDecorOrders.MainOrderID IN (SELECT MainOrderID FROM NewMainOrders WHERE " + MFilter +
-                " AND MegaOrderID IN" +
+                " WHERE " + MFilter + MDecorFactoryFilter + MDSampleFilter + " NewDecorOrders.MainOrderID IN (SELECT MainOrderID FROM NewMainOrders WHERE MegaOrderID IN" +
                 " (SELECT MegaOrderID FROM NewMegaOrders " + MClientFilter + " ))";
 
             using (SqlDataAdapter DA = new SqlDataAdapter(MarketingSelectCommand,
@@ -29354,7 +29352,7 @@ ORDER BY infiniu2_marketingreference.dbo.Clients.ClientName, dbo.MegaOrders.Orde
             GetDecorSizes();
         }
 
-        public void FilterByOnConfirmDate(
+        public void FilterByOnAgreement(
             DateTime DateFrom, DateTime DateTo,
             int FactoryID, bool IsSample, bool IsNotSample)
         {
@@ -29375,8 +29373,8 @@ ORDER BY infiniu2_marketingreference.dbo.Clients.ClientName, dbo.MegaOrders.Orde
                 MDecorFactoryFilter = " DecorOrders.FactoryID = " + FactoryID + " AND ";
             }
 
-            MFilter = " WHERE CAST(OnConfirmDateTime AS DATE) >= '" + DateFrom.ToString("yyyy-MM-dd") +
-                "' AND CAST(OnConfirmDateTime AS DATE) <= '" + DateTo.ToString("yyyy-MM-dd") + "' ";
+            MFilter = " WHERE CAST(OnAgreementDateTime AS DATE) >= '" + DateFrom.ToString("yyyy-MM-dd") +
+                "' AND CAST(OnAgreementDateTime AS DATE) <= '" + DateTo.ToString("yyyy-MM-dd") + "' ";
 
             if (MClients.Count > 0)
             {
@@ -29415,7 +29413,7 @@ ORDER BY infiniu2_marketingreference.dbo.Clients.ClientName, dbo.MegaOrders.Orde
                 if (IsNotSample)
                     MDSampleFilter = " DecorOrders.IsSample = 0 AND";
             }
-            MarketingSelectCommand = "SELECT MegaOrders.OnConfirmDateTime, MegaOrders.MegaOrderID, MegaOrders.OrderNumber, FrontsOrders.MainOrderID, FrontsOrders.FrontID, FrontsOrders.PatinaID, FrontsOrders.ColorID, FrontsOrders.InsetTypeID," +
+            MarketingSelectCommand = "SELECT MegaOrders.OnAgreementDateTime, MegaOrders.MegaOrderID, MegaOrders.OrderNumber, FrontsOrders.MainOrderID, FrontsOrders.FrontID, FrontsOrders.PatinaID, FrontsOrders.ColorID, FrontsOrders.InsetTypeID," +
                 " FrontsOrders.InsetColorID, FrontsOrders.TechnoColorID, FrontsOrders.TechnoInsetTypeID, FrontsOrders.TechnoInsetColorID, FrontsOrders.Height, FrontsOrders.Width," +
                 " FrontsOrders.Count, FrontsOrders.IsSample, FrontsOrders.Square, FrontsOrders.Cost, MeasureID, ClientID, JoinMainOrders.ZOVClientID FROM FrontsOrders" +
                 " INNER JOIN MainOrders ON FrontsOrders.MainOrderID = MainOrders.MainOrderID" +
@@ -29444,7 +29442,7 @@ ORDER BY infiniu2_marketingreference.dbo.Clients.ClientName, dbo.MegaOrders.Orde
             GetSizes();
 
             //decor
-            MarketingSelectCommand = "SELECT MegaOrders.OnConfirmDateTime, MegaOrders.MegaOrderID, MegaOrders.OrderNumber, DecorOrders.MainOrderID, DecorOrders.ProductID, DecorOrders.DecorID, DecorOrders.ColorID,DecorOrders.PatinaID," +
+            MarketingSelectCommand = "SELECT MegaOrders.OnAgreementDateTime, MegaOrders.MegaOrderID, MegaOrders.OrderNumber, DecorOrders.MainOrderID, DecorOrders.ProductID, DecorOrders.DecorID, DecorOrders.ColorID,DecorOrders.PatinaID," +
                 " DecorOrders.Height, DecorOrders.Length, DecorOrders.Width, DecorOrders.Count, DecorOrders.IsSample, DecorOrders.Cost, DecorOrders.DecorConfigID, " +
                 " MeasureID, ClientID, JoinMainOrders.ZOVClientID FROM DecorOrders" +
                 " INNER JOIN MainOrders ON DecorOrders.MainOrderID = MainOrders.MainOrderID" +

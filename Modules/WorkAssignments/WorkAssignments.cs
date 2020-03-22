@@ -504,7 +504,7 @@ InsetTypeID, InsetColorID, TechnoProfileID, TechnoColorID, TechnoInsetTypeID, Te
             if (FilterType == 2)
                 FilterString = " AND (FrontsOrders.FrontID=" + Convert.ToInt32(Fronts.KansasPat) + " OR FrontsOrders.FrontID=" + Convert.ToInt32(Fronts.Kansas) +
                     " OR FrontsOrders.FrontID=" + Convert.ToInt32(Fronts.Sofia) + " OR FrontsOrders.FrontID=" + Convert.ToInt32(Fronts.Lorenzo) +
-                    " OR FrontsOrders.FrontID=" + Convert.ToInt32(Fronts.Elegant) +
+                    " OR FrontsOrders.FrontID=" + Convert.ToInt32(Fronts.Elegant) + " OR FrontsOrders.FrontID=" + Convert.ToInt32(Fronts.Patricia1) +
                     " OR FrontsOrders.FrontID=" + Convert.ToInt32(Fronts.Turin1) + " OR FrontsOrders.FrontID=" + Convert.ToInt32(Fronts.Turin1_1) +
                     " OR FrontsOrders.FrontID=" + Convert.ToInt32(Fronts.Dakota) + " OR FrontsOrders.FrontID=" + Convert.ToInt32(Fronts.DakotaPat) + " OR FrontsOrders.FrontID=" + Convert.ToInt32(Fronts.Turin3) + " OR FrontsOrders.FrontID=" + Convert.ToInt32(Fronts.LeonTPS) +
                     " OR FrontsOrders.FrontID=" + Convert.ToInt32(Fronts.Infiniti) + " OR FrontsOrders.FrontID=" + Convert.ToInt32(Fronts.InfinitiPat) + ")";
@@ -633,7 +633,7 @@ Height, Width, Count, FrontConfigID, FrontsOrders.Square, FrontsOrders.FactoryID
                 FilterString = " AND (FrontsOrders.FrontID=" + Convert.ToInt32(Fronts.KansasPat) +
                     " OR FrontsOrders.FrontID=" + Convert.ToInt32(Fronts.Kansas) +
                     " OR FrontsOrders.FrontID=" + Convert.ToInt32(Fronts.Sofia) + " OR FrontsOrders.FrontID=" + Convert.ToInt32(Fronts.Lorenzo) +
-                    " OR FrontsOrders.FrontID=" + Convert.ToInt32(Fronts.Elegant) +
+                    " OR FrontsOrders.FrontID=" + Convert.ToInt32(Fronts.Elegant) + " OR FrontsOrders.FrontID=" + Convert.ToInt32(Fronts.Patricia1) +
                     " OR FrontsOrders.FrontID=" + Convert.ToInt32(Fronts.Turin1) + " OR FrontsOrders.FrontID=" + Convert.ToInt32(Fronts.Turin1_1) +
                     " OR FrontsOrders.FrontID=" + Convert.ToInt32(Fronts.Dakota) + " OR FrontsOrders.FrontID=" + Convert.ToInt32(Fronts.DakotaPat) + " OR FrontsOrders.FrontID=" + Convert.ToInt32(Fronts.Turin3) + " OR FrontsOrders.FrontID=" + Convert.ToInt32(Fronts.LeonTPS) +
                     " OR FrontsOrders.FrontID=" + Convert.ToInt32(Fronts.Infiniti) + " OR FrontsOrders.FrontID=" + Convert.ToInt32(Fronts.InfinitiPat) + ")";
@@ -3783,6 +3783,7 @@ DecorOrders.DecorConfigID, DecorOrders.FactoryID, DecorOrders.Notes, DecorConfig
             FrontsID[10] = Convert.ToInt32(Fronts.Kansas);
             FrontsID[11] = Convert.ToInt32(Fronts.Infiniti);
             FrontsID[12] = Convert.ToInt32(Fronts.Elegant);
+            FrontsID[13] = Convert.ToInt32(Fronts.Patricia1);
             string SelectCommand = @"SELECT * FROM AssignmentsInWork WHERE WorkAssignmentID=" + WorkAssignmentID;
             DataTable DT1 = new DataTable();
             DataTable DT2 = new DataTable();
@@ -4050,6 +4051,7 @@ DecorOrders.DecorConfigID, DecorOrders.FactoryID, DecorOrders.Notes, DecorConfig
 
         Lorenzo = 15450,
         Elegant = 30005,
+        Patricia1 = 30379,
         Kansas = 3760,
         KansasPat = 3577,
         Sofia = 3415,
@@ -4204,6 +4206,7 @@ DecorOrders.DecorConfigID, DecorOrders.FactoryID, DecorOrders.Notes, DecorConfig
 
         LorenzoSimpleInsetHeight = 125,
         ElegantSimpleInsetHeight = 134,
+        Patricia1SimpleInsetHeight = 134,
         KansasSimpleInsetHeight = 127,
         SofiaSimpleInsetHeight = 127,
         DakotaSimpleInsetHeight = 113,
@@ -4214,6 +4217,7 @@ DecorOrders.DecorConfigID, DecorOrders.FactoryID, DecorOrders.Notes, DecorConfig
 
         LorenzoBoxInsetHeight = 99,
         ElegantBoxInsetHeight = 99,
+        Patricia1BoxInsetHeight = 99,
         KansasBoxInsetHeight = 89,
         SofiaBoxInsetHeight = 99,
         DakotaBoxInsetHeight = 99,
@@ -4232,6 +4236,7 @@ DecorOrders.DecorConfigID, DecorOrders.FactoryID, DecorOrders.Notes, DecorConfig
 
         LorenzoGridInsetHeight = 125,
         ElegantGridInsetHeight = 134,
+        Patricia1GridInsetHeight = 134,
         KansasGridInsetHeight = 127,
         SofiaGridInsetHeight = 127,
         DakotaGridInsetHeight = 113,
@@ -4242,6 +4247,7 @@ DecorOrders.DecorConfigID, DecorOrders.FactoryID, DecorOrders.Notes, DecorConfig
 
         LorenzoSimpleInsetWidth = 125,
         ElegantSimpleInsetWidth = 134,
+        Patricia1SimpleInsetWidth = 134,
         KansasSimpleInsetWidth = 127,
         SofiaSimpleInsetWidth = 127,
         DakotaSimpleInsetWidth = 113,
@@ -4252,6 +4258,7 @@ DecorOrders.DecorConfigID, DecorOrders.FactoryID, DecorOrders.Notes, DecorConfig
 
         LorenzoBoxInsetWidth = 99,
         ElegantBoxInsetWidth = 99,
+        Patricia1BoxInsetWidth = 99,
         KansasBoxInsetWidth = 89,
         SofiaBoxInsetWidth = 99,
         DakotaBoxInsetWidth = 99,
@@ -4270,6 +4277,7 @@ DecorOrders.DecorConfigID, DecorOrders.FactoryID, DecorOrders.Notes, DecorConfig
 
         LorenzoGridInsetWidth = 125,
         ElegantGridInsetWidth = 134,
+        Patricia1GridInsetWidth = 134,
         KansasGridInsetWidth = 127,
         SofiaGridInsetWidth = 127,
         DakotaGridInsetWidth = 113,
@@ -14952,7 +14960,7 @@ AND FrontID=" + Convert.ToInt32(Front) +
             if (Marsel1OrdersDT.Rows.Count > 0)
                 CollectStemasProfil18(Marsel1OrdersDT, ref DestinationDT, "Марсель П-018", Convert.ToInt32(FrontMargins.Marsel1Height), ProfileType++, true);
             if (Marsel5OrdersDT.Rows.Count > 0)
-                CollectStemasProfil18(Marsel5OrdersDT, ref DestinationDT, "Марсель-5 П-017", Convert.ToInt32(FrontMargins.Marsel5Height), ProfileType++, true);
+                CollectStemasProfil18(Marsel5OrdersDT, ref DestinationDT, "Марсель-5 П-071", Convert.ToInt32(FrontMargins.Marsel5Height), ProfileType++, true);
             if (PortoOrdersDT.Rows.Count > 0)
                 CollectStemasProfil18(PortoOrdersDT, ref DestinationDT, "Порто П-0111", Convert.ToInt32(FrontMargins.PortoHeight), ProfileType++, true);
             if (MonteOrdersDT.Rows.Count > 0)
@@ -15026,7 +15034,7 @@ AND FrontID=" + Convert.ToInt32(Front) +
                 CollectStemasProfil16(Marsel1OrdersDT, ref DestinationDT, "Марсель П-016",
                     Convert.ToInt32(FrontMargins.Marsel1Width), Convert.ToInt32(FrontMinSizes.Marsel1MinWidth), ProfileType++, true);
             if (Marsel5OrdersDT.Rows.Count > 0)
-                CollectStemasProfil16(Marsel5OrdersDT, ref DestinationDT, "Марсель-5 П-117",
+                CollectStemasProfil16(Marsel5OrdersDT, ref DestinationDT, "Марсель-5 П-171",
                     Convert.ToInt32(FrontMargins.Marsel5Width), Convert.ToInt32(FrontMinSizes.Marsel5MinWidth), ProfileType++, true);
             if (PortoOrdersDT.Rows.Count > 0)
                 CollectStemasProfil16(PortoOrdersDT, ref DestinationDT, "Порто П-111",
@@ -15118,7 +15126,7 @@ AND FrontID=" + Convert.ToInt32(Front) +
             }
             if (Marsel5OrdersDT.Rows.Count > 0)
             {
-                TotalSum(Marsel5OrdersDT, ref DestinationDT, "Марсель-5 П-117", "Марсель-5 П-017",
+                TotalSum(Marsel5OrdersDT, ref DestinationDT, "Марсель-5 П-171", "Марсель-5 П-071",
                     Convert.ToInt32(FrontMargins.Marsel5Width), Convert.ToInt32(FrontMinSizes.Marsel5MinWidth), Convert.ToInt32(FrontMargins.Marsel5Height));
             }
             if (PortoOrdersDT.Rows.Count > 0)
@@ -15250,7 +15258,7 @@ AND FrontID=" + Convert.ToInt32(Front) +
             }
             if (Marsel5OrdersDT.Rows.Count > 0)
             {
-                CollectRapidProfil(Marsel5OrdersDT, ref DestinationDT, "Марсель-5 П-117", "Марсель-5 П-017",
+                CollectRapidProfil(Marsel5OrdersDT, ref DestinationDT, "Марсель-5 П-171", "Марсель-5 П-071",
                     Convert.ToInt32(FrontMargins.Marsel5Width), Convert.ToInt32(FrontMinSizes.Marsel5MinWidth), Convert.ToInt32(FrontMargins.Marsel5Height), false);
             }
             if (PortoOrdersDT.Rows.Count > 0)
@@ -37173,6 +37181,12 @@ AND FrontID=" + Convert.ToInt32(Front) +
         DataTable ElegantSimpleDT;
         DataTable ElegantOrdersDT;
 
+        DataTable Patricia1VitrinaDT;
+        DataTable Patricia1BoxesDT;
+        DataTable Patricia1GridsDT;
+        DataTable Patricia1SimpleDT;
+        DataTable Patricia1OrdersDT;
+
         DataTable KansasVitrinaDT;
         DataTable KansasBoxesDT;
         DataTable KansasGridsDT;
@@ -37229,6 +37243,7 @@ AND FrontID=" + Convert.ToInt32(Front) +
 
         DataTable LorenzoCurvedOrdersDT;
         DataTable ElegantCurvedOrdersDT;
+        DataTable Patricia1CurvedOrdersDT;
         DataTable KansasCurvedOrdersDT;
         DataTable SofiaCurvedOrdersDT;
         DataTable DakotaCurvedOrdersDT;
@@ -37278,6 +37293,11 @@ AND FrontID=" + Convert.ToInt32(Front) +
             ElegantSimpleDT = new DataTable();
             ElegantOrdersDT = new DataTable();
 
+            Patricia1BoxesDT = new DataTable();
+            Patricia1GridsDT = new DataTable();
+            Patricia1SimpleDT = new DataTable();
+            Patricia1OrdersDT = new DataTable();
+
             KansasBoxesDT = new DataTable();
             KansasGridsDT = new DataTable();
             KansasSimpleDT = new DataTable();
@@ -37321,6 +37341,7 @@ AND FrontID=" + Convert.ToInt32(Front) +
 
             LorenzoCurvedOrdersDT = new DataTable();
             ElegantCurvedOrdersDT = new DataTable();
+            Patricia1CurvedOrdersDT = new DataTable();
             KansasCurvedOrdersDT = new DataTable();
             SofiaCurvedOrdersDT = new DataTable();
             DakotaCurvedOrdersDT = new DataTable();
@@ -37623,6 +37644,7 @@ AND FrontID=" + Convert.ToInt32(Front) +
 
                 LorenzoCurvedOrdersDT = SofiaOrdersDT.Clone();
                 ElegantCurvedOrdersDT = SofiaOrdersDT.Clone();
+                Patricia1CurvedOrdersDT = SofiaOrdersDT.Clone();
                 KansasCurvedOrdersDT = SofiaOrdersDT.Clone();
                 SofiaCurvedOrdersDT = SofiaOrdersDT.Clone();
                 DakotaCurvedOrdersDT = SofiaOrdersDT.Clone();
@@ -37639,6 +37661,7 @@ AND FrontID=" + Convert.ToInt32(Front) +
 
                 LorenzoVitrinaDT = SofiaOrdersDT.Clone();
                 ElegantVitrinaDT = SofiaOrdersDT.Clone();
+                Patricia1VitrinaDT = SofiaOrdersDT.Clone();
                 KansasVitrinaDT = SofiaOrdersDT.Clone();
                 DakotaVitrinaDT = SofiaOrdersDT.Clone();
                 SofiaVitrinaDT = SofiaOrdersDT.Clone();
@@ -37658,6 +37681,11 @@ AND FrontID=" + Convert.ToInt32(Front) +
                 ElegantBoxesDT = SofiaOrdersDT.Clone();
                 ElegantGridsDT = SofiaOrdersDT.Clone();
                 ElegantSimpleDT = SofiaOrdersDT.Clone();
+
+                Patricia1OrdersDT = SofiaOrdersDT.Clone();
+                Patricia1BoxesDT = SofiaOrdersDT.Clone();
+                Patricia1GridsDT = SofiaOrdersDT.Clone();
+                Patricia1SimpleDT = SofiaOrdersDT.Clone();
 
                 KansasOrdersDT = SofiaOrdersDT.Clone();
                 KansasBoxesDT = SofiaOrdersDT.Clone();
@@ -38315,7 +38343,7 @@ AND FrontID=" + Convert.ToInt32(Front) +
         }
 
         private DataTable DistMainOrdersTable(DataTable SourceDT1, DataTable SourceDT2, DataTable SourceDT3, DataTable SourceDT4, DataTable SourceDT5,
-            DataTable SourceDT6, DataTable SourceDT7, DataTable SourceDT8, DataTable SourceDT9, DataTable SourceDT10, bool OrderASC)
+            DataTable SourceDT6, DataTable SourceDT7, DataTable SourceDT8, DataTable SourceDT9, DataTable SourceDT10, DataTable SourceDT11, bool OrderASC)
         {
             int MainOrderID = 0;
             DataTable DT = new DataTable();
@@ -38412,6 +38440,16 @@ AND FrontID=" + Convert.ToInt32(Front) +
                 }
             }
             foreach (DataRow Row in SourceDT10.Rows)
+            {
+                if (int.TryParse(Row["MainOrderID"].ToString(), out MainOrderID))
+                {
+                    DataRow NewRow = DT.NewRow();
+                    NewRow["MainOrderID"] = MainOrderID;
+                    NewRow["GroupType"] = Convert.ToInt32(Row["GroupType"]);
+                    DT.Rows.Add(NewRow);
+                }
+            }
+            foreach (DataRow Row in SourceDT11.Rows)
             {
                 if (int.TryParse(Row["MainOrderID"].ToString(), out MainOrderID))
                 {
@@ -39291,6 +39329,8 @@ AND FrontID=" + Convert.ToInt32(Front) +
                 TrimmingSyngly(LorenzoSimpleDT, ref TempDT, Admission, 1, true, HeightASC, string.Empty);
             if (ElegantSimpleDT.Rows.Count > 0)
                 TrimmingSyngly(ElegantSimpleDT, ref TempDT, Admission, 1, true, HeightASC, string.Empty);
+            if (Patricia1SimpleDT.Rows.Count > 0)
+                TrimmingSyngly(Patricia1SimpleDT, ref TempDT, Admission, 1, true, HeightASC, string.Empty);
             if (KansasSimpleDT.Rows.Count > 0)
                 TrimmingSyngly(KansasSimpleDT, ref TempDT, Admission, 1, true, HeightASC, string.Empty);
 
@@ -39349,6 +39389,8 @@ AND FrontID=" + Convert.ToInt32(Front) +
                 TrimmingSyngly(LorenzoGridsDT, ref TempDT, Admission, 3, true, HeightASC, " РЕШ");
             if (ElegantGridsDT.Rows.Count > 0)
                 TrimmingSyngly(ElegantGridsDT, ref TempDT, Admission, 3, true, HeightASC, " РЕШ");
+            if (Patricia1GridsDT.Rows.Count > 0)
+                TrimmingSyngly(Patricia1GridsDT, ref TempDT, Admission, 3, true, HeightASC, " РЕШ");
             if (KansasGridsDT.Rows.Count > 0)
                 TrimmingSyngly(KansasGridsDT, ref TempDT, Admission, 3, true, HeightASC, " РЕШ");
             if (DakotaGridsDT.Rows.Count > 0)
@@ -39382,6 +39424,8 @@ AND FrontID=" + Convert.ToInt32(Front) +
                 TrimmingSyngly(LorenzoBoxesDT, ref TempDT, Admission, 2, true, HeightASC, " ШУФ");
             if (ElegantBoxesDT.Rows.Count > 0)
                 TrimmingSyngly(ElegantBoxesDT, ref TempDT, Admission, 2, true, HeightASC, " ШУФ");
+            if (Patricia1BoxesDT.Rows.Count > 0)
+                TrimmingSyngly(Patricia1BoxesDT, ref TempDT, Admission, 2, true, HeightASC, " ШУФ");
             if (KansasBoxesDT.Rows.Count > 0)
                 TrimmingSyngly(KansasBoxesDT, ref TempDT, Admission, 2, true, HeightASC, " ШУФ");
             if (DakotaBoxesDT.Rows.Count > 0)
@@ -39449,6 +39493,8 @@ AND FrontID=" + Convert.ToInt32(Front) +
                 TrimmingSyngly(LorenzoSimpleDT, ref TempDT, Admission, 1, false, HeightASC, string.Empty);
             if (ElegantSimpleDT.Rows.Count > 0)
                 TrimmingSyngly(ElegantSimpleDT, ref TempDT, Admission, 1, false, HeightASC, string.Empty);
+            if (Patricia1SimpleDT.Rows.Count > 0)
+                TrimmingSyngly(Patricia1SimpleDT, ref TempDT, Admission, 1, false, HeightASC, string.Empty);
             if (KansasSimpleDT.Rows.Count > 0)
                 TrimmingSyngly(KansasSimpleDT, ref TempDT, Admission, 1, false, HeightASC, string.Empty);
 
@@ -39502,6 +39548,8 @@ AND FrontID=" + Convert.ToInt32(Front) +
                 TrimmingSyngly(LorenzoGridsDT, ref TempDT, Admission, 3, false, HeightASC, " РЕШ");
             if (ElegantGridsDT.Rows.Count > 0)
                 TrimmingSyngly(ElegantGridsDT, ref TempDT, Admission, 3, false, HeightASC, " РЕШ");
+            if (Patricia1GridsDT.Rows.Count > 0)
+                TrimmingSyngly(Patricia1GridsDT, ref TempDT, Admission, 3, false, HeightASC, " РЕШ");
             if (KansasGridsDT.Rows.Count > 0)
                 TrimmingSyngly(KansasGridsDT, ref TempDT, Admission, 3, false, HeightASC, " РЕШ");
             if (DakotaGridsDT.Rows.Count > 0)
@@ -39539,6 +39587,8 @@ AND FrontID=" + Convert.ToInt32(Front) +
                 TrimmingSyngly(LorenzoBoxesDT, ref TempDT, Admission, 2, false, HeightASC, " ШУФ");
             if (ElegantBoxesDT.Rows.Count > 0)
                 TrimmingSyngly(ElegantBoxesDT, ref TempDT, Admission, 2, false, HeightASC, " ШУФ");
+            if (Patricia1BoxesDT.Rows.Count > 0)
+                TrimmingSyngly(Patricia1BoxesDT, ref TempDT, Admission, 2, false, HeightASC, " ШУФ");
             if (KansasBoxesDT.Rows.Count > 0)
                 TrimmingSyngly(KansasBoxesDT, ref TempDT, Admission, 2, false, HeightASC, " ШУФ");
             if (DakotaBoxesDT.Rows.Count > 0)
@@ -39821,6 +39871,8 @@ AND FrontID=" + Convert.ToInt32(Front) +
                 AdditionsSyngly(LorenzoVitrinaDT, ref DestinationDT);
             if (ElegantVitrinaDT.Rows.Count > 0)
                 AdditionsSyngly(ElegantVitrinaDT, ref DestinationDT);
+            if (Patricia1VitrinaDT.Rows.Count > 0)
+                AdditionsSyngly(Patricia1VitrinaDT, ref DestinationDT);
             if (KansasVitrinaDT.Rows.Count > 0)
                 AdditionsSyngly(KansasVitrinaDT, ref DestinationDT);
             if (DakotaVitrinaDT.Rows.Count > 0)
@@ -40291,6 +40343,9 @@ AND FrontID=" + Convert.ToInt32(Front) +
             if (ElegantSimpleDT.Rows.Count > 0)
                 SimpleInsetsOnly(ElegantSimpleDT, ref DestinationDT,
                     Convert.ToInt32(FrontMargins.ElegantSimpleInsetHeight), Convert.ToInt32(FrontMargins.ElegantSimpleInsetWidth), OrderASC, IsBox);
+            if (Patricia1SimpleDT.Rows.Count > 0)
+                SimpleInsetsOnly(Patricia1SimpleDT, ref DestinationDT,
+                    Convert.ToInt32(FrontMargins.Patricia1SimpleInsetHeight), Convert.ToInt32(FrontMargins.Patricia1SimpleInsetWidth), OrderASC, IsBox);
             if (KansasSimpleDT.Rows.Count > 0)
                 SimpleInsetsOnly(KansasSimpleDT, ref DestinationDT,
                     Convert.ToInt32(FrontMargins.KansasSimpleInsetHeight), Convert.ToInt32(FrontMargins.KansasSimpleInsetWidth), OrderASC, IsBox);
@@ -40338,6 +40393,9 @@ AND FrontID=" + Convert.ToInt32(Front) +
             if (ElegantGridsDT.Rows.Count > 0)
                 GridInsetsOnly(ElegantGridsDT, ref DestinationDT,
                     Convert.ToInt32(FrontMargins.ElegantGridInsetHeight), Convert.ToInt32(FrontMargins.ElegantGridInsetWidth), OrderASC, IsBox);
+            if (Patricia1GridsDT.Rows.Count > 0)
+                GridInsetsOnly(Patricia1GridsDT, ref DestinationDT,
+                    Convert.ToInt32(FrontMargins.Patricia1GridInsetHeight), Convert.ToInt32(FrontMargins.Patricia1GridInsetWidth), OrderASC, IsBox);
             if (KansasGridsDT.Rows.Count > 0)
                 GridInsetsOnly(KansasGridsDT, ref DestinationDT,
                     Convert.ToInt32(FrontMargins.KansasGridInsetHeight), Convert.ToInt32(FrontMargins.KansasGridInsetWidth), OrderASC, IsBox);
@@ -40375,6 +40433,9 @@ AND FrontID=" + Convert.ToInt32(Front) +
             if (ElegantBoxesDT.Rows.Count > 0)
                 BoxInsetsOnly(ElegantBoxesDT, ref DestinationDT,
                     Convert.ToInt32(FrontMargins.ElegantBoxInsetHeight), Convert.ToInt32(FrontMargins.ElegantBoxInsetWidth), OrderASC, IsBox);
+            if (Patricia1BoxesDT.Rows.Count > 0)
+                BoxInsetsOnly(Patricia1BoxesDT, ref DestinationDT,
+                    Convert.ToInt32(FrontMargins.Patricia1BoxInsetHeight), Convert.ToInt32(FrontMargins.Patricia1BoxInsetWidth), OrderASC, IsBox);
             if (KansasBoxesDT.Rows.Count > 0)
                 BoxInsetsOnly(KansasBoxesDT, ref DestinationDT,
                     Convert.ToInt32(FrontMargins.KansasBoxInsetHeight), Convert.ToInt32(FrontMargins.KansasBoxInsetWidth), OrderASC, IsBox);
@@ -40410,6 +40471,7 @@ AND FrontID=" + Convert.ToInt32(Front) +
 
             LorenzoOrdersDT.Clear();
             ElegantOrdersDT.Clear();
+            Patricia1OrdersDT.Clear();
             KansasOrdersDT.Clear();
             DakotaOrdersDT.Clear();
             SofiaOrdersDT.Clear();
@@ -40421,6 +40483,7 @@ AND FrontID=" + Convert.ToInt32(Front) +
 
             LorenzoCurvedOrdersDT.Clear();
             ElegantCurvedOrdersDT.Clear();
+            Patricia1CurvedOrdersDT.Clear();
             KansasCurvedOrdersDT.Clear();
             SofiaCurvedOrdersDT.Clear();
             DakotaCurvedOrdersDT.Clear();
@@ -40447,6 +40510,7 @@ AND FrontID=" + Convert.ToInt32(Front) +
 
             GetCurvedFrontsOrders(ref LorenzoCurvedOrdersDT, WorkAssignmentID, FactoryID, @"(15580,15581,15582,15583,15584,15585,15586,15587)");
             GetCurvedFrontsOrders(ref ElegantCurvedOrdersDT, WorkAssignmentID, FactoryID, @"(-1)");
+            GetCurvedFrontsOrders(ref Patricia1CurvedOrdersDT, WorkAssignmentID, FactoryID, @"(-1)");
             GetCurvedFrontsOrders(ref KansasCurvedOrdersDT, WorkAssignmentID, FactoryID, @"(1658,1659,1660,1661,1991,1992,1993,1994)");
             GetCurvedFrontsOrders(ref SofiaCurvedOrdersDT, WorkAssignmentID, FactoryID, @"(1654,1655,1656,1657,1987,1988,1989,1990)");
             GetCurvedFrontsOrders(ref DakotaCurvedOrdersDT, WorkAssignmentID, FactoryID, @"(29212,29214,29215,29216)");
@@ -40462,6 +40526,11 @@ AND FrontID=" + Convert.ToInt32(Front) +
                 {
                     GetProfileNames(ref ProfileNamesDT, WorkAssignmentID, FactoryID, Fronts.Elegant);
                     GetFrontsOrders(ref ElegantOrdersDT, WorkAssignmentID, FactoryID, Fronts.Elegant);
+                }
+                if (Convert.ToInt32(Convert.ToInt32(FrontsID[i])) == Convert.ToInt32(Fronts.Patricia1))
+                {
+                    GetProfileNames(ref ProfileNamesDT, WorkAssignmentID, FactoryID, Fronts.Patricia1);
+                    GetFrontsOrders(ref Patricia1OrdersDT, WorkAssignmentID, FactoryID, Fronts.Patricia1);
                 }
                 if (Convert.ToInt32(Convert.ToInt32(FrontsID[i])) == Convert.ToInt32(Fronts.Lorenzo))
                 {
@@ -40525,8 +40594,8 @@ AND FrontID=" + Convert.ToInt32(Front) +
                 }
             }
 
-            if (LorenzoCurvedOrdersDT.Rows.Count == 0 && ElegantCurvedOrdersDT.Rows.Count == 0 && KansasCurvedOrdersDT.Rows.Count == 0 && SofiaCurvedOrdersDT.Rows.Count == 0 && DakotaCurvedOrdersDT.Rows.Count == 0 && Turin1CurvedOrdersDT.Rows.Count == 0 && Turin1_1CurvedOrdersDT.Rows.Count == 0 && Turin3CurvedOrdersDT.Rows.Count == 0 && InfinitiCurvedOrdersDT.Rows.Count == 0 &&
-                LorenzoOrdersDT.Rows.Count == 0 && ElegantOrdersDT.Rows.Count == 0 && KansasOrdersDT.Rows.Count == 0 && DakotaOrdersDT.Rows.Count == 0 && SofiaOrdersDT.Rows.Count == 0 && Turin1OrdersDT.Rows.Count == 0 && Turin1_1OrdersDT.Rows.Count == 0 && Turin3OrdersDT.Rows.Count == 0 && LeonOrdersDT.Rows.Count == 0 && InfinitiOrdersDT.Rows.Count == 0 &&
+            if (LorenzoCurvedOrdersDT.Rows.Count == 0 && ElegantCurvedOrdersDT.Rows.Count == 0 && Patricia1CurvedOrdersDT.Rows.Count == 0 && KansasCurvedOrdersDT.Rows.Count == 0 && SofiaCurvedOrdersDT.Rows.Count == 0 && DakotaCurvedOrdersDT.Rows.Count == 0 && Turin1CurvedOrdersDT.Rows.Count == 0 && Turin1_1CurvedOrdersDT.Rows.Count == 0 && Turin3CurvedOrdersDT.Rows.Count == 0 && InfinitiCurvedOrdersDT.Rows.Count == 0 &&
+                LorenzoOrdersDT.Rows.Count == 0 && ElegantOrdersDT.Rows.Count == 0 && Patricia1OrdersDT.Rows.Count == 0 && KansasOrdersDT.Rows.Count == 0 && DakotaOrdersDT.Rows.Count == 0 && SofiaOrdersDT.Rows.Count == 0 && Turin1OrdersDT.Rows.Count == 0 && Turin1_1OrdersDT.Rows.Count == 0 && Turin3OrdersDT.Rows.Count == 0 && LeonOrdersDT.Rows.Count == 0 && InfinitiOrdersDT.Rows.Count == 0 &&
                 BagetWithAngelOrdersDT.Rows.Count == 0 && NotArchDecorOrdersDT.Rows.Count == 0 && ArchDecorOrdersDT.Rows.Count == 0 && GridsDecorOrdersDT.Rows.Count == 0)
                 return false;
             else
@@ -40686,6 +40755,7 @@ AND FrontID=" + Convert.ToInt32(Front) +
 
             LorenzoSimpleDT.Clear();
             ElegantSimpleDT.Clear();
+            Patricia1SimpleDT.Clear();
             KansasSimpleDT.Clear();
             DakotaSimpleDT.Clear();
             SofiaSimpleDT.Clear();
@@ -40697,6 +40767,7 @@ AND FrontID=" + Convert.ToInt32(Front) +
 
             LorenzoVitrinaDT.Clear();
             ElegantVitrinaDT.Clear();
+            Patricia1VitrinaDT.Clear();
             KansasVitrinaDT.Clear();
             DakotaVitrinaDT.Clear();
             SofiaVitrinaDT.Clear();
@@ -40711,6 +40782,7 @@ AND FrontID=" + Convert.ToInt32(Front) +
 
             GetVitrinaFronts(LorenzoOrdersDT, ref LorenzoVitrinaDT);
             GetVitrinaFronts(ElegantOrdersDT, ref ElegantVitrinaDT);
+            GetVitrinaFronts(Patricia1OrdersDT, ref Patricia1VitrinaDT);
             GetVitrinaFronts(KansasOrdersDT, ref KansasVitrinaDT);
             GetVitrinaFronts(DakotaOrdersDT, ref DakotaVitrinaDT);
             GetVitrinaFronts(SofiaOrdersDT, ref SofiaVitrinaDT);
@@ -40726,6 +40798,7 @@ AND FrontID=" + Convert.ToInt32(Front) +
 
             GetSimpleFronts(LorenzoOrdersDT, ref LorenzoSimpleDT, 222);
             GetSimpleFronts(ElegantOrdersDT, ref ElegantSimpleDT, 222);
+            GetSimpleFronts(Patricia1OrdersDT, ref Patricia1SimpleDT, 222);
             GetSimpleFronts(KansasOrdersDT, ref KansasSimpleDT, 222);
             GetSimpleFronts(DakotaOrdersDT, ref DakotaSimpleDT, 222);
             GetSimpleFronts(SofiaOrdersDT, ref SofiaSimpleDT, 222);
@@ -40737,6 +40810,7 @@ AND FrontID=" + Convert.ToInt32(Front) +
 
             LorenzoGridsDT.Clear();
             ElegantGridsDT.Clear();
+            Patricia1GridsDT.Clear();
             KansasGridsDT.Clear();
             DakotaGridsDT.Clear();
             SofiaGridsDT.Clear();
@@ -40753,6 +40827,7 @@ AND FrontID=" + Convert.ToInt32(Front) +
 
             GetGridFronts(LorenzoOrdersDT, ref LorenzoGridsDT);
             GetGridFronts(ElegantOrdersDT, ref ElegantGridsDT);
+            GetGridFronts(Patricia1OrdersDT, ref Patricia1GridsDT);
             GetGridFronts(KansasOrdersDT, ref KansasGridsDT);
             GetGridFronts(DakotaOrdersDT, ref DakotaGridsDT);
             GetGridFronts(SofiaOrdersDT, ref SofiaGridsDT);
@@ -40764,6 +40839,7 @@ AND FrontID=" + Convert.ToInt32(Front) +
 
             LorenzoBoxesDT.Clear();
             ElegantBoxesDT.Clear();
+            Patricia1BoxesDT.Clear();
             KansasBoxesDT.Clear();
             DakotaBoxesDT.Clear();
             SofiaBoxesDT.Clear();
@@ -40775,6 +40851,7 @@ AND FrontID=" + Convert.ToInt32(Front) +
 
             GetBoxFronts(LorenzoOrdersDT, ref LorenzoBoxesDT, 222);
             GetBoxFronts(ElegantOrdersDT, ref ElegantBoxesDT, 222);
+            GetBoxFronts(Patricia1OrdersDT, ref Patricia1BoxesDT, 222);
             GetBoxFronts(KansasOrdersDT, ref KansasBoxesDT, 222);
             GetBoxFronts(DakotaOrdersDT, ref DakotaBoxesDT, 222);
             GetBoxFronts(SofiaOrdersDT, ref SofiaBoxesDT, 222);
@@ -40825,13 +40902,22 @@ AND FrontID=" + Convert.ToInt32(Front) +
                 CollectAssemblyGrids(Convert.ToInt32(DistFrameColorsDT.Rows[i]["ColorID"]), LorenzoGridsDT, ref AssemblyDT, FrontType);
             }
             DistFrameColorsDT.Clear();
-            DistFrameColorsDT = DistFrameColorsTable(KansasOrdersDT, true);
+            DistFrameColorsDT = DistFrameColorsTable(ElegantOrdersDT, true);
             FrontType = 9;
             for (int i = 0; i < DistFrameColorsDT.Rows.Count; i++)
             {
                 CollectAssemblySimple(Convert.ToInt32(DistFrameColorsDT.Rows[i]["ColorID"]), ElegantSimpleDT, ref AssemblyDT, FrontType);
                 CollectAssemblyBoxes(Convert.ToInt32(DistFrameColorsDT.Rows[i]["ColorID"]), ElegantBoxesDT, ref AssemblyDT, FrontType);
                 CollectAssemblyGrids(Convert.ToInt32(DistFrameColorsDT.Rows[i]["ColorID"]), ElegantGridsDT, ref AssemblyDT, FrontType);
+            }
+            DistFrameColorsDT.Clear();
+            DistFrameColorsDT = DistFrameColorsTable(Patricia1OrdersDT, true);
+            FrontType = 9;
+            for (int i = 0; i < DistFrameColorsDT.Rows.Count; i++)
+            {
+                CollectAssemblySimple(Convert.ToInt32(DistFrameColorsDT.Rows[i]["ColorID"]), Patricia1SimpleDT, ref AssemblyDT, FrontType);
+                CollectAssemblyBoxes(Convert.ToInt32(DistFrameColorsDT.Rows[i]["ColorID"]), Patricia1BoxesDT, ref AssemblyDT, FrontType);
+                CollectAssemblyGrids(Convert.ToInt32(DistFrameColorsDT.Rows[i]["ColorID"]), Patricia1GridsDT, ref AssemblyDT, FrontType);
             }
             DistFrameColorsDT.Clear();
             DistFrameColorsDT = DistFrameColorsTable(KansasOrdersDT, true);
@@ -41145,6 +41231,14 @@ AND FrontID=" + Convert.ToInt32(Front) +
                 RowIndex++;
                 RowIndex++;
             }
+            if (Patricia1BoxesDT.Rows.Count > 0 || Patricia1GridsDT.Rows.Count > 0 || Patricia1SimpleDT.Rows.Count > 0)
+            {
+                SummingOrders(Patricia1OrdersDT, Patricia1BoxesDT, Patricia1GridsDT, Patricia1SimpleDT, Patricia1VitrinaDT, "Патриция-1 ШУФ", "Патриция-1 РЕШ", "Патриция-1");
+                OrdersToExcelSingly(ref hssfworkbook,
+                        Calibri11CS, CalibriBold11CS, CalibriBold11F, TableHeaderCS, TableHeaderDecCS, ref sheet1, WorkAssignmentID, BatchName, ClientName, ref RowIndex);
+                RowIndex++;
+                RowIndex++;
+            }
             if (KansasBoxesDT.Rows.Count > 0 || KansasGridsDT.Rows.Count > 0 || KansasSimpleDT.Rows.Count > 0)
             {
                 SummingOrders(KansasOrdersDT, KansasBoxesDT, KansasGridsDT, KansasSimpleDT, KansasVitrinaDT, "Канзас ШУФ", "Канзас РЕШ", "Канзас");
@@ -41241,6 +41335,18 @@ AND FrontID=" + Convert.ToInt32(Front) +
                 CollectDeying(Convert.ToInt32(DT1.Rows[i]["ColorID"]), ElegantSimpleDT, ref DeyingDT, string.Empty);
                 CollectDeying(Convert.ToInt32(DT1.Rows[i]["ColorID"]), ElegantBoxesDT, ref DeyingDT, " ШУФ");
                 CollectDeying(Convert.ToInt32(DT1.Rows[i]["ColorID"]), ElegantGridsDT, ref DeyingDT, " РЕШ");
+            }
+
+            using (DataView DV = new DataView(Patricia1OrdersDT, string.Empty, "ColorID", DataViewRowState.CurrentRows))
+            {
+                DT1.Clear();
+                DT1 = DV.ToTable(true, new string[] { "ColorID" });
+            }
+            for (int i = 0; i < DT1.Rows.Count; i++)
+            {
+                CollectDeying(Convert.ToInt32(DT1.Rows[i]["ColorID"]), Patricia1SimpleDT, ref DeyingDT, string.Empty);
+                CollectDeying(Convert.ToInt32(DT1.Rows[i]["ColorID"]), Patricia1BoxesDT, ref DeyingDT, " ШУФ");
+                CollectDeying(Convert.ToInt32(DT1.Rows[i]["ColorID"]), Patricia1GridsDT, ref DeyingDT, " РЕШ");
             }
 
             using (DataView DV = new DataView(KansasOrdersDT, string.Empty, "ColorID", DataViewRowState.CurrentRows))
@@ -41344,7 +41450,7 @@ AND FrontID=" + Convert.ToInt32(Front) +
             HSSFCellStyle Calibri11CS, HSSFCellStyle CalibriBold11CS, HSSFFont CalibriBold11F, HSSFCellStyle TableHeaderCS, HSSFCellStyle TableHeaderDecCS,
             int WorkAssignmentID, string BatchName)
         {
-            DataTable DistMainOrdersDT = DistMainOrdersTable(LorenzoOrdersDT, ElegantOrdersDT, KansasOrdersDT, SofiaOrdersDT, Turin1OrdersDT, Turin1_1OrdersDT, Turin3OrdersDT, LeonOrdersDT, InfinitiOrdersDT, DakotaOrdersDT, true);
+            DataTable DistMainOrdersDT = DistMainOrdersTable(LorenzoOrdersDT, ElegantOrdersDT, Patricia1OrdersDT, KansasOrdersDT, SofiaOrdersDT, Turin1OrdersDT, Turin1_1OrdersDT, Turin3OrdersDT, LeonOrdersDT, InfinitiOrdersDT, DakotaOrdersDT, true);
             DataTable DT = KansasOrdersDT.Clone();
             DataTable DT1 = new DataTable();
             DataTable ZOVOrdersNames = new DataTable();
@@ -41461,6 +41567,32 @@ AND FrontID=" + Convert.ToInt32(Front) +
 
                         DT.Clear();
                         rows = ElegantGridsDT.Select("MainOrderID=" + MainOrderID);
+                        foreach (DataRow item in rows)
+                            DT.Rows.Add(item.ItemArray);
+                        CollectDeying(Convert.ToInt32(DT1.Rows[j]["ColorID"]), DT, ref DeyingDT, " РЕШ");
+                    }
+
+                    using (DataView DV = new DataView(Patricia1OrdersDT, "MainOrderID=" + MainOrderID, "ColorID", DataViewRowState.CurrentRows))
+                    {
+                        DT1.Clear();
+                        DT1 = DV.ToTable(true, new string[] { "ColorID" });
+                    }
+                    for (int j = 0; j < DT1.Rows.Count; j++)
+                    {
+                        DT.Clear();
+                        DataRow[] rows = Patricia1SimpleDT.Select("MainOrderID=" + MainOrderID);
+                        foreach (DataRow item in rows)
+                            DT.Rows.Add(item.ItemArray);
+                        CollectDeying(Convert.ToInt32(DT1.Rows[j]["ColorID"]), DT, ref DeyingDT, string.Empty);
+
+                        DT.Clear();
+                        rows = Patricia1BoxesDT.Select("MainOrderID=" + MainOrderID);
+                        foreach (DataRow item in rows)
+                            DT.Rows.Add(item.ItemArray);
+                        CollectDeying(Convert.ToInt32(DT1.Rows[j]["ColorID"]), DT, ref DeyingDT, " ШУФ");
+
+                        DT.Clear();
+                        rows = Patricia1GridsDT.Select("MainOrderID=" + MainOrderID);
                         foreach (DataRow item in rows)
                             DT.Rows.Add(item.ItemArray);
                         CollectDeying(Convert.ToInt32(DT1.Rows[j]["ColorID"]), DT, ref DeyingDT, " РЕШ");
@@ -41756,6 +41888,32 @@ AND FrontID=" + Convert.ToInt32(Front) +
                         CollectDeying(Convert.ToInt32(DT1.Rows[j]["ColorID"]), DT, ref DeyingDT, " РЕШ");
                     }
 
+                    using (DataView DV = new DataView(Patricia1OrdersDT, "MainOrderID=" + MainOrderID, "ColorID", DataViewRowState.CurrentRows))
+                    {
+                        DT1.Clear();
+                        DT1 = DV.ToTable(true, new string[] { "ColorID" });
+                    }
+                    for (int j = 0; j < DT1.Rows.Count; j++)
+                    {
+                        DT.Clear();
+                        DataRow[] rows = Patricia1SimpleDT.Select("MainOrderID=" + MainOrderID);
+                        foreach (DataRow item in rows)
+                            DT.Rows.Add(item.ItemArray);
+                        CollectDeying(Convert.ToInt32(DT1.Rows[j]["ColorID"]), DT, ref DeyingDT, string.Empty);
+
+                        DT.Clear();
+                        rows = Patricia1BoxesDT.Select("MainOrderID=" + MainOrderID);
+                        foreach (DataRow item in rows)
+                            DT.Rows.Add(item.ItemArray);
+                        CollectDeying(Convert.ToInt32(DT1.Rows[j]["ColorID"]), DT, ref DeyingDT, " ШУФ");
+
+                        DT.Clear();
+                        rows = Patricia1GridsDT.Select("MainOrderID=" + MainOrderID);
+                        foreach (DataRow item in rows)
+                            DT.Rows.Add(item.ItemArray);
+                        CollectDeying(Convert.ToInt32(DT1.Rows[j]["ColorID"]), DT, ref DeyingDT, " РЕШ");
+                    }
+
                     using (DataView DV = new DataView(KansasOrdersDT, "MainOrderID=" + MainOrderID, "ColorID", DataViewRowState.CurrentRows))
                     {
                         DT1.Clear();
@@ -42023,6 +42181,32 @@ AND FrontID=" + Convert.ToInt32(Front) +
 
                     DT.Clear();
                     rows = ElegantGridsDT.Select("MainOrderID=" + MainOrderID);
+                    foreach (DataRow item in rows)
+                        DT.Rows.Add(item.ItemArray);
+                    CollectDeying(Convert.ToInt32(DT1.Rows[j]["ColorID"]), DT, ref DeyingDT, " РЕШ");
+                }
+
+                using (DataView DV = new DataView(Patricia1OrdersDT, "MainOrderID=" + MainOrderID, "ColorID", DataViewRowState.CurrentRows))
+                {
+                    DT1.Clear();
+                    DT1 = DV.ToTable(true, new string[] { "ColorID" });
+                }
+                for (int j = 0; j < DT1.Rows.Count; j++)
+                {
+                    DT.Clear();
+                    DataRow[] rows = Patricia1SimpleDT.Select("MainOrderID=" + MainOrderID);
+                    foreach (DataRow item in rows)
+                        DT.Rows.Add(item.ItemArray);
+                    CollectDeying(Convert.ToInt32(DT1.Rows[j]["ColorID"]), DT, ref DeyingDT, string.Empty);
+
+                    DT.Clear();
+                    rows = Patricia1BoxesDT.Select("MainOrderID=" + MainOrderID);
+                    foreach (DataRow item in rows)
+                        DT.Rows.Add(item.ItemArray);
+                    CollectDeying(Convert.ToInt32(DT1.Rows[j]["ColorID"]), DT, ref DeyingDT, " ШУФ");
+
+                    DT.Clear();
+                    rows = Patricia1GridsDT.Select("MainOrderID=" + MainOrderID);
                     foreach (DataRow item in rows)
                         DT.Rows.Add(item.ItemArray);
                     CollectDeying(Convert.ToInt32(DT1.Rows[j]["ColorID"]), DT, ref DeyingDT, " РЕШ");
@@ -47477,12 +47661,11 @@ AND FrontID=" + Convert.ToInt32(Front) +
             HSSFCellStyle Calibri11CS, HSSFCellStyle CalibriBold11CS, HSSFFont CalibriBold11F, HSSFCellStyle TableHeaderCS, HSSFCellStyle TableHeaderDecCS,
             int WorkAssignmentID, string BatchName)
         {
-            if (LorenzoCurvedOrdersDT.Rows.Count == 0 && ElegantCurvedOrdersDT.Rows.Count == 0 && KansasCurvedOrdersDT.Rows.Count == 0 && SofiaCurvedOrdersDT.Rows.Count == 0 && DakotaCurvedOrdersDT.Rows.Count == 0 && Turin1CurvedOrdersDT.Rows.Count == 0 && Turin1_1CurvedOrdersDT.Rows.Count == 0
+            if (LorenzoCurvedOrdersDT.Rows.Count == 0 && ElegantCurvedOrdersDT.Rows.Count == 0 && Patricia1CurvedOrdersDT.Rows.Count == 0 && KansasCurvedOrdersDT.Rows.Count == 0 && SofiaCurvedOrdersDT.Rows.Count == 0 && DakotaCurvedOrdersDT.Rows.Count == 0 && Turin1CurvedOrdersDT.Rows.Count == 0 && Turin1_1CurvedOrdersDT.Rows.Count == 0
                 && Turin3CurvedOrdersDT.Rows.Count == 0 && InfinitiCurvedOrdersDT.Rows.Count == 0)
                 return;
 
-            DataTable DistMainOrdersDT = DistMainOrdersTable(LorenzoCurvedOrdersDT, ElegantCurvedOrdersDT, KansasCurvedOrdersDT, SofiaCurvedOrdersDT,
-                Turin1CurvedOrdersDT, Turin1_1CurvedOrdersDT, Turin3CurvedOrdersDT, Turin3CurvedOrdersDT.Clone(), InfinitiCurvedOrdersDT, DakotaCurvedOrdersDT, true);
+            DataTable DistMainOrdersDT = DistMainOrdersTable(LorenzoCurvedOrdersDT, ElegantCurvedOrdersDT, Patricia1CurvedOrdersDT, KansasCurvedOrdersDT, SofiaCurvedOrdersDT, Turin1CurvedOrdersDT, Turin1_1CurvedOrdersDT, Turin3CurvedOrdersDT, Turin3CurvedOrdersDT.Clone(), InfinitiCurvedOrdersDT, DakotaCurvedOrdersDT, true);
             DataTable DT = KansasCurvedOrdersDT.Clone();
             DataTable ZOVOrdersNames = new DataTable();
             DataTable MarketOrdersNames = new DataTable();
@@ -47529,6 +47712,8 @@ AND FrontID=" + Convert.ToInt32(Front) +
                     DT.Rows.Add(item.ItemArray);
                 foreach (DataRow item in ElegantCurvedOrdersDT.Select("GroupType=0"))
                     DT.Rows.Add(item.ItemArray);
+                foreach (DataRow item in Patricia1CurvedOrdersDT.Select("GroupType=0"))
+                    DT.Rows.Add(item.ItemArray);
                 foreach (DataRow item in KansasCurvedOrdersDT.Select("GroupType=0"))
                     DT.Rows.Add(item.ItemArray);
                 foreach (DataRow item in SofiaCurvedOrdersDT.Select("GroupType=0"))
@@ -47570,6 +47755,8 @@ AND FrontID=" + Convert.ToInt32(Front) +
                     foreach (DataRow item1 in LorenzoCurvedOrdersDT.Select("MainOrderID=" + MainOrderID))
                         DT.Rows.Add(item1.ItemArray);
                     foreach (DataRow item1 in ElegantCurvedOrdersDT.Select("MainOrderID=" + MainOrderID))
+                        DT.Rows.Add(item1.ItemArray);
+                    foreach (DataRow item1 in Patricia1CurvedOrdersDT.Select("MainOrderID=" + MainOrderID))
                         DT.Rows.Add(item1.ItemArray);
                     foreach (DataRow item1 in KansasCurvedOrdersDT.Select("MainOrderID=" + MainOrderID))
                         DT.Rows.Add(item1.ItemArray);
@@ -47649,6 +47836,8 @@ AND FrontID=" + Convert.ToInt32(Front) +
                     DT.Rows.Add(item.ItemArray);
                 foreach (DataRow item in ElegantCurvedOrdersDT.Select("GroupType=1"))
                     DT.Rows.Add(item.ItemArray);
+                foreach (DataRow item in Patricia1CurvedOrdersDT.Select("GroupType=1"))
+                    DT.Rows.Add(item.ItemArray);
                 foreach (DataRow item in KansasCurvedOrdersDT.Select("GroupType=1"))
                     DT.Rows.Add(item.ItemArray);
                 foreach (DataRow item in SofiaCurvedOrdersDT.Select("GroupType=1"))
@@ -47690,6 +47879,8 @@ AND FrontID=" + Convert.ToInt32(Front) +
                     foreach (DataRow item1 in LorenzoCurvedOrdersDT.Select("MainOrderID=" + MainOrderID))
                         DT.Rows.Add(item1.ItemArray);
                     foreach (DataRow item1 in ElegantCurvedOrdersDT.Select("MainOrderID=" + MainOrderID))
+                        DT.Rows.Add(item1.ItemArray);
+                    foreach (DataRow item1 in Patricia1CurvedOrdersDT.Select("MainOrderID=" + MainOrderID))
                         DT.Rows.Add(item1.ItemArray);
                     foreach (DataRow item1 in KansasCurvedOrdersDT.Select("MainOrderID=" + MainOrderID))
                         DT.Rows.Add(item1.ItemArray);

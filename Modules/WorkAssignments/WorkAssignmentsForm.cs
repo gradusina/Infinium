@@ -2733,8 +2733,7 @@ namespace Infinium
             for (int i = 0; i < dgvFrontsSummary.Rows.Count; i++)
             {
                 int FrontID = Convert.ToInt32(dgvFrontsSummary.Rows[i].Cells["FrontID"].Value);
-                if (FrontID == Convert.ToInt32(Fronts.Lorenzo) || FrontID == Convert.ToInt32(Fronts.Elegant) || FrontID == Convert.ToInt32(Fronts.KansasPat) ||
-                    FrontID == Convert.ToInt32(Fronts.Kansas) || FrontID == Convert.ToInt32(Fronts.Infiniti) ||
+                if (FrontID == Convert.ToInt32(Fronts.Lorenzo) || FrontID == Convert.ToInt32(Fronts.Elegant) || FrontID == Convert.ToInt32(Fronts.Elegant) || FrontID == Convert.ToInt32(Fronts.KansasPat) || FrontID == Convert.ToInt32(Fronts.Kansas) || FrontID == Convert.ToInt32(Fronts.Infiniti) ||
                     FrontID == Convert.ToInt32(Fronts.Dakota) || FrontID == Convert.ToInt32(Fronts.DakotaPat) || FrontID == Convert.ToInt32(Fronts.Sofia) || FrontID == Convert.ToInt32(Fronts.Turin1) || FrontID == Convert.ToInt32(Fronts.Turin1_1) || FrontID == Convert.ToInt32(Fronts.Turin3) ||
                     FrontID == Convert.ToInt32(Fronts.LeonTPS) || FrontID == Convert.ToInt32(Fronts.InfinitiPat))
                     FrontsID.Add(Convert.ToInt32(dgvFrontsSummary.Rows[i].Cells["FrontID"].Value));
@@ -3929,8 +3928,7 @@ namespace Infinium
             for (int i = 0; i < dgvFrontsSummary.SelectedRows.Count; i++)
             {
                 int FrontID = Convert.ToInt32(dgvFrontsSummary.SelectedRows[i].Cells["FrontID"].Value);
-                if (FrontID == Convert.ToInt32(Fronts.Lorenzo) || FrontID == Convert.ToInt32(Fronts.Elegant) || FrontID == Convert.ToInt32(Fronts.KansasPat) ||
-                    FrontID == Convert.ToInt32(Fronts.Kansas) || FrontID == Convert.ToInt32(Fronts.Infiniti) ||
+                if (FrontID == Convert.ToInt32(Fronts.Lorenzo) || FrontID == Convert.ToInt32(Fronts.Elegant) || FrontID == Convert.ToInt32(Fronts.Elegant) || FrontID == Convert.ToInt32(Fronts.KansasPat) || FrontID == Convert.ToInt32(Fronts.Kansas) || FrontID == Convert.ToInt32(Fronts.Infiniti) ||
                     FrontID == Convert.ToInt32(Fronts.Dakota) || FrontID == Convert.ToInt32(Fronts.DakotaPat) || FrontID == Convert.ToInt32(Fronts.Sofia) || FrontID == Convert.ToInt32(Fronts.Turin1) || FrontID == Convert.ToInt32(Fronts.Turin1_1) || FrontID == Convert.ToInt32(Fronts.Turin3) ||
                     FrontID == Convert.ToInt32(Fronts.LeonTPS) || FrontID == Convert.ToInt32(Fronts.InfinitiPat))
                     FrontsID.Add(Convert.ToInt32(dgvFrontsSummary.SelectedRows[i].Cells["FrontID"].Value));

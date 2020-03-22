@@ -4573,11 +4573,11 @@ namespace Infinium.Modules.Marketing.NewOrders
             int Length, int Height, int Width, int Count, string Notes)
         {
 
-            //if ((Height < 50 || Width < 50) && (DecorID == 29278))
-            //{
-            //    MessageBox.Show("Высота и ширина фасада не могут быть меньше 30 мм", "Добавление фасада");
-            //    return;
-            //}
+            if ((Height < 50 || Width < 50) && (DecorID == 4012 || DecorID == 4013))
+            {
+                MessageBox.Show("Высота и ширина вставки не могут быть меньше 50 мм", "Добавление вставки");
+                return;
+            }
 
             int index = DecorCatalogOrder.DecorProductsBindingSource.Find("ProductID", ProductID);
 
@@ -4631,7 +4631,7 @@ namespace Infinium.Modules.Marketing.NewOrders
 
         public void AddDecorOrderFromSizeTable(ref PercentageDataGrid DataGrid,
             int MainOrderID, int ProductID, int DecorID, int ColorID, int PatinaID, int InsetTypeID, int InsetColorID, string Notes)
-        {
+       {
             int index = DecorCatalogOrder.DecorProductsBindingSource.Find("ProductID", ProductID);
 
             for (int i = 0; i < DecorCatalogOrder.DecorProductsDataTable.Rows.Count; i++)
@@ -4649,11 +4649,18 @@ namespace Infinium.Modules.Marketing.NewOrders
             DateTime CreateDateTime = Security.GetCurrentDate();
             for (int i = 0; i < DataGrid.Rows.Count - 1; i++)
             {
-                DataRow NewRow = DecorItemOrdersDataTables[index].NewRow();
 
                 Height = Convert.ToInt32(DataGrid.Rows[i].Cells["HeightColumn"].Value);
                 Width = Convert.ToInt32(DataGrid.Rows[i].Cells["WidthColumn"].Value);
                 Count = Convert.ToInt32(DataGrid.Rows[i].Cells["CountColumn"].Value);
+
+                if ((Height < 50 || Width < 50) && (DecorID == 4012 || DecorID == 4013))
+                {
+                    MessageBox.Show("Высота и ширина вставки не могут быть меньше 50 мм", "Добавление вставки");
+                    continue;
+                }
+
+                DataRow NewRow = DecorItemOrdersDataTables[index].NewRow();
 
                 NewRow["CreateDateTime"] = CreateDateTime;
                 NewRow["CreateUserTypeID"] = 0;
@@ -9772,7 +9779,7 @@ namespace Infinium.Modules.Marketing.NewOrders
                         BYN = Convert.ToDecimal(DT.Rows[0]["BYN"]);
                         USDRUB = Convert.ToDecimal(DT.Rows[0]["USDRUB"]);
 
-                        BYN = 2.54m;
+                        //BYN = 2.54m;
                     }
                     else
                         RateExist = false;
@@ -9792,7 +9799,7 @@ namespace Infinium.Modules.Marketing.NewOrders
                     using (SqlCommandBuilder CB = new SqlCommandBuilder(DA))
                     {
                         DA.Fill(DT);
-                        BYN = 2.54m;
+                        //BYN = 2.54m;
 
                         DataRow Row = DT.NewRow();
                         Row["Date"] = DateTime;
