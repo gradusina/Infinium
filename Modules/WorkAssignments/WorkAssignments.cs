@@ -4411,6 +4411,7 @@ DecorOrders.DecorConfigID, DecorOrders.FactoryID, DecorOrders.Notes, DecorConfig
         DataTable BergamoGridsDT;
         DataTable BergamoSimpleDT;
         DataTable BergamoOrdersDT;
+        DataTable BergamoGlassDT;
 
         DataTable ep041VitrinaDT;
         DataTable ep041GridsDT;
@@ -4518,6 +4519,13 @@ DecorOrders.DecorConfigID, DecorOrders.FactoryID, DecorOrders.Notes, DecorConfig
         DataTable FatSimpleDT;
         DataTable FatOrdersDT;
 
+        DataTable Additional1DT;
+        DataTable Additional2DT;
+        DataTable Additional3DT;
+        DataTable Additional4DT;
+        DataTable Additional5DT;
+
+
         ArrayList FrontsID;
 
         public ProfilAngle45Assignments()
@@ -4564,6 +4572,7 @@ DecorOrders.DecorConfigID, DecorOrders.FactoryID, DecorOrders.Notes, DecorConfig
             BergamoGridsDT = new DataTable();
             BergamoSimpleDT = new DataTable();
             BergamoOrdersDT = new DataTable();
+            BergamoGlassDT = new DataTable();
 
             ep041VitrinaDT = new DataTable();
             ep071VitrinaDT = new DataTable();
@@ -4670,6 +4679,22 @@ DecorOrders.DecorConfigID, DecorOrders.FactoryID, DecorOrders.Notes, DecorConfig
             FatGridsDT = new DataTable();
             FatSimpleDT = new DataTable();
             FatOrdersDT = new DataTable();
+
+            Additional1DT = new DataTable();
+            Additional1DT.Columns.Add(new DataColumn("Profile", Type.GetType("System.String")));
+            Additional1DT.Columns.Add(new DataColumn("Color", Type.GetType("System.String")));
+            Additional1DT.Columns.Add(new DataColumn("InsetColor", Type.GetType("System.String")));
+            Additional1DT.Columns.Add(new DataColumn("Height", Type.GetType("System.Int32")));
+            Additional1DT.Columns.Add(new DataColumn("Width", Type.GetType("System.Int32")));
+            Additional1DT.Columns.Add(new DataColumn("Count", Type.GetType("System.Int32")));
+            Additional1DT.Columns.Add(new DataColumn("Square", Type.GetType("System.Decimal")));
+            Additional1DT.Columns.Add(new DataColumn("Worker", Type.GetType("System.String")));
+            Additional1DT.Columns.Add(new DataColumn("ColorID", Type.GetType("System.Int32")));
+            Additional1DT.Columns.Add(new DataColumn("TechnoInsetColorID", Type.GetType("System.Int32")));
+            Additional2DT = Additional1DT.Clone();
+            Additional3DT = Additional1DT.Clone();
+            Additional4DT = Additional1DT.Clone();
+            Additional5DT = Additional1DT.Clone();
 
             RapidDT = new DataTable();
             RapidDT.Columns.Add(new DataColumn("Front", Type.GetType("System.String")));
@@ -4884,6 +4909,7 @@ DecorOrders.DecorConfigID, DecorOrders.FactoryID, DecorOrders.Notes, DecorConfig
                 BergamoGridsDT = LeonOrdersDT.Clone();
                 BergamoSimpleDT = LeonOrdersDT.Clone();
                 BergamoOrdersDT = LeonOrdersDT.Clone();
+                BergamoGlassDT = LeonOrdersDT.Clone();
 
                 ep041VitrinaDT = LeonOrdersDT.Clone();
                 ep071VitrinaDT = LeonOrdersDT.Clone();
@@ -5549,9 +5575,9 @@ DecorOrders.DecorConfigID, DecorOrders.FactoryID, DecorOrders.Notes, DecorConfig
         {
             DataTable DT2 = new DataTable();
 
-            using (DataView DV = new DataView(SourceDT, "ColorID=" + ColorID, "ColorID, TechnoColorID, InsetTypeID, InsetColorID, Height, Width", DataViewRowState.CurrentRows))
+            using (DataView DV = new DataView(SourceDT, "ColorID=" + ColorID, "ColorID, TechnoColorID, InsetTypeID, InsetColorID, TechnoInsetTypeID, TechnoInsetColorID, Height, Width", DataViewRowState.CurrentRows))
             {
-                DT2 = DV.ToTable(true, new string[] { "ColorID", "TechnoColorID", "InsetTypeID", "InsetColorID", "Height", "Width" });
+                DT2 = DV.ToTable(true, new string[] { "ColorID", "TechnoColorID", "InsetTypeID", "InsetColorID", "TechnoInsetTypeID", "TechnoInsetColorID", "Height", "Width" });
             }
             for (int j = 0; j < DT2.Rows.Count; j++)
             {
@@ -5561,7 +5587,8 @@ DecorOrders.DecorConfigID, DecorOrders.FactoryID, DecorOrders.Notes, DecorConfig
                 string InsetColor = string.Empty;
                 //витрины
                 DataRow[] rows = SourceDT.Select("ColorID=" + ColorID + " AND TechnoColorID=" + Convert.ToInt32(DT2.Rows[j]["TechnoColorID"]) + " AND InsetTypeID=" + Convert.ToInt32(DT2.Rows[j]["InsetTypeID"]) +
-                    " AND InsetColorID=" + Convert.ToInt32(DT2.Rows[j]["InsetColorID"]) + " AND Height=" + Convert.ToInt32(DT2.Rows[j]["Height"]) +
+                    " AND InsetColorID=" + Convert.ToInt32(DT2.Rows[j]["InsetColorID"]) + " AND TechnoInsetTypeID=" + Convert.ToInt32(DT2.Rows[j]["TechnoInsetTypeID"]) +
+                    " AND TechnoInsetColorID=" + Convert.ToInt32(DT2.Rows[j]["TechnoInsetColorID"]) + " AND Height=" + Convert.ToInt32(DT2.Rows[j]["Height"]) +
                     " AND Width=" + Convert.ToInt32(DT2.Rows[j]["Width"]));
                 foreach (DataRow item in rows)
                 {
@@ -5571,6 +5598,9 @@ DecorOrders.DecorConfigID, DecorOrders.FactoryID, DecorOrders.Notes, DecorConfig
                 Square = Decimal.Round(Square, 3, MidpointRounding.AwayFromZero);
                 Color = GetInsetColorName(Convert.ToInt32(rows[0]["InsetColorID"]));
                 InsetColor = GetInsetTypeName(Convert.ToInt32(rows[0]["InsetTypeID"])) + " " + Color;
+
+                if (Convert.ToInt32(DT2.Rows[j]["InsetTypeID"])  == 2 && Convert.ToInt32(DT2.Rows[j]["TechnoInsetTypeID"]) != -1)
+                    InsetColor = GetInsetTypeName(Convert.ToInt32(DT2.Rows[j]["TechnoInsetTypeID"])) + " " + GetInsetColorName(Convert.ToInt32(DT2.Rows[j]["InsetColorID"]));
                 //int GroupID = Convert.ToInt32(ItemInsetTypesDataTable.Select("InsetTypeID=" + Convert.ToInt32(DT2.Rows[j]["InsetTypeID"]))[0]["GroupID"]);
                 //if (GroupID == 7 || GroupID == 8)
                 //    InsetColor = "фил " + GetInsetTypeName(Convert.ToInt32(rows[0]["InsetTypeID"])) + " " + Color;
@@ -5673,15 +5703,16 @@ DecorOrders.DecorConfigID, DecorOrders.FactoryID, DecorOrders.Notes, DecorConfig
                     {
                         using (DataView DV = new DataView(SourceDT, "InsetTypeID=" + Convert.ToInt32(DT2.Rows[j]["InsetTypeID"]), string.Empty, DataViewRowState.CurrentRows))
                         {
-                            DT3 = DV.ToTable(true, new string[] { "InsetColorID" });
+                            DT3 = DV.ToTable(true, new string[] { "InsetColorID", "TechnoInsetTypeID", "TechnoInsetColorID" });
                             for (int x = 0; x < DT3.Rows.Count; x++)
                             {
                                 DataRow[] rows = SourceDT.Select("ColorID=" + Convert.ToInt32(DT1.Rows[i]["ColorID"]) +
-                                    " AND InsetTypeID=" + Convert.ToInt32(DT2.Rows[j]["InsetTypeID"]) + " AND InsetColorID=" + Convert.ToInt32(DT3.Rows[x]["InsetColorID"]));
+                                    " AND InsetTypeID=" + Convert.ToInt32(DT2.Rows[j]["InsetTypeID"]) + " AND InsetColorID=" + Convert.ToInt32(DT3.Rows[x]["InsetColorID"]) + " AND TechnoInsetTypeID=" + Convert.ToInt32(DT3.Rows[x]["TechnoInsetTypeID"]) + " AND TechnoInsetColorID=" + Convert.ToInt32(DT3.Rows[x]["TechnoInsetColorID"]));
 
                                 if (rows.Count() > 0)
                                 {
                                     InsetTypeID = Convert.ToInt32(DT2.Rows[j]["InsetTypeID"]);
+                                    int TechnoInsetTypeID = Convert.ToInt32(DT3.Rows[x]["TechnoInsetTypeID"]);
                                     FrameColor = GetColorName(Convert.ToInt32(rows[0]["ColorID"]));
                                     int GroupID = Convert.ToInt32(InsetTypesDataTable.Select("InsetTypeID=" + InsetTypeID)[0]["GroupID"]);
                                     switch (GroupID)
@@ -5724,6 +5755,10 @@ DecorOrders.DecorConfigID, DecorOrders.FactoryID, DecorOrders.Notes, DecorConfig
                                             break;
                                     }
 
+
+                                    if (InsetTypeID == 2 && TechnoInsetTypeID != -1)
+                                        InsetColor = GetInsetTypeName(TechnoInsetTypeID) + " " + GetInsetColorName(Convert.ToInt32(DT3.Rows[x]["InsetColorID"]));
+
                                     ColName = FrameColor + "(" + InsetColor + ")_" + FrontType;
                                     if (!DestinationDT.Columns.Contains(ColName))
                                         DestinationDT.Columns.Add(new DataColumn(ColName, Type.GetType("System.String")));
@@ -5732,6 +5767,7 @@ DecorOrders.DecorConfigID, DecorOrders.FactoryID, DecorOrders.Notes, DecorConfig
 
                                     DataRow[] Srows = SourceDT.Select("ColorID=" + Convert.ToInt32(DT1.Rows[i]["ColorID"]) +
                                         " AND InsetTypeID=" + Convert.ToInt32(DT2.Rows[j]["InsetTypeID"]) + " AND InsetColorID=" + Convert.ToInt32(DT3.Rows[x]["InsetColorID"]) +
+                                        " AND TechnoInsetTypeID=" + Convert.ToInt32(DT3.Rows[x]["TechnoInsetTypeID"]) + " AND TechnoInsetColorID=" + Convert.ToInt32(DT3.Rows[x]["TechnoInsetColorID"]) +
                                         " AND Height=" + Convert.ToInt32(DistinctSizesDT.Rows[y]["Height"]) + " AND Width=" + Convert.ToInt32(DistinctSizesDT.Rows[y]["Width"]));
                                     if (Srows.Count() > 0)
                                     {
@@ -7415,6 +7451,72 @@ DecorOrders.DecorConfigID, DecorOrders.FactoryID, DecorOrders.Notes, DecorConfig
             SummOrdersDT.Rows[SummOrdersDT.Rows.Count - 2]["TotalAmount"] = TotalSquare;
         }
 
+        private void SummaryOrders(DataTable SourceDT, DataTable SimpleDT, DataTable VitrinaDT, DataTable GridsDT, DataTable GlassDT, string FrontName, ref decimal AllSquare)
+        {
+            SummOrdersDT.Dispose();
+            SummOrdersDT = new DataTable();
+            SummOrdersDT.Columns.Add(new DataColumn("Sizes", Type.GetType("System.String")));
+            SummOrdersDT.Columns.Add(new DataColumn("Height", Type.GetType("System.Int32")));
+            SummOrdersDT.Columns.Add(new DataColumn("Width", Type.GetType("System.Int32")));
+
+            DataRow NewRow1 = SummOrdersDT.NewRow();
+            NewRow1["Sizes"] = "Профиль";
+            SummOrdersDT.Rows.Add(NewRow1);
+
+            DataTable DistinctSizesDT = DistSizesTable(SourceDT, true);
+
+            CollectOrders(DistinctSizesDT, SimpleDT, ref SummOrdersDT, 2, FrontName);
+            CollectOrders(DistinctSizesDT, VitrinaDT, ref SummOrdersDT, 1, FrontName);
+            CollectOrders(DistinctSizesDT, GridsDT, ref SummOrdersDT, 3, FrontName);
+            CollectOrders(DistinctSizesDT, GlassDT, ref SummOrdersDT, 4, FrontName);
+            SummOrdersDT.Columns.Add(new DataColumn("TotalAmount", Type.GetType("System.String")));
+
+            using (DataView DV = new DataView(SummOrdersDT.Copy()))
+            {
+                SummOrdersDT.Clear();
+                DV.Sort = "Height, Width";
+                SummOrdersDT = DV.ToTable();
+            }
+
+            DataRow NewRow2 = SummOrdersDT.NewRow();
+            NewRow2["Sizes"] = "Квадратура";
+            SummOrdersDT.Rows.Add(NewRow2);
+
+            DataRow NewRow3 = SummOrdersDT.NewRow();
+            NewRow3["Sizes"] = "Кол-во";
+            SummOrdersDT.Rows.Add(NewRow3);
+
+            decimal TotalSquare = 0;
+            int TotalCount = 0;
+
+            for (int y = 0; y < SummOrdersDT.Columns.Count; y++)
+            {
+                if (SummOrdersDT.Columns[y].ColumnName == "Sizes" || SummOrdersDT.Columns[y].ColumnName == "TotalAmount"
+                    || SummOrdersDT.Columns[y].ColumnName == "Height" || SummOrdersDT.Columns[y].ColumnName == "Width")
+                    continue;
+                decimal Square = 0;
+                int Count = 0;
+
+                for (int x = 0; x < SummOrdersDT.Rows.Count; x++)
+                {
+                    if (SummOrdersDT.Rows[x]["Height"] != DBNull.Value && SummOrdersDT.Rows[x]["Width"] != DBNull.Value && SummOrdersDT.Rows[x][y] != DBNull.Value)
+                    {
+                        Square += Convert.ToDecimal(SummOrdersDT.Rows[x]["Height"]) * Convert.ToDecimal(SummOrdersDT.Rows[x]["Width"]) * Convert.ToDecimal(SummOrdersDT.Rows[x][y]) / 1000000;
+                        Count += Convert.ToInt32(SummOrdersDT.Rows[x][y]);
+                        TotalSquare += Convert.ToDecimal(SummOrdersDT.Rows[x]["Height"]) * Convert.ToDecimal(SummOrdersDT.Rows[x]["Width"]) * Convert.ToDecimal(SummOrdersDT.Rows[x][y]) / 1000000;
+                        TotalCount += Convert.ToInt32(SummOrdersDT.Rows[x][y]);
+                    }
+                }
+                Square = Decimal.Round(Square, 3, MidpointRounding.AwayFromZero);
+                SummOrdersDT.Rows[SummOrdersDT.Rows.Count - 1][y] = Count;
+                SummOrdersDT.Rows[SummOrdersDT.Rows.Count - 2][y] = Square;
+            }
+            AllSquare += TotalSquare;
+            TotalSquare = Decimal.Round(TotalSquare, 3, MidpointRounding.AwayFromZero);
+            SummOrdersDT.Rows[SummOrdersDT.Rows.Count - 1]["TotalAmount"] = TotalCount;
+            SummOrdersDT.Rows[SummOrdersDT.Rows.Count - 2]["TotalAmount"] = TotalSquare;
+        }
+
         private void AllInsets(DataTable SourceDT, ref DataTable DestinationDT, int Margin, bool OrderASC)
         {
             DataTable DT1 = new DataTable();
@@ -8405,6 +8507,8 @@ DecorOrders.DecorConfigID, DecorOrders.FactoryID, DecorOrders.Notes, DecorConfig
             GetVitrinaFronts(BergamoOrdersDT, ref BergamoVitrinaDT);
             BergamoGridsDT.Clear();
             GetGridFronts(BergamoOrdersDT, ref BergamoGridsDT);
+            BergamoGlassDT.Clear();
+            GetGlassFronts(BergamoOrdersDT, ref BergamoGlassDT);
 
             ep041SimpleDT.Clear();
             GetSimpleFronts(ep041OrdersDT, ref ep041SimpleDT);
@@ -8641,6 +8745,7 @@ DecorOrders.DecorConfigID, DecorOrders.FactoryID, DecorOrders.Notes, DecorConfig
                 AssemblySingly(Convert.ToInt32(DistFrameColorsDT.Rows[i]["ColorID"]), BergamoSimpleDT, ref DT1);
                 AssemblySingly(Convert.ToInt32(DistFrameColorsDT.Rows[i]["ColorID"]), BergamoVitrinaDT, ref DT2);
                 AssemblySingly(Convert.ToInt32(DistFrameColorsDT.Rows[i]["ColorID"]), BergamoGridsDT, ref DT1);
+                AssemblySingly(Convert.ToInt32(DistFrameColorsDT.Rows[i]["ColorID"]), BergamoGlassDT, ref DT1);
             }
             DistFrameColorsDT.Clear();
             DistFrameColorsDT = DistFrameColorsTable(ep041OrdersDT, true);
@@ -8824,6 +8929,9 @@ DecorOrders.DecorConfigID, DecorOrders.FactoryID, DecorOrders.Notes, DecorConfig
                 Calibri11CS, CalibriBold11CS, CalibriBold11F, TableHeaderCS, TableHeaderDecCS,
                 WorkAssignmentID, DispatchDate, BatchName, ClientName);
 
+            AdditionsToExcel(ref hssfworkbook,
+                        Calibri11CS, CalibriBold11CS, CalibriBold11F, TableHeaderCS, TableHeaderDecCS, WorkAssignmentID, BatchName, ClientName);
+
             AssemblyToExcel(ref hssfworkbook,
                 Calibri11CS, CalibriBold11CS, CalibriBold11F, TableHeaderCS, TableHeaderDecCS,
                 DT1, DT2, WorkAssignmentID, DispatchDate, BatchName, ClientName);
@@ -8875,6 +8983,383 @@ DecorOrders.DecorConfigID, DecorOrders.FactoryID, DecorOrders.Notes, DecorConfig
             }
             sFileName = sFileName + sExtension;
             return sFileName;
+        }
+
+        private void AdditionsSyngly(DataTable SourceDT, ref DataTable DestinationDT, string Profile, string InsetColor, int Margin)
+        {
+            DataTable DT1 = new DataTable();
+
+            using (DataView DV = new DataView(SourceDT))
+            {
+                DT1 = DV.ToTable(true, new string[] { "ColorID", "TechnoInsetColorID", "Height", "Width" });
+            }
+
+            for (int i = 0; i < DT1.Rows.Count; i++)
+            {
+                DataRow[] Srows = SourceDT.Select("ColorID=" + Convert.ToInt32(DT1.Rows[i]["ColorID"]) +
+                    " AND TechnoInsetColorID=" + Convert.ToInt32(DT1.Rows[i]["TechnoInsetColorID"]) + " AND Width=" + Convert.ToInt32(DT1.Rows[i]["Width"]) +
+                    " AND Height=" + Convert.ToInt32(DT1.Rows[i]["Height"]));
+                if (Srows.Count() > 0)
+                {
+                    int Count = 0;
+
+                    foreach (DataRow item in Srows)
+                        Count += Convert.ToInt32(item["Count"]);
+
+                    int Height = Convert.ToInt32(DT1.Rows[i]["Height"]) - Margin;
+                    int Width = Convert.ToInt32(DT1.Rows[i]["Width"]) - Margin;
+
+                    decimal Square = Convert.ToDecimal(Height) * Convert.ToDecimal(Width) * Convert.ToDecimal(Count) / 1000000;
+                    Square = Decimal.Round(Square, 3, MidpointRounding.AwayFromZero);
+
+                    DataRow[] rows = DestinationDT.Select("ColorID=" + Convert.ToInt32(DT1.Rows[i]["ColorID"]) +
+                    " AND TechnoInsetColorID=" + Convert.ToInt32(DT1.Rows[i]["TechnoInsetColorID"]) + " AND Width=" + Width + " AND Height=" + Height);
+                    if (rows.Count() == 0)
+                    {
+                        DataRow NewRow = DestinationDT.NewRow();
+                        NewRow["Profile"] = Profile;
+                        NewRow["Color"] = "-";
+                        NewRow["InsetColor"] = InsetColor;
+                        NewRow["Height"] = Height;
+                        NewRow["Width"] = Width;
+                        NewRow["Count"] = Count;
+                        NewRow["Square"] = Square;
+                        NewRow["ColorID"] = Convert.ToInt32(DT1.Rows[i]["ColorID"]);
+                        NewRow["TechnoInsetColorID"] = Convert.ToInt32(DT1.Rows[i]["TechnoInsetColorID"]);
+                        DestinationDT.Rows.Add(NewRow);
+                    }
+                    else
+                    {
+                        rows[0]["Count"] = Convert.ToInt32(rows[0]["Count"]) + Count;
+                        rows[0]["Square"] = Convert.ToDecimal(rows[0]["Square"]) + Square;
+                    }
+                }
+            }
+            DT1.Dispose();
+        }
+
+        private void CollectAdditions1(ref DataTable DestinationDT, int Margin)
+        {
+            if (BergamoGlassDT.Rows.Count > 0)
+                AdditionsSyngly(BergamoGlassDT, ref DestinationDT, "Стекло 4 мм", "-", Margin);
+
+            for (int i = 1; i < DestinationDT.Rows.Count; i++)
+            {
+                if (Convert.ToInt32(DestinationDT.Rows[i]["Profile"]) == Convert.ToInt32(DestinationDT.Rows[i - 1]["Profile"]) &&
+                    Convert.ToInt32(DestinationDT.Rows[i]["Color"]) == Convert.ToInt32(DestinationDT.Rows[i - 1]["Color"]))
+                {
+                    DestinationDT.Rows[i]["Profile"] = string.Empty;
+                    DestinationDT.Rows[i]["Color"] = string.Empty;
+                }
+            }
+        }
+
+        private void CollectAdditions2(ref DataTable DestinationDT, int Margin)
+        {
+            if (BergamoGlassDT.Rows.Count > 0)
+                AdditionsSyngly(BergamoGlassDT, ref DestinationDT, "МДФ 3 мм", "-", Margin);
+
+            for (int i = 1; i < DestinationDT.Rows.Count; i++)
+            {
+                if (Convert.ToInt32(DestinationDT.Rows[i]["Profile"]) == Convert.ToInt32(DestinationDT.Rows[i - 1]["Profile"]) &&
+                    Convert.ToInt32(DestinationDT.Rows[i]["Color"]) == Convert.ToInt32(DestinationDT.Rows[i - 1]["Color"]))
+                {
+                    DestinationDT.Rows[i]["Profile"] = string.Empty;
+                    DestinationDT.Rows[i]["Color"] = string.Empty;
+                }
+            }
+        }
+
+        private void CollectAdditions3(ref DataTable DestinationDT, int Margin)
+        {
+            if (BergamoGlassDT.Rows.Count > 0)
+                AdditionsSyngly(BergamoGlassDT, ref DestinationDT, "МДФ 3 мм", "ПП Дубок", Margin);
+
+            for (int i = 1; i < DestinationDT.Rows.Count; i++)
+            {
+                if (Convert.ToInt32(DestinationDT.Rows[i]["Profile"]) == Convert.ToInt32(DestinationDT.Rows[i - 1]["Profile"]) &&
+                    Convert.ToInt32(DestinationDT.Rows[i]["Color"]) == Convert.ToInt32(DestinationDT.Rows[i - 1]["Color"]))
+                {
+                    DestinationDT.Rows[i]["Profile"] = string.Empty;
+                    DestinationDT.Rows[i]["Color"] = string.Empty;
+                }
+            }
+        }
+
+        private void CollectAdditions4(ref DataTable DestinationDT, int Margin)
+        {
+            if (BergamoGlassDT.Rows.Count > 0)
+                AdditionsSyngly(BergamoGlassDT, ref DestinationDT, "ПП03-404", "ПП Дубок", Margin);
+
+            for (int i = 1; i < DestinationDT.Rows.Count; i++)
+            {
+                if (Convert.ToInt32(DestinationDT.Rows[i]["Profile"]) == Convert.ToInt32(DestinationDT.Rows[i - 1]["Profile"]) &&
+                    Convert.ToInt32(DestinationDT.Rows[i]["Color"]) == Convert.ToInt32(DestinationDT.Rows[i - 1]["Color"]))
+                {
+                    DestinationDT.Rows[i]["Profile"] = string.Empty;
+                    DestinationDT.Rows[i]["Color"] = string.Empty;
+                }
+            }
+        }
+
+        private void CollectAdditions5(ref DataTable DestinationDT, int Margin)
+        {
+            if (BergamoGlassDT.Rows.Count > 0)
+                AdditionsSyngly(BergamoGlassDT, ref DestinationDT, "ПП03-404", "Сахара", Margin);
+
+            for (int i = 1; i < DestinationDT.Rows.Count; i++)
+            {
+                if (Convert.ToInt32(DestinationDT.Rows[i]["Profile"]) == Convert.ToInt32(DestinationDT.Rows[i - 1]["Profile"]) &&
+                    Convert.ToInt32(DestinationDT.Rows[i]["Color"]) == Convert.ToInt32(DestinationDT.Rows[i - 1]["Color"]))
+                {
+                    DestinationDT.Rows[i]["Profile"] = string.Empty;
+                    DestinationDT.Rows[i]["Color"] = string.Empty;
+                }
+            }
+        }
+
+        public void AdditionsToExcel(ref HSSFWorkbook hssfworkbook,
+            HSSFCellStyle Calibri11CS, HSSFCellStyle CalibriBold11CS, HSSFFont CalibriBold11F, HSSFCellStyle TableHeaderCS, HSSFCellStyle TableHeaderDecCS,
+            int WorkAssignmentID, string BatchName, string ClientName)
+        {
+            Additional1DT.Clear();
+            CollectAdditions1(ref Additional1DT, 138);
+
+            Additional2DT.Clear();
+            CollectAdditions2(ref Additional2DT, 138);
+
+            Additional3DT.Clear();
+            CollectAdditions3(ref Additional3DT, 138);
+
+            Additional4DT.Clear();
+            CollectAdditions4(ref Additional4DT, 138);
+
+            Additional5DT.Clear();
+            CollectAdditions5(ref Additional5DT, 138);
+
+            if (Additional1DT.Rows.Count == 0 && Additional2DT.Rows.Count == 0 && Additional3DT.Rows.Count == 0
+                && Additional4DT.Rows.Count == 0 && Additional5DT.Rows.Count == 0)
+                return;
+
+            int RowIndex = 0;
+
+            HSSFSheet sheet1 = hssfworkbook.CreateSheet("Доп. задания");
+            sheet1.PrintSetup.PaperSize = (short)PaperSizeType.A4;
+
+            sheet1.SetMargin(HSSFSheet.LeftMargin, (double).12);
+            sheet1.SetMargin(HSSFSheet.RightMargin, (double).07);
+            sheet1.SetMargin(HSSFSheet.TopMargin, (double).20);
+            sheet1.SetMargin(HSSFSheet.BottomMargin, (double).20);
+
+            sheet1.SetColumnWidth(0, 25 * 256);
+            sheet1.SetColumnWidth(1, 10 * 256);
+            sheet1.SetColumnWidth(2, 11 * 256);
+            sheet1.SetColumnWidth(3, 11 * 256);
+            sheet1.SetColumnWidth(4, 11 * 256);
+            sheet1.SetColumnWidth(5, 7 * 256);
+            sheet1.SetColumnWidth(6, 11 * 256);
+
+            if (Additional1DT.Rows.Count > 0)
+            {
+                AdditionsToExcelSingly(ref hssfworkbook,
+                    Calibri11CS, CalibriBold11CS, CalibriBold11F, TableHeaderCS, TableHeaderDecCS, ref sheet1, Additional1DT, WorkAssignmentID, BatchName, ClientName, "Резка стекла", "Стекло", ref RowIndex);
+                RowIndex++;
+            }
+
+            if (Additional2DT.Rows.Count > 0)
+            {
+                AdditionsToExcelSingly(ref hssfworkbook,
+                    Calibri11CS, CalibriBold11CS, CalibriBold11F, TableHeaderCS, TableHeaderDecCS, ref sheet1, Additional2DT, WorkAssignmentID, BatchName, ClientName, "Пила", "Пила", ref RowIndex);
+                RowIndex++;
+            }
+
+            if (Additional2DT.Rows.Count > 0)
+            {
+                AdditionsToExcelSingly(ref hssfworkbook,
+                    Calibri11CS, CalibriBold11CS, CalibriBold11F, TableHeaderCS, TableHeaderDecCS, ref sheet1, Additional2DT, WorkAssignmentID, BatchName, ClientName, "Клей", "Клей", ref RowIndex);
+                RowIndex++;
+            }
+
+            if (Additional3DT.Rows.Count > 0)
+            {
+                AdditionsToExcelSingly(ref hssfworkbook,
+                    Calibri11CS, CalibriBold11CS, CalibriBold11F, TableHeaderCS, TableHeaderDecCS, ref sheet1, Additional3DT, WorkAssignmentID, BatchName, ClientName, "Пресс", "Пресс", ref RowIndex);
+                RowIndex++;
+            }
+
+            if (Additional4DT.Rows.Count > 0)
+            {
+                AdditionsToExcelSingly(ref hssfworkbook,
+                    Calibri11CS, CalibriBold11CS, CalibriBold11F, TableHeaderCS, TableHeaderDecCS, ref sheet1, Additional4DT, WorkAssignmentID, BatchName, ClientName, "Фрезерование ПП03-404", "Пресс", ref RowIndex);
+                RowIndex++;
+            }
+
+            if (Additional5DT.Rows.Count > 0)
+            {
+                AdditionsToExcelSingly(ref hssfworkbook,
+                    Calibri11CS, CalibriBold11CS, CalibriBold11F, TableHeaderCS, TableHeaderDecCS, ref sheet1, Additional5DT, WorkAssignmentID, BatchName, ClientName, "Покраска", "Пресс", ref RowIndex);
+            }
+        }
+
+        public void AdditionsToExcelSingly(ref HSSFWorkbook hssfworkbook,
+            HSSFCellStyle Calibri11CS, HSSFCellStyle CalibriBold11CS, HSSFFont CalibriBold11F, HSSFCellStyle TableHeaderCS, HSSFCellStyle TableHeaderDecCS,
+            ref HSSFSheet sheet1, DataTable DT, int WorkAssignmentID, string BatchName, string ClientName, string PageName, string colName, ref int RowIndex)
+        {
+            HSSFCell cell = null;
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex++), 0, "Распечатал: Дата/время " + CurrentDate.ToString("dd.MM.yyyy HH:mm") + " \r\n ФИО: " + Security.CurrentUserShortName);
+            cell.CellStyle = Calibri11CS;
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex++), 0, "Плановое время выполнения:");
+            cell.CellStyle = Calibri11CS;
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex++), 1, "УТВЕРЖДАЮ_____________");
+            cell.CellStyle = Calibri11CS;
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex++), 1, PageName);
+            cell.CellStyle = CalibriBold11CS;
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 0, "Задание №" + WorkAssignmentID.ToString());
+            cell.CellStyle = CalibriBold11CS;
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex++), 1, BatchName);
+            cell.CellStyle = CalibriBold11CS;
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 0, "Клиент:");
+            cell.CellStyle = CalibriBold11CS;
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex++), 1, ClientName);
+            cell.CellStyle = CalibriBold11CS;
+
+            int displayIndex = 0;
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), displayIndex++, "Профиль");
+            cell.CellStyle = TableHeaderCS;
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), displayIndex++, "Цвет профиля");
+            cell.CellStyle = TableHeaderCS;
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), displayIndex++, "Цвет наполнителя");
+            cell.CellStyle = TableHeaderCS;
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), displayIndex++, "Высота");
+            cell.CellStyle = TableHeaderCS;
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), displayIndex++, "Ширина");
+            cell.CellStyle = TableHeaderCS;
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), displayIndex++, "Кол-во");
+            cell.CellStyle = TableHeaderCS;
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), displayIndex++, colName);
+            cell.CellStyle = TableHeaderCS;
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), displayIndex++, "Работник");
+            cell.CellStyle = TableHeaderCS;
+            RowIndex++;
+
+            int CType = 0;
+            int Height = 0;
+            int Width = 0;
+            int Count = 0;
+            int AllTotalAmount = 0;
+            decimal AllTotalSquare = 0;
+
+            if (DT.Rows.Count > 0)
+            {
+                CType = Convert.ToInt32(DT.Rows[0]["TechnoInsetColorID"]);
+            }
+
+            for (int x = 0; x < DT.Rows.Count; x++)
+            {
+                if (DT.Rows[x]["Count"] != DBNull.Value && DT.Rows[x]["Height"] != DBNull.Value && DT.Rows[x]["Width"] != DBNull.Value)
+                {
+                    Count = Convert.ToInt32(DT.Rows[x]["Count"]);
+                    Height = Convert.ToInt32(DT.Rows[x]["Height"]);
+                    Width = Convert.ToInt32(DT.Rows[x]["Width"]);
+                    AllTotalAmount += Convert.ToInt32(DT.Rows[x]["Count"]);
+                    AllTotalSquare += Convert.ToDecimal(DT.Rows[x]["Square"]);
+                }
+
+                for (int y = 0; y < DT.Columns.Count; y++)
+                {
+                    if (DT.Columns[y].ColumnName == "ColorID" || DT.Columns[y].ColumnName == "TechnoInsetColorID")
+                        continue;
+                    Type t = DT.Rows[x][y].GetType();
+
+                    if (t.Name == "Decimal")
+                    {
+                        cell = sheet1.CreateRow(RowIndex).CreateCell(y);
+                        cell.SetCellValue(Convert.ToDouble(DT.Rows[x][y]));
+                        cell.CellStyle = TableHeaderDecCS;
+                        continue;
+                    }
+                    if (t.Name == "Int32")
+                    {
+                        cell = sheet1.CreateRow(RowIndex).CreateCell(y);
+                        cell.SetCellValue(Convert.ToInt32(DT.Rows[x][y]));
+                        cell.CellStyle = TableHeaderCS;
+                        continue;
+                    }
+
+                    if (t.Name == "String" || t.Name == "DBNull")
+                    {
+                        cell = sheet1.CreateRow(RowIndex).CreateCell(y);
+                        cell.SetCellValue(DT.Rows[x][y].ToString());
+                        cell.CellStyle = TableHeaderCS;
+                        continue;
+                    }
+                }
+
+                if (x + 1 <= DT.Rows.Count - 1 && CType != Convert.ToInt32(DT.Rows[x + 1]["TechnoInsetColorID"]))
+                {
+                    RowIndex++;
+                    for (int y = 0; y < DT.Columns.Count; y++)
+                    {
+                        if (DT.Columns[y].ColumnName == "ColorID" || DT.Columns[y].ColumnName == "TechnoInsetColorID")
+                            continue;
+                        cell = sheet1.CreateRow(RowIndex).CreateCell(y);
+                        cell.SetCellValue(string.Empty);
+                        cell.CellStyle = TableHeaderCS;
+                        continue;
+                    }
+                }
+
+                if (x == DT.Rows.Count - 1)
+                {
+                    RowIndex++;
+                    for (int y = 0; y < DT.Columns.Count; y++)
+                    {
+                        if (DT.Columns[y].ColumnName == "ColorID" || DT.Columns[y].ColumnName == "TechnoInsetColorID")
+                            continue;
+                        cell = sheet1.CreateRow(RowIndex).CreateCell(y);
+                        cell.SetCellValue(string.Empty);
+                        cell.CellStyle = TableHeaderCS;
+                        continue;
+                    }
+
+                    RowIndex++;
+                    for (int y = 0; y < DT.Columns.Count; y++)
+                    {
+                        if (DT.Columns[y].ColumnName == "ColorID" || DT.Columns[y].ColumnName == "TechnoInsetColorID")
+                            continue;
+                        cell = sheet1.CreateRow(RowIndex).CreateCell(y);
+                        cell.SetCellValue(string.Empty);
+                        cell.CellStyle = TableHeaderCS;
+                        continue;
+                    }
+
+                    cell = sheet1.CreateRow(RowIndex).CreateCell(0);
+                    cell.SetCellValue("Всего:");
+                    cell.CellStyle = TableHeaderCS;
+
+                    cell = sheet1.CreateRow(RowIndex).CreateCell(5);
+                    cell.SetCellValue(AllTotalAmount);
+                    cell.CellStyle = TableHeaderCS;
+
+                    AllTotalSquare = Decimal.Round(AllTotalSquare, 3, MidpointRounding.AwayFromZero);
+
+                    cell = sheet1.CreateRow(RowIndex).CreateCell(6);
+                    cell.SetCellValue(Convert.ToDouble(AllTotalSquare));
+                    cell.CellStyle = TableHeaderDecCS;
+                }
+                RowIndex++;
+            }
+
+            CalibriBold11CS = hssfworkbook.CreateCellStyle();
+            CalibriBold11CS.BorderBottom = HSSFCellStyle.BORDER_MEDIUM;
+            CalibriBold11CS.BottomBorderColor = HSSFColor.BLACK.index;
+            CalibriBold11CS.BorderLeft = HSSFCellStyle.BORDER_MEDIUM;
+            CalibriBold11CS.LeftBorderColor = HSSFColor.BLACK.index;
+            CalibriBold11CS.BorderRight = HSSFCellStyle.BORDER_MEDIUM;
+            CalibriBold11CS.RightBorderColor = HSSFColor.BLACK.index;
+            CalibriBold11CS.BorderTop = HSSFCellStyle.BORDER_MEDIUM;
+            CalibriBold11CS.TopBorderColor = HSSFColor.BLACK.index;
+            CalibriBold11CS.SetFont(CalibriBold11F);
         }
 
         public void OrdersSummaryInfoToExcel(ref HSSFWorkbook hssfworkbook,
@@ -8944,7 +9429,7 @@ DecorOrders.DecorConfigID, DecorOrders.FactoryID, DecorOrders.Notes, DecorConfig
             if (BergamoOrdersDT.Rows.Count > 0)
             {
                 FrontName = ProfileName(Convert.ToInt32(BergamoOrdersDT.Rows[0]["FrontConfigID"]));
-                SummaryOrders(BergamoOrdersDT, BergamoSimpleDT, BergamoVitrinaDT, BergamoGridsDT, FrontName, ref AllSquare);
+                SummaryOrders(BergamoOrdersDT, BergamoSimpleDT, BergamoVitrinaDT, BergamoGridsDT, BergamoGlassDT, FrontName, ref AllSquare);
                 OrdersToExcelSingly(ref hssfworkbook, ref sheet1,
                         Calibri11CS, CalibriBold11CS, CalibriBold11F, TableHeaderCS, TableHeaderDecCS, WorkAssignmentID, DispatchDate, BatchName, ClientName, ref RowIndex);
                 RowIndex++;
@@ -11672,6 +12157,10 @@ DecorOrders.DecorConfigID, DecorOrders.FactoryID, DecorOrders.Notes, DecorConfig
         DataTable PR3OrdersDT;
         DataTable PRU8OrdersDT;
 
+        DataTable Additional1DT;
+        DataTable Additional2DT;
+        DataTable Additional3DT;
+
         public ProfilAngle90Assignments()
         {
 
@@ -11766,6 +12255,17 @@ DecorOrders.DecorConfigID, DecorOrders.FactoryID, DecorOrders.Notes, DecorConfig
             PR1OrdersDT = new DataTable();
             PR3OrdersDT = new DataTable();
             PRU8OrdersDT = new DataTable();
+
+            Additional1DT = new DataTable();
+            Additional1DT.Columns.Add(new DataColumn("InsetType", Type.GetType("System.String")));
+            Additional1DT.Columns.Add(new DataColumn("InsetColor", Type.GetType("System.String")));
+            Additional1DT.Columns.Add(new DataColumn("Height", Type.GetType("System.Int32")));
+            Additional1DT.Columns.Add(new DataColumn("Width", Type.GetType("System.Int32")));
+            Additional1DT.Columns.Add(new DataColumn("Count", Type.GetType("System.Int32")));
+            Additional1DT.Columns.Add(new DataColumn("TechnoInsetTypeID", Type.GetType("System.Int32")));
+            Additional1DT.Columns.Add(new DataColumn("TechnoInsetColorID", Type.GetType("System.Int32")));
+            Additional2DT = Additional1DT.Clone();
+            Additional3DT = Additional1DT.Clone();
 
             TotalInfoDT = new DataTable();
             TotalInfoDT.Columns.Add(new DataColumn("Front", Type.GetType("System.String")));
@@ -13010,6 +13510,7 @@ AND FrontID=" + Convert.ToInt32(Front) +
                                         FrameColor = GetColorName(Convert.ToInt32(rows[0]["ColorID"])) + "/" + GetColorName(Convert.ToInt32(rows[0]["TechnoColorID"]));
 
                                     int GroupID = Convert.ToInt32(InsetTypesDataTable.Select("InsetTypeID=" + InsetTypeID)[0]["GroupID"]);
+                                    int TechnoGroupID = Convert.ToInt32(InsetTypesDataTable.Select("InsetTypeID=" + Convert.ToInt32(DT4.Rows[c]["TechnoInsetTypeID"]))[0]["GroupID"]);
                                     switch (GroupID)
                                     {
                                         case -1:
@@ -13051,6 +13552,8 @@ AND FrontID=" + Convert.ToInt32(Front) +
                                             InsetColor = GetInsetColorName(Convert.ToInt32(rows[0]["InsetColorID"]));
                                             break;
                                     }
+                                    if (TechnoGroupID == 26)
+                                        InsetColor = GetInsetTypeName(Convert.ToInt32(DT4.Rows[c]["TechnoInsetTypeID"])) + " " + GetInsetColorName(Convert.ToInt32(rows[0]["InsetColorID"]));
 
                                     ColName = FrameColor + "(" + InsetColor + ")_" + FrontType;
                                     if (Impost && Convert.ToInt32(DT1.Rows[i]["TechnoColorID"]) != -1)
@@ -15453,7 +15956,8 @@ AND FrontID=" + Convert.ToInt32(Front) +
                             int Width = Convert.ToInt32(DT4.Rows[y]["Width"]) - WidthMargin;
                             int TechnoInsetColorID = Convert.ToInt32(DT3.Rows[x]["TechnoInsetColorID"]);
 
-                            string InsetColor = GetInsetColorName(Convert.ToInt32(DT2.Rows[j]["InsetColorID"]));
+                            //string InsetColor = GetInsetColorName(Convert.ToInt32(DT2.Rows[j]["InsetColorID"]));
+                            string InsetColor = GetInsetTypeName(Convert.ToInt32(DT1.Rows[i]["InsetTypeID"])) + " " + GetInsetColorName(Convert.ToInt32(DT2.Rows[j]["InsetColorID"]));
                             int GroupID = Convert.ToInt32(InsetTypesDataTable.Select("InsetTypeID=" + Convert.ToInt32(DT1.Rows[i]["InsetTypeID"]))[0]["GroupID"]);
                             if (GroupID == 7 || GroupID == 8)
                             {
@@ -15574,7 +16078,7 @@ AND FrontID=" + Convert.ToInt32(Front) +
                             int Width = Convert.ToInt32(DT4.Rows[y]["Width"]) - WidthMargin;
                             int TechnoInsetColorID = Convert.ToInt32(DT3.Rows[x]["TechnoInsetColorID"]);
 
-                            string InsetColor = GetInsetColorName(Convert.ToInt32(DT2.Rows[j]["InsetColorID"]));
+                            string InsetColor = GetInsetTypeName(Convert.ToInt32(DT1.Rows[i]["InsetTypeID"])) + " " + GetInsetColorName(Convert.ToInt32(DT2.Rows[j]["InsetColorID"]));
                             int GroupID = Convert.ToInt32(InsetTypesDataTable.Select("InsetTypeID=" + Convert.ToInt32(DT1.Rows[i]["InsetTypeID"]))[0]["GroupID"]);
                             //InsetColor = InsetColor.Insert(InsetColor.Length, " 4 мм");
                             if (GroupID == 7 || GroupID == 8)
@@ -15692,7 +16196,7 @@ AND FrontID=" + Convert.ToInt32(Front) +
                             int Width = Convert.ToInt32(DT4.Rows[y]["Width"]);
                             int TechnoInsetColorID = Convert.ToInt32(DT3.Rows[x]["TechnoInsetColorID"]);
 
-                            string InsetColor = GetInsetColorName(Convert.ToInt32(DT2.Rows[j]["InsetColorID"]));
+                            string InsetColor = GetInsetTypeName(Convert.ToInt32(DT1.Rows[i]["InsetTypeID"])) + " " + GetInsetColorName(Convert.ToInt32(DT2.Rows[j]["InsetColorID"]));
                             int GroupID = Convert.ToInt32(InsetTypesDataTable.Select("InsetTypeID=" + Convert.ToInt32(DT1.Rows[i]["InsetTypeID"]))[0]["GroupID"]);
                             //InsetColor = InsetColor.Insert(InsetColor.Length, " 4 мм");
 
@@ -15823,7 +16327,7 @@ AND FrontID=" + Convert.ToInt32(Front) +
                             int Width = Convert.ToInt32(DT4.Rows[y]["Width"]) - InsetWidthMargin;
                             int TechnoInsetColorID = Convert.ToInt32(DT3.Rows[x]["TechnoInsetColorID"]);
 
-                            string InsetColor = GetInsetColorName(Convert.ToInt32(DT2.Rows[j]["InsetColorID"]));
+                            string InsetColor = GetInsetTypeName(Convert.ToInt32(DT1.Rows[i]["InsetTypeID"])) + " " + GetInsetColorName(Convert.ToInt32(DT2.Rows[j]["InsetColorID"]));
                             int GroupID = Convert.ToInt32(InsetTypesDataTable.Select("InsetTypeID=" + Convert.ToInt32(DT1.Rows[i]["InsetTypeID"]))[0]["GroupID"]);
                             //InsetColor = InsetColor.Insert(InsetColor.Length, " 4 мм");
                             if (GroupID == 7 || GroupID == 8)
@@ -15929,7 +16433,7 @@ AND FrontID=" + Convert.ToInt32(Front) +
                             int Height = Convert.ToInt32(DT4.Rows[y]["Height"]) - HeightMargin;
                             int Width = Convert.ToInt32(DT4.Rows[y]["Width"]) - WidthMargin;
                             int TechnoInsetColorID = Convert.ToInt32(DT3.Rows[x]["TechnoInsetColorID"]);
-                            string InsetColor = GetInsetColorName(Convert.ToInt32(DT2.Rows[j]["InsetColorID"]));
+                            string InsetColor = GetInsetTypeName(Convert.ToInt32(DT1.Rows[i]["InsetTypeID"])) + " " + GetInsetColorName(Convert.ToInt32(DT2.Rows[j]["InsetColorID"]));
 
                             if (Height < 10 || Width < 10)
                                 continue;
@@ -16024,7 +16528,7 @@ AND FrontID=" + Convert.ToInt32(Front) +
 
                             int Width = Convert.ToInt32(DT4.Rows[y]["Width"]) - WidthMargin;
                             int TechnoInsetColorID = Convert.ToInt32(DT3.Rows[x]["TechnoInsetColorID"]);
-                            string InsetColor = GetInsetColorName(Convert.ToInt32(DT2.Rows[j]["InsetColorID"]));
+                            string InsetColor = GetInsetTypeName(Convert.ToInt32(DT1.Rows[i]["InsetTypeID"])) + " " + GetInsetColorName(Convert.ToInt32(DT2.Rows[j]["InsetColorID"]));
 
                             //if (Height < 10  || Width < 10)
                             //    continue;
@@ -17759,6 +18263,72 @@ AND FrontID=" + Convert.ToInt32(Front) +
             SummOrdersDT.Rows[SummOrdersDT.Rows.Count - 2]["TotalAmount"] = TotalSquare;
         }
 
+        private void SummaryMarsel5Orders(DataTable SourceDT, DataTable SimpleDT, DataTable VitrinaDT, DataTable GridsDT, DataTable LayoutDT, string FrontName, ref decimal AllSquare)
+        {
+            SummOrdersDT.Dispose();
+            SummOrdersDT = new DataTable();
+            SummOrdersDT.Columns.Add(new DataColumn("Sizes", Type.GetType("System.String")));
+            SummOrdersDT.Columns.Add(new DataColumn("Height", Type.GetType("System.Int32")));
+            SummOrdersDT.Columns.Add(new DataColumn("Width", Type.GetType("System.Int32")));
+
+            DataRow NewRow1 = SummOrdersDT.NewRow();
+            NewRow1["Sizes"] = "Профиль";
+            SummOrdersDT.Rows.Add(NewRow1);
+
+            DataTable DistinctSizesDT = DistSizesTable(SourceDT, true);
+
+            CollectOrders(DistinctSizesDT, SimpleDT, ref SummOrdersDT, 2, FrontName, false);
+            CollectOrders(DistinctSizesDT, VitrinaDT, ref SummOrdersDT, 1, FrontName, false);
+            CollectOrders(DistinctSizesDT, GridsDT, ref SummOrdersDT, 3, FrontName, false);
+            CollectOrders(DistinctSizesDT, LayoutDT, ref SummOrdersDT, 4, FrontName, false);
+            SummOrdersDT.Columns.Add(new DataColumn("TotalAmount", Type.GetType("System.String")));
+
+            using (DataView DV = new DataView(SummOrdersDT.Copy()))
+            {
+                SummOrdersDT.Clear();
+                DV.Sort = "Height, Width";
+                SummOrdersDT = DV.ToTable();
+            }
+
+            DataRow NewRow2 = SummOrdersDT.NewRow();
+            NewRow2["Sizes"] = "Квадратура";
+            SummOrdersDT.Rows.Add(NewRow2);
+
+            DataRow NewRow3 = SummOrdersDT.NewRow();
+            NewRow3["Sizes"] = "Кол-во";
+            SummOrdersDT.Rows.Add(NewRow3);
+
+            decimal TotalSquare = 0;
+            int TotalCount = 0;
+
+            for (int y = 0; y < SummOrdersDT.Columns.Count; y++)
+            {
+                if (SummOrdersDT.Columns[y].ColumnName == "Sizes" || SummOrdersDT.Columns[y].ColumnName == "TotalAmount"
+                    || SummOrdersDT.Columns[y].ColumnName == "Height" || SummOrdersDT.Columns[y].ColumnName == "Width")
+                    continue;
+                decimal Square = 0;
+                int Count = 0;
+
+                for (int x = 0; x < SummOrdersDT.Rows.Count; x++)
+                {
+                    if (SummOrdersDT.Rows[x]["Height"] != DBNull.Value && SummOrdersDT.Rows[x]["Width"] != DBNull.Value && SummOrdersDT.Rows[x][y] != DBNull.Value)
+                    {
+                        Square += Convert.ToDecimal(SummOrdersDT.Rows[x]["Height"]) * Convert.ToDecimal(SummOrdersDT.Rows[x]["Width"]) * Convert.ToDecimal(SummOrdersDT.Rows[x][y]) / 1000000;
+                        Count += Convert.ToInt32(SummOrdersDT.Rows[x][y]);
+                        TotalSquare += Convert.ToDecimal(SummOrdersDT.Rows[x]["Height"]) * Convert.ToDecimal(SummOrdersDT.Rows[x]["Width"]) * Convert.ToDecimal(SummOrdersDT.Rows[x][y]) / 1000000;
+                        TotalCount += Convert.ToInt32(SummOrdersDT.Rows[x][y]);
+                    }
+                }
+                Square = Decimal.Round(Square, 3, MidpointRounding.AwayFromZero);
+                SummOrdersDT.Rows[SummOrdersDT.Rows.Count - 1][y] = Count;
+                SummOrdersDT.Rows[SummOrdersDT.Rows.Count - 2][y] = Square;
+            }
+            AllSquare += TotalSquare;
+            TotalSquare = Decimal.Round(TotalSquare, 3, MidpointRounding.AwayFromZero);
+            SummOrdersDT.Rows[SummOrdersDT.Rows.Count - 1]["TotalAmount"] = TotalCount;
+            SummOrdersDT.Rows[SummOrdersDT.Rows.Count - 2]["TotalAmount"] = TotalSquare;
+        }
+
         private void SummaryMarsel3Orders(DataTable SourceDT, DataTable SimpleDT, DataTable VitrinaDT, DataTable GridsDT, string FrontName, ref decimal AllSquare)
         {
             SummOrdersDT.Dispose();
@@ -18719,6 +19289,9 @@ AND FrontID=" + Convert.ToInt32(Front) +
 
             RapidToExcel(ref hssfworkbook,
                 CalibriBold15CS, Calibri11CS, CalibriBold11CS, CalibriBold11F, TableHeaderCS, TableHeaderDecCS, WorkAssignmentID, DispatchDate, BatchName, ClientName, false, false, false);
+
+            AdditionsToExcel(ref hssfworkbook,
+                        Calibri11CS, CalibriBold11CS, CalibriBold11F, TableHeaderCS, TableHeaderDecCS, WorkAssignmentID, BatchName, ClientName);
 
             InsetToExcel(ref hssfworkbook,
                 CalibriBold15CS, Calibri11CS, CalibriBold11CS, CalibriBold11F, TableHeaderCS, TableHeaderDecCS, WorkAssignmentID, DispatchDate, BatchName, ClientName, false, false, false);
@@ -19730,10 +20303,11 @@ AND FrontID=" + Convert.ToInt32(Front) +
                 RowIndex++;
                 RowIndex++;
             }
+
             if (Marsel5OrdersDT.Rows.Count > 0)
             {
                 FrontName = ProfileName(Convert.ToInt32(Marsel5OrdersDT.Rows[0]["FrontConfigID"]), 1);
-                SummaryMarsel1Orders(Marsel5OrdersDT, Marsel5SimpleDT, Marsel5VitrinaDT, Marsel5GridsDT, FrontName, ref AllSquare);
+                SummaryMarsel5Orders(Marsel5OrdersDT, new DataView(Marsel5SimpleDT, "TechnoInsetTypeID=-1", "", DataViewRowState.CurrentRows).ToTable(), Marsel5VitrinaDT, Marsel5GridsDT, new DataView(Marsel5SimpleDT, "TechnoInsetTypeID<>-1", "", DataViewRowState.CurrentRows).ToTable(), FrontName, ref AllSquare);
                 OrdersToExcelSingly(ref hssfworkbook,
                      CalibriBold15CS, Calibri11CS, CalibriBold11CS, CalibriBold11F, TableHeaderCS, TableHeaderDecCS, ref sheet1, WorkAssignmentID, DispatchDate, BatchName, ClientName, ref RowIndex, IsPR1, IsPR2, IsPR3, IsPRU8);
                 RowIndex++;
@@ -20211,6 +20785,290 @@ AND FrontID=" + Convert.ToInt32(Front) +
                 }
                 RowIndex++;
             }
+        }
+
+        private void AdditionsSyngly(DataTable SourceDT, ref DataTable DestinationDT, int coef)
+        {
+            DataTable DT1 = new DataTable();
+
+            using (DataView DV = new DataView(SourceDT))
+            {
+                DV.RowFilter = "TechnoInsetTypeID<>-1";
+                DT1 = DV.ToTable(true, new string[] { "TechnoInsetTypeID", "TechnoInsetColorID", "Height", "Width" });
+            }
+
+            for (int i = 0; i < DT1.Rows.Count; i++)
+            {
+                DataRow[] Srows = SourceDT.Select("TechnoInsetTypeID=" + Convert.ToInt32(DT1.Rows[i]["TechnoInsetTypeID"]) +
+                    " AND TechnoInsetColorID=" + Convert.ToInt32(DT1.Rows[i]["TechnoInsetColorID"]) + " AND Width=" + Convert.ToInt32(DT1.Rows[i]["Width"]) +
+                    " AND Height=" + Convert.ToInt32(DT1.Rows[i]["Height"]));
+                if (Srows.Count() > 0)
+                {
+                    int Count = 0;
+
+                    foreach (DataRow item in Srows)
+                        Count += Convert.ToInt32(item["Count"]);
+
+                    DataRow[] rows = DestinationDT.Select("TechnoInsetTypeID=" + Convert.ToInt32(DT1.Rows[i]["TechnoInsetTypeID"]) +
+                    " AND TechnoInsetColorID=" + Convert.ToInt32(DT1.Rows[i]["TechnoInsetColorID"]) + " AND Width=" + Convert.ToInt32(DT1.Rows[i]["Width"]) +
+                    " AND Height=" + Convert.ToInt32(DT1.Rows[i]["Height"]));
+                    if (rows.Count() == 0)
+                    {
+                        DataRow NewRow = DestinationDT.NewRow();
+                        NewRow["InsetType"] = GetInsetTypeName(Convert.ToInt32(DT1.Rows[i]["TechnoInsetTypeID"]));
+                        NewRow["InsetColor"] = GetInsetColorName(Convert.ToInt32(DT1.Rows[i]["TechnoInsetColorID"]));
+                        NewRow["Height"] = Convert.ToInt32(DT1.Rows[i]["Height"]);
+                        NewRow["Width"] = Convert.ToInt32(DT1.Rows[i]["Width"]);
+                        NewRow["Count"] = Count * coef;
+                        NewRow["TechnoInsetTypeID"] = Convert.ToInt32(DT1.Rows[i]["TechnoInsetTypeID"]);
+                        NewRow["TechnoInsetColorID"] = Convert.ToInt32(DT1.Rows[i]["TechnoInsetColorID"]);
+                        DestinationDT.Rows.Add(NewRow);
+                    }
+                    else
+                    {
+                        rows[0]["Count"] = Convert.ToInt32(rows[0]["Count"]) + Count * coef;
+                    }
+                }
+            }
+            DT1.Dispose();
+        }
+
+        private void CollectRemovingQuarter(ref DataTable DestinationDT, int coef)
+        {
+            if (Marsel5SimpleDT.Rows.Count > 0)
+                AdditionsSyngly(Marsel5SimpleDT, ref DestinationDT, coef);
+
+            for (int i = 1; i < DestinationDT.Rows.Count; i++)
+            {
+                if (Convert.ToInt32(DestinationDT.Rows[i]["TechnoInsetTypeID"]) == Convert.ToInt32(DestinationDT.Rows[i - 1]["TechnoInsetTypeID"]) &&
+                    Convert.ToInt32(DestinationDT.Rows[i]["TechnoInsetColorID"]) == Convert.ToInt32(DestinationDT.Rows[i - 1]["TechnoInsetColorID"]))
+                {
+                    DestinationDT.Rows[i]["InsetType"] = string.Empty;
+                    DestinationDT.Rows[i]["InsetColor"] = string.Empty;
+                }
+            }
+        }
+
+        public void AdditionsToExcel(ref HSSFWorkbook hssfworkbook,
+            HSSFCellStyle Calibri11CS, HSSFCellStyle CalibriBold11CS, HSSFFont CalibriBold11F, HSSFCellStyle TableHeaderCS, HSSFCellStyle TableHeaderDecCS,
+            int WorkAssignmentID, string BatchName, string ClientName)
+        {
+            Additional1DT.Clear();
+            CollectRemovingQuarter(ref Additional1DT, 1);
+
+            Additional2DT.Clear();
+            CollectRemovingQuarter(ref Additional2DT, 3);
+
+            Additional3DT.Clear();
+            CollectRemovingQuarter(ref Additional3DT, 1);
+
+            if (Additional1DT.Rows.Count == 0 && Additional2DT.Rows.Count == 0 && Additional3DT.Rows.Count == 0)
+                return;
+
+            int RowIndex = 0;
+
+            HSSFSheet sheet1 = hssfworkbook.CreateSheet("Доп. задания");
+            sheet1.PrintSetup.PaperSize = (short)PaperSizeType.A4;
+
+            sheet1.SetMargin(HSSFSheet.LeftMargin, (double).12);
+            sheet1.SetMargin(HSSFSheet.RightMargin, (double).07);
+            sheet1.SetMargin(HSSFSheet.TopMargin, (double).20);
+            sheet1.SetMargin(HSSFSheet.BottomMargin, (double).20);
+
+            sheet1.SetColumnWidth(0, 25 * 256);
+            sheet1.SetColumnWidth(1, 11 * 256);
+            sheet1.SetColumnWidth(2, 11 * 256);
+            sheet1.SetColumnWidth(3, 11 * 256);
+            sheet1.SetColumnWidth(4, 7 * 256);
+            sheet1.SetColumnWidth(5, 11 * 256);
+
+            DataTable DT = new DataTable();
+            DataColumn Col1 = DT.Columns.Add("Col1", System.Type.GetType("System.String"));
+
+            if (Additional1DT.Rows.Count > 0)
+            {
+                DT.Dispose();
+                Col1.Dispose();
+                DT = Additional1DT.Copy();
+                Col1 = DT.Columns.Add("Col1", System.Type.GetType("System.String"));
+                Col1.SetOrdinal(5);
+
+                AdditionsToExcelSingly(ref hssfworkbook,
+                    Calibri11CS, CalibriBold11CS, CalibriBold11F, TableHeaderCS, TableHeaderDecCS, ref sheet1, DT, WorkAssignmentID, BatchName, ClientName, "Comec", ref RowIndex);
+                RowIndex++;
+            }
+
+            if (Additional2DT.Rows.Count > 0)
+            {
+                DT.Dispose();
+                Col1.Dispose();
+                DT = Additional2DT.Copy();
+                Col1 = DT.Columns.Add("Col1", System.Type.GetType("System.String"));
+                Col1.SetOrdinal(5);
+
+                AdditionsToExcelSingly(ref hssfworkbook,
+                    Calibri11CS, CalibriBold11CS, CalibriBold11F, TableHeaderCS, TableHeaderDecCS, ref sheet1, DT, WorkAssignmentID, BatchName, ClientName, "Покраска торцов ремяк раскладки из ПФ-36 (2 слоя)", ref RowIndex);
+                RowIndex++;
+            }
+
+            if (Additional3DT.Rows.Count > 0)
+            {
+                DT.Dispose();
+                Col1.Dispose();
+                DT = Additional3DT.Copy();
+                Col1 = DT.Columns.Add("Col1", System.Type.GetType("System.String"));
+                Col1.SetOrdinal(5);
+
+                AdditionsToExcelSingly(ref hssfworkbook,
+                    Calibri11CS, CalibriBold11CS, CalibriBold11F, TableHeaderCS, TableHeaderDecCS, ref sheet1, DT, WorkAssignmentID, BatchName, ClientName, "Приклеивание ремяк раскладки из ПФ-36", ref RowIndex);
+            }
+        }
+
+        public void AdditionsToExcelSingly(ref HSSFWorkbook hssfworkbook,
+            HSSFCellStyle Calibri11CS, HSSFCellStyle CalibriBold11CS, HSSFFont CalibriBold11F, HSSFCellStyle TableHeaderCS, HSSFCellStyle TableHeaderDecCS,
+            ref HSSFSheet sheet1, DataTable DT, int WorkAssignmentID, string BatchName, string ClientName, string PageName, ref int RowIndex)
+        {
+            HSSFCell cell = null;
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex++), 0, "Распечатал: Дата/время " + CurrentDate.ToString("dd.MM.yyyy HH:mm") + " \r\n ФИО: " + Security.CurrentUserShortName);
+            cell.CellStyle = Calibri11CS;
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex++), 0, "Плановое время выполнения:");
+            cell.CellStyle = Calibri11CS;
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex++), 1, "УТВЕРЖДАЮ_____________");
+            cell.CellStyle = Calibri11CS;
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex++), 1, PageName);
+            cell.CellStyle = CalibriBold11CS;
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 0, "Задание №" + WorkAssignmentID.ToString());
+            cell.CellStyle = CalibriBold11CS;
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex++), 1, BatchName);
+            cell.CellStyle = CalibriBold11CS;
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 0, "Клиент:");
+            cell.CellStyle = CalibriBold11CS;
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex++), 1, ClientName);
+            cell.CellStyle = CalibriBold11CS;
+
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 0, "Профиль");
+            cell.CellStyle = TableHeaderCS;
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 1, "Цвет профиля");
+            cell.CellStyle = TableHeaderCS;
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 2, "Высота (фасада)");
+            cell.CellStyle = TableHeaderCS;
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 3, "Ширина (фасада)");
+            cell.CellStyle = TableHeaderCS;
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 4, "Кол-во");
+            cell.CellStyle = TableHeaderCS;
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 5, "Работник");
+            cell.CellStyle = TableHeaderCS;
+            RowIndex++;
+
+            int CType = 0;
+            int AllTotalAmount = 0;
+            int Count = 0;
+            int Height = 0;
+
+            if (DT.Rows.Count > 0)
+            {
+                CType = Convert.ToInt32(DT.Rows[0]["TechnoInsetColorID"]);
+            }
+
+            for (int x = 0; x < DT.Rows.Count; x++)
+            {
+                if (DT.Rows[x]["Count"] != DBNull.Value && DT.Rows[x]["Height"] != DBNull.Value)
+                {
+                    Count = Convert.ToInt32(DT.Rows[x]["Count"]);
+                    Height = Convert.ToInt32(DT.Rows[x]["Height"]);
+                    AllTotalAmount += Convert.ToInt32(DT.Rows[x]["Count"]);
+                    Count = Convert.ToInt32(DT.Rows[x]["Count"]);
+                }
+
+                for (int y = 0; y < DT.Columns.Count; y++)
+                {
+                    if (DT.Columns[y].ColumnName == "TechnoInsetTypeID" || DT.Columns[y].ColumnName == "TechnoInsetColorID")
+                        continue;
+                    Type t = DT.Rows[x][y].GetType();
+
+                    if (t.Name == "Decimal")
+                    {
+                        cell = sheet1.CreateRow(RowIndex).CreateCell(y);
+                        cell.SetCellValue(Convert.ToDouble(DT.Rows[x][y]));
+                        cell.CellStyle = TableHeaderDecCS;
+                        continue;
+                    }
+                    if (t.Name == "Int32")
+                    {
+                        cell = sheet1.CreateRow(RowIndex).CreateCell(y);
+                        cell.SetCellValue(Convert.ToInt32(DT.Rows[x][y]));
+                        cell.CellStyle = TableHeaderCS;
+                        continue;
+                    }
+
+                    if (t.Name == "String" || t.Name == "DBNull")
+                    {
+                        cell = sheet1.CreateRow(RowIndex).CreateCell(y);
+                        cell.SetCellValue(DT.Rows[x][y].ToString());
+                        cell.CellStyle = TableHeaderCS;
+                        continue;
+                    }
+                }
+
+                if (x + 1 <= DT.Rows.Count - 1 && CType != Convert.ToInt32(DT.Rows[x + 1]["TechnoInsetColorID"]))
+                {
+                    RowIndex++;
+                    for (int y = 0; y < DT.Columns.Count; y++)
+                    {
+                        if (DT.Columns[y].ColumnName == "TechnoInsetTypeID" || DT.Columns[y].ColumnName == "TechnoInsetColorID")
+                            continue;
+                        cell = sheet1.CreateRow(RowIndex).CreateCell(y);
+                        cell.SetCellValue(string.Empty);
+                        cell.CellStyle = TableHeaderCS;
+                        continue;
+                    }
+                }
+
+                if (x == DT.Rows.Count - 1)
+                {
+                    RowIndex++;
+                    for (int y = 0; y < DT.Columns.Count; y++)
+                    {
+                        if (DT.Columns[y].ColumnName == "TechnoInsetTypeID" || DT.Columns[y].ColumnName == "TechnoInsetColorID")
+                            continue;
+                        cell = sheet1.CreateRow(RowIndex).CreateCell(y);
+                        cell.SetCellValue(string.Empty);
+                        cell.CellStyle = TableHeaderCS;
+                        continue;
+                    }
+
+                    RowIndex++;
+                    for (int y = 0; y < DT.Columns.Count; y++)
+                    {
+                        if (DT.Columns[y].ColumnName == "TechnoInsetTypeID" || DT.Columns[y].ColumnName == "TechnoInsetColorID")
+                            continue;
+                        cell = sheet1.CreateRow(RowIndex).CreateCell(y);
+                        cell.SetCellValue(string.Empty);
+                        cell.CellStyle = TableHeaderCS;
+                        continue;
+                    }
+
+                    cell = sheet1.CreateRow(RowIndex).CreateCell(0);
+                    cell.SetCellValue("Всего:");
+                    cell.CellStyle = TableHeaderCS;
+
+                    cell = sheet1.CreateRow(RowIndex).CreateCell(4);
+                    cell.SetCellValue(AllTotalAmount);
+                    cell.CellStyle = TableHeaderCS;
+                }
+                RowIndex++;
+            }
+
+            CalibriBold11CS = hssfworkbook.CreateCellStyle();
+            CalibriBold11CS.BorderBottom = HSSFCellStyle.BORDER_MEDIUM;
+            CalibriBold11CS.BottomBorderColor = HSSFColor.BLACK.index;
+            CalibriBold11CS.BorderLeft = HSSFCellStyle.BORDER_MEDIUM;
+            CalibriBold11CS.LeftBorderColor = HSSFColor.BLACK.index;
+            CalibriBold11CS.BorderRight = HSSFCellStyle.BORDER_MEDIUM;
+            CalibriBold11CS.RightBorderColor = HSSFColor.BLACK.index;
+            CalibriBold11CS.BorderTop = HSSFCellStyle.BORDER_MEDIUM;
+            CalibriBold11CS.TopBorderColor = HSSFColor.BLACK.index;
+            CalibriBold11CS.SetFont(CalibriBold11F);
         }
 
         public void MartinToExcel1(ref HSSFWorkbook hssfworkbook, ref HSSFSheet sheet1, ref int RowIndex,
@@ -21189,7 +22047,7 @@ AND FrontID=" + Convert.ToInt32(Front) +
             if (DT.Rows.Count > 0)
             {
                 Assembly1ToExcelSingly(ref hssfworkbook, ref sheet1,
-                    CalibriBold15CS, Calibri11CS, CalibriBold11CS, CalibriBold11F, TableHeaderCS, TableHeaderDecCS, DT, WorkAssignmentID, DispatchDate, BatchName, ClientName, "Зачистка", ref RowIndex, false, IsPR1, IsPR3, IsPRU8);
+                    CalibriBold15CS, Calibri11CS, CalibriBold11CS, CalibriBold11F, TableHeaderCS, TableHeaderDecCS, DT, WorkAssignmentID, DispatchDate, BatchName, ClientName, "Зачистка", ref RowIndex, true, IsPR1, IsPR3, IsPRU8);
             }
 
             RowIndex = 0;
@@ -21234,7 +22092,7 @@ AND FrontID=" + Convert.ToInt32(Front) +
             if (DT.Rows.Count > 0)
             {
                 Assembly2ToExcelSingly(ref hssfworkbook, ref sheet2,
-                   CalibriBold15CS, Calibri11CS, CalibriBold11CS, CalibriBold11F, TableHeaderCS, TableHeaderDecCS, DT, WorkAssignmentID, DispatchDate, BatchName, ClientName, "Сборка", ref RowIndex, false, IsPR1, IsPR3, IsPRU8);
+                   CalibriBold15CS, Calibri11CS, CalibriBold11CS, CalibriBold11F, TableHeaderCS, TableHeaderDecCS, DT, WorkAssignmentID, DispatchDate, BatchName, ClientName, "Сборка", ref RowIndex, true, IsPR1, IsPR3, IsPRU8);
             }
         }
 
@@ -39922,9 +40780,9 @@ AND FrontID=" + Convert.ToInt32(Front) +
         private void CollectGrooveGrids(ref DataTable DestinationDT, bool OrderASC)
         {
             if (Turin1GridsDT.Rows.Count > 0)
-                AdditionsSyngly(Turin1GridsDT, ref GrooveGridsDT);
+                AdditionsSyngly(Turin1GridsDT, ref DestinationDT);
             if (Turin1_1GridsDT.Rows.Count > 0)
-                AdditionsSyngly(Turin1_1GridsDT, ref GrooveGridsDT);
+                AdditionsSyngly(Turin1_1GridsDT, ref DestinationDT);
 
             for (int i = 1; i < DestinationDT.Rows.Count; i++)
             {

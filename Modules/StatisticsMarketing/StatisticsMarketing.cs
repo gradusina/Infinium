@@ -29546,23 +29546,6 @@ ORDER BY infiniu2_marketingreference.dbo.Clients.ClientName, dbo.MegaOrders.Orde
                     MDSampleFilter = " AND DecorOrders.IsSample = 0";
             }
 
-            //MarketingSelectCommand = "SELECT FrontsOrdersID, FrontsOrders.MainOrderID, FrontsOrders.FrontID, FrontsOrders.PatinaID, FrontsOrders.ColorID, FrontsOrders.InsetTypeID," +
-            //    " FrontsOrders.InsetColorID, FrontsOrders.TechnoColorID, FrontsOrders.TechnoInsetTypeID, FrontsOrders.TechnoInsetColorID, FrontsOrders.Height, FrontsOrders.Width, PackageDetails.Count, (FrontsOrders.Square * PackageDetails.Count / FrontsOrders.Count) AS Square, MeasureID, (FrontsOrders.Cost * PackageDetails.Count / FrontsOrders.Count) AS Cost, ClientID FROM PackageDetails" +
-            //    " INNER JOIN FrontsOrders ON PackageDetails.OrderID = FrontsOrders.FrontsOrdersID" +
-            //    " INNER JOIN MainOrders ON FrontsOrders.MainOrderID = MainOrders.MainOrderID" +
-            //    " INNER JOIN MegaOrders ON MainOrders.MegaOrderID = MegaOrders.MegaOrderID" +
-            //    " INNER JOIN infiniu2_catalog.dbo.FrontsConfig" +
-            //    " ON FrontsOrders.FrontConfigID=infiniu2_catalog.dbo.FrontsConfig.FrontConfigID" +
-            //    " WHERE " + MFrontsPackageFilter + MFSampleFilter + " AND FrontsOrders.MainOrderID IN (SELECT MainOrderID FROM MainOrders WHERE MegaOrderID IN" +
-            //    " (SELECT MegaOrderID FROM MegaOrders " + MClientFilter + " )) ORDER BY FrontsOrdersID";
-
-            //using (SqlDataAdapter DA = new SqlDataAdapter(MarketingSelectCommand,
-            //    ConnectionStrings.MarketingOrdersConnectionString))
-            //{
-            //    FrontsOrdersDataTable.Clear();
-            //    DA.Fill(FrontsOrdersDataTable);
-            //}
-
             MarketingSelectCommand = "SELECT MegaOrders.MegaOrderID, MegaOrders.OrderNumber, FrontsOrdersID, FrontsOrders.MainOrderID, FrontsOrders.FrontID, FrontsOrders.PatinaID, FrontsOrders.ColorID, FrontsOrders.InsetTypeID," +
                 " FrontsOrders.InsetColorID, FrontsOrders.TechnoColorID, FrontsOrders.TechnoInsetTypeID, FrontsOrders.TechnoInsetColorID, FrontsOrders.Height, FrontsOrders.Width," +
                 " PackageDetails.Count, FrontsOrders.IsSample, (FrontsOrders.Square * PackageDetails.Count / FrontsOrders.Count) AS Square, MeasureID, (FrontsOrders.Cost * PackageDetails.Count / FrontsOrders.Count) AS Cost, ClientID, JoinMainOrders.ZOVClientID FROM PackageDetails" +
@@ -31723,14 +31706,17 @@ ORDER BY infiniu2_marketingreference.dbo.Clients.ClientName, dbo.MegaOrders.Orde
 
             string ZFSampleFilter = string.Empty;
             string ZDSampleFilter = string.Empty;
-            if (IsSample)
-                ZFSampleFilter = " FrontsOrders.IsSample = 1 AND";
-            if (IsNotSample)
-                ZFSampleFilter = " FrontsOrders.IsSample = 0 AND";
-            if (IsSample)
-                ZDSampleFilter = " (DecorOrders.IsSample = 1 OR (DecorOrders.ProductID=42 AND DecorOrders.IsSample = 0)) AND";
-            if (IsNotSample)
-                ZDSampleFilter = " DecorOrders.IsSample = 0 AND";
+            if (!IsSample || !IsNotSample)
+            {
+                if (IsSample)
+                    ZFSampleFilter = " FrontsOrders.IsSample = 1 AND";
+                if (IsNotSample)
+                    ZFSampleFilter = " FrontsOrders.IsSample = 0 AND";
+                if (IsSample)
+                    ZDSampleFilter = " (DecorOrders.IsSample = 1 OR (DecorOrders.ProductID=42 AND DecorOrders.IsSample = 0)) AND";
+                if (IsNotSample)
+                    ZDSampleFilter = " DecorOrders.IsSample = 0 AND";
+            }
 
             ZOVSelectCommand = "SELECT FrontsOrders.FrontID, FrontsOrders.PatinaID, FrontsOrders.ColorID, FrontsOrders.InsetTypeID," +
                 " FrontsOrders.InsetColorID, FrontsOrders.TechnoColorID, FrontsOrders.TechnoInsetTypeID, FrontsOrders.TechnoInsetColorID, " +
@@ -31834,14 +31820,17 @@ ORDER BY infiniu2_marketingreference.dbo.Clients.ClientName, dbo.MegaOrders.Orde
 
             string ZFSampleFilter = string.Empty;
             string ZDSampleFilter = string.Empty;
-            if (IsSample)
-                ZFSampleFilter = " NewFrontsOrders.IsSample = 1 AND";
-            if (IsNotSample)
-                ZFSampleFilter = " NewFrontsOrders.IsSample = 0 AND";
-            if (IsSample)
-                ZDSampleFilter = " (NewDecorOrders.IsSample = 1 OR (NewDecorOrders.ProductID=42 AND NewDecorOrders.IsSample = 0)) AND";
-            if (IsNotSample)
-                ZDSampleFilter = " NewDecorOrders.IsSample = 0 AND";
+            if (!IsSample || !IsNotSample)
+            {
+                if (IsSample)
+                    ZFSampleFilter = " NewFrontsOrders.IsSample = 1 AND";
+                if (IsNotSample)
+                    ZFSampleFilter = " NewFrontsOrders.IsSample = 0 AND";
+                if (IsSample)
+                    ZDSampleFilter = " (NewDecorOrders.IsSample = 1 OR (NewDecorOrders.ProductID=42 AND NewDecorOrders.IsSample = 0)) AND";
+                if (IsNotSample)
+                    ZDSampleFilter = " NewDecorOrders.IsSample = 0 AND";
+            }
 
             ZOVSelectCommand = "SELECT NewFrontsOrders.FrontID, NewFrontsOrders.PatinaID, NewFrontsOrders.ColorID, NewFrontsOrders.InsetTypeID," +
                 " NewFrontsOrders.InsetColorID, NewFrontsOrders.TechnoColorID, NewFrontsOrders.TechnoInsetTypeID, NewFrontsOrders.TechnoInsetColorID, " +
@@ -31949,15 +31938,17 @@ ORDER BY infiniu2_marketingreference.dbo.Clients.ClientName, dbo.MegaOrders.Orde
 
             string ZFSampleFilter = string.Empty;
             string ZDSampleFilter = string.Empty;
-            if (IsSample)
-                ZFSampleFilter = " FrontsOrders.IsSample = 1 AND";
-            if (IsNotSample)
-                ZFSampleFilter = " FrontsOrders.IsSample = 0 AND";
-            if (IsSample)
-                ZDSampleFilter = " (DecorOrders.IsSample = 1 OR (DecorOrders.ProductID=42 AND DecorOrders.IsSample = 0)) AND";
-            if (IsNotSample)
-                ZDSampleFilter = " DecorOrders.IsSample = 0 AND";
-
+            if (!IsSample || !IsNotSample)
+            {
+                if (IsSample)
+                    ZFSampleFilter = " FrontsOrders.IsSample = 1 AND";
+                if (IsNotSample)
+                    ZFSampleFilter = " FrontsOrders.IsSample = 0 AND";
+                if (IsSample)
+                    ZDSampleFilter = " (DecorOrders.IsSample = 1 OR (DecorOrders.ProductID=42 AND DecorOrders.IsSample = 0)) AND";
+                if (IsNotSample)
+                    ZDSampleFilter = " DecorOrders.IsSample = 0 AND";
+            }
             ZOVSelectCommand = "SELECT FrontsOrders.FrontID, FrontsOrders.PatinaID, FrontsOrders.ColorID, FrontsOrders.InsetTypeID," +
                 " FrontsOrders.InsetColorID, FrontsOrders.TechnoColorID, FrontsOrders.TechnoInsetTypeID, FrontsOrders.TechnoInsetColorID, " +
                 " FrontsOrders.Height, FrontsOrders.Width, FrontsOrders.Count, FrontsOrders.IsSample, FrontsOrders.Square, FrontsOrders.Cost, MeasureID, JoinMainOrders.ZOVClientID, JoinMainOrders.DocNumber FROM FrontsOrders" +
@@ -32051,14 +32042,17 @@ ORDER BY infiniu2_marketingreference.dbo.Clients.ClientName, dbo.MegaOrders.Orde
 
             string ZFSampleFilter = string.Empty;
             string ZDSampleFilter = string.Empty;
-            if (IsSample)
-                ZFSampleFilter = " FrontsOrders.IsSample = 1 AND";
-            if (IsNotSample)
-                ZFSampleFilter = " FrontsOrders.IsSample = 0 AND";
-            if (IsSample)
-                ZDSampleFilter = " (DecorOrders.IsSample = 1 OR (DecorOrders.ProductID=42 AND DecorOrders.IsSample = 0)) AND";
-            if (IsNotSample)
-                ZDSampleFilter = " DecorOrders.IsSample = 0 AND";
+            if (!IsSample || !IsNotSample)
+            {
+                if (IsSample)
+                    ZFSampleFilter = " FrontsOrders.IsSample = 1 AND";
+                if (IsNotSample)
+                    ZFSampleFilter = " FrontsOrders.IsSample = 0 AND";
+                if (IsSample)
+                    ZDSampleFilter = " (DecorOrders.IsSample = 1 OR (DecorOrders.ProductID=42 AND DecorOrders.IsSample = 0)) AND";
+                if (IsNotSample)
+                    ZDSampleFilter = " DecorOrders.IsSample = 0 AND";
+            }
 
             ZOVSelectCommand = "SELECT FrontsOrders.FrontID, FrontsOrders.PatinaID, FrontsOrders.ColorID, FrontsOrders.InsetTypeID," +
                 " FrontsOrders.InsetColorID, FrontsOrders.TechnoColorID, FrontsOrders.TechnoInsetTypeID, FrontsOrders.TechnoInsetColorID, " +
@@ -32166,14 +32160,17 @@ ORDER BY infiniu2_marketingreference.dbo.Clients.ClientName, dbo.MegaOrders.Orde
 
             string ZFSampleFilter = string.Empty;
             string ZDSampleFilter = string.Empty;
-            if (IsSample)
-                ZFSampleFilter = " AND FrontsOrders.IsSample = 1";
-            if (IsNotSample)
-                ZFSampleFilter = " AND FrontsOrders.IsSample = 0";
-            if (IsSample)
-                ZDSampleFilter = " AND (DecorOrders.IsSample = 1 OR (DecorOrders.ProductID=42 AND DecorOrders.IsSample = 0))";
-            if (IsNotSample)
-                ZDSampleFilter = " AND DecorOrders.IsSample = 0";
+            if (!IsSample || !IsNotSample)
+            {
+                if (IsSample)
+                    ZFSampleFilter = " AND FrontsOrders.IsSample = 1";
+                if (IsNotSample)
+                    ZFSampleFilter = " AND FrontsOrders.IsSample = 0";
+                if (IsSample)
+                    ZDSampleFilter = " AND (DecorOrders.IsSample = 1 OR (DecorOrders.ProductID=42 AND DecorOrders.IsSample = 0))";
+                if (IsNotSample)
+                    ZDSampleFilter = " AND DecorOrders.IsSample = 0";
+            }
 
             ZOVSelectCommand = "SELECT FrontsOrdersID, FrontsOrders.FrontID, FrontsOrders.PatinaID," +
                 " FrontsOrders.ColorID, FrontsOrders.InsetTypeID," +
