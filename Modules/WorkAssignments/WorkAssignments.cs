@@ -12157,9 +12157,13 @@ DecorOrders.DecorConfigID, DecorOrders.FactoryID, DecorOrders.Notes, DecorConfig
         DataTable PR3OrdersDT;
         DataTable PRU8OrdersDT;
 
-        DataTable Additions1DT;
-        DataTable Additions2DT;
-        DataTable Additional3DT;
+        DataTable Additions1Marsel4DT;
+        DataTable Additions2Marsel4DT;
+        DataTable Additions3Marsel4DT;
+
+        DataTable Additions1Marsel5DT;
+        DataTable Additions2Marsel5DT;
+        DataTable Additions3Marsel5DT;
 
         public ProfilAngle90Assignments()
         {
@@ -12256,16 +12260,27 @@ DecorOrders.DecorConfigID, DecorOrders.FactoryID, DecorOrders.Notes, DecorConfig
             PR3OrdersDT = new DataTable();
             PRU8OrdersDT = new DataTable();
 
-            Additions1DT = new DataTable();
-            Additions1DT.Columns.Add(new DataColumn("InsetType", Type.GetType("System.String")));
-            Additions1DT.Columns.Add(new DataColumn("InsetColor", Type.GetType("System.String")));
-            Additions1DT.Columns.Add(new DataColumn("Height", Type.GetType("System.Int32")));
-            Additions1DT.Columns.Add(new DataColumn("Width", Type.GetType("System.Int32")));
-            Additions1DT.Columns.Add(new DataColumn("Count", Type.GetType("System.Int32")));
-            Additions1DT.Columns.Add(new DataColumn("TechnoInsetTypeID", Type.GetType("System.Int32")));
-            Additions1DT.Columns.Add(new DataColumn("TechnoInsetColorID", Type.GetType("System.Int32")));
-            Additions2DT = Additions1DT.Clone();
-            Additional3DT = Additions1DT.Clone();
+            Additions1Marsel4DT = new DataTable();
+            Additions1Marsel4DT.Columns.Add(new DataColumn("InsetType", Type.GetType("System.String")));
+            Additions1Marsel4DT.Columns.Add(new DataColumn("InsetColor", Type.GetType("System.String")));
+            Additions1Marsel4DT.Columns.Add(new DataColumn("Height", Type.GetType("System.Int32")));
+            Additions1Marsel4DT.Columns.Add(new DataColumn("Width", Type.GetType("System.Int32")));
+            Additions1Marsel4DT.Columns.Add(new DataColumn("Count", Type.GetType("System.Int32")));
+            Additions1Marsel4DT.Columns.Add(new DataColumn("TechnoInsetTypeID", Type.GetType("System.Int32")));
+            Additions1Marsel4DT.Columns.Add(new DataColumn("TechnoInsetColorID", Type.GetType("System.Int32")));
+            Additions2Marsel4DT = Additions1Marsel5DT.Clone();
+            Additions3Marsel4DT = Additions1Marsel5DT.Clone();
+
+            Additions1Marsel5DT = new DataTable();
+            Additions1Marsel5DT.Columns.Add(new DataColumn("InsetType", Type.GetType("System.String")));
+            Additions1Marsel5DT.Columns.Add(new DataColumn("InsetColor", Type.GetType("System.String")));
+            Additions1Marsel5DT.Columns.Add(new DataColumn("Height", Type.GetType("System.Int32")));
+            Additions1Marsel5DT.Columns.Add(new DataColumn("Width", Type.GetType("System.Int32")));
+            Additions1Marsel5DT.Columns.Add(new DataColumn("Count", Type.GetType("System.Int32")));
+            Additions1Marsel5DT.Columns.Add(new DataColumn("TechnoInsetTypeID", Type.GetType("System.Int32")));
+            Additions1Marsel5DT.Columns.Add(new DataColumn("TechnoInsetColorID", Type.GetType("System.Int32")));
+            Additions2Marsel5DT = Additions1Marsel5DT.Clone();
+            Additions3Marsel5DT = Additions1Marsel5DT.Clone();
 
             TotalInfoDT = new DataTable();
             TotalInfoDT.Columns.Add(new DataColumn("Front", Type.GetType("System.String")));
@@ -20853,16 +20868,26 @@ AND FrontID=" + Convert.ToInt32(Front) +
             HSSFCellStyle Calibri11CS, HSSFCellStyle CalibriBold11CS, HSSFFont CalibriBold11F, HSSFCellStyle TableHeaderCS, HSSFCellStyle TableHeaderDecCS,
             int WorkAssignmentID, string BatchName, string ClientName)
         {
-            Additions1DT.Clear();
-            CollectAdditions(ref Additions1DT, 1);
+            Additions1Marsel4DT.Clear();
+            CollectAdditions(ref Additions1Marsel4DT, 1);
 
-            Additions2DT.Clear();
-            CollectAdditions(ref Additions2DT, 3);
+            Additions2Marsel4DT.Clear();
+            CollectAdditions(ref Additions2Marsel4DT, 3);
 
-            Additional3DT.Clear();
-            CollectAdditions(ref Additional3DT, 1);
+            Additions3Marsel4DT.Clear();
+            CollectAdditions(ref Additions3Marsel4DT, 1);
 
-            if (Additions1DT.Rows.Count == 0 && Additions2DT.Rows.Count == 0 && Additional3DT.Rows.Count == 0)
+            Additions1Marsel5DT.Clear();
+            CollectAdditions(ref Additions1Marsel5DT, 1);
+
+            Additions2Marsel5DT.Clear();
+            CollectAdditions(ref Additions2Marsel5DT, 3);
+
+            Additions3Marsel5DT.Clear();
+            CollectAdditions(ref Additions3Marsel5DT, 1);
+
+            if (Additions1Marsel4DT.Rows.Count == 0 && Additions2Marsel4DT.Rows.Count == 0 && Additions3Marsel4DT.Rows.Count == 0 &&
+                Additions1Marsel5DT.Rows.Count == 0 && Additions2Marsel5DT.Rows.Count == 0 && Additions3Marsel5DT.Rows.Count == 0)
                 return;
 
             int RowIndex = 0;
@@ -20885,11 +20910,51 @@ AND FrontID=" + Convert.ToInt32(Front) +
             DataTable DT = new DataTable();
             DataColumn Col1 = DT.Columns.Add("Col1", System.Type.GetType("System.String"));
 
-            if (Additions1DT.Rows.Count > 0)
+            if (Additions1Marsel4DT.Rows.Count > 0)
             {
                 DT.Dispose();
                 Col1.Dispose();
-                DT = Additions1DT.Copy();
+                DT = Additions1Marsel4DT.Copy();
+                Col1 = DT.Columns.Add("Col1", System.Type.GetType("System.String"));
+                Col1.SetOrdinal(5);
+
+                AdditionsToExcelSingly(ref hssfworkbook,
+                    Calibri11CS, CalibriBold11CS, CalibriBold11F, TableHeaderCS, TableHeaderDecCS, ref sheet1, DT, WorkAssignmentID, BatchName, ClientName, "Зарезание ремяк раскладки из ПФх-03", ref RowIndex);
+                RowIndex++;
+            }
+
+            if (Additions2Marsel4DT.Rows.Count > 0)
+            {
+                DT.Dispose();
+                Col1.Dispose();
+                DT = Additions2Marsel4DT.Copy();
+                Col1 = DT.Columns.Add("Col1", System.Type.GetType("System.String"));
+                Col1.SetOrdinal(5);
+
+                AdditionsToExcelSingly(ref hssfworkbook,
+                    Calibri11CS, CalibriBold11CS, CalibriBold11F, TableHeaderCS, TableHeaderDecCS, ref sheet1, DT, WorkAssignmentID, BatchName, ClientName, "Покраска торцов ремяк раскладки из ПФх-03 (2 слоя)", ref RowIndex);
+                RowIndex++;
+            }
+
+            if (Additions3Marsel4DT.Rows.Count > 0)
+            {
+                DT.Dispose();
+                Col1.Dispose();
+                DT = Additions3Marsel4DT.Copy();
+                Col1 = DT.Columns.Add("Col1", System.Type.GetType("System.String"));
+                Col1.SetOrdinal(5);
+
+                AdditionsToExcelSingly(ref hssfworkbook,
+                    Calibri11CS, CalibriBold11CS, CalibriBold11F, TableHeaderCS, TableHeaderDecCS, ref sheet1, DT, WorkAssignmentID, BatchName, ClientName, "Приклеивание ремяк раскладки из ПФх-03", ref RowIndex);
+                RowIndex++;
+            }
+
+
+            if (Additions1Marsel5DT.Rows.Count > 0)
+            {
+                DT.Dispose();
+                Col1.Dispose();
+                DT = Additions1Marsel5DT.Copy();
                 Col1 = DT.Columns.Add("Col1", System.Type.GetType("System.String"));
                 Col1.SetOrdinal(5);
 
@@ -20898,11 +20963,11 @@ AND FrontID=" + Convert.ToInt32(Front) +
                 RowIndex++;
             }
 
-            if (Additions2DT.Rows.Count > 0)
+            if (Additions2Marsel5DT.Rows.Count > 0)
             {
                 DT.Dispose();
                 Col1.Dispose();
-                DT = Additions2DT.Copy();
+                DT = Additions2Marsel5DT.Copy();
                 Col1 = DT.Columns.Add("Col1", System.Type.GetType("System.String"));
                 Col1.SetOrdinal(5);
 
@@ -20911,11 +20976,11 @@ AND FrontID=" + Convert.ToInt32(Front) +
                 RowIndex++;
             }
 
-            if (Additional3DT.Rows.Count > 0)
+            if (Additions3Marsel5DT.Rows.Count > 0)
             {
                 DT.Dispose();
                 Col1.Dispose();
-                DT = Additional3DT.Copy();
+                DT = Additions3Marsel5DT.Copy();
                 Col1 = DT.Columns.Add("Col1", System.Type.GetType("System.String"));
                 Col1.SetOrdinal(5);
 
