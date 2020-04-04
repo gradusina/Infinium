@@ -198,6 +198,11 @@
             this.kryptonBorderEdge54 = new ComponentFactory.Krypton.Toolkit.KryptonBorderEdge();
             this.label33 = new System.Windows.Forms.Label();
             this.panel30 = new System.Windows.Forms.Panel();
+            this.btnUpdateComplements = new ComponentFactory.Krypton.Toolkit.KryptonButton();
+            this.label42 = new System.Windows.Forms.Label();
+            this.label40 = new System.Windows.Forms.Label();
+            this.DateTimePicker2 = new ComponentFactory.Krypton.Toolkit.KryptonDateTimePicker();
+            this.DateTimePicker1 = new ComponentFactory.Krypton.Toolkit.KryptonDateTimePicker();
             this.kryptonCheckBox5 = new ComponentFactory.Krypton.Toolkit.KryptonCheckBox();
             this.kryptonCheckBox6 = new ComponentFactory.Krypton.Toolkit.KryptonCheckBox();
             this.kryptonCheckBox7 = new ComponentFactory.Krypton.Toolkit.KryptonCheckBox();
@@ -301,11 +306,6 @@
             this.kryptonContextMenu5 = new ComponentFactory.Krypton.Toolkit.KryptonContextMenu();
             this.kryptonContextMenuItems12 = new ComponentFactory.Krypton.Toolkit.KryptonContextMenuItems();
             this.kryptonContextMenuItem11 = new ComponentFactory.Krypton.Toolkit.KryptonContextMenuItem();
-            this.DateTimePicker1 = new ComponentFactory.Krypton.Toolkit.KryptonDateTimePicker();
-            this.DateTimePicker2 = new ComponentFactory.Krypton.Toolkit.KryptonDateTimePicker();
-            this.label40 = new System.Windows.Forms.Label();
-            this.label42 = new System.Windows.Forms.Label();
-            this.btnUpdateComplements = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.NavigatePanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.cmbxPatina)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cmbxCovers)).BeginInit();
@@ -2987,6 +2987,67 @@
             this.panel30.Size = new System.Drawing.Size(274, 356);
             this.panel30.TabIndex = 424;
             // 
+            // btnUpdateComplements
+            // 
+            this.btnUpdateComplements.Location = new System.Drawing.Point(20, 296);
+            this.btnUpdateComplements.Name = "btnUpdateComplements";
+            this.btnUpdateComplements.Palette = this.StandardButtonsPalette;
+            this.btnUpdateComplements.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Custom;
+            this.btnUpdateComplements.Size = new System.Drawing.Size(146, 39);
+            this.btnUpdateComplements.StateCommon.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.btnUpdateComplements.StateCommon.Content.Image.ImageH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
+            this.btnUpdateComplements.StateCommon.Content.Image.ImageV = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Near;
+            this.btnUpdateComplements.StateCommon.Content.ShortText.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.btnUpdateComplements.StateCommon.Content.ShortText.TextV = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
+            this.btnUpdateComplements.StateTracking.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(253)))), ((int)(((byte)(164)))), ((int)(((byte)(61)))));
+            this.btnUpdateComplements.StateTracking.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
+            this.btnUpdateComplements.TabIndex = 431;
+            this.btnUpdateComplements.TabStop = false;
+            this.btnUpdateComplements.Values.Text = "Поиск";
+            this.btnUpdateComplements.Click += new System.EventHandler(this.btnUpdateComplements_Click);
+            // 
+            // label42
+            // 
+            this.label42.AutoSize = true;
+            this.label42.Font = new System.Drawing.Font("Segoe UI", 17.81F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.label42.ForeColor = System.Drawing.Color.White;
+            this.label42.Location = new System.Drawing.Point(3, 256);
+            this.label42.Name = "label42";
+            this.label42.Size = new System.Drawing.Size(39, 25);
+            this.label42.TabIndex = 430;
+            this.label42.Text = "До:";
+            // 
+            // label40
+            // 
+            this.label40.AutoSize = true;
+            this.label40.Font = new System.Drawing.Font("Segoe UI", 17.81F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.label40.ForeColor = System.Drawing.Color.White;
+            this.label40.Location = new System.Drawing.Point(3, 215);
+            this.label40.Name = "label40";
+            this.label40.Size = new System.Drawing.Size(37, 25);
+            this.label40.TabIndex = 429;
+            this.label40.Text = "От:";
+            // 
+            // DateTimePicker2
+            // 
+            this.DateTimePicker2.Location = new System.Drawing.Point(40, 256);
+            this.DateTimePicker2.Name = "DateTimePicker2";
+            this.DateTimePicker2.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2010Black;
+            this.DateTimePicker2.Size = new System.Drawing.Size(146, 25);
+            this.DateTimePicker2.StateCommon.Content.Font = new System.Drawing.Font("Segoe UI", 14.06F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.DateTimePicker2.TabIndex = 428;
+            // 
+            // DateTimePicker1
+            // 
+            this.DateTimePicker1.Location = new System.Drawing.Point(40, 215);
+            this.DateTimePicker1.Name = "DateTimePicker1";
+            this.DateTimePicker1.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2010Black;
+            this.DateTimePicker1.Size = new System.Drawing.Size(146, 25);
+            this.DateTimePicker1.StateCommon.Content.Font = new System.Drawing.Font("Segoe UI", 14.06F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.DateTimePicker1.TabIndex = 427;
+            // 
             // kryptonCheckBox5
             // 
             this.kryptonCheckBox5.Checked = true;
@@ -4597,67 +4658,6 @@
             // 
             this.kryptonContextMenuItem11.Text = "Удалить комплектацию";
             this.kryptonContextMenuItem11.Click += new System.EventHandler(this.kryptonContextMenuItem11_Click_1);
-            // 
-            // DateTimePicker1
-            // 
-            this.DateTimePicker1.Location = new System.Drawing.Point(40, 215);
-            this.DateTimePicker1.Name = "DateTimePicker1";
-            this.DateTimePicker1.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2010Black;
-            this.DateTimePicker1.Size = new System.Drawing.Size(146, 25);
-            this.DateTimePicker1.StateCommon.Content.Font = new System.Drawing.Font("Segoe UI", 14.06F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.DateTimePicker1.TabIndex = 427;
-            // 
-            // DateTimePicker2
-            // 
-            this.DateTimePicker2.Location = new System.Drawing.Point(40, 256);
-            this.DateTimePicker2.Name = "DateTimePicker2";
-            this.DateTimePicker2.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2010Black;
-            this.DateTimePicker2.Size = new System.Drawing.Size(146, 25);
-            this.DateTimePicker2.StateCommon.Content.Font = new System.Drawing.Font("Segoe UI", 14.06F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.DateTimePicker2.TabIndex = 428;
-            // 
-            // label40
-            // 
-            this.label40.AutoSize = true;
-            this.label40.Font = new System.Drawing.Font("Segoe UI", 17.81F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.label40.ForeColor = System.Drawing.Color.White;
-            this.label40.Location = new System.Drawing.Point(3, 215);
-            this.label40.Name = "label40";
-            this.label40.Size = new System.Drawing.Size(37, 25);
-            this.label40.TabIndex = 429;
-            this.label40.Text = "От:";
-            // 
-            // label42
-            // 
-            this.label42.AutoSize = true;
-            this.label42.Font = new System.Drawing.Font("Segoe UI", 17.81F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.label42.ForeColor = System.Drawing.Color.White;
-            this.label42.Location = new System.Drawing.Point(3, 256);
-            this.label42.Name = "label42";
-            this.label42.Size = new System.Drawing.Size(39, 25);
-            this.label42.TabIndex = 430;
-            this.label42.Text = "До:";
-            // 
-            // btnUpdateComplements
-            // 
-            this.btnUpdateComplements.Location = new System.Drawing.Point(20, 296);
-            this.btnUpdateComplements.Name = "btnUpdateComplements";
-            this.btnUpdateComplements.Palette = this.StandardButtonsPalette;
-            this.btnUpdateComplements.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Custom;
-            this.btnUpdateComplements.Size = new System.Drawing.Size(146, 39);
-            this.btnUpdateComplements.StateCommon.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
-            this.btnUpdateComplements.StateCommon.Content.Image.ImageH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
-            this.btnUpdateComplements.StateCommon.Content.Image.ImageV = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Near;
-            this.btnUpdateComplements.StateCommon.Content.ShortText.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.btnUpdateComplements.StateCommon.Content.ShortText.TextV = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
-            this.btnUpdateComplements.StateTracking.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(253)))), ((int)(((byte)(164)))), ((int)(((byte)(61)))));
-            this.btnUpdateComplements.StateTracking.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
-            this.btnUpdateComplements.TabIndex = 431;
-            this.btnUpdateComplements.TabStop = false;
-            this.btnUpdateComplements.Values.Text = "Поиск";
-            this.btnUpdateComplements.Click += new System.EventHandler(this.btnUpdateComplements_Click);
             // 
             // CabFurnitureModuleForm
             // 

@@ -4102,7 +4102,7 @@ DecorOrders.DecorConfigID, DecorOrders.FactoryID, DecorOrders.Notes, DecorConfig
         FatWidth = 156,
 
         TechnoNMargin = 99,
-        BergamoMargin = 138,
+        BergamoMargin = 139,
         ep041Margin = 178,
         ep071Margin = 158,
         ep206Margin = 102,
@@ -4163,7 +4163,7 @@ DecorOrders.DecorConfigID, DecorOrders.FactoryID, DecorOrders.Notes, DecorConfig
         Techno5Width = 201,
 
         Marsel1InsetHeight = 138,
-        Marsel5InsetHeight = 158,
+        Marsel5InsetHeight = 159,
         PortoInsetHeight = 140,
         MonteInsetHeight = 98,
         Marsel3InsetHeight = 178,
@@ -4186,7 +4186,7 @@ DecorOrders.DecorConfigID, DecorOrders.FactoryID, DecorOrders.Notes, DecorConfig
         MegaInsetHeight = 176,
 
         Marsel1InsetWidth = 138,
-        Marsel5InsetWidth = 158,
+        Marsel5InsetWidth = 159,
         PortoInsetWidth = 140,
         MonteInsetWidth = 98,
         Marsel3InsetWidth = 178,
@@ -8946,6 +8946,7 @@ DecorOrders.DecorConfigID, DecorOrders.FactoryID, DecorOrders.Notes, DecorConfig
 
             //string FileName = "№" + WorkAssignmentID + " " + BatchName;
             //string tempFolder = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
+            //string tempFolder = System.Environment.GetEnvironmentVariable("TEMP");
 
 
             string FileName = WorkAssignmentID + " " + BatchName + "  Угол 45";
@@ -12268,8 +12269,8 @@ DecorOrders.DecorConfigID, DecorOrders.FactoryID, DecorOrders.Notes, DecorConfig
             Additions1Marsel4DT.Columns.Add(new DataColumn("Count", Type.GetType("System.Int32")));
             Additions1Marsel4DT.Columns.Add(new DataColumn("TechnoInsetTypeID", Type.GetType("System.Int32")));
             Additions1Marsel4DT.Columns.Add(new DataColumn("TechnoInsetColorID", Type.GetType("System.Int32")));
-            Additions2Marsel4DT = Additions1Marsel5DT.Clone();
-            Additions3Marsel4DT = Additions1Marsel5DT.Clone();
+            Additions2Marsel4DT = Additions1Marsel4DT.Clone();
+            Additions3Marsel4DT = Additions1Marsel4DT.Clone();
 
             Additions1Marsel5DT = new DataTable();
             Additions1Marsel5DT.Columns.Add(new DataColumn("InsetType", Type.GetType("System.String")));
@@ -16818,7 +16819,7 @@ AND FrontID=" + Convert.ToInt32(Front) +
 
                             int TechnoInsetColorID = Convert.ToInt32(DT3.Rows[x]["TechnoInsetColorID"]);
                             int LuxCount = 0;
-                            string InsetColor = "люкс " + GetInsetColorName(Convert.ToInt32(DT2.Rows[j]["InsetColorID"]));
+                            string InsetColor = "люкс " + GetInsetTypeName(Convert.ToInt32(DT1.Rows[i]["InsetTypeID"])) + " " + GetInsetColorName(Convert.ToInt32(DT2.Rows[j]["InsetColorID"]));
 
                             foreach (DataRow item in Srows)
                                 Count += Convert.ToInt32(item["Count"]);
@@ -16913,7 +16914,7 @@ AND FrontID=" + Convert.ToInt32(Front) +
                             int TechnoInsetColorID = Convert.ToInt32(DT3.Rows[x]["TechnoInsetColorID"]);
                             int GlassCount = 0;
                             int MegaCount = 0;
-                            string InsetColor = "мега " + GetInsetColorName(Convert.ToInt32(DT2.Rows[j]["InsetColorID"]));
+                            string InsetColor = "мега " + GetInsetTypeName(Convert.ToInt32(DT1.Rows[i]["InsetTypeID"])) + " " + GetInsetColorName(Convert.ToInt32(DT2.Rows[j]["InsetColorID"]));
 
                             foreach (DataRow item in Srows)
                             {
@@ -17214,7 +17215,7 @@ AND FrontID=" + Convert.ToInt32(Front) +
                             Height = Convert.ToInt32(DT4.Rows[y]["Height"]) - TempHeightMargin;
                             Width = Convert.ToInt32(DT4.Rows[y]["Width"]) - TempWidthMargin;
 
-                            string InsetColor = GetInsetColorName(Convert.ToInt32(DT2.Rows[j]["InsetColorID"]));
+                            string InsetColor = GetInsetTypeName(Convert.ToInt32(DT1.Rows[i]["InsetTypeID"])) + " " + GetInsetColorName(Convert.ToInt32(DT2.Rows[j]["InsetColorID"]));
                             int GroupID = Convert.ToInt32(InsetTypesDataTable.Select("InsetTypeID=" + Convert.ToInt32(DT1.Rows[i]["InsetTypeID"]))[0]["GroupID"]);
                             if (GroupID == 7 || GroupID == 8)
                             {
@@ -17427,7 +17428,7 @@ AND FrontID=" + Convert.ToInt32(Front) +
                             Width = Convert.ToInt32(DT4.Rows[y]["Width"]) - TempWidthMargin;
 
                             int LuxCount = 0;
-                            string InsetColor = "люкс " + GetInsetColorName(Convert.ToInt32(DT2.Rows[j]["InsetColorID"]));
+                            string InsetColor = "люкс " + GetInsetTypeName(Convert.ToInt32(DT1.Rows[i]["InsetTypeID"])) + " " + GetInsetColorName(Convert.ToInt32(DT2.Rows[j]["InsetColorID"]));
 
                             foreach (DataRow item in Srows)
                                 Count += Convert.ToInt32(item["Count"]);
@@ -17522,7 +17523,7 @@ AND FrontID=" + Convert.ToInt32(Front) +
 
                             int GlassCount = 0;
                             int MegaCount = 0;
-                            string InsetColor = "мега " + GetInsetColorName(Convert.ToInt32(DT2.Rows[j]["InsetColorID"]));
+                            string InsetColor = "мега " + GetInsetTypeName(Convert.ToInt32(DT1.Rows[i]["InsetTypeID"])) + " " + GetInsetColorName(Convert.ToInt32(DT2.Rows[j]["InsetColorID"]));
 
                             foreach (DataRow item in Srows)
                             {
@@ -28902,7 +28903,7 @@ AND FrontID=" + Convert.ToInt32(Front) +
                             int Width = Convert.ToInt32(DT4.Rows[y]["Width"]) - WidthMargin;
                             int TechnoInsetColorID = Convert.ToInt32(DT3.Rows[x]["TechnoInsetColorID"]);
 
-                            string InsetColor = GetInsetColorName(Convert.ToInt32(DT2.Rows[j]["InsetColorID"]));
+                            string InsetColor = GetInsetTypeName(Convert.ToInt32(DT1.Rows[i]["InsetTypeID"])) + " " + GetInsetColorName(Convert.ToInt32(DT2.Rows[j]["InsetColorID"]));
                             int GroupID = Convert.ToInt32(InsetTypesDataTable.Select("InsetTypeID=" + Convert.ToInt32(DT1.Rows[i]["InsetTypeID"]))[0]["GroupID"]);
                             if (GroupID == 7 || GroupID == 8)
                             {
@@ -29023,7 +29024,7 @@ AND FrontID=" + Convert.ToInt32(Front) +
                             int Width = Convert.ToInt32(DT4.Rows[y]["Width"]) - WidthMargin;
                             int TechnoInsetColorID = Convert.ToInt32(DT3.Rows[x]["TechnoInsetColorID"]);
 
-                            string InsetColor = GetInsetColorName(Convert.ToInt32(DT2.Rows[j]["InsetColorID"]));
+                            string InsetColor = GetInsetTypeName(Convert.ToInt32(DT1.Rows[i]["InsetTypeID"])) + " " + GetInsetColorName(Convert.ToInt32(DT2.Rows[j]["InsetColorID"]));
                             int GroupID = Convert.ToInt32(InsetTypesDataTable.Select("InsetTypeID=" + Convert.ToInt32(DT1.Rows[i]["InsetTypeID"]))[0]["GroupID"]);
                             //InsetColor = InsetColor.Insert(InsetColor.Length, " 4 мм");
                             if (GroupID == 7 || GroupID == 8)
@@ -29141,7 +29142,7 @@ AND FrontID=" + Convert.ToInt32(Front) +
                             int Width = Convert.ToInt32(DT4.Rows[y]["Width"]);
                             int TechnoInsetColorID = Convert.ToInt32(DT3.Rows[x]["TechnoInsetColorID"]);
 
-                            string InsetColor = GetInsetColorName(Convert.ToInt32(DT2.Rows[j]["InsetColorID"]));
+                            string InsetColor = GetInsetTypeName(Convert.ToInt32(DT1.Rows[i]["InsetTypeID"])) + " " + GetInsetColorName(Convert.ToInt32(DT2.Rows[j]["InsetColorID"]));
                             int GroupID = Convert.ToInt32(InsetTypesDataTable.Select("InsetTypeID=" + Convert.ToInt32(DT1.Rows[i]["InsetTypeID"]))[0]["GroupID"]);
                             //InsetColor = InsetColor.Insert(InsetColor.Length, " 4 мм");
 
@@ -29272,7 +29273,7 @@ AND FrontID=" + Convert.ToInt32(Front) +
                             int Width = Convert.ToInt32(DT4.Rows[y]["Width"]) - InsetWidthMargin;
                             int TechnoInsetColorID = Convert.ToInt32(DT3.Rows[x]["TechnoInsetColorID"]);
 
-                            string InsetColor = GetInsetColorName(Convert.ToInt32(DT2.Rows[j]["InsetColorID"]));
+                            string InsetColor = GetInsetTypeName(Convert.ToInt32(DT1.Rows[i]["InsetTypeID"])) + " " + GetInsetColorName(Convert.ToInt32(DT2.Rows[j]["InsetColorID"]));
                             int GroupID = Convert.ToInt32(InsetTypesDataTable.Select("InsetTypeID=" + Convert.ToInt32(DT1.Rows[i]["InsetTypeID"]))[0]["GroupID"]);
                             //InsetColor = InsetColor.Insert(InsetColor.Length, " 4 мм");
                             if (GroupID == 7 || GroupID == 8)
@@ -29378,7 +29379,7 @@ AND FrontID=" + Convert.ToInt32(Front) +
                             int Height = Convert.ToInt32(DT4.Rows[y]["Height"]) - HeightMargin;
                             int Width = Convert.ToInt32(DT4.Rows[y]["Width"]) - WidthMargin;
                             int TechnoInsetColorID = Convert.ToInt32(DT3.Rows[x]["TechnoInsetColorID"]);
-                            string InsetColor = GetInsetColorName(Convert.ToInt32(DT2.Rows[j]["InsetColorID"]));
+                            string InsetColor = GetInsetTypeName(Convert.ToInt32(DT1.Rows[i]["InsetTypeID"])) + " " + GetInsetColorName(Convert.ToInt32(DT2.Rows[j]["InsetColorID"]));
 
                             if (Height < 10 || Width < 10)
                                 continue;
@@ -29473,7 +29474,7 @@ AND FrontID=" + Convert.ToInt32(Front) +
 
                             int Width = Convert.ToInt32(DT4.Rows[y]["Width"]) - WidthMargin;
                             int TechnoInsetColorID = Convert.ToInt32(DT3.Rows[x]["TechnoInsetColorID"]);
-                            string InsetColor = GetInsetColorName(Convert.ToInt32(DT2.Rows[j]["InsetColorID"]));
+                            string InsetColor = GetInsetTypeName(Convert.ToInt32(DT1.Rows[i]["InsetTypeID"])) + " " + GetInsetColorName(Convert.ToInt32(DT2.Rows[j]["InsetColorID"]));
 
                             //if (Height < 10  || Width < 10)
                             //    continue;
@@ -29748,7 +29749,7 @@ AND FrontID=" + Convert.ToInt32(Front) +
 
                             int TechnoInsetColorID = Convert.ToInt32(DT3.Rows[x]["TechnoInsetColorID"]);
                             int LuxCount = 0;
-                            string InsetColor = "люкс " + GetInsetColorName(Convert.ToInt32(DT2.Rows[j]["InsetColorID"]));
+                            string InsetColor = "люкс " + GetInsetTypeName(Convert.ToInt32(DT1.Rows[i]["InsetTypeID"])) + " " + GetInsetColorName(Convert.ToInt32(DT2.Rows[j]["InsetColorID"]));
 
                             foreach (DataRow item in Srows)
                                 Count += Convert.ToInt32(item["Count"]);
@@ -29843,7 +29844,7 @@ AND FrontID=" + Convert.ToInt32(Front) +
                             int TechnoInsetColorID = Convert.ToInt32(DT3.Rows[x]["TechnoInsetColorID"]);
                             int GlassCount = 0;
                             int MegaCount = 0;
-                            string InsetColor = "мега " + GetInsetColorName(Convert.ToInt32(DT2.Rows[j]["InsetColorID"]));
+                            string InsetColor = "мега " + GetInsetTypeName(Convert.ToInt32(DT1.Rows[i]["InsetTypeID"])) + " " + GetInsetColorName(Convert.ToInt32(DT2.Rows[j]["InsetColorID"]));
 
                             foreach (DataRow item in Srows)
                             {
@@ -30144,7 +30145,7 @@ AND FrontID=" + Convert.ToInt32(Front) +
                             Height = Convert.ToInt32(DT4.Rows[y]["Height"]) - TempHeightMargin;
                             Width = Convert.ToInt32(DT4.Rows[y]["Width"]) - TempWidthMargin;
 
-                            string InsetColor = GetInsetColorName(Convert.ToInt32(DT2.Rows[j]["InsetColorID"]));
+                            string InsetColor = GetInsetTypeName(Convert.ToInt32(DT1.Rows[i]["InsetTypeID"])) + " " + GetInsetColorName(Convert.ToInt32(DT2.Rows[j]["InsetColorID"]));
                             int GroupID = Convert.ToInt32(InsetTypesDataTable.Select("InsetTypeID=" + Convert.ToInt32(DT1.Rows[i]["InsetTypeID"]))[0]["GroupID"]);
                             if (GroupID == 7 || GroupID == 8)
                             {
@@ -30357,7 +30358,7 @@ AND FrontID=" + Convert.ToInt32(Front) +
                             Width = Convert.ToInt32(DT4.Rows[y]["Width"]) - TempWidthMargin;
 
                             int LuxCount = 0;
-                            string InsetColor = "люкс " + GetInsetColorName(Convert.ToInt32(DT2.Rows[j]["InsetColorID"]));
+                            string InsetColor = "люкс " + GetInsetTypeName(Convert.ToInt32(DT1.Rows[i]["InsetTypeID"])) + " " + GetInsetColorName(Convert.ToInt32(DT2.Rows[j]["InsetColorID"]));
 
                             foreach (DataRow item in Srows)
                                 Count += Convert.ToInt32(item["Count"]);
@@ -30452,7 +30453,7 @@ AND FrontID=" + Convert.ToInt32(Front) +
 
                             int GlassCount = 0;
                             int MegaCount = 0;
-                            string InsetColor = "мега " + GetInsetColorName(Convert.ToInt32(DT2.Rows[j]["InsetColorID"]));
+                            string InsetColor = "мега " + GetInsetTypeName(Convert.ToInt32(DT1.Rows[i]["InsetTypeID"])) + " " + GetInsetColorName(Convert.ToInt32(DT2.Rows[j]["InsetColorID"]));
 
                             foreach (DataRow item in Srows)
                             {

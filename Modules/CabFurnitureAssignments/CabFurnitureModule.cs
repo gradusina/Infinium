@@ -234,6 +234,45 @@ namespace Infinium.Modules.CabFurnitureModule
             get { return NewAssignmentDetailsDT; }
         }
 
+        public void ff()
+        {
+            DataTable dt = new DataTable();
+
+            string SelectCommand = @"SELECT C.CabFurAssignmentID, C.PackNumber, C.TechStoreSubGroupID, C.TechStoreID AS CTechStoreID, C.CoverID, C.PatinaID, C.InsetColorID,
+                CabFurniturePackageDetails.* FROM CabFurniturePackageDetails 
+                INNER JOIN CabFurniturePackages AS C ON CabFurniturePackageDetails.CabFurniturePackageID=C.CabFurniturePackageID
+                WHERE CabFurAssignmentID IN (SELECT DISTINCT CabFurAssignmentID
+FROM            CabFurniturePackages
+WHERE        CAST(CreateDateTime AS date) >= '2019-12-26 00:00' AND CAST(CreateDateTime AS date) <= '2020-04-04 23:59')";
+            SqlDataAdapter da = new SqlDataAdapter(SelectCommand, ConnectionStrings.StorageConnectionString);
+            da.Fill(dt);
+            dt.Columns.Add(new DataColumn("CTechStoreName", Type.GetType("System.String")));
+            dt.Columns.Add(new DataColumn("TechStoreName", Type.GetType("System.String")));
+            dt.Columns.Add(new DataColumn("CoverName", Type.GetType("System.String")));
+            dt.Columns.Add(new DataColumn("PatinaName", Type.GetType("System.String")));
+            dt.Columns.Add(new DataColumn("InsetColorName", Type.GetType("System.String")));
+
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                int CTechStoreID = Convert.ToInt32(dt.Rows[i]["CTechStoreID"]);
+                int TechStoreID = Convert.ToInt32(dt.Rows[i]["TechStoreID"]);
+                int CoverID = Convert.ToInt32(dt.Rows[i]["CoverID"]);
+                int PatinaID = Convert.ToInt32(dt.Rows[i]["PatinaID"]);
+                int InsetColorID = Convert.ToInt32(dt.Rows[i]["InsetColorID"]);
+                string CTechStoreName = GetTechStoreName(Convert.ToInt32(dt.Rows[i]["CTechStoreID"]));
+                string TechStoreName = GetTechStoreName(Convert.ToInt32(dt.Rows[i]["TechStoreID"]));
+                string CoverName = GetCoverName(Convert.ToInt32(dt.Rows[i]["CoverID"]));
+                string PatinaName = GetPatinaName(Convert.ToInt32(dt.Rows[i]["PatinaID"]));
+                string InsetColorName = GetInsetColorName(Convert.ToInt32(dt.Rows[i]["InsetColorID"]));
+
+                dt.Rows[i]["CTechStoreName"] = CTechStoreName;
+                dt.Rows[i]["TechStoreName"] = TechStoreName;
+                dt.Rows[i]["CoverName"] = CoverName;
+                dt.Rows[i]["PatinaName"] = PatinaName;
+                dt.Rows[i]["InsetColorName"] = InsetColorName;
+            }
+        }
+
         public AssignmentsManager()
         {
 
@@ -1839,7 +1878,7 @@ namespace Infinium.Modules.CabFurnitureModule
             return ColorName;
         }
 
-        public string TechStoreName(int TechStoreID)
+        public string GetTechStoreName(int TechStoreID)
         {
             DataRow[] rows = TechStoreDT.Select("TechStoreID = " + TechStoreID);
             if (rows.Count() > 0)
@@ -2336,7 +2375,7 @@ WHERE dbo.TechCatalogOperationsDetail.TechCatalogOperationsGroupID IN
                             int PackNumber = Index[i];
                             string DocDateTime = DT.Rows[i]["CreateDateTime"].ToString();
                             //string TechStoreSubGroup = DT.Rows[i]["TechStoreSubGroupName"].ToString();
-                            string TechStoreSubGroup = TechStoreName(Convert.ToInt32(DT.Rows[i]["TechStoreID"]));
+                            string TechStoreSubGroup = GetTechStoreName(Convert.ToInt32(DT.Rows[i]["TechStoreID"]));
                             string Cover = GetCoverName(Convert.ToInt32(DT.Rows[i]["CoverID"]));
                             string DispatchDate = "";
                             string BarcodeNumber = GetBarcodeNumber(20, Convert.ToInt32(DT.Rows[i]["CabFurnitureComplementID"]));
@@ -2415,7 +2454,7 @@ WHERE dbo.TechCatalogOperationsDetail.TechCatalogOperationsGroupID IN
                             int PackNumber = i + 1;
                             string DocDateTime = DT.Rows[i]["CreateDateTime"].ToString();
                             //string TechStoreSubGroup = DT.Rows[i]["TechStoreSubGroupName"].ToString();
-                            string TechStoreSubGroup = TechStoreName(Convert.ToInt32(DT.Rows[i]["TechStoreID"]));
+                            string TechStoreSubGroup = GetTechStoreName(Convert.ToInt32(DT.Rows[i]["TechStoreID"]));
                             string Cover = GetCoverName(Convert.ToInt32(DT.Rows[i]["CoverID"]));
                             string DispatchDate = "";
                             string BarcodeNumber = GetBarcodeNumber(20, Convert.ToInt32(DT.Rows[i]["CabFurnitureComplementID"]));
@@ -2522,7 +2561,7 @@ WHERE dbo.CabFurniturePackages.CabFurAssignmentDetailID = " + CabFurAssignmentDe
                             string AddToStorageDateTime = DT.Rows[i]["PrintDateTime"].ToString();
                             if (DT.Rows[i]["AddToStorageDateTime"] != DBNull.Value)
                                 AddToStorageDateTime = DT.Rows[i]["AddToStorageDateTime"].ToString();
-                            string TechStoreSubGroup = TechStoreName(Convert.ToInt32(DT.Rows[i]["TechStoreID"]));
+                            string TechStoreSubGroup = GetTechStoreName(Convert.ToInt32(DT.Rows[i]["TechStoreID"]));
                             bool GroupA = Convert.ToBoolean(DT.Rows[i]["GroupA"]);
                             bool GroupB = Convert.ToBoolean(DT.Rows[i]["GroupB"]);
                             bool GroupC = Convert.ToBoolean(DT.Rows[i]["GroupC"]);

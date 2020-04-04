@@ -2730,6 +2730,9 @@ namespace Infinium
             DateTime date2 = DateTimePicker2.Value.Date;
 
             ComplementsManager.UpdateComplements(date1, date2);
+            PackagesManager.UpdatePackages(date1, date2);
+
+            //AssignmentsManager.ff();
 
             NeedSplash = true;
             while (SplashWindow.bSmallCreated)
