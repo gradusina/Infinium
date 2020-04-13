@@ -1449,12 +1449,11 @@ namespace Infinium
             while (!SplashWindow.bSmallCreated) ;
 
             Infinium.Modules.ZOV.Orders.MoveZOVOrdersToMarketing obj = new Modules.ZOV.Orders.MoveZOVOrdersToMarketing();
+            bool FixedPaymentRate = false;
 
-            bool RateExist = false;
-            obj.GetDateRates(DateTime.Now, ref RateExist);
-            if (!RateExist)
-                RateExist = obj.NBRBDailyRates(DateTime.Now);
-            if (RateExist)
+            obj.MarketingClientID = NewClientID;
+            obj.GetFixedPaymentRate(obj.MarketingClientID, DateTime.Now, ref FixedPaymentRate);
+            if (FixedPaymentRate)
             {
                 obj.ClearZOVMainOrdersInfo();
                 for (int i = 0; i < MainOrdersDataGrid.SelectedRows.Count; i++)
@@ -1464,14 +1463,32 @@ namespace Infinium
                         MainOrdersDataGrid.SelectedRows[i].Cells["ClientColumn"].FormattedValue.ToString(),
                         MainOrdersDataGrid.SelectedRows[i].Cells["DocNumber"].Value.ToString());
                 }
-                obj.MarketingClientID = NewClientID;
                 obj.MoveToOthersOrders();
             }
             else
             {
-                Infinium.LightMessageBox.Show(ref TopForm, false,
-                    "Курс не взят. Повторите попытку",
-                    "Перенос заказов");
+                bool RateExist = false;
+                obj.GetDateRates(DateTime.Now, ref RateExist);
+                if (!RateExist)
+                    RateExist = obj.NBRBDailyRates(DateTime.Now);
+                if (RateExist)
+                {
+                    obj.ClearZOVMainOrdersInfo();
+                    for (int i = 0; i < MainOrdersDataGrid.SelectedRows.Count; i++)
+                    {
+                        obj.AddZOVMainOrder(Convert.ToInt32(MainOrdersDataGrid.SelectedRows[i].Cells["ClientID"].Value), Convert.ToInt32(MainOrdersDataGrid.SelectedRows[i].Cells["MainOrderID"].Value),
+                            MainOrdersDataGrid.SelectedRows[i].Cells["DocDateTime"].Value,
+                            MainOrdersDataGrid.SelectedRows[i].Cells["ClientColumn"].FormattedValue.ToString(),
+                            MainOrdersDataGrid.SelectedRows[i].Cells["DocNumber"].Value.ToString());
+                    }
+                    obj.MoveToOthersOrders();
+                }
+                else
+                {
+                    Infinium.LightMessageBox.Show(ref TopForm, false,
+                        "Курс не взят. Повторите попытку",
+                        "Перенос заказов");
+                }
             }
             while (SplashWindow.bSmallCreated)
                 SmallWaitForm.CloseS = true;
@@ -1507,12 +1524,10 @@ namespace Infinium
             while (!SplashWindow.bSmallCreated) ;
 
             Infinium.Modules.ZOV.Orders.MoveZOVOrdersToMarketing obj = new Modules.ZOV.Orders.MoveZOVOrdersToMarketing();
-
-            bool RateExist = false;
-            obj.GetDateRates(DateTime.Now, ref RateExist);
-            if (!RateExist)
-                RateExist = obj.NBRBDailyRates(DateTime.Now);
-            if (RateExist)
+            bool FixedPaymentRate = false;
+            obj.MarketingClientID = NewClientID;
+            obj.GetFixedPaymentRate(obj.MarketingClientID, DateTime.Now, ref FixedPaymentRate);
+            if (FixedPaymentRate)
             {
                 obj.ClearZOVMainOrdersInfo();
                 for (int i = 0; i < MainOrdersDataGrid.SelectedRows.Count; i++)
@@ -1522,14 +1537,32 @@ namespace Infinium
                         MainOrdersDataGrid.SelectedRows[i].Cells["ClientColumn"].FormattedValue.ToString(),
                         MainOrdersDataGrid.SelectedRows[i].Cells["DocNumber"].Value.ToString());
                 }
-                obj.MarketingClientID = NewClientID;
                 obj.MoveToOneOrder();
             }
             else
             {
-                Infinium.LightMessageBox.Show(ref TopForm, false,
-                    "Курс не взят. Возможная причина - нет связи с банком без авторизации в kerio control. Войдите в kerio и повторите попытку",
-                    "Перенос заказов");
+                bool RateExist = false;
+                obj.GetDateRates(DateTime.Now, ref RateExist);
+                if (!RateExist)
+                    RateExist = obj.NBRBDailyRates(DateTime.Now);
+                if (RateExist)
+                {
+                    obj.ClearZOVMainOrdersInfo();
+                    for (int i = 0; i < MainOrdersDataGrid.SelectedRows.Count; i++)
+                    {
+                        obj.AddZOVMainOrder(Convert.ToInt32(MainOrdersDataGrid.SelectedRows[i].Cells["ClientID"].Value), Convert.ToInt32(MainOrdersDataGrid.SelectedRows[i].Cells["MainOrderID"].Value),
+                            MainOrdersDataGrid.SelectedRows[i].Cells["DocDateTime"].Value,
+                            MainOrdersDataGrid.SelectedRows[i].Cells["ClientColumn"].FormattedValue.ToString(),
+                            MainOrdersDataGrid.SelectedRows[i].Cells["DocNumber"].Value.ToString());
+                    }
+                    obj.MoveToOneOrder();
+                }
+                else
+                {
+                    Infinium.LightMessageBox.Show(ref TopForm, false,
+                        "Курс не взят. Возможная причина - нет связи с банком без авторизации в kerio control. Войдите в kerio и повторите попытку",
+                        "Перенос заказов");
+                }
             }
             while (SplashWindow.bSmallCreated)
                 SmallWaitForm.CloseS = true;

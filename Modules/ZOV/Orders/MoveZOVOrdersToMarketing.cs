@@ -177,6 +177,34 @@ namespace Infinium.Modules.ZOV.Orders
             }
         }
 
+        public void GetFixedPaymentRate(int ClientID, DateTime ConfirmDateTime, ref bool FixedPaymentRate)
+        {
+            using (DataTable DT = new DataTable())
+            {
+                using (SqlDataAdapter DA = new SqlDataAdapter(@"SELECT * FROM ClientRates WHERE CAST(Date AS Date) <= 
+                    '" + ConfirmDateTime.ToString("yyyy-MM-dd") + "' AND ClientID = " + ClientID + " ORDER BY Date DESC",
+                    ConnectionStrings.MarketingReferenceConnectionString))
+                {
+                    DA.Fill(DT);
+                    if (DT.Rows.Count > 0)
+                    {
+                        if (DT.Rows[0]["USD"] == DBNull.Value || DT.Rows[0]["RUB"] == DBNull.Value || DT.Rows[0]["BYN"] == DBNull.Value)
+                            FixedPaymentRate = false;
+                        else
+                        {
+                            FixedPaymentRate = true;
+                            EURBYRCurrency = Convert.ToDecimal(DT.Rows[0]["BYN"]);
+
+                            //BYN = 2.54m;
+                        }
+                    }
+                    else
+                        FixedPaymentRate = false;
+                }
+            }
+            return;
+        }
+
         public void GetDateRates(DateTime DateTime, ref bool RateExist)
         {
             using (DataTable DT = new DataTable())

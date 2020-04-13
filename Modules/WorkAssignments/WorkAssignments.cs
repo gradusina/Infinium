@@ -12091,6 +12091,7 @@ DecorOrders.DecorConfigID, DecorOrders.FactoryID, DecorOrders.Notes, DecorConfig
         DataTable Techno2GridsDT;
         DataTable Techno4GridsDT;
         DataTable pFoxGridsDT;
+        DataTable ShervudGridsDT;
         DataTable Techno5GridsDT;
         DataTable PR1GridsDT;
         DataTable PR3GridsDT;
@@ -12233,6 +12234,7 @@ DecorOrders.DecorConfigID, DecorOrders.FactoryID, DecorOrders.Notes, DecorConfig
 
             pFoxVitrinaDT = new DataTable();
             pFoxGridsDT = new DataTable();
+            ShervudGridsDT = new DataTable();
             pFoxSimpleDT = new DataTable();
 
             Techno5VitrinaDT = new DataTable();
@@ -12546,6 +12548,7 @@ DecorOrders.DecorConfigID, DecorOrders.FactoryID, DecorOrders.Notes, DecorConfig
                 pFoxSimpleDT = Techno2OrdersDT.Clone();
                 pFoxVitrinaDT = Techno2OrdersDT.Clone();
                 pFoxGridsDT = Techno2OrdersDT.Clone();
+                ShervudGridsDT = Techno2OrdersDT.Clone();
 
                 Techno5OrdersDT = Techno2OrdersDT.Clone();
                 Techno5SimpleDT = Techno2OrdersDT.Clone();
@@ -17756,6 +17759,10 @@ AND FrontID=" + Convert.ToInt32(Front) +
                 InsetsGridsOnly(pFoxGridsDT, ref DestinationDT,
                     Convert.ToInt32(FrontMargins.pFoxInsetHeight), Convert.ToInt32(FrontMargins.pFoxInsetWidth),
                     Convert.ToInt32(FrontMinSizes.pFoxInsetMinHeight), Convert.ToInt32(FrontMinSizes.pFoxInsetMinWidth), true);
+            if (ShervudGridsDT.Rows.Count > 0)
+                InsetsGridsOnly(ShervudGridsDT, ref DestinationDT,
+                    Convert.ToInt32(FrontMargins.ShervudInsetHeight), Convert.ToInt32(FrontMargins.ShervudInsetWidth),
+                    Convert.ToInt32(FrontMinSizes.ShervudInsetMinHeight), Convert.ToInt32(FrontMinSizes.ShervudInsetMinWidth), true);
             if (Techno5GridsDT.Rows.Count > 0)
                 InsetsGridsOnly(Techno5GridsDT, ref DestinationDT,
                     Convert.ToInt32(FrontMargins.Techno5InsetHeight), Convert.ToInt32(FrontMargins.Techno5InsetWidth),
@@ -18477,7 +18484,7 @@ AND FrontID=" + Convert.ToInt32(Front) +
             SummOrdersDT.Rows[SummOrdersDT.Rows.Count - 2]["TotalAmount"] = TotalSquare;
         }
 
-        private void SummaryShervudOrders(DataTable SourceDT, DataTable SimpleDT, DataTable VitrinaDT, string FrontName, ref decimal AllSquare)
+        private void SummaryShervudOrders(DataTable SourceDT, DataTable SimpleDT, DataTable VitrinaDT, DataTable GridsDT, string FrontName, ref decimal AllSquare)
         {
             SummOrdersDT.Dispose();
             SummOrdersDT = new DataTable();
@@ -18493,6 +18500,7 @@ AND FrontID=" + Convert.ToInt32(Front) +
 
             CollectOrders(DistinctSizesDT, SimpleDT, ref SummOrdersDT, 2, FrontName, false);
             CollectOrders(DistinctSizesDT, VitrinaDT, ref SummOrdersDT, 1, FrontName, false);
+            CollectOrders(DistinctSizesDT, GridsDT, ref SummOrdersDT, 3, FrontName, false);
             SummOrdersDT.Columns.Add(new DataColumn("TotalAmount", Type.GetType("System.String")));
 
             using (DataView DV = new DataView(SummOrdersDT.Copy()))
@@ -19166,6 +19174,7 @@ AND FrontID=" + Convert.ToInt32(Front) +
             Techno2GridsDT.Clear();
             Techno4GridsDT.Clear();
             pFoxGridsDT.Clear();
+            ShervudGridsDT.Clear();
             Techno5GridsDT.Clear();
             PR3GridsDT.Clear();
             PRU8GridsDT.Clear();
@@ -19234,6 +19243,7 @@ AND FrontID=" + Convert.ToInt32(Front) +
             {
                 GetSimpleFronts(ShervudOrdersDT, ref ShervudSimpleDT);
                 GetVitrinaFronts(ShervudOrdersDT, ref ShervudVitrinaDT);
+                GetGridFronts(ShervudOrdersDT, ref ShervudGridsDT);
             }
             if (Techno2OrdersDT.Rows.Count > 0)
             {
@@ -19508,6 +19518,7 @@ AND FrontID=" + Convert.ToInt32(Front) +
             Techno2GridsDT.Clear();
             Techno4GridsDT.Clear();
             pFoxGridsDT.Clear();
+            ShervudGridsDT.Clear();
             Techno5GridsDT.Clear();
             PR3GridsDT.Clear();
             PRU8GridsDT.Clear();
@@ -19759,6 +19770,7 @@ AND FrontID=" + Convert.ToInt32(Front) +
             Techno2GridsDT.Clear();
             Techno4GridsDT.Clear();
             pFoxGridsDT.Clear();
+            ShervudGridsDT.Clear();
             Techno5GridsDT.Clear();
             PR3GridsDT.Clear();
             PRU8GridsDT.Clear();
@@ -20021,6 +20033,7 @@ AND FrontID=" + Convert.ToInt32(Front) +
             Techno2GridsDT.Clear();
             Techno4GridsDT.Clear();
             pFoxGridsDT.Clear();
+            ShervudGridsDT.Clear();
             Techno5GridsDT.Clear();
             PR3GridsDT.Clear();
             PRU8GridsDT.Clear();
@@ -20377,7 +20390,7 @@ AND FrontID=" + Convert.ToInt32(Front) +
             if (ShervudOrdersDT.Rows.Count > 0)
             {
                 FrontName = ProfileName(Convert.ToInt32(ShervudOrdersDT.Rows[0]["FrontConfigID"]), 1);
-                SummaryShervudOrders(ShervudOrdersDT, ShervudSimpleDT, ShervudVitrinaDT, FrontName, ref AllSquare);
+                SummaryShervudOrders(ShervudOrdersDT, ShervudSimpleDT, ShervudVitrinaDT, ShervudGridsDT, FrontName, ref AllSquare);
                 OrdersToExcelSingly(ref hssfworkbook,
                    CalibriBold15CS, Calibri11CS, CalibriBold11CS, CalibriBold11F, TableHeaderCS, TableHeaderDecCS, ref sheet1, WorkAssignmentID, DispatchDate, BatchName, ClientName, ref RowIndex, IsPR1, IsPR2, IsPR3, IsPRU8);
                 RowIndex++;
@@ -22057,6 +22070,7 @@ AND FrontID=" + Convert.ToInt32(Front) +
                 ColorType++;
                 CollectAssemblySimple(Convert.ToInt32(DistFrameColorsDT.Rows[i]["ColorID"]), ShervudSimpleDT, ref DT1, FrontType, ColorType, false);
                 CollectAssemblyVitrina(Convert.ToInt32(DistFrameColorsDT.Rows[i]["ColorID"]), ShervudVitrinaDT, ref DT2, FrontType, ColorType, false);
+                CollectAssemblyGrids(Convert.ToInt32(DistFrameColorsDT.Rows[i]["ColorID"]), ShervudGridsDT, ref DT1, FrontType, ColorType, false);
             }
             int RowIndex = 0;
             HSSFSheet sheet1 = hssfworkbook.CreateSheet("Зачистка");
@@ -35902,6 +35916,7 @@ AND FrontID=" + Convert.ToInt32(Front) +
         DataTable BagetWithAngelOrdersDT;
         DataTable NotArchDecorOrdersDT;
         DataTable ArchDecorOrdersDT;
+        DataTable StrapsDecorOrdersDT;
         DataTable GridsDecorOrdersDT;
 
         public DecorAssignments()
@@ -35925,6 +35940,7 @@ AND FrontID=" + Convert.ToInt32(Front) +
             BagetWithAngelOrdersDT = new DataTable();
             NotArchDecorOrdersDT = new DataTable();
             ArchDecorOrdersDT = new DataTable();
+            StrapsDecorOrdersDT = new DataTable();
             GridsDecorOrdersDT = new DataTable();
 
             DecorAssemblyDT = new DataTable();
@@ -36012,7 +36028,7 @@ AND FrontID=" + Convert.ToInt32(Front) +
             {
                 DA.Fill(DecorDT);
             }
-
+            GetColorsDT();
             using (SqlDataAdapter DA = new SqlDataAdapter("SELECT * FROM Patina",
                 ConnectionStrings.CatalogConnectionString))
             {
@@ -36059,6 +36075,7 @@ AND FrontID=" + Convert.ToInt32(Front) +
                 DA.Fill(NotArchDecorOrdersDT);
                 NotArchDecorOrdersDT.Columns.Add(new DataColumn("GroupType", Type.GetType("System.Int32")));
                 ArchDecorOrdersDT = NotArchDecorOrdersDT.Clone();
+                StrapsDecorOrdersDT = NotArchDecorOrdersDT.Clone();
                 GridsDecorOrdersDT = NotArchDecorOrdersDT.Clone();
             }
         }
@@ -36212,11 +36229,11 @@ AND FrontID=" + Convert.ToInt32(Front) +
 
             SelectCommand = @"SELECT DecorOrderID, MainOrderID, ProductID, DecorID, DecorConfigID, ColorID, PatinaID,
                 Height, Length, Width, Count, Notes FROM DecorOrders
-                WHERE FactoryID=" + FactoryID + " AND NOT (ProductID IN (1) AND (LeftAngle<>0 OR RightAngle<>0)) AND ProductID NOT IN (31, 4, 18, 32, 10, 11, 12) AND MainOrderID IN (SELECT MainOrderID FROM BatchDetails WHERE BatchID IN (SELECT BatchID FROM Batch WHERE ProfilWorkAssignmentID=" + WorkAssignmentID + "))";
+                WHERE FactoryID=" + FactoryID + " AND NOT (ProductID IN (1) AND (LeftAngle<>0 OR RightAngle<>0)) AND ProductID NOT IN (14, 31, 4, 18, 32, 10, 11, 12) AND MainOrderID IN (SELECT MainOrderID FROM BatchDetails WHERE BatchID IN (SELECT BatchID FROM Batch WHERE ProfilWorkAssignmentID=" + WorkAssignmentID + "))";
             if (FactoryID == 2)
                 SelectCommand = @"SELECT DecorOrderID, MainOrderID, ProductID, DecorID, DecorConfigID, ColorID, PatinaID,
                     Height, Length, Width, Count, Notes FROM DecorOrders
-                    WHERE FactoryID=" + FactoryID + " AND NOT (ProductID IN (1) AND (LeftAngle<>0 OR RightAngle<>0)) AND ProductID NOT IN (31, 4, 18, 32, 10, 11, 12) AND MainOrderID IN (SELECT MainOrderID FROM BatchDetails WHERE BatchID IN (SELECT BatchID FROM Batch WHERE TPSWorkAssignmentID=" + WorkAssignmentID + "))";
+                    WHERE FactoryID=" + FactoryID + " AND NOT (ProductID IN (1) AND (LeftAngle<>0 OR RightAngle<>0)) AND ProductID NOT IN (14, 31, 4, 18, 32, 10, 11, 12) AND MainOrderID IN (SELECT MainOrderID FROM BatchDetails WHERE BatchID IN (SELECT BatchID FROM Batch WHERE TPSWorkAssignmentID=" + WorkAssignmentID + "))";
 
             using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.ZOVOrdersConnectionString))
             {
@@ -36256,6 +36273,45 @@ AND FrontID=" + Convert.ToInt32(Front) +
                 SelectCommand = @"SELECT DecorOrderID, MainOrderID, ProductID, DecorID, DecorConfigID, ColorID, PatinaID,
                     Height, Length, Width, Count, Notes FROM DecorOrders
                     WHERE FactoryID=" + FactoryID + " AND ProductID IN (31, 4, 18, 32) AND MainOrderID IN (SELECT MainOrderID FROM BatchDetails WHERE BatchID IN (SELECT BatchID FROM Batch WHERE TPSWorkAssignmentID=" + WorkAssignmentID + "))";
+
+            using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.ZOVOrdersConnectionString))
+            {
+                DA.Fill(DT);
+            }
+            foreach (DataRow item in DT.Rows)
+            {
+                DataRow NewRow = DestinationDT.NewRow();
+                NewRow.ItemArray = item.ItemArray;
+                NewRow["GroupType"] = 0;
+                DestinationDT.Rows.Add(NewRow);
+            }
+
+            using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.MarketingOrdersConnectionString))
+            {
+                DT.Clear();
+                DA.Fill(DT);
+            }
+            foreach (DataRow item in DT.Rows)
+            {
+                DataRow NewRow = DestinationDT.NewRow();
+                NewRow.ItemArray = item.ItemArray;
+                NewRow["GroupType"] = 1;
+                DestinationDT.Rows.Add(NewRow);
+            }
+        }
+
+        private void GetStrapsDecorOrders(ref DataTable DestinationDT, int WorkAssignmentID, int FactoryID)
+        {
+            string SelectCommand = string.Empty;
+            DataTable DT = new DataTable();
+
+            SelectCommand = @"SELECT DecorOrderID, MainOrderID, ProductID, DecorID, DecorConfigID, ColorID, PatinaID,
+                Height, Length, Width, Count, Notes FROM DecorOrders
+                WHERE FactoryID=" + FactoryID + " AND ProductID IN (14) AND MainOrderID IN (SELECT MainOrderID FROM BatchDetails WHERE BatchID IN (SELECT BatchID FROM Batch WHERE ProfilWorkAssignmentID=" + WorkAssignmentID + "))";
+            if (FactoryID == 2)
+                SelectCommand = @"SELECT DecorOrderID, MainOrderID, ProductID, DecorID, DecorConfigID, ColorID, PatinaID,
+                    Height, Length, Width, Count, Notes FROM DecorOrders
+                    WHERE FactoryID=" + FactoryID + " AND ProductID IN (14) AND MainOrderID IN (SELECT MainOrderID FROM BatchDetails WHERE BatchID IN (SELECT BatchID FROM Batch WHERE TPSWorkAssignmentID=" + WorkAssignmentID + "))";
 
             using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.ZOVOrdersConnectionString))
             {
@@ -36616,6 +36672,7 @@ AND FrontID=" + Convert.ToInt32(Front) +
             BagetWithAngelOrdersDT.Clear();
             NotArchDecorOrdersDT.Clear();
             ArchDecorOrdersDT.Clear();
+            StrapsDecorOrdersDT.Clear();
             GridsDecorOrdersDT.Clear();
         }
 
@@ -36624,9 +36681,10 @@ AND FrontID=" + Convert.ToInt32(Front) +
             GetNotArchDecorOrders(ref NotArchDecorOrdersDT, WorkAssignmentID, FactoryID);
             GetBagetWithAngleOrders(ref BagetWithAngelOrdersDT, WorkAssignmentID, FactoryID);
             GetArchDecorOrders(ref ArchDecorOrdersDT, WorkAssignmentID, FactoryID);
+            GetStrapsDecorOrders(ref StrapsDecorOrdersDT, WorkAssignmentID, FactoryID);
             GetGridsDecorOrders(ref GridsDecorOrdersDT, WorkAssignmentID, FactoryID);
 
-            if (BagetWithAngelOrdersDT.Rows.Count == 0 && NotArchDecorOrdersDT.Rows.Count == 0 && ArchDecorOrdersDT.Rows.Count == 0 && GridsDecorOrdersDT.Rows.Count == 0)
+            if (BagetWithAngelOrdersDT.Rows.Count == 0 && NotArchDecorOrdersDT.Rows.Count == 0 && ArchDecorOrdersDT.Rows.Count == 0 && StrapsDecorOrdersDT.Rows.Count == 0 && GridsDecorOrdersDT.Rows.Count == 0)
                 return false;
             else
                 return true;
@@ -36767,6 +36825,8 @@ AND FrontID=" + Convert.ToInt32(Front) +
             NotArchDecorAssemblyByMainOrderToExcel(ref hssfworkbook, Calibri11CS, CalibriBold11CS, CalibriBold11F, TableHeaderCS, TableHeaderDecCS, WorkAssignmentID, BatchName);
 
             ArchDecorAssemblyByMainOrderToExcel(ref hssfworkbook, Calibri11CS, CalibriBold11CS, CalibriBold11F, TableHeaderCS, TableHeaderDecCS, WorkAssignmentID, BatchName);
+
+            StrapsAssemblyByMainOrderToExcel(ref hssfworkbook, Calibri11CS, CalibriBold11CS, CalibriBold11F, TableHeaderCS, TableHeaderDecCS, WorkAssignmentID, BatchName);
 
             GridsDecorAssemblyByMainOrderToExcel(ref hssfworkbook, Calibri11CS, CalibriBold11CS, CalibriBold11F, TableHeaderCS, TableHeaderDecCS, WorkAssignmentID, BatchName);
 
@@ -37080,6 +37140,7 @@ AND FrontID=" + Convert.ToInt32(Front) +
                         Notes = CRows[0]["Notes"].ToString();
                         OrderName = "№" + CRows[0]["OrderNumber"].ToString() + "-" + MainOrderID;
                     }
+
                     if (DecorAssemblyDT.Rows.Count > 0)
                     {
                         NotArchDecorAssemblyToExcelSingly(ref hssfworkbook, ref sheet1,
@@ -37594,6 +37655,340 @@ AND FrontID=" + Convert.ToInt32(Front) +
             cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 1, OrderName);
             cell.CellStyle = CalibriBold11CS;
             cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex++), 4, OperationName);
+            cell.CellStyle = CalibriBold11CS;
+            if (Notes.Length > 0)
+            {
+                cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex++), 0, "Примечание: " + Notes);
+                cell.CellStyle = CalibriBold11CS;
+            }
+
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 0, "Наименование");
+            cell.CellStyle = TableHeaderCS;
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 1, "Цвет");
+            cell.CellStyle = TableHeaderCS;
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 2, "Длин./Выс.");
+            cell.CellStyle = TableHeaderCS;
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 3, "Ширина");
+            cell.CellStyle = TableHeaderCS;
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 4, "Кол-во");
+            cell.CellStyle = TableHeaderCS;
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 5, "Прим.");
+            cell.CellStyle = TableHeaderCS;
+            RowIndex++;
+
+            int DecorID = -1;
+            int AllTotalAmount = 0;
+            int TotalAmount = 0;
+            int DifferentDecorCount = 0;
+
+            using (DataView DV = new DataView(DT))
+            {
+                DifferentDecorCount = DV.ToTable(true, new string[] { "DecorID" }).Rows.Count;
+            }
+
+            if (DT.Rows.Count > 0)
+            {
+                DecorID = Convert.ToInt32(DT.Rows[0]["DecorID"]);
+            }
+
+            for (int x = 0; x < DT.Rows.Count; x++)
+            {
+                if (DT.Rows[x]["Count"] != DBNull.Value)
+                {
+                    AllTotalAmount += Convert.ToInt32(DT.Rows[x]["Count"]);
+                    TotalAmount += Convert.ToInt32(DT.Rows[x]["Count"]);
+                }
+                for (int y = 0; y < DT.Columns.Count; y++)
+                {
+                    if (DT.Columns[y].ColumnName == "DecorID")
+                        continue;
+
+                    Type t = DT.Rows[x][y].GetType();
+
+                    if (t.Name == "Decimal")
+                    {
+                        cell = sheet1.CreateRow(RowIndex).CreateCell(y);
+                        cell.SetCellValue(Convert.ToDouble(DT.Rows[x][y]));
+                        cell.CellStyle = TableHeaderDecCS;
+                        continue;
+                    }
+                    if (t.Name == "Int32")
+                    {
+                        cell = sheet1.CreateRow(RowIndex).CreateCell(y);
+                        cell.SetCellValue(Convert.ToInt32(DT.Rows[x][y]));
+                        cell.CellStyle = TableHeaderCS;
+                        continue;
+                    }
+
+                    if (t.Name == "String" || t.Name == "DBNull")
+                    {
+                        cell = sheet1.CreateRow(RowIndex).CreateCell(y);
+                        cell.SetCellValue(DT.Rows[x][y].ToString());
+                        cell.CellStyle = TableHeaderCS;
+                        continue;
+                    }
+                }
+
+                if (x + 1 <= DT.Rows.Count - 1)
+                {
+                    if (DecorID != Convert.ToInt32(DT.Rows[x + 1]["DecorID"]))
+                    {
+                        RowIndex++;
+                        for (int y = 0; y < DT.Columns.Count; y++)
+                        {
+                            if (DT.Columns[y].ColumnName == "DecorID")
+                                continue;
+
+                            cell = sheet1.CreateRow(RowIndex).CreateCell(y);
+                            cell.SetCellValue(string.Empty);
+                            cell.CellStyle = TableHeaderCS;
+                            continue;
+                        }
+
+                        cell = sheet1.CreateRow(RowIndex).CreateCell(0);
+                        cell.SetCellValue("Итого:");
+                        cell.CellStyle = TableHeaderCS;
+
+                        cell = sheet1.CreateRow(RowIndex).CreateCell(4);
+                        cell.SetCellValue(TotalAmount);
+                        cell.CellStyle = TableHeaderCS;
+
+                        DecorID = Convert.ToInt32(DT.Rows[x + 1]["DecorID"]);
+                        TotalAmount = 0;
+                        RowIndex++;
+                    }
+                }
+
+                if (x == DT.Rows.Count - 1)
+                {
+                    if (DifferentDecorCount > 1)
+                    {
+                        RowIndex++;
+                        for (int y = 0; y < DT.Columns.Count; y++)
+                        {
+                            if (DT.Columns[y].ColumnName == "DecorID")
+                                continue;
+
+                            cell = sheet1.CreateRow(RowIndex).CreateCell(y);
+                            cell.SetCellValue(string.Empty);
+                            cell.CellStyle = TableHeaderCS;
+                            continue;
+                        }
+
+                        cell = sheet1.CreateRow(RowIndex).CreateCell(0);
+                        cell.SetCellValue("Итого:");
+                        cell.CellStyle = TableHeaderCS;
+
+                        cell = sheet1.CreateRow(RowIndex).CreateCell(4);
+                        cell.SetCellValue(TotalAmount);
+                        cell.CellStyle = TableHeaderCS;
+                    }
+                    RowIndex++;
+
+                    for (int y = 0; y < DT.Columns.Count; y++)
+                    {
+                        if (DT.Columns[y].ColumnName == "DecorID")
+                            continue;
+
+                        cell = sheet1.CreateRow(RowIndex).CreateCell(y);
+                        cell.SetCellValue(string.Empty);
+                        cell.CellStyle = TableHeaderCS;
+                        continue;
+                    }
+
+                    cell = sheet1.CreateRow(RowIndex).CreateCell(0);
+                    cell.SetCellValue("Всего:");
+                    cell.CellStyle = TableHeaderCS;
+
+                    cell = sheet1.CreateRow(RowIndex).CreateCell(4);
+                    cell.SetCellValue(AllTotalAmount);
+                    cell.CellStyle = TableHeaderCS;
+                }
+                RowIndex++;
+            }
+        }
+
+        private void GetPlanningTime1(DataTable dt, decimal div1, decimal div2, ref decimal time, ref decimal cost)
+        {
+            for (int x = 0; x < dt.Rows.Count; x++)
+            {
+                if (dt.Rows[x]["Count"] != DBNull.Value)
+                    time += Convert.ToInt32(dt.Rows[x]["Count"]);
+            }
+
+            if (div1 != 0)
+                time = Decimal.Round(time / div1, 3, MidpointRounding.AwayFromZero);
+
+            cost = Decimal.Round(time * div2, 2, MidpointRounding.AwayFromZero);
+        }
+
+        private void StrapsAssemblyByMainOrderToExcel(ref HSSFWorkbook hssfworkbook,
+            HSSFCellStyle Calibri11CS, HSSFCellStyle CalibriBold11CS, HSSFFont CalibriBold11F, HSSFCellStyle TableHeaderCS, HSSFCellStyle TableHeaderDecCS,
+            int WorkAssignmentID, string BatchName)
+        {
+            if (StrapsDecorOrdersDT.Rows.Count == 0)
+                return;
+
+            decimal div1 = 0;
+            decimal div2 = 0;
+            decimal time = 0;
+            decimal cost = 0;
+
+            DataTable DistMainOrdersDT = DistMainOrdersTable(StrapsDecorOrdersDT, true);
+            DataTable DT = StrapsDecorOrdersDT.Clone();
+            DataTable ZOVOrdersNames = new DataTable();
+            DataTable MarketOrdersNames = new DataTable();
+            string MainOrdersID = string.Empty;
+            string ClientName = string.Empty;
+            string OrderName = string.Empty;
+            string Notes = string.Empty;
+
+            if (DistMainOrdersDT.Select("GroupType=1").Count() > 0)
+            {
+                MainOrdersID = string.Empty;
+                foreach (DataRow item in DistMainOrdersDT.Select("GroupType=1"))
+                    MainOrdersID += Convert.ToInt32(item["MainOrderID"]) + ",";
+                MainOrdersID = MainOrdersID.Substring(0, MainOrdersID.Length - 1);
+                using (SqlDataAdapter DA = new SqlDataAdapter("SELECT ClientName, OrderNumber, MainOrderID, Notes FROM MainOrders" +
+                    " INNER JOIN MegaOrders ON MainOrders.MegaOrderID=MegaOrders.MegaOrderID" +
+                    " INNER JOIN infiniu2_marketingreference.dbo.Clients ON MegaOrders.ClientID=infiniu2_marketingreference.dbo.Clients.ClientID" +
+                    " WHERE MainOrderID IN (" + MainOrdersID + ")", ConnectionStrings.MarketingOrdersConnectionString))
+                {
+                    DA.Fill(MarketOrdersNames);
+                }
+
+                int RowIndex = 0;
+                HSSFSheet sheet1 = hssfworkbook.CreateSheet("Накладки Маркетинг");
+                sheet1.PrintSetup.PaperSize = (short)PaperSizeType.A4;
+
+                sheet1.SetMargin(HSSFSheet.LeftMargin, (double).12);
+                sheet1.SetMargin(HSSFSheet.RightMargin, (double).07);
+                sheet1.SetMargin(HSSFSheet.TopMargin, (double).20);
+                sheet1.SetMargin(HSSFSheet.BottomMargin, (double).20);
+
+                sheet1.SetColumnWidth(0, 30 * 256);
+                sheet1.SetColumnWidth(1, 20 * 256);
+                sheet1.SetColumnWidth(2, 9 * 256);
+                sheet1.SetColumnWidth(3, 6 * 256);
+                sheet1.SetColumnWidth(4, 6 * 256);
+
+                foreach (DataRow item in DistMainOrdersDT.Select("GroupType=1"))
+                {
+                    DecorAssemblyDT.Clear();
+                    DT.Clear();
+                    int MainOrderID = Convert.ToInt32(item["MainOrderID"]);
+                    DataRow[] rows = StrapsDecorOrdersDT.Select("MainOrderID=" + MainOrderID);
+                    foreach (DataRow item1 in rows)
+                        DT.Rows.Add(item1.ItemArray);
+                    AssemblyDecorCollect(DT, ref DecorAssemblyDT);
+
+                    DataRow[] CRows = MarketOrdersNames.Select("MainOrderID=" + MainOrderID);
+                    if (CRows.Count() > 0)
+                    {
+                        ClientName = CRows[0]["ClientName"].ToString();
+                        Notes = CRows[0]["Notes"].ToString();
+                        OrderName = "№" + CRows[0]["OrderNumber"].ToString() + "-" + MainOrderID;
+                    }
+
+
+                    if (DecorAssemblyDT.Rows.Count > 0)
+                    {
+                        div1 = 6;
+                        div2 = 2.15m;
+                        time = 0;
+                        cost = 0;
+                        GetPlanningTime1(DecorAssemblyDT, div1, div2, ref time, ref cost);
+
+                        StrapsAssemblyToExcelSingly(ref hssfworkbook, ref sheet1,
+                             Calibri11CS, CalibriBold11CS, CalibriBold11F, TableHeaderCS, TableHeaderDecCS, DecorAssemblyDT,
+                             WorkAssignmentID, BatchName, ClientName, "Изготовление НУ", string.Empty, OrderName, Notes, time, cost, ref RowIndex);
+                        RowIndex++;
+                        StrapsAssemblyToExcelSingly(ref hssfworkbook, ref sheet1,
+                            Calibri11CS, CalibriBold11CS, CalibriBold11F, TableHeaderCS, TableHeaderDecCS, DecorAssemblyDT,
+                            WorkAssignmentID, BatchName, ClientName, "Изготовление НУ", "ДУБЛЬ", OrderName, Notes, time, cost, ref RowIndex);
+                        RowIndex++;
+
+                        div1 = 15;
+                        div2 = 1.25m;
+                        time = 0;
+                        cost = 0;
+                        GetPlanningTime1(DecorAssemblyDT, div1, div2, ref time, ref cost);
+
+                        StrapsAssemblyToExcelSingly(ref hssfworkbook, ref sheet1,
+                             Calibri11CS, CalibriBold11CS, CalibriBold11F, TableHeaderCS, TableHeaderDecCS, DecorAssemblyDT,
+                             WorkAssignmentID, BatchName, ClientName, "Покраска Торцов НУ(2 слоя)", string.Empty, OrderName, Notes, time, cost, ref RowIndex);
+                        RowIndex++;
+                        StrapsAssemblyToExcelSingly(ref hssfworkbook, ref sheet1,
+                            Calibri11CS, CalibriBold11CS, CalibriBold11F, TableHeaderCS, TableHeaderDecCS, DecorAssemblyDT,
+                            WorkAssignmentID, BatchName, ClientName, "Покраска Торцов НУ(2 слоя)", "ДУБЛЬ", OrderName, Notes, time, cost, ref RowIndex);
+                        RowIndex++;
+
+                        div1 = 45;
+                        div2 = 1.25m;
+                        time = 0;
+                        cost = 0;
+                        GetPlanningTime1(DecorAssemblyDT, div1, div2, ref time, ref cost);
+
+                        StrapsAssemblyToExcelSingly(ref hssfworkbook, ref sheet1,
+                             Calibri11CS, CalibriBold11CS, CalibriBold11F, TableHeaderCS, TableHeaderDecCS, DecorAssemblyDT,
+                             WorkAssignmentID, BatchName, ClientName, "Зачистка Декора", string.Empty, OrderName, Notes, time, cost, ref RowIndex);
+                        RowIndex++;
+                        StrapsAssemblyToExcelSingly(ref hssfworkbook, ref sheet1,
+                            Calibri11CS, CalibriBold11CS, CalibriBold11F, TableHeaderCS, TableHeaderDecCS, DecorAssemblyDT,
+                            WorkAssignmentID, BatchName, ClientName, "Зачистка Декора", "ДУБЛЬ", OrderName, Notes, time, cost, ref RowIndex);
+                    }
+                    RowIndex++;
+                }
+            }
+        }
+
+        public void StrapsAssemblyToExcelSingly(ref HSSFWorkbook hssfworkbook, ref HSSFSheet sheet1,
+            HSSFCellStyle Calibri11CS, HSSFCellStyle CalibriBold11CS, HSSFFont CalibriBold11F, HSSFCellStyle TableHeaderCS, HSSFCellStyle TableHeaderDecCS,
+            DataTable DT, int WorkAssignmentID, string BatchName, string ClientName, string OperationName, string DuplicateName, string OrderName, string Notes, decimal Time, decimal Cost, ref int RowIndex)
+        {
+            HSSFCell cell = null;
+
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex++), 0, "Распечатал: Дата/время " + CurrentDate.ToString("dd.MM.yyyy HH:mm") + " \r\n ФИО: " + Security.CurrentUserShortName);
+            cell.CellStyle = Calibri11CS;
+
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 0, "Плановое время выполнения:");
+            cell.CellStyle = Calibri11CS;
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 3, "ч/ч");
+            cell.CellStyle = Calibri11CS;
+
+            cell = sheet1.CreateRow(RowIndex++).CreateCell(2);
+            cell.SetCellValue(Convert.ToDouble(Time));
+            cell.CellStyle = Calibri11CS;
+
+
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 0, "Планово-премиальный фонд:");
+            cell.CellStyle = Calibri11CS;
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 3, "руб.");
+            cell.CellStyle = Calibri11CS;
+
+            cell = sheet1.CreateRow(RowIndex++).CreateCell(2);
+            cell.SetCellValue(Convert.ToDouble(Cost));
+            cell.CellStyle = Calibri11CS;
+
+            RowIndex++;
+
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex++), 1, "УТВЕРЖДАЮ_____________");
+            cell.CellStyle = Calibri11CS;
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex++), 1, OperationName);
+            cell.CellStyle = CalibriBold11CS;
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 0, "Задание №" + WorkAssignmentID.ToString());
+            cell.CellStyle = CalibriBold11CS;
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex++), 1, BatchName);
+            cell.CellStyle = CalibriBold11CS;
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 0, "Клиент:");
+            cell.CellStyle = CalibriBold11CS;
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex++), 1, ClientName);
+            cell.CellStyle = CalibriBold11CS;
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 0, "Заказ:");
+            cell.CellStyle = CalibriBold11CS;
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 1, OrderName);
+            cell.CellStyle = CalibriBold11CS;
+            cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex++), 4, DuplicateName);
             cell.CellStyle = CalibriBold11CS;
             if (Notes.Length > 0)
             {

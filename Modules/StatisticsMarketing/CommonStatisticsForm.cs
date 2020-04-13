@@ -4583,5 +4583,71 @@ namespace Infinium
                        "Упаковано под клиента");
             }
         }
+
+        private void kryptonContextMenuItem18_Click(object sender, EventArgs e)
+        {
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Создание отчета.\r\nПодождите..."); });
+            T.Start();
+
+            while (!SplashWindow.bSmallCreated) ;
+            NeedSplash = false;
+
+            DateTime DateFrom = CalendarFrom.SelectionEnd;
+            DateTime DateTo = CalendarTo.SelectionEnd;
+            string FileName = "Рекламации за период с " + DateFrom.ToString("dd.MM.yyyy") + " по " + DateTo.ToString("dd.MM.yyyy") + "";
+
+            ComplaintsReport report = new ComplaintsReport();
+
+            report.GetData(DateFrom, DateTo);
+            if (report.HasData)
+            {
+                report.Report(FileName);
+                NeedSplash = true;
+                while (SplashWindow.bSmallCreated)
+                    SmallWaitForm.CloseS = true;
+            }
+            else
+            {
+                NeedSplash = true;
+                while (SplashWindow.bSmallCreated)
+                    SmallWaitForm.CloseS = true;
+                Infinium.LightMessageBox.Show(ref TopForm, false,
+                       "Рекламаций за выбранный период нет",
+                       "Рекламации");
+            }
+        }
+
+        private void kryptonContextMenuItem19_Click(object sender, EventArgs e)
+        {
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Создание отчета.\r\nПодождите..."); });
+            T.Start();
+
+            while (!SplashWindow.bSmallCreated) ;
+            NeedSplash = false;
+
+            DateTime DateFrom = CalendarFrom.SelectionEnd;
+            DateTime DateTo = CalendarTo.SelectionEnd;
+            string FileName = "Транспорт за период с " + DateFrom.ToString("dd.MM.yyyy") + " по " + DateTo.ToString("dd.MM.yyyy") + "";
+
+            TransportReport report = new TransportReport();
+
+            report.GetData(DateFrom, DateTo);
+            if (report.HasData)
+            {
+                report.Report(FileName);
+                NeedSplash = true;
+                while (SplashWindow.bSmallCreated)
+                    SmallWaitForm.CloseS = true;
+            }
+            else
+            {
+                NeedSplash = true;
+                while (SplashWindow.bSmallCreated)
+                    SmallWaitForm.CloseS = true;
+                Infinium.LightMessageBox.Show(ref TopForm, false,
+                       "Заказов с транспортом за выбранный период нет",
+                       "Транспорт");
+            }
+        }
     }
 }

@@ -46,7 +46,7 @@ namespace Infinium
 
         TablesManager TM;
 
-        int iRefreshTime = 5000;
+        int iRefreshTime = 150000;
 
         NotifyForm NotifyForm;
 

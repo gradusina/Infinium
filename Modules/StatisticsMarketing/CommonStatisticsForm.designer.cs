@@ -904,6 +904,8 @@
             this.kryptonContextMenuItem15 = new ComponentFactory.Krypton.Toolkit.KryptonContextMenuItem();
             this.kryptonContextMenuItem16 = new ComponentFactory.Krypton.Toolkit.KryptonContextMenuItem();
             this.kryptonContextMenuItem17 = new ComponentFactory.Krypton.Toolkit.KryptonContextMenuItem();
+            this.kryptonContextMenuItem18 = new ComponentFactory.Krypton.Toolkit.KryptonContextMenuItem();
+            this.kryptonContextMenuItem19 = new ComponentFactory.Krypton.Toolkit.KryptonContextMenuItem();
             this.NavigatePanel.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel115.SuspendLayout();
@@ -14227,7 +14229,9 @@
             this.kryptonContextMenuItem14,
             this.kryptonContextMenuItem15,
             this.kryptonContextMenuItem16,
-            this.kryptonContextMenuItem17});
+            this.kryptonContextMenuItem17,
+            this.kryptonContextMenuItem18,
+            this.kryptonContextMenuItem19});
             // 
             // kryptonContextMenuItem10
             // 
@@ -14268,6 +14272,16 @@
             // 
             this.kryptonContextMenuItem17.Text = "Упаковано, но не принято на склад";
             this.kryptonContextMenuItem17.Click += new System.EventHandler(this.kryptonContextMenuItem17_Click);
+            // 
+            // kryptonContextMenuItem18
+            // 
+            this.kryptonContextMenuItem18.Text = "Рекламации за период";
+            this.kryptonContextMenuItem18.Click += new System.EventHandler(this.kryptonContextMenuItem18_Click);
+            // 
+            // kryptonContextMenuItem19
+            // 
+            this.kryptonContextMenuItem19.Text = "Транспорт за период";
+            this.kryptonContextMenuItem19.Click += new System.EventHandler(this.kryptonContextMenuItem19_Click);
             // 
             // CommonStatisticsForm
             // 
@@ -15549,5 +15563,7 @@
         private ComponentFactory.Krypton.Toolkit.KryptonContextMenuItem kryptonContextMenuItem17;
         private ComponentFactory.Krypton.Toolkit.KryptonRadioButton OnAgreementRadioButton;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
+        private ComponentFactory.Krypton.Toolkit.KryptonContextMenuItem kryptonContextMenuItem18;
+        private ComponentFactory.Krypton.Toolkit.KryptonContextMenuItem kryptonContextMenuItem19;
     }
 }

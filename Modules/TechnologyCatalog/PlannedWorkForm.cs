@@ -291,18 +291,29 @@ namespace Infinium
                 }
             }
 
-            Thread T =
+            if (NeedSplash)
+            {
+                Thread T =
                 new Thread(
                     delegate () { SplashWindow.CreateSmallSplash(ref _topForm, "Сохранение данных.\r\nПодождите..."); });
-            T.Start();
-            while (!SplashWindow.bSmallCreated) ;
+                T.Start();
+                while (!SplashWindow.bSmallCreated) ;
+                NeedSplash = false;
 
-            _plannedWorkManager.SaveExecutors();
-            _plannedWorkManager.SaveWorks();
-            UpdateWorks();
+                _plannedWorkManager.SaveExecutors();
+                _plannedWorkManager.SaveWorks();
+                UpdateWorks();
 
-            while (SplashWindow.bSmallCreated)
-                SmallWaitForm.CloseS = true;
+                NeedSplash = true;
+                while (SplashWindow.bSmallCreated)
+                    SmallWaitForm.CloseS = true;
+            }
+            else
+            {
+                _plannedWorkManager.SaveExecutors();
+                _plannedWorkManager.SaveWorks();
+                UpdateWorks();
+            }
 
             InfiniumTips.ShowTip(this, 50, 85, "Сохранено", 1700);
 
@@ -330,19 +341,31 @@ namespace Infinium
             if (!OKCancel)
                 return;
 
-            Thread T =
+            if (NeedSplash)
+            {
+                Thread T =
                 new Thread(
                     delegate () { SplashWindow.CreateSmallSplash(ref _topForm, "Сохранение данных.\r\nПодождите..."); });
-            T.Start();
-            while (!SplashWindow.bSmallCreated) ;
+                T.Start();
+                while (!SplashWindow.bSmallCreated) ;
+                NeedSplash = false;
 
-            int PlannedWorkID = -1;
-            if (dgvWorks.SelectedRows[0].Cells["PlannedWorkID"].Value != DBNull.Value)
-                PlannedWorkID = Convert.ToInt32((dgvWorks.SelectedRows[0].Cells["PlannedWorkID"].Value));
-            _plannedWorkManager.RemoveWork();
+                int PlannedWorkID = -1;
+                if (dgvWorks.SelectedRows[0].Cells["PlannedWorkID"].Value != DBNull.Value)
+                    PlannedWorkID = Convert.ToInt32((dgvWorks.SelectedRows[0].Cells["PlannedWorkID"].Value));
+                _plannedWorkManager.RemoveWork();
 
-            while (SplashWindow.bSmallCreated)
-                SmallWaitForm.CloseS = true;
+                NeedSplash = true;
+                while (SplashWindow.bSmallCreated)
+                    SmallWaitForm.CloseS = true;
+            }
+            else
+            {
+                int PlannedWorkID = -1;
+                if (dgvWorks.SelectedRows[0].Cells["PlannedWorkID"].Value != DBNull.Value)
+                    PlannedWorkID = Convert.ToInt32((dgvWorks.SelectedRows[0].Cells["PlannedWorkID"].Value));
+                _plannedWorkManager.RemoveWork();
+            }
 
             InfiniumTips.ShowTip(this, 50, 85, "Удалено", 1700);
         }
@@ -383,21 +406,35 @@ namespace Infinium
 
         private void btnFilterWorks_Click(object sender, EventArgs e)
         {
-            Thread T =
+            if (NeedSplash)
+            {
+                Thread T =
                 new Thread(
                     delegate () { SplashWindow.CreateSmallSplash(ref _topForm, "Обновление данных.\r\nПодождите..."); });
-            T.Start();
-            while (!SplashWindow.bSmallCreated) ;
+                T.Start();
+                while (!SplashWindow.bSmallCreated) ;
+                NeedSplash = false;
 
-            int PlannedWorkID = 0;
+                int PlannedWorkID = 0;
 
-            if (dgvWorks.SelectedRows.Count > 0 && dgvWorks.SelectedRows[0].Cells["PlannedWorkID"].Value != DBNull.Value)
-                PlannedWorkID = Convert.ToInt32(dgvWorks.SelectedRows[0].Cells["PlannedWorkID"].Value);
-            UpdateWorks();
-            _plannedWorkManager.MoveToPosition(PlannedWorkID);
+                if (dgvWorks.SelectedRows.Count > 0 && dgvWorks.SelectedRows[0].Cells["PlannedWorkID"].Value != DBNull.Value)
+                    PlannedWorkID = Convert.ToInt32(dgvWorks.SelectedRows[0].Cells["PlannedWorkID"].Value);
+                UpdateWorks();
+                _plannedWorkManager.MoveToPosition(PlannedWorkID);
 
-            while (SplashWindow.bSmallCreated)
-                SmallWaitForm.CloseS = true;
+                NeedSplash = true;
+                while (SplashWindow.bSmallCreated)
+                    SmallWaitForm.CloseS = true;
+            }
+            else
+            {
+                int PlannedWorkID = 0;
+
+                if (dgvWorks.SelectedRows.Count > 0 && dgvWorks.SelectedRows[0].Cells["PlannedWorkID"].Value != DBNull.Value)
+                    PlannedWorkID = Convert.ToInt32(dgvWorks.SelectedRows[0].Cells["PlannedWorkID"].Value);
+                UpdateWorks();
+                _plannedWorkManager.MoveToPosition(PlannedWorkID);
+            }
         }
 
         private void dgvWorks_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
@@ -424,18 +461,31 @@ namespace Infinium
                 PlannedWorkID = Convert.ToInt32(dgvWorks.SelectedRows[0].Cells["PlannedWorkID"].Value);
             if (PlannedWorkID == 0)
                 return;
-            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref _topForm, "Сохранение данных.\r\nПодождите..."); });
-            T.Start();
 
-            while (!SplashWindow.bSmallCreated) ;
+            if (NeedSplash)
+            {
+                Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref _topForm, "Сохранение данных.\r\nПодождите..."); });
+                T.Start();
 
-            _plannedWorkManager.Confirm(PlannedWorkID);
-            _plannedWorkManager.SaveWorks();
-            UpdateWorks();
-            _plannedWorkManager.MoveToPosition(PlannedWorkID);
+                while (!SplashWindow.bSmallCreated) ;
+                NeedSplash = false;
 
-            while (SplashWindow.bSmallCreated)
-                SmallWaitForm.CloseS = true;
+                _plannedWorkManager.Confirm(PlannedWorkID);
+                _plannedWorkManager.SaveWorks();
+                UpdateWorks();
+                _plannedWorkManager.MoveToPosition(PlannedWorkID);
+
+                NeedSplash = true;
+                while (SplashWindow.bSmallCreated)
+                    SmallWaitForm.CloseS = true;
+            }
+            else
+            {
+                _plannedWorkManager.Confirm(PlannedWorkID);
+                _plannedWorkManager.SaveWorks();
+                UpdateWorks();
+                _plannedWorkManager.MoveToPosition(PlannedWorkID);
+            }
             InfiniumTips.ShowTip(this, 50, 85, "Работа утверждена", 1700);
         }
 
@@ -455,18 +505,31 @@ namespace Infinium
                 PlannedWorkID = Convert.ToInt32(dgvWorks.SelectedRows[0].Cells["PlannedWorkID"].Value);
             if (PlannedWorkID == 0)
                 return;
-            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref _topForm, "Сохранение данных.\r\nПодождите..."); });
-            T.Start();
 
-            while (!SplashWindow.bSmallCreated) ;
+            if (NeedSplash)
+            {
+                Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref _topForm, "Сохранение данных.\r\nПодождите..."); });
+                T.Start();
 
-            _plannedWorkManager.Start(PlannedWorkID);
-            _plannedWorkManager.SaveWorks();
-            UpdateWorks();
-            _plannedWorkManager.MoveToPosition(PlannedWorkID);
+                while (!SplashWindow.bSmallCreated) ;
+                NeedSplash = false;
 
-            while (SplashWindow.bSmallCreated)
-                SmallWaitForm.CloseS = true;
+                _plannedWorkManager.Start(PlannedWorkID);
+                _plannedWorkManager.SaveWorks();
+                UpdateWorks();
+                _plannedWorkManager.MoveToPosition(PlannedWorkID);
+
+                NeedSplash = true;
+                while (SplashWindow.bSmallCreated)
+                    SmallWaitForm.CloseS = true;
+            }
+            else
+            {
+                _plannedWorkManager.Start(PlannedWorkID);
+                _plannedWorkManager.SaveWorks();
+                UpdateWorks();
+                _plannedWorkManager.MoveToPosition(PlannedWorkID);
+            }
             InfiniumTips.ShowTip(this, 50, 85, "Работа начата", 1700);
         }
 
@@ -486,18 +549,31 @@ namespace Infinium
                 PlannedWorkID = Convert.ToInt32(dgvWorks.SelectedRows[0].Cells["PlannedWorkID"].Value);
             if (PlannedWorkID == 0)
                 return;
-            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref _topForm, "Сохранение данных.\r\nПодождите..."); });
-            T.Start();
 
-            while (!SplashWindow.bSmallCreated) ;
+            if (NeedSplash)
+            {
+                Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref _topForm, "Сохранение данных.\r\nПодождите..."); });
+                T.Start();
 
-            _plannedWorkManager.End(PlannedWorkID);
-            _plannedWorkManager.SaveWorks();
-            UpdateWorks();
-            _plannedWorkManager.MoveToPosition(PlannedWorkID);
+                while (!SplashWindow.bSmallCreated) ;
+                NeedSplash = false;
 
-            while (SplashWindow.bSmallCreated)
-                SmallWaitForm.CloseS = true;
+                _plannedWorkManager.End(PlannedWorkID);
+                _plannedWorkManager.SaveWorks();
+                UpdateWorks();
+                _plannedWorkManager.MoveToPosition(PlannedWorkID);
+
+                NeedSplash = true;
+                while (SplashWindow.bSmallCreated)
+                    SmallWaitForm.CloseS = true;
+            }
+            else
+            {
+                _plannedWorkManager.End(PlannedWorkID);
+                _plannedWorkManager.SaveWorks();
+                UpdateWorks();
+                _plannedWorkManager.MoveToPosition(PlannedWorkID);
+            }
             InfiniumTips.ShowTip(this, 50, 85, "Работа завершена", 1700);
         }
 
