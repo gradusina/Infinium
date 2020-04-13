@@ -29095,6 +29095,8 @@ ORDER BY infiniu2_marketingreference.dbo.Clients.ClientName, dbo.MegaOrders.Orde
 
     public class CommonStatistics : IAllFrontParameterName
     {
+        private int CurrentManagerID = -1;
+
         public DataTable FrontsOrdersDataTable = null;
         public DataTable DecorOrdersDataTable = null;
 
@@ -29102,6 +29104,7 @@ ORDER BY infiniu2_marketingreference.dbo.Clients.ClientName, dbo.MegaOrders.Orde
         DataTable TempDecorDataTable = null;
         DataTable ClientsDataTable = null;
         DataTable ClientGroupsDataTable = null;
+        DataTable ManagersDataTable = null;
 
         DataTable FrontsSummaryDataTable = null;
         DataTable FrameColorsSummaryDataTable = null;
@@ -29129,6 +29132,7 @@ ORDER BY infiniu2_marketingreference.dbo.Clients.ClientName, dbo.MegaOrders.Orde
 
         public BindingSource ClientsBindingSource = null;
         public BindingSource ClientGroupsBindingSource = null;
+        public BindingSource ManagersBindingSource = null;
         public BindingSource FrontsSummaryBindingSource = null;
         public BindingSource FrameColorsSummaryBindingSource = null;
         public BindingSource TechnoColorsSummaryBindingSource = null;
@@ -29154,6 +29158,7 @@ ORDER BY infiniu2_marketingreference.dbo.Clients.ClientName, dbo.MegaOrders.Orde
 
             ClientsDataTable = new DataTable();
             ClientGroupsDataTable = new DataTable();
+            ManagersDataTable = new DataTable();
 
             DecorDataTable = new DataTable();
             DecorProductsDataTable = new DataTable();
@@ -29413,6 +29418,17 @@ ORDER BY infiniu2_marketingreference.dbo.Clients.ClientName, dbo.MegaOrders.Orde
             {
                 DA.Fill(DecorDataTable);
             }
+            using (SqlDataAdapter DA = new SqlDataAdapter("SELECT ManagerID, Name FROM ClientsManagers ORDER BY Name",
+                ConnectionStrings.MarketingReferenceConnectionString))
+            {
+                DA.Fill(ManagersDataTable);
+            }
+            ManagersDataTable.Columns.Add(new DataColumn("Check", Type.GetType("System.Boolean")));
+            for (int i = 0; i < ManagersDataTable.Rows.Count; i++)
+            {
+                ManagersDataTable.Rows[i]["Check"] = false;
+            }
+
             using (SqlDataAdapter DA = new SqlDataAdapter("SELECT * FROM ClientGroups",
                 ConnectionStrings.MarketingReferenceConnectionString))
             {
@@ -29422,11 +29438,9 @@ ORDER BY infiniu2_marketingreference.dbo.Clients.ClientName, dbo.MegaOrders.Orde
             for (int i = 0; i < ClientGroupsDataTable.Rows.Count; i++)
             {
                 ClientGroupsDataTable.Rows[i]["Check"] = true;
-                //if (Convert.ToInt32(ClientGroupsDataTable.Rows[i]["ClientGroupID"]) == 1)
-                //    ClientGroupsDataTable.Rows[i]["Check"] = false;
             }
 
-            using (SqlDataAdapter DA = new SqlDataAdapter("SELECT ClientID, ClientName FROM Clients", ConnectionStrings.MarketingReferenceConnectionString))
+            using (SqlDataAdapter DA = new SqlDataAdapter("SELECT ClientID, ClientName, ManagerID FROM Clients", ConnectionStrings.MarketingReferenceConnectionString))
             {
                 DA.Fill(ClientsDataTable);
             }
@@ -30236,6 +30250,11 @@ ORDER BY infiniu2_marketingreference.dbo.Clients.ClientName, dbo.MegaOrders.Orde
 
         private void Binding()
         {
+            ManagersBindingSource = new BindingSource()
+            {
+                DataSource = ManagersDataTable
+            };
+
             ClientGroupsBindingSource = new BindingSource()
             {
                 DataSource = ClientGroupsDataTable
@@ -30282,6 +30301,7 @@ ORDER BY infiniu2_marketingreference.dbo.Clients.ClientName, dbo.MegaOrders.Orde
         public void checkbox3_CheckedChanged(bool check)
         {
             CheckAllClients(check);
+            CheckAllManagers(check);
         }
 
         private void SetGrids()
@@ -31602,6 +31622,56 @@ ORDER BY infiniu2_marketingreference.dbo.Clients.ClientName, dbo.MegaOrders.Orde
                 }
 
                 return ClientGroupIDs;
+            }
+        }
+
+        public void GetCurrentManager()
+        {
+            if (ManagersBindingSource.Count == 0)
+            {
+                CurrentManagerID = -1;
+                return;
+            }
+            if (((DataRowView)ManagersBindingSource.Current).Row["ManagerID"] == DBNull.Value)
+                return;
+            else
+                CurrentManagerID = Convert.ToInt32(((DataRowView)ManagersBindingSource.Current).Row["ManagerID"]);
+        }
+
+        public void SetCheckClientsByManager(bool Check)
+        {
+            //string filter = string.Empty;
+            //ArrayList ManagerIDs = new ArrayList();
+
+            //for (int i = 0; i < ManagersDataTable.Rows.Count; i++)
+            //{
+            //    if (!Convert.ToBoolean(ManagersDataTable.Rows[i]["Check"]))
+            //        continue;
+            //    ManagerIDs.Add(ManagersDataTable.Rows[i]["ManagerID"].ToString());
+            //}
+
+            //foreach (string item in ManagerIDs)
+            //    filter += item.ToString() + ",";
+            //if (filter.Length > 0)
+            //    filter = "ManagerID IN (" + filter + ")";
+            //else
+            //    filter = "";
+            //ClientsBindingSource.Filter = filter;
+
+            CurrentManagerID = Convert.ToInt32(((DataRowView)ManagersBindingSource.Current).Row["ManagerID"]);
+            for (int i = 0; i < ClientsDataTable.Rows.Count; i++)
+            {
+                int ManagerID = Convert.ToInt32(ClientsDataTable.Rows[i]["ManagerID"]);
+                if (ManagerID == CurrentManagerID)
+                    ClientsDataTable.Rows[i]["Check"] = Check;
+            }
+        }
+
+        public void CheckAllManagers(bool Check)
+        {
+            for (int i = 0; i < ManagersDataTable.Rows.Count; i++)
+            {
+                ManagersDataTable.Rows[i]["Check"] = Check;
             }
         }
 

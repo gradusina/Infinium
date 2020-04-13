@@ -88,6 +88,8 @@ namespace Infinium
             CalendarTo.TodayDate = Today;
 
             ClientsDataGrid.Enabled = false;
+            dgvMarketManagers.Enabled = false;
+            AllProductsStatistics.CheckAllManagers(false);
             AllProductsStatistics.CheckAllClients(false);
 
             //AllProductsStatistics.ShowCheckColumn(ClientGroupsDataGrid, true);
@@ -298,8 +300,21 @@ namespace Infinium
 
         private void CommonStatisticsGridSettings()
         {
+            dgvMarketManagers.DataSource = AllProductsStatistics.ManagersBindingSource;
             ClientGroupsDataGrid.DataSource = AllProductsStatistics.ClientGroupsBindingSource;
             ClientsDataGrid.DataSource = AllProductsStatistics.ClientsBindingSource;
+
+            foreach (DataGridViewColumn Column in dgvMarketManagers.Columns)
+                Column.ReadOnly = true;
+
+            dgvMarketManagers.Columns["ManagerID"].Visible = false;
+            dgvMarketManagers.Columns["Check"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            dgvMarketManagers.Columns["Check"].Width = 40;
+            dgvMarketManagers.Columns["Name"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dgvMarketManagers.AutoGenerateColumns = false;
+            dgvMarketManagers.Columns["Check"].ReadOnly = false;
+            dgvMarketManagers.Columns["Check"].DisplayIndex = 0;
+            dgvMarketManagers.Columns["Name"].DisplayIndex = 1;
 
             foreach (DataGridViewColumn Column in ClientGroupsDataGrid.Columns)
                 Column.ReadOnly = true;
@@ -315,6 +330,7 @@ namespace Infinium
 
             foreach (DataGridViewColumn Column in ClientsDataGrid.Columns)
                 Column.ReadOnly = true;
+            ClientsDataGrid.Columns["ManagerID"].Visible = false;
             ClientsDataGrid.Columns["ClientID"].Visible = false;
             ClientsDataGrid.Columns["Check"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
             ClientsDataGrid.Columns["Check"].Width = 40;
@@ -2403,6 +2419,7 @@ namespace Infinium
         private void AllClientsCheckBox_CheckedChanged(object sender, EventArgs e)
         {
             ClientsDataGrid.Enabled = AllClientsCheckBox.Checked;
+            dgvMarketManagers.Enabled = AllClientsCheckBox.Checked;
             AllProductsStatistics.CheckAllClientGroups(false);
             //AllProductsStatistics.ShowCheckColumn(ClientGroupsDataGrid, !AllClientsCheckBox.Checked);
             //AllProductsStatistics.ShowCheckColumn(ClientsDataGrid, AllClientsCheckBox.Checked);
@@ -2412,6 +2429,7 @@ namespace Infinium
         private void ClientGroupsCheckBox_CheckedChanged(object sender, EventArgs e)
         {
             ClientGroupsDataGrid.Enabled = ClientGroupsCheckBox.Checked;
+            AllProductsStatistics.CheckAllManagers(false);
             AllProductsStatistics.CheckAllClients(false);
             //AllProductsStatistics.ShowCheckColumn(ClientGroupsDataGrid, ClientGroupsCheckBox.Checked);
             //AllProductsStatistics.ShowCheckColumn(ClientsDataGrid, !ClientGroupsCheckBox.Checked);
@@ -4647,6 +4665,38 @@ namespace Infinium
                 Infinium.LightMessageBox.Show(ref TopForm, false,
                        "Заказов с транспортом за выбранный период нет",
                        "Транспорт");
+            }
+        }
+
+        private void dgvMarketManagers_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            if (dgvMarketManagers.Columns[e.ColumnIndex].Name == "Check" && e.RowIndex != -1)
+            {
+                DataGridViewCheckBoxCell checkCell =
+                    (DataGridViewCheckBoxCell)dgvMarketManagers.
+                    Rows[e.RowIndex].Cells["Check"];
+
+                bool Checked = Convert.ToBoolean(checkCell.Value);
+
+                if (NeedSplash)
+                {
+                    Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
+                    T.Start();
+                    while (!SplashWindow.bSmallCreated) ;
+                    NeedSplash = false;
+
+                    AllProductsStatistics.SetCheckClientsByManager(Checked);
+                    ClientsDataGrid.Invalidate();
+
+                    NeedSplash = true;
+                    while (SplashWindow.bSmallCreated)
+                        SmallWaitForm.CloseS = true;
+                }
+                else
+                {
+                    AllProductsStatistics.SetCheckClientsByManager(Checked);
+                    ClientsDataGrid.Invalidate();
+                }
             }
         }
     }

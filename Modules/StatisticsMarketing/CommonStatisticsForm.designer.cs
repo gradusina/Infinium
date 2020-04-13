@@ -196,6 +196,12 @@
             this.kryptonBorderEdge40 = new ComponentFactory.Krypton.Toolkit.KryptonBorderEdge();
             this.kryptonBorderEdge41 = new ComponentFactory.Krypton.Toolkit.KryptonBorderEdge();
             this.panel32 = new System.Windows.Forms.Panel();
+            this.panel34 = new System.Windows.Forms.Panel();
+            this.dgvMarketManagers = new Infinium.PercentageDataGrid();
+            this.kryptonBorderEdge96 = new ComponentFactory.Krypton.Toolkit.KryptonBorderEdge();
+            this.kryptonBorderEdge97 = new ComponentFactory.Krypton.Toolkit.KryptonBorderEdge();
+            this.kryptonBorderEdge98 = new ComponentFactory.Krypton.Toolkit.KryptonBorderEdge();
+            this.kryptonBorderEdge99 = new ComponentFactory.Krypton.Toolkit.KryptonBorderEdge();
             this.AllClientsCheckBox = new ComponentFactory.Krypton.Toolkit.KryptonCheckBox();
             this.ClientGroupsCheckBox = new ComponentFactory.Krypton.Toolkit.KryptonCheckBox();
             this.panel33 = new System.Windows.Forms.Panel();
@@ -945,6 +951,8 @@
             this.CommonMenuPanel.SuspendLayout();
             this.panel12.SuspendLayout();
             this.panel32.SuspendLayout();
+            this.panel34.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvMarketManagers)).BeginInit();
             this.panel33.SuspendLayout();
             this.panel31.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ZOVClientsDataGrid)).BeginInit();
@@ -3139,10 +3147,10 @@
             this.panel8.Controls.Add(this.kryptonBorderEdge35);
             this.panel8.Controls.Add(this.kryptonBorderEdge36);
             this.panel8.Controls.Add(this.kryptonBorderEdge37);
-            this.panel8.Location = new System.Drawing.Point(528, 27);
+            this.panel8.Location = new System.Drawing.Point(352, 27);
             this.panel8.Margin = new System.Windows.Forms.Padding(10, 3, 3, 3);
             this.panel8.Name = "panel8";
-            this.panel8.Size = new System.Drawing.Size(219, 291);
+            this.panel8.Size = new System.Drawing.Size(199, 291);
             this.panel8.TabIndex = 354;
             // 
             // ClientGroupsDataGrid
@@ -3166,7 +3174,7 @@
             this.ClientGroupsDataGrid.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.ClientGroupsDataGrid.SelectedColorStyle = Infinium.PercentageDataGrid.ColorStyle.Blue;
             this.ClientGroupsDataGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.ClientGroupsDataGrid.Size = new System.Drawing.Size(217, 289);
+            this.ClientGroupsDataGrid.Size = new System.Drawing.Size(197, 289);
             this.ClientGroupsDataGrid.StandardStyle = false;
             this.ClientGroupsDataGrid.StateCommon.Background.Color1 = System.Drawing.Color.White;
             this.ClientGroupsDataGrid.StateCommon.Background.Color2 = System.Drawing.Color.Transparent;
@@ -3180,7 +3188,7 @@
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.ClientGroupsDataGrid.StateCommon.DataCell.Content.Color1 = System.Drawing.Color.Black;
-            this.ClientGroupsDataGrid.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.ClientGroupsDataGrid.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.ClientGroupsDataGrid.StateCommon.HeaderColumn.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
             this.ClientGroupsDataGrid.StateCommon.HeaderColumn.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
             this.ClientGroupsDataGrid.StateCommon.HeaderColumn.Border.Color1 = System.Drawing.Color.Black;
@@ -3200,7 +3208,7 @@
             // kryptonBorderEdge34
             // 
             this.kryptonBorderEdge34.Dock = System.Windows.Forms.DockStyle.Right;
-            this.kryptonBorderEdge34.Location = new System.Drawing.Point(218, 1);
+            this.kryptonBorderEdge34.Location = new System.Drawing.Point(198, 1);
             this.kryptonBorderEdge34.Name = "kryptonBorderEdge34";
             this.kryptonBorderEdge34.Orientation = System.Windows.Forms.Orientation.Vertical;
             this.kryptonBorderEdge34.Size = new System.Drawing.Size(1, 289);
@@ -3222,7 +3230,7 @@
             this.kryptonBorderEdge36.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.kryptonBorderEdge36.Location = new System.Drawing.Point(0, 290);
             this.kryptonBorderEdge36.Name = "kryptonBorderEdge36";
-            this.kryptonBorderEdge36.Size = new System.Drawing.Size(219, 1);
+            this.kryptonBorderEdge36.Size = new System.Drawing.Size(199, 1);
             this.kryptonBorderEdge36.StateCommon.Color1 = System.Drawing.Color.Black;
             this.kryptonBorderEdge36.Text = "kryptonBorderEdge36";
             // 
@@ -3231,7 +3239,7 @@
             this.kryptonBorderEdge37.Dock = System.Windows.Forms.DockStyle.Top;
             this.kryptonBorderEdge37.Location = new System.Drawing.Point(0, 0);
             this.kryptonBorderEdge37.Name = "kryptonBorderEdge37";
-            this.kryptonBorderEdge37.Size = new System.Drawing.Size(219, 1);
+            this.kryptonBorderEdge37.Size = new System.Drawing.Size(199, 1);
             this.kryptonBorderEdge37.StateCommon.Color1 = System.Drawing.Color.Black;
             this.kryptonBorderEdge37.Text = "kryptonBorderEdge37";
             // 
@@ -3317,7 +3325,7 @@
             this.panel7.Location = new System.Drawing.Point(1, 27);
             this.panel7.Margin = new System.Windows.Forms.Padding(10, 3, 3, 3);
             this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(523, 291);
+            this.panel7.Size = new System.Drawing.Size(348, 291);
             this.panel7.TabIndex = 326;
             // 
             // ClientsDataGrid
@@ -3340,7 +3348,7 @@
             this.ClientsDataGrid.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.ClientsDataGrid.SelectedColorStyle = Infinium.PercentageDataGrid.ColorStyle.Blue;
             this.ClientsDataGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.ClientsDataGrid.Size = new System.Drawing.Size(521, 289);
+            this.ClientsDataGrid.Size = new System.Drawing.Size(346, 289);
             this.ClientsDataGrid.StandardStyle = false;
             this.ClientsDataGrid.StateCommon.Background.Color1 = System.Drawing.Color.White;
             this.ClientsDataGrid.StateCommon.Background.Color2 = System.Drawing.Color.Transparent;
@@ -3354,7 +3362,7 @@
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.ClientsDataGrid.StateCommon.DataCell.Content.Color1 = System.Drawing.Color.Black;
-            this.ClientsDataGrid.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.ClientsDataGrid.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.ClientsDataGrid.StateCommon.HeaderColumn.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
             this.ClientsDataGrid.StateCommon.HeaderColumn.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
             this.ClientsDataGrid.StateCommon.HeaderColumn.Border.Color1 = System.Drawing.Color.Black;
@@ -3376,7 +3384,7 @@
             // kryptonBorderEdge30
             // 
             this.kryptonBorderEdge30.Dock = System.Windows.Forms.DockStyle.Right;
-            this.kryptonBorderEdge30.Location = new System.Drawing.Point(522, 1);
+            this.kryptonBorderEdge30.Location = new System.Drawing.Point(347, 1);
             this.kryptonBorderEdge30.Name = "kryptonBorderEdge30";
             this.kryptonBorderEdge30.Orientation = System.Windows.Forms.Orientation.Vertical;
             this.kryptonBorderEdge30.Size = new System.Drawing.Size(1, 289);
@@ -3398,7 +3406,7 @@
             this.kryptonBorderEdge32.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.kryptonBorderEdge32.Location = new System.Drawing.Point(0, 290);
             this.kryptonBorderEdge32.Name = "kryptonBorderEdge32";
-            this.kryptonBorderEdge32.Size = new System.Drawing.Size(523, 1);
+            this.kryptonBorderEdge32.Size = new System.Drawing.Size(348, 1);
             this.kryptonBorderEdge32.StateCommon.Color1 = System.Drawing.Color.Black;
             this.kryptonBorderEdge32.Text = "kryptonBorderEdge32";
             // 
@@ -3407,7 +3415,7 @@
             this.kryptonBorderEdge33.Dock = System.Windows.Forms.DockStyle.Top;
             this.kryptonBorderEdge33.Location = new System.Drawing.Point(0, 0);
             this.kryptonBorderEdge33.Name = "kryptonBorderEdge33";
-            this.kryptonBorderEdge33.Size = new System.Drawing.Size(523, 1);
+            this.kryptonBorderEdge33.Size = new System.Drawing.Size(348, 1);
             this.kryptonBorderEdge33.StateCommon.Color1 = System.Drawing.Color.Black;
             this.kryptonBorderEdge33.Text = "kryptonBorderEdge33";
             // 
@@ -3757,6 +3765,7 @@
             // 
             // panel32
             // 
+            this.panel32.Controls.Add(this.panel34);
             this.panel32.Controls.Add(this.AllClientsCheckBox);
             this.panel32.Controls.Add(this.panel7);
             this.panel32.Controls.Add(this.panel8);
@@ -3765,6 +3774,111 @@
             this.panel32.Name = "panel32";
             this.panel32.Size = new System.Drawing.Size(751, 328);
             this.panel32.TabIndex = 424;
+            // 
+            // panel34
+            // 
+            this.panel34.BackColor = System.Drawing.Color.Transparent;
+            this.panel34.Controls.Add(this.dgvMarketManagers);
+            this.panel34.Controls.Add(this.kryptonBorderEdge96);
+            this.panel34.Controls.Add(this.kryptonBorderEdge97);
+            this.panel34.Controls.Add(this.kryptonBorderEdge98);
+            this.panel34.Controls.Add(this.kryptonBorderEdge99);
+            this.panel34.Location = new System.Drawing.Point(554, 27);
+            this.panel34.Margin = new System.Windows.Forms.Padding(10, 3, 3, 3);
+            this.panel34.Name = "panel34";
+            this.panel34.Size = new System.Drawing.Size(195, 291);
+            this.panel34.TabIndex = 389;
+            // 
+            // dgvMarketManagers
+            // 
+            this.dgvMarketManagers.AllowUserToAddRows = false;
+            this.dgvMarketManagers.AllowUserToDeleteRows = false;
+            this.dgvMarketManagers.AllowUserToResizeColumns = false;
+            this.dgvMarketManagers.AllowUserToResizeRows = false;
+            this.dgvMarketManagers.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvMarketManagers.BackText = "Нет данных";
+            this.dgvMarketManagers.ColumnHeadersHeight = 55;
+            this.dgvMarketManagers.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            this.dgvMarketManagers.ColumnHeadersVisible = false;
+            this.dgvMarketManagers.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvMarketManagers.Location = new System.Drawing.Point(1, 1);
+            this.dgvMarketManagers.Name = "dgvMarketManagers";
+            this.dgvMarketManagers.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2010Black;
+            this.dgvMarketManagers.PercentLineWidth = 0;
+            this.dgvMarketManagers.RowHeadersVisible = false;
+            this.dgvMarketManagers.RowTemplate.Height = 28;
+            this.dgvMarketManagers.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvMarketManagers.SelectedColorStyle = Infinium.PercentageDataGrid.ColorStyle.Blue;
+            this.dgvMarketManagers.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvMarketManagers.Size = new System.Drawing.Size(193, 289);
+            this.dgvMarketManagers.StandardStyle = false;
+            this.dgvMarketManagers.StateCommon.Background.Color1 = System.Drawing.Color.White;
+            this.dgvMarketManagers.StateCommon.Background.Color2 = System.Drawing.Color.Transparent;
+            this.dgvMarketManagers.StateCommon.Background.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
+            this.dgvMarketManagers.StateCommon.BackStyle = ComponentFactory.Krypton.Toolkit.PaletteBackStyle.GridBackgroundList;
+            this.dgvMarketManagers.StateCommon.DataCell.Back.Color1 = System.Drawing.Color.White;
+            this.dgvMarketManagers.StateCommon.DataCell.Back.Color2 = System.Drawing.Color.Transparent;
+            this.dgvMarketManagers.StateCommon.DataCell.Border.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(210)))), ((int)(((byte)(210)))), ((int)(((byte)(210)))));
+            this.dgvMarketManagers.StateCommon.DataCell.Border.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
+            this.dgvMarketManagers.StateCommon.DataCell.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.dgvMarketManagers.StateCommon.DataCell.Content.Color1 = System.Drawing.Color.Black;
+            this.dgvMarketManagers.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.dgvMarketManagers.StateCommon.HeaderColumn.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
+            this.dgvMarketManagers.StateCommon.HeaderColumn.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
+            this.dgvMarketManagers.StateCommon.HeaderColumn.Border.Color1 = System.Drawing.Color.Black;
+            this.dgvMarketManagers.StateCommon.HeaderColumn.Border.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
+            this.dgvMarketManagers.StateCommon.HeaderColumn.Border.DrawBorders = ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom;
+            this.dgvMarketManagers.StateCommon.HeaderColumn.Border.Width = 1;
+            this.dgvMarketManagers.StateCommon.HeaderColumn.Content.Color1 = System.Drawing.Color.White;
+            this.dgvMarketManagers.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.dgvMarketManagers.StateDisabled.DataCell.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.dgvMarketManagers.StateSelected.DataCell.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(177)))), ((int)(((byte)(229)))));
+            this.dgvMarketManagers.StateSelected.DataCell.Back.Color2 = System.Drawing.Color.Transparent;
+            this.dgvMarketManagers.StateSelected.DataCell.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
+            this.dgvMarketManagers.StateSelected.DataCell.Content.Color1 = System.Drawing.Color.White;
+            this.dgvMarketManagers.TabIndex = 58;
+            this.dgvMarketManagers.UseCustomBackColor = false;
+            this.dgvMarketManagers.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvMarketManagers_CellValueChanged);
+            // 
+            // kryptonBorderEdge96
+            // 
+            this.kryptonBorderEdge96.Dock = System.Windows.Forms.DockStyle.Right;
+            this.kryptonBorderEdge96.Location = new System.Drawing.Point(194, 1);
+            this.kryptonBorderEdge96.Name = "kryptonBorderEdge96";
+            this.kryptonBorderEdge96.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.kryptonBorderEdge96.Size = new System.Drawing.Size(1, 289);
+            this.kryptonBorderEdge96.StateCommon.Color1 = System.Drawing.Color.Black;
+            this.kryptonBorderEdge96.Text = "kryptonBorderEdge96";
+            // 
+            // kryptonBorderEdge97
+            // 
+            this.kryptonBorderEdge97.Dock = System.Windows.Forms.DockStyle.Left;
+            this.kryptonBorderEdge97.Location = new System.Drawing.Point(0, 1);
+            this.kryptonBorderEdge97.Name = "kryptonBorderEdge97";
+            this.kryptonBorderEdge97.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.kryptonBorderEdge97.Size = new System.Drawing.Size(1, 289);
+            this.kryptonBorderEdge97.StateCommon.Color1 = System.Drawing.Color.Black;
+            this.kryptonBorderEdge97.Text = "kryptonBorderEdge97";
+            // 
+            // kryptonBorderEdge98
+            // 
+            this.kryptonBorderEdge98.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.kryptonBorderEdge98.Location = new System.Drawing.Point(0, 290);
+            this.kryptonBorderEdge98.Name = "kryptonBorderEdge98";
+            this.kryptonBorderEdge98.Size = new System.Drawing.Size(195, 1);
+            this.kryptonBorderEdge98.StateCommon.Color1 = System.Drawing.Color.Black;
+            this.kryptonBorderEdge98.Text = "kryptonBorderEdge98";
+            // 
+            // kryptonBorderEdge99
+            // 
+            this.kryptonBorderEdge99.Dock = System.Windows.Forms.DockStyle.Top;
+            this.kryptonBorderEdge99.Location = new System.Drawing.Point(0, 0);
+            this.kryptonBorderEdge99.Name = "kryptonBorderEdge99";
+            this.kryptonBorderEdge99.Size = new System.Drawing.Size(195, 1);
+            this.kryptonBorderEdge99.StateCommon.Color1 = System.Drawing.Color.Black;
+            this.kryptonBorderEdge99.Text = "kryptonBorderEdge99";
             // 
             // AllClientsCheckBox
             // 
@@ -3785,7 +3899,7 @@
             this.ClientGroupsCheckBox.Checked = true;
             this.ClientGroupsCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
             this.ClientGroupsCheckBox.LabelStyle = ComponentFactory.Krypton.Toolkit.LabelStyle.NormalControl;
-            this.ClientGroupsCheckBox.Location = new System.Drawing.Point(528, 4);
+            this.ClientGroupsCheckBox.Location = new System.Drawing.Point(352, 4);
             this.ClientGroupsCheckBox.Name = "ClientGroupsCheckBox";
             this.ClientGroupsCheckBox.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2010Black;
             this.ClientGroupsCheckBox.Size = new System.Drawing.Size(127, 21);
@@ -14379,6 +14493,9 @@
             this.panel12.PerformLayout();
             this.panel32.ResumeLayout(false);
             this.panel32.PerformLayout();
+            this.panel34.ResumeLayout(false);
+            this.panel34.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvMarketManagers)).EndInit();
             this.panel33.ResumeLayout(false);
             this.panel33.PerformLayout();
             this.panel31.ResumeLayout(false);
@@ -15565,5 +15682,11 @@
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private ComponentFactory.Krypton.Toolkit.KryptonContextMenuItem kryptonContextMenuItem18;
         private ComponentFactory.Krypton.Toolkit.KryptonContextMenuItem kryptonContextMenuItem19;
+        private System.Windows.Forms.Panel panel34;
+        private PercentageDataGrid dgvMarketManagers;
+        private ComponentFactory.Krypton.Toolkit.KryptonBorderEdge kryptonBorderEdge96;
+        private ComponentFactory.Krypton.Toolkit.KryptonBorderEdge kryptonBorderEdge97;
+        private ComponentFactory.Krypton.Toolkit.KryptonBorderEdge kryptonBorderEdge98;
+        private ComponentFactory.Krypton.Toolkit.KryptonBorderEdge kryptonBorderEdge99;
     }
 }
