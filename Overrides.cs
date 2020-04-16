@@ -160,8 +160,8 @@ namespace Infinium
 
             this.ReadOnly = true;
 
-            Font DataCellFont = new Font("SEGOE UI", 15.0f, FontStyle.Regular, GraphicsUnit.Pixel);
-            Font HeaderFont = new Font("SEGOE UI", 15.0f, FontStyle.Bold, GraphicsUnit.Pixel);
+            Font DataCellFont = new Font("SEGOE UI", 13.0f, FontStyle.Regular, GraphicsUnit.Pixel);
+            Font HeaderFont = new Font("SEGOE UI", 14.0f, FontStyle.Bold, GraphicsUnit.Pixel);
 
             this.AllowUserToAddRows = false;
             this.AllowUserToDeleteRows = false;
@@ -169,9 +169,9 @@ namespace Infinium
             this.AllowUserToOrderColumns = false;
             this.AllowUserToResizeColumns = false;
             this.AllowUserToResizeRows = false;
-            this.ColumnHeadersHeight = 55;
+            this.ColumnHeadersHeight = 40;
             this.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            this.RowTemplate.Height = 40;
+            this.RowTemplate.Height = 30;
             this.RowHeadersVisible = false;
 
 

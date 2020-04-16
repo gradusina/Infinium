@@ -198,10 +198,10 @@
             // 
             // ClientNameTextBox
             // 
-            this.ClientNameTextBox.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.ClientNameTextBox.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.ClientNameTextBox.Location = new System.Drawing.Point(11, 100);
             this.ClientNameTextBox.Name = "ClientNameTextBox";
-            this.ClientNameTextBox.Size = new System.Drawing.Size(413, 31);
+            this.ClientNameTextBox.Size = new System.Drawing.Size(413, 27);
             this.ClientNameTextBox.TabIndex = 389;
             this.ClientNameTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
@@ -224,7 +224,7 @@
             this.ClientsContactsDataGrid.AllowUserToResizeRows = false;
             this.ClientsContactsDataGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.ClientsContactsDataGrid.BackText = "Нет данных";
-            this.ClientsContactsDataGrid.ColumnHeadersHeight = 55;
+            this.ClientsContactsDataGrid.ColumnHeadersHeight = 40;
             this.ClientsContactsDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.ClientsContactsDataGrid.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ClientsContactsDataGrid.HideOuterBorders = true;
@@ -233,7 +233,7 @@
             this.ClientsContactsDataGrid.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2010Black;
             this.ClientsContactsDataGrid.PercentLineWidth = 0;
             this.ClientsContactsDataGrid.RowHeadersVisible = false;
-            this.ClientsContactsDataGrid.RowTemplate.Height = 40;
+            this.ClientsContactsDataGrid.RowTemplate.Height = 30;
             this.ClientsContactsDataGrid.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.ClientsContactsDataGrid.SelectedColorStyle = Infinium.PercentageDataGrid.ColorStyle.Blue;
             this.ClientsContactsDataGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -251,7 +251,7 @@
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.ClientsContactsDataGrid.StateCommon.DataCell.Content.Color1 = System.Drawing.Color.Black;
-            this.ClientsContactsDataGrid.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.ClientsContactsDataGrid.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.ClientsContactsDataGrid.StateCommon.HeaderColumn.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
             this.ClientsContactsDataGrid.StateCommon.HeaderColumn.Back.Color2 = System.Drawing.Color.Transparent;
             this.ClientsContactsDataGrid.StateCommon.HeaderColumn.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
@@ -262,7 +262,7 @@
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.ClientsContactsDataGrid.StateCommon.HeaderColumn.Border.Width = 1;
             this.ClientsContactsDataGrid.StateCommon.HeaderColumn.Content.Color1 = System.Drawing.Color.White;
-            this.ClientsContactsDataGrid.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.ClientsContactsDataGrid.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.ClientsContactsDataGrid.StateSelected.DataCell.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(177)))), ((int)(((byte)(229)))));
             this.ClientsContactsDataGrid.StateSelected.DataCell.Back.Color2 = System.Drawing.Color.Transparent;
             this.ClientsContactsDataGrid.StateSelected.DataCell.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
@@ -316,28 +316,28 @@
             // 
             // CityTextBox
             // 
-            this.CityTextBox.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.CityTextBox.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.CityTextBox.Location = new System.Drawing.Point(682, 100);
             this.CityTextBox.Name = "CityTextBox";
-            this.CityTextBox.Size = new System.Drawing.Size(280, 31);
+            this.CityTextBox.Size = new System.Drawing.Size(280, 27);
             this.CityTextBox.TabIndex = 410;
             this.CityTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // SiteTextBox
             // 
-            this.SiteTextBox.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.SiteTextBox.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.SiteTextBox.Location = new System.Drawing.Point(11, 175);
             this.SiteTextBox.Name = "SiteTextBox";
-            this.SiteTextBox.Size = new System.Drawing.Size(255, 31);
+            this.SiteTextBox.Size = new System.Drawing.Size(255, 27);
             this.SiteTextBox.TabIndex = 411;
             this.SiteTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // EmailTextBox
             // 
-            this.EmailTextBox.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.EmailTextBox.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.EmailTextBox.Location = new System.Drawing.Point(272, 175);
             this.EmailTextBox.Name = "EmailTextBox";
-            this.EmailTextBox.Size = new System.Drawing.Size(255, 31);
+            this.EmailTextBox.Size = new System.Drawing.Size(255, 27);
             this.EmailTextBox.TabIndex = 412;
             this.EmailTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
@@ -354,9 +354,9 @@
             this.NonStandardComboBox.Location = new System.Drawing.Point(210, 224);
             this.NonStandardComboBox.Name = "NonStandardComboBox";
             this.NonStandardComboBox.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2010Black;
-            this.NonStandardComboBox.Size = new System.Drawing.Size(168, 32);
-            this.NonStandardComboBox.StateCommon.ComboBox.Content.Font = new System.Drawing.Font("Segoe UI", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.NonStandardComboBox.StateCommon.Item.Content.ShortText.Font = new System.Drawing.Font("Segoe UI", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.NonStandardComboBox.Size = new System.Drawing.Size(168, 27);
+            this.NonStandardComboBox.StateCommon.ComboBox.Content.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.NonStandardComboBox.StateCommon.Item.Content.ShortText.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.NonStandardComboBox.TabIndex = 414;
             // 
             // label1
@@ -519,10 +519,10 @@
             // 
             // tbUNN
             // 
-            this.tbUNN.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.tbUNN.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.tbUNN.Location = new System.Drawing.Point(533, 175);
             this.tbUNN.Name = "tbUNN";
-            this.tbUNN.Size = new System.Drawing.Size(255, 31);
+            this.tbUNN.Size = new System.Drawing.Size(255, 27);
             this.tbUNN.TabIndex = 432;
             this.tbUNN.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
@@ -549,9 +549,9 @@
             this.cbManager.Location = new System.Drawing.Point(890, 175);
             this.cbManager.Name = "cbManager";
             this.cbManager.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2010Black;
-            this.cbManager.Size = new System.Drawing.Size(263, 32);
-            this.cbManager.StateCommon.ComboBox.Content.Font = new System.Drawing.Font("Segoe UI", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.cbManager.StateCommon.Item.Content.ShortText.Font = new System.Drawing.Font("Segoe UI", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.cbManager.Size = new System.Drawing.Size(263, 27);
+            this.cbManager.StateCommon.ComboBox.Content.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.cbManager.StateCommon.Item.Content.ShortText.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.cbManager.TabIndex = 438;
             // 
             // label13
@@ -566,10 +566,10 @@
             // 
             // tbPriceGroup
             // 
-            this.tbPriceGroup.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.tbPriceGroup.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.tbPriceGroup.Location = new System.Drawing.Point(534, 221);
             this.tbPriceGroup.Name = "tbPriceGroup";
-            this.tbPriceGroup.Size = new System.Drawing.Size(255, 31);
+            this.tbPriceGroup.Size = new System.Drawing.Size(255, 27);
             this.tbPriceGroup.TabIndex = 444;
             this.tbPriceGroup.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
@@ -599,9 +599,9 @@
             this.cbCountry.Location = new System.Drawing.Point(429, 100);
             this.cbCountry.Name = "cbCountry";
             this.cbCountry.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2010Black;
-            this.cbCountry.Size = new System.Drawing.Size(247, 32);
-            this.cbCountry.StateCommon.ComboBox.Content.Font = new System.Drawing.Font("Segoe UI", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.cbCountry.StateCommon.Item.Content.ShortText.Font = new System.Drawing.Font("Segoe UI", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.cbCountry.Size = new System.Drawing.Size(247, 27);
+            this.cbCountry.StateCommon.ComboBox.Content.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.cbCountry.StateCommon.Item.Content.ShortText.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.cbCountry.TabIndex = 452;
             // 
             // label14
@@ -616,10 +616,10 @@
             // 
             // tbDelayOfPayment
             // 
-            this.tbDelayOfPayment.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.tbDelayOfPayment.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.tbDelayOfPayment.Location = new System.Drawing.Point(890, 221);
             this.tbDelayOfPayment.Name = "tbDelayOfPayment";
-            this.tbDelayOfPayment.Size = new System.Drawing.Size(72, 31);
+            this.tbDelayOfPayment.Size = new System.Drawing.Size(72, 27);
             this.tbDelayOfPayment.TabIndex = 457;
             this.tbDelayOfPayment.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
@@ -688,7 +688,7 @@
             this.ShopsAddressesDataGrid.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2010Black;
             this.ShopsAddressesDataGrid.PercentLineWidth = 0;
             this.ShopsAddressesDataGrid.RowHeadersVisible = false;
-            this.ShopsAddressesDataGrid.RowTemplate.Height = 40;
+            this.ShopsAddressesDataGrid.RowTemplate.Height = 30;
             this.ShopsAddressesDataGrid.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.ShopsAddressesDataGrid.SelectedColorStyle = Infinium.PercentageDataGrid.ColorStyle.Blue;
             this.ShopsAddressesDataGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -706,7 +706,7 @@
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.ShopsAddressesDataGrid.StateCommon.DataCell.Content.Color1 = System.Drawing.Color.Black;
-            this.ShopsAddressesDataGrid.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.ShopsAddressesDataGrid.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.ShopsAddressesDataGrid.StateCommon.HeaderColumn.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
             this.ShopsAddressesDataGrid.StateCommon.HeaderColumn.Back.Color2 = System.Drawing.Color.Transparent;
             this.ShopsAddressesDataGrid.StateCommon.HeaderColumn.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
@@ -717,7 +717,7 @@
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.ShopsAddressesDataGrid.StateCommon.HeaderColumn.Border.Width = 1;
             this.ShopsAddressesDataGrid.StateCommon.HeaderColumn.Content.Color1 = System.Drawing.Color.White;
-            this.ShopsAddressesDataGrid.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.ShopsAddressesDataGrid.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.ShopsAddressesDataGrid.StateSelected.DataCell.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(177)))), ((int)(((byte)(229)))));
             this.ShopsAddressesDataGrid.StateSelected.DataCell.Back.Color2 = System.Drawing.Color.Transparent;
             this.ShopsAddressesDataGrid.StateSelected.DataCell.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
@@ -808,9 +808,9 @@
             this.cbClientGroups.Location = new System.Drawing.Point(966, 100);
             this.cbClientGroups.Name = "cbClientGroups";
             this.cbClientGroups.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2010Black;
-            this.cbClientGroups.Size = new System.Drawing.Size(186, 32);
-            this.cbClientGroups.StateCommon.ComboBox.Content.Font = new System.Drawing.Font("Segoe UI", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.cbClientGroups.StateCommon.Item.Content.ShortText.Font = new System.Drawing.Font("Segoe UI", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.cbClientGroups.Size = new System.Drawing.Size(186, 27);
+            this.cbClientGroups.StateCommon.ComboBox.Content.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.cbClientGroups.StateCommon.Item.Content.ShortText.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.cbClientGroups.TabIndex = 478;
             this.cbClientGroups.SelectedIndexChanged += new System.EventHandler(this.kryptonComboBox1_SelectedIndexChanged);
             // 

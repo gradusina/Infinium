@@ -595,6 +595,9 @@ namespace Infinium
 
         private void btnSaveDescription_Click(object sender, EventArgs e)
         {
+            int MainOrderID = -1;
+            if (dgvMainOrders.SelectedRows.Count > 0 && dgvMainOrders.SelectedRows[0].Cells["MainOrderID"].Value != DBNull.Value)
+                MainOrderID = Convert.ToInt32(dgvMainOrders.SelectedRows[0].Cells["MainOrderID"].Value);
             bool bMarketing = cbMarketing.Checked;
             bool bMClients = cbMClients.Checked;
             bool bMCreateDate = cbMCreateDate.Checked;
@@ -617,6 +620,7 @@ namespace Infinium
             while (!SplashWindow.bSmallCreated) ;
             OrdersManager.SaveMDescription();
             OrdersManager.SaveZDescription();
+            OrdersManager.MoveToMainOrder(MainOrderID);
             OrdersManager.FilterOrders(
                 bMarketing, bMClients, bMCreateDate, MCreateDateFrom, MCreateDateTo, bMDispDate, MDispDateFrom, MDispDateTo,
                 bZOV, bZClients, bZCreateDate, ZCreateDateFrom, ZCreateDateTo, bZDispDate, ZDispDateFrom, ZDispDateTo);

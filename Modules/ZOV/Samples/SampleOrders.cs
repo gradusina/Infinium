@@ -1491,6 +1491,10 @@ namespace Infinium.Modules.ZOV.Samples
             FrontsOrdersDataGrid.Columns.Add(TechnoInsetColorsColumn);
 
             //убирание лишних столбцов
+            if (FrontsOrdersDataGrid.Columns.Contains("NeedCalcPrice"))
+                FrontsOrdersDataGrid.Columns["NeedCalcPrice"].Visible = false;
+            if (FrontsOrdersDataGrid.Columns.Contains("AreaID"))
+                FrontsOrdersDataGrid.Columns["AreaID"].Visible = false;
             if (FrontsOrdersDataGrid.Columns.Contains("CreateDateTime"))
             {
                 FrontsOrdersDataGrid.Columns["CreateDateTime"].HeaderText = "Добавлено";
@@ -1888,6 +1892,10 @@ namespace Infinium.Modules.ZOV.Samples
                 DecorItemOrdersDataGrids[i].Columns["ItemColumn"].MinimumWidth = 120;
 
                 //убирание лишних столбцов
+                if (DecorItemOrdersDataGrids[i].Columns.Contains("NeedCalcPrice"))
+                    DecorItemOrdersDataGrids[i].Columns["NeedCalcPrice"].Visible = false;
+                if (DecorItemOrdersDataGrids[i].Columns.Contains("AreaID"))
+                    DecorItemOrdersDataGrids[i].Columns["AreaID"].Visible = false;
                 if (DecorItemOrdersDataGrids[i].Columns.Contains("CreateDateTime"))
                 {
                     DecorItemOrdersDataGrids[i].Columns["CreateDateTime"].HeaderText = "Добавлено";
@@ -2546,6 +2554,10 @@ namespace Infinium.Modules.ZOV.Samples
             //убирание лишних столбцов
             if (FrontsOrdersDataGrid.Columns.Contains("ImpostMargin"))
                 FrontsOrdersDataGrid.Columns["ImpostMargin"].Visible = false;
+            if (FrontsOrdersDataGrid.Columns.Contains("NeedCalcPrice"))
+                FrontsOrdersDataGrid.Columns["NeedCalcPrice"].Visible = false;
+            if (FrontsOrdersDataGrid.Columns.Contains("AreaID"))
+                FrontsOrdersDataGrid.Columns["AreaID"].Visible = false;
             if (FrontsOrdersDataGrid.Columns.Contains("CreateDateTime"))
             {
                 FrontsOrdersDataGrid.Columns["CreateDateTime"].HeaderText = "Добавлено";
@@ -2976,6 +2988,10 @@ namespace Infinium.Modules.ZOV.Samples
                 DecorItemOrdersDataGrids[i].Columns["DiscountVolume"].MinimumWidth = 60;
 
                 //убирание лишних столбцов
+                if (DecorItemOrdersDataGrids[i].Columns.Contains("NeedCalcPrice"))
+                    DecorItemOrdersDataGrids[i].Columns["NeedCalcPrice"].Visible = false;
+                if (DecorItemOrdersDataGrids[i].Columns.Contains("AreaID"))
+                    DecorItemOrdersDataGrids[i].Columns["AreaID"].Visible = false;
                 if (DecorItemOrdersDataGrids[i].Columns.Contains("CreateDateTime"))
                 {
                     DecorItemOrdersDataGrids[i].Columns["CreateDateTime"].HeaderText = "Добавлено";
@@ -3372,6 +3388,10 @@ namespace Infinium.Modules.ZOV.Samples
             Binding();
         }
 
+        public void MoveToMainOrder(int MainOrderID)
+        {
+            MainOrdersBindingSource.Position = MainOrdersBindingSource.Find("MainOrderID", MainOrderID);
+        }
         public void FilterMClients(int ClientGroupID)
         {
             MClientsBindingSource.Filter = "ClientGroupID = " + ClientGroupID;

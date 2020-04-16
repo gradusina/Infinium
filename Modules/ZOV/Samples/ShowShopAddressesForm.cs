@@ -23,9 +23,53 @@ namespace Infinium
             MainForm = tMainForm;
             InitializeComponent();
             ShopAddressesDataGrid.DataSource = tOrdersManager.FillShopAddressesDataTable(FirmType, ClientID);
-            ShopAddressesDataGrid.Columns["ShopAddressID"].Visible = false;
-            ShopAddressesDataGrid.Columns["ClientID"].Visible = false;
-            ShopAddressesDataGrid.Columns["Address"].HeaderText = "Адреса салонов";
+
+
+            if (ShopAddressesDataGrid.Columns.Contains("Address"))
+                ShopAddressesDataGrid.Columns["Address"].HeaderText = "Адрес";
+            if (ShopAddressesDataGrid.Columns.Contains("City"))
+                ShopAddressesDataGrid.Columns["City"].HeaderText = "Город";
+            if (ShopAddressesDataGrid.Columns.Contains("Country"))
+                ShopAddressesDataGrid.Columns["Country"].HeaderText = "Страна";
+            if (ShopAddressesDataGrid.Columns.Contains("Lat"))
+                ShopAddressesDataGrid.Columns["Lat"].HeaderText = "Широта";
+            if (ShopAddressesDataGrid.Columns.Contains("Long"))
+                ShopAddressesDataGrid.Columns["Long"].HeaderText = "Долгота";
+            if (ShopAddressesDataGrid.Columns.Contains("Worktime"))
+                ShopAddressesDataGrid.Columns["Worktime"].HeaderText = "Время работы";
+            if (ShopAddressesDataGrid.Columns.Contains("Name"))
+                ShopAddressesDataGrid.Columns["Name"].HeaderText = "Название";
+            if (ShopAddressesDataGrid.Columns.Contains("Site"))
+                ShopAddressesDataGrid.Columns["Site"].HeaderText = "Сайт";
+            if (ShopAddressesDataGrid.Columns.Contains("IsFronts"))
+                ShopAddressesDataGrid.Columns["IsFronts"].HeaderText = "Фасады";
+            if (ShopAddressesDataGrid.Columns.Contains("IsProfile"))
+                ShopAddressesDataGrid.Columns["IsProfile"].HeaderText = "Погонаж";
+            if (ShopAddressesDataGrid.Columns.Contains("IsFurniture"))
+                ShopAddressesDataGrid.Columns["IsFurniture"].HeaderText = "Мебель";
+            if (ShopAddressesDataGrid.Columns.Contains("Email"))
+                ShopAddressesDataGrid.Columns["Email"].HeaderText = "Email";
+            if (ShopAddressesDataGrid.Columns.Contains("Phone"))
+                ShopAddressesDataGrid.Columns["Phone"].HeaderText = "Телефон";
+            if (ShopAddressesDataGrid.Columns.Contains("WebSite"))
+                ShopAddressesDataGrid.Columns["WebSite"].HeaderText = "Сайт";
+
+            if (ShopAddressesDataGrid.Columns.Contains("Lat"))
+                ShopAddressesDataGrid.Columns["Lat"].Visible = false;
+            if (ShopAddressesDataGrid.Columns.Contains("Long"))
+                ShopAddressesDataGrid.Columns["Long"].Visible = false;
+            if (ShopAddressesDataGrid.Columns.Contains("City"))
+                ShopAddressesDataGrid.Columns["City"].Visible = false;
+            if (ShopAddressesDataGrid.Columns.Contains("ShopAddressID"))
+                ShopAddressesDataGrid.Columns["ShopAddressID"].Visible = false;
+            if (ShopAddressesDataGrid.Columns.Contains("ClientID"))
+                    ShopAddressesDataGrid.Columns["ClientID"].Visible = false;
+
+            foreach (DataGridViewColumn Column in ShopAddressesDataGrid.Columns)
+            {
+                Column.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            }
+
             ShopAddressesDataGrid.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             ShopAddressesDataGrid.Columns["Address"].DefaultCellStyle.ForeColor = Color.Blue;
             ShopAddressesDataGrid.Columns["Address"].DefaultCellStyle.Font = new System.Drawing.Font("SEGOE UI", 15.0F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));

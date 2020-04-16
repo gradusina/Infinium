@@ -47,6 +47,7 @@
             this.kryptonBorderEdge12 = new ComponentFactory.Krypton.Toolkit.KryptonBorderEdge();
             this.kryptonBorderEdge15 = new ComponentFactory.Krypton.Toolkit.KryptonBorderEdge();
             this.ClientsOperationsPanel = new System.Windows.Forms.Panel();
+            this.btnDeleteClient = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.btnSendInfiniumAgent = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.CostToExcelButton = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.ClientsEditButton = new ComponentFactory.Krypton.Toolkit.KryptonButton();
@@ -81,7 +82,6 @@
             this.kryptonContextMenuItem2 = new ComponentFactory.Krypton.Toolkit.KryptonContextMenuItem();
             this.kryptonContextMenuItem3 = new ComponentFactory.Krypton.Toolkit.KryptonContextMenuItem();
             this.kryptonContextMenuItem4 = new ComponentFactory.Krypton.Toolkit.KryptonContextMenuItem();
-            this.btnDeleteClient = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.NavigatePanel.SuspendLayout();
             this.ToolsPanel.SuspendLayout();
             this.PaymentsToolsPanel.SuspendLayout();
@@ -408,6 +408,41 @@
             this.ClientsOperationsPanel.Size = new System.Drawing.Size(1270, 136);
             this.ClientsOperationsPanel.TabIndex = 372;
             // 
+            // btnDeleteClient
+            // 
+            this.btnDeleteClient.Location = new System.Drawing.Point(471, 17);
+            this.btnDeleteClient.Margin = new System.Windows.Forms.Padding(4);
+            this.btnDeleteClient.Name = "btnDeleteClient";
+            this.btnDeleteClient.OverrideDefault.Back.Color1 = System.Drawing.Color.Transparent;
+            this.btnDeleteClient.OverrideDefault.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
+            this.btnDeleteClient.OverrideDefault.Border.Color1 = System.Drawing.Color.Transparent;
+            this.btnDeleteClient.OverrideDefault.Border.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
+            this.btnDeleteClient.OverrideDefault.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.btnDeleteClient.OverrideDefault.Border.Rounding = 0;
+            this.btnDeleteClient.Palette = this.StandardButtonsPalette;
+            this.btnDeleteClient.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Custom;
+            this.btnDeleteClient.Size = new System.Drawing.Size(95, 102);
+            this.btnDeleteClient.StateCommon.Back.Color1 = System.Drawing.Color.Transparent;
+            this.btnDeleteClient.StateCommon.Content.Image.ImageH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
+            this.btnDeleteClient.StateCommon.Content.Image.ImageV = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Near;
+            this.btnDeleteClient.StateCommon.Content.LongText.Color1 = System.Drawing.Color.White;
+            this.btnDeleteClient.StateCommon.Content.LongText.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.btnDeleteClient.StateTracking.Border.Color1 = System.Drawing.Color.Silver;
+            this.btnDeleteClient.StateTracking.Border.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
+            this.btnDeleteClient.StateTracking.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.btnDeleteClient.StateTracking.Border.Rounding = 0;
+            this.btnDeleteClient.TabIndex = 377;
+            this.btnDeleteClient.TabStop = false;
+            this.btnDeleteClient.Values.ExtraText = "Удалить\r\nклиента";
+            this.btnDeleteClient.Values.Image = ((System.Drawing.Image)(resources.GetObject("btnDeleteClient.Values.Image")));
+            this.btnDeleteClient.Values.Text = "";
+            this.btnDeleteClient.Visible = false;
+            this.btnDeleteClient.Click += new System.EventHandler(this.btnDeleteClient_Click);
+            // 
             // btnSendInfiniumAgent
             // 
             this.btnSendInfiniumAgent.ButtonStyle = ComponentFactory.Krypton.Toolkit.ButtonStyle.CalendarDay;
@@ -654,7 +689,7 @@
             this.ClientsDataGrid.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2010Black;
             this.ClientsDataGrid.PercentLineWidth = 0;
             this.ClientsDataGrid.RowHeadersVisible = false;
-            this.ClientsDataGrid.RowTemplate.Height = 31;
+            this.ClientsDataGrid.RowTemplate.Height = 30;
             this.ClientsDataGrid.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.ClientsDataGrid.SelectedColorStyle = Infinium.PercentageDataGrid.ColorStyle.Blue;
             this.ClientsDataGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -787,7 +822,7 @@
             this.ShopAddressesDataGrid.PercentLineWidth = 0;
             this.ShopAddressesDataGrid.ReadOnly = true;
             this.ShopAddressesDataGrid.RowHeadersVisible = false;
-            this.ShopAddressesDataGrid.RowTemplate.Height = 31;
+            this.ShopAddressesDataGrid.RowTemplate.Height = 30;
             this.ShopAddressesDataGrid.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.ShopAddressesDataGrid.SelectedColorStyle = Infinium.PercentageDataGrid.ColorStyle.Green;
             this.ShopAddressesDataGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -900,7 +935,7 @@
             this.ClientsContactsDataGrid.PercentLineWidth = 0;
             this.ClientsContactsDataGrid.ReadOnly = true;
             this.ClientsContactsDataGrid.RowHeadersVisible = false;
-            this.ClientsContactsDataGrid.RowTemplate.Height = 31;
+            this.ClientsContactsDataGrid.RowTemplate.Height = 30;
             this.ClientsContactsDataGrid.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.ClientsContactsDataGrid.SelectedColorStyle = Infinium.PercentageDataGrid.ColorStyle.Green;
             this.ClientsContactsDataGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -1014,41 +1049,6 @@
             // 
             this.kryptonContextMenuItem4.Text = "BYN";
             this.kryptonContextMenuItem4.Click += new System.EventHandler(this.kryptonContextMenuItem4_Click);
-            // 
-            // btnDeleteClient
-            // 
-            this.btnDeleteClient.Location = new System.Drawing.Point(471, 17);
-            this.btnDeleteClient.Margin = new System.Windows.Forms.Padding(4);
-            this.btnDeleteClient.Name = "btnDeleteClient";
-            this.btnDeleteClient.OverrideDefault.Back.Color1 = System.Drawing.Color.Transparent;
-            this.btnDeleteClient.OverrideDefault.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
-            this.btnDeleteClient.OverrideDefault.Border.Color1 = System.Drawing.Color.Transparent;
-            this.btnDeleteClient.OverrideDefault.Border.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
-            this.btnDeleteClient.OverrideDefault.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
-            this.btnDeleteClient.OverrideDefault.Border.Rounding = 0;
-            this.btnDeleteClient.Palette = this.StandardButtonsPalette;
-            this.btnDeleteClient.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Custom;
-            this.btnDeleteClient.Size = new System.Drawing.Size(95, 102);
-            this.btnDeleteClient.StateCommon.Back.Color1 = System.Drawing.Color.Transparent;
-            this.btnDeleteClient.StateCommon.Content.Image.ImageH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
-            this.btnDeleteClient.StateCommon.Content.Image.ImageV = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Near;
-            this.btnDeleteClient.StateCommon.Content.LongText.Color1 = System.Drawing.Color.White;
-            this.btnDeleteClient.StateCommon.Content.LongText.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.btnDeleteClient.StateTracking.Border.Color1 = System.Drawing.Color.Silver;
-            this.btnDeleteClient.StateTracking.Border.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
-            this.btnDeleteClient.StateTracking.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
-            this.btnDeleteClient.StateTracking.Border.Rounding = 0;
-            this.btnDeleteClient.TabIndex = 377;
-            this.btnDeleteClient.TabStop = false;
-            this.btnDeleteClient.Values.ExtraText = "Удалить\r\nклиента";
-            this.btnDeleteClient.Values.Image = ((System.Drawing.Image)(resources.GetObject("MainOrdersRemoveMainOrder.Values.Image")));
-            this.btnDeleteClient.Values.Text = "";
-            this.btnDeleteClient.Visible = false;
-            this.btnDeleteClient.Click += new System.EventHandler(this.btnDeleteClient_Click);
             // 
             // MarketingClientsForm
             // 
