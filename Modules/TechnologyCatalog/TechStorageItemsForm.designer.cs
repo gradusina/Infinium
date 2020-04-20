@@ -216,7 +216,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.GroupsDataGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.GroupsDataGrid.BackText = "Нет данных";
-            this.GroupsDataGrid.ColumnHeadersHeight = 55;
+            this.GroupsDataGrid.ColumnHeadersHeight = 40;
             this.GroupsDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.GroupsDataGrid.ColumnHeadersVisible = false;
             this.GroupsDataGrid.Location = new System.Drawing.Point(0, -1);
@@ -224,7 +224,7 @@
             this.GroupsDataGrid.Name = "GroupsDataGrid";
             this.GroupsDataGrid.PercentLineWidth = 0;
             this.GroupsDataGrid.RowHeadersVisible = false;
-            this.GroupsDataGrid.RowTemplate.Height = 40;
+            this.GroupsDataGrid.RowTemplate.Height = 30;
             this.GroupsDataGrid.SelectedColorStyle = Infinium.PercentageDataGrid.ColorStyle.Blue;
             this.GroupsDataGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.GroupsDataGrid.Size = new System.Drawing.Size(281, 507);
@@ -248,7 +248,7 @@
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.GroupsDataGrid.StateCommon.HeaderColumn.Content.Color1 = System.Drawing.Color.White;
-            this.GroupsDataGrid.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.GroupsDataGrid.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.GroupsDataGrid.StateSelected.DataCell.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(177)))), ((int)(((byte)(229)))));
             this.GroupsDataGrid.StateSelected.DataCell.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
             this.GroupsDataGrid.StateSelected.DataCell.Content.Color1 = System.Drawing.Color.White;
@@ -279,14 +279,14 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.ItemsDataGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.ItemsDataGrid.BackText = "Нет данных";
-            this.ItemsDataGrid.ColumnHeadersHeight = 55;
+            this.ItemsDataGrid.ColumnHeadersHeight = 40;
             this.ItemsDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.ItemsDataGrid.Location = new System.Drawing.Point(0, -1);
             this.ItemsDataGrid.MultiSelect = false;
             this.ItemsDataGrid.Name = "ItemsDataGrid";
             this.ItemsDataGrid.PercentLineWidth = 0;
             this.ItemsDataGrid.RowHeadersVisible = false;
-            this.ItemsDataGrid.RowTemplate.Height = 40;
+            this.ItemsDataGrid.RowTemplate.Height = 30;
             this.ItemsDataGrid.SelectedColorStyle = Infinium.PercentageDataGrid.ColorStyle.Orange;
             this.ItemsDataGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.ItemsDataGrid.Size = new System.Drawing.Size(646, 508);
@@ -570,7 +570,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.SubGroupsDataGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.SubGroupsDataGrid.BackText = "Нет данных";
-            this.SubGroupsDataGrid.ColumnHeadersHeight = 55;
+            this.SubGroupsDataGrid.ColumnHeadersHeight = 40;
             this.SubGroupsDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.SubGroupsDataGrid.ColumnHeadersVisible = false;
             this.SubGroupsDataGrid.Location = new System.Drawing.Point(0, -1);
@@ -578,7 +578,7 @@
             this.SubGroupsDataGrid.Name = "SubGroupsDataGrid";
             this.SubGroupsDataGrid.PercentLineWidth = 0;
             this.SubGroupsDataGrid.RowHeadersVisible = false;
-            this.SubGroupsDataGrid.RowTemplate.Height = 40;
+            this.SubGroupsDataGrid.RowTemplate.Height = 30;
             this.SubGroupsDataGrid.SelectedColorStyle = Infinium.PercentageDataGrid.ColorStyle.Blue;
             this.SubGroupsDataGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.SubGroupsDataGrid.Size = new System.Drawing.Size(281, 507);
@@ -602,7 +602,7 @@
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.SubGroupsDataGrid.StateCommon.HeaderColumn.Content.Color1 = System.Drawing.Color.White;
-            this.SubGroupsDataGrid.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.SubGroupsDataGrid.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.SubGroupsDataGrid.StateSelected.DataCell.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(177)))), ((int)(((byte)(229)))));
             this.SubGroupsDataGrid.StateSelected.DataCell.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
             this.SubGroupsDataGrid.StateSelected.DataCell.Content.Color1 = System.Drawing.Color.White;

@@ -149,6 +149,7 @@
             this.btnAttachFoto = new ComponentFactory.Krypton.Toolkit.KryptonContextMenuItem();
             this.btnDetachFoto = new ComponentFactory.Krypton.Toolkit.KryptonContextMenuItem();
             this.openFileDialog4 = new System.Windows.Forms.OpenFileDialog();
+            this.btnSave = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.NavigatePanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MainOrdersSplitContainer)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.MainOrdersSplitContainer.Panel1)).BeginInit();
@@ -280,6 +281,7 @@
             // NavigatePanel
             // 
             this.NavigatePanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
+            this.NavigatePanel.Controls.Add(this.btnSave);
             this.NavigatePanel.Controls.Add(this.MinimizeButton);
             this.NavigatePanel.Controls.Add(this.MenuButton);
             this.NavigatePanel.Controls.Add(this.kryptonBorderEdge3);
@@ -2039,6 +2041,27 @@
             // 
             this.openFileDialog4.FileOk += new System.ComponentModel.CancelEventHandler(this.openFileDialog4_FileOk);
             // 
+            // btnSave
+            // 
+            this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSave.Location = new System.Drawing.Point(1073, 7);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Palette = this.NavigateMenuButtonsPalette;
+            this.btnSave.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Custom;
+            this.btnSave.Size = new System.Drawing.Size(42, 39);
+            this.btnSave.StateCommon.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.btnSave.StateCommon.Content.Image.ImageH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
+            this.btnSave.StateCommon.Content.Image.ImageV = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
+            this.btnSave.StateCommon.Content.ShortText.Font = new System.Drawing.Font("Microsoft Sans Serif", 25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.btnSave.StateTracking.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
+            this.btnSave.TabIndex = 458;
+            this.btnSave.TabStop = false;
+            this.btnSave.Values.Image = ((System.Drawing.Image)(resources.GetObject("btnSaveAssignments.Values.Image")));
+            this.btnSave.Values.Text = "";
+            this.btnSave.Click += new System.EventHandler(this.btnSaveDescription_Click);
+            // 
             // SamplesOrdersForm
             // 
             this.AccessibleName = "false";
@@ -2231,5 +2254,6 @@
         private ComponentFactory.Krypton.Toolkit.KryptonContextMenuItem btnDetachFoto;
         private DevExpress.XtraTab.XtraTabPage xtraTabPage3;
         private System.Windows.Forms.PictureBox pcbxFoto;
+        private ComponentFactory.Krypton.Toolkit.KryptonButton btnSave;
     }
 }

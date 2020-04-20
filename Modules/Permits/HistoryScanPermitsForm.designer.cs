@@ -488,7 +488,7 @@
             this.dgvScanUsers.StateCommon.HeaderColumn.Border.DrawBorders = ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom;
             this.dgvScanUsers.StateCommon.HeaderColumn.Border.Width = 1;
             this.dgvScanUsers.StateCommon.HeaderColumn.Content.Color1 = System.Drawing.Color.White;
-            this.dgvScanUsers.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.dgvScanUsers.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.dgvScanUsers.StateDisabled.DataCell.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.dgvScanUsers.StateDisabled.DataCell.Content.Color1 = System.Drawing.Color.White;
             this.dgvScanUsers.StateSelected.DataCell.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(177)))), ((int)(((byte)(229)))));

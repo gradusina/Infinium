@@ -341,7 +341,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.RolesDataGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.RolesDataGrid.BackText = "Нет данных";
-            this.RolesDataGrid.ColumnHeadersHeight = 55;
+            this.RolesDataGrid.ColumnHeadersHeight = 40;
             this.RolesDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.RolesDataGrid.Location = new System.Drawing.Point(-1, -1);
             this.RolesDataGrid.MultiSelect = false;
@@ -349,7 +349,7 @@
             this.RolesDataGrid.PercentLineWidth = 0;
             this.RolesDataGrid.ReadOnly = true;
             this.RolesDataGrid.RowHeadersVisible = false;
-            this.RolesDataGrid.RowTemplate.Height = 40;
+            this.RolesDataGrid.RowTemplate.Height = 30;
             this.RolesDataGrid.SelectedColorStyle = Infinium.PercentageDataGrid.ColorStyle.Orange;
             this.RolesDataGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.RolesDataGrid.Size = new System.Drawing.Size(775, 339);
@@ -364,7 +364,7 @@
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.RolesDataGrid.StateCommon.DataCell.Content.Color1 = System.Drawing.Color.Black;
-            this.RolesDataGrid.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.RolesDataGrid.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.RolesDataGrid.StateCommon.HeaderColumn.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
             this.RolesDataGrid.StateCommon.HeaderColumn.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
             this.RolesDataGrid.StateCommon.HeaderColumn.Border.Color1 = System.Drawing.Color.Black;
@@ -373,7 +373,7 @@
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.RolesDataGrid.StateCommon.HeaderColumn.Content.Color1 = System.Drawing.Color.White;
-            this.RolesDataGrid.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.RolesDataGrid.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.RolesDataGrid.StateSelected.DataCell.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(253)))), ((int)(((byte)(164)))), ((int)(((byte)(61)))));
             this.RolesDataGrid.StateSelected.DataCell.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
             this.RolesDataGrid.StateSelected.DataCell.Content.Color1 = System.Drawing.Color.White;
@@ -526,7 +526,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.ModulesDataGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.ModulesDataGrid.BackText = "Нет данных";
-            this.ModulesDataGrid.ColumnHeadersHeight = 55;
+            this.ModulesDataGrid.ColumnHeadersHeight = 40;
             this.ModulesDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.ModulesDataGrid.ColumnHeadersVisible = false;
             this.ModulesDataGrid.Location = new System.Drawing.Point(5, 13);
@@ -535,7 +535,7 @@
             this.ModulesDataGrid.PercentLineWidth = 0;
             this.ModulesDataGrid.ReadOnly = true;
             this.ModulesDataGrid.RowHeadersVisible = false;
-            this.ModulesDataGrid.RowTemplate.Height = 40;
+            this.ModulesDataGrid.RowTemplate.Height = 30;
             this.ModulesDataGrid.SelectedColorStyle = Infinium.PercentageDataGrid.ColorStyle.Blue;
             this.ModulesDataGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.ModulesDataGrid.Size = new System.Drawing.Size(390, 599);
@@ -550,7 +550,7 @@
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.ModulesDataGrid.StateCommon.DataCell.Content.Color1 = System.Drawing.Color.Black;
-            this.ModulesDataGrid.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.ModulesDataGrid.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.ModulesDataGrid.StateCommon.HeaderColumn.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
             this.ModulesDataGrid.StateCommon.HeaderColumn.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
             this.ModulesDataGrid.StateCommon.HeaderColumn.Border.Color1 = System.Drawing.Color.Black;
@@ -559,7 +559,7 @@
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.ModulesDataGrid.StateCommon.HeaderColumn.Content.Color1 = System.Drawing.Color.White;
-            this.ModulesDataGrid.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.ModulesDataGrid.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.ModulesDataGrid.StateSelected.DataCell.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(177)))), ((int)(((byte)(229)))));
             this.ModulesDataGrid.StateSelected.DataCell.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
             this.ModulesDataGrid.StateSelected.DataCell.Content.Color1 = System.Drawing.Color.White;
@@ -642,7 +642,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.PermissionsDataGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.PermissionsDataGrid.BackText = "Нет данных";
-            this.PermissionsDataGrid.ColumnHeadersHeight = 55;
+            this.PermissionsDataGrid.ColumnHeadersHeight = 40;
             this.PermissionsDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.PermissionsDataGrid.Location = new System.Drawing.Point(-1, -1);
             this.PermissionsDataGrid.MultiSelect = false;
@@ -650,7 +650,7 @@
             this.PermissionsDataGrid.PercentLineWidth = 0;
             this.PermissionsDataGrid.ReadOnly = true;
             this.PermissionsDataGrid.RowHeadersVisible = false;
-            this.PermissionsDataGrid.RowTemplate.Height = 40;
+            this.PermissionsDataGrid.RowTemplate.Height = 30;
             this.PermissionsDataGrid.SelectedColorStyle = Infinium.PercentageDataGrid.ColorStyle.Green;
             this.PermissionsDataGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.PermissionsDataGrid.Size = new System.Drawing.Size(775, 339);
@@ -665,7 +665,7 @@
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.PermissionsDataGrid.StateCommon.DataCell.Content.Color1 = System.Drawing.Color.Black;
-            this.PermissionsDataGrid.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.PermissionsDataGrid.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.PermissionsDataGrid.StateCommon.HeaderColumn.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
             this.PermissionsDataGrid.StateCommon.HeaderColumn.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
             this.PermissionsDataGrid.StateCommon.HeaderColumn.Border.Color1 = System.Drawing.Color.Black;
@@ -674,7 +674,7 @@
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.PermissionsDataGrid.StateCommon.HeaderColumn.Content.Color1 = System.Drawing.Color.White;
-            this.PermissionsDataGrid.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.PermissionsDataGrid.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.PermissionsDataGrid.StateSelected.DataCell.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(158)))), ((int)(((byte)(0)))));
             this.PermissionsDataGrid.StateSelected.DataCell.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
             this.PermissionsDataGrid.StateSelected.DataCell.Content.Color1 = System.Drawing.Color.White;
@@ -894,7 +894,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.RolesPermissionsRolesDataGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.RolesPermissionsRolesDataGrid.BackText = "Нет данных";
-            this.RolesPermissionsRolesDataGrid.ColumnHeadersHeight = 55;
+            this.RolesPermissionsRolesDataGrid.ColumnHeadersHeight = 40;
             this.RolesPermissionsRolesDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.RolesPermissionsRolesDataGrid.ColumnHeadersVisible = false;
             this.RolesPermissionsRolesDataGrid.Location = new System.Drawing.Point(-1, -1);
@@ -903,7 +903,7 @@
             this.RolesPermissionsRolesDataGrid.PercentLineWidth = 0;
             this.RolesPermissionsRolesDataGrid.ReadOnly = true;
             this.RolesPermissionsRolesDataGrid.RowHeadersVisible = false;
-            this.RolesPermissionsRolesDataGrid.RowTemplate.Height = 40;
+            this.RolesPermissionsRolesDataGrid.RowTemplate.Height = 30;
             this.RolesPermissionsRolesDataGrid.SelectedColorStyle = Infinium.PercentageDataGrid.ColorStyle.Blue;
             this.RolesPermissionsRolesDataGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.RolesPermissionsRolesDataGrid.Size = new System.Drawing.Size(285, 523);
@@ -918,7 +918,7 @@
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.RolesPermissionsRolesDataGrid.StateCommon.DataCell.Content.Color1 = System.Drawing.Color.Black;
-            this.RolesPermissionsRolesDataGrid.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.RolesPermissionsRolesDataGrid.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.RolesPermissionsRolesDataGrid.StateCommon.HeaderColumn.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
             this.RolesPermissionsRolesDataGrid.StateCommon.HeaderColumn.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
             this.RolesPermissionsRolesDataGrid.StateCommon.HeaderColumn.Border.Color1 = System.Drawing.Color.Black;
@@ -927,7 +927,7 @@
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.RolesPermissionsRolesDataGrid.StateCommon.HeaderColumn.Content.Color1 = System.Drawing.Color.White;
-            this.RolesPermissionsRolesDataGrid.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.RolesPermissionsRolesDataGrid.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.RolesPermissionsRolesDataGrid.StateSelected.DataCell.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(177)))), ((int)(((byte)(229)))));
             this.RolesPermissionsRolesDataGrid.StateSelected.DataCell.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
             this.RolesPermissionsRolesDataGrid.StateSelected.DataCell.Content.Color1 = System.Drawing.Color.White;
@@ -969,7 +969,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.RolesPermissionsDataGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.RolesPermissionsDataGrid.BackText = "Нет данных";
-            this.RolesPermissionsDataGrid.ColumnHeadersHeight = 55;
+            this.RolesPermissionsDataGrid.ColumnHeadersHeight = 40;
             this.RolesPermissionsDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.RolesPermissionsDataGrid.ColumnHeadersVisible = false;
             this.RolesPermissionsDataGrid.HideOuterBorders = true;
@@ -978,7 +978,7 @@
             this.RolesPermissionsDataGrid.Name = "RolesPermissionsDataGrid";
             this.RolesPermissionsDataGrid.PercentLineWidth = 0;
             this.RolesPermissionsDataGrid.RowHeadersVisible = false;
-            this.RolesPermissionsDataGrid.RowTemplate.Height = 40;
+            this.RolesPermissionsDataGrid.RowTemplate.Height = 30;
             this.RolesPermissionsDataGrid.SelectedColorStyle = Infinium.PercentageDataGrid.ColorStyle.Blue;
             this.RolesPermissionsDataGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.RolesPermissionsDataGrid.Size = new System.Drawing.Size(466, 523);
@@ -993,7 +993,7 @@
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.RolesPermissionsDataGrid.StateCommon.DataCell.Content.Color1 = System.Drawing.Color.Black;
-            this.RolesPermissionsDataGrid.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.RolesPermissionsDataGrid.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.RolesPermissionsDataGrid.StateCommon.HeaderColumn.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
             this.RolesPermissionsDataGrid.StateCommon.HeaderColumn.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
             this.RolesPermissionsDataGrid.StateCommon.HeaderColumn.Border.Color1 = System.Drawing.Color.Black;
@@ -1002,7 +1002,7 @@
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.RolesPermissionsDataGrid.StateCommon.HeaderColumn.Content.Color1 = System.Drawing.Color.White;
-            this.RolesPermissionsDataGrid.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.RolesPermissionsDataGrid.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.RolesPermissionsDataGrid.StateSelected.DataCell.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(177)))), ((int)(((byte)(229)))));
             this.RolesPermissionsDataGrid.StateSelected.DataCell.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
             this.RolesPermissionsDataGrid.StateSelected.DataCell.Content.Color1 = System.Drawing.Color.White;
@@ -1181,7 +1181,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.UserRolesDataGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.UserRolesDataGrid.BackText = "Нет данных";
-            this.UserRolesDataGrid.ColumnHeadersHeight = 55;
+            this.UserRolesDataGrid.ColumnHeadersHeight = 40;
             this.UserRolesDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.UserRolesDataGrid.ColumnHeadersVisible = false;
             this.UserRolesDataGrid.Location = new System.Drawing.Point(-1, -1);
@@ -1190,7 +1190,7 @@
             this.UserRolesDataGrid.PercentLineWidth = 0;
             this.UserRolesDataGrid.ReadOnly = true;
             this.UserRolesDataGrid.RowHeadersVisible = false;
-            this.UserRolesDataGrid.RowTemplate.Height = 40;
+            this.UserRolesDataGrid.RowTemplate.Height = 30;
             this.UserRolesDataGrid.SelectedColorStyle = Infinium.PercentageDataGrid.ColorStyle.Blue;
             this.UserRolesDataGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.UserRolesDataGrid.Size = new System.Drawing.Size(466, 498);
@@ -1243,7 +1243,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.RoleUsersDataGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.RoleUsersDataGrid.BackText = "Нет данных";
-            this.RoleUsersDataGrid.ColumnHeadersHeight = 55;
+            this.RoleUsersDataGrid.ColumnHeadersHeight = 40;
             this.RoleUsersDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.RoleUsersDataGrid.ColumnHeadersVisible = false;
             this.RoleUsersDataGrid.Location = new System.Drawing.Point(-1, -1);
@@ -1252,7 +1252,7 @@
             this.RoleUsersDataGrid.PercentLineWidth = 0;
             this.RoleUsersDataGrid.ReadOnly = true;
             this.RoleUsersDataGrid.RowHeadersVisible = false;
-            this.RoleUsersDataGrid.RowTemplate.Height = 40;
+            this.RoleUsersDataGrid.RowTemplate.Height = 30;
             this.RoleUsersDataGrid.SelectedColorStyle = Infinium.PercentageDataGrid.ColorStyle.Blue;
             this.RoleUsersDataGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.RoleUsersDataGrid.Size = new System.Drawing.Size(285, 523);

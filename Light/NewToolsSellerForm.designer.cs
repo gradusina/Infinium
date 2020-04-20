@@ -566,7 +566,7 @@
             this.ToolsSellerInfoDataGrid.AllowUserToOrderColumns = true;
             this.ToolsSellerInfoDataGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.ToolsSellerInfoDataGrid.BackText = "Нет данных";
-            this.ToolsSellerInfoDataGrid.ColumnHeadersHeight = 55;
+            this.ToolsSellerInfoDataGrid.ColumnHeadersHeight = 40;
             this.ToolsSellerInfoDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.ToolsSellerInfoDataGrid.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ToolsSellerInfoDataGrid.Location = new System.Drawing.Point(0, 0);
@@ -574,7 +574,7 @@
             this.ToolsSellerInfoDataGrid.Name = "ToolsSellerInfoDataGrid";
             this.ToolsSellerInfoDataGrid.PercentLineWidth = 0;
             this.ToolsSellerInfoDataGrid.RowHeadersVisible = false;
-            this.ToolsSellerInfoDataGrid.RowTemplate.Height = 40;
+            this.ToolsSellerInfoDataGrid.RowTemplate.Height = 30;
             this.ToolsSellerInfoDataGrid.SelectedColorStyle = Infinium.PercentageDataGrid.ColorStyle.Blue;
             this.ToolsSellerInfoDataGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.ToolsSellerInfoDataGrid.Size = new System.Drawing.Size(1247, 146);
@@ -589,14 +589,14 @@
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.ToolsSellerInfoDataGrid.StateCommon.DataCell.Content.Color1 = System.Drawing.Color.Black;
-            this.ToolsSellerInfoDataGrid.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.ToolsSellerInfoDataGrid.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.ToolsSellerInfoDataGrid.StateCommon.HeaderColumn.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
             this.ToolsSellerInfoDataGrid.StateCommon.HeaderColumn.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
             this.ToolsSellerInfoDataGrid.StateCommon.HeaderColumn.Border.Color1 = System.Drawing.Color.Black;
             this.ToolsSellerInfoDataGrid.StateCommon.HeaderColumn.Border.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
             this.ToolsSellerInfoDataGrid.StateCommon.HeaderColumn.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.ToolsSellerInfoDataGrid.StateCommon.HeaderColumn.Content.Color1 = System.Drawing.Color.White;
-            this.ToolsSellerInfoDataGrid.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.ToolsSellerInfoDataGrid.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.ToolsSellerInfoDataGrid.StateSelected.DataCell.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(177)))), ((int)(((byte)(229)))));
             this.ToolsSellerInfoDataGrid.StateSelected.DataCell.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
             this.ToolsSellerInfoDataGrid.StateSelected.DataCell.Content.Color1 = System.Drawing.Color.White;

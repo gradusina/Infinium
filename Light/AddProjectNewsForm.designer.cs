@@ -461,7 +461,7 @@
             this.AttachmentsGrid.AllowUserToResizeRows = false;
             this.AttachmentsGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.AttachmentsGrid.BackText = "Нет данных";
-            this.AttachmentsGrid.ColumnHeadersHeight = 55;
+            this.AttachmentsGrid.ColumnHeadersHeight = 40;
             this.AttachmentsGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.AttachmentsGrid.ColumnHeadersVisible = false;
             this.AttachmentsGrid.Dock = System.Windows.Forms.DockStyle.Fill;

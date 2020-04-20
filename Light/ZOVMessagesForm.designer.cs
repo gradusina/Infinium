@@ -221,7 +221,7 @@
             this.UsersListDataGrid.AllowUserToResizeRows = false;
             this.UsersListDataGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.UsersListDataGrid.BackText = "Нет данных";
-            this.UsersListDataGrid.ColumnHeadersHeight = 55;
+            this.UsersListDataGrid.ColumnHeadersHeight = 40;
             this.UsersListDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.UsersListDataGrid.ColumnHeadersVisible = false;
             this.UsersListDataGrid.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -232,7 +232,7 @@
             this.UsersListDataGrid.PercentLineWidth = 0;
             this.UsersListDataGrid.ReadOnly = true;
             this.UsersListDataGrid.RowHeadersVisible = false;
-            this.UsersListDataGrid.RowTemplate.Height = 40;
+            this.UsersListDataGrid.RowTemplate.Height = 30;
             this.UsersListDataGrid.SelectedColorStyle = Infinium.ClientsDataGrid.ColorStyle.Orange;
             this.UsersListDataGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.UsersListDataGrid.Size = new System.Drawing.Size(308, 362);
@@ -247,7 +247,7 @@
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.UsersListDataGrid.StateCommon.DataCell.Content.Color1 = System.Drawing.Color.Black;
-            this.UsersListDataGrid.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.UsersListDataGrid.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.UsersListDataGrid.StateCommon.HeaderColumn.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
             this.UsersListDataGrid.StateCommon.HeaderColumn.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
             this.UsersListDataGrid.StateCommon.HeaderColumn.Border.Color1 = System.Drawing.Color.Black;
@@ -256,7 +256,7 @@
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.UsersListDataGrid.StateCommon.HeaderColumn.Content.Color1 = System.Drawing.Color.White;
-            this.UsersListDataGrid.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.UsersListDataGrid.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.UsersListDataGrid.StateSelected.DataCell.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(253)))), ((int)(((byte)(164)))), ((int)(((byte)(61)))));
             this.UsersListDataGrid.StateSelected.DataCell.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
             this.UsersListDataGrid.StateSelected.DataCell.Content.Color1 = System.Drawing.Color.White;
@@ -418,7 +418,7 @@
             this.SelectedUsersGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.SelectedUsersGrid.BackText = "       Нет открытых диалогов.\r\nДля открытия диалога сделайте\r\n    двойной клик по" +
     " фамилии\r\n          сотрудника в списке";
-            this.SelectedUsersGrid.ColumnHeadersHeight = 55;
+            this.SelectedUsersGrid.ColumnHeadersHeight = 40;
             this.SelectedUsersGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.SelectedUsersGrid.ColumnHeadersVisible = false;
             this.SelectedUsersGrid.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -429,7 +429,7 @@
             this.SelectedUsersGrid.PercentLineWidth = 0;
             this.SelectedUsersGrid.ReadOnly = true;
             this.SelectedUsersGrid.RowHeadersVisible = false;
-            this.SelectedUsersGrid.RowTemplate.Height = 40;
+            this.SelectedUsersGrid.RowTemplate.Height = 30;
             this.SelectedUsersGrid.SelectedColorStyle = Infinium.ClientsMessagesDataGrid.ColorStyle.Orange;
             this.SelectedUsersGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
             this.SelectedUsersGrid.Size = new System.Drawing.Size(308, 195);
@@ -444,7 +444,7 @@
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.SelectedUsersGrid.StateCommon.DataCell.Content.Color1 = System.Drawing.Color.Black;
-            this.SelectedUsersGrid.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.SelectedUsersGrid.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.SelectedUsersGrid.StateCommon.HeaderColumn.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
             this.SelectedUsersGrid.StateCommon.HeaderColumn.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
             this.SelectedUsersGrid.StateCommon.HeaderColumn.Border.Color1 = System.Drawing.Color.Black;
@@ -453,7 +453,7 @@
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.SelectedUsersGrid.StateCommon.HeaderColumn.Content.Color1 = System.Drawing.Color.White;
-            this.SelectedUsersGrid.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.SelectedUsersGrid.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.SelectedUsersGrid.StateSelected.DataCell.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(253)))), ((int)(((byte)(164)))), ((int)(((byte)(61)))));
             this.SelectedUsersGrid.StateSelected.DataCell.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
             this.SelectedUsersGrid.StateSelected.DataCell.Content.Color1 = System.Drawing.Color.White;

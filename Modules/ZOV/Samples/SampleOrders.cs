@@ -6,124 +6,127 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using ComponentFactory.Krypton.Toolkit;
+using DevExpress.XtraTab;
 
 namespace Infinium.Modules.ZOV.Samples
 {
     public class DecorCatalogOrder
     {
-        ComponentFactory.Krypton.Toolkit.KryptonComboBox LengthEdit;
-        ComponentFactory.Krypton.Toolkit.KryptonComboBox HeightEdit;
-        ComponentFactory.Krypton.Toolkit.KryptonComboBox WidthEdit;
+        private readonly KryptonComboBox _heightEdit;
+        private readonly KryptonComboBox _lengthEdit;
+        private DataTable _patinaRalDataTable;
+        private readonly KryptonComboBox _widthEdit;
+        public BindingSource ColorsBindingSource;
+        public DataTable ColorsDataTable;
+        public BindingSource DecorBindingSource;
+        public DataTable DecorConfigDataTable;
+        public DataTable DecorDataTable;
+        public DataTable DecorParametersDataTable;
 
-        public int DecorProductsCount = 0;
+        public BindingSource DecorProductsBindingSource;
 
-        public DataTable ItemsDataTable = null;
-        public DataTable ColorsDataTable = null;
-        public DataTable PatinaDataTable = null;
-        private DataTable PatinaRALDataTable = null;
-        public DataTable InsetTypesDataTable = null;
-        public DataTable InsetColorsDataTable = null;
+        public string DecorProductsBindingSourceDisplayMember;
 
-        public DataTable DecorProductsDataTable = null;
-        public DataTable DecorDataTable = null;
-        public DataTable DecorConfigDataTable = null;
-        public DataTable DecorParametersDataTable = null;
+        public string DecorProductsBindingSourceValueMember;
 
-        public DataTable TempItemsDataTable = null;
-        public DataTable ItemColorsDataTable = null;
-        public DataTable ItemPatinaDataTable = null;
-        public DataTable ItemLengthDataTable = null;
-        public DataTable ItemHeightDataTable = null;
-        public DataTable ItemWidthDataTable = null;
-        public DataTable ItemInsetTypesDataTable = null;
-        public DataTable ItemInsetColorsDataTable = null;
+        public int DecorProductsCount;
 
-        public BindingSource DecorProductsBindingSource = null;
-        public BindingSource DecorBindingSource = null;
-        public BindingSource ItemsBindingSource = null;
-        public BindingSource ItemColorsBindingSource = null;
-        public BindingSource ItemPatinaBindingSource = null;
-        public BindingSource ItemLengthBindingSource = null;
-        public BindingSource ItemHeightBindingSource = null;
-        public BindingSource ItemWidthBindingSource = null;
-        public BindingSource ColorsBindingSource = null;
-        public BindingSource PatinaBindingSource = null;
-        public BindingSource ItemInsetTypesBindingSource = null;
-        public BindingSource ItemInsetColorsBindingSource = null;
+        public DataTable DecorProductsDataTable;
+        public DataTable InsetColorsDataTable;
+        public DataTable InsetTypesDataTable;
+        public BindingSource ItemColorsBindingSource;
+        public string ItemColorsBindingSourceDisplayMember;
+        public string ItemColorsBindingSourceValueMember;
+        public DataTable ItemColorsDataTable;
+        public BindingSource ItemHeightBindingSource;
+        public string ItemHeightBindingSourceDisplayMember;
+        public DataTable ItemHeightDataTable;
+        public BindingSource ItemInsetColorsBindingSource;
+        public DataTable ItemInsetColorsDataTable;
+        public BindingSource ItemInsetTypesBindingSource;
+        public DataTable ItemInsetTypesDataTable;
+        public BindingSource ItemLengthBindingSource;
+        public string ItemLengthBindingSourceDisplayMember;
+        public DataTable ItemLengthDataTable;
+        public BindingSource ItemPatinaBindingSource;
+        public string ItemPatinaBindingSourceDisplayMember;
+        public string ItemPatinaBindingSourceValueMember;
+        public DataTable ItemPatinaDataTable;
+        public BindingSource ItemsBindingSource;
+        public string ItemsBindingSourceDisplayMember;
+        public string ItemsBindingSourceValueMember;
 
-        public String DecorProductsBindingSourceDisplayMember = null;
-        public String ItemsBindingSourceDisplayMember = null;
-        public String ItemColorsBindingSourceDisplayMember = null;
-        public String ItemPatinaBindingSourceDisplayMember = null;
-        public String ItemLengthBindingSourceDisplayMember = null;
-        public String ItemHeightBindingSourceDisplayMember = null;
-        public String ItemWidthBindingSourceDisplayMember = null;
+        public DataTable ItemsDataTable;
+        public BindingSource ItemWidthBindingSource;
+        public string ItemWidthBindingSourceDisplayMember;
+        public DataTable ItemWidthDataTable;
+        public BindingSource PatinaBindingSource;
+        public DataTable PatinaDataTable;
 
-        public String DecorProductsBindingSourceValueMember = null;
-        public String ItemsBindingSourceValueMember = null;
-        public String ItemColorsBindingSourceValueMember = null;
-        public String ItemPatinaBindingSourceValueMember = null;
+        public DataTable TempItemsDataTable;
 
         public DecorCatalogOrder()
         {
             Initialize();
         }
 
-        public void ReplaceOldID()
+        public DecorCatalogOrder(ref KryptonComboBox tLengthEdit,
+            ref KryptonComboBox tHeightEdit,
+            ref KryptonComboBox tWidthEdit)
         {
-            DataTable FrontsOrdersDT = new DataTable();
-            DataTable DecorOrdersDT = new DataTable();
-            DataTable FrontsConfigDT = new DataTable();
-            DataTable DecorConfigDT = new DataTable();
+            _lengthEdit = tLengthEdit;
+            _heightEdit = tHeightEdit;
+            _widthEdit = tWidthEdit;
+        }
 
-            string SelectionCommand = "SELECT * FROM FrontsConfig";
+        public void ReplaceOldId()
+        {
+            var frontsOrdersDt = new DataTable();
+            var decorOrdersDt = new DataTable();
+            var frontsConfigDt = new DataTable();
+            var decorConfigDt = new DataTable();
+
+            var selectionCommand = "SELECT * FROM FrontsConfig";
             //using (SqlDataAdapter DA = new SqlDataAdapter(SelectionCommand, ConnectionStrings.CatalogConnectionString))
             //{
             //    DA.Fill(FrontsConfigDT);
             //}
-            FrontsConfigDT = TablesManager.FrontsConfigDataTable;
-            SelectionCommand = "SELECT * FROM DyeingAssignmentDetails";
-            using (SqlDataAdapter DA = new SqlDataAdapter(SelectionCommand, ConnectionStrings.StorageConnectionString))
+            frontsConfigDt = TablesManager.FrontsConfigDataTable;
+            selectionCommand = "SELECT * FROM DyeingAssignmentDetails";
+            using (var da = new SqlDataAdapter(selectionCommand, ConnectionStrings.StorageConnectionString))
             {
-                using (SqlCommandBuilder CB = new SqlCommandBuilder(DA))
+                using (var cb = new SqlCommandBuilder(da))
                 {
-                    DA.Fill(FrontsOrdersDT);
-                    for (int i = 0; i < FrontsOrdersDT.Rows.Count; i++)
+                    da.Fill(frontsOrdersDt);
+                    for (var i = 0; i < frontsOrdersDt.Rows.Count; i++)
                     {
-                        int FrontConfigID = Convert.ToInt32(FrontsOrdersDT.Rows[i]["FrontConfigID"]);
-                        DataRow[] ConfigRows = FrontsConfigDT.Select("FrontConfigID=" + FrontConfigID);
-                        if (ConfigRows.Count() > 0)
+                        var frontConfigId = Convert.ToInt32(frontsOrdersDt.Rows[i]["FrontConfigID"]);
+                        var configRows = frontsConfigDt.Select("FrontConfigID=" + frontConfigId);
+                        if (configRows.Count() > 0)
                         {
-                            int FrontID = Convert.ToInt32(ConfigRows[0]["FrontID"]);
-                            int ColorID = Convert.ToInt32(ConfigRows[0]["ColorID"]);
-                            int InsetTypeID = Convert.ToInt32(ConfigRows[0]["InsetTypeID"]);
-                            int InsetColorID = Convert.ToInt32(ConfigRows[0]["InsetColorID"]);
-                            int TechnoColorID = Convert.ToInt32(ConfigRows[0]["TechnoColorID"]);
-                            int TechnoInsetTypeID = Convert.ToInt32(ConfigRows[0]["TechnoInsetTypeID"]);
-                            int TechnoInsetColorID = Convert.ToInt32(ConfigRows[0]["TechnoInsetColorID"]);
-                            int PatinaID = Convert.ToInt32(ConfigRows[0]["PatinaID"]);
-                            FrontsOrdersDT.Rows[i]["FrontID"] = FrontID;
-                            FrontsOrdersDT.Rows[i]["ColorID"] = ColorID;
-                            FrontsOrdersDT.Rows[i]["InsetTypeID"] = InsetTypeID;
-                            FrontsOrdersDT.Rows[i]["InsetColorID"] = InsetColorID;
-                            FrontsOrdersDT.Rows[i]["TechnoColorID"] = TechnoColorID;
-                            FrontsOrdersDT.Rows[i]["TechnoInsetTypeID"] = TechnoInsetTypeID;
-                            FrontsOrdersDT.Rows[i]["TechnoInsetColorID"] = TechnoInsetColorID;
-                            FrontsOrdersDT.Rows[i]["PatinaID"] = PatinaID;
+                            var frontId = Convert.ToInt32(configRows[0]["FrontID"]);
+                            var colorId = Convert.ToInt32(configRows[0]["ColorID"]);
+                            var insetTypeId = Convert.ToInt32(configRows[0]["InsetTypeID"]);
+                            var insetColorId = Convert.ToInt32(configRows[0]["InsetColorID"]);
+                            var technoColorId = Convert.ToInt32(configRows[0]["TechnoColorID"]);
+                            var technoInsetTypeId = Convert.ToInt32(configRows[0]["TechnoInsetTypeID"]);
+                            var technoInsetColorId = Convert.ToInt32(configRows[0]["TechnoInsetColorID"]);
+                            var patinaId = Convert.ToInt32(configRows[0]["PatinaID"]);
+                            frontsOrdersDt.Rows[i]["FrontID"] = frontId;
+                            frontsOrdersDt.Rows[i]["ColorID"] = colorId;
+                            frontsOrdersDt.Rows[i]["InsetTypeID"] = insetTypeId;
+                            frontsOrdersDt.Rows[i]["InsetColorID"] = insetColorId;
+                            frontsOrdersDt.Rows[i]["TechnoColorID"] = technoColorId;
+                            frontsOrdersDt.Rows[i]["TechnoInsetTypeID"] = technoInsetTypeId;
+                            frontsOrdersDt.Rows[i]["TechnoInsetColorID"] = technoInsetColorId;
+                            frontsOrdersDt.Rows[i]["PatinaID"] = patinaId;
                         }
                     }
-                    DA.Update(FrontsOrdersDT);
+
+                    da.Update(frontsOrdersDt);
                 }
             }
-        }
-
-        public DecorCatalogOrder(ref ComponentFactory.Krypton.Toolkit.KryptonComboBox tLengthEdit,
-            ref ComponentFactory.Krypton.Toolkit.KryptonComboBox tHeightEdit,
-            ref ComponentFactory.Krypton.Toolkit.KryptonComboBox tWidthEdit)
-        {
-            LengthEdit = tLengthEdit;
-            HeightEdit = tHeightEdit;
-            WidthEdit = tWidthEdit;
         }
 
         private void Create()
@@ -151,147 +154,158 @@ namespace Infinium.Modules.ZOV.Samples
             PatinaBindingSource = new BindingSource();
         }
 
-        private void GetColorsDT()
+        private void GetColorsDt()
         {
             ColorsDataTable = new DataTable();
             ColorsDataTable.Columns.Add(new DataColumn("ColorID", Type.GetType("System.Int64")));
             ColorsDataTable.Columns.Add(new DataColumn("ColorName", Type.GetType("System.String")));
             ColorsDataTable.Columns.Add(new DataColumn("Excluzive", Type.GetType("System.Int32")));
-            string SelectCommand = @"SELECT TechStoreID, TechStoreName FROM TechStore
+            var selectCommand = @"SELECT TechStoreID, TechStoreName FROM TechStore
                 WHERE TechStoreSubGroupID IN (SELECT TechStoreSubGroupID FROM TechStoreSubGroups WHERE TechStoreGroupID = 11)
                 ORDER BY TechStoreName";
-            using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.CatalogConnectionString))
+            using (var da = new SqlDataAdapter(selectCommand, ConnectionStrings.CatalogConnectionString))
             {
-                using (DataTable DT = new DataTable())
+                using (var dt = new DataTable())
                 {
-                    DA.Fill(DT);
+                    da.Fill(dt);
                     {
-                        DataRow NewRow = ColorsDataTable.NewRow();
-                        NewRow["ColorID"] = -1;
-                        NewRow["ColorName"] = "-";
-                        ColorsDataTable.Rows.Add(NewRow);
+                        var newRow = ColorsDataTable.NewRow();
+                        newRow["ColorID"] = -1;
+                        newRow["ColorName"] = "-";
+                        ColorsDataTable.Rows.Add(newRow);
                     }
                     {
-                        DataRow NewRow = ColorsDataTable.NewRow();
-                        NewRow["ColorID"] = 0;
-                        NewRow["ColorName"] = "на выбор";
-                        ColorsDataTable.Rows.Add(NewRow);
+                        var newRow = ColorsDataTable.NewRow();
+                        newRow["ColorID"] = 0;
+                        newRow["ColorName"] = "на выбор";
+                        ColorsDataTable.Rows.Add(newRow);
                     }
-                    for (int i = 0; i < DT.Rows.Count; i++)
+                    for (var i = 0; i < dt.Rows.Count; i++)
                     {
-                        DataRow NewRow = ColorsDataTable.NewRow();
-                        NewRow["ColorID"] = Convert.ToInt64(DT.Rows[i]["TechStoreID"]);
-                        NewRow["ColorName"] = DT.Rows[i]["TechStoreName"].ToString();
-                        ColorsDataTable.Rows.Add(NewRow);
+                        var newRow = ColorsDataTable.NewRow();
+                        newRow["ColorID"] = Convert.ToInt64(dt.Rows[i]["TechStoreID"]);
+                        newRow["ColorName"] = dt.Rows[i]["TechStoreName"].ToString();
+                        ColorsDataTable.Rows.Add(newRow);
                     }
                 }
             }
-            using (SqlDataAdapter DA = new SqlDataAdapter("SELECT * FROM InsetColors WHERE GroupID IN (2,3,4,5,6,21,22)", ConnectionStrings.CatalogConnectionString))
-            {
-                using (DataTable DT = new DataTable())
-                {
-                    DA.Fill(DT);
 
-                    for (int i = 0; i < DT.Rows.Count; i++)
+            using (var da = new SqlDataAdapter("SELECT * FROM InsetColors WHERE GroupID IN (2,3,4,5,6,21,22)",
+                ConnectionStrings.CatalogConnectionString))
+            {
+                using (var dt = new DataTable())
+                {
+                    da.Fill(dt);
+
+                    for (var i = 0; i < dt.Rows.Count; i++)
                     {
-                        DataRow[] rows = ColorsDataTable.Select("ColorID=" + Convert.ToInt32(DT.Rows[i]["InsetColorID"]));
+                        var rows = ColorsDataTable.Select("ColorID=" + Convert.ToInt32(dt.Rows[i]["InsetColorID"]));
                         if (rows.Count() == 0)
                         {
-                            DataRow NewRow = ColorsDataTable.NewRow();
-                            NewRow["ColorID"] = Convert.ToInt64(DT.Rows[i]["InsetColorID"]);
-                            NewRow["ColorName"] = DT.Rows[i]["InsetColorName"].ToString();
-                            ColorsDataTable.Rows.Add(NewRow);
+                            var newRow = ColorsDataTable.NewRow();
+                            newRow["ColorID"] = Convert.ToInt64(dt.Rows[i]["InsetColorID"]);
+                            newRow["ColorName"] = dt.Rows[i]["InsetColorName"].ToString();
+                            ColorsDataTable.Rows.Add(newRow);
                         }
                     }
                 }
             }
         }
 
-        private void GetInsetColorsDT()
+        private void GetInsetColorsDt()
         {
             InsetColorsDataTable = new DataTable();
-            using (SqlDataAdapter DA = new SqlDataAdapter("SELECT InsetColors.InsetColorID, InsetColors.GroupID, infiniu2_catalog.dbo.TechStore.TechStoreName AS InsetColorName FROM InsetColors" +
-                " INNER JOIN infiniu2_catalog.dbo.TechStore ON InsetColors.InsetColorID = infiniu2_catalog.dbo.TechStore.TechStoreID ORDER BY TechStoreName", ConnectionStrings.CatalogConnectionString))
+            using (var da = new SqlDataAdapter(
+                "SELECT InsetColors.InsetColorID, InsetColors.GroupID, infiniu2_catalog.dbo.TechStore.TechStoreName AS InsetColorName FROM InsetColors" +
+                " INNER JOIN infiniu2_catalog.dbo.TechStore ON InsetColors.InsetColorID = infiniu2_catalog.dbo.TechStore.TechStoreID ORDER BY TechStoreName",
+                ConnectionStrings.CatalogConnectionString))
             {
-                DA.Fill(InsetColorsDataTable);
+                da.Fill(InsetColorsDataTable);
                 {
-                    DataRow NewRow = InsetColorsDataTable.NewRow();
-                    NewRow["InsetColorID"] = -1;
-                    NewRow["GroupID"] = -1;
-                    NewRow["InsetColorName"] = "-";
-                    InsetColorsDataTable.Rows.Add(NewRow);
+                    var newRow = InsetColorsDataTable.NewRow();
+                    newRow["InsetColorID"] = -1;
+                    newRow["GroupID"] = -1;
+                    newRow["InsetColorName"] = "-";
+                    InsetColorsDataTable.Rows.Add(newRow);
                 }
                 {
-                    DataRow NewRow = InsetColorsDataTable.NewRow();
-                    NewRow["InsetColorID"] = 0;
-                    NewRow["GroupID"] = -1;
-                    NewRow["InsetColorName"] = "на выбор";
-                    InsetColorsDataTable.Rows.Add(NewRow);
+                    var newRow = InsetColorsDataTable.NewRow();
+                    newRow["InsetColorID"] = 0;
+                    newRow["GroupID"] = -1;
+                    newRow["InsetColorName"] = "на выбор";
+                    InsetColorsDataTable.Rows.Add(newRow);
                 }
-
             }
-
         }
 
         private void Fill()
         {
-            string SelectCommand = @"SELECT ProductID, ProductName, MeasureID, ReportParam FROM DecorProducts" +
-                " WHERE ProductID IN (SELECT ProductID FROM DecorConfig WHERE (Enabled = 1 AND AccountingName IS NOT NULL AND InvNumber IS NOT NULL)) ORDER BY ProductName ASC";
+            var selectCommand = @"SELECT ProductID, ProductName, MeasureID, ReportParam FROM DecorProducts" +
+                                " WHERE ProductID IN (SELECT ProductID FROM DecorConfig WHERE (Enabled = 1 AND AccountingName IS NOT NULL AND InvNumber IS NOT NULL)) ORDER BY ProductName ASC";
             DecorProductsDataTable = new DataTable();
-            using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.CatalogConnectionString))
+            using (var da = new SqlDataAdapter(selectCommand, ConnectionStrings.CatalogConnectionString))
             {
-                DA.Fill(DecorProductsDataTable);
+                da.Fill(DecorProductsDataTable);
                 DecorProductsDataTable.Columns.Add(new DataColumn("Excluzive", Type.GetType("System.Int32")));
             }
+
             DecorDataTable = new DataTable();
-            SelectCommand = @"SELECT DISTINCT TechStore.TechStoreID AS DecorID, TechStore.TechStoreName AS Name, DecorConfig.ProductID FROM TechStore 
+            selectCommand =
+                @"SELECT DISTINCT TechStore.TechStoreID AS DecorID, TechStore.TechStoreName AS Name, DecorConfig.ProductID FROM TechStore 
                 INNER JOIN DecorConfig ON TechStore.TechStoreID = DecorConfig.DecorID AND Enabled = 1 AND AccountingName IS NOT NULL AND InvNumber IS NOT NULL ORDER BY TechStoreName";
-            using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.CatalogConnectionString))
+            using (var da = new SqlDataAdapter(selectCommand, ConnectionStrings.CatalogConnectionString))
             {
-                DA.Fill(DecorDataTable);
+                da.Fill(DecorDataTable);
                 DecorDataTable.Columns.Add(new DataColumn("Excluzive", Type.GetType("System.Int32")));
             }
-            GetColorsDT();
-            GetInsetColorsDT();
+
+            GetColorsDt();
+            GetInsetColorsDt();
             InsetTypesDataTable = new DataTable();
-            using (SqlDataAdapter DA = new SqlDataAdapter("SELECT * FROM InsetTypes",
+            using (var da = new SqlDataAdapter("SELECT * FROM InsetTypes",
                 ConnectionStrings.CatalogConnectionString))
             {
-                DA.Fill(InsetTypesDataTable);
+                da.Fill(InsetTypesDataTable);
             }
+
             PatinaDataTable = new DataTable();
-            SelectCommand = @"SELECT * FROM Patina ORDER BY PatinaName";
-            using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.CatalogConnectionString))
+            selectCommand = @"SELECT * FROM Patina ORDER BY PatinaName";
+            using (var da = new SqlDataAdapter(selectCommand, ConnectionStrings.CatalogConnectionString))
             {
-                DA.Fill(PatinaDataTable);
+                da.Fill(PatinaDataTable);
                 PatinaDataTable.Columns.Add(new DataColumn("Excluzive", Type.GetType("System.Int32")));
             }
-            PatinaRALDataTable = new DataTable();
-            using (SqlDataAdapter DA = new SqlDataAdapter("SELECT * FROM PatinaRAL WHERE Enabled=1",
+
+            _patinaRalDataTable = new DataTable();
+            using (var da = new SqlDataAdapter("SELECT * FROM PatinaRAL WHERE Enabled=1",
                 ConnectionStrings.CatalogConnectionString))
             {
-                DA.Fill(PatinaRALDataTable);
+                da.Fill(_patinaRalDataTable);
             }
-            foreach (DataRow item in PatinaRALDataTable.Rows)
+
+            foreach (DataRow item in _patinaRalDataTable.Rows)
             {
-                DataRow NewRow = PatinaDataTable.NewRow();
-                NewRow["PatinaID"] = item["PatinaRALID"];
-                NewRow["PatinaName"] = item["PatinaRAL"];
-                NewRow["DisplayName"] = item["DisplayName"];
-                PatinaDataTable.Rows.Add(NewRow);
+                var newRow = PatinaDataTable.NewRow();
+                newRow["PatinaID"] = item["PatinaRALID"];
+                newRow["PatinaName"] = item["PatinaRAL"];
+                newRow["DisplayName"] = item["DisplayName"];
+                PatinaDataTable.Rows.Add(newRow);
             }
+
             DecorParametersDataTable = new DataTable();
-            using (SqlDataAdapter DA = new SqlDataAdapter("SELECT * FROM DecorParameters", ConnectionStrings.CatalogConnectionString))
+            using (var da = new SqlDataAdapter("SELECT * FROM DecorParameters",
+                ConnectionStrings.CatalogConnectionString))
             {
-                DA.Fill(DecorParametersDataTable);
+                da.Fill(DecorParametersDataTable);
             }
 
             TempItemsDataTable = DecorDataTable.Clone();
 
-            using (DataView DV = new DataView(DecorDataTable))
+            using (var dv = new DataView(DecorDataTable))
             {
-                ItemsDataTable = DV.ToTable(true, new string[] { "Name" });
+                ItemsDataTable = dv.ToTable(true, "Name");
             }
+
             DecorProductsCount = DecorProductsDataTable.Rows.Count;
 
             ItemColorsDataTable = ColorsDataTable.Clone();
@@ -299,8 +313,8 @@ namespace Infinium.Modules.ZOV.Samples
             ItemInsetTypesDataTable = InsetTypesDataTable.Clone();
             ItemInsetColorsDataTable = InsetColorsDataTable.Clone();
 
-            SelectCommand = @"SELECT * FROM DecorConfig" +
-                " WHERE Enabled = 1 AND AccountingName IS NOT NULL AND InvNumber IS NOT NULL";
+            selectCommand = @"SELECT * FROM DecorConfig" +
+                            " WHERE Enabled = 1 AND AccountingName IS NOT NULL AND InvNumber IS NOT NULL";
             //using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.CatalogConnectionString))
             //{
             //    DA.Fill(DecorConfigDataTable);
@@ -322,11 +336,11 @@ namespace Infinium.Modules.ZOV.Samples
             ItemPatinaBindingSource.DataSource = ItemPatinaDataTable;
             ColorsBindingSource.DataSource = ColorsDataTable;
             PatinaBindingSource.DataSource = PatinaDataTable;
-            ItemInsetTypesBindingSource = new BindingSource()
+            ItemInsetTypesBindingSource = new BindingSource
             {
                 DataSource = ItemInsetTypesDataTable
             };
-            ItemInsetColorsBindingSource = new BindingSource()
+            ItemInsetColorsBindingSource = new BindingSource
             {
                 DataSource = ItemInsetColorsDataTable
             };
@@ -355,98 +369,90 @@ namespace Infinium.Modules.ZOV.Samples
         }
 
         //External
-        public bool HasParameter(int ProductID, String Parameter)
+        public bool HasParameter(int productId, string parameter)
         {
-            DataRow[] Rows = DecorParametersDataTable.Select("ProductID = " + ProductID);
+            var rows = DecorParametersDataTable.Select("ProductID = " + productId);
 
-            return Convert.ToBoolean(Rows[0][Parameter]);
+            return Convert.ToBoolean(rows[0][parameter]);
         }
 
-        private bool HasColorParameter(DataRow[] Rows, int ColorID)
+        private bool HasColorParameter(DataRow[] rows, int colorId)
         {
-            foreach (DataRow Row in Rows)
-            {
-                if (Row["ColorID"].ToString() == ColorID.ToString())
+            foreach (var row in rows)
+                if (row["ColorID"].ToString() == colorId.ToString())
                     return true;
-            }
 
             return false;
         }
 
-        private bool HasPatinaParameter(DataRow[] Rows, int ColorID)
+        private bool HasPatinaParameter(DataRow[] rows, int colorId)
         {
-            foreach (DataRow Row in Rows)
-            {
-                if (Row["PatinaID"].ToString() == ColorID.ToString())
+            foreach (var row in rows)
+                if (row["PatinaID"].ToString() == colorId.ToString())
                     return true;
-            }
 
             return false;
         }
 
-        private bool HasHeightParameter(DataRow[] Rows, int Height)
+        private bool HasHeightParameter(DataRow[] rows, int height)
         {
-            foreach (DataRow Row in Rows)
-            {
-                if (Row["Height"].ToString() == Height.ToString())
+            foreach (var row in rows)
+                if (row["Height"].ToString() == height.ToString())
                     return true;
-            }
 
             return false;
         }
 
-        private bool HasLengthParameter(DataRow[] Rows, int Length)
+        private bool HasLengthParameter(DataRow[] rows, int length)
         {
-            foreach (DataRow Row in Rows)
-            {
-                if (Row["Length"].ToString() == Length.ToString())
+            foreach (var row in rows)
+                if (row["Length"].ToString() == length.ToString())
                     return true;
-            }
 
             return false;
         }
 
-        private bool HasWidthParameter(DataRow[] Rows, int Width)
+        private bool HasWidthParameter(DataRow[] rows, int width)
         {
-            foreach (DataRow Row in Rows)
-            {
-                if (Row["Width"].ToString() == Width.ToString())
+            foreach (var row in rows)
+                if (row["Width"].ToString() == width.ToString())
                     return true;
-            }
 
             return false;
         }
 
-        public string GetItemName(int DecorID)
+        public string GetItemName(int decorId)
         {
-            return DecorDataTable.Select("DecorID = " + DecorID)[0]["Name"].ToString();
+            return DecorDataTable.Select("DecorID = " + decorId)[0]["Name"].ToString();
         }
 
-        public int GetDecorConfigID(int ProductID, int DecorID, int ColorID, int PatinaID, int InsetTypeID, int InsetColorID, int Length, int Height, int Width, ref int FactoryID)
+        public int GetDecorConfigId(int productId, int decorId, int colorId, int patinaId, int insetTypeId,
+            int insetColorId, int length, int height, int width, ref int factoryId)
         {
-            string LengthFilter = null;
-            string HeightFilter = null;
-            string WidthFilter = null;
-            string ColorFilter = null;
-            string PatinaFilter = null;
-            string InsetTypeFilter = null;
-            string InsetColorFilter = null;
+            string lengthFilter = null;
+            string heightFilter = null;
+            string widthFilter = null;
+            string colorFilter = null;
+            string patinaFilter = null;
+            string insetTypeFilter = null;
+            string insetColorFilter = null;
 
-            if (PatinaID > 1000)
+            if (patinaId > 1000)
             {
-                DataRow[] fRows = PatinaRALDataTable.Select("PatinaRALID=" + PatinaID);
+                var fRows = _patinaRalDataTable.Select("PatinaRALID=" + patinaId);
                 if (fRows.Count() > 0)
-                    PatinaID = Convert.ToInt32(fRows[0]["PatinaID"]);
+                    patinaId = Convert.ToInt32(fRows[0]["PatinaID"]);
             }
-            DataRow[] Rows = DecorConfigDataTable.Select(
-                            "ProductID = " + Convert.ToInt32(ProductID) + " AND " +
-                            "DecorID = " + Convert.ToInt32(DecorID));
+
+            var rows = DecorConfigDataTable.Select(
+                "ProductID = " + Convert.ToInt32(productId) + " AND " +
+                "DecorID = " + Convert.ToInt32(decorId));
 
 
-            ColorFilter = " AND ColorID = " + ColorID;
-            PatinaFilter = " AND PatinaID = " + PatinaID;
-            InsetTypeFilter = " AND InsetTypeID = " + InsetTypeID;
-            InsetColorFilter = " AND InsetColorID = " + InsetColorID;
+            colorFilter = " AND ColorID = " + colorId;
+            patinaFilter = " AND PatinaID = " + patinaId;
+            insetTypeFilter = " AND InsetTypeID = " + insetTypeId;
+            insetColorFilter = " AND InsetColorID = " + insetColorId;
             //if (HasColorParameter(Rows, ColorID))
             //    ColorFilter = " AND ColorID = " + ColorID;
             //else
@@ -457,64 +463,68 @@ namespace Infinium.Modules.ZOV.Samples
             //else
             //    PatinaFilter = " AND PatinaID = -1";
 
-            if (HasLengthParameter(Rows, Length))
-                LengthFilter = " AND Length = " + Length;
+            if (HasLengthParameter(rows, length))
+                lengthFilter = " AND Length = " + length;
             else
-                LengthFilter = " AND Length = 0";
+                lengthFilter = " AND Length = 0";
 
-            if (Length == -1)
-                LengthFilter = " AND Length = -1";
+            if (length == -1)
+                lengthFilter = " AND Length = -1";
 
-            if (HasHeightParameter(Rows, Height))
-                HeightFilter = " AND Height = " + Height;
+            if (HasHeightParameter(rows, height))
+                heightFilter = " AND Height = " + height;
             else
-                HeightFilter = " AND Height = 0";
+                heightFilter = " AND Height = 0";
 
-            if (Height == -1)
-                HeightFilter = " AND Height = -1";
+            if (height == -1)
+                heightFilter = " AND Height = -1";
 
-            if (HasWidthParameter(Rows, Width))
-                WidthFilter = " AND Width = " + Width;
+            if (HasWidthParameter(rows, width))
+                widthFilter = " AND Width = " + width;
             else
-                WidthFilter = " AND Width = 0";
+                widthFilter = " AND Width = 0";
 
-            if (Width == -1)
-                WidthFilter = " AND Width = -1";
+            if (width == -1)
+                widthFilter = " AND Width = -1";
 
-            Rows = DecorConfigDataTable.Select("(Excluzive IS NULL OR Excluzive=1) AND " +
-                                "ProductID = " + Convert.ToInt32(ProductID) + " AND " +
-                                "DecorID = " + Convert.ToInt32(DecorID) +
-                                ColorFilter + PatinaFilter + InsetTypeFilter + InsetColorFilter + LengthFilter + HeightFilter + WidthFilter);
+            rows = DecorConfigDataTable.Select("(Excluzive IS NULL OR Excluzive=1) AND " +
+                                               "ProductID = " + Convert.ToInt32(productId) + " AND " +
+                                               "DecorID = " + Convert.ToInt32(decorId) +
+                                               colorFilter + patinaFilter + insetTypeFilter + insetColorFilter +
+                                               lengthFilter + heightFilter + widthFilter);
 
-            if (Rows.Count() < 1 || Rows.Count() > 1)
+            if (rows.Count() < 1 || rows.Count() > 1)
             {
                 MessageBox.Show("Ошибка конфигурации декора. Проверьте каталог\r\n" +
-                    GetDecorName(Convert.ToInt32(DecorID)) + GetColorName(Convert.ToInt32(ColorID)));
+                                GetDecorName(Convert.ToInt32(decorId)) + GetColorName(Convert.ToInt32(colorId)));
                 return -1;
             }
 
-            FactoryID = Convert.ToInt32(Rows[0]["FactoryID"]);
+            factoryId = Convert.ToInt32(rows[0]["FactoryID"]);
 
-            if (Rows[0]["Excluzive"] != DBNull.Value && Convert.ToInt32(Rows[0]["Excluzive"]) == 0)
+            if (rows[0]["Excluzive"] != DBNull.Value && Convert.ToInt32(rows[0]["Excluzive"]) == 0)
             {
                 MessageBox.Show("Конфигурация является эксклюзивом и недоступна другим клиентам");
                 return -1;
             }
-            return Convert.ToInt32(Rows[0]["DecorConfigID"]);
+
+            return Convert.ToInt32(rows[0]["DecorConfigID"]);
         }
 
-        public int GetDecorConfigID(int ProductID, string Name, int ColorID, int PatinaID, int InsetTypeID, int InsetColorID, int Length, int Height, int Width, ref int DecorID, ref int FactoryID)
+        public int GetDecorConfigId(int productId, string name, int colorId, int patinaId, int insetTypeId,
+            int insetColorId, int length, int height, int width, ref int decorId, ref int factoryId)
         {
             TempItemsDataTable.Clear();
             TempItemsDataTable = DecorDataTable;
-            using (DataView DV = new DataView(TempItemsDataTable))
+            using (var dv = new DataView(TempItemsDataTable))
             {
-                DV.RowFilter = "Name='" + Name + "'";
+                dv.RowFilter = "Name='" + name + "'";
 
-                TempItemsDataTable = DV.ToTable();
+                TempItemsDataTable = dv.ToTable();
             }
-            string filter = string.Empty;
-            for (int i = 0; i < TempItemsDataTable.Rows.Count; i++)
+
+            var filter = string.Empty;
+            for (var i = 0; i < TempItemsDataTable.Rows.Count; i++)
                 filter += Convert.ToInt32(TempItemsDataTable.Rows[i]["DecorID"]) + ",";
             if (filter.Length > 0)
             {
@@ -522,30 +532,33 @@ namespace Infinium.Modules.ZOV.Samples
                 filter = "DecorID IN (" + filter + ")";
             }
             else
-                filter = "DecorID <> - 1";
-
-            string LengthFilter = null;
-            string HeightFilter = null;
-            string WidthFilter = null;
-            string ColorFilter = null;
-            string PatinaFilter = null;
-            string InsetTypeFilter = null;
-            string InsetColorFilter = null;
-
-            if (PatinaID > 1000)
             {
-                DataRow[] fRows = PatinaRALDataTable.Select("PatinaRALID=" + PatinaID);
-                if (fRows.Count() > 0)
-                    PatinaID = Convert.ToInt32(fRows[0]["PatinaID"]);
+                filter = "DecorID <> - 1";
             }
-            DataRow[] Rows = DecorConfigDataTable.Select(
-                            "ProductID = " + Convert.ToInt32(ProductID) + " AND " + filter);
+
+            string lengthFilter = null;
+            string heightFilter = null;
+            string widthFilter = null;
+            string colorFilter = null;
+            string patinaFilter = null;
+            string insetTypeFilter = null;
+            string insetColorFilter = null;
+
+            if (patinaId > 1000)
+            {
+                var fRows = _patinaRalDataTable.Select("PatinaRALID=" + patinaId);
+                if (fRows.Count() > 0)
+                    patinaId = Convert.ToInt32(fRows[0]["PatinaID"]);
+            }
+
+            var rows = DecorConfigDataTable.Select(
+                "ProductID = " + Convert.ToInt32(productId) + " AND " + filter);
 
 
-            ColorFilter = " AND ColorID = " + ColorID;
-            PatinaFilter = " AND PatinaID = " + PatinaID;
-            InsetTypeFilter = " AND InsetTypeID = " + InsetTypeID;
-            InsetColorFilter = " AND InsetColorID = " + InsetColorID;
+            colorFilter = " AND ColorID = " + colorId;
+            patinaFilter = " AND PatinaID = " + patinaId;
+            insetTypeFilter = " AND InsetTypeID = " + insetTypeId;
+            insetColorFilter = " AND InsetColorID = " + insetColorId;
             //if (HasColorParameter(Rows, ColorID))
             //    ColorFilter = " AND ColorID = " + ColorID;
             //else
@@ -556,125 +569,132 @@ namespace Infinium.Modules.ZOV.Samples
             //else
             //    PatinaFilter = " AND PatinaID = -1";
 
-            if (HasLengthParameter(Rows, Length))
-                LengthFilter = " AND Length = " + Length;
+            if (HasLengthParameter(rows, length))
+                lengthFilter = " AND Length = " + length;
             else
-                LengthFilter = " AND Length = 0";
+                lengthFilter = " AND Length = 0";
 
-            if (Length == -1)
-                LengthFilter = " AND Length = -1";
+            if (length == -1)
+                lengthFilter = " AND Length = -1";
 
-            if (HasHeightParameter(Rows, Height))
-                HeightFilter = " AND Height = " + Height;
+            if (HasHeightParameter(rows, height))
+                heightFilter = " AND Height = " + height;
             else
-                HeightFilter = " AND Height = 0";
+                heightFilter = " AND Height = 0";
 
-            if (Height == -1)
-                HeightFilter = " AND Height = -1";
+            if (height == -1)
+                heightFilter = " AND Height = -1";
 
-            if (HasWidthParameter(Rows, Width))
-                WidthFilter = " AND Width = " + Width;
+            if (HasWidthParameter(rows, width))
+                widthFilter = " AND Width = " + width;
             else
-                WidthFilter = " AND Width = 0";
+                widthFilter = " AND Width = 0";
 
-            if (Width == -1)
-                WidthFilter = " AND Width = -1";
+            if (width == -1)
+                widthFilter = " AND Width = -1";
 
 
-            Rows = DecorConfigDataTable.Select("(Excluzive IS NULL OR Excluzive=1) AND " +
-                                "ProductID = " + Convert.ToInt32(ProductID) + " AND " + filter +
-                                ColorFilter + PatinaFilter + InsetTypeFilter + InsetColorFilter + LengthFilter + HeightFilter + WidthFilter);
+            rows = DecorConfigDataTable.Select("(Excluzive IS NULL OR Excluzive=1) AND " +
+                                               "ProductID = " + Convert.ToInt32(productId) + " AND " + filter +
+                                               colorFilter + patinaFilter + insetTypeFilter + insetColorFilter +
+                                               lengthFilter + heightFilter + widthFilter);
 
-            if (Rows.Count() < 1 || Rows.Count() > 1)
+            if (rows.Count() < 1 || rows.Count() > 1)
             {
                 MessageBox.Show("Ошибка конфигурации декора. Проверьте каталог");
                 return -1;
             }
 
-            FactoryID = Convert.ToInt32(Rows[0]["FactoryID"]);
-            DecorID = Convert.ToInt32(Rows[0]["DecorID"]);
+            factoryId = Convert.ToInt32(rows[0]["FactoryID"]);
+            decorId = Convert.ToInt32(rows[0]["DecorID"]);
 
-            if (Rows[0]["Excluzive"] != DBNull.Value && Convert.ToInt32(Rows[0]["Excluzive"]) == 0)
+            if (rows[0]["Excluzive"] != DBNull.Value && Convert.ToInt32(rows[0]["Excluzive"]) == 0)
             {
                 MessageBox.Show("Конфигурация является эксклюзивом и недоступна другим клиентам");
                 return -1;
             }
-            return Convert.ToInt32(Rows[0]["DecorConfigID"]);
+
+            return Convert.ToInt32(rows[0]["DecorConfigID"]);
         }
 
-        private string GetDecorName(int DecorID)
+        private string GetDecorName(int decorId)
         {
-            string Name = string.Empty;
+            var name = string.Empty;
             try
             {
-                DataRow[] Rows = DecorDataTable.Select("DecorID = " + DecorID);
-                Name = Rows[0]["Name"].ToString();
+                var rows = DecorDataTable.Select("DecorID = " + decorId);
+                name = rows[0]["Name"].ToString();
             }
             catch
             {
                 return string.Empty;
             }
-            return Name;
+
+            return name;
         }
 
-        public string GetColorName(int ColorID)
+        public string GetColorName(int colorId)
         {
-            string ColorName = string.Empty;
+            var colorName = string.Empty;
             try
             {
-                DataRow[] Rows = ColorsDataTable.Select("ColorID = " + ColorID);
-                ColorName = Rows[0]["ColorName"].ToString();
+                var rows = ColorsDataTable.Select("ColorID = " + colorId);
+                colorName = rows[0]["ColorName"].ToString();
             }
             catch
             {
                 return string.Empty;
             }
-            return ColorName;
+
+            return colorName;
         }
 
-        public string GetPatinaName(int PatinaID)
+        public string GetPatinaName(int patinaId)
         {
-            string PatinaName = string.Empty;
+            var patinaName = string.Empty;
             try
             {
-                DataRow[] Rows = PatinaDataTable.Select("PatinaID = " + PatinaID);
-                PatinaName = Rows[0]["PatinaName"].ToString();
+                var rows = PatinaDataTable.Select("PatinaID = " + patinaId);
+                patinaName = rows[0]["PatinaName"].ToString();
             }
             catch
             {
                 return string.Empty;
             }
-            return PatinaName;
+
+            return patinaName;
         }
 
-        public string GetInsetTypeName(int InsetTypeID)
+        public string GetInsetTypeName(int insetTypeId)
         {
-            string InsetTypeName = string.Empty;
+            var insetTypeName = string.Empty;
             try
             {
-                DataRow[] Rows = InsetTypesDataTable.Select("InsetTypeID = " + InsetTypeID);
-                InsetTypeName = Rows[0]["InsetTypeName"].ToString();
+                var rows = InsetTypesDataTable.Select("InsetTypeID = " + insetTypeId);
+                insetTypeName = rows[0]["InsetTypeName"].ToString();
             }
             catch
             {
                 return string.Empty;
             }
-            return InsetTypeName;
+
+            return insetTypeName;
         }
 
-        public string GetInsetColorName(int InsetColorID)
+        public string GetInsetColorName(int insetColorId)
         {
-            string InsetColorName = string.Empty;
+            var insetColorName = string.Empty;
             try
             {
-                DataRow[] Rows = InsetColorsDataTable.Select("InsetColorID = " + InsetColorID);
-                InsetColorName = Rows[0]["InsetColorName"].ToString();
+                var rows = InsetColorsDataTable.Select("InsetColorID = " + insetColorId);
+                insetColorName = rows[0]["InsetColorName"].ToString();
             }
             catch
             {
                 return string.Empty;
             }
-            return InsetColorName;
+
+            return insetColorName;
         }
 
         private void CreateLengthDataTable()
@@ -702,51 +722,53 @@ namespace Infinium.Modules.ZOV.Samples
             ItemLengthDataTable.Clear();
             ItemHeightDataTable.Clear();
             ItemWidthDataTable.Clear();
-            string RowFilter = "Excluzive=1";
+            var rowFilter = "Excluzive=1";
             if (!bExcluzive)
-                RowFilter = "Excluzive IS NULL OR Excluzive<>0";
+                rowFilter = "Excluzive IS NULL OR Excluzive<>0";
 
-            DecorProductsBindingSource.Filter = RowFilter;
+            DecorProductsBindingSource.Filter = rowFilter;
             DecorProductsBindingSource.MoveFirst();
         }
 
-        public void FilterItems(int ProductID, bool bExcluzive)
+        public void FilterItems(int productId, bool bExcluzive)
         {
             TempItemsDataTable.Clear();
             TempItemsDataTable = DecorDataTable;
-            string RowFilter = "ProductID=" + ProductID;
-            using (DataView DV = new DataView(TempItemsDataTable))
+            var rowFilter = "ProductID=" + productId;
+            using (var dv = new DataView(TempItemsDataTable))
             {
                 if (bExcluzive)
-                    RowFilter += " AND (Excluzive=1)";
+                    rowFilter += " AND (Excluzive=1)";
                 else
-                    RowFilter += " AND (Excluzive IS NULL OR Excluzive=1)";
-                DV.RowFilter = RowFilter;
-                TempItemsDataTable = DV.ToTable(true, new string[] { "Name" });
+                    rowFilter += " AND (Excluzive IS NULL OR Excluzive=1)";
+                dv.RowFilter = rowFilter;
+                TempItemsDataTable = dv.ToTable(true, "Name");
             }
 
             ItemsDataTable.Clear();
-            for (int d = 0; d < TempItemsDataTable.Rows.Count; d++)
+            for (var d = 0; d < TempItemsDataTable.Rows.Count; d++)
             {
-                DataRow NewRow = ItemsDataTable.NewRow();
-                NewRow["Name"] = TempItemsDataTable.Rows[d]["Name"].ToString();
-                ItemsDataTable.Rows.Add(NewRow);
+                var newRow = ItemsDataTable.NewRow();
+                newRow["Name"] = TempItemsDataTable.Rows[d]["Name"].ToString();
+                ItemsDataTable.Rows.Add(newRow);
             }
+
             ItemsDataTable.DefaultView.Sort = "Name ASC";
         }
 
-        public bool FilterColors(string Name, bool bExcluzive)
+        public bool FilterColors(string name, bool bExcluzive)
         {
             TempItemsDataTable.Clear();
             TempItemsDataTable = DecorDataTable;
-            using (DataView DV = new DataView(TempItemsDataTable))
+            using (var dv = new DataView(TempItemsDataTable))
             {
-                DV.RowFilter = "Name='" + Name + "'";
+                dv.RowFilter = "Name='" + name + "'";
 
-                TempItemsDataTable = DV.ToTable();
+                TempItemsDataTable = dv.ToTable();
             }
-            string filter = string.Empty;
-            for (int i = 0; i < TempItemsDataTable.Rows.Count; i++)
+
+            var filter = string.Empty;
+            for (var i = 0; i < TempItemsDataTable.Rows.Count; i++)
                 filter += Convert.ToInt32(TempItemsDataTable.Rows[i]["DecorID"]) + ",";
             if (filter.Length > 0)
             {
@@ -754,7 +776,9 @@ namespace Infinium.Modules.ZOV.Samples
                 filter = "DecorID IN (" + filter + ")";
             }
             else
+            {
                 filter = "DecorID <> - 1";
+            }
 
             if (bExcluzive)
                 filter += " AND (Excluzive=1)";
@@ -763,32 +787,32 @@ namespace Infinium.Modules.ZOV.Samples
             ItemColorsDataTable.Clear();
             ItemColorsDataTable.AcceptChanges();
 
-            DataRow[] DCR = DecorConfigDataTable.Select(filter);
+            var dcr = DecorConfigDataTable.Select(filter);
 
 
-            for (int d = 0; d < DCR.Count(); d++)
+            for (var d = 0; d < dcr.Count(); d++)
             {
                 if (d == 0)
                 {
-                    DataRow NewRow = ItemColorsDataTable.NewRow();
-                    NewRow["ColorID"] = (DCR[d]["ColorID"]);
-                    NewRow["ColorName"] = GetColorName(Convert.ToInt32(DCR[d]["ColorID"]));
-                    ItemColorsDataTable.Rows.Add(NewRow);
+                    var newRow = ItemColorsDataTable.NewRow();
+                    newRow["ColorID"] = dcr[d]["ColorID"];
+                    newRow["ColorName"] = GetColorName(Convert.ToInt32(dcr[d]["ColorID"]));
+                    ItemColorsDataTable.Rows.Add(newRow);
                     continue;
                 }
 
 
-                for (int i = 0; i < ItemColorsDataTable.Rows.Count; i++)
+                for (var i = 0; i < ItemColorsDataTable.Rows.Count; i++)
                 {
-                    if (ItemColorsDataTable.Rows[i]["ColorID"].ToString() == DCR[d]["ColorID"].ToString())
+                    if (ItemColorsDataTable.Rows[i]["ColorID"].ToString() == dcr[d]["ColorID"].ToString())
                         break;
 
                     if (i == ItemColorsDataTable.Rows.Count - 1)
                     {
-                        DataRow NewRow = ItemColorsDataTable.NewRow();
-                        NewRow["ColorID"] = (DCR[d]["ColorID"]);
-                        NewRow["ColorName"] = GetColorName(Convert.ToInt32(DCR[d]["ColorID"]));
-                        ItemColorsDataTable.Rows.Add(NewRow);
+                        var newRow = ItemColorsDataTable.NewRow();
+                        newRow["ColorID"] = dcr[d]["ColorID"];
+                        newRow["ColorName"] = GetColorName(Convert.ToInt32(dcr[d]["ColorID"]));
+                        ItemColorsDataTable.Rows.Add(newRow);
                         break;
                     }
                 }
@@ -800,21 +824,21 @@ namespace Infinium.Modules.ZOV.Samples
                 return false;
 
             return true;
-
         }
 
-        public bool FilterPatina(string Name, int ColorID, bool bExcluzive)
+        public bool FilterPatina(string name, int colorId, bool bExcluzive)
         {
             TempItemsDataTable.Clear();
             TempItemsDataTable = DecorDataTable;
-            using (DataView DV = new DataView(TempItemsDataTable))
+            using (var dv = new DataView(TempItemsDataTable))
             {
-                DV.RowFilter = "Name='" + Name + "'";
+                dv.RowFilter = "Name='" + name + "'";
 
-                TempItemsDataTable = DV.ToTable();
+                TempItemsDataTable = dv.ToTable();
             }
-            string filter = string.Empty;
-            for (int i = 0; i < TempItemsDataTable.Rows.Count; i++)
+
+            var filter = string.Empty;
+            for (var i = 0; i < TempItemsDataTable.Rows.Count; i++)
                 filter += Convert.ToInt32(TempItemsDataTable.Rows[i]["DecorID"]) + ",";
             if (filter.Length > 0)
             {
@@ -822,7 +846,9 @@ namespace Infinium.Modules.ZOV.Samples
                 filter = "DecorID IN (" + filter + ")";
             }
             else
+            {
                 filter = "DecorID <> - 1";
+            }
 
             if (bExcluzive)
                 filter += " AND (Excluzive=1)";
@@ -831,60 +857,60 @@ namespace Infinium.Modules.ZOV.Samples
             ItemPatinaDataTable.Clear();
             ItemPatinaDataTable.AcceptChanges();
 
-            DataRow[] DCR = DecorConfigDataTable.Select(filter + " AND ColorID = " + ColorID.ToString());
+            var dcr = DecorConfigDataTable.Select(filter + " AND ColorID = " + colorId);
 
 
-            for (int d = 0; d < DCR.Count(); d++)
+            for (var d = 0; d < dcr.Count(); d++)
             {
                 if (d == 0)
                 {
-                    DataRow NewRow = ItemPatinaDataTable.NewRow();
-                    NewRow["PatinaID"] = (DCR[d]["PatinaID"]);
-                    NewRow["PatinaName"] = GetPatinaName(Convert.ToInt32(DCR[d]["PatinaID"]));
-                    ItemPatinaDataTable.Rows.Add(NewRow);
+                    var newRow = ItemPatinaDataTable.NewRow();
+                    newRow["PatinaID"] = dcr[d]["PatinaID"];
+                    newRow["PatinaName"] = GetPatinaName(Convert.ToInt32(dcr[d]["PatinaID"]));
+                    ItemPatinaDataTable.Rows.Add(newRow);
                     continue;
                 }
 
 
-                for (int i = 0; i < ItemPatinaDataTable.Rows.Count; i++)
+                for (var i = 0; i < ItemPatinaDataTable.Rows.Count; i++)
                 {
-                    if (ItemPatinaDataTable.Rows[i]["PatinaID"].ToString() == DCR[d]["PatinaID"].ToString())
+                    if (ItemPatinaDataTable.Rows[i]["PatinaID"].ToString() == dcr[d]["PatinaID"].ToString())
                         break;
 
                     if (i == ItemPatinaDataTable.Rows.Count - 1)
                     {
-                        DataRow NewRow = ItemPatinaDataTable.NewRow();
-                        NewRow["PatinaID"] = (DCR[d]["PatinaID"]);
-                        NewRow["PatinaName"] = GetPatinaName(Convert.ToInt32(DCR[d]["PatinaID"]));
-                        ItemPatinaDataTable.Rows.Add(NewRow);
+                        var newRow = ItemPatinaDataTable.NewRow();
+                        newRow["PatinaID"] = dcr[d]["PatinaID"];
+                        newRow["PatinaName"] = GetPatinaName(Convert.ToInt32(dcr[d]["PatinaID"]));
+                        ItemPatinaDataTable.Rows.Add(newRow);
                         break;
                     }
                 }
             }
 
-            bool HasPatinaRAL = false;
+            var hasPatinaRal = false;
             if (ItemPatinaDataTable.Rows.Count > 0)
             {
-                DataRow[] fRows = PatinaRALDataTable.Select("PatinaID=" + Convert.ToInt32(ItemPatinaDataTable.Rows[0]["PatinaID"]));
+                var fRows = _patinaRalDataTable.Select("PatinaID=" +
+                                                       Convert.ToInt32(ItemPatinaDataTable.Rows[0]["PatinaID"]));
                 if (fRows.Count() > 0)
-                    HasPatinaRAL = true;
+                    hasPatinaRal = true;
             }
-            if (ItemPatinaDataTable.Rows.Count > 0 && HasPatinaRAL)
+
+            if (ItemPatinaDataTable.Rows.Count > 0 && hasPatinaRal)
             {
-                DataTable ddd = ItemPatinaDataTable.Copy();
+                var ddd = ItemPatinaDataTable.Copy();
                 ItemPatinaDataTable.Clear();
                 ItemPatinaDataTable.AcceptChanges();
 
-                foreach (DataRow Row in ddd.Rows)
+                foreach (DataRow row in ddd.Rows)
+                foreach (var item in _patinaRalDataTable.Select("PatinaID=" + Convert.ToInt32(row["PatinaID"])))
                 {
-                    foreach (DataRow item in PatinaRALDataTable.Select("PatinaID=" + Convert.ToInt32(Row["PatinaID"])))
-                    {
-                        DataRow NewRow = ItemPatinaDataTable.NewRow();
-                        NewRow["PatinaID"] = item["PatinaRALID"];
-                        NewRow["PatinaName"] = item["PatinaRAL"];
-                        NewRow["DisplayName"] = item["DisplayName"];
-                        ItemPatinaDataTable.Rows.Add(NewRow);
-                    }
+                    var newRow = ItemPatinaDataTable.NewRow();
+                    newRow["PatinaID"] = item["PatinaRALID"];
+                    newRow["PatinaName"] = item["PatinaRAL"];
+                    newRow["DisplayName"] = item["DisplayName"];
+                    ItemPatinaDataTable.Rows.Add(newRow);
                 }
             }
 
@@ -895,21 +921,21 @@ namespace Infinium.Modules.ZOV.Samples
                 return false;
 
             return true;
-
         }
 
-        public int FilterLength(string Name, int ColorID, int PatinaID)
+        public int FilterLength(string name, int colorId, int patinaId)
         {
             TempItemsDataTable.Clear();
             TempItemsDataTable = DecorDataTable;
-            using (DataView DV = new DataView(TempItemsDataTable))
+            using (var dv = new DataView(TempItemsDataTable))
             {
-                DV.RowFilter = "Name='" + Name + "'";
+                dv.RowFilter = "Name='" + name + "'";
 
-                TempItemsDataTable = DV.ToTable();
+                TempItemsDataTable = dv.ToTable();
             }
-            string filter = string.Empty;
-            for (int i = 0; i < TempItemsDataTable.Rows.Count; i++)
+
+            var filter = string.Empty;
+            for (var i = 0; i < TempItemsDataTable.Rows.Count; i++)
                 filter += Convert.ToInt32(TempItemsDataTable.Rows[i]["DecorID"]) + ",";
             if (filter.Length > 0)
             {
@@ -917,46 +943,49 @@ namespace Infinium.Modules.ZOV.Samples
                 filter = "DecorID IN (" + filter + ")";
             }
             else
+            {
                 filter = "DecorID <> - 1";
+            }
 
             ItemLengthDataTable.Clear();
             ItemLengthDataTable.AcceptChanges();
 
-            if (PatinaID > 1000)
+            if (patinaId > 1000)
             {
-                DataRow[] fRows = PatinaRALDataTable.Select("PatinaRALID=" + PatinaID);
+                var fRows = _patinaRalDataTable.Select("PatinaRALID=" + patinaId);
                 if (fRows.Count() > 0)
-                    PatinaID = Convert.ToInt32(fRows[0]["PatinaID"]);
+                    patinaId = Convert.ToInt32(fRows[0]["PatinaID"]);
             }
-            DataRow[] DCR = DecorConfigDataTable.Select(filter + " AND ColorID = " + ColorID.ToString()
-                + " AND PatinaID = " + PatinaID.ToString());
+
+            var dcr = DecorConfigDataTable.Select(filter + " AND ColorID = " + colorId
+                                                  + " AND PatinaID = " + patinaId);
 
 
-            for (int d = 0; d < DCR.Count(); d++)
+            for (var d = 0; d < dcr.Count(); d++)
             {
                 if (d == 0)
                 {
-                    int Length = Convert.ToInt32(DCR[d]["Length"]);
+                    var length = Convert.ToInt32(dcr[d]["Length"]);
 
-                    DataRow NewRow = ItemLengthDataTable.NewRow();
-                    NewRow["Length"] = Length;
-                    ItemLengthDataTable.Rows.Add(NewRow);
+                    var newRow = ItemLengthDataTable.NewRow();
+                    newRow["Length"] = length;
+                    ItemLengthDataTable.Rows.Add(newRow);
                     continue;
                 }
 
 
-                for (int i = 0; i < ItemLengthDataTable.Rows.Count; i++)
+                for (var i = 0; i < ItemLengthDataTable.Rows.Count; i++)
                 {
-                    if (ItemLengthDataTable.Rows[i]["Length"].ToString() == DCR[d]["Length"].ToString())
+                    if (ItemLengthDataTable.Rows[i]["Length"].ToString() == dcr[d]["Length"].ToString())
                         break;
 
                     if (i == ItemLengthDataTable.Rows.Count - 1)
                     {
-                        int Height = Convert.ToInt32(DCR[d]["Length"]);
+                        var height = Convert.ToInt32(dcr[d]["Length"]);
 
-                        DataRow NewRow = ItemLengthDataTable.NewRow();
-                        NewRow["Length"] = Height;
-                        ItemLengthDataTable.Rows.Add(NewRow);
+                        var newRow = ItemLengthDataTable.NewRow();
+                        newRow["Length"] = height;
+                        ItemLengthDataTable.Rows.Add(newRow);
                         break;
                     }
                 }
@@ -964,44 +993,42 @@ namespace Infinium.Modules.ZOV.Samples
 
             ItemLengthDataTable.DefaultView.Sort = "Length ASC";
 
-            LengthEdit.Text = "";
-            LengthEdit.Items.Clear();
+            _lengthEdit.Text = "";
+            _lengthEdit.Items.Clear();
             if (ItemLengthDataTable.Rows.Count > 0)
             {
                 if (Convert.ToInt32(ItemLengthDataTable.Rows[0]["Length"]) == 0)
                 {
-                    LengthEdit.DropDownStyle = ComboBoxStyle.DropDown;
+                    _lengthEdit.DropDownStyle = ComboBoxStyle.DropDown;
                     return 0;
                 }
 
-                if (Convert.ToInt32(ItemLengthDataTable.Rows[0]["Length"]) == -1)
-                {
-                    return -1;
-                }
+                if (Convert.ToInt32(ItemLengthDataTable.Rows[0]["Length"]) == -1) return -1;
             }
 
-            foreach (DataRow Row in ItemLengthDataTable.Rows)
-                LengthEdit.Items.Add(Row["Length"].ToString());
+            foreach (DataRow row in ItemLengthDataTable.Rows)
+                _lengthEdit.Items.Add(row["Length"].ToString());
 
-            LengthEdit.DropDownStyle = ComboBoxStyle.DropDownList;
+            _lengthEdit.DropDownStyle = ComboBoxStyle.DropDownList;
             if (ItemLengthDataTable.Rows.Count > 0)
-                LengthEdit.SelectedIndex = 0;
+                _lengthEdit.SelectedIndex = 0;
 
-            return LengthEdit.Items.Count;
+            return _lengthEdit.Items.Count;
         }
 
-        public int FilterHeight(string Name, int ColorID, int PatinaID, int Length)
+        public int FilterHeight(string name, int colorId, int patinaId, int length)
         {
             TempItemsDataTable.Clear();
             TempItemsDataTable = DecorDataTable;
-            using (DataView DV = new DataView(TempItemsDataTable))
+            using (var dv = new DataView(TempItemsDataTable))
             {
-                DV.RowFilter = "Name='" + Name + "'";
+                dv.RowFilter = "Name='" + name + "'";
 
-                TempItemsDataTable = DV.ToTable();
+                TempItemsDataTable = dv.ToTable();
             }
-            string filter = string.Empty;
-            for (int i = 0; i < TempItemsDataTable.Rows.Count; i++)
+
+            var filter = string.Empty;
+            for (var i = 0; i < TempItemsDataTable.Rows.Count; i++)
                 filter += Convert.ToInt32(TempItemsDataTable.Rows[i]["DecorID"]) + ",";
             if (filter.Length > 0)
             {
@@ -1009,46 +1036,49 @@ namespace Infinium.Modules.ZOV.Samples
                 filter = "DecorID IN (" + filter + ")";
             }
             else
+            {
                 filter = "DecorID <> - 1";
+            }
 
             ItemHeightDataTable.Clear();
             ItemHeightDataTable.AcceptChanges();
 
-            if (PatinaID > 1000)
+            if (patinaId > 1000)
             {
-                DataRow[] fRows = PatinaRALDataTable.Select("PatinaRALID=" + PatinaID);
+                var fRows = _patinaRalDataTable.Select("PatinaRALID=" + patinaId);
                 if (fRows.Count() > 0)
-                    PatinaID = Convert.ToInt32(fRows[0]["PatinaID"]);
+                    patinaId = Convert.ToInt32(fRows[0]["PatinaID"]);
             }
-            DataRow[] DCR = DecorConfigDataTable.Select(filter + " AND ColorID = " + ColorID.ToString()
-                + " AND PatinaID = " + PatinaID.ToString() + " AND Length = " + Length.ToString());
+
+            var dcr = DecorConfigDataTable.Select(filter + " AND ColorID = " + colorId
+                                                  + " AND PatinaID = " + patinaId + " AND Length = " + length);
 
 
-            for (int d = 0; d < DCR.Count(); d++)
+            for (var d = 0; d < dcr.Count(); d++)
             {
                 if (d == 0)
                 {
-                    int Height = Convert.ToInt32(DCR[d]["Height"]);
+                    var height = Convert.ToInt32(dcr[d]["Height"]);
 
-                    DataRow NewRow = ItemHeightDataTable.NewRow();
-                    NewRow["Height"] = Height;
-                    ItemHeightDataTable.Rows.Add(NewRow);
+                    var newRow = ItemHeightDataTable.NewRow();
+                    newRow["Height"] = height;
+                    ItemHeightDataTable.Rows.Add(newRow);
                     continue;
                 }
 
 
-                for (int i = 0; i < ItemHeightDataTable.Rows.Count; i++)
+                for (var i = 0; i < ItemHeightDataTable.Rows.Count; i++)
                 {
-                    if (ItemHeightDataTable.Rows[i]["Height"].ToString() == DCR[d]["Height"].ToString())
+                    if (ItemHeightDataTable.Rows[i]["Height"].ToString() == dcr[d]["Height"].ToString())
                         break;
 
                     if (i == ItemHeightDataTable.Rows.Count - 1)
                     {
-                        int Height = Convert.ToInt32(DCR[d]["Height"]);
+                        var height = Convert.ToInt32(dcr[d]["Height"]);
 
-                        DataRow NewRow = ItemHeightDataTable.NewRow();
-                        NewRow["Height"] = Height;
-                        ItemHeightDataTable.Rows.Add(NewRow);
+                        var newRow = ItemHeightDataTable.NewRow();
+                        newRow["Height"] = height;
+                        ItemHeightDataTable.Rows.Add(newRow);
                         break;
                     }
                 }
@@ -1056,44 +1086,42 @@ namespace Infinium.Modules.ZOV.Samples
 
             ItemHeightDataTable.DefaultView.Sort = "Height ASC";
 
-            HeightEdit.Text = "";
-            HeightEdit.Items.Clear();
+            _heightEdit.Text = "";
+            _heightEdit.Items.Clear();
             if (ItemHeightDataTable.Rows.Count > 0)
             {
                 if (Convert.ToInt32(ItemHeightDataTable.Rows[0]["Height"]) == 0)
                 {
-                    HeightEdit.DropDownStyle = ComboBoxStyle.DropDown;
+                    _heightEdit.DropDownStyle = ComboBoxStyle.DropDown;
                     return 0;
                 }
 
-                if (Convert.ToInt32(ItemHeightDataTable.Rows[0]["Height"]) == -1)
-                {
-                    return -1;
-                }
+                if (Convert.ToInt32(ItemHeightDataTable.Rows[0]["Height"]) == -1) return -1;
             }
 
-            foreach (DataRow Row in ItemHeightDataTable.Rows)
-                HeightEdit.Items.Add(Row["Height"].ToString());
+            foreach (DataRow row in ItemHeightDataTable.Rows)
+                _heightEdit.Items.Add(row["Height"].ToString());
 
-            HeightEdit.DropDownStyle = ComboBoxStyle.DropDownList;
+            _heightEdit.DropDownStyle = ComboBoxStyle.DropDownList;
             if (ItemHeightDataTable.Rows.Count > 0)
-                HeightEdit.SelectedIndex = 0;
+                _heightEdit.SelectedIndex = 0;
 
-            return HeightEdit.Items.Count;
+            return _heightEdit.Items.Count;
         }
 
-        public int FilterWidth(string Name, int ColorID, int PatinaID, int Length, int Height)
+        public int FilterWidth(string name, int colorId, int patinaId, int length, int height)
         {
             TempItemsDataTable.Clear();
             TempItemsDataTable = DecorDataTable;
-            using (DataView DV = new DataView(TempItemsDataTable))
+            using (var dv = new DataView(TempItemsDataTable))
             {
-                DV.RowFilter = "Name='" + Name + "'";
+                dv.RowFilter = "Name='" + name + "'";
 
-                TempItemsDataTable = DV.ToTable();
+                TempItemsDataTable = dv.ToTable();
             }
-            string filter = string.Empty;
-            for (int i = 0; i < TempItemsDataTable.Rows.Count; i++)
+
+            var filter = string.Empty;
+            for (var i = 0; i < TempItemsDataTable.Rows.Count; i++)
                 filter += Convert.ToInt32(TempItemsDataTable.Rows[i]["DecorID"]) + ",";
             if (filter.Length > 0)
             {
@@ -1101,47 +1129,50 @@ namespace Infinium.Modules.ZOV.Samples
                 filter = "DecorID IN (" + filter + ")";
             }
             else
+            {
                 filter = "DecorID <> - 1";
+            }
 
             ItemWidthDataTable.Clear();
             ItemWidthDataTable.AcceptChanges();
 
-            if (PatinaID > 1000)
+            if (patinaId > 1000)
             {
-                DataRow[] fRows = PatinaRALDataTable.Select("PatinaRALID=" + PatinaID);
+                var fRows = _patinaRalDataTable.Select("PatinaRALID=" + patinaId);
                 if (fRows.Count() > 0)
-                    PatinaID = Convert.ToInt32(fRows[0]["PatinaID"]);
+                    patinaId = Convert.ToInt32(fRows[0]["PatinaID"]);
             }
-            DataRow[] DCR = DecorConfigDataTable.Select(filter
-                + " AND ColorID = " + ColorID.ToString() + " AND PatinaID = " + PatinaID.ToString() +
-                " AND Length = " + Length.ToString() + " AND Height = " + Height.ToString());
+
+            var dcr = DecorConfigDataTable.Select(filter
+                                                  + " AND ColorID = " + colorId + " AND PatinaID = " + patinaId +
+                                                  " AND Length = " + length + " AND Height = " + height);
 
 
-            for (int d = 0; d < DCR.Count(); d++)
+            for (var d = 0; d < dcr.Count(); d++)
             {
                 if (d == 0)
                 {
-                    int Width = Convert.ToInt32(DCR[d]["Width"]);
+                    var width = Convert.ToInt32(dcr[d]["Width"]);
 
-                    DataRow NewRow = ItemWidthDataTable.NewRow();
-                    NewRow["Width"] = Width;
-                    ItemWidthDataTable.Rows.Add(NewRow);
+                    var newRow = ItemWidthDataTable.NewRow();
+                    newRow["Width"] = width;
+                    ItemWidthDataTable.Rows.Add(newRow);
                     continue;
                 }
 
 
-                for (int i = 0; i < ItemWidthDataTable.Rows.Count; i++)
+                for (var i = 0; i < ItemWidthDataTable.Rows.Count; i++)
                 {
-                    if (ItemWidthDataTable.Rows[i]["Width"].ToString() == DCR[d]["Width"].ToString())
+                    if (ItemWidthDataTable.Rows[i]["Width"].ToString() == dcr[d]["Width"].ToString())
                         break;
 
                     if (i == ItemWidthDataTable.Rows.Count - 1)
                     {
-                        int Width = Convert.ToInt32(DCR[d]["Width"]);
+                        var width = Convert.ToInt32(dcr[d]["Width"]);
 
-                        DataRow NewRow = ItemWidthDataTable.NewRow();
-                        NewRow["Width"] = Width;
-                        ItemWidthDataTable.Rows.Add(NewRow);
+                        var newRow = ItemWidthDataTable.NewRow();
+                        newRow["Width"] = width;
+                        ItemWidthDataTable.Rows.Add(newRow);
                         break;
                     }
                 }
@@ -1149,75 +1180,70 @@ namespace Infinium.Modules.ZOV.Samples
 
             ItemWidthDataTable.DefaultView.Sort = "Width ASC";
 
-            WidthEdit.Text = "";
-            WidthEdit.Items.Clear();
+            _widthEdit.Text = "";
+            _widthEdit.Items.Clear();
             if (ItemWidthDataTable.Rows.Count > 0)
             {
                 if (Convert.ToInt32(ItemWidthDataTable.Rows[0]["Width"]) == 0)
                 {
-                    WidthEdit.DropDownStyle = ComboBoxStyle.DropDown;
+                    _widthEdit.DropDownStyle = ComboBoxStyle.DropDown;
                     return 0;
                 }
 
-                if (Convert.ToInt32(ItemWidthDataTable.Rows[0]["Width"]) == -1)
-                {
-
-                    return -1;
-                }
+                if (Convert.ToInt32(ItemWidthDataTable.Rows[0]["Width"]) == -1) return -1;
             }
-            foreach (DataRow Row in ItemWidthDataTable.Rows)
-                WidthEdit.Items.Add(Row["Width"].ToString());
 
-            WidthEdit.DropDownStyle = ComboBoxStyle.DropDownList;
+            foreach (DataRow row in ItemWidthDataTable.Rows)
+                _widthEdit.Items.Add(row["Width"].ToString());
+
+            _widthEdit.DropDownStyle = ComboBoxStyle.DropDownList;
             if (ItemWidthDataTable.Rows.Count > 0)
-                WidthEdit.SelectedIndex = 0;
+                _widthEdit.SelectedIndex = 0;
 
-            return WidthEdit.Items.Count;
+            return _widthEdit.Items.Count;
         }
     }
 
     public class ZFrontsOrders
     {
-        private PercentageDataGrid FrontsOrdersDataGrid = null;
+        private int _currentMainOrderId = -1;
+        private BindingSource _frameColorsBindingSource;
+        private DataGridViewComboBoxColumn _frameColorsColumn;
+        private BindingSource _frontsBindingSource;
 
-        int CurrentMainOrderID = -1;
+        private DataGridViewComboBoxColumn _frontsColumn;
+        private readonly PercentageDataGrid _frontsOrdersDataGrid;
+        private BindingSource _insetColorsBindingSource;
+        private DataGridViewComboBoxColumn _insetColorsColumn;
+        private BindingSource _insetTypesBindingSource;
+        private DataGridViewComboBoxColumn _insetTypesColumn;
+        private BindingSource _patinaBindingSource;
+        private DataGridViewComboBoxColumn _patinaColumn;
+        private BindingSource _technoFrameColorsBindingSource;
+        private DataGridViewComboBoxColumn _technoFrameColorsColumn;
+        private BindingSource _technoInsetColorsBindingSource;
+        private DataGridViewComboBoxColumn _technoInsetColorsColumn;
+        private DataTable _technoInsetColorsDataTable;
+        private BindingSource _technoInsetTypesBindingSource;
+        private DataGridViewComboBoxColumn _technoInsetTypesColumn;
+        private DataTable _technoInsetTypesDataTable;
+        private DataGridViewComboBoxColumn _technoProfilesColumn;
+        private DataTable _technoProfilesDataTable;
+        public DataTable FrameColorsDataTable;
+        public DataTable FrontsDataTable;
 
-        public DataTable FrontsOrdersDataTable = null;
-        public DataTable FrontsDataTable = null;
-        public DataTable PatinaDataTable = null;
-        public DataTable InsetTypesDataTable = null;
-        public DataTable FrameColorsDataTable = null;
-        public DataTable InsetColorsDataTable = null;
-        private DataTable TechnoInsetTypesDataTable = null;
-        private DataTable TechnoInsetColorsDataTable = null;
-        private DataTable TechnoProfilesDataTable = null;
-        public DataTable MeasuresDataTable = null;
-        public DataTable InsetMarginsDataTable = null;
+        public BindingSource FrontsOrdersBindingSource;
 
-        public BindingSource FrontsOrdersBindingSource = null;
-        private BindingSource FrontsBindingSource = null;
-        private BindingSource PatinaBindingSource = null;
-        private BindingSource InsetTypesBindingSource = null;
-        private BindingSource FrameColorsBindingSource = null;
-        private BindingSource InsetColorsBindingSource = null;
-        private BindingSource TechnoFrameColorsBindingSource = null;
-        private BindingSource TechnoInsetTypesBindingSource = null;
-        private BindingSource TechnoInsetColorsBindingSource = null;
-
-        private DataGridViewComboBoxColumn FrontsColumn = null;
-        private DataGridViewComboBoxColumn PatinaColumn = null;
-        private DataGridViewComboBoxColumn InsetTypesColumn = null;
-        private DataGridViewComboBoxColumn FrameColorsColumn = null;
-        private DataGridViewComboBoxColumn InsetColorsColumn = null;
-        private DataGridViewComboBoxColumn TechnoProfilesColumn = null;
-        private DataGridViewComboBoxColumn TechnoFrameColorsColumn = null;
-        private DataGridViewComboBoxColumn TechnoInsetTypesColumn = null;
-        private DataGridViewComboBoxColumn TechnoInsetColorsColumn = null;
+        public DataTable FrontsOrdersDataTable;
+        public DataTable InsetColorsDataTable;
+        public DataTable InsetMarginsDataTable;
+        public DataTable InsetTypesDataTable;
+        public DataTable MeasuresDataTable;
+        public DataTable PatinaDataTable;
 
         public ZFrontsOrders(ref PercentageDataGrid tMainOrdersFrontsOrdersDataGrid)
         {
-            FrontsOrdersDataGrid = tMainOrdersFrontsOrdersDataGrid;
-
+            _frontsOrdersDataGrid = tMainOrdersFrontsOrdersDataGrid;
         }
 
         private void Create()
@@ -1229,407 +1255,415 @@ namespace Infinium.Modules.ZOV.Samples
             PatinaDataTable = new DataTable();
             InsetTypesDataTable = new DataTable();
             InsetColorsDataTable = new DataTable();
-            TechnoInsetTypesDataTable = new DataTable();
-            TechnoInsetColorsDataTable = new DataTable();
+            _technoInsetTypesDataTable = new DataTable();
+            _technoInsetColorsDataTable = new DataTable();
 
             FrontsOrdersBindingSource = new BindingSource();
-            FrontsBindingSource = new BindingSource();
-            FrameColorsBindingSource = new BindingSource();
-            PatinaBindingSource = new BindingSource();
-            InsetTypesBindingSource = new BindingSource();
-            InsetColorsBindingSource = new BindingSource();
-            TechnoFrameColorsBindingSource = new BindingSource();
-            TechnoInsetTypesBindingSource = new BindingSource();
-            TechnoInsetColorsBindingSource = new BindingSource();
+            _frontsBindingSource = new BindingSource();
+            _frameColorsBindingSource = new BindingSource();
+            _patinaBindingSource = new BindingSource();
+            _insetTypesBindingSource = new BindingSource();
+            _insetColorsBindingSource = new BindingSource();
+            _technoFrameColorsBindingSource = new BindingSource();
+            _technoInsetTypesBindingSource = new BindingSource();
+            _technoInsetColorsBindingSource = new BindingSource();
         }
 
-        private void GetColorsDT()
+        private void GetColorsDt()
         {
             FrameColorsDataTable = new DataTable();
             FrameColorsDataTable.Columns.Add(new DataColumn("ColorID", Type.GetType("System.Int64")));
             FrameColorsDataTable.Columns.Add(new DataColumn("ColorName", Type.GetType("System.String")));
-            string SelectCommand = @"SELECT TechStoreID, TechStoreName FROM TechStore
+            var selectCommand = @"SELECT TechStoreID, TechStoreName FROM TechStore
                 WHERE TechStoreSubGroupID IN (SELECT TechStoreSubGroupID FROM TechStoreSubGroups WHERE TechStoreGroupID = 11)
                 ORDER BY TechStoreName";
-            using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.CatalogConnectionString))
+            using (var da = new SqlDataAdapter(selectCommand, ConnectionStrings.CatalogConnectionString))
             {
-                using (DataTable DT = new DataTable())
+                using (var dt = new DataTable())
                 {
-                    DA.Fill(DT);
+                    da.Fill(dt);
                     {
-                        DataRow NewRow = FrameColorsDataTable.NewRow();
-                        NewRow["ColorID"] = -1;
-                        NewRow["ColorName"] = "-";
-                        FrameColorsDataTable.Rows.Add(NewRow);
+                        var newRow = FrameColorsDataTable.NewRow();
+                        newRow["ColorID"] = -1;
+                        newRow["ColorName"] = "-";
+                        FrameColorsDataTable.Rows.Add(newRow);
                     }
                     {
-                        DataRow NewRow = FrameColorsDataTable.NewRow();
-                        NewRow["ColorID"] = 0;
-                        NewRow["ColorName"] = "на выбор";
-                        FrameColorsDataTable.Rows.Add(NewRow);
+                        var newRow = FrameColorsDataTable.NewRow();
+                        newRow["ColorID"] = 0;
+                        newRow["ColorName"] = "на выбор";
+                        FrameColorsDataTable.Rows.Add(newRow);
                     }
-                    for (int i = 0; i < DT.Rows.Count; i++)
+                    for (var i = 0; i < dt.Rows.Count; i++)
                     {
-                        DataRow NewRow = FrameColorsDataTable.NewRow();
-                        NewRow["ColorID"] = Convert.ToInt64(DT.Rows[i]["TechStoreID"]);
-                        NewRow["ColorName"] = DT.Rows[i]["TechStoreName"].ToString();
-                        FrameColorsDataTable.Rows.Add(NewRow);
+                        var newRow = FrameColorsDataTable.NewRow();
+                        newRow["ColorID"] = Convert.ToInt64(dt.Rows[i]["TechStoreID"]);
+                        newRow["ColorName"] = dt.Rows[i]["TechStoreName"].ToString();
+                        FrameColorsDataTable.Rows.Add(newRow);
                     }
                 }
             }
         }
 
-        private void GetInsetColorsDT()
+        private void GetInsetColorsDt()
         {
             InsetColorsDataTable = new DataTable();
-            using (SqlDataAdapter DA = new SqlDataAdapter("SELECT InsetColors.InsetColorID, InsetColors.GroupID, infiniu2_catalog.dbo.TechStore.TechStoreName AS InsetColorName FROM InsetColors" +
-                " INNER JOIN infiniu2_catalog.dbo.TechStore ON InsetColors.InsetColorID = infiniu2_catalog.dbo.TechStore.TechStoreID ORDER BY TechStoreName", ConnectionStrings.CatalogConnectionString))
+            using (var da = new SqlDataAdapter(
+                "SELECT InsetColors.InsetColorID, InsetColors.GroupID, infiniu2_catalog.dbo.TechStore.TechStoreName AS InsetColorName FROM InsetColors" +
+                " INNER JOIN infiniu2_catalog.dbo.TechStore ON InsetColors.InsetColorID = infiniu2_catalog.dbo.TechStore.TechStoreID ORDER BY TechStoreName",
+                ConnectionStrings.CatalogConnectionString))
             {
-                DA.Fill(InsetColorsDataTable);
+                da.Fill(InsetColorsDataTable);
                 {
-                    DataRow NewRow = InsetColorsDataTable.NewRow();
-                    NewRow["InsetColorID"] = -1;
-                    NewRow["GroupID"] = -1;
-                    NewRow["InsetColorName"] = "-";
-                    InsetColorsDataTable.Rows.Add(NewRow);
+                    var newRow = InsetColorsDataTable.NewRow();
+                    newRow["InsetColorID"] = -1;
+                    newRow["GroupID"] = -1;
+                    newRow["InsetColorName"] = "-";
+                    InsetColorsDataTable.Rows.Add(newRow);
                 }
                 {
-                    DataRow NewRow = InsetColorsDataTable.NewRow();
-                    NewRow["InsetColorID"] = 0;
-                    NewRow["GroupID"] = -1;
-                    NewRow["InsetColorName"] = "на выбор";
-                    InsetColorsDataTable.Rows.Add(NewRow);
+                    var newRow = InsetColorsDataTable.NewRow();
+                    newRow["InsetColorID"] = 0;
+                    newRow["GroupID"] = -1;
+                    newRow["InsetColorName"] = "на выбор";
+                    InsetColorsDataTable.Rows.Add(newRow);
                 }
-
             }
-
         }
 
         private void Fill()
         {
-            string SelectCommand = @"SELECT TechStoreID AS FrontID, TechStoreName AS FrontName FROM TechStore 
+            var selectCommand = @"SELECT TechStoreID AS FrontID, TechStoreName AS FrontName FROM TechStore 
                 WHERE TechStoreID IN (SELECT FrontID FROM FrontsConfig WHERE Enabled = 1)
                 ORDER BY TechStoreName";
-            using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.CatalogConnectionString))
+            using (var da = new SqlDataAdapter(selectCommand, ConnectionStrings.CatalogConnectionString))
             {
-                DA.Fill(FrontsDataTable);
+                da.Fill(FrontsDataTable);
             }
 
-            SelectCommand = @"SELECT DISTINCT TechStoreID AS TechnoProfileID, TechStoreName AS TechnoProfileName FROM TechStore 
+            selectCommand =
+                @"SELECT DISTINCT TechStoreID AS TechnoProfileID, TechStoreName AS TechnoProfileName FROM TechStore 
                 WHERE TechStoreID IN (SELECT TechnoProfileID FROM FrontsConfig WHERE Enabled = 1 AND AccountingName IS NOT NULL AND InvNumber IS NOT NULL)
                 ORDER BY TechStoreName";
-            using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.CatalogConnectionString))
+            using (var da = new SqlDataAdapter(selectCommand, ConnectionStrings.CatalogConnectionString))
             {
-                TechnoProfilesDataTable = new DataTable();
-                DA.Fill(TechnoProfilesDataTable);
+                _technoProfilesDataTable = new DataTable();
+                da.Fill(_technoProfilesDataTable);
 
-                DataRow NewRow = TechnoProfilesDataTable.NewRow();
-                NewRow["TechnoProfileID"] = -1;
-                NewRow["TechnoProfileName"] = "-";
-                TechnoProfilesDataTable.Rows.InsertAt(NewRow, 0);
+                var newRow = _technoProfilesDataTable.NewRow();
+                newRow["TechnoProfileID"] = -1;
+                newRow["TechnoProfileName"] = "-";
+                _technoProfilesDataTable.Rows.InsertAt(newRow, 0);
             }
-            GetColorsDT();
-            GetInsetColorsDT();
 
-            using (SqlDataAdapter DA = new SqlDataAdapter("SELECT * FROM InsetTypes",
+            GetColorsDt();
+            GetInsetColorsDt();
+
+            using (var da = new SqlDataAdapter("SELECT * FROM InsetTypes",
                 ConnectionStrings.CatalogConnectionString))
             {
-                DA.Fill(InsetTypesDataTable);
-            }
-            using (SqlDataAdapter DA = new SqlDataAdapter("SELECT * FROM Patina",
-                ConnectionStrings.CatalogConnectionString))
-            {
-                DA.Fill(PatinaDataTable);
+                da.Fill(InsetTypesDataTable);
             }
 
-            TechnoInsetTypesDataTable = InsetTypesDataTable.Copy();
-            TechnoInsetColorsDataTable = InsetColorsDataTable.Copy();
+            using (var da = new SqlDataAdapter("SELECT * FROM Patina",
+                ConnectionStrings.CatalogConnectionString))
+            {
+                da.Fill(PatinaDataTable);
+            }
+
+            _technoInsetTypesDataTable = InsetTypesDataTable.Copy();
+            _technoInsetColorsDataTable = InsetColorsDataTable.Copy();
 
             MeasuresDataTable = new DataTable();
-            using (SqlDataAdapter DA = new SqlDataAdapter("SELECT * FROM Measures",
+            using (var da = new SqlDataAdapter("SELECT * FROM Measures",
                 ConnectionStrings.CatalogConnectionString))
             {
-                DA.Fill(MeasuresDataTable);
+                da.Fill(MeasuresDataTable);
             }
 
             InsetMarginsDataTable = new DataTable();
-            using (SqlDataAdapter DA = new SqlDataAdapter("SELECT * FROM InsetMargins",
+            using (var da = new SqlDataAdapter("SELECT * FROM InsetMargins",
                 ConnectionStrings.CatalogConnectionString))
             {
-                DA.Fill(InsetMarginsDataTable);
+                da.Fill(InsetMarginsDataTable);
             }
 
 
-            using (SqlDataAdapter DA = new SqlDataAdapter("SELECT TOP 0 * FROM SampleFrontsOrders", ConnectionStrings.ZOVOrdersConnectionString))
+            using (var da = new SqlDataAdapter("SELECT TOP 0 * FROM SampleFrontsOrders",
+                ConnectionStrings.ZOVOrdersConnectionString))
             {
-                DA.Fill(FrontsOrdersDataTable);
+                da.Fill(FrontsOrdersDataTable);
             }
         }
 
         private void Binding()
         {
-            FrontsBindingSource.DataSource = FrontsDataTable;
+            _frontsBindingSource.DataSource = FrontsDataTable;
             FrontsOrdersBindingSource.DataSource = FrontsOrdersDataTable;
-            PatinaBindingSource.DataSource = PatinaDataTable;
-            InsetTypesBindingSource.DataSource = InsetTypesDataTable;
-            FrameColorsBindingSource.DataSource = new DataView(FrameColorsDataTable);
-            InsetColorsBindingSource.DataSource = InsetColorsDataTable;
-            TechnoFrameColorsBindingSource.DataSource = new DataView(FrameColorsDataTable);
-            TechnoInsetTypesBindingSource.DataSource = TechnoInsetTypesDataTable;
-            TechnoInsetColorsBindingSource.DataSource = TechnoInsetColorsDataTable;
+            _patinaBindingSource.DataSource = PatinaDataTable;
+            _insetTypesBindingSource.DataSource = InsetTypesDataTable;
+            _frameColorsBindingSource.DataSource = new DataView(FrameColorsDataTable);
+            _insetColorsBindingSource.DataSource = InsetColorsDataTable;
+            _technoFrameColorsBindingSource.DataSource = new DataView(FrameColorsDataTable);
+            _technoInsetTypesBindingSource.DataSource = _technoInsetTypesDataTable;
+            _technoInsetColorsBindingSource.DataSource = _technoInsetColorsDataTable;
 
-            FrontsOrdersDataGrid.DataSource = FrontsOrdersBindingSource;
+            _frontsOrdersDataGrid.DataSource = FrontsOrdersBindingSource;
         }
 
-        private void CreateColumns(bool ShowPrice)
+        private void CreateColumns(bool showPrice)
         {
-            if (FrontsColumn != null)
+            if (_frontsColumn != null)
                 return;
 
             //создание столбцов
-            FrontsColumn = new DataGridViewComboBoxColumn()
+            _frontsColumn = new DataGridViewComboBoxColumn
             {
                 Name = "FrontsColumn",
                 HeaderText = "Фасад",
                 DataPropertyName = "FrontID",
-                DataSource = FrontsBindingSource,
+                DataSource = _frontsBindingSource,
                 ValueMember = "FrontID",
                 DisplayMember = "FrontName",
                 DisplayStyle = DataGridViewComboBoxDisplayStyle.Nothing
             };
-            FrameColorsColumn = new DataGridViewComboBoxColumn()
+            _frameColorsColumn = new DataGridViewComboBoxColumn
             {
                 Name = "FrameColorsColumn",
                 HeaderText = "Цвет\r\nпрофиля",
                 DataPropertyName = "ColorID",
-                DataSource = FrameColorsBindingSource,
+                DataSource = _frameColorsBindingSource,
                 ValueMember = "ColorID",
                 DisplayMember = "ColorName",
                 DisplayStyle = DataGridViewComboBoxDisplayStyle.Nothing
             };
-            PatinaColumn = new DataGridViewComboBoxColumn()
+            _patinaColumn = new DataGridViewComboBoxColumn
             {
                 Name = "PatinaColumn",
                 HeaderText = "Патина",
                 DataPropertyName = "PatinaID",
-                DataSource = PatinaBindingSource,
+                DataSource = _patinaBindingSource,
                 ValueMember = "PatinaID",
                 DisplayMember = "PatinaName",
                 DisplayStyle = DataGridViewComboBoxDisplayStyle.Nothing
             };
-            InsetTypesColumn = new DataGridViewComboBoxColumn()
+            _insetTypesColumn = new DataGridViewComboBoxColumn
             {
                 Name = "InsetTypesColumn",
                 HeaderText = "Тип\r\nнаполнителя",
                 DataPropertyName = "InsetTypeID",
-                DataSource = InsetTypesBindingSource,
+                DataSource = _insetTypesBindingSource,
                 ValueMember = "InsetTypeID",
                 DisplayMember = "InsetTypeName",
                 DisplayStyle = DataGridViewComboBoxDisplayStyle.Nothing
             };
-            InsetColorsColumn = new DataGridViewComboBoxColumn()
+            _insetColorsColumn = new DataGridViewComboBoxColumn
             {
                 Name = "InsetColorsColumn",
                 HeaderText = "Цвет\r\nнаполнителя",
                 DataPropertyName = "InsetColorID",
-                DataSource = InsetColorsBindingSource,
+                DataSource = _insetColorsBindingSource,
                 ValueMember = "InsetColorID",
                 DisplayMember = "InsetColorName",
                 DisplayStyle = DataGridViewComboBoxDisplayStyle.Nothing
             };
-            TechnoProfilesColumn = new DataGridViewComboBoxColumn()
+            _technoProfilesColumn = new DataGridViewComboBoxColumn
             {
                 Name = "TechnoProfilesColumn",
                 HeaderText = "Тип\r\nпрофиля-2",
                 DataPropertyName = "TechnoProfileID",
-                DataSource = new DataView(TechnoProfilesDataTable),
+                DataSource = new DataView(_technoProfilesDataTable),
                 ValueMember = "TechnoProfileID",
                 DisplayMember = "TechnoProfileName",
                 DisplayStyle = DataGridViewComboBoxDisplayStyle.Nothing
             };
-            TechnoFrameColorsColumn = new DataGridViewComboBoxColumn()
+            _technoFrameColorsColumn = new DataGridViewComboBoxColumn
             {
                 Name = "TechnoFrameColorsColumn",
                 HeaderText = "Цвет профиля-2",
                 DataPropertyName = "TechnoColorID",
-                DataSource = TechnoFrameColorsBindingSource,
+                DataSource = _technoFrameColorsBindingSource,
                 ValueMember = "ColorID",
                 DisplayMember = "ColorName",
                 DisplayStyle = DataGridViewComboBoxDisplayStyle.Nothing
             };
-            TechnoInsetTypesColumn = new DataGridViewComboBoxColumn()
+            _technoInsetTypesColumn = new DataGridViewComboBoxColumn
             {
                 Name = "TechnoInsetTypesColumn",
                 HeaderText = "Тип наполнителя-2",
                 DataPropertyName = "TechnoInsetTypeID",
-                DataSource = TechnoInsetTypesBindingSource,
+                DataSource = _technoInsetTypesBindingSource,
                 ValueMember = "InsetTypeID",
                 DisplayMember = "InsetTypeName",
                 DisplayStyle = DataGridViewComboBoxDisplayStyle.Nothing
             };
-            TechnoInsetColorsColumn = new DataGridViewComboBoxColumn()
+            _technoInsetColorsColumn = new DataGridViewComboBoxColumn
             {
                 Name = "TechnoInsetColorsColumn",
                 HeaderText = "Цвет наполнителя-2",
                 DataPropertyName = "TechnoInsetColorID",
-                DataSource = TechnoInsetColorsBindingSource,
+                DataSource = _technoInsetColorsBindingSource,
                 ValueMember = "InsetColorID",
                 DisplayMember = "InsetColorName",
                 DisplayStyle = DataGridViewComboBoxDisplayStyle.Nothing
             };
-            FrontsOrdersDataGrid.AutoGenerateColumns = false;
+            _frontsOrdersDataGrid.AutoGenerateColumns = false;
 
             //добавление столбцов
-            FrontsOrdersDataGrid.Columns.Add(FrontsColumn);
-            FrontsOrdersDataGrid.Columns.Add(FrameColorsColumn);
-            FrontsOrdersDataGrid.Columns.Add(PatinaColumn);
-            FrontsOrdersDataGrid.Columns.Add(InsetTypesColumn);
-            FrontsOrdersDataGrid.Columns.Add(InsetColorsColumn);
-            FrontsOrdersDataGrid.Columns.Add(TechnoProfilesColumn);
-            FrontsOrdersDataGrid.Columns.Add(TechnoFrameColorsColumn);
-            FrontsOrdersDataGrid.Columns.Add(TechnoInsetTypesColumn);
-            FrontsOrdersDataGrid.Columns.Add(TechnoInsetColorsColumn);
+            _frontsOrdersDataGrid.Columns.Add(_frontsColumn);
+            _frontsOrdersDataGrid.Columns.Add(_frameColorsColumn);
+            _frontsOrdersDataGrid.Columns.Add(_patinaColumn);
+            _frontsOrdersDataGrid.Columns.Add(_insetTypesColumn);
+            _frontsOrdersDataGrid.Columns.Add(_insetColorsColumn);
+            _frontsOrdersDataGrid.Columns.Add(_technoProfilesColumn);
+            _frontsOrdersDataGrid.Columns.Add(_technoFrameColorsColumn);
+            _frontsOrdersDataGrid.Columns.Add(_technoInsetTypesColumn);
+            _frontsOrdersDataGrid.Columns.Add(_technoInsetColorsColumn);
 
             //убирание лишних столбцов
-            if (FrontsOrdersDataGrid.Columns.Contains("NeedCalcPrice"))
-                FrontsOrdersDataGrid.Columns["NeedCalcPrice"].Visible = false;
-            if (FrontsOrdersDataGrid.Columns.Contains("AreaID"))
-                FrontsOrdersDataGrid.Columns["AreaID"].Visible = false;
-            if (FrontsOrdersDataGrid.Columns.Contains("CreateDateTime"))
+            if (_frontsOrdersDataGrid.Columns.Contains("NeedCalcPrice"))
+                _frontsOrdersDataGrid.Columns["NeedCalcPrice"].Visible = false;
+            if (_frontsOrdersDataGrid.Columns.Contains("AreaID"))
+                _frontsOrdersDataGrid.Columns["AreaID"].Visible = false;
+            if (_frontsOrdersDataGrid.Columns.Contains("CreateDateTime"))
             {
-                FrontsOrdersDataGrid.Columns["CreateDateTime"].HeaderText = "Добавлено";
-                FrontsOrdersDataGrid.Columns["CreateDateTime"].DefaultCellStyle.Format = "dd.MM.yyyy HH:mm";
-                FrontsOrdersDataGrid.Columns["CreateDateTime"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-                FrontsOrdersDataGrid.Columns["CreateDateTime"].Width = 100;
-            }
-            if (FrontsOrdersDataGrid.Columns.Contains("CreateUserID"))
-                FrontsOrdersDataGrid.Columns["CreateUserID"].Visible = false;
-            if (FrontsOrdersDataGrid.Columns.Contains("CreateUserTypeID"))
-                FrontsOrdersDataGrid.Columns["CreateUserTypeID"].Visible = false;
-            FrontsOrdersDataGrid.Columns["FrontsOrdersID"].Visible = false;
-            if (FrontsOrdersDataGrid.Columns.Contains("ImpostMargin"))
-                FrontsOrdersDataGrid.Columns["ImpostMargin"].Visible = false;
-            FrontsOrdersDataGrid.Columns["MainOrderID"].Visible = false;
-            FrontsOrdersDataGrid.Columns["FrontID"].Visible = false;
-            FrontsOrdersDataGrid.Columns["ColorID"].Visible = false;
-            FrontsOrdersDataGrid.Columns["InsetColorID"].Visible = false;
-            FrontsOrdersDataGrid.Columns["PatinaID"].Visible = false;
-            FrontsOrdersDataGrid.Columns["InsetTypeID"].Visible = false;
-            FrontsOrdersDataGrid.Columns["TechnoProfileID"].Visible = false;
-            FrontsOrdersDataGrid.Columns["TechnoColorID"].Visible = false;
-            FrontsOrdersDataGrid.Columns["TechnoInsetTypeID"].Visible = false;
-            FrontsOrdersDataGrid.Columns["TechnoInsetColorID"].Visible = false;
-            FrontsOrdersDataGrid.Columns["FactoryID"].Visible = false;
-            FrontsOrdersDataGrid.Columns["CupboardString"].Visible = false;
-
-            if (FrontsOrdersDataGrid.Columns.Contains("AlHandsSize"))
-                FrontsOrdersDataGrid.Columns["AlHandsSize"].Visible = false;
-            if (FrontsOrdersDataGrid.Columns.Contains("FrontDrillTypeID"))
-                FrontsOrdersDataGrid.Columns["FrontDrillTypeID"].Visible = false;
-
-
-            if (!Security.PriceAccess || !ShowPrice)
-            {
-                FrontsOrdersDataGrid.Columns["FrontPrice"].Visible = false;
-                FrontsOrdersDataGrid.Columns["InsetPrice"].Visible = false;
-                FrontsOrdersDataGrid.Columns["Cost"].Visible = false;
+                _frontsOrdersDataGrid.Columns["CreateDateTime"].HeaderText = "Добавлено";
+                _frontsOrdersDataGrid.Columns["CreateDateTime"].DefaultCellStyle.Format = "dd.MM.yyyy HH:mm";
+                _frontsOrdersDataGrid.Columns["CreateDateTime"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+                _frontsOrdersDataGrid.Columns["CreateDateTime"].Width = 100;
             }
 
-            FrontsOrdersDataGrid.ScrollBars = ScrollBars.Both;
+            if (_frontsOrdersDataGrid.Columns.Contains("CreateUserID"))
+                _frontsOrdersDataGrid.Columns["CreateUserID"].Visible = false;
+            if (_frontsOrdersDataGrid.Columns.Contains("CreateUserTypeID"))
+                _frontsOrdersDataGrid.Columns["CreateUserTypeID"].Visible = false;
+            _frontsOrdersDataGrid.Columns["FrontsOrdersID"].Visible = false;
+            if (_frontsOrdersDataGrid.Columns.Contains("ImpostMargin"))
+                _frontsOrdersDataGrid.Columns["ImpostMargin"].Visible = false;
+            _frontsOrdersDataGrid.Columns["MainOrderID"].Visible = false;
+            _frontsOrdersDataGrid.Columns["FrontID"].Visible = false;
+            _frontsOrdersDataGrid.Columns["ColorID"].Visible = false;
+            _frontsOrdersDataGrid.Columns["InsetColorID"].Visible = false;
+            _frontsOrdersDataGrid.Columns["PatinaID"].Visible = false;
+            _frontsOrdersDataGrid.Columns["InsetTypeID"].Visible = false;
+            _frontsOrdersDataGrid.Columns["TechnoProfileID"].Visible = false;
+            _frontsOrdersDataGrid.Columns["TechnoColorID"].Visible = false;
+            _frontsOrdersDataGrid.Columns["TechnoInsetTypeID"].Visible = false;
+            _frontsOrdersDataGrid.Columns["TechnoInsetColorID"].Visible = false;
+            _frontsOrdersDataGrid.Columns["FactoryID"].Visible = false;
+            _frontsOrdersDataGrid.Columns["CupboardString"].Visible = false;
 
-            FrontsOrdersDataGrid.Columns["Debt"].Visible = false;
+            if (_frontsOrdersDataGrid.Columns.Contains("AlHandsSize"))
+                _frontsOrdersDataGrid.Columns["AlHandsSize"].Visible = false;
+            if (_frontsOrdersDataGrid.Columns.Contains("FrontDrillTypeID"))
+                _frontsOrdersDataGrid.Columns["FrontDrillTypeID"].Visible = false;
 
-            FrontsOrdersDataGrid.Columns["ItemWeight"].Visible = false;
+
+            if (!Security.PriceAccess || !showPrice)
+            {
+                _frontsOrdersDataGrid.Columns["FrontPrice"].Visible = false;
+                _frontsOrdersDataGrid.Columns["InsetPrice"].Visible = false;
+                _frontsOrdersDataGrid.Columns["Cost"].Visible = false;
+            }
+
+            _frontsOrdersDataGrid.ScrollBars = ScrollBars.Both;
+
+            _frontsOrdersDataGrid.Columns["Debt"].Visible = false;
+
+            _frontsOrdersDataGrid.Columns["ItemWeight"].Visible = false;
             //MainOrdersFrontsOrdersDataGrid.Columns["Weight"].Visible = false;
-            FrontsOrdersDataGrid.Columns["FrontConfigID"].Visible = false;
+            _frontsOrdersDataGrid.Columns["FrontConfigID"].Visible = false;
 
-            int DisplayIndex = 0;
-            FrontsOrdersDataGrid.Columns["FrontsColumn"].DisplayIndex = DisplayIndex++;
-            FrontsOrdersDataGrid.Columns["FrameColorsColumn"].DisplayIndex = DisplayIndex++;
-            FrontsOrdersDataGrid.Columns["TechnoProfilesColumn"].DisplayIndex = DisplayIndex++;
-            FrontsOrdersDataGrid.Columns["TechnoFrameColorsColumn"].DisplayIndex = DisplayIndex++;
-            FrontsOrdersDataGrid.Columns["PatinaColumn"].DisplayIndex = DisplayIndex++;
-            FrontsOrdersDataGrid.Columns["InsetTypesColumn"].DisplayIndex = DisplayIndex++;
-            FrontsOrdersDataGrid.Columns["InsetColorsColumn"].DisplayIndex = DisplayIndex++;
-            FrontsOrdersDataGrid.Columns["TechnoInsetTypesColumn"].DisplayIndex = DisplayIndex++;
-            FrontsOrdersDataGrid.Columns["TechnoInsetColorsColumn"].DisplayIndex = DisplayIndex++;
+            var displayIndex = 0;
+            _frontsOrdersDataGrid.Columns["FrontsColumn"].DisplayIndex = displayIndex++;
+            _frontsOrdersDataGrid.Columns["FrameColorsColumn"].DisplayIndex = displayIndex++;
+            _frontsOrdersDataGrid.Columns["TechnoProfilesColumn"].DisplayIndex = displayIndex++;
+            _frontsOrdersDataGrid.Columns["TechnoFrameColorsColumn"].DisplayIndex = displayIndex++;
+            _frontsOrdersDataGrid.Columns["PatinaColumn"].DisplayIndex = displayIndex++;
+            _frontsOrdersDataGrid.Columns["InsetTypesColumn"].DisplayIndex = displayIndex++;
+            _frontsOrdersDataGrid.Columns["InsetColorsColumn"].DisplayIndex = displayIndex++;
+            _frontsOrdersDataGrid.Columns["TechnoInsetTypesColumn"].DisplayIndex = displayIndex++;
+            _frontsOrdersDataGrid.Columns["TechnoInsetColorsColumn"].DisplayIndex = displayIndex++;
 
-            foreach (DataGridViewColumn Column in FrontsOrdersDataGrid.Columns)
-            {
-                Column.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            }
+            foreach (DataGridViewColumn column in _frontsOrdersDataGrid.Columns)
+                column.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
             //названия столбцов
-            FrontsOrdersDataGrid.Columns["CupboardString"].HeaderText = "Шкаф";
-            FrontsOrdersDataGrid.Columns["Height"].HeaderText = "Высота";
-            FrontsOrdersDataGrid.Columns["Width"].HeaderText = "Ширина";
-            FrontsOrdersDataGrid.Columns["Count"].HeaderText = "Кол-во";
-            FrontsOrdersDataGrid.Columns["Notes"].HeaderText = "Примечание";
-            FrontsOrdersDataGrid.Columns["Square"].HeaderText = "Площадь";
-            FrontsOrdersDataGrid.Columns["IsNonStandard"].HeaderText = "Н\\С";
-            FrontsOrdersDataGrid.Columns["FrontPrice"].HeaderText = "Цена за\r\n  фасад";
-            FrontsOrdersDataGrid.Columns["InsetPrice"].HeaderText = "Цена за\r\nвставку";
-            FrontsOrdersDataGrid.Columns["Cost"].HeaderText = "Стоимость";
-            FrontsOrdersDataGrid.Columns["Weight"].HeaderText = "Вес";
+            _frontsOrdersDataGrid.Columns["CupboardString"].HeaderText = "Шкаф";
+            _frontsOrdersDataGrid.Columns["Height"].HeaderText = "Высота";
+            _frontsOrdersDataGrid.Columns["Width"].HeaderText = "Ширина";
+            _frontsOrdersDataGrid.Columns["Count"].HeaderText = "Кол-во";
+            _frontsOrdersDataGrid.Columns["Notes"].HeaderText = "Примечание";
+            _frontsOrdersDataGrid.Columns["Square"].HeaderText = "Площадь";
+            _frontsOrdersDataGrid.Columns["IsNonStandard"].HeaderText = "Н\\С";
+            _frontsOrdersDataGrid.Columns["FrontPrice"].HeaderText = "Цена за\r\n  фасад";
+            _frontsOrdersDataGrid.Columns["InsetPrice"].HeaderText = "Цена за\r\nвставку";
+            _frontsOrdersDataGrid.Columns["Cost"].HeaderText = "Стоимость";
+            _frontsOrdersDataGrid.Columns["Weight"].HeaderText = "Вес";
 
-            FrontsOrdersDataGrid.Columns["FrontsColumn"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            FrontsOrdersDataGrid.Columns["FrameColorsColumn"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            FrontsOrdersDataGrid.Columns["PatinaColumn"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            FrontsOrdersDataGrid.Columns["InsetTypesColumn"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            FrontsOrdersDataGrid.Columns["InsetColorsColumn"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            FrontsOrdersDataGrid.Columns["TechnoProfilesColumn"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            FrontsOrdersDataGrid.Columns["TechnoFrameColorsColumn"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            FrontsOrdersDataGrid.Columns["TechnoInsetTypesColumn"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            FrontsOrdersDataGrid.Columns["TechnoInsetColorsColumn"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            FrontsOrdersDataGrid.Columns["Weight"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            FrontsOrdersDataGrid.Columns["CupboardString"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-            FrontsOrdersDataGrid.Columns["CupboardString"].MinimumWidth = 165;
-            FrontsOrdersDataGrid.Columns["Height"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-            FrontsOrdersDataGrid.Columns["Height"].Width = 85;
-            FrontsOrdersDataGrid.Columns["Width"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-            FrontsOrdersDataGrid.Columns["Width"].Width = 85;
-            FrontsOrdersDataGrid.Columns["Count"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-            FrontsOrdersDataGrid.Columns["Count"].Width = 85;
-            FrontsOrdersDataGrid.Columns["Cost"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-            FrontsOrdersDataGrid.Columns["Cost"].Width = 120;
-            FrontsOrdersDataGrid.Columns["Square"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-            FrontsOrdersDataGrid.Columns["Square"].Width = 100;
-            FrontsOrdersDataGrid.Columns["FrontPrice"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-            FrontsOrdersDataGrid.Columns["FrontPrice"].Width = 85;
-            FrontsOrdersDataGrid.Columns["InsetPrice"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-            FrontsOrdersDataGrid.Columns["InsetPrice"].Width = 85;
-            FrontsOrdersDataGrid.Columns["IsNonStandard"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-            FrontsOrdersDataGrid.Columns["IsNonStandard"].Width = 85;
-            FrontsOrdersDataGrid.Columns["Notes"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            FrontsOrdersDataGrid.Columns["Notes"].MinimumWidth = 175;
+            _frontsOrdersDataGrid.Columns["FrontsColumn"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            _frontsOrdersDataGrid.Columns["FrameColorsColumn"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            _frontsOrdersDataGrid.Columns["PatinaColumn"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            _frontsOrdersDataGrid.Columns["InsetTypesColumn"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            _frontsOrdersDataGrid.Columns["InsetColorsColumn"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            _frontsOrdersDataGrid.Columns["TechnoProfilesColumn"].AutoSizeMode =
+                DataGridViewAutoSizeColumnMode.AllCells;
+            _frontsOrdersDataGrid.Columns["TechnoFrameColorsColumn"].AutoSizeMode =
+                DataGridViewAutoSizeColumnMode.AllCells;
+            _frontsOrdersDataGrid.Columns["TechnoInsetTypesColumn"].AutoSizeMode =
+                DataGridViewAutoSizeColumnMode.AllCells;
+            _frontsOrdersDataGrid.Columns["TechnoInsetColorsColumn"].AutoSizeMode =
+                DataGridViewAutoSizeColumnMode.AllCells;
+            _frontsOrdersDataGrid.Columns["Weight"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            _frontsOrdersDataGrid.Columns["CupboardString"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            _frontsOrdersDataGrid.Columns["CupboardString"].MinimumWidth = 165;
+            _frontsOrdersDataGrid.Columns["Height"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            _frontsOrdersDataGrid.Columns["Height"].Width = 85;
+            _frontsOrdersDataGrid.Columns["Width"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            _frontsOrdersDataGrid.Columns["Width"].Width = 85;
+            _frontsOrdersDataGrid.Columns["Count"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            _frontsOrdersDataGrid.Columns["Count"].Width = 85;
+            _frontsOrdersDataGrid.Columns["Cost"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            _frontsOrdersDataGrid.Columns["Cost"].Width = 120;
+            _frontsOrdersDataGrid.Columns["Square"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            _frontsOrdersDataGrid.Columns["Square"].Width = 100;
+            _frontsOrdersDataGrid.Columns["FrontPrice"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            _frontsOrdersDataGrid.Columns["FrontPrice"].Width = 85;
+            _frontsOrdersDataGrid.Columns["InsetPrice"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            _frontsOrdersDataGrid.Columns["InsetPrice"].Width = 85;
+            _frontsOrdersDataGrid.Columns["IsNonStandard"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            _frontsOrdersDataGrid.Columns["IsNonStandard"].Width = 85;
+            _frontsOrdersDataGrid.Columns["Notes"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            _frontsOrdersDataGrid.Columns["Notes"].MinimumWidth = 175;
         }
 
-        public void Initialize(bool ShowPrice)
+        public void Initialize(bool showPrice)
         {
             Create();
             Fill();
             Binding();
-            CreateColumns(ShowPrice);
+            CreateColumns(showPrice);
         }
 
-        public bool Filter(int MainOrderID, int FactoryID)
+        public bool Filter(int mainOrderId, int factoryId)
         {
-            if (CurrentMainOrderID == MainOrderID)
+            if (_currentMainOrderId == mainOrderId)
                 return FrontsOrdersDataTable.Rows.Count > 0;
 
-            CurrentMainOrderID = MainOrderID;
+            _currentMainOrderId = mainOrderId;
 
-            string FactoryFilter = "";
+            var factoryFilter = "";
 
-            if (FactoryID != 0)
-                FactoryFilter = " AND FactoryID = " + FactoryID;
+            if (factoryId != 0)
+                factoryFilter = " AND FactoryID = " + factoryId;
 
             FrontsOrdersDataTable.Clear();
 
-            using (SqlDataAdapter DA = new SqlDataAdapter("SELECT * FROM SampleFrontsOrders WHERE MainOrderID = " + MainOrderID + FactoryFilter,
-                ConnectionStrings.ZOVOrdersConnectionString))
+            using (var da = new SqlDataAdapter(
+                "SELECT * FROM SampleFrontsOrders WHERE MainOrderID = " + mainOrderId + factoryFilter,
+                ConnectionStrings.MarketingOrdersConnectionString))
             {
-                DA.Fill(FrontsOrdersDataTable);
+                da.Fill(FrontsOrdersDataTable);
             }
 
             return FrontsOrdersDataTable.Rows.Count > 0;
@@ -1638,43 +1672,43 @@ namespace Infinium.Modules.ZOV.Samples
 
     public class ZDecorOrders
     {
-        int CurrentMainOrderID = -1;
+        private int _currentMainOrderId = -1;
+
+        private readonly DecorCatalogOrder _decorCatalogOrder;
+
+        private readonly XtraTabControl _decorTabControl;
+
+        private readonly PercentageDataGrid _mainOrdersFrontsOrdersDataGrid;
 
         public bool Debts = false;
+        public BindingSource[] DecorItemOrdersBindingSources;
+        public PercentageDataGrid[] DecorItemOrdersDataGrids;
+        public DataTable[] DecorItemOrdersDataTables;
+        public SqlCommandBuilder DecorOrdersCommandBuilder;
+        public SqlDataAdapter DecorOrdersDataAdapter;
 
-        private DevExpress.XtraTab.XtraTabControl DecorTabControl = null;
-
-        DecorCatalogOrder DecorCatalogOrder = null;
-
-        PercentageDataGrid MainOrdersFrontsOrdersDataGrid;
-
-        public DataTable DecorOrdersDataTable = null;
-        public DataTable[] DecorItemOrdersDataTables = null;
-        public BindingSource[] DecorItemOrdersBindingSources = null;
-        public SqlDataAdapter DecorOrdersDataAdapter = null;
-        public SqlCommandBuilder DecorOrdersCommandBuilder = null;
-        public PercentageDataGrid[] DecorItemOrdersDataGrids = null;
+        public DataTable DecorOrdersDataTable;
 
         //конструктор
-        public ZDecorOrders(ref DevExpress.XtraTab.XtraTabControl tDecorTabControl,
-                                     ref DecorCatalogOrder tDecorCatalogOrder,
-                                     ref PercentageDataGrid tMainOrdersFrontsOrdersDataGrid)
+        public ZDecorOrders(ref XtraTabControl tDecorTabControl,
+            ref DecorCatalogOrder tDecorCatalogOrder,
+            ref PercentageDataGrid tMainOrdersFrontsOrdersDataGrid)
         {
-            DecorTabControl = tDecorTabControl;
-            DecorCatalogOrder = tDecorCatalogOrder;
+            _decorTabControl = tDecorTabControl;
+            _decorCatalogOrder = tDecorCatalogOrder;
 
-            MainOrdersFrontsOrdersDataGrid = tMainOrdersFrontsOrdersDataGrid;
+            _mainOrdersFrontsOrdersDataGrid = tMainOrdersFrontsOrdersDataGrid;
         }
 
 
         private void Create()
         {
             DecorOrdersDataTable = new DataTable();
-            DecorItemOrdersDataTables = new DataTable[DecorCatalogOrder.DecorProductsCount];
-            DecorItemOrdersBindingSources = new BindingSource[DecorCatalogOrder.DecorProductsCount];
-            DecorItemOrdersDataGrids = new PercentageDataGrid[DecorCatalogOrder.DecorProductsCount];
+            DecorItemOrdersDataTables = new DataTable[_decorCatalogOrder.DecorProductsCount];
+            DecorItemOrdersBindingSources = new BindingSource[_decorCatalogOrder.DecorProductsCount];
+            DecorItemOrdersDataGrids = new PercentageDataGrid[_decorCatalogOrder.DecorProductsCount];
 
-            for (int i = 0; i < DecorCatalogOrder.DecorProductsCount; i++)
+            for (var i = 0; i < _decorCatalogOrder.DecorProductsCount; i++)
             {
                 DecorItemOrdersDataTables[i] = new DataTable();
                 DecorItemOrdersBindingSources[i] = new BindingSource();
@@ -1683,141 +1717,144 @@ namespace Infinium.Modules.ZOV.Samples
 
         private void Fill()
         {
-            DecorOrdersDataAdapter = new SqlDataAdapter("SELECT TOP 0 * FROM SampleDecorOrders", ConnectionStrings.ZOVOrdersConnectionString);
+            DecorOrdersDataAdapter = new SqlDataAdapter("SELECT TOP 0 * FROM SampleDecorOrders",
+                ConnectionStrings.ZOVOrdersConnectionString);
             DecorOrdersCommandBuilder = new SqlCommandBuilder(DecorOrdersDataAdapter);
             DecorOrdersDataAdapter.Fill(DecorOrdersDataTable);
         }
 
         private void Binding()
         {
-
         }
 
-        public void Initialize(bool ShowPrice)
+        public void Initialize(bool showPrice)
         {
             Create();
             Fill();
             Binding();
 
             SplitDecorOrdersTables();
-            GridSettings(ShowPrice);
+            GridSettings(showPrice);
         }
 
         private DataGridViewComboBoxColumn CreateInsetTypesColumn()
         {
-            DataGridViewComboBoxColumn ItemColumn = new DataGridViewComboBoxColumn()
+            var itemColumn = new DataGridViewComboBoxColumn
             {
                 Name = "InsetTypesColumn",
                 HeaderText = "Тип\r\nнаполнителя",
                 DataPropertyName = "InsetTypeID",
 
-                DataSource = new DataView(DecorCatalogOrder.InsetTypesDataTable),
+                DataSource = new DataView(_decorCatalogOrder.InsetTypesDataTable),
                 ValueMember = "InsetTypeID",
                 DisplayMember = "InsetTypeName",
                 DisplayStyle = DataGridViewComboBoxDisplayStyle.Nothing
             };
-            return ItemColumn;
+            return itemColumn;
         }
 
         private DataGridViewComboBoxColumn CreateInsetColorsColumn()
         {
-            DataGridViewComboBoxColumn ItemColumn = new DataGridViewComboBoxColumn()
+            var itemColumn = new DataGridViewComboBoxColumn
             {
                 Name = "InsetColorsColumn",
                 HeaderText = "Цвет\r\nнаполнителя",
                 DataPropertyName = "InsetColorID",
 
-                DataSource = new DataView(DecorCatalogOrder.InsetColorsDataTable),
+                DataSource = new DataView(_decorCatalogOrder.InsetColorsDataTable),
                 ValueMember = "InsetColorID",
                 DisplayMember = "InsetColorName",
                 DisplayStyle = DataGridViewComboBoxDisplayStyle.Nothing
             };
-            return ItemColumn;
+            return itemColumn;
         }
 
         private DataGridViewComboBoxColumn CreateColorColumn()
         {
-            DataGridViewComboBoxColumn ColorsColumn = new DataGridViewComboBoxColumn()
+            var colorsColumn = new DataGridViewComboBoxColumn
             {
                 Name = "ColorsColumn",
                 HeaderText = "Цвет",
                 DataPropertyName = "ColorID",
 
-                DataSource = DecorCatalogOrder.ColorsBindingSource,
+                DataSource = _decorCatalogOrder.ColorsBindingSource,
                 ValueMember = "ColorID",
                 DisplayMember = "ColorName",
                 DisplayStyle = DataGridViewComboBoxDisplayStyle.Nothing,
                 DisplayIndex = 1
             };
-            return ColorsColumn;
+            return colorsColumn;
         }
 
         private DataGridViewComboBoxColumn CreatePatinaColumn()
         {
-            DataGridViewComboBoxColumn PatinaColumn = new DataGridViewComboBoxColumn()
+            var patinaColumn = new DataGridViewComboBoxColumn
             {
                 Name = "PatinaColumn",
                 HeaderText = "Патина",
                 DataPropertyName = "PatinaID",
 
-                DataSource = DecorCatalogOrder.PatinaBindingSource,
+                DataSource = _decorCatalogOrder.PatinaBindingSource,
                 ValueMember = "PatinaID",
                 DisplayMember = "PatinaName",
                 DisplayStyle = DataGridViewComboBoxDisplayStyle.Nothing
             };
-            return PatinaColumn;
+            return patinaColumn;
         }
 
         private DataGridViewComboBoxColumn CreateItemColumn()
         {
-            DataGridViewComboBoxColumn ItemColumn = new DataGridViewComboBoxColumn()
+            var itemColumn = new DataGridViewComboBoxColumn
             {
                 Name = "ItemColumn",
                 HeaderText = "Название",
                 DataPropertyName = "DecorID",
 
-                DataSource = new DataView(DecorCatalogOrder.DecorDataTable),
+                DataSource = new DataView(_decorCatalogOrder.DecorDataTable),
                 ValueMember = "DecorID",
                 DisplayMember = "Name",
                 DisplayStyle = DataGridViewComboBoxDisplayStyle.Nothing,
                 DisplayIndex = 1
             };
-            return ItemColumn;
+            return itemColumn;
         }
 
         private void SplitDecorOrdersTables()
         {
-            for (int i = 0; i < DecorCatalogOrder.DecorProductsCount; i++)
+            for (var i = 0; i < _decorCatalogOrder.DecorProductsCount; i++)
             {
                 DecorItemOrdersDataTables[i] = DecorOrdersDataTable.Clone();
                 DecorItemOrdersBindingSources[i].DataSource = DecorItemOrdersDataTables[i];
             }
         }
 
-        private void GridSettings(bool ShowPrice)
+        private void GridSettings(bool showPrice)
         {
-            DecorTabControl.AppearancePage.Header.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
-            DecorTabControl.AppearancePage.Header.BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
-            DecorTabControl.AppearancePage.Header.BorderColor = System.Drawing.Color.Black;
-            DecorTabControl.AppearancePage.Header.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            DecorTabControl.AppearancePage.Header.Options.UseBackColor = true;
-            DecorTabControl.AppearancePage.Header.Options.UseBorderColor = true;
-            DecorTabControl.AppearancePage.Header.Options.UseFont = true;
-            DecorTabControl.LookAndFeel.SkinName = "Office 2010 Black";
-            DecorTabControl.LookAndFeel.UseDefaultLookAndFeel = false;
+            _decorTabControl.AppearancePage.Header.BackColor = Color.FromArgb(140, 140, 140);
+            _decorTabControl.AppearancePage.Header.BackColor2 = Color.FromArgb(140, 140, 140);
+            _decorTabControl.AppearancePage.Header.BorderColor = Color.Black;
+            _decorTabControl.AppearancePage.Header.Font =
+                new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 204);
+            _decorTabControl.AppearancePage.Header.Options.UseBackColor = true;
+            _decorTabControl.AppearancePage.Header.Options.UseBorderColor = true;
+            _decorTabControl.AppearancePage.Header.Options.UseFont = true;
+            _decorTabControl.LookAndFeel.SkinName = "Office 2010 Black";
+            _decorTabControl.LookAndFeel.UseDefaultLookAndFeel = false;
 
-            for (int i = 0; i < DecorCatalogOrder.DecorProductsCount; i++)
+            for (var i = 0; i < _decorCatalogOrder.DecorProductsCount; i++)
             {
-                DecorTabControl.TabPages.Add(DecorCatalogOrder.DecorProductsDataTable.Rows[i]["ProductName"].ToString());
-                DecorTabControl.TabPages[i].PageVisible = false;
-                DecorTabControl.TabPages[i].Text = DecorCatalogOrder.DecorProductsDataTable.Rows[i]["ProductName"].ToString();
+                _decorTabControl.TabPages.Add(_decorCatalogOrder.DecorProductsDataTable.Rows[i]["ProductName"]
+                    .ToString());
+                _decorTabControl.TabPages[i].PageVisible = false;
+                _decorTabControl.TabPages[i].Text =
+                    _decorCatalogOrder.DecorProductsDataTable.Rows[i]["ProductName"].ToString();
 
-                DecorItemOrdersDataGrids[i] = new PercentageDataGrid()
+                DecorItemOrdersDataGrids[i] = new PercentageDataGrid
                 {
-                    Parent = DecorTabControl.TabPages[i],
+                    Parent = _decorTabControl.TabPages[i],
                     DataSource = DecorItemOrdersBindingSources[i],
-                    Dock = System.Windows.Forms.DockStyle.Fill,
-                    PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2010Black
+                    Dock = DockStyle.Fill,
+                    PaletteMode = PaletteMode.Office2010Black
                 };
                 DecorItemOrdersDataGrids[i].StateCommon.Background.Color1 = Color.White;
                 DecorItemOrdersDataGrids[i].AllowUserToAddRows = false;
@@ -1825,28 +1862,47 @@ namespace Infinium.Modules.ZOV.Samples
                 DecorItemOrdersDataGrids[i].AllowUserToResizeRows = false;
                 DecorItemOrdersDataGrids[i].RowHeadersVisible = false;
                 DecorItemOrdersDataGrids[i].AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-                DecorItemOrdersDataGrids[i].StateCommon.Background.Color1 = MainOrdersFrontsOrdersDataGrid.StateCommon.Background.Color1;
-                DecorItemOrdersDataGrids[i].StateCommon.Background.ColorStyle = MainOrdersFrontsOrdersDataGrid.StateCommon.Background.ColorStyle;
-                DecorItemOrdersDataGrids[i].StateCommon.DataCell.Back.Color1 = MainOrdersFrontsOrdersDataGrid.StateCommon.DataCell.Back.Color1;
-                DecorItemOrdersDataGrids[i].StateCommon.DataCell.Back.ColorStyle = MainOrdersFrontsOrdersDataGrid.StateCommon.DataCell.Back.ColorStyle;
-                DecorItemOrdersDataGrids[i].StateCommon.DataCell.Border.Color1 = MainOrdersFrontsOrdersDataGrid.StateCommon.DataCell.Border.Color1;
-                DecorItemOrdersDataGrids[i].StateCommon.DataCell.Content.Font = MainOrdersFrontsOrdersDataGrid.StateCommon.DataCell.Content.Font;
-                DecorItemOrdersDataGrids[i].StateCommon.DataCell.Content.Color1 = MainOrdersFrontsOrdersDataGrid.StateCommon.DataCell.Content.Color1;
-                DecorItemOrdersDataGrids[i].StateSelected.DataCell.Content.Color1 = MainOrdersFrontsOrdersDataGrid.StateSelected.DataCell.Content.Color1;
-                DecorItemOrdersDataGrids[i].StateSelected.DataCell.Back.Color1 = MainOrdersFrontsOrdersDataGrid.StateSelected.DataCell.Back.Color1;
-                DecorItemOrdersDataGrids[i].StateSelected.DataCell.Back.ColorStyle = MainOrdersFrontsOrdersDataGrid.StateSelected.DataCell.Back.ColorStyle;
-                DecorItemOrdersDataGrids[i].StateSelected.DataCell.Border.Color1 = MainOrdersFrontsOrdersDataGrid.StateSelected.DataCell.Border.Color1;
-                DecorItemOrdersDataGrids[i].RowTemplate.Height = MainOrdersFrontsOrdersDataGrid.RowTemplate.Height;
-                DecorItemOrdersDataGrids[i].ColumnHeadersHeight = MainOrdersFrontsOrdersDataGrid.ColumnHeadersHeight;
-                DecorItemOrdersDataGrids[i].StateCommon.HeaderColumn.Back.Color1 = MainOrdersFrontsOrdersDataGrid.StateCommon.HeaderColumn.Back.Color1;
-                DecorItemOrdersDataGrids[i].StateCommon.HeaderColumn.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
-                DecorItemOrdersDataGrids[i].StateCommon.HeaderColumn.Border.Color1 = MainOrdersFrontsOrdersDataGrid.StateCommon.HeaderColumn.Border.Color1;
-                DecorItemOrdersDataGrids[i].StateCommon.HeaderColumn.Content.Font = MainOrdersFrontsOrdersDataGrid.StateCommon.HeaderColumn.Content.Font;
-                DecorItemOrdersDataGrids[i].StateCommon.HeaderColumn.Content.Color1 = MainOrdersFrontsOrdersDataGrid.StateCommon.HeaderColumn.Content.Color1;
-                DecorItemOrdersDataGrids[i].StateCommon.HeaderColumn.Content.MultiLine = MainOrdersFrontsOrdersDataGrid.StateCommon.HeaderColumn.Content.MultiLine;
-                DecorItemOrdersDataGrids[i].StateCommon.HeaderColumn.Content.MultiLineH = MainOrdersFrontsOrdersDataGrid.StateCommon.HeaderColumn.Content.MultiLineH;
-                DecorItemOrdersDataGrids[i].StateCommon.HeaderColumn.Content.TextH = MainOrdersFrontsOrdersDataGrid.StateCommon.HeaderColumn.Content.TextH;
-                DecorItemOrdersDataGrids[i].StateSelected.DataCell.Back.Color1 = MainOrdersFrontsOrdersDataGrid.StateSelected.DataCell.Back.Color1;
+                DecorItemOrdersDataGrids[i].StateCommon.Background.Color1 =
+                    _mainOrdersFrontsOrdersDataGrid.StateCommon.Background.Color1;
+                DecorItemOrdersDataGrids[i].StateCommon.Background.ColorStyle =
+                    _mainOrdersFrontsOrdersDataGrid.StateCommon.Background.ColorStyle;
+                DecorItemOrdersDataGrids[i].StateCommon.DataCell.Back.Color1 =
+                    _mainOrdersFrontsOrdersDataGrid.StateCommon.DataCell.Back.Color1;
+                DecorItemOrdersDataGrids[i].StateCommon.DataCell.Back.ColorStyle =
+                    _mainOrdersFrontsOrdersDataGrid.StateCommon.DataCell.Back.ColorStyle;
+                DecorItemOrdersDataGrids[i].StateCommon.DataCell.Border.Color1 =
+                    _mainOrdersFrontsOrdersDataGrid.StateCommon.DataCell.Border.Color1;
+                DecorItemOrdersDataGrids[i].StateCommon.DataCell.Content.Font =
+                    _mainOrdersFrontsOrdersDataGrid.StateCommon.DataCell.Content.Font;
+                DecorItemOrdersDataGrids[i].StateCommon.DataCell.Content.Color1 =
+                    _mainOrdersFrontsOrdersDataGrid.StateCommon.DataCell.Content.Color1;
+                DecorItemOrdersDataGrids[i].StateSelected.DataCell.Content.Color1 =
+                    _mainOrdersFrontsOrdersDataGrid.StateSelected.DataCell.Content.Color1;
+                DecorItemOrdersDataGrids[i].StateSelected.DataCell.Back.Color1 =
+                    _mainOrdersFrontsOrdersDataGrid.StateSelected.DataCell.Back.Color1;
+                DecorItemOrdersDataGrids[i].StateSelected.DataCell.Back.ColorStyle =
+                    _mainOrdersFrontsOrdersDataGrid.StateSelected.DataCell.Back.ColorStyle;
+                DecorItemOrdersDataGrids[i].StateSelected.DataCell.Border.Color1 =
+                    _mainOrdersFrontsOrdersDataGrid.StateSelected.DataCell.Border.Color1;
+                DecorItemOrdersDataGrids[i].RowTemplate.Height = _mainOrdersFrontsOrdersDataGrid.RowTemplate.Height;
+                DecorItemOrdersDataGrids[i].ColumnHeadersHeight = _mainOrdersFrontsOrdersDataGrid.ColumnHeadersHeight;
+                DecorItemOrdersDataGrids[i].StateCommon.HeaderColumn.Back.Color1 =
+                    _mainOrdersFrontsOrdersDataGrid.StateCommon.HeaderColumn.Back.Color1;
+                DecorItemOrdersDataGrids[i].StateCommon.HeaderColumn.Back.ColorStyle = PaletteColorStyle.Solid;
+                DecorItemOrdersDataGrids[i].StateCommon.HeaderColumn.Border.Color1 =
+                    _mainOrdersFrontsOrdersDataGrid.StateCommon.HeaderColumn.Border.Color1;
+                DecorItemOrdersDataGrids[i].StateCommon.HeaderColumn.Content.Font =
+                    _mainOrdersFrontsOrdersDataGrid.StateCommon.HeaderColumn.Content.Font;
+                DecorItemOrdersDataGrids[i].StateCommon.HeaderColumn.Content.Color1 =
+                    _mainOrdersFrontsOrdersDataGrid.StateCommon.HeaderColumn.Content.Color1;
+                DecorItemOrdersDataGrids[i].StateCommon.HeaderColumn.Content.MultiLine =
+                    _mainOrdersFrontsOrdersDataGrid.StateCommon.HeaderColumn.Content.MultiLine;
+                DecorItemOrdersDataGrids[i].StateCommon.HeaderColumn.Content.MultiLineH =
+                    _mainOrdersFrontsOrdersDataGrid.StateCommon.HeaderColumn.Content.MultiLineH;
+                DecorItemOrdersDataGrids[i].StateCommon.HeaderColumn.Content.TextH =
+                    _mainOrdersFrontsOrdersDataGrid.StateCommon.HeaderColumn.Content.TextH;
+                DecorItemOrdersDataGrids[i].StateSelected.DataCell.Back.Color1 =
+                    _mainOrdersFrontsOrdersDataGrid.StateSelected.DataCell.Back.Color1;
                 DecorItemOrdersDataGrids[i].SelectionMode = DataGridViewSelectionMode.FullRowSelect;
                 DecorItemOrdersDataGrids[i].SelectedColorStyle = PercentageDataGrid.ColorStyle.Green;
                 DecorItemOrdersDataGrids[i].ReadOnly = true;
@@ -1869,26 +1925,31 @@ namespace Infinium.Modules.ZOV.Samples
                 //    //    new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
                 //}
 
-                if (!Security.PriceAccess || !ShowPrice)
+                if (!Security.PriceAccess || !showPrice)
                 {
                     DecorItemOrdersDataGrids[i].Columns["Price"].Visible = false;
                     DecorItemOrdersDataGrids[i].Columns["Cost"].Visible = false;
                 }
 
                 DecorItemOrdersDataGrids[i].Columns.Add(CreateInsetColorsColumn());
-                DecorItemOrdersDataGrids[i].Columns["InsetColorsColumn"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                DecorItemOrdersDataGrids[i].Columns["InsetColorsColumn"].AutoSizeMode =
+                    DataGridViewAutoSizeColumnMode.AllCells;
                 DecorItemOrdersDataGrids[i].Columns["InsetColorsColumn"].MinimumWidth = 120;
                 DecorItemOrdersDataGrids[i].Columns.Add(CreateInsetTypesColumn());
-                DecorItemOrdersDataGrids[i].Columns["InsetTypesColumn"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                DecorItemOrdersDataGrids[i].Columns["InsetTypesColumn"].AutoSizeMode =
+                    DataGridViewAutoSizeColumnMode.AllCells;
                 DecorItemOrdersDataGrids[i].Columns["InsetTypesColumn"].MinimumWidth = 120;
                 DecorItemOrdersDataGrids[i].Columns.Add(CreateColorColumn());
-                DecorItemOrdersDataGrids[i].Columns["ColorsColumn"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                DecorItemOrdersDataGrids[i].Columns["ColorsColumn"].AutoSizeMode =
+                    DataGridViewAutoSizeColumnMode.AllCells;
                 DecorItemOrdersDataGrids[i].Columns["ColorsColumn"].MinimumWidth = 120;
                 DecorItemOrdersDataGrids[i].Columns.Add(CreatePatinaColumn());
-                DecorItemOrdersDataGrids[i].Columns["PatinaColumn"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                DecorItemOrdersDataGrids[i].Columns["PatinaColumn"].AutoSizeMode =
+                    DataGridViewAutoSizeColumnMode.AllCells;
                 DecorItemOrdersDataGrids[i].Columns["PatinaColumn"].MinimumWidth = 120;
                 DecorItemOrdersDataGrids[i].Columns.Add(CreateItemColumn());
-                DecorItemOrdersDataGrids[i].Columns["ItemColumn"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                DecorItemOrdersDataGrids[i].Columns["ItemColumn"].AutoSizeMode =
+                    DataGridViewAutoSizeColumnMode.AllCells;
                 DecorItemOrdersDataGrids[i].Columns["ItemColumn"].MinimumWidth = 120;
 
                 //убирание лишних столбцов
@@ -1900,9 +1961,11 @@ namespace Infinium.Modules.ZOV.Samples
                 {
                     DecorItemOrdersDataGrids[i].Columns["CreateDateTime"].HeaderText = "Добавлено";
                     DecorItemOrdersDataGrids[i].Columns["CreateDateTime"].DefaultCellStyle.Format = "dd.MM.yyyy HH:mm";
-                    DecorItemOrdersDataGrids[i].Columns["CreateDateTime"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-                    DecorItemOrdersDataGrids[i].Columns["CreateDateTime"].Width = 100;
+                    DecorItemOrdersDataGrids[i].Columns["CreateDateTime"].AutoSizeMode =
+                        DataGridViewAutoSizeColumnMode.None;
+                    DecorItemOrdersDataGrids[i].Columns["CreateDateTime"].Width = 120;
                 }
+
                 if (DecorItemOrdersDataGrids[i].Columns.Contains("CreateUserID"))
                     DecorItemOrdersDataGrids[i].Columns["CreateUserID"].Visible = false;
                 if (DecorItemOrdersDataGrids[i].Columns.Contains("CreateUserTypeID"))
@@ -1935,180 +1998,188 @@ namespace Infinium.Modules.ZOV.Samples
                 DecorItemOrdersDataGrids[i].Columns["Price"].HeaderText = "Цена";
                 DecorItemOrdersDataGrids[i].Columns["Cost"].HeaderText = "Стоимость";
 
-                for (int j = 2; j < DecorItemOrdersDataGrids[i].Columns.Count; j++)
+                DecorItemOrdersDataGrids[i].Columns["Cost"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                DecorItemOrdersDataGrids[i].Columns["Cost"].MinimumWidth = 90;
+                DecorItemOrdersDataGrids[i].Columns["Price"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                DecorItemOrdersDataGrids[i].Columns["Price"].MinimumWidth = 90;
+                DecorItemOrdersDataGrids[i].Columns["Notes"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                DecorItemOrdersDataGrids[i].Columns["Notes"].MinimumWidth = 120;
+
+                for (var j = 2; j < DecorItemOrdersDataGrids[i].Columns.Count; j++)
                 {
                     if (DecorItemOrdersDataGrids[i].Columns[j].HeaderText == "Height")
-                    {
                         DecorItemOrdersDataGrids[i].Columns[j].HeaderText = "Высота";
-                    }
                     if (DecorItemOrdersDataGrids[i].Columns[j].HeaderText == "Length")
-                    {
                         DecorItemOrdersDataGrids[i].Columns[j].HeaderText = "Длина";
-                    }
                     if (DecorItemOrdersDataGrids[i].Columns[j].HeaderText == "Width")
-                    {
                         DecorItemOrdersDataGrids[i].Columns[j].HeaderText = "Ширина";
-                    }
                     if (DecorItemOrdersDataGrids[i].Columns[j].HeaderText == "Count")
-                    {
                         DecorItemOrdersDataGrids[i].Columns[j].HeaderText = "Кол-во";
-                    }
                     if (DecorItemOrdersDataGrids[i].Columns[j].HeaderText == "Notes")
-                    {
                         DecorItemOrdersDataGrids[i].Columns[j].HeaderText = "Примечание";
-                    }
                 }
 
-                foreach (DataGridViewColumn Column in DecorItemOrdersDataGrids[i].Columns)
-                {
-                    Column.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
-                }
+                foreach (DataGridViewColumn column in DecorItemOrdersDataGrids[i].Columns)
+                    column.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
-                if (DecorCatalogOrder.HasParameter(Convert.ToInt32(DecorCatalogOrder.DecorProductsDataTable.Rows[i]["ProductID"]), "ColorID"))
+                if (_decorCatalogOrder.HasParameter(
+                    Convert.ToInt32(_decorCatalogOrder.DecorProductsDataTable.Rows[i]["ProductID"]), "ColorID"))
                 {
-                    DecorItemOrdersDataGrids[i].Columns["ColorsColumn"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                    DecorItemOrdersDataGrids[i].Columns["ColorsColumn"].AutoSizeMode =
+                        DataGridViewAutoSizeColumnMode.AllCells;
                     DecorItemOrdersDataGrids[i].Columns["ColorsColumn"].MinimumWidth = 190;
                 }
-                if (DecorCatalogOrder.HasParameter(Convert.ToInt32(DecorCatalogOrder.DecorProductsDataTable.Rows[i]["ProductID"]), "Height"))
+
+                if (_decorCatalogOrder.HasParameter(
+                    Convert.ToInt32(_decorCatalogOrder.DecorProductsDataTable.Rows[i]["ProductID"]), "Height"))
                 {
-                    //DecorItemOrdersDataGrids[i].Columns["Height"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                    DecorItemOrdersDataGrids[i].Columns["Height"].AutoSizeMode =
+                        DataGridViewAutoSizeColumnMode.AllCells;
                     DecorItemOrdersDataGrids[i].Columns["Height"].MinimumWidth = 90;
                 }
-                if (DecorCatalogOrder.HasParameter(Convert.ToInt32(DecorCatalogOrder.DecorProductsDataTable.Rows[i]["ProductID"]), "Length"))
+
+                if (_decorCatalogOrder.HasParameter(
+                    Convert.ToInt32(_decorCatalogOrder.DecorProductsDataTable.Rows[i]["ProductID"]), "Length"))
                 {
-                    //DecorItemOrdersDataGrids[i].Columns["Length"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                    DecorItemOrdersDataGrids[i].Columns["Length"].AutoSizeMode =
+                        DataGridViewAutoSizeColumnMode.AllCells;
                     DecorItemOrdersDataGrids[i].Columns["Length"].MinimumWidth = 90;
                 }
-                if (DecorCatalogOrder.HasParameter(Convert.ToInt32(DecorCatalogOrder.DecorProductsDataTable.Rows[i]["ProductID"]), "Width"))
+
+                if (_decorCatalogOrder.HasParameter(
+                    Convert.ToInt32(_decorCatalogOrder.DecorProductsDataTable.Rows[i]["ProductID"]), "Width"))
                 {
-                    //DecorItemOrdersDataGrids[i].Columns["Width"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                    DecorItemOrdersDataGrids[i].Columns["Width"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
                     DecorItemOrdersDataGrids[i].Columns["Width"].MinimumWidth = 90;
                 }
 
+                DecorItemOrdersDataGrids[i].Columns["Count"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                DecorItemOrdersDataGrids[i].Columns["Count"].MinimumWidth = 90;
+
                 DecorItemOrdersDataGrids[i].AutoGenerateColumns = false;
-                int DisplayIndex = 0;
-                DecorItemOrdersDataGrids[i].Columns["ItemColumn"].DisplayIndex = DisplayIndex++;
-                DecorItemOrdersDataGrids[i].Columns["ColorsColumn"].DisplayIndex = DisplayIndex++;
-                DecorItemOrdersDataGrids[i].Columns["PatinaColumn"].DisplayIndex = DisplayIndex++;
-                DecorItemOrdersDataGrids[i].Columns["InsetTypesColumn"].DisplayIndex = DisplayIndex++;
-                DecorItemOrdersDataGrids[i].Columns["InsetColorsColumn"].DisplayIndex = DisplayIndex++;
-                DecorItemOrdersDataGrids[i].Columns["Length"].DisplayIndex = DisplayIndex++;
-                DecorItemOrdersDataGrids[i].Columns["Height"].DisplayIndex = DisplayIndex++;
-                DecorItemOrdersDataGrids[i].Columns["Width"].DisplayIndex = DisplayIndex++;
-                DecorItemOrdersDataGrids[i].Columns["Count"].DisplayIndex = DisplayIndex++;
-                DecorItemOrdersDataGrids[i].Columns["Price"].DisplayIndex = DisplayIndex++;
-                DecorItemOrdersDataGrids[i].Columns["Cost"].DisplayIndex = DisplayIndex++;
-                DecorItemOrdersDataGrids[i].Columns["Notes"].DisplayIndex = DisplayIndex++;
+                var displayIndex = 0;
+                DecorItemOrdersDataGrids[i].Columns["ItemColumn"].DisplayIndex = displayIndex++;
+                DecorItemOrdersDataGrids[i].Columns["ColorsColumn"].DisplayIndex = displayIndex++;
+                DecorItemOrdersDataGrids[i].Columns["PatinaColumn"].DisplayIndex = displayIndex++;
+                DecorItemOrdersDataGrids[i].Columns["InsetTypesColumn"].DisplayIndex = displayIndex++;
+                DecorItemOrdersDataGrids[i].Columns["InsetColorsColumn"].DisplayIndex = displayIndex++;
+                DecorItemOrdersDataGrids[i].Columns["Length"].DisplayIndex = displayIndex++;
+                DecorItemOrdersDataGrids[i].Columns["Height"].DisplayIndex = displayIndex++;
+                DecorItemOrdersDataGrids[i].Columns["Width"].DisplayIndex = displayIndex++;
+                DecorItemOrdersDataGrids[i].Columns["Count"].DisplayIndex = displayIndex++;
+                DecorItemOrdersDataGrids[i].Columns["Price"].DisplayIndex = displayIndex++;
+                DecorItemOrdersDataGrids[i].Columns["Cost"].DisplayIndex = displayIndex++;
+                DecorItemOrdersDataGrids[i].Columns["Notes"].DisplayIndex = displayIndex++;
             }
         }
 
         public bool HasRows()
         {
-            int ItemsCount = 0;
+            var itemsCount = 0;
 
-            for (int i = 0; i < DecorCatalogOrder.DecorProductsCount; i++)
-            {
-                for (int r = 0; r < DecorItemOrdersDataTables[i].Rows.Count; r++)
-                    if (DecorItemOrdersDataTables[i].Rows[r].RowState != DataRowState.Deleted)
-                        ItemsCount += DecorItemOrdersDataTables[i].Rows.Count;
-            }
+            for (var i = 0; i < _decorCatalogOrder.DecorProductsCount; i++)
+            for (var r = 0; r < DecorItemOrdersDataTables[i].Rows.Count; r++)
+                if (DecorItemOrdersDataTables[i].Rows[r].RowState != DataRowState.Deleted)
+                    itemsCount += DecorItemOrdersDataTables[i].Rows.Count;
 
-            return ItemsCount > 0;
+            return itemsCount > 0;
         }
 
         private bool ShowTabs()
         {
-            int IsOrder = 0;
+            var isOrder = 0;
 
-            for (int i = 0; i < DecorTabControl.TabPages.Count; i++)
-            {
+            for (var i = 0; i < _decorTabControl.TabPages.Count; i++)
                 if (DecorItemOrdersDataTables[i].Rows.Count > 0)
                 {
-                    IsOrder++;
-                    DecorTabControl.TabPages[i].PageVisible = true;
+                    isOrder++;
+                    _decorTabControl.TabPages[i].PageVisible = true;
                 }
                 else
-                    DecorTabControl.TabPages[i].PageVisible = false;
-            }
+                {
+                    _decorTabControl.TabPages[i].PageVisible = false;
+                }
 
-            if (IsOrder > 0)
+            if (isOrder > 0)
                 return true;
-            else
-                return false;
+            return false;
         }
 
 
-        public bool Filter(int MainOrderID)
+        public bool Filter(int mainOrderId)
         {
-            if (CurrentMainOrderID == MainOrderID)
+            if (_currentMainOrderId == mainOrderId)
                 return DecorOrdersDataTable.Rows.Count > 0;
 
-            CurrentMainOrderID = MainOrderID;
+            _currentMainOrderId = mainOrderId;
 
             DecorOrdersDataTable.Clear();
             DecorOrdersDataTable.AcceptChanges();
 
-            for (int i = 0; i < DecorCatalogOrder.DecorProductsCount; i++)
+            for (var i = 0; i < _decorCatalogOrder.DecorProductsCount; i++)
             {
                 DecorItemOrdersDataTables[i].Clear();
                 DecorItemOrdersDataTables[i].AcceptChanges();
-                DecorTabControl.TabPages[i].PageVisible = false;
+                _decorTabControl.TabPages[i].PageVisible = false;
             }
 
             DecorOrdersCommandBuilder.Dispose();
             DecorOrdersDataAdapter.Dispose();
 
-            DecorOrdersDataAdapter = new SqlDataAdapter("SELECT * FROM SampleDecorOrders WHERE MainOrderID = " + MainOrderID.ToString(),
-                                                            ConnectionStrings.ZOVOrdersConnectionString);
+            DecorOrdersDataAdapter = new SqlDataAdapter(
+                "SELECT * FROM SampleDecorOrders WHERE MainOrderID = " + mainOrderId,
+                ConnectionStrings.MarketingOrdersConnectionString);
             DecorOrdersDataAdapter.Fill(DecorOrdersDataTable);
             DecorOrdersCommandBuilder = new SqlCommandBuilder(DecorOrdersDataAdapter);
 
             if (DecorOrdersDataTable.Rows.Count == 0)
                 return false;
 
-            for (int i = 0; i < DecorCatalogOrder.DecorProductsCount; i++)
+            for (var i = 0; i < _decorCatalogOrder.DecorProductsCount; i++)
             {
                 if (DecorItemOrdersDataGrids[i].Columns.Contains("CreateUserID"))
                     DecorItemOrdersDataGrids[i].Columns["CreateUserID"].Visible = false;
                 if (DecorItemOrdersDataGrids[i].Columns.Contains("CreateUserTypeID"))
                     DecorItemOrdersDataGrids[i].Columns["CreateUserTypeID"].Visible = false;
                 DecorItemOrdersDataGrids[i].Columns["DecorOrderID"].Visible = false;
-                DataRow[] Rows = DecorOrdersDataTable.Select("ProductID = " + DecorCatalogOrder.DecorProductsDataTable.Rows[i]["ProductID"].ToString());
+                var rows = DecorOrdersDataTable.Select("ProductID = " +
+                                                       _decorCatalogOrder.DecorProductsDataTable.Rows[i]["ProductID"]);
 
-                if (Rows.Count() == 0)
+                if (rows.Count() == 0)
                     continue;
-                bool ShowColor = false;
-                bool ShowPatina = false;
-                bool ShowII = false;
-                bool ShowIC = false;
-                bool ShowLength = false;
-                bool ShowHeight = false;
-                bool ShowWidth = false;
-                for (int r = 0; r < Rows.Count(); r++)
+                var showColor = false;
+                var showPatina = false;
+                var showIi = false;
+                var showIc = false;
+                var showLength = false;
+                var showHeight = false;
+                var showWidth = false;
+                for (var r = 0; r < rows.Count(); r++)
                 {
-                    if (!ShowColor)
-                        if (Convert.ToInt32(Rows[r]["ColorID"]) != -1)
-                            ShowColor = true;
-                    if (!ShowPatina)
-                        if (Convert.ToInt32(Rows[r]["PatinaID"]) != -1)
-                            ShowPatina = true;
-                    if (!ShowII)
-                        if (Convert.ToInt32(Rows[r]["InsetTypeID"]) != -1)
-                            ShowII = true;
-                    if (!ShowIC)
-                        if (Convert.ToInt32(Rows[r]["InsetColorID"]) != -1)
-                            ShowIC = true;
-                    if (!ShowLength)
-                        if (Convert.ToInt32(Rows[r]["Length"]) != -1)
-                            ShowLength = true;
-                    if (!ShowHeight)
-                        if (Convert.ToInt32(Rows[r]["Height"]) != -1)
-                            ShowHeight = true;
-                    if (!ShowWidth)
-                        if (Convert.ToInt32(Rows[r]["Width"]) != -1)
-                            ShowWidth = true;
-                    DecorItemOrdersDataTables[i].ImportRow(Rows[r]);
+                    if (!showColor)
+                        if (Convert.ToInt32(rows[r]["ColorID"]) != -1)
+                            showColor = true;
+                    if (!showPatina)
+                        if (Convert.ToInt32(rows[r]["PatinaID"]) != -1)
+                            showPatina = true;
+                    if (!showIi)
+                        if (Convert.ToInt32(rows[r]["InsetTypeID"]) != -1)
+                            showIi = true;
+                    if (!showIc)
+                        if (Convert.ToInt32(rows[r]["InsetColorID"]) != -1)
+                            showIc = true;
+                    if (!showLength)
+                        if (Convert.ToInt32(rows[r]["Length"]) != -1)
+                            showLength = true;
+                    if (!showHeight)
+                        if (Convert.ToInt32(rows[r]["Height"]) != -1)
+                            showHeight = true;
+                    if (!showWidth)
+                        if (Convert.ToInt32(rows[r]["Width"]) != -1)
+                            showWidth = true;
+                    DecorItemOrdersDataTables[i].ImportRow(rows[r]);
                 }
+
                 DecorItemOrdersDataGrids[i].Columns["ColorsColumn"].Visible = false;
                 DecorItemOrdersDataGrids[i].Columns["PatinaColumn"].Visible = false;
                 DecorItemOrdersDataGrids[i].Columns["InsetTypesColumn"].Visible = false;
@@ -2116,19 +2187,22 @@ namespace Infinium.Modules.ZOV.Samples
                 DecorItemOrdersDataGrids[i].Columns["Length"].Visible = false;
                 DecorItemOrdersDataGrids[i].Columns["Height"].Visible = false;
                 DecorItemOrdersDataGrids[i].Columns["Width"].Visible = false;
-                if (ShowColor)
+                DecorItemOrdersDataGrids[i].Columns["IsSample"].Visible = false;
+                DecorItemOrdersDataGrids[i].Columns["LeftAngle"].Visible = false;
+                DecorItemOrdersDataGrids[i].Columns["RightAngle"].Visible = false;
+                if (showColor)
                     DecorItemOrdersDataGrids[i].Columns["ColorsColumn"].Visible = true;
-                if (ShowPatina)
+                if (showPatina)
                     DecorItemOrdersDataGrids[i].Columns["PatinaColumn"].Visible = true;
-                if (ShowII)
+                if (showIi)
                     DecorItemOrdersDataGrids[i].Columns["InsetTypesColumn"].Visible = true;
-                if (ShowIC)
+                if (showIc)
                     DecorItemOrdersDataGrids[i].Columns["InsetColorsColumn"].Visible = true;
-                if (ShowLength)
+                if (showLength)
                     DecorItemOrdersDataGrids[i].Columns["Length"].Visible = true;
-                if (ShowHeight)
+                if (showHeight)
                     DecorItemOrdersDataGrids[i].Columns["Height"].Visible = true;
-                if (ShowWidth)
+                if (showWidth)
                     DecorItemOrdersDataGrids[i].Columns["Width"].Visible = true;
             }
 
@@ -2137,88 +2211,94 @@ namespace Infinium.Modules.ZOV.Samples
             return true;
         }
 
-        public bool Filter(int MainOrderID, int FactoryID)
+        public bool Filter(int mainOrderId, int factoryId)
         {
-            if (CurrentMainOrderID == MainOrderID)
+            if (_currentMainOrderId == mainOrderId)
                 return DecorOrdersDataTable.Rows.Count > 0;
 
-            CurrentMainOrderID = MainOrderID;
+            _currentMainOrderId = mainOrderId;
 
-            string FactoryFilter = "";
+            var factoryFilter = "";
 
-            if (FactoryID != 0)
-                FactoryFilter = " AND FactoryID = " + FactoryID;
+            if (factoryId != 0)
+                factoryFilter = " AND FactoryID = " + factoryId;
 
             DecorOrdersDataTable.Clear();
             DecorOrdersDataTable.AcceptChanges();
 
-            for (int i = 0; i < DecorCatalogOrder.DecorProductsCount; i++)
+            for (var i = 0; i < _decorCatalogOrder.DecorProductsCount; i++)
             {
                 DecorItemOrdersDataTables[i].Clear();
                 DecorItemOrdersDataTables[i].AcceptChanges();
-                DecorTabControl.TabPages[i].PageVisible = false;
+                _decorTabControl.TabPages[i].PageVisible = false;
             }
 
             DecorOrdersCommandBuilder.Dispose();
             DecorOrdersDataAdapter.Dispose();
 
-            DecorOrdersDataAdapter = new SqlDataAdapter("SELECT * FROM SampleDecorOrders WHERE MainOrderID = " + MainOrderID + FactoryFilter,
-                ConnectionStrings.ZOVOrdersConnectionString);
+            DecorOrdersDataAdapter = new SqlDataAdapter(
+                "SELECT * FROM SampleDecorOrders WHERE MainOrderID = " + mainOrderId + factoryFilter,
+                ConnectionStrings.MarketingOrdersConnectionString);
             DecorOrdersDataAdapter.Fill(DecorOrdersDataTable);
             DecorOrdersCommandBuilder = new SqlCommandBuilder(DecorOrdersDataAdapter);
 
             if (DecorOrdersDataTable.Rows.Count == 0)
                 return false;
 
-            for (int i = 0; i < DecorCatalogOrder.DecorProductsCount; i++)
+            for (var i = 0; i < _decorCatalogOrder.DecorProductsCount; i++)
             {
                 if (DecorItemOrdersDataGrids[i].Columns.Contains("CreateUserID"))
                     DecorItemOrdersDataGrids[i].Columns["CreateUserID"].Visible = false;
                 if (DecorItemOrdersDataGrids[i].Columns.Contains("CreateUserTypeID"))
                     DecorItemOrdersDataGrids[i].Columns["CreateUserTypeID"].Visible = false;
                 DecorItemOrdersDataGrids[i].Columns["DecorOrderID"].Visible = false;
-                DataRow[] Rows = DecorOrdersDataTable.Select("ProductID = " + DecorCatalogOrder.DecorProductsDataTable.Rows[i]["ProductID"].ToString());
+                var rows = DecorOrdersDataTable.Select("ProductID = " +
+                                                       _decorCatalogOrder.DecorProductsDataTable.Rows[i]["ProductID"]);
 
-                if (Rows.Count() == 0)
+                if (rows.Count() == 0)
                     continue;
-                bool ShowColor = false;
-                bool ShowPatina = false;
-                bool ShowLength = false;
-                bool ShowHeight = false;
-                bool ShowWidth = false;
-                for (int r = 0; r < Rows.Count(); r++)
+                var showColor = false;
+                var showPatina = false;
+                var showLength = false;
+                var showHeight = false;
+                var showWidth = false;
+                for (var r = 0; r < rows.Count(); r++)
                 {
-                    if (!ShowColor)
-                        if (Convert.ToInt32(Rows[r]["ColorID"]) != -1)
-                            ShowColor = true;
-                    if (!ShowPatina)
-                        if (Convert.ToInt32(Rows[r]["PatinaID"]) != -1)
-                            ShowPatina = true;
-                    if (!ShowLength)
-                        if (Convert.ToInt32(Rows[r]["Length"]) != -1)
-                            ShowLength = true;
-                    if (!ShowHeight)
-                        if (Convert.ToInt32(Rows[r]["Height"]) != -1)
-                            ShowHeight = true;
-                    if (!ShowWidth)
-                        if (Convert.ToInt32(Rows[r]["Width"]) != -1)
-                            ShowWidth = true;
-                    DecorItemOrdersDataTables[i].ImportRow(Rows[r]);
+                    if (!showColor)
+                        if (Convert.ToInt32(rows[r]["ColorID"]) != -1)
+                            showColor = true;
+                    if (!showPatina)
+                        if (Convert.ToInt32(rows[r]["PatinaID"]) != -1)
+                            showPatina = true;
+                    if (!showLength)
+                        if (Convert.ToInt32(rows[r]["Length"]) != -1)
+                            showLength = true;
+                    if (!showHeight)
+                        if (Convert.ToInt32(rows[r]["Height"]) != -1)
+                            showHeight = true;
+                    if (!showWidth)
+                        if (Convert.ToInt32(rows[r]["Width"]) != -1)
+                            showWidth = true;
+                    DecorItemOrdersDataTables[i].ImportRow(rows[r]);
                 }
+
                 DecorItemOrdersDataGrids[i].Columns["ColorsColumn"].Visible = false;
                 DecorItemOrdersDataGrids[i].Columns["PatinaColumn"].Visible = false;
                 DecorItemOrdersDataGrids[i].Columns["Length"].Visible = false;
                 DecorItemOrdersDataGrids[i].Columns["Height"].Visible = false;
                 DecorItemOrdersDataGrids[i].Columns["Width"].Visible = false;
-                if (ShowColor)
+                DecorItemOrdersDataGrids[i].Columns["IsSample"].Visible = false;
+                DecorItemOrdersDataGrids[i].Columns["LeftAngle"].Visible = false;
+                DecorItemOrdersDataGrids[i].Columns["RightAngle"].Visible = false;
+                if (showColor)
                     DecorItemOrdersDataGrids[i].Columns["ColorsColumn"].Visible = true;
-                if (ShowPatina)
+                if (showPatina)
                     DecorItemOrdersDataGrids[i].Columns["PatinaColumn"].Visible = true;
-                if (ShowLength)
+                if (showLength)
                     DecorItemOrdersDataGrids[i].Columns["Length"].Visible = true;
-                if (ShowHeight)
+                if (showHeight)
                     DecorItemOrdersDataGrids[i].Columns["Height"].Visible = true;
-                if (ShowWidth)
+                if (showWidth)
                     DecorItemOrdersDataGrids[i].Columns["Width"].Visible = true;
             }
 
@@ -2231,496 +2311,510 @@ namespace Infinium.Modules.ZOV.Samples
 
     public class MFrontsOrders
     {
-        private PercentageDataGrid FrontsOrdersDataGrid = null;
+        private int _currentMainOrderId = -1;
+        private BindingSource _frameColorsBindingSource;
+        private DataGridViewComboBoxColumn _frameColorsColumn;
+        private DataTable _frameColorsDataTable;
+        private BindingSource _frontsBindingSource;
 
-        int CurrentMainOrderID = -1;
+        private DataGridViewComboBoxColumn _frontsColumn;
+        private DataTable _frontsDataTable;
+        private readonly PercentageDataGrid _frontsOrdersDataGrid;
+        private BindingSource _insetColorsBindingSource;
+        private DataGridViewComboBoxColumn _insetColorsColumn;
+        private DataTable _insetColorsDataTable;
+        private BindingSource _insetTypesBindingSource;
+        private DataGridViewComboBoxColumn _insetTypesColumn;
+        private DataTable _insetTypesDataTable;
+        private BindingSource _patinaBindingSource;
+        private DataGridViewComboBoxColumn _patinaColumn;
+        private DataTable _patinaDataTable;
+        private DataTable _patinaRalDataTable;
+        private BindingSource _technoFrameColorsBindingSource;
+        private DataGridViewComboBoxColumn _technoFrameColorsColumn;
+        private BindingSource _technoInsetColorsBindingSource;
+        private DataGridViewComboBoxColumn _technoInsetColorsColumn;
+        private DataTable _technoInsetColorsDataTable;
+        private BindingSource _technoInsetTypesBindingSource;
+        private DataGridViewComboBoxColumn _technoInsetTypesColumn;
+        private DataTable _technoInsetTypesDataTable;
+        private DataGridViewComboBoxColumn _technoProfilesColumn;
+        private DataTable _technoProfilesDataTable;
 
-        public DataTable FrontsOrdersDataTable = null;
-        private DataTable FrontsDataTable = null;
-        private DataTable FrameColorsDataTable = null;
-        private DataTable PatinaDataTable = null;
-        private DataTable PatinaRALDataTable = null;
-        private DataTable InsetTypesDataTable = null;
-        private DataTable InsetColorsDataTable = null;
-        private DataTable TechnoInsetTypesDataTable = null;
-        private DataTable TechnoInsetColorsDataTable = null;
-        private DataTable TechnoProfilesDataTable = null;
+        public BindingSource FrontsOrdersBindingSource;
 
-        public BindingSource FrontsOrdersBindingSource = null;
-        private BindingSource FrontsBindingSource = null;
-        private BindingSource FrameColorsBindingSource = null;
-        private BindingSource PatinaBindingSource = null;
-        private BindingSource InsetTypesBindingSource = null;
-        private BindingSource InsetColorsBindingSource = null;
-        private BindingSource TechnoFrameColorsBindingSource = null;
-        private BindingSource TechnoInsetTypesBindingSource = null;
-        private BindingSource TechnoInsetColorsBindingSource = null;
-
-        private DataGridViewComboBoxColumn FrontsColumn = null;
-        private DataGridViewComboBoxColumn FrameColorsColumn = null;
-        private DataGridViewComboBoxColumn PatinaColumn = null;
-        private DataGridViewComboBoxColumn InsetTypesColumn = null;
-        private DataGridViewComboBoxColumn InsetColorsColumn = null;
-        private DataGridViewComboBoxColumn TechnoProfilesColumn = null;
-        private DataGridViewComboBoxColumn TechnoFrameColorsColumn = null;
-        private DataGridViewComboBoxColumn TechnoInsetTypesColumn = null;
-        private DataGridViewComboBoxColumn TechnoInsetColorsColumn = null;
+        public DataTable FrontsOrdersDataTable;
 
         public MFrontsOrders(ref PercentageDataGrid tMainOrdersFrontsOrdersDataGrid)
         {
-            FrontsOrdersDataGrid = tMainOrdersFrontsOrdersDataGrid;
+            _frontsOrdersDataGrid = tMainOrdersFrontsOrdersDataGrid;
         }
 
         private void Create()
         {
             FrontsOrdersDataTable = new DataTable();
 
-            FrontsDataTable = new DataTable();
-            FrameColorsDataTable = new DataTable();
-            PatinaDataTable = new DataTable();
-            InsetTypesDataTable = new DataTable();
-            InsetColorsDataTable = new DataTable();
-            TechnoInsetTypesDataTable = new DataTable();
-            TechnoInsetColorsDataTable = new DataTable();
+            _frontsDataTable = new DataTable();
+            _frameColorsDataTable = new DataTable();
+            _patinaDataTable = new DataTable();
+            _insetTypesDataTable = new DataTable();
+            _insetColorsDataTable = new DataTable();
+            _technoInsetTypesDataTable = new DataTable();
+            _technoInsetColorsDataTable = new DataTable();
 
             FrontsOrdersBindingSource = new BindingSource();
-            FrontsBindingSource = new BindingSource();
-            FrameColorsBindingSource = new BindingSource();
-            PatinaBindingSource = new BindingSource();
-            InsetTypesBindingSource = new BindingSource();
-            InsetColorsBindingSource = new BindingSource();
-            TechnoFrameColorsBindingSource = new BindingSource();
-            TechnoInsetTypesBindingSource = new BindingSource();
-            TechnoInsetColorsBindingSource = new BindingSource();
+            _frontsBindingSource = new BindingSource();
+            _frameColorsBindingSource = new BindingSource();
+            _patinaBindingSource = new BindingSource();
+            _insetTypesBindingSource = new BindingSource();
+            _insetColorsBindingSource = new BindingSource();
+            _technoFrameColorsBindingSource = new BindingSource();
+            _technoInsetTypesBindingSource = new BindingSource();
+            _technoInsetColorsBindingSource = new BindingSource();
         }
 
-        private void GetColorsDT()
+        private void GetColorsDt()
         {
-            FrameColorsDataTable = new DataTable();
-            FrameColorsDataTable.Columns.Add(new DataColumn("ColorID", Type.GetType("System.Int64")));
-            FrameColorsDataTable.Columns.Add(new DataColumn("ColorName", Type.GetType("System.String")));
-            string SelectCommand = @"SELECT TechStoreID, TechStoreName FROM TechStore
+            _frameColorsDataTable = new DataTable();
+            _frameColorsDataTable.Columns.Add(new DataColumn("ColorID", Type.GetType("System.Int64")));
+            _frameColorsDataTable.Columns.Add(new DataColumn("ColorName", Type.GetType("System.String")));
+            var selectCommand = @"SELECT TechStoreID, TechStoreName FROM TechStore
                 WHERE TechStoreSubGroupID IN (SELECT TechStoreSubGroupID FROM TechStoreSubGroups WHERE TechStoreGroupID = 11)
                 ORDER BY TechStoreName";
-            using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.CatalogConnectionString))
+            using (var da = new SqlDataAdapter(selectCommand, ConnectionStrings.CatalogConnectionString))
             {
-                using (DataTable DT = new DataTable())
+                using (var dt = new DataTable())
                 {
-                    DA.Fill(DT);
+                    da.Fill(dt);
                     {
-                        DataRow NewRow = FrameColorsDataTable.NewRow();
-                        NewRow["ColorID"] = -1;
-                        NewRow["ColorName"] = "-";
-                        FrameColorsDataTable.Rows.Add(NewRow);
+                        var newRow = _frameColorsDataTable.NewRow();
+                        newRow["ColorID"] = -1;
+                        newRow["ColorName"] = "-";
+                        _frameColorsDataTable.Rows.Add(newRow);
                     }
                     {
-                        DataRow NewRow = FrameColorsDataTable.NewRow();
-                        NewRow["ColorID"] = 0;
-                        NewRow["ColorName"] = "на выбор";
-                        FrameColorsDataTable.Rows.Add(NewRow);
+                        var newRow = _frameColorsDataTable.NewRow();
+                        newRow["ColorID"] = 0;
+                        newRow["ColorName"] = "на выбор";
+                        _frameColorsDataTable.Rows.Add(newRow);
                     }
-                    for (int i = 0; i < DT.Rows.Count; i++)
+                    for (var i = 0; i < dt.Rows.Count; i++)
                     {
-                        DataRow NewRow = FrameColorsDataTable.NewRow();
-                        NewRow["ColorID"] = Convert.ToInt64(DT.Rows[i]["TechStoreID"]);
-                        NewRow["ColorName"] = DT.Rows[i]["TechStoreName"].ToString();
-                        FrameColorsDataTable.Rows.Add(NewRow);
+                        var newRow = _frameColorsDataTable.NewRow();
+                        newRow["ColorID"] = Convert.ToInt64(dt.Rows[i]["TechStoreID"]);
+                        newRow["ColorName"] = dt.Rows[i]["TechStoreName"].ToString();
+                        _frameColorsDataTable.Rows.Add(newRow);
                     }
                 }
             }
         }
 
-        private void GetInsetColorsDT()
+        private void GetInsetColorsDt()
         {
-            InsetColorsDataTable = new DataTable();
-            using (SqlDataAdapter DA = new SqlDataAdapter("SELECT InsetColors.InsetColorID, InsetColors.GroupID, infiniu2_catalog.dbo.TechStore.TechStoreName AS InsetColorName FROM InsetColors" +
-                " INNER JOIN infiniu2_catalog.dbo.TechStore ON InsetColors.InsetColorID = infiniu2_catalog.dbo.TechStore.TechStoreID ORDER BY TechStoreName", ConnectionStrings.CatalogConnectionString))
+            _insetColorsDataTable = new DataTable();
+            using (var da = new SqlDataAdapter(
+                "SELECT InsetColors.InsetColorID, InsetColors.GroupID, infiniu2_catalog.dbo.TechStore.TechStoreName AS InsetColorName FROM InsetColors" +
+                " INNER JOIN infiniu2_catalog.dbo.TechStore ON InsetColors.InsetColorID = infiniu2_catalog.dbo.TechStore.TechStoreID ORDER BY TechStoreName",
+                ConnectionStrings.CatalogConnectionString))
             {
-                DA.Fill(InsetColorsDataTable);
+                da.Fill(_insetColorsDataTable);
                 {
-                    DataRow NewRow = InsetColorsDataTable.NewRow();
-                    NewRow["InsetColorID"] = -1;
-                    NewRow["GroupID"] = -1;
-                    NewRow["InsetColorName"] = "-";
-                    InsetColorsDataTable.Rows.Add(NewRow);
+                    var newRow = _insetColorsDataTable.NewRow();
+                    newRow["InsetColorID"] = -1;
+                    newRow["GroupID"] = -1;
+                    newRow["InsetColorName"] = "-";
+                    _insetColorsDataTable.Rows.Add(newRow);
                 }
                 {
-                    DataRow NewRow = InsetColorsDataTable.NewRow();
-                    NewRow["InsetColorID"] = 0;
-                    NewRow["GroupID"] = -1;
-                    NewRow["InsetColorName"] = "на выбор";
-                    InsetColorsDataTable.Rows.Add(NewRow);
+                    var newRow = _insetColorsDataTable.NewRow();
+                    newRow["InsetColorID"] = 0;
+                    newRow["GroupID"] = -1;
+                    newRow["InsetColorName"] = "на выбор";
+                    _insetColorsDataTable.Rows.Add(newRow);
                 }
-
             }
-
         }
 
         private void Fill()
         {
-            string SelectCommand = @"SELECT TechStoreID AS FrontID, TechStoreName AS FrontName FROM TechStore 
+            var selectCommand = @"SELECT TechStoreID AS FrontID, TechStoreName AS FrontName FROM TechStore 
                 WHERE TechStoreID IN (SELECT FrontID FROM FrontsConfig WHERE Enabled = 1)
                 ORDER BY TechStoreName";
-            using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.CatalogConnectionString))
+            using (var da = new SqlDataAdapter(selectCommand, ConnectionStrings.CatalogConnectionString))
             {
-                DA.Fill(FrontsDataTable);
+                da.Fill(_frontsDataTable);
             }
-            SelectCommand = @"SELECT DISTINCT TechStoreID AS TechnoProfileID, TechStoreName AS TechnoProfileName FROM TechStore 
+
+            selectCommand =
+                @"SELECT DISTINCT TechStoreID AS TechnoProfileID, TechStoreName AS TechnoProfileName FROM TechStore 
                 WHERE TechStoreID IN (SELECT TechnoProfileID FROM FrontsConfig WHERE Enabled = 1 AND AccountingName IS NOT NULL AND InvNumber IS NOT NULL)
                 ORDER BY TechStoreName";
-            using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.CatalogConnectionString))
+            using (var da = new SqlDataAdapter(selectCommand, ConnectionStrings.CatalogConnectionString))
             {
-                TechnoProfilesDataTable = new DataTable();
-                DA.Fill(TechnoProfilesDataTable);
+                _technoProfilesDataTable = new DataTable();
+                da.Fill(_technoProfilesDataTable);
 
-                DataRow NewRow = TechnoProfilesDataTable.NewRow();
-                NewRow["TechnoProfileID"] = -1;
-                NewRow["TechnoProfileName"] = "-";
-                TechnoProfilesDataTable.Rows.InsertAt(NewRow, 0);
+                var newRow = _technoProfilesDataTable.NewRow();
+                newRow["TechnoProfileID"] = -1;
+                newRow["TechnoProfileName"] = "-";
+                _technoProfilesDataTable.Rows.InsertAt(newRow, 0);
             }
-            SelectCommand = @"SELECT DISTINCT TechStoreID AS TechnoProfileID, TechStoreName AS TechnoProfileName FROM TechStore 
+
+            selectCommand =
+                @"SELECT DISTINCT TechStoreID AS TechnoProfileID, TechStoreName AS TechnoProfileName FROM TechStore 
                 WHERE TechStoreID IN (SELECT TechnoProfileID FROM FrontsConfig WHERE Enabled = 1 AND AccountingName IS NOT NULL AND InvNumber IS NOT NULL)
                 ORDER BY TechStoreName";
-            using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.CatalogConnectionString))
+            using (var da = new SqlDataAdapter(selectCommand, ConnectionStrings.CatalogConnectionString))
             {
-                TechnoProfilesDataTable = new DataTable();
-                DA.Fill(TechnoProfilesDataTable);
+                _technoProfilesDataTable = new DataTable();
+                da.Fill(_technoProfilesDataTable);
 
-                DataRow NewRow = TechnoProfilesDataTable.NewRow();
-                NewRow["TechnoProfileID"] = -1;
-                NewRow["TechnoProfileName"] = "-";
-                TechnoProfilesDataTable.Rows.InsertAt(NewRow, 0);
+                var newRow = _technoProfilesDataTable.NewRow();
+                newRow["TechnoProfileID"] = -1;
+                newRow["TechnoProfileName"] = "-";
+                _technoProfilesDataTable.Rows.InsertAt(newRow, 0);
             }
 
-            GetColorsDT();
-            GetInsetColorsDT();
-            using (SqlDataAdapter DA = new SqlDataAdapter("SELECT * FROM Patina",
+            GetColorsDt();
+            GetInsetColorsDt();
+            using (var da = new SqlDataAdapter("SELECT * FROM Patina",
                 ConnectionStrings.CatalogConnectionString))
             {
-                DA.Fill(PatinaDataTable);
+                da.Fill(_patinaDataTable);
             }
-            PatinaRALDataTable = new DataTable();
-            using (SqlDataAdapter DA = new SqlDataAdapter("SELECT * FROM PatinaRAL WHERE Enabled=1",
-                ConnectionStrings.CatalogConnectionString))
-            {
-                DA.Fill(PatinaRALDataTable);
-            }
-            foreach (DataRow item in PatinaRALDataTable.Rows)
-            {
-                DataRow NewRow = PatinaDataTable.NewRow();
-                NewRow["PatinaID"] = item["PatinaRALID"];
-                NewRow["PatinaName"] = item["PatinaRAL"];
-                NewRow["DisplayName"] = item["DisplayName"];
-                PatinaDataTable.Rows.Add(NewRow);
-            }
-            using (SqlDataAdapter DA = new SqlDataAdapter("SELECT * FROM InsetTypes",
-                ConnectionStrings.CatalogConnectionString))
-            {
-                DA.Fill(InsetTypesDataTable);
-            }
-            TechnoInsetTypesDataTable = InsetTypesDataTable.Copy();
-            TechnoInsetColorsDataTable = InsetColorsDataTable.Copy();
 
-            using (SqlDataAdapter DA = new SqlDataAdapter("SELECT TOP 0 * FROM SampleFrontsOrders", ConnectionStrings.MarketingOrdersConnectionString))
+            _patinaRalDataTable = new DataTable();
+            using (var da = new SqlDataAdapter("SELECT * FROM PatinaRAL WHERE Enabled=1",
+                ConnectionStrings.CatalogConnectionString))
             {
-                DA.Fill(FrontsOrdersDataTable);
+                da.Fill(_patinaRalDataTable);
+            }
+
+            foreach (DataRow item in _patinaRalDataTable.Rows)
+            {
+                var newRow = _patinaDataTable.NewRow();
+                newRow["PatinaID"] = item["PatinaRALID"];
+                newRow["PatinaName"] = item["PatinaRAL"];
+                newRow["DisplayName"] = item["DisplayName"];
+                _patinaDataTable.Rows.Add(newRow);
+            }
+
+            using (var da = new SqlDataAdapter("SELECT * FROM InsetTypes",
+                ConnectionStrings.CatalogConnectionString))
+            {
+                da.Fill(_insetTypesDataTable);
+            }
+
+            _technoInsetTypesDataTable = _insetTypesDataTable.Copy();
+            _technoInsetColorsDataTable = _insetColorsDataTable.Copy();
+
+            using (var da = new SqlDataAdapter("SELECT TOP 0 * FROM SampleFrontsOrders",
+                ConnectionStrings.MarketingOrdersConnectionString))
+            {
+                da.Fill(FrontsOrdersDataTable);
             }
         }
 
         private void Binding()
         {
             FrontsOrdersBindingSource.DataSource = FrontsOrdersDataTable;
-            FrontsBindingSource.DataSource = FrontsDataTable;
-            FrameColorsBindingSource.DataSource = new DataView(FrameColorsDataTable);
-            PatinaBindingSource.DataSource = PatinaDataTable;
-            InsetTypesBindingSource.DataSource = InsetTypesDataTable;
-            InsetColorsBindingSource.DataSource = InsetColorsDataTable;
-            TechnoFrameColorsBindingSource.DataSource = new DataView(FrameColorsDataTable);
-            TechnoInsetTypesBindingSource.DataSource = TechnoInsetTypesDataTable;
-            TechnoInsetColorsBindingSource.DataSource = TechnoInsetColorsDataTable;
+            _frontsBindingSource.DataSource = _frontsDataTable;
+            _frameColorsBindingSource.DataSource = new DataView(_frameColorsDataTable);
+            _patinaBindingSource.DataSource = _patinaDataTable;
+            _insetTypesBindingSource.DataSource = _insetTypesDataTable;
+            _insetColorsBindingSource.DataSource = _insetColorsDataTable;
+            _technoFrameColorsBindingSource.DataSource = new DataView(_frameColorsDataTable);
+            _technoInsetTypesBindingSource.DataSource = _technoInsetTypesDataTable;
+            _technoInsetColorsBindingSource.DataSource = _technoInsetColorsDataTable;
 
-            FrontsOrdersDataGrid.DataSource = FrontsOrdersBindingSource;
+            _frontsOrdersDataGrid.DataSource = FrontsOrdersBindingSource;
         }
 
-        private void CreateColumns(bool ShowPrice)
+        private void CreateColumns(bool showPrice)
         {
-            if (FrontsColumn != null)
+            if (_frontsColumn != null)
                 return;
 
             //создание столбцов
-            FrontsColumn = new DataGridViewComboBoxColumn()
+            _frontsColumn = new DataGridViewComboBoxColumn
             {
                 Name = "FrontsColumn",
                 HeaderText = "Фасад",
                 DataPropertyName = "FrontID",
-                DataSource = FrontsBindingSource,
+                DataSource = _frontsBindingSource,
                 ValueMember = "FrontID",
                 DisplayMember = "FrontName",
                 DisplayStyle = DataGridViewComboBoxDisplayStyle.Nothing
             };
-            FrameColorsColumn = new DataGridViewComboBoxColumn()
+            _frameColorsColumn = new DataGridViewComboBoxColumn
             {
                 Name = "FrameColorsColumn",
                 HeaderText = "Цвет\r\nпрофиля",
                 DataPropertyName = "ColorID",
-                DataSource = FrameColorsBindingSource,
+                DataSource = _frameColorsBindingSource,
                 ValueMember = "ColorID",
                 DisplayMember = "ColorName",
                 DisplayStyle = DataGridViewComboBoxDisplayStyle.Nothing
             };
-            PatinaColumn = new DataGridViewComboBoxColumn()
+            _patinaColumn = new DataGridViewComboBoxColumn
             {
                 Name = "PatinaColumn",
                 HeaderText = "Патина",
                 DataPropertyName = "PatinaID",
-                DataSource = PatinaBindingSource,
+                DataSource = _patinaBindingSource,
                 ValueMember = "PatinaID",
                 DisplayMember = "PatinaName",
                 DisplayStyle = DataGridViewComboBoxDisplayStyle.Nothing
             };
-            InsetTypesColumn = new DataGridViewComboBoxColumn()
+            _insetTypesColumn = new DataGridViewComboBoxColumn
             {
                 Name = "InsetTypesColumn",
                 HeaderText = "Тип\r\nнаполнителя",
                 DataPropertyName = "InsetTypeID",
-                DataSource = InsetTypesBindingSource,
+                DataSource = _insetTypesBindingSource,
                 ValueMember = "InsetTypeID",
                 DisplayMember = "InsetTypeName",
                 DisplayStyle = DataGridViewComboBoxDisplayStyle.Nothing
             };
-            InsetColorsColumn = new DataGridViewComboBoxColumn()
+            _insetColorsColumn = new DataGridViewComboBoxColumn
             {
                 Name = "InsetColorsColumn",
                 HeaderText = "Цвет\r\nнаполнителя",
                 DataPropertyName = "InsetColorID",
-                DataSource = InsetColorsBindingSource,
+                DataSource = _insetColorsBindingSource,
                 ValueMember = "InsetColorID",
                 DisplayMember = "InsetColorName",
                 DisplayStyle = DataGridViewComboBoxDisplayStyle.Nothing
             };
-            TechnoProfilesColumn = new DataGridViewComboBoxColumn()
+            _technoProfilesColumn = new DataGridViewComboBoxColumn
             {
                 Name = "TechnoProfilesColumn",
                 HeaderText = "Тип\r\nпрофиля-2",
                 DataPropertyName = "TechnoProfileID",
-                DataSource = new DataView(TechnoProfilesDataTable),
+                DataSource = new DataView(_technoProfilesDataTable),
                 ValueMember = "TechnoProfileID",
                 DisplayMember = "TechnoProfileName",
                 DisplayStyle = DataGridViewComboBoxDisplayStyle.Nothing
             };
-            TechnoFrameColorsColumn = new DataGridViewComboBoxColumn()
+            _technoFrameColorsColumn = new DataGridViewComboBoxColumn
             {
                 Name = "TechnoFrameColorsColumn",
                 HeaderText = "Цвет профиля-2",
                 DataPropertyName = "TechnoColorID",
-                DataSource = TechnoFrameColorsBindingSource,
+                DataSource = _technoFrameColorsBindingSource,
                 ValueMember = "ColorID",
                 DisplayMember = "ColorName",
                 DisplayStyle = DataGridViewComboBoxDisplayStyle.Nothing
             };
-            TechnoInsetTypesColumn = new DataGridViewComboBoxColumn()
+            _technoInsetTypesColumn = new DataGridViewComboBoxColumn
             {
                 Name = "TechnoInsetTypesColumn",
                 HeaderText = "Тип наполнителя-2",
                 DataPropertyName = "TechnoInsetTypeID",
-                DataSource = TechnoInsetTypesBindingSource,
+                DataSource = _technoInsetTypesBindingSource,
                 ValueMember = "InsetTypeID",
                 DisplayMember = "InsetTypeName",
                 DisplayStyle = DataGridViewComboBoxDisplayStyle.Nothing
             };
-            TechnoInsetColorsColumn = new DataGridViewComboBoxColumn()
+            _technoInsetColorsColumn = new DataGridViewComboBoxColumn
             {
                 Name = "TechnoInsetColorsColumn",
                 HeaderText = "Цвет наполнителя-2",
                 DataPropertyName = "TechnoInsetColorID",
-                DataSource = TechnoInsetColorsBindingSource,
+                DataSource = _technoInsetColorsBindingSource,
                 ValueMember = "InsetColorID",
                 DisplayMember = "InsetColorName",
                 DisplayStyle = DataGridViewComboBoxDisplayStyle.Nothing
             };
-            FrontsOrdersDataGrid.AutoGenerateColumns = false;
+            _frontsOrdersDataGrid.AutoGenerateColumns = false;
 
             //добавление столбцов
-            FrontsOrdersDataGrid.Columns.Add(FrontsColumn);
-            FrontsOrdersDataGrid.Columns.Add(FrameColorsColumn);
-            FrontsOrdersDataGrid.Columns.Add(PatinaColumn);
-            FrontsOrdersDataGrid.Columns.Add(InsetTypesColumn);
-            FrontsOrdersDataGrid.Columns.Add(InsetColorsColumn);
-            FrontsOrdersDataGrid.Columns.Add(TechnoProfilesColumn);
-            FrontsOrdersDataGrid.Columns.Add(TechnoFrameColorsColumn);
-            FrontsOrdersDataGrid.Columns.Add(TechnoInsetTypesColumn);
-            FrontsOrdersDataGrid.Columns.Add(TechnoInsetColorsColumn);
+            _frontsOrdersDataGrid.Columns.Add(_frontsColumn);
+            _frontsOrdersDataGrid.Columns.Add(_frameColorsColumn);
+            _frontsOrdersDataGrid.Columns.Add(_patinaColumn);
+            _frontsOrdersDataGrid.Columns.Add(_insetTypesColumn);
+            _frontsOrdersDataGrid.Columns.Add(_insetColorsColumn);
+            _frontsOrdersDataGrid.Columns.Add(_technoProfilesColumn);
+            _frontsOrdersDataGrid.Columns.Add(_technoFrameColorsColumn);
+            _frontsOrdersDataGrid.Columns.Add(_technoInsetTypesColumn);
+            _frontsOrdersDataGrid.Columns.Add(_technoInsetColorsColumn);
 
             //убирание лишних столбцов
-            if (FrontsOrdersDataGrid.Columns.Contains("ImpostMargin"))
-                FrontsOrdersDataGrid.Columns["ImpostMargin"].Visible = false;
-            if (FrontsOrdersDataGrid.Columns.Contains("NeedCalcPrice"))
-                FrontsOrdersDataGrid.Columns["NeedCalcPrice"].Visible = false;
-            if (FrontsOrdersDataGrid.Columns.Contains("AreaID"))
-                FrontsOrdersDataGrid.Columns["AreaID"].Visible = false;
-            if (FrontsOrdersDataGrid.Columns.Contains("CreateDateTime"))
+            if (_frontsOrdersDataGrid.Columns.Contains("ImpostMargin"))
+                _frontsOrdersDataGrid.Columns["ImpostMargin"].Visible = false;
+            if (_frontsOrdersDataGrid.Columns.Contains("NeedCalcPrice"))
+                _frontsOrdersDataGrid.Columns["NeedCalcPrice"].Visible = false;
+            if (_frontsOrdersDataGrid.Columns.Contains("AreaID"))
+                _frontsOrdersDataGrid.Columns["AreaID"].Visible = false;
+            if (_frontsOrdersDataGrid.Columns.Contains("CreateDateTime"))
             {
-                FrontsOrdersDataGrid.Columns["CreateDateTime"].HeaderText = "Добавлено";
-                FrontsOrdersDataGrid.Columns["CreateDateTime"].DefaultCellStyle.Format = "dd.MM.yyyy HH:mm";
-                FrontsOrdersDataGrid.Columns["CreateDateTime"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-                FrontsOrdersDataGrid.Columns["CreateDateTime"].Width = 100;
+                _frontsOrdersDataGrid.Columns["CreateDateTime"].HeaderText = "Добавлено";
+                _frontsOrdersDataGrid.Columns["CreateDateTime"].DefaultCellStyle.Format = "dd.MM.yyyy HH:mm";
+                _frontsOrdersDataGrid.Columns["CreateDateTime"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+                _frontsOrdersDataGrid.Columns["CreateDateTime"].Width = 100;
             }
-            if (FrontsOrdersDataGrid.Columns.Contains("CreateUserID"))
-                FrontsOrdersDataGrid.Columns["CreateUserID"].Visible = false;
-            if (FrontsOrdersDataGrid.Columns.Contains("CreateUserTypeID"))
-                FrontsOrdersDataGrid.Columns["CreateUserTypeID"].Visible = false;
-            FrontsOrdersDataGrid.Columns["CupboardString"].Visible = false;
-            FrontsOrdersDataGrid.Columns["FrontsOrdersID"].Visible = false;
-            FrontsOrdersDataGrid.Columns["MainOrderID"].Visible = false;
-            FrontsOrdersDataGrid.Columns["FrontID"].Visible = false;
-            FrontsOrdersDataGrid.Columns["ColorID"].Visible = false;
-            FrontsOrdersDataGrid.Columns["PatinaID"].Visible = false;
-            FrontsOrdersDataGrid.Columns["InsetTypeID"].Visible = false;
-            FrontsOrdersDataGrid.Columns["InsetColorID"].Visible = false;
-            FrontsOrdersDataGrid.Columns["TechnoProfileID"].Visible = false;
-            FrontsOrdersDataGrid.Columns["TechnoColorID"].Visible = false;
-            FrontsOrdersDataGrid.Columns["TechnoInsetTypeID"].Visible = false;
-            FrontsOrdersDataGrid.Columns["TechnoInsetColorID"].Visible = false;
-            FrontsOrdersDataGrid.Columns["FactoryID"].Visible = false;
-            FrontsOrdersDataGrid.Columns["ItemWeight"].Visible = false;
-            FrontsOrdersDataGrid.Columns["Weight"].Visible = false;
-            FrontsOrdersDataGrid.Columns["FrontConfigID"].Visible = false;
-            FrontsOrdersDataGrid.Columns["CurrencyTypeID"].Visible = false;
-            FrontsOrdersDataGrid.Columns["CurrencyCost"].Visible = false;
-            if (FrontsOrdersDataGrid.Columns.Contains("OriginalInsetPrice"))
-                FrontsOrdersDataGrid.Columns["OriginalInsetPrice"].Visible = false;
 
-            if (!Security.PriceAccess || !ShowPrice)
+            if (_frontsOrdersDataGrid.Columns.Contains("CreateUserID"))
+                _frontsOrdersDataGrid.Columns["CreateUserID"].Visible = false;
+            if (_frontsOrdersDataGrid.Columns.Contains("CreateUserTypeID"))
+                _frontsOrdersDataGrid.Columns["CreateUserTypeID"].Visible = false;
+            _frontsOrdersDataGrid.Columns["CupboardString"].Visible = false;
+            _frontsOrdersDataGrid.Columns["FrontsOrdersID"].Visible = false;
+            _frontsOrdersDataGrid.Columns["MainOrderID"].Visible = false;
+            _frontsOrdersDataGrid.Columns["FrontID"].Visible = false;
+            _frontsOrdersDataGrid.Columns["ColorID"].Visible = false;
+            _frontsOrdersDataGrid.Columns["PatinaID"].Visible = false;
+            _frontsOrdersDataGrid.Columns["InsetTypeID"].Visible = false;
+            _frontsOrdersDataGrid.Columns["InsetColorID"].Visible = false;
+            _frontsOrdersDataGrid.Columns["TechnoProfileID"].Visible = false;
+            _frontsOrdersDataGrid.Columns["TechnoColorID"].Visible = false;
+            _frontsOrdersDataGrid.Columns["TechnoInsetTypeID"].Visible = false;
+            _frontsOrdersDataGrid.Columns["TechnoInsetColorID"].Visible = false;
+            _frontsOrdersDataGrid.Columns["FactoryID"].Visible = false;
+            _frontsOrdersDataGrid.Columns["ItemWeight"].Visible = false;
+            _frontsOrdersDataGrid.Columns["Weight"].Visible = false;
+            _frontsOrdersDataGrid.Columns["FrontConfigID"].Visible = false;
+            _frontsOrdersDataGrid.Columns["CurrencyTypeID"].Visible = false;
+            _frontsOrdersDataGrid.Columns["CurrencyCost"].Visible = false;
+            if (_frontsOrdersDataGrid.Columns.Contains("OriginalInsetPrice"))
+                _frontsOrdersDataGrid.Columns["OriginalInsetPrice"].Visible = false;
+
+            if (!Security.PriceAccess || !showPrice)
             {
-                FrontsOrdersDataGrid.Columns["FrontPrice"].Visible = false;
-                FrontsOrdersDataGrid.Columns["InsetPrice"].Visible = false;
-                FrontsOrdersDataGrid.Columns["TotalDiscount"].Visible = false;
-                FrontsOrdersDataGrid.Columns["Cost"].Visible = false;
-                FrontsOrdersDataGrid.Columns["OriginalPrice"].Visible = false;
-                FrontsOrdersDataGrid.Columns["OriginalCost"].Visible = false;
-                FrontsOrdersDataGrid.Columns["CostWithTransport"].Visible = false;
-                FrontsOrdersDataGrid.Columns["PriceWithTransport"].Visible = false;
+                _frontsOrdersDataGrid.Columns["FrontPrice"].Visible = false;
+                _frontsOrdersDataGrid.Columns["InsetPrice"].Visible = false;
+                _frontsOrdersDataGrid.Columns["TotalDiscount"].Visible = false;
+                _frontsOrdersDataGrid.Columns["Cost"].Visible = false;
+                _frontsOrdersDataGrid.Columns["OriginalPrice"].Visible = false;
+                _frontsOrdersDataGrid.Columns["OriginalCost"].Visible = false;
+                _frontsOrdersDataGrid.Columns["CostWithTransport"].Visible = false;
+                _frontsOrdersDataGrid.Columns["PriceWithTransport"].Visible = false;
             }
-            int DisplayIndex = 0;
-            FrontsOrdersDataGrid.Columns["FrontsColumn"].DisplayIndex = DisplayIndex++;
-            FrontsOrdersDataGrid.Columns["FrameColorsColumn"].DisplayIndex = DisplayIndex++;
-            FrontsOrdersDataGrid.Columns["TechnoProfilesColumn"].DisplayIndex = DisplayIndex++;
-            FrontsOrdersDataGrid.Columns["TechnoFrameColorsColumn"].DisplayIndex = DisplayIndex++;
-            FrontsOrdersDataGrid.Columns["PatinaColumn"].DisplayIndex = DisplayIndex++;
-            FrontsOrdersDataGrid.Columns["InsetTypesColumn"].DisplayIndex = DisplayIndex++;
-            FrontsOrdersDataGrid.Columns["InsetColorsColumn"].DisplayIndex = DisplayIndex++;
-            FrontsOrdersDataGrid.Columns["TechnoInsetTypesColumn"].DisplayIndex = DisplayIndex++;
-            FrontsOrdersDataGrid.Columns["TechnoInsetColorsColumn"].DisplayIndex = DisplayIndex++;
 
-            FrontsOrdersDataGrid.ScrollBars = ScrollBars.Both;
+            var displayIndex = 0;
+            _frontsOrdersDataGrid.Columns["FrontsColumn"].DisplayIndex = displayIndex++;
+            _frontsOrdersDataGrid.Columns["FrameColorsColumn"].DisplayIndex = displayIndex++;
+            _frontsOrdersDataGrid.Columns["TechnoProfilesColumn"].DisplayIndex = displayIndex++;
+            _frontsOrdersDataGrid.Columns["TechnoFrameColorsColumn"].DisplayIndex = displayIndex++;
+            _frontsOrdersDataGrid.Columns["PatinaColumn"].DisplayIndex = displayIndex++;
+            _frontsOrdersDataGrid.Columns["InsetTypesColumn"].DisplayIndex = displayIndex++;
+            _frontsOrdersDataGrid.Columns["InsetColorsColumn"].DisplayIndex = displayIndex++;
+            _frontsOrdersDataGrid.Columns["TechnoInsetTypesColumn"].DisplayIndex = displayIndex++;
+            _frontsOrdersDataGrid.Columns["TechnoInsetColorsColumn"].DisplayIndex = displayIndex++;
 
-            foreach (DataGridViewColumn Column in FrontsOrdersDataGrid.Columns)
-            {
-                Column.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            }
+            _frontsOrdersDataGrid.ScrollBars = ScrollBars.Both;
+
+            foreach (DataGridViewColumn column in _frontsOrdersDataGrid.Columns)
+                column.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
             //названия столбцов
-            FrontsOrdersDataGrid.Columns["Height"].HeaderText = "Высота";
-            FrontsOrdersDataGrid.Columns["Width"].HeaderText = "Ширина";
-            FrontsOrdersDataGrid.Columns["Count"].HeaderText = "Кол-во";
-            FrontsOrdersDataGrid.Columns["Notes"].HeaderText = "Примечание";
-            FrontsOrdersDataGrid.Columns["Square"].HeaderText = "Площадь";
-            FrontsOrdersDataGrid.Columns["IsNonStandard"].HeaderText = "Н\\С";
-            FrontsOrdersDataGrid.Columns["FrontPrice"].HeaderText = "Цена за\r\nфасад";
-            FrontsOrdersDataGrid.Columns["InsetPrice"].HeaderText = "Цена за\r\nвставку";
-            FrontsOrdersDataGrid.Columns["Cost"].HeaderText = "Стоимость";
-            FrontsOrdersDataGrid.Columns["OriginalPrice"].HeaderText = "Цена\r\n(оригинал)";
-            FrontsOrdersDataGrid.Columns["OriginalCost"].HeaderText = "Стоимость\r\n(оригинал)";
-            FrontsOrdersDataGrid.Columns["CostWithTransport"].HeaderText = "Стоимость\r\n(с транспортом)";
-            FrontsOrdersDataGrid.Columns["PriceWithTransport"].HeaderText = "Цена\r\n(с транспортом)";
-            FrontsOrdersDataGrid.Columns["CurrencyCost"].HeaderText = "Стоимость\r\nв расчете";
-            FrontsOrdersDataGrid.Columns["IsSample"].HeaderText = "Образцы";
-            FrontsOrdersDataGrid.Columns["TotalDiscount"].HeaderText = "Общая\r\nскидка, %";
+            _frontsOrdersDataGrid.Columns["Height"].HeaderText = "Высота";
+            _frontsOrdersDataGrid.Columns["Width"].HeaderText = "Ширина";
+            _frontsOrdersDataGrid.Columns["Count"].HeaderText = "Кол-во";
+            _frontsOrdersDataGrid.Columns["Notes"].HeaderText = "Примечание";
+            _frontsOrdersDataGrid.Columns["Square"].HeaderText = "Площадь";
+            _frontsOrdersDataGrid.Columns["IsNonStandard"].HeaderText = "Н\\С";
+            _frontsOrdersDataGrid.Columns["FrontPrice"].HeaderText = "Цена за\r\nфасад";
+            _frontsOrdersDataGrid.Columns["InsetPrice"].HeaderText = "Цена за\r\nвставку";
+            _frontsOrdersDataGrid.Columns["Cost"].HeaderText = "Стоимость";
+            _frontsOrdersDataGrid.Columns["OriginalPrice"].HeaderText = "Цена\r\n(оригинал)";
+            _frontsOrdersDataGrid.Columns["OriginalCost"].HeaderText = "Стоимость\r\n(оригинал)";
+            _frontsOrdersDataGrid.Columns["CostWithTransport"].HeaderText = "Стоимость\r\n(с транспортом)";
+            _frontsOrdersDataGrid.Columns["PriceWithTransport"].HeaderText = "Цена\r\n(с транспортом)";
+            _frontsOrdersDataGrid.Columns["CurrencyCost"].HeaderText = "Стоимость\r\nв расчете";
+            _frontsOrdersDataGrid.Columns["IsSample"].HeaderText = "Образцы";
+            _frontsOrdersDataGrid.Columns["TotalDiscount"].HeaderText = "Общая\r\nскидка, %";
 
-            FrontsOrdersDataGrid.Columns["FrontsColumn"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            FrontsOrdersDataGrid.Columns["FrameColorsColumn"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            FrontsOrdersDataGrid.Columns["PatinaColumn"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            FrontsOrdersDataGrid.Columns["InsetTypesColumn"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            FrontsOrdersDataGrid.Columns["InsetColorsColumn"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            FrontsOrdersDataGrid.Columns["TechnoProfilesColumn"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            FrontsOrdersDataGrid.Columns["TechnoFrameColorsColumn"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            FrontsOrdersDataGrid.Columns["TechnoInsetTypesColumn"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            FrontsOrdersDataGrid.Columns["TechnoInsetColorsColumn"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            FrontsOrdersDataGrid.Columns["Height"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            FrontsOrdersDataGrid.Columns["Width"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            FrontsOrdersDataGrid.Columns["Count"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            FrontsOrdersDataGrid.Columns["Cost"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            FrontsOrdersDataGrid.Columns["CurrencyCost"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            FrontsOrdersDataGrid.Columns["OriginalPrice"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            FrontsOrdersDataGrid.Columns["OriginalCost"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            FrontsOrdersDataGrid.Columns["CostWithTransport"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            FrontsOrdersDataGrid.Columns["PriceWithTransport"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            FrontsOrdersDataGrid.Columns["Square"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            FrontsOrdersDataGrid.Columns["FrontPrice"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            FrontsOrdersDataGrid.Columns["InsetPrice"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            FrontsOrdersDataGrid.Columns["IsNonStandard"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            FrontsOrdersDataGrid.Columns["Notes"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            FrontsOrdersDataGrid.Columns["Notes"].MinimumWidth = 175;
-            FrontsOrdersDataGrid.Columns["IsSample"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            FrontsOrdersDataGrid.Columns["TotalDiscount"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            _frontsOrdersDataGrid.Columns["FrontsColumn"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            _frontsOrdersDataGrid.Columns["FrameColorsColumn"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            _frontsOrdersDataGrid.Columns["PatinaColumn"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            _frontsOrdersDataGrid.Columns["InsetTypesColumn"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            _frontsOrdersDataGrid.Columns["InsetColorsColumn"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            _frontsOrdersDataGrid.Columns["TechnoProfilesColumn"].AutoSizeMode =
+                DataGridViewAutoSizeColumnMode.AllCells;
+            _frontsOrdersDataGrid.Columns["TechnoFrameColorsColumn"].AutoSizeMode =
+                DataGridViewAutoSizeColumnMode.AllCells;
+            _frontsOrdersDataGrid.Columns["TechnoInsetTypesColumn"].AutoSizeMode =
+                DataGridViewAutoSizeColumnMode.AllCells;
+            _frontsOrdersDataGrid.Columns["TechnoInsetColorsColumn"].AutoSizeMode =
+                DataGridViewAutoSizeColumnMode.AllCells;
+            _frontsOrdersDataGrid.Columns["Height"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            _frontsOrdersDataGrid.Columns["Width"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            _frontsOrdersDataGrid.Columns["Count"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            _frontsOrdersDataGrid.Columns["Cost"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            _frontsOrdersDataGrid.Columns["CurrencyCost"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            _frontsOrdersDataGrid.Columns["OriginalPrice"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            _frontsOrdersDataGrid.Columns["OriginalCost"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            _frontsOrdersDataGrid.Columns["CostWithTransport"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            _frontsOrdersDataGrid.Columns["PriceWithTransport"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            _frontsOrdersDataGrid.Columns["Square"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            _frontsOrdersDataGrid.Columns["FrontPrice"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            _frontsOrdersDataGrid.Columns["InsetPrice"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            _frontsOrdersDataGrid.Columns["IsNonStandard"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            _frontsOrdersDataGrid.Columns["Notes"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            _frontsOrdersDataGrid.Columns["Notes"].MinimumWidth = 175;
+            _frontsOrdersDataGrid.Columns["IsSample"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            _frontsOrdersDataGrid.Columns["TotalDiscount"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             //FrontsOrdersDataGrid.RowsDefaultCellStyle.WrapMode = DataGridViewTriState.True;
             //FrontsOrdersDataGrid.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCellsExceptHeaders;
-            FrontsOrdersDataGrid.CellFormatting += FrontsOrdersDataGrid_CellFormatting;
+            _frontsOrdersDataGrid.CellFormatting += FrontsOrdersDataGrid_CellFormatting;
         }
 
-        void FrontsOrdersDataGrid_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        private void FrontsOrdersDataGrid_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            PercentageDataGrid grid = (PercentageDataGrid)sender;
-            if (grid.Columns.Contains("PatinaColumn") && (e.ColumnIndex == grid.Columns["PatinaColumn"].Index)
-                && e.Value != null)
+            var grid = (PercentageDataGrid) sender;
+            if (grid.Columns.Contains("PatinaColumn") && e.ColumnIndex == grid.Columns["PatinaColumn"].Index
+                                                      && e.Value != null)
             {
-                DataGridViewCell cell =
+                var cell =
                     grid.Rows[e.RowIndex].Cells[e.ColumnIndex];
-                int PatinaID = -1;
-                string DisplayName = string.Empty;
+                var patinaId = -1;
+                var displayName = string.Empty;
                 if (grid.Rows[e.RowIndex].Cells["PatinaID"].Value != DBNull.Value)
                 {
-                    PatinaID = Convert.ToInt32(grid.Rows[e.RowIndex].Cells["PatinaID"].Value);
-                    DisplayName = PatinaDisplayName(PatinaID);
+                    patinaId = Convert.ToInt32(grid.Rows[e.RowIndex].Cells["PatinaID"].Value);
+                    displayName = PatinaDisplayName(patinaId);
                 }
-                cell.ToolTipText = DisplayName;
+
+                cell.ToolTipText = displayName;
             }
         }
 
-        public string PatinaDisplayName(int PatinaID)
+        public string PatinaDisplayName(int patinaId)
         {
-            DataRow[] rows = PatinaDataTable.Select("PatinaID = " + PatinaID);
+            var rows = _patinaDataTable.Select("PatinaID = " + patinaId);
             if (rows.Count() > 0)
                 return rows[0]["DisplayName"].ToString();
             return string.Empty;
         }
 
-        public void Initialize(bool ShowPrice)
+        public void Initialize(bool showPrice)
         {
             Create();
             Fill();
             Binding();
-            CreateColumns(ShowPrice);
+            CreateColumns(showPrice);
         }
 
-        public bool Filter(int MainOrderID, int FactoryID)
+        public bool Filter(int mainOrderId, int factoryId)
         {
-            if (CurrentMainOrderID == MainOrderID)
+            if (_currentMainOrderId == mainOrderId)
                 return FrontsOrdersDataTable.Rows.Count > 0;
 
-            CurrentMainOrderID = MainOrderID;
+            _currentMainOrderId = mainOrderId;
 
-            string FactoryFilter = "";
+            var factoryFilter = "";
 
-            if (FactoryID != 0)
-                FactoryFilter = " AND FactoryID = " + FactoryID;
+            if (factoryId != 0)
+                factoryFilter = " AND FactoryID = " + factoryId;
 
             FrontsOrdersDataTable.Clear();
 
-            using (SqlDataAdapter DA = new SqlDataAdapter("SELECT * FROM SampleFrontsOrders WHERE MainOrderID = " + MainOrderID + FactoryFilter,
+            using (var da = new SqlDataAdapter(
+                "SELECT * FROM SampleFrontsOrders WHERE MainOrderID = " + mainOrderId + factoryFilter,
                 ConnectionStrings.MarketingOrdersConnectionString))
             {
-                DA.Fill(FrontsOrdersDataTable);
+                da.Fill(FrontsOrdersDataTable);
             }
 
             return FrontsOrdersDataTable.Rows.Count > 0;
@@ -2729,41 +2823,36 @@ namespace Infinium.Modules.ZOV.Samples
 
     public class MDecorOrders
     {
-        int CurrentClientID = -1;
-        int CurrentMainOrderID = -1;
-        int SelectedGridIndex = -1;
+        private int _currentMainOrderId = -1;
 
-        private DevExpress.XtraTab.XtraTabControl DecorTabControl = null;
+        private readonly XtraTabControl _decorTabControl;
+        private int _selectedGridIndex = -1;
 
-        public DecorCatalogOrder DecorCatalogOrder = null;
+        public DecorCatalogOrder DecorCatalogOrder;
 
-        public DataTable DecorOrdersDataTable = null;
-        public DataTable[] DecorItemOrdersDataTables = null;
+        public BindingSource[] DecorItemOrdersBindingSources;
 
-        public BindingSource[] DecorItemOrdersBindingSources = null;
+        public PercentageDataGrid[] DecorItemOrdersDataGrids;
+        public DataTable[] DecorItemOrdersDataTables;
+        public SqlCommandBuilder DecorOrdersCommandBuilder;
 
-        public SqlDataAdapter DecorOrdersDataAdapter = null;
-        public SqlCommandBuilder DecorOrdersCommandBuilder = null;
+        public SqlDataAdapter DecorOrdersDataAdapter;
 
-        public PercentageDataGrid[] DecorItemOrdersDataGrids = null;
+        public DataTable DecorOrdersDataTable;
 
-        public PercentageDataGrid MainOrdersFrontsOrdersDataGrid = null;
+        public PercentageDataGrid MainOrdersFrontsOrdersDataGrid;
 
-        public MDecorOrders(ref DevExpress.XtraTab.XtraTabControl tDecorTabControl,
+        public MDecorOrders(ref XtraTabControl tDecorTabControl,
             ref DecorCatalogOrder tDecorCatalogOrder,
             ref PercentageDataGrid tMainOrdersFrontsOrdersDataGrid)
         {
-            DecorTabControl = tDecorTabControl;
+            _decorTabControl = tDecorTabControl;
             DecorCatalogOrder = tDecorCatalogOrder;
 
             MainOrdersFrontsOrdersDataGrid = tMainOrdersFrontsOrdersDataGrid;
         }
 
-        public int ClientID
-        {
-            get { return CurrentClientID; }
-            set { CurrentClientID = value; }
-        }
+        public int ClientId { get; set; } = -1;
 
         private void Create()
         {
@@ -2786,7 +2875,7 @@ namespace Infinium.Modules.ZOV.Samples
             DecorItemOrdersBindingSources = new BindingSource[DecorCatalogOrder.DecorProductsCount];
             DecorItemOrdersDataGrids = new PercentageDataGrid[DecorCatalogOrder.DecorProductsCount];
 
-            for (int i = 0; i < DecorCatalogOrder.DecorProductsCount; i++)
+            for (var i = 0; i < DecorCatalogOrder.DecorProductsCount; i++)
             {
                 DecorItemOrdersDataTables[i] = new DataTable();
                 DecorItemOrdersBindingSources[i] = new BindingSource();
@@ -2795,29 +2884,29 @@ namespace Infinium.Modules.ZOV.Samples
 
         private void Fill()
         {
-            DecorOrdersDataAdapter = new SqlDataAdapter("SELECT TOP 0 * FROM SampleDecorOrders", ConnectionStrings.MarketingOrdersConnectionString);
+            DecorOrdersDataAdapter = new SqlDataAdapter("SELECT TOP 0 * FROM SampleDecorOrders",
+                ConnectionStrings.MarketingOrdersConnectionString);
             DecorOrdersCommandBuilder = new SqlCommandBuilder(DecorOrdersDataAdapter);
             DecorOrdersDataAdapter.Fill(DecorOrdersDataTable);
         }
 
         private void Binding()
         {
-
         }
 
-        public void Initialize(bool ShowPrice)
+        public void Initialize(bool showPrice)
         {
             Create();
             Fill();
             Binding();
 
             SplitDecorOrdersTables();
-            GridSettings(ShowPrice);
+            GridSettings(showPrice);
         }
 
         private DataGridViewComboBoxColumn CreateInsetTypesColumn()
         {
-            DataGridViewComboBoxColumn ItemColumn = new DataGridViewComboBoxColumn()
+            var itemColumn = new DataGridViewComboBoxColumn
             {
                 Name = "InsetTypesColumn",
                 HeaderText = "Тип\r\nнаполнителя",
@@ -2828,12 +2917,12 @@ namespace Infinium.Modules.ZOV.Samples
                 DisplayMember = "InsetTypeName",
                 DisplayStyle = DataGridViewComboBoxDisplayStyle.Nothing
             };
-            return ItemColumn;
+            return itemColumn;
         }
 
         private DataGridViewComboBoxColumn CreateInsetColorsColumn()
         {
-            DataGridViewComboBoxColumn ItemColumn = new DataGridViewComboBoxColumn()
+            var itemColumn = new DataGridViewComboBoxColumn
             {
                 Name = "InsetColorsColumn",
                 HeaderText = "Цвет\r\nнаполнителя",
@@ -2844,12 +2933,12 @@ namespace Infinium.Modules.ZOV.Samples
                 DisplayMember = "InsetColorName",
                 DisplayStyle = DataGridViewComboBoxDisplayStyle.Nothing
             };
-            return ItemColumn;
+            return itemColumn;
         }
 
         private DataGridViewComboBoxColumn CreateColorColumn()
         {
-            DataGridViewComboBoxColumn ColorsColumn = new DataGridViewComboBoxColumn()
+            var colorsColumn = new DataGridViewComboBoxColumn
             {
                 Name = "ColorsColumn",
                 HeaderText = "Цвет",
@@ -2861,12 +2950,12 @@ namespace Infinium.Modules.ZOV.Samples
                 DisplayStyle = DataGridViewComboBoxDisplayStyle.Nothing,
                 DisplayIndex = 1
             };
-            return ColorsColumn;
+            return colorsColumn;
         }
 
         private DataGridViewComboBoxColumn CreatePatinaColumn()
         {
-            DataGridViewComboBoxColumn PatinaColumn = new DataGridViewComboBoxColumn()
+            var patinaColumn = new DataGridViewComboBoxColumn
             {
                 Name = "PatinaColumn",
                 HeaderText = "Патина",
@@ -2877,12 +2966,12 @@ namespace Infinium.Modules.ZOV.Samples
                 DisplayMember = "PatinaName",
                 DisplayStyle = DataGridViewComboBoxDisplayStyle.Nothing
             };
-            return PatinaColumn;
+            return patinaColumn;
         }
 
         private DataGridViewComboBoxColumn CreateItemColumn()
         {
-            DataGridViewComboBoxColumn ItemColumn = new DataGridViewComboBoxColumn()
+            var itemColumn = new DataGridViewComboBoxColumn
             {
                 Name = "ItemColumn",
                 HeaderText = "Название",
@@ -2894,43 +2983,46 @@ namespace Infinium.Modules.ZOV.Samples
                 DisplayStyle = DataGridViewComboBoxDisplayStyle.Nothing,
                 DisplayIndex = 1
             };
-            return ItemColumn;
+            return itemColumn;
         }
 
         private void SplitDecorOrdersTables()
         {
-            for (int i = 0; i < DecorCatalogOrder.DecorProductsCount; i++)
+            for (var i = 0; i < DecorCatalogOrder.DecorProductsCount; i++)
             {
                 DecorItemOrdersDataTables[i] = DecorOrdersDataTable.Clone();
                 DecorItemOrdersBindingSources[i].DataSource = DecorItemOrdersDataTables[i];
             }
         }
 
-        private void GridSettings(bool ShowPrice)
+        private void GridSettings(bool showPrice)
         {
-            DecorTabControl.AppearancePage.Header.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
-            DecorTabControl.AppearancePage.Header.BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
-            DecorTabControl.AppearancePage.Header.BorderColor = System.Drawing.Color.Black;
-            DecorTabControl.AppearancePage.Header.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point,
-                ((byte)(204)));
-            DecorTabControl.AppearancePage.Header.Options.UseBackColor = true;
-            DecorTabControl.AppearancePage.Header.Options.UseBorderColor = true;
-            DecorTabControl.AppearancePage.Header.Options.UseFont = true;
-            DecorTabControl.LookAndFeel.SkinName = "Office 2010 Black";
-            DecorTabControl.LookAndFeel.UseDefaultLookAndFeel = false;
+            _decorTabControl.AppearancePage.Header.BackColor = Color.FromArgb(140, 140, 140);
+            _decorTabControl.AppearancePage.Header.BackColor2 = Color.FromArgb(140, 140, 140);
+            _decorTabControl.AppearancePage.Header.BorderColor = Color.Black;
+            _decorTabControl.AppearancePage.Header.Font = new Font("Segoe UI", 12F, FontStyle.Regular,
+                GraphicsUnit.Point,
+                204);
+            _decorTabControl.AppearancePage.Header.Options.UseBackColor = true;
+            _decorTabControl.AppearancePage.Header.Options.UseBorderColor = true;
+            _decorTabControl.AppearancePage.Header.Options.UseFont = true;
+            _decorTabControl.LookAndFeel.SkinName = "Office 2010 Black";
+            _decorTabControl.LookAndFeel.UseDefaultLookAndFeel = false;
 
-            for (int i = 0; i < DecorCatalogOrder.DecorProductsCount; i++)
+            for (var i = 0; i < DecorCatalogOrder.DecorProductsCount; i++)
             {
-                DecorTabControl.TabPages.Add(DecorCatalogOrder.DecorProductsDataTable.Rows[i]["ProductName"].ToString());
-                DecorTabControl.TabPages[i].PageVisible = false;
-                DecorTabControl.TabPages[i].Text = DecorCatalogOrder.DecorProductsDataTable.Rows[i]["ProductName"].ToString();
+                _decorTabControl.TabPages.Add(
+                    DecorCatalogOrder.DecorProductsDataTable.Rows[i]["ProductName"].ToString());
+                _decorTabControl.TabPages[i].PageVisible = false;
+                _decorTabControl.TabPages[i].Text =
+                    DecorCatalogOrder.DecorProductsDataTable.Rows[i]["ProductName"].ToString();
 
-                DecorItemOrdersDataGrids[i] = new PercentageDataGrid()
+                DecorItemOrdersDataGrids[i] = new PercentageDataGrid
                 {
-                    Parent = DecorTabControl.TabPages[i],
+                    Parent = _decorTabControl.TabPages[i],
                     DataSource = DecorItemOrdersBindingSources[i],
-                    Dock = System.Windows.Forms.DockStyle.Fill,
-                    PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2010Black
+                    Dock = DockStyle.Fill,
+                    PaletteMode = PaletteMode.Office2010Black
                 };
                 DecorItemOrdersDataGrids[i].StateCommon.Background.Color1 = Color.White;
                 DecorItemOrdersDataGrids[i].AllowUserToAddRows = false;
@@ -2938,28 +3030,47 @@ namespace Infinium.Modules.ZOV.Samples
                 DecorItemOrdersDataGrids[i].AllowUserToResizeRows = false;
                 DecorItemOrdersDataGrids[i].RowHeadersVisible = false;
                 DecorItemOrdersDataGrids[i].AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-                DecorItemOrdersDataGrids[i].StateCommon.Background.Color1 = MainOrdersFrontsOrdersDataGrid.StateCommon.Background.Color1;
-                DecorItemOrdersDataGrids[i].StateCommon.Background.ColorStyle = MainOrdersFrontsOrdersDataGrid.StateCommon.Background.ColorStyle;
-                DecorItemOrdersDataGrids[i].StateCommon.DataCell.Back.Color1 = MainOrdersFrontsOrdersDataGrid.StateCommon.DataCell.Back.Color1;
-                DecorItemOrdersDataGrids[i].StateCommon.DataCell.Back.ColorStyle = MainOrdersFrontsOrdersDataGrid.StateCommon.DataCell.Back.ColorStyle;
-                DecorItemOrdersDataGrids[i].StateCommon.DataCell.Border.Color1 = MainOrdersFrontsOrdersDataGrid.StateCommon.DataCell.Border.Color1;
-                DecorItemOrdersDataGrids[i].StateCommon.DataCell.Content.Font = MainOrdersFrontsOrdersDataGrid.StateCommon.DataCell.Content.Font;
-                DecorItemOrdersDataGrids[i].StateCommon.DataCell.Content.Color1 = MainOrdersFrontsOrdersDataGrid.StateCommon.DataCell.Content.Color1;
-                DecorItemOrdersDataGrids[i].StateSelected.DataCell.Content.Color1 = MainOrdersFrontsOrdersDataGrid.StateSelected.DataCell.Content.Color1;
-                DecorItemOrdersDataGrids[i].StateSelected.DataCell.Back.Color1 = MainOrdersFrontsOrdersDataGrid.StateSelected.DataCell.Back.Color1;
-                DecorItemOrdersDataGrids[i].StateSelected.DataCell.Back.ColorStyle = MainOrdersFrontsOrdersDataGrid.StateSelected.DataCell.Back.ColorStyle;
-                DecorItemOrdersDataGrids[i].StateSelected.DataCell.Border.Color1 = MainOrdersFrontsOrdersDataGrid.StateSelected.DataCell.Border.Color1;
+                DecorItemOrdersDataGrids[i].StateCommon.Background.Color1 =
+                    MainOrdersFrontsOrdersDataGrid.StateCommon.Background.Color1;
+                DecorItemOrdersDataGrids[i].StateCommon.Background.ColorStyle =
+                    MainOrdersFrontsOrdersDataGrid.StateCommon.Background.ColorStyle;
+                DecorItemOrdersDataGrids[i].StateCommon.DataCell.Back.Color1 =
+                    MainOrdersFrontsOrdersDataGrid.StateCommon.DataCell.Back.Color1;
+                DecorItemOrdersDataGrids[i].StateCommon.DataCell.Back.ColorStyle =
+                    MainOrdersFrontsOrdersDataGrid.StateCommon.DataCell.Back.ColorStyle;
+                DecorItemOrdersDataGrids[i].StateCommon.DataCell.Border.Color1 =
+                    MainOrdersFrontsOrdersDataGrid.StateCommon.DataCell.Border.Color1;
+                DecorItemOrdersDataGrids[i].StateCommon.DataCell.Content.Font =
+                    MainOrdersFrontsOrdersDataGrid.StateCommon.DataCell.Content.Font;
+                DecorItemOrdersDataGrids[i].StateCommon.DataCell.Content.Color1 =
+                    MainOrdersFrontsOrdersDataGrid.StateCommon.DataCell.Content.Color1;
+                DecorItemOrdersDataGrids[i].StateSelected.DataCell.Content.Color1 =
+                    MainOrdersFrontsOrdersDataGrid.StateSelected.DataCell.Content.Color1;
+                DecorItemOrdersDataGrids[i].StateSelected.DataCell.Back.Color1 =
+                    MainOrdersFrontsOrdersDataGrid.StateSelected.DataCell.Back.Color1;
+                DecorItemOrdersDataGrids[i].StateSelected.DataCell.Back.ColorStyle =
+                    MainOrdersFrontsOrdersDataGrid.StateSelected.DataCell.Back.ColorStyle;
+                DecorItemOrdersDataGrids[i].StateSelected.DataCell.Border.Color1 =
+                    MainOrdersFrontsOrdersDataGrid.StateSelected.DataCell.Border.Color1;
                 DecorItemOrdersDataGrids[i].RowTemplate.Height = MainOrdersFrontsOrdersDataGrid.RowTemplate.Height;
                 DecorItemOrdersDataGrids[i].ColumnHeadersHeight = MainOrdersFrontsOrdersDataGrid.ColumnHeadersHeight;
-                DecorItemOrdersDataGrids[i].StateCommon.HeaderColumn.Back.Color1 = MainOrdersFrontsOrdersDataGrid.StateCommon.HeaderColumn.Back.Color1;
-                DecorItemOrdersDataGrids[i].StateCommon.HeaderColumn.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
-                DecorItemOrdersDataGrids[i].StateCommon.HeaderColumn.Border.Color1 = MainOrdersFrontsOrdersDataGrid.StateCommon.HeaderColumn.Border.Color1;
-                DecorItemOrdersDataGrids[i].StateCommon.HeaderColumn.Content.Font = MainOrdersFrontsOrdersDataGrid.StateCommon.HeaderColumn.Content.Font;
-                DecorItemOrdersDataGrids[i].StateCommon.HeaderColumn.Content.Color1 = MainOrdersFrontsOrdersDataGrid.StateCommon.HeaderColumn.Content.Color1;
-                DecorItemOrdersDataGrids[i].StateCommon.HeaderColumn.Content.MultiLine = MainOrdersFrontsOrdersDataGrid.StateCommon.HeaderColumn.Content.MultiLine;
-                DecorItemOrdersDataGrids[i].StateCommon.HeaderColumn.Content.MultiLineH = MainOrdersFrontsOrdersDataGrid.StateCommon.HeaderColumn.Content.MultiLineH;
-                DecorItemOrdersDataGrids[i].StateCommon.HeaderColumn.Content.TextH = MainOrdersFrontsOrdersDataGrid.StateCommon.HeaderColumn.Content.TextH;
-                DecorItemOrdersDataGrids[i].StateSelected.DataCell.Back.Color1 = MainOrdersFrontsOrdersDataGrid.StateSelected.DataCell.Back.Color1;
+                DecorItemOrdersDataGrids[i].StateCommon.HeaderColumn.Back.Color1 =
+                    MainOrdersFrontsOrdersDataGrid.StateCommon.HeaderColumn.Back.Color1;
+                DecorItemOrdersDataGrids[i].StateCommon.HeaderColumn.Back.ColorStyle = PaletteColorStyle.Solid;
+                DecorItemOrdersDataGrids[i].StateCommon.HeaderColumn.Border.Color1 =
+                    MainOrdersFrontsOrdersDataGrid.StateCommon.HeaderColumn.Border.Color1;
+                DecorItemOrdersDataGrids[i].StateCommon.HeaderColumn.Content.Font =
+                    MainOrdersFrontsOrdersDataGrid.StateCommon.HeaderColumn.Content.Font;
+                DecorItemOrdersDataGrids[i].StateCommon.HeaderColumn.Content.Color1 =
+                    MainOrdersFrontsOrdersDataGrid.StateCommon.HeaderColumn.Content.Color1;
+                DecorItemOrdersDataGrids[i].StateCommon.HeaderColumn.Content.MultiLine =
+                    MainOrdersFrontsOrdersDataGrid.StateCommon.HeaderColumn.Content.MultiLine;
+                DecorItemOrdersDataGrids[i].StateCommon.HeaderColumn.Content.MultiLineH =
+                    MainOrdersFrontsOrdersDataGrid.StateCommon.HeaderColumn.Content.MultiLineH;
+                DecorItemOrdersDataGrids[i].StateCommon.HeaderColumn.Content.TextH =
+                    MainOrdersFrontsOrdersDataGrid.StateCommon.HeaderColumn.Content.TextH;
+                DecorItemOrdersDataGrids[i].StateSelected.DataCell.Back.Color1 =
+                    MainOrdersFrontsOrdersDataGrid.StateSelected.DataCell.Back.Color1;
                 DecorItemOrdersDataGrids[i].SelectionMode = DataGridViewSelectionMode.FullRowSelect;
                 DecorItemOrdersDataGrids[i].SelectedColorStyle = PercentageDataGrid.ColorStyle.Green;
                 DecorItemOrdersDataGrids[i].ReadOnly = true;
@@ -2967,25 +3078,38 @@ namespace Infinium.Modules.ZOV.Samples
                 DecorItemOrdersDataGrids[i].UseCustomBackColor = true;
                 DecorItemOrdersDataGrids[i].StandardStyle = false;
                 DecorItemOrdersDataGrids[i].MultiSelect = true;
-                DecorItemOrdersDataGrids[i].CellMouseDown += new DataGridViewCellMouseEventHandler(MainOrdersDecorOrders_CellMouseDown);
+                DecorItemOrdersDataGrids[i].CellMouseDown += MainOrdersDecorOrders_CellMouseDown;
 
                 DecorItemOrdersDataGrids[i].Columns.Add(CreateInsetColorsColumn());
-                DecorItemOrdersDataGrids[i].Columns["InsetColorsColumn"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                DecorItemOrdersDataGrids[i].Columns["InsetColorsColumn"].AutoSizeMode =
+                    DataGridViewAutoSizeColumnMode.AllCells;
                 DecorItemOrdersDataGrids[i].Columns["InsetColorsColumn"].MinimumWidth = 120;
                 DecorItemOrdersDataGrids[i].Columns.Add(CreateInsetTypesColumn());
-                DecorItemOrdersDataGrids[i].Columns["InsetTypesColumn"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                DecorItemOrdersDataGrids[i].Columns["InsetTypesColumn"].AutoSizeMode =
+                    DataGridViewAutoSizeColumnMode.AllCells;
                 DecorItemOrdersDataGrids[i].Columns["InsetTypesColumn"].MinimumWidth = 120;
                 DecorItemOrdersDataGrids[i].Columns.Add(CreateColorColumn());
-                DecorItemOrdersDataGrids[i].Columns["ColorsColumn"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                DecorItemOrdersDataGrids[i].Columns["ColorsColumn"].AutoSizeMode =
+                    DataGridViewAutoSizeColumnMode.AllCells;
                 DecorItemOrdersDataGrids[i].Columns["ColorsColumn"].MinimumWidth = 120;
                 DecorItemOrdersDataGrids[i].Columns.Add(CreatePatinaColumn());
-                DecorItemOrdersDataGrids[i].Columns["PatinaColumn"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                DecorItemOrdersDataGrids[i].Columns["PatinaColumn"].AutoSizeMode =
+                    DataGridViewAutoSizeColumnMode.AllCells;
                 DecorItemOrdersDataGrids[i].Columns["PatinaColumn"].MinimumWidth = 120;
                 DecorItemOrdersDataGrids[i].Columns.Add(CreateItemColumn());
-                DecorItemOrdersDataGrids[i].Columns["ItemColumn"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                DecorItemOrdersDataGrids[i].Columns["ItemColumn"].AutoSizeMode =
+                    DataGridViewAutoSizeColumnMode.AllCells;
                 DecorItemOrdersDataGrids[i].Columns["ItemColumn"].MinimumWidth = 120;
-                DecorItemOrdersDataGrids[i].Columns["DiscountVolume"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                DecorItemOrdersDataGrids[i].Columns["DiscountVolume"].AutoSizeMode =
+                    DataGridViewAutoSizeColumnMode.AllCells;
                 DecorItemOrdersDataGrids[i].Columns["DiscountVolume"].MinimumWidth = 60;
+
+                DecorItemOrdersDataGrids[i].Columns["Cost"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                DecorItemOrdersDataGrids[i].Columns["Cost"].MinimumWidth = 90;
+                DecorItemOrdersDataGrids[i].Columns["Price"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                DecorItemOrdersDataGrids[i].Columns["Price"].MinimumWidth = 90;
+                DecorItemOrdersDataGrids[i].Columns["Notes"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                DecorItemOrdersDataGrids[i].Columns["Notes"].MinimumWidth = 120;
 
                 //убирание лишних столбцов
                 if (DecorItemOrdersDataGrids[i].Columns.Contains("NeedCalcPrice"))
@@ -2996,9 +3120,11 @@ namespace Infinium.Modules.ZOV.Samples
                 {
                     DecorItemOrdersDataGrids[i].Columns["CreateDateTime"].HeaderText = "Добавлено";
                     DecorItemOrdersDataGrids[i].Columns["CreateDateTime"].DefaultCellStyle.Format = "dd.MM.yyyy HH:mm";
-                    DecorItemOrdersDataGrids[i].Columns["CreateDateTime"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-                    DecorItemOrdersDataGrids[i].Columns["CreateDateTime"].Width = 100;
+                    DecorItemOrdersDataGrids[i].Columns["CreateDateTime"].AutoSizeMode =
+                        DataGridViewAutoSizeColumnMode.None;
+                    DecorItemOrdersDataGrids[i].Columns["CreateDateTime"].Width = 120;
                 }
+
                 if (DecorItemOrdersDataGrids[i].Columns.Contains("CreateUserID"))
                     DecorItemOrdersDataGrids[i].Columns["CreateUserID"].Visible = false;
                 if (DecorItemOrdersDataGrids[i].Columns.Contains("CreateUserTypeID"))
@@ -3031,6 +3157,39 @@ namespace Infinium.Modules.ZOV.Samples
                     DecorItemOrdersDataGrids[i].Columns["DiscountVolume"].Visible = false;
                 }
 
+                if (DecorCatalogOrder.HasParameter(
+                    Convert.ToInt32(DecorCatalogOrder.DecorProductsDataTable.Rows[i]["ProductID"]), "ColorID"))
+                {
+                    DecorItemOrdersDataGrids[i].Columns["ColorsColumn"].AutoSizeMode =
+                        DataGridViewAutoSizeColumnMode.AllCells;
+                    DecorItemOrdersDataGrids[i].Columns["ColorsColumn"].MinimumWidth = 190;
+                }
+
+                if (DecorCatalogOrder.HasParameter(
+                    Convert.ToInt32(DecorCatalogOrder.DecorProductsDataTable.Rows[i]["ProductID"]), "Height"))
+                {
+                    DecorItemOrdersDataGrids[i].Columns["Height"].AutoSizeMode =
+                        DataGridViewAutoSizeColumnMode.AllCells;
+                    DecorItemOrdersDataGrids[i].Columns["Height"].MinimumWidth = 90;
+                }
+
+                if (DecorCatalogOrder.HasParameter(
+                    Convert.ToInt32(DecorCatalogOrder.DecorProductsDataTable.Rows[i]["ProductID"]), "Length"))
+                {
+                    DecorItemOrdersDataGrids[i].Columns["Length"].AutoSizeMode =
+                        DataGridViewAutoSizeColumnMode.AllCells;
+                    DecorItemOrdersDataGrids[i].Columns["Length"].MinimumWidth = 90;
+                }
+
+                if (DecorCatalogOrder.HasParameter(
+                    Convert.ToInt32(DecorCatalogOrder.DecorProductsDataTable.Rows[i]["ProductID"]), "Width"))
+                {
+                    DecorItemOrdersDataGrids[i].Columns["Width"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                    DecorItemOrdersDataGrids[i].Columns["Width"].MinimumWidth = 90;
+                }
+
+                DecorItemOrdersDataGrids[i].Columns["Count"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                DecorItemOrdersDataGrids[i].Columns["Count"].MinimumWidth = 90;
                 //русские названия полей
 
                 DecorItemOrdersDataGrids[i].Columns["OriginalPrice"].HeaderText = "Цена\r\nначальная";
@@ -3045,114 +3204,100 @@ namespace Infinium.Modules.ZOV.Samples
                 DecorItemOrdersDataGrids[i].Columns["DiscountVolume"].HeaderText = "Объемный\r\nкоэф-нт";
                 DecorItemOrdersDataGrids[i].Columns["IsSample"].HeaderText = "Образцы";
 
-                for (int j = 2; j < DecorItemOrdersDataGrids[i].Columns.Count; j++)
+                for (var j = 2; j < DecorItemOrdersDataGrids[i].Columns.Count; j++)
                 {
                     if (DecorItemOrdersDataGrids[i].Columns[j].HeaderText == "Height")
-                    {
                         DecorItemOrdersDataGrids[i].Columns[j].HeaderText = "Высота";
-                    }
                     if (DecorItemOrdersDataGrids[i].Columns[j].HeaderText == "Length")
-                    {
                         DecorItemOrdersDataGrids[i].Columns[j].HeaderText = "Длина";
-                    }
                     if (DecorItemOrdersDataGrids[i].Columns[j].HeaderText == "Width")
-                    {
                         DecorItemOrdersDataGrids[i].Columns[j].HeaderText = "Ширина";
-                    }
                     if (DecorItemOrdersDataGrids[i].Columns[j].HeaderText == "Count")
-                    {
                         DecorItemOrdersDataGrids[i].Columns[j].HeaderText = "Кол-во";
-                    }
                     if (DecorItemOrdersDataGrids[i].Columns[j].HeaderText == "Notes")
-                    {
                         DecorItemOrdersDataGrids[i].Columns[j].HeaderText = "Примечание";
-                    }
                 }
 
-                foreach (DataGridViewColumn Column in DecorItemOrdersDataGrids[i].Columns)
-                {
-                    Column.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
-                }
+                foreach (DataGridViewColumn column in DecorItemOrdersDataGrids[i].Columns)
+                    column.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
                 DecorItemOrdersDataGrids[i].AutoGenerateColumns = false;
-                int DisplayIndex = 0;
-                DecorItemOrdersDataGrids[i].Columns["ItemColumn"].DisplayIndex = DisplayIndex++;
-                DecorItemOrdersDataGrids[i].Columns["ColorsColumn"].DisplayIndex = DisplayIndex++;
-                DecorItemOrdersDataGrids[i].Columns["PatinaColumn"].DisplayIndex = DisplayIndex++;
-                DecorItemOrdersDataGrids[i].Columns["InsetTypesColumn"].DisplayIndex = DisplayIndex++;
-                DecorItemOrdersDataGrids[i].Columns["InsetColorsColumn"].DisplayIndex = DisplayIndex++;
-                DecorItemOrdersDataGrids[i].Columns["Length"].DisplayIndex = DisplayIndex++;
-                DecorItemOrdersDataGrids[i].Columns["Height"].DisplayIndex = DisplayIndex++;
-                DecorItemOrdersDataGrids[i].Columns["Width"].DisplayIndex = DisplayIndex++;
-                DecorItemOrdersDataGrids[i].Columns["Count"].DisplayIndex = DisplayIndex++;
-                DecorItemOrdersDataGrids[i].Columns["OriginalPrice"].DisplayIndex = DisplayIndex++;
-                DecorItemOrdersDataGrids[i].Columns["DiscountVolume"].DisplayIndex = DisplayIndex++;
-                DecorItemOrdersDataGrids[i].Columns["TotalDiscount"].DisplayIndex = DisplayIndex++;
-                DecorItemOrdersDataGrids[i].Columns["Price"].DisplayIndex = DisplayIndex++;
-                DecorItemOrdersDataGrids[i].Columns["PriceWithTransport"].DisplayIndex = DisplayIndex++;
-                DecorItemOrdersDataGrids[i].Columns["OriginalCost"].DisplayIndex = DisplayIndex++;
-                DecorItemOrdersDataGrids[i].Columns["Cost"].DisplayIndex = DisplayIndex++;
-                DecorItemOrdersDataGrids[i].Columns["CostWithTransport"].DisplayIndex = DisplayIndex++;
+                var displayIndex = 0;
+                DecorItemOrdersDataGrids[i].Columns["ItemColumn"].DisplayIndex = displayIndex++;
+                DecorItemOrdersDataGrids[i].Columns["ColorsColumn"].DisplayIndex = displayIndex++;
+                DecorItemOrdersDataGrids[i].Columns["PatinaColumn"].DisplayIndex = displayIndex++;
+                DecorItemOrdersDataGrids[i].Columns["InsetTypesColumn"].DisplayIndex = displayIndex++;
+                DecorItemOrdersDataGrids[i].Columns["InsetColorsColumn"].DisplayIndex = displayIndex++;
+                DecorItemOrdersDataGrids[i].Columns["Length"].DisplayIndex = displayIndex++;
+                DecorItemOrdersDataGrids[i].Columns["Height"].DisplayIndex = displayIndex++;
+                DecorItemOrdersDataGrids[i].Columns["Width"].DisplayIndex = displayIndex++;
+                DecorItemOrdersDataGrids[i].Columns["Count"].DisplayIndex = displayIndex++;
+                DecorItemOrdersDataGrids[i].Columns["OriginalPrice"].DisplayIndex = displayIndex++;
+                DecorItemOrdersDataGrids[i].Columns["DiscountVolume"].DisplayIndex = displayIndex++;
+                DecorItemOrdersDataGrids[i].Columns["TotalDiscount"].DisplayIndex = displayIndex++;
+                DecorItemOrdersDataGrids[i].Columns["Price"].DisplayIndex = displayIndex++;
+                DecorItemOrdersDataGrids[i].Columns["PriceWithTransport"].DisplayIndex = displayIndex++;
+                DecorItemOrdersDataGrids[i].Columns["OriginalCost"].DisplayIndex = displayIndex++;
+                DecorItemOrdersDataGrids[i].Columns["Cost"].DisplayIndex = displayIndex++;
+                DecorItemOrdersDataGrids[i].Columns["CostWithTransport"].DisplayIndex = displayIndex++;
             }
         }
 
-        void MainOrdersDecorOrders_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
+        private void MainOrdersDecorOrders_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
         {
-            PercentageDataGrid grid = (PercentageDataGrid)sender;
-            SelectedGridIndex = Convert.ToInt32(grid.Tag);
-            if (e.Button == System.Windows.Forms.MouseButtons.Right)
-            {
-                DecorItemOrdersBindingSources[SelectedGridIndex].Position = e.RowIndex;
-                //kryptonContextMenu1.Show(new Point(Cursor.Position.X - 212, Cursor.Position.Y - 10));
-            }
+            var grid = (PercentageDataGrid) sender;
+            _selectedGridIndex = Convert.ToInt32(grid.Tag);
+            if (e.Button == MouseButtons.Right)
+                DecorItemOrdersBindingSources[_selectedGridIndex].Position = e.RowIndex;
+            //kryptonContextMenu1.Show(new Point(Cursor.Position.X - 212, Cursor.Position.Y - 10));
         }
 
         private bool ShowTabs()
         {
-            int IsOrder = 0;
+            var isOrder = 0;
 
-            for (int i = 0; i < DecorTabControl.TabPages.Count; i++)
-            {
+            for (var i = 0; i < _decorTabControl.TabPages.Count; i++)
                 if (DecorItemOrdersDataTables[i].Rows.Count > 0)
                 {
-                    IsOrder++;
-                    DecorTabControl.TabPages[i].PageVisible = true;
+                    isOrder++;
+                    _decorTabControl.TabPages[i].PageVisible = true;
                 }
                 else
-                    DecorTabControl.TabPages[i].PageVisible = false;
-            }
+                {
+                    _decorTabControl.TabPages[i].PageVisible = false;
+                }
 
-            if (IsOrder > 0)
+            if (isOrder > 0)
                 return true;
-            else
-                return false;
+            return false;
         }
 
-        public bool Filter(int MainOrderID, int FactoryID)
+        public bool Filter(int mainOrderId, int factoryId)
         {
-            if (CurrentMainOrderID == MainOrderID)
+            if (_currentMainOrderId == mainOrderId)
                 return DecorOrdersDataTable.Rows.Count > 0;
 
-            CurrentMainOrderID = MainOrderID;
+            _currentMainOrderId = mainOrderId;
 
-            string FactoryFilter = "";
+            var factoryFilter = "";
 
-            if (FactoryID != 0)
-                FactoryFilter = " AND FactoryID = " + FactoryID;
+            if (factoryId != 0)
+                factoryFilter = " AND FactoryID = " + factoryId;
 
             DecorOrdersDataTable.Clear();
             DecorOrdersDataTable.AcceptChanges();
 
-            for (int i = 0; i < DecorCatalogOrder.DecorProductsCount; i++)
+            for (var i = 0; i < DecorCatalogOrder.DecorProductsCount; i++)
             {
                 DecorItemOrdersDataTables[i].Clear();
                 DecorItemOrdersDataTables[i].AcceptChanges();
-                DecorTabControl.TabPages[i].PageVisible = false;
+                _decorTabControl.TabPages[i].PageVisible = false;
             }
 
             DecorOrdersCommandBuilder.Dispose();
             DecorOrdersDataAdapter.Dispose();
 
-            DecorOrdersDataAdapter = new SqlDataAdapter("SELECT * FROM SampleDecorOrders WHERE MainOrderID = " + MainOrderID + FactoryFilter,
+            DecorOrdersDataAdapter = new SqlDataAdapter(
+                "SELECT * FROM SampleDecorOrders WHERE MainOrderID = " + mainOrderId + factoryFilter,
                 ConnectionStrings.MarketingOrdersConnectionString);
             DecorOrdersDataAdapter.Fill(DecorOrdersDataTable);
             DecorOrdersCommandBuilder = new SqlCommandBuilder(DecorOrdersDataAdapter);
@@ -3160,49 +3305,51 @@ namespace Infinium.Modules.ZOV.Samples
             if (DecorOrdersDataTable.Rows.Count == 0)
                 return false;
 
-            for (int i = 0; i < DecorCatalogOrder.DecorProductsCount; i++)
+            for (var i = 0; i < DecorCatalogOrder.DecorProductsCount; i++)
             {
                 if (DecorItemOrdersDataGrids[i].Columns.Contains("CreateUserID"))
                     DecorItemOrdersDataGrids[i].Columns["CreateUserID"].Visible = false;
                 if (DecorItemOrdersDataGrids[i].Columns.Contains("CreateUserTypeID"))
                     DecorItemOrdersDataGrids[i].Columns["CreateUserTypeID"].Visible = false;
                 DecorItemOrdersDataGrids[i].Columns["DecorOrderID"].Visible = false;
-                DataRow[] Rows = DecorOrdersDataTable.Select("ProductID = " + DecorCatalogOrder.DecorProductsDataTable.Rows[i]["ProductID"].ToString());
+                var rows = DecorOrdersDataTable.Select("ProductID = " +
+                                                       DecorCatalogOrder.DecorProductsDataTable.Rows[i]["ProductID"]);
 
-                if (Rows.Count() == 0)
+                if (rows.Count() == 0)
                     continue;
-                bool ShowColor = false;
-                bool ShowPatina = false;
-                bool ShowII = false;
-                bool ShowIC = false;
-                bool ShowLength = false;
-                bool ShowHeight = false;
-                bool ShowWidth = false;
-                for (int r = 0; r < Rows.Count(); r++)
+                var showColor = false;
+                var showPatina = false;
+                var showIi = false;
+                var showIc = false;
+                var showLength = false;
+                var showHeight = false;
+                var showWidth = false;
+                for (var r = 0; r < rows.Count(); r++)
                 {
-                    if (!ShowColor)
-                        if (Convert.ToInt32(Rows[r]["ColorID"]) != -1)
-                            ShowColor = true;
-                    if (!ShowPatina)
-                        if (Convert.ToInt32(Rows[r]["PatinaID"]) != -1)
-                            ShowPatina = true;
-                    if (!ShowII)
-                        if (Convert.ToInt32(Rows[r]["InsetTypeID"]) != -1)
-                            ShowII = true;
-                    if (!ShowIC)
-                        if (Convert.ToInt32(Rows[r]["InsetColorID"]) != -1)
-                            ShowIC = true;
-                    if (!ShowLength)
-                        if (Convert.ToInt32(Rows[r]["Length"]) != -1)
-                            ShowLength = true;
-                    if (!ShowHeight)
-                        if (Convert.ToInt32(Rows[r]["Height"]) != -1)
-                            ShowHeight = true;
-                    if (!ShowWidth)
-                        if (Convert.ToInt32(Rows[r]["Width"]) != -1)
-                            ShowWidth = true;
-                    DecorItemOrdersDataTables[i].ImportRow(Rows[r]);
+                    if (!showColor)
+                        if (Convert.ToInt32(rows[r]["ColorID"]) != -1)
+                            showColor = true;
+                    if (!showPatina)
+                        if (Convert.ToInt32(rows[r]["PatinaID"]) != -1)
+                            showPatina = true;
+                    if (!showIi)
+                        if (Convert.ToInt32(rows[r]["InsetTypeID"]) != -1)
+                            showIi = true;
+                    if (!showIc)
+                        if (Convert.ToInt32(rows[r]["InsetColorID"]) != -1)
+                            showIc = true;
+                    if (!showLength)
+                        if (Convert.ToInt32(rows[r]["Length"]) != -1)
+                            showLength = true;
+                    if (!showHeight)
+                        if (Convert.ToInt32(rows[r]["Height"]) != -1)
+                            showHeight = true;
+                    if (!showWidth)
+                        if (Convert.ToInt32(rows[r]["Width"]) != -1)
+                            showWidth = true;
+                    DecorItemOrdersDataTables[i].ImportRow(rows[r]);
                 }
+
                 DecorItemOrdersDataGrids[i].Columns["ColorsColumn"].Visible = false;
                 DecorItemOrdersDataGrids[i].Columns["PatinaColumn"].Visible = false;
                 DecorItemOrdersDataGrids[i].Columns["InsetTypesColumn"].Visible = false;
@@ -3210,19 +3357,22 @@ namespace Infinium.Modules.ZOV.Samples
                 DecorItemOrdersDataGrids[i].Columns["Length"].Visible = false;
                 DecorItemOrdersDataGrids[i].Columns["Height"].Visible = false;
                 DecorItemOrdersDataGrids[i].Columns["Width"].Visible = false;
-                if (ShowColor)
+                DecorItemOrdersDataGrids[i].Columns["IsSample"].Visible = false;
+                DecorItemOrdersDataGrids[i].Columns["LeftAngle"].Visible = false;
+                DecorItemOrdersDataGrids[i].Columns["RightAngle"].Visible = false;
+                if (showColor)
                     DecorItemOrdersDataGrids[i].Columns["ColorsColumn"].Visible = true;
-                if (ShowPatina)
+                if (showPatina)
                     DecorItemOrdersDataGrids[i].Columns["PatinaColumn"].Visible = true;
-                if (ShowII)
+                if (showIi)
                     DecorItemOrdersDataGrids[i].Columns["InsetTypesColumn"].Visible = true;
-                if (ShowIC)
+                if (showIc)
                     DecorItemOrdersDataGrids[i].Columns["InsetColorsColumn"].Visible = true;
-                if (ShowLength)
+                if (showLength)
                     DecorItemOrdersDataGrids[i].Columns["Length"].Visible = true;
-                if (ShowHeight)
+                if (showHeight)
                     DecorItemOrdersDataGrids[i].Columns["Height"].Visible = true;
-                if (ShowWidth)
+                if (showWidth)
                     DecorItemOrdersDataGrids[i].Columns["Width"].Visible = true;
             }
 
@@ -3234,49 +3384,48 @@ namespace Infinium.Modules.ZOV.Samples
 
     public class OrdersManager
     {
-        public FileManager FM = new FileManager();
-        public int CurrentClientID = -1;
-        public int CurrentMainOrderID = -1;
+        private DataTable _mClientsDataTable;
+        private DataTable _mClientsGroupsDataTable;
+        private DataTable _mOrdersDataTable;
+        private DataTable _mShopAddressesDataTable;
 
-        public MFrontsOrders MFrontsOrders = null;
-        public MDecorOrders MDecorOrders = null;
-        public ZFrontsOrders ZFrontsOrders = null;
-        public ZDecorOrders ZDecorOrders = null;
+        private DataTable _ordersDataTable;
+        private DataTable _zClientsDataTable;
+        private DataTable _zClientsGroupsDataTable;
+        private DataTable _zOrdersDataTable;
+        private DataTable _zShopAddressesDataTable;
+        public int CurrentClientId = -1;
+        public int CurrentMainOrderId = -1;
+        public FileManager Fm = new FileManager();
+        public BindingSource MainOrdersBindingSource;
 
-        private DataTable MClientsDataTable = null;
-        private DataTable MClientsGroupsDataTable = null;
-        private DataTable ZClientsDataTable = null;
-        private DataTable ZClientsGroupsDataTable = null;
-        private DataTable MOrdersDataTable = null;
-        private DataTable ZOrdersDataTable = null;
-        private DataTable MShopAddressesDataTable = null;
-        private DataTable ZShopAddressesDataTable = null;
+        public BindingSource MClientsBindingSource;
+        public BindingSource MClientsGroupsBindingSource;
+        public MDecorOrders MDecorOrders;
 
-        private DataTable OrdersDataTable = null;
-
-        public BindingSource MClientsBindingSource = null;
-        public BindingSource ZClientsBindingSource = null;
-        public BindingSource MClientsGroupsBindingSource = null;
-        public BindingSource ZClientsGroupsBindingSource = null;
-        public BindingSource MainOrdersBindingSource = null;
+        public MFrontsOrders MFrontsOrders;
+        public BindingSource ZClientsBindingSource;
+        public BindingSource ZClientsGroupsBindingSource;
+        public ZDecorOrders ZDecorOrders;
+        public ZFrontsOrders ZFrontsOrders;
 
         public OrdersManager(
-                             ref PercentageDataGrid tMFrontsOrdersDataGrid,
-                             ref PercentageDataGrid tZFrontsOrdersDataGrid,
-                             ref DevExpress.XtraTab.XtraTabControl tMDecorTabControl,
-                             ref DevExpress.XtraTab.XtraTabControl tZDecorTabControl,
-                             ref DecorCatalogOrder DecorCatalogOrder)
+            ref PercentageDataGrid tMFrontsOrdersDataGrid,
+            ref PercentageDataGrid tZFrontsOrdersDataGrid,
+            ref XtraTabControl tMDecorTabControl,
+            ref XtraTabControl tZDecorTabControl,
+            ref DecorCatalogOrder decorCatalogOrder)
         {
             MFrontsOrders = new MFrontsOrders(ref tMFrontsOrdersDataGrid);
             MFrontsOrders.Initialize(true);
 
-            MDecorOrders = new MDecorOrders(ref tMDecorTabControl, ref DecorCatalogOrder, ref tMFrontsOrdersDataGrid);
+            MDecorOrders = new MDecorOrders(ref tMDecorTabControl, ref decorCatalogOrder, ref tMFrontsOrdersDataGrid);
             MDecorOrders.Initialize(true);
 
             ZFrontsOrders = new ZFrontsOrders(ref tZFrontsOrdersDataGrid);
             ZFrontsOrders.Initialize(true);
 
-            ZDecorOrders = new ZDecorOrders(ref tZDecorTabControl, ref DecorCatalogOrder, ref tZFrontsOrdersDataGrid);
+            ZDecorOrders = new ZDecorOrders(ref tZDecorTabControl, ref decorCatalogOrder, ref tZFrontsOrdersDataGrid);
             ZDecorOrders.Initialize(true);
 
             Initialize();
@@ -3285,28 +3434,28 @@ namespace Infinium.Modules.ZOV.Samples
 
         private void Create()
         {
-            MClientsDataTable = new DataTable();
-            MClientsGroupsDataTable = new DataTable();
-            MOrdersDataTable = new DataTable();
-            ZClientsDataTable = new DataTable();
-            ZClientsGroupsDataTable = new DataTable();
-            ZOrdersDataTable = new DataTable();
-            MShopAddressesDataTable = new DataTable();
-            ZShopAddressesDataTable = new DataTable();
+            _mClientsDataTable = new DataTable();
+            _mClientsGroupsDataTable = new DataTable();
+            _mOrdersDataTable = new DataTable();
+            _zClientsDataTable = new DataTable();
+            _zClientsGroupsDataTable = new DataTable();
+            _zOrdersDataTable = new DataTable();
+            _mShopAddressesDataTable = new DataTable();
+            _zShopAddressesDataTable = new DataTable();
 
-            OrdersDataTable = new DataTable();
-            OrdersDataTable.Columns.Add(new DataColumn("FirmType", Type.GetType("System.Int32")));
-            OrdersDataTable.Columns.Add(new DataColumn("ClientID", Type.GetType("System.Int32")));
-            OrdersDataTable.Columns.Add(new DataColumn("ClientName", Type.GetType("System.String")));
-            OrdersDataTable.Columns.Add(new DataColumn("OrderNumber", Type.GetType("System.String")));
-            OrdersDataTable.Columns.Add(new DataColumn("MainOrderID", Type.GetType("System.Int32")));
-            OrdersDataTable.Columns.Add(new DataColumn("CreateDate", Type.GetType("System.DateTime")));
-            OrdersDataTable.Columns.Add(new DataColumn("DispDate", Type.GetType("System.DateTime")));
-            OrdersDataTable.Columns.Add(new DataColumn("Description", Type.GetType("System.String")));
-            OrdersDataTable.Columns.Add(new DataColumn("Cost", Type.GetType("System.Decimal")));
-            OrdersDataTable.Columns.Add(new DataColumn("Square", Type.GetType("System.Decimal")));
-            OrdersDataTable.Columns.Add(new DataColumn("ShopAddresses", Type.GetType("System.String")));
-            OrdersDataTable.Columns.Add(new DataColumn("Foto", Type.GetType("System.Boolean")));
+            _ordersDataTable = new DataTable();
+            _ordersDataTable.Columns.Add(new DataColumn("FirmType", Type.GetType("System.Int32")));
+            _ordersDataTable.Columns.Add(new DataColumn("ClientID", Type.GetType("System.Int32")));
+            _ordersDataTable.Columns.Add(new DataColumn("ClientName", Type.GetType("System.String")));
+            _ordersDataTable.Columns.Add(new DataColumn("OrderNumber", Type.GetType("System.String")));
+            _ordersDataTable.Columns.Add(new DataColumn("MainOrderID", Type.GetType("System.Int32")));
+            _ordersDataTable.Columns.Add(new DataColumn("CreateDate", Type.GetType("System.DateTime")));
+            _ordersDataTable.Columns.Add(new DataColumn("DispDate", Type.GetType("System.DateTime")));
+            _ordersDataTable.Columns.Add(new DataColumn("Description", Type.GetType("System.String")));
+            _ordersDataTable.Columns.Add(new DataColumn("Cost", Type.GetType("System.Decimal")));
+            _ordersDataTable.Columns.Add(new DataColumn("Square", Type.GetType("System.Decimal")));
+            _ordersDataTable.Columns.Add(new DataColumn("ShopAddresses", Type.GetType("System.String")));
+            _ordersDataTable.Columns.Add(new DataColumn("Foto", Type.GetType("System.Boolean")));
 
             MClientsBindingSource = new BindingSource();
             ZClientsBindingSource = new BindingSource();
@@ -3317,68 +3466,75 @@ namespace Infinium.Modules.ZOV.Samples
 
         private void Fill()
         {
-            string SelectCommand = @"SELECT TOP 0 * FROM SampleMainOrders";
-            using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.MarketingOrdersConnectionString))
+            var selectCommand = @"SELECT TOP 0 * FROM SampleMainOrders";
+            using (var da = new SqlDataAdapter(selectCommand, ConnectionStrings.MarketingOrdersConnectionString))
             {
-                DA.Fill(MOrdersDataTable);
-            }
-            SelectCommand = @"SELECT TOP 0 * FROM SampleMainOrders";
-            using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.ZOVOrdersConnectionString))
-            {
-                DA.Fill(ZOrdersDataTable);
-            }
-            SelectCommand = @"SELECT ClientID, ClientName, ClientGroupID FROM Clients ORDER BY ClientName";
-            using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.MarketingReferenceConnectionString))
-            {
-                DA.Fill(MClientsDataTable);
-            }
-            SelectCommand = @"SELECT * FROM ClientGroups";
-            using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.MarketingReferenceConnectionString))
-            {
-                DA.Fill(MClientsGroupsDataTable);
-            }
-            SelectCommand = @"SELECT ClientID, ClientName, ClientGroupID FROM Clients ORDER BY ClientName";
-            using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.ZOVReferenceConnectionString))
-            {
-                DA.Fill(ZClientsDataTable);
-            }
-            SelectCommand = @"SELECT * FROM ClientsGroups";
-            using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.ZOVReferenceConnectionString))
-            {
-                DA.Fill(ZClientsGroupsDataTable);
-            }
-            SelectCommand = @"SELECT * FROM ShopAddresses";
-            using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.MarketingReferenceConnectionString))
-            {
-                DA.Fill(MShopAddressesDataTable);
-            }
-            SelectCommand = @"SELECT * FROM ShopAddresses";
-            using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.ZOVReferenceConnectionString))
-            {
-                DA.Fill(ZShopAddressesDataTable);
+                da.Fill(_mOrdersDataTable);
             }
 
-            MClientsDataTable.Columns.Add(new DataColumn("Check", Type.GetType("System.Boolean")));
-            MClientsGroupsDataTable.Columns.Add(new DataColumn("Check", Type.GetType("System.Boolean")));
-            ZClientsDataTable.Columns.Add(new DataColumn("Check", Type.GetType("System.Boolean")));
-            ZClientsGroupsDataTable.Columns.Add(new DataColumn("Check", Type.GetType("System.Boolean")));
-            for (int i = 0; i < MClientsDataTable.Rows.Count; i++)
-                MClientsDataTable.Rows[i]["Check"] = false;
-            for (int i = 0; i < MClientsGroupsDataTable.Rows.Count; i++)
-                MClientsGroupsDataTable.Rows[i]["Check"] = false;
-            for (int i = 0; i < ZClientsDataTable.Rows.Count; i++)
-                ZClientsDataTable.Rows[i]["Check"] = false;
-            for (int i = 0; i < ZClientsGroupsDataTable.Rows.Count; i++)
-                ZClientsGroupsDataTable.Rows[i]["Check"] = false;
+            selectCommand = @"SELECT TOP 0 * FROM SampleMainOrders";
+            using (var da = new SqlDataAdapter(selectCommand, ConnectionStrings.ZOVOrdersConnectionString))
+            {
+                da.Fill(_zOrdersDataTable);
+            }
+
+            selectCommand = @"SELECT ClientID, ClientName, ClientGroupID FROM Clients ORDER BY ClientName";
+            using (var da = new SqlDataAdapter(selectCommand, ConnectionStrings.MarketingReferenceConnectionString))
+            {
+                da.Fill(_mClientsDataTable);
+            }
+
+            selectCommand = @"SELECT * FROM ClientGroups";
+            using (var da = new SqlDataAdapter(selectCommand, ConnectionStrings.MarketingReferenceConnectionString))
+            {
+                da.Fill(_mClientsGroupsDataTable);
+            }
+
+            selectCommand = @"SELECT ClientID, ClientName, ClientGroupID FROM Clients ORDER BY ClientName";
+            using (var da = new SqlDataAdapter(selectCommand, ConnectionStrings.ZOVReferenceConnectionString))
+            {
+                da.Fill(_zClientsDataTable);
+            }
+
+            selectCommand = @"SELECT * FROM ClientsGroups";
+            using (var da = new SqlDataAdapter(selectCommand, ConnectionStrings.ZOVReferenceConnectionString))
+            {
+                da.Fill(_zClientsGroupsDataTable);
+            }
+
+            selectCommand = @"SELECT * FROM ShopAddresses";
+            using (var da = new SqlDataAdapter(selectCommand, ConnectionStrings.MarketingReferenceConnectionString))
+            {
+                da.Fill(_mShopAddressesDataTable);
+            }
+
+            selectCommand = @"SELECT * FROM ShopAddresses";
+            using (var da = new SqlDataAdapter(selectCommand, ConnectionStrings.ZOVReferenceConnectionString))
+            {
+                da.Fill(_zShopAddressesDataTable);
+            }
+
+            _mClientsDataTable.Columns.Add(new DataColumn("Check", Type.GetType("System.Boolean")));
+            _mClientsGroupsDataTable.Columns.Add(new DataColumn("Check", Type.GetType("System.Boolean")));
+            _zClientsDataTable.Columns.Add(new DataColumn("Check", Type.GetType("System.Boolean")));
+            _zClientsGroupsDataTable.Columns.Add(new DataColumn("Check", Type.GetType("System.Boolean")));
+            for (var i = 0; i < _mClientsDataTable.Rows.Count; i++)
+                _mClientsDataTable.Rows[i]["Check"] = false;
+            for (var i = 0; i < _mClientsGroupsDataTable.Rows.Count; i++)
+                _mClientsGroupsDataTable.Rows[i]["Check"] = false;
+            for (var i = 0; i < _zClientsDataTable.Rows.Count; i++)
+                _zClientsDataTable.Rows[i]["Check"] = false;
+            for (var i = 0; i < _zClientsGroupsDataTable.Rows.Count; i++)
+                _zClientsGroupsDataTable.Rows[i]["Check"] = false;
         }
 
         private void Binding()
         {
-            MClientsBindingSource.DataSource = MClientsDataTable;
-            MClientsGroupsBindingSource.DataSource = MClientsGroupsDataTable;
-            ZClientsBindingSource.DataSource = ZClientsDataTable;
-            ZClientsGroupsBindingSource.DataSource = ZClientsGroupsDataTable;
-            MainOrdersBindingSource.DataSource = OrdersDataTable;
+            MClientsBindingSource.DataSource = _mClientsDataTable;
+            MClientsGroupsBindingSource.DataSource = _mClientsGroupsDataTable;
+            ZClientsBindingSource.DataSource = _zClientsDataTable;
+            ZClientsGroupsBindingSource.DataSource = _zClientsGroupsDataTable;
+            MainOrdersBindingSource.DataSource = _ordersDataTable;
         }
 
         public void Initialize()
@@ -3388,525 +3544,567 @@ namespace Infinium.Modules.ZOV.Samples
             Binding();
         }
 
-        public void MoveToMainOrder(int MainOrderID)
+        public void MoveToMainOrder(int mainOrderId)
         {
-            MainOrdersBindingSource.Position = MainOrdersBindingSource.Find("MainOrderID", MainOrderID);
+            MainOrdersBindingSource.Position = MainOrdersBindingSource.Find("MainOrderID", mainOrderId);
         }
-        public void FilterMClients(int ClientGroupID)
+
+        public void FilterMClients(int clientGroupId)
         {
-            MClientsBindingSource.Filter = "ClientGroupID = " + ClientGroupID;
+            MClientsBindingSource.Filter = "ClientGroupID = " + clientGroupId;
             MClientsBindingSource.MoveFirst();
         }
 
-        public void FilterZClients(int ClientGroupID)
+        public void FilterZClients(int clientGroupId)
         {
-            ZClientsBindingSource.Filter = "ClientGroupID = " + ClientGroupID;
+            ZClientsBindingSource.Filter = "ClientGroupID = " + clientGroupId;
             ZClientsBindingSource.MoveFirst();
         }
 
         public ArrayList GetMClients()
         {
-            ArrayList Clients = new ArrayList();
-            for (int i = 0; i < MClientsDataTable.Rows.Count; i++)
+            var clients = new ArrayList();
+            for (var i = 0; i < _mClientsDataTable.Rows.Count; i++)
             {
-                if (!Convert.ToBoolean(MClientsDataTable.Rows[i]["Check"]))
+                if (!Convert.ToBoolean(_mClientsDataTable.Rows[i]["Check"]))
                     continue;
 
-                Clients.Add(Convert.ToInt32(MClientsDataTable.Rows[i]["ClientID"]));
+                clients.Add(Convert.ToInt32(_mClientsDataTable.Rows[i]["ClientID"]));
             }
-            return Clients;
+
+            return clients;
         }
 
         public ArrayList GetMClientGroups()
         {
-            ArrayList ClientGroupIDs = new ArrayList();
-            for (int i = 0; i < MClientsGroupsDataTable.Rows.Count; i++)
+            var clientGroupIDs = new ArrayList();
+            for (var i = 0; i < _mClientsGroupsDataTable.Rows.Count; i++)
             {
-                if (!Convert.ToBoolean(MClientsGroupsDataTable.Rows[i]["Check"])
-                    || Convert.ToInt32(MClientsGroupsDataTable.Rows[i]["ClientGroupID"]) == 1)
+                if (!Convert.ToBoolean(_mClientsGroupsDataTable.Rows[i]["Check"])
+                    || Convert.ToInt32(_mClientsGroupsDataTable.Rows[i]["ClientGroupID"]) == 1)
                     continue;
 
-                ClientGroupIDs.Add(Convert.ToInt32(MClientsGroupsDataTable.Rows[i]["ClientGroupID"]));
+                clientGroupIDs.Add(Convert.ToInt32(_mClientsGroupsDataTable.Rows[i]["ClientGroupID"]));
             }
-            return ClientGroupIDs;
+
+            return clientGroupIDs;
         }
 
         public ArrayList GetZClients()
         {
-            ArrayList Clients = new ArrayList();
-            for (int i = 0; i < ZClientsDataTable.Rows.Count; i++)
+            var clients = new ArrayList();
+            for (var i = 0; i < _zClientsDataTable.Rows.Count; i++)
             {
-                if (!Convert.ToBoolean(ZClientsDataTable.Rows[i]["Check"]))
+                if (!Convert.ToBoolean(_zClientsDataTable.Rows[i]["Check"]))
                     continue;
 
-                Clients.Add(Convert.ToInt32(ZClientsDataTable.Rows[i]["ClientID"]));
+                clients.Add(Convert.ToInt32(_zClientsDataTable.Rows[i]["ClientID"]));
             }
-            return Clients;
+
+            return clients;
         }
 
         public ArrayList GetZClientGroups()
         {
-            ArrayList ClientGroupIDs = new ArrayList();
-            for (int i = 0; i < ZClientsGroupsDataTable.Rows.Count; i++)
+            var clientGroupIDs = new ArrayList();
+            for (var i = 0; i < _zClientsGroupsDataTable.Rows.Count; i++)
             {
-                if (!Convert.ToBoolean(ZClientsGroupsDataTable.Rows[i]["Check"])
-                    || Convert.ToInt32(ZClientsGroupsDataTable.Rows[i]["ClientGroupID"]) == 1)
+                if (!Convert.ToBoolean(_zClientsGroupsDataTable.Rows[i]["Check"])
+                    || Convert.ToInt32(_zClientsGroupsDataTable.Rows[i]["ClientGroupID"]) == 1)
                     continue;
 
-                ClientGroupIDs.Add(Convert.ToInt32(ZClientsGroupsDataTable.Rows[i]["ClientGroupID"]));
+                clientGroupIDs.Add(Convert.ToInt32(_zClientsGroupsDataTable.Rows[i]["ClientGroupID"]));
             }
-            return ClientGroupIDs;
+
+            return clientGroupIDs;
         }
 
-        public void CheckMClients(bool Check)
+        public void CheckMClients(bool check)
         {
-            for (int i = 0; i < MClientsDataTable.Rows.Count; i++)
-            {
-                MClientsDataTable.Rows[i]["Check"] = Check;
-            }
+            for (var i = 0; i < _mClientsDataTable.Rows.Count; i++) _mClientsDataTable.Rows[i]["Check"] = check;
         }
 
-        public void CheckMClients(bool Check, int ClientGroupID)
+        public void CheckMClients(bool check, int clientGroupId)
         {
-            string GroupFilter = string.Empty;
-            GroupFilter = "ClientGroupID = " + ClientGroupID;
-            DataRow[] Rows = MClientsDataTable.Select(GroupFilter);
-            foreach (DataRow row in Rows)
-                row["Check"] = Check;
+            var groupFilter = string.Empty;
+            groupFilter = "ClientGroupID = " + clientGroupId;
+            var rows = _mClientsDataTable.Select(groupFilter);
+            foreach (var row in rows)
+                row["Check"] = check;
         }
 
-        public void CheckMClientGroups(bool Check)
+        public void CheckMClientGroups(bool check)
         {
-            for (int i = 0; i < MClientsGroupsDataTable.Rows.Count; i++)
-            {
-                MClientsGroupsDataTable.Rows[i]["Check"] = Check;
-            }
+            for (var i = 0; i < _mClientsGroupsDataTable.Rows.Count; i++)
+                _mClientsGroupsDataTable.Rows[i]["Check"] = check;
         }
 
-        public void CheckMClientGroups(bool Check, int ClientGroupID)
+        public void CheckMClientGroups(bool check, int clientGroupId)
         {
-            string GroupFilter = string.Empty;
-            GroupFilter = "ClientGroupID = " + ClientGroupID;
-            DataRow[] Rows = MClientsGroupsDataTable.Select(GroupFilter);
-            foreach (DataRow row in Rows)
-                row["Check"] = Check;
+            var groupFilter = string.Empty;
+            groupFilter = "ClientGroupID = " + clientGroupId;
+            var rows = _mClientsGroupsDataTable.Select(groupFilter);
+            foreach (var row in rows)
+                row["Check"] = check;
         }
 
-        public void CheckZClients(bool Check)
+        public void CheckZClients(bool check)
         {
-            for (int i = 0; i < ZClientsDataTable.Rows.Count; i++)
-            {
-                ZClientsDataTable.Rows[i]["Check"] = Check;
-            }
+            for (var i = 0; i < _zClientsDataTable.Rows.Count; i++) _zClientsDataTable.Rows[i]["Check"] = check;
         }
 
-        public void CheckZClients(bool Check, int ClientGroupID)
+        public void CheckZClients(bool check, int clientGroupId)
         {
-            string GroupFilter = string.Empty;
-            GroupFilter = "ClientGroupID = " + ClientGroupID;
-            DataRow[] Rows = ZClientsDataTable.Select(GroupFilter);
-            foreach (DataRow row in Rows)
-                row["Check"] = Check;
+            var groupFilter = string.Empty;
+            groupFilter = "ClientGroupID = " + clientGroupId;
+            var rows = _zClientsDataTable.Select(groupFilter);
+            foreach (var row in rows)
+                row["Check"] = check;
         }
 
-        public void CheckZClientGroups(bool Check, int ClientGroupID)
+        public void CheckZClientGroups(bool check, int clientGroupId)
         {
-            string GroupFilter = string.Empty;
-            GroupFilter = "ClientGroupID = " + ClientGroupID;
-            DataRow[] Rows = ZClientsGroupsDataTable.Select(GroupFilter);
-            foreach (DataRow row in Rows)
-                row["Check"] = Check;
+            var groupFilter = string.Empty;
+            groupFilter = "ClientGroupID = " + clientGroupId;
+            var rows = _zClientsGroupsDataTable.Select(groupFilter);
+            foreach (var row in rows)
+                row["Check"] = check;
         }
 
-        public void CheckZClientGroups(bool Check)
+        public void CheckZClientGroups(bool check)
         {
-            for (int i = 0; i < ZClientsGroupsDataTable.Rows.Count; i++)
-            {
-                ZClientsGroupsDataTable.Rows[i]["Check"] = Check;
-            }
+            for (var i = 0; i < _zClientsGroupsDataTable.Rows.Count; i++)
+                _zClientsGroupsDataTable.Rows[i]["Check"] = check;
         }
 
         public void FilterOrders(
             bool bMarketing,
             bool bMClients,
             bool bMCreateDate,
-            object MCreateDateFrom,
-            object MCreateDateTo,
+            object mCreateDateFrom,
+            object mCreateDateTo,
             bool bMDispDate,
-            object MDispDateFrom,
-            object MDispDateTo,
-            bool bZOV,
+            object mDispDateFrom,
+            object mDispDateTo,
+            bool bZov,
             bool bZClients,
             bool bZCreateDate,
-            object ZCreateDateFrom,
-            object ZCreateDateTo,
+            object zCreateDateFrom,
+            object zCreateDateTo,
             bool bZDispDate,
-            object ZDispDateFrom,
-            object ZDispDateTo)
+            object zDispDateFrom,
+            object zDispDateTo)
         {
-            string MFilter = string.Empty;
-            string ZFilter = string.Empty;
+            var mFilter = string.Empty;
+            var zFilter = string.Empty;
             if (bMarketing)
             {
                 if (bMClients)
                 {
-                    ArrayList MClients = GetMClients();
-                    if (MClients.Count > 0)
+                    var mClients = GetMClients();
+                    if (mClients.Count > 0)
                     {
-                        if (MFilter.Length > 0)
-                            MFilter += " AND MegaOrders.ClientID IN (" + string.Join(",", MClients.OfType<Int32>().ToArray()) + ")";
+                        if (mFilter.Length > 0)
+                            mFilter += " AND MegaOrders.ClientID IN (" +
+                                       string.Join(",", mClients.OfType<int>().ToArray()) + ")";
                         else
-                            MFilter = " WHERE MegaOrders.ClientID IN (" + string.Join(",", MClients.OfType<Int32>().ToArray()) + ")";
+                            mFilter = " WHERE MegaOrders.ClientID IN (" +
+                                      string.Join(",", mClients.OfType<int>().ToArray()) + ")";
                     }
                     else
                     {
-                        if (MFilter.Length > 0)
-                            MFilter += " AND MegaOrders.ClientID = -1";
+                        if (mFilter.Length > 0)
+                            mFilter += " AND MegaOrders.ClientID = -1";
                         else
-                            MFilter = " WHERE MegaOrders.ClientID = -1";
+                            mFilter = " WHERE MegaOrders.ClientID = -1";
                     }
                 }
+
                 if (bMCreateDate)
                 {
-                    if (MFilter.Length > 0)
-                    {
-                        MFilter += " AND CAST(DocDateTime AS DATE) >= '" + Convert.ToDateTime(MCreateDateFrom).ToString("yyyy-MM-dd") +
-                            "' AND CAST(DocDateTime AS DATE) <= '" + Convert.ToDateTime(MCreateDateTo).ToString("yyyy-MM-dd") + "' ";
-                    }
+                    if (mFilter.Length > 0)
+                        mFilter += " AND CAST(DocDateTime AS DATE) >= '" +
+                                   Convert.ToDateTime(mCreateDateFrom).ToString("yyyy-MM-dd") +
+                                   "' AND CAST(DocDateTime AS DATE) <= '" +
+                                   Convert.ToDateTime(mCreateDateTo).ToString("yyyy-MM-dd") + "' ";
                     else
-                    {
-                        MFilter = " WHERE CAST(DocDateTime AS DATE) >= '" + Convert.ToDateTime(MCreateDateFrom).ToString("yyyy-MM-dd") +
-                            "' AND CAST(DocDateTime AS DATE) <= '" + Convert.ToDateTime(MCreateDateTo).ToString("yyyy-MM-dd") + "' ";
-                    }
+                        mFilter = " WHERE CAST(DocDateTime AS DATE) >= '" +
+                                  Convert.ToDateTime(mCreateDateFrom).ToString("yyyy-MM-dd") +
+                                  "' AND CAST(DocDateTime AS DATE) <= '" +
+                                  Convert.ToDateTime(mCreateDateTo).ToString("yyyy-MM-dd") + "' ";
                 }
+
                 if (bMDispDate)
                 {
-                    if (MFilter.Length > 0)
-                    {
-                        MFilter += " AND CAST(DispDateTime AS DATE) >= '" + Convert.ToDateTime(MDispDateFrom).ToString("yyyy-MM-dd") +
-                            "' AND CAST(DispDateTime AS DATE) <= '" + Convert.ToDateTime(MDispDateTo).ToString("yyyy-MM-dd") + "' ";
-                    }
+                    if (mFilter.Length > 0)
+                        mFilter += " AND CAST(DispDateTime AS DATE) >= '" +
+                                   Convert.ToDateTime(mDispDateFrom).ToString("yyyy-MM-dd") +
+                                   "' AND CAST(DispDateTime AS DATE) <= '" +
+                                   Convert.ToDateTime(mDispDateTo).ToString("yyyy-MM-dd") + "' ";
                     else
-                    {
-                        MFilter = " WHERE CAST(DispDateTime AS DATE) >= '" + Convert.ToDateTime(MDispDateFrom).ToString("yyyy-MM-dd") +
-                            "' AND CAST(DispDateTime AS DATE) <= '" + Convert.ToDateTime(MDispDateTo).ToString("yyyy-MM-dd") + "' ";
-                    }
+                        mFilter = " WHERE CAST(DispDateTime AS DATE) >= '" +
+                                  Convert.ToDateTime(mDispDateFrom).ToString("yyyy-MM-dd") +
+                                  "' AND CAST(DispDateTime AS DATE) <= '" +
+                                  Convert.ToDateTime(mDispDateTo).ToString("yyyy-MM-dd") + "' ";
                 }
+
                 if (!bMClients && !bMCreateDate && !bMDispDate)
-                    MFilter = " WHERE MainOrderID = -1";
+                    mFilter = " WHERE MainOrderID = -1";
             }
             else
-                MFilter = " WHERE MainOrderID = -1";
+            {
+                mFilter = " WHERE MainOrderID = -1";
+            }
 
-            if (bZOV)
+            if (bZov)
             {
                 if (bZClients)
                 {
-                    ArrayList ZClients = GetZClients();
-                    if (ZClients.Count > 0)
+                    var zClients = GetZClients();
+                    if (zClients.Count > 0)
                     {
-                        if (ZFilter.Length > 0)
-                            ZFilter += " AND SampleMainOrders.ClientID IN (" + string.Join(",", ZClients.OfType<Int32>().ToArray()) + ")";
+                        if (zFilter.Length > 0)
+                            zFilter += " AND infiniu2_zovorders.dbo.MainOrders.ClientID IN (" +
+                                       string.Join(",", zClients.OfType<int>().ToArray()) + ")";
                         else
-                            ZFilter = " WHERE SampleMainOrders.ClientID IN (" + string.Join(",", ZClients.OfType<Int32>().ToArray()) + ")";
+                            zFilter = " WHERE infiniu2_zovorders.dbo.MainOrders.ClientID IN (" +
+                                      string.Join(",", zClients.OfType<int>().ToArray()) + ")";
                     }
                     else
                     {
-                        if (ZFilter.Length > 0)
-                            ZFilter += " AND SampleMainOrders.ClientID = -1";
+                        if (zFilter.Length > 0)
+                            zFilter += " AND infiniu2_zovorders.dbo.MainOrders.ClientID = -1";
                         else
-                            ZFilter = " WHERE SampleMainOrders.ClientID = -1";
+                            zFilter = " WHERE infiniu2_zovorders.dbo.MainOrders.ClientID = -1";
                     }
                 }
+
                 if (bZCreateDate)
                 {
-                    if (ZFilter.Length > 0)
-                    {
-                        ZFilter += " AND CAST(DocDateTime AS DATE) >= '" + Convert.ToDateTime(ZCreateDateFrom).ToString("yyyy-MM-dd") +
-                            "' AND CAST(DocDateTime AS DATE) <= '" + Convert.ToDateTime(ZCreateDateTo).ToString("yyyy-MM-dd") + "' ";
-                    }
+                    if (zFilter.Length > 0)
+                        zFilter += " AND CAST(DocDateTime AS DATE) >= '" +
+                                   Convert.ToDateTime(zCreateDateFrom).ToString("yyyy-MM-dd") +
+                                   "' AND CAST(DocDateTime AS DATE) <= '" +
+                                   Convert.ToDateTime(zCreateDateTo).ToString("yyyy-MM-dd") + "' ";
                     else
-                    {
-                        ZFilter = " WHERE CAST(DocDateTime AS DATE) >= '" + Convert.ToDateTime(ZCreateDateFrom).ToString("yyyy-MM-dd") +
-                            "' AND CAST(DocDateTime AS DATE) <= '" + Convert.ToDateTime(ZCreateDateTo).ToString("yyyy-MM-dd") + "' ";
-                    }
+                        zFilter = " WHERE CAST(DocDateTime AS DATE) >= '" +
+                                  Convert.ToDateTime(zCreateDateFrom).ToString("yyyy-MM-dd") +
+                                  "' AND CAST(DocDateTime AS DATE) <= '" +
+                                  Convert.ToDateTime(zCreateDateTo).ToString("yyyy-MM-dd") + "' ";
                 }
+
                 if (bZDispDate)
                 {
-                    if (ZFilter.Length > 0)
-                    {
-                        ZFilter += " AND CAST(DispDateTime AS DATE) >= '" + Convert.ToDateTime(ZDispDateFrom).ToString("yyyy-MM-dd") +
-                            "' AND CAST(DispDateTime AS DATE) <= '" + Convert.ToDateTime(ZDispDateTo).ToString("yyyy-MM-dd") + "' ";
-                    }
+                    if (zFilter.Length > 0)
+                        zFilter += " AND CAST(DispDateTime AS DATE) >= '" +
+                                   Convert.ToDateTime(zDispDateFrom).ToString("yyyy-MM-dd") +
+                                   "' AND CAST(DispDateTime AS DATE) <= '" +
+                                   Convert.ToDateTime(zDispDateTo).ToString("yyyy-MM-dd") + "' ";
                     else
-                    {
-                        ZFilter = " WHERE CAST(DispDateTime AS DATE) >= '" + Convert.ToDateTime(ZDispDateFrom).ToString("yyyy-MM-dd") +
-                            "' AND CAST(DispDateTime AS DATE) <= '" + Convert.ToDateTime(ZDispDateTo).ToString("yyyy-MM-dd") + "' ";
-                    }
+                        zFilter = " WHERE CAST(DispDateTime AS DATE) >= '" +
+                                  Convert.ToDateTime(zDispDateFrom).ToString("yyyy-MM-dd") +
+                                  "' AND CAST(DispDateTime AS DATE) <= '" +
+                                  Convert.ToDateTime(zDispDateTo).ToString("yyyy-MM-dd") + "' ";
                 }
+
                 if (!bZClients && !bZCreateDate && !bZDispDate)
-                    ZFilter = " WHERE MainOrderID = -1";
-            }
-            else
-                ZFilter = " WHERE MainOrderID = -1";
-
-            string SelectCommand = @"SELECT SampleMainOrders.*, MegaOrders.ClientID, MegaOrders.OrderNumber, Clients.ClientName FROM SampleMainOrders
-                INNER JOIN MegaOrders ON SampleMainOrders.MegaOrderID=MegaOrders.MegaOrderID
-                INNER JOIN infiniu2_marketingreference.dbo.Clients AS Clients ON MegaOrders.ClientID=Clients.ClientID" + MFilter;
-            using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.MarketingOrdersConnectionString))
-            {
-                MOrdersDataTable.Clear();
-                DA.Fill(MOrdersDataTable);
-            }
-            SelectCommand = @"SELECT SampleMainOrders.*, Clients.ClientName FROM SampleMainOrders
-                INNER JOIN infiniu2_zovreference.dbo.Clients AS Clients ON SampleMainOrders.ClientID=Clients.ClientID" + ZFilter;
-            using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.ZOVOrdersConnectionString))
-            {
-                ZOrdersDataTable.Clear();
-                DA.Fill(ZOrdersDataTable);
-            }
-            OrdersDataTable.Clear();
-            for (int i = 0; i < MOrdersDataTable.Rows.Count; i++)
-            {
-                DataRow NewRow = OrdersDataTable.NewRow();
-                NewRow["FirmType"] = 1;
-                NewRow["ClientID"] = MOrdersDataTable.Rows[i]["ClientID"];
-                NewRow["ClientName"] = MOrdersDataTable.Rows[i]["ClientName"];
-                NewRow["OrderNumber"] = MOrdersDataTable.Rows[i]["OrderNumber"];
-                NewRow["MainOrderID"] = MOrdersDataTable.Rows[i]["MainOrderID"];
-                NewRow["CreateDate"] = MOrdersDataTable.Rows[i]["DocDateTime"];
-                NewRow["Cost"] = MOrdersDataTable.Rows[i]["OrderCost"];
-                NewRow["Square"] = MOrdersDataTable.Rows[i]["FrontsSquare"];
-                NewRow["Description"] = MOrdersDataTable.Rows[i]["Description"];
-                NewRow["Foto"] = MOrdersDataTable.Rows[i]["Foto"];
-                NewRow["DispDate"] = MOrdersDataTable.Rows[i]["DispDate"];
-                DataRow[] rows = MShopAddressesDataTable.Select("ClientID=" + Convert.ToInt32(MOrdersDataTable.Rows[i]["ClientID"]));
-                if (rows.Count() > 0)
-                    NewRow["ShopAddresses"] = "Показать магазины";
-                OrdersDataTable.Rows.Add(NewRow);
-            }
-            for (int i = 0; i < ZOrdersDataTable.Rows.Count; i++)
-            {
-                DataRow NewRow = OrdersDataTable.NewRow();
-                NewRow["FirmType"] = 0;
-                NewRow["ClientID"] = ZOrdersDataTable.Rows[i]["ClientID"];
-                NewRow["ClientName"] = ZOrdersDataTable.Rows[i]["ClientName"];
-                NewRow["OrderNumber"] = ZOrdersDataTable.Rows[i]["DocNumber"];
-                NewRow["MainOrderID"] = ZOrdersDataTable.Rows[i]["MainOrderID"];
-                NewRow["CreateDate"] = ZOrdersDataTable.Rows[i]["DocDateTime"];
-                NewRow["Cost"] = ZOrdersDataTable.Rows[i]["OrderCost"];
-                NewRow["Square"] = ZOrdersDataTable.Rows[i]["FrontsSquare"];
-                NewRow["Description"] = ZOrdersDataTable.Rows[i]["Description"];
-                NewRow["Foto"] = ZOrdersDataTable.Rows[i]["Foto"];
-                NewRow["DispDate"] = ZOrdersDataTable.Rows[i]["DispDate"];
-                DataRow[] rows = ZShopAddressesDataTable.Select("ClientID=" + Convert.ToInt32(ZOrdersDataTable.Rows[i]["ClientID"]));
-                if (rows.Count() > 0)
-                    NewRow["ShopAddresses"] = "Показать магазины";
-                OrdersDataTable.Rows.Add(NewRow);
-            }
-            OrdersDataTable.AcceptChanges();
-        }
-
-        public void SearchPartMDocNumber(string DocText)
-        {
-            string Search = string.Format(" WHERE OrderNumber LIKE '%" + DocText + "%'");
-
-            string SelectCommand = @"SELECT SampleMainOrders.*, MegaOrders.OrderNumber, MegaOrders.ClientID, Clients.ClientName FROM SampleMainOrders
-                INNER JOIN MegaOrders ON SampleMainOrders.MegaOrderID=MegaOrders.MegaOrderID
-                INNER JOIN infiniu2_marketingreference.dbo.Clients AS Clients ON MegaOrders.ClientID=Clients.ClientID" + Search;
-            using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.MarketingOrdersConnectionString))
-            {
-                MOrdersDataTable.Clear();
-                DA.Fill(MOrdersDataTable);
-            }
-            OrdersDataTable.Clear();
-            for (int i = 0; i < MOrdersDataTable.Rows.Count; i++)
-            {
-                DataRow NewRow = OrdersDataTable.NewRow();
-                NewRow["FirmType"] = 1;
-                NewRow["ClientID"] = MOrdersDataTable.Rows[i]["ClientID"];
-                NewRow["ClientName"] = MOrdersDataTable.Rows[i]["ClientName"];
-                NewRow["OrderNumber"] = MOrdersDataTable.Rows[i]["OrderNumber"];
-                NewRow["MainOrderID"] = MOrdersDataTable.Rows[i]["MainOrderID"];
-                NewRow["CreateDate"] = MOrdersDataTable.Rows[i]["DocDateTime"];
-                NewRow["Cost"] = MOrdersDataTable.Rows[i]["OrderCost"];
-                NewRow["Square"] = MOrdersDataTable.Rows[i]["FrontsSquare"];
-                NewRow["Description"] = MOrdersDataTable.Rows[i]["Description"];
-                NewRow["Foto"] = MOrdersDataTable.Rows[i]["Foto"];
-                NewRow["DispDate"] = MOrdersDataTable.Rows[i]["DispDate"];
-                OrdersDataTable.Rows.Add(NewRow);
-            }
-            OrdersDataTable.AcceptChanges();
-        }
-
-        public void SearchPartZDocNumber(string DocText)
-        {
-            string Search = string.Format(" WHERE DocNumber LIKE '%" + DocText + "%'");
-
-            string SelectCommand = @"SELECT SampleMainOrders.*, Clients.ClientName FROM SampleMainOrders
-                INNER JOIN infiniu2_zovreference.dbo.Clients AS Clients ON SampleMainOrders.ClientID=Clients.ClientID" + Search;
-            using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.ZOVOrdersConnectionString))
-            {
-                ZOrdersDataTable.Clear();
-                DA.Fill(ZOrdersDataTable);
-            }
-            OrdersDataTable.Clear();
-            for (int i = 0; i < ZOrdersDataTable.Rows.Count; i++)
-            {
-                DataRow NewRow = OrdersDataTable.NewRow();
-                NewRow["FirmType"] = 0;
-                NewRow["ClientID"] = ZOrdersDataTable.Rows[i]["ClientID"];
-                NewRow["ClientName"] = ZOrdersDataTable.Rows[i]["ClientName"];
-                NewRow["OrderNumber"] = ZOrdersDataTable.Rows[i]["DocNumber"];
-                NewRow["MainOrderID"] = ZOrdersDataTable.Rows[i]["MainOrderID"];
-                NewRow["CreateDate"] = ZOrdersDataTable.Rows[i]["DocDateTime"];
-                NewRow["Cost"] = ZOrdersDataTable.Rows[i]["OrderCost"];
-                NewRow["Square"] = ZOrdersDataTable.Rows[i]["FrontsSquare"];
-                NewRow["Description"] = ZOrdersDataTable.Rows[i]["Description"];
-                NewRow["Foto"] = ZOrdersDataTable.Rows[i]["Foto"];
-                NewRow["DispDate"] = ZOrdersDataTable.Rows[i]["DispDate"];
-                OrdersDataTable.Rows.Add(NewRow);
-            }
-            OrdersDataTable.AcceptChanges();
-        }
-
-        public void SearchPartMNotes(string DocText)
-        {
-            string Search = string.Format(" WHERE Description LIKE '%" + DocText + "%'");
-
-            string SelectCommand = @"SELECT SampleMainOrders.*, MegaOrders.OrderNumber, MegaOrders.ClientID, Clients.ClientName FROM SampleMainOrders
-                INNER JOIN MegaOrders ON SampleMainOrders.MegaOrderID=MegaOrders.MegaOrderID
-                INNER JOIN infiniu2_marketingreference.dbo.Clients AS Clients ON MegaOrders.ClientID=Clients.ClientID" + Search;
-            using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.MarketingOrdersConnectionString))
-            {
-                MOrdersDataTable.Clear();
-                DA.Fill(MOrdersDataTable);
-            }
-            OrdersDataTable.Clear();
-            for (int i = 0; i < MOrdersDataTable.Rows.Count; i++)
-            {
-                DataRow NewRow = OrdersDataTable.NewRow();
-                NewRow["FirmType"] = 1;
-                NewRow["ClientID"] = MOrdersDataTable.Rows[i]["ClientID"];
-                NewRow["ClientName"] = MOrdersDataTable.Rows[i]["ClientName"];
-                NewRow["OrderNumber"] = MOrdersDataTable.Rows[i]["OrderNumber"];
-                NewRow["MainOrderID"] = MOrdersDataTable.Rows[i]["MainOrderID"];
-                NewRow["CreateDate"] = MOrdersDataTable.Rows[i]["DocDateTime"];
-                NewRow["Cost"] = MOrdersDataTable.Rows[i]["OrderCost"];
-                NewRow["Square"] = MOrdersDataTable.Rows[i]["FrontsSquare"];
-                NewRow["Description"] = MOrdersDataTable.Rows[i]["Description"];
-                NewRow["Foto"] = MOrdersDataTable.Rows[i]["Foto"];
-                NewRow["DispDate"] = MOrdersDataTable.Rows[i]["DispDate"];
-                OrdersDataTable.Rows.Add(NewRow);
-            }
-            OrdersDataTable.AcceptChanges();
-        }
-
-        public void SearchPartZNotes(string DocText)
-        {
-            string Search = string.Format(" WHERE Description LIKE '%" + DocText + "%'");
-
-            string SelectCommand = @"SELECT SampleMainOrders.*, Clients.ClientName FROM SampleMainOrders
-                INNER JOIN infiniu2_zovreference.dbo.Clients AS Clients ON SampleMainOrders.ClientID=Clients.ClientID" + Search;
-            using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.ZOVOrdersConnectionString))
-            {
-                ZOrdersDataTable.Clear();
-                DA.Fill(ZOrdersDataTable);
-            }
-            OrdersDataTable.Clear();
-            for (int i = 0; i < ZOrdersDataTable.Rows.Count; i++)
-            {
-                DataRow NewRow = OrdersDataTable.NewRow();
-                NewRow["FirmType"] = 0;
-                NewRow["ClientID"] = ZOrdersDataTable.Rows[i]["ClientID"];
-                NewRow["ClientName"] = ZOrdersDataTable.Rows[i]["ClientName"];
-                NewRow["OrderNumber"] = ZOrdersDataTable.Rows[i]["DocNumber"];
-                NewRow["MainOrderID"] = ZOrdersDataTable.Rows[i]["MainOrderID"];
-                NewRow["CreateDate"] = ZOrdersDataTable.Rows[i]["DocDateTime"];
-                NewRow["Cost"] = ZOrdersDataTable.Rows[i]["OrderCost"];
-                NewRow["Square"] = ZOrdersDataTable.Rows[i]["FrontsSquare"];
-                NewRow["Description"] = ZOrdersDataTable.Rows[i]["Description"];
-                NewRow["Foto"] = ZOrdersDataTable.Rows[i]["Foto"];
-                NewRow["DispDate"] = ZOrdersDataTable.Rows[i]["DispDate"];
-                OrdersDataTable.Rows.Add(NewRow);
-            }
-            OrdersDataTable.AcceptChanges();
-        }
-
-        public void FilterProductByMainOrder(bool IsZOV, int MainOrderID, ref bool FrontsVisible, ref bool DecorVisible)
-        {
-            if (IsZOV)
-            {
-                FrontsVisible = ZFrontsOrders.Filter(MainOrderID, 0);
-                DecorVisible = ZDecorOrders.Filter(MainOrderID, 0);
+                    zFilter = " WHERE SampleMainOrders.MainOrderID = -1";
             }
             else
             {
-                FrontsVisible = MFrontsOrders.Filter(MainOrderID, 0);
-                DecorVisible = MDecorOrders.Filter(MainOrderID, 0);
+                zFilter = " WHERE SampleMainOrders.MainOrderID = -1";
+            }
+
+            var selectCommand =
+                @"SELECT SampleMainOrders.*, MegaOrders.ClientID, MegaOrders.OrderNumber, Clients.ClientName FROM SampleMainOrders
+                INNER JOIN MegaOrders ON SampleMainOrders.MegaOrderID=MegaOrders.MegaOrderID
+                INNER JOIN infiniu2_marketingreference.dbo.Clients AS Clients ON MegaOrders.ClientID=Clients.ClientID" +
+                mFilter + " ORDER BY MainOrderID DESC";
+            using (var da = new SqlDataAdapter(selectCommand, ConnectionStrings.MarketingOrdersConnectionString))
+            {
+                _mOrdersDataTable.Clear();
+                da.Fill(_mOrdersDataTable);
+            }
+
+            selectCommand =
+                @"SELECT SampleMainOrders.*, infiniu2_zovorders.dbo.MainOrders.ClientID, infiniu2_zovorders.dbo.MainOrders.DocNumber, Clients.ClientName FROM SampleMainOrders
+                INNER JOIN JoinMainOrders ON SampleMainOrders.MainOrderID = JoinMainOrders.MarketMainOrderID
+                INNER JOIN infiniu2_zovorders.dbo.MainOrders ON JoinMainOrders.ZOVMainOrderID=infiniu2_zovorders.dbo.MainOrders.MainOrderID
+                INNER JOIN infiniu2_zovreference.dbo.Clients AS Clients ON JoinMainOrders.ZOVClientID=Clients.ClientID" +
+                zFilter + " ORDER BY SampleMainOrders.MainOrderID DESC";
+            using (var da = new SqlDataAdapter(selectCommand, ConnectionStrings.MarketingOrdersConnectionString))
+            {
+                _zOrdersDataTable.Clear();
+                da.Fill(_zOrdersDataTable);
+            }
+
+            _ordersDataTable.Clear();
+            for (var i = 0; i < _mOrdersDataTable.Rows.Count; i++)
+            {
+                var newRow = _ordersDataTable.NewRow();
+                newRow["FirmType"] = 1;
+                newRow["ClientID"] = _mOrdersDataTable.Rows[i]["ClientID"];
+                newRow["ClientName"] = _mOrdersDataTable.Rows[i]["ClientName"];
+                newRow["OrderNumber"] = _mOrdersDataTable.Rows[i]["OrderNumber"];
+                newRow["MainOrderID"] = _mOrdersDataTable.Rows[i]["MainOrderID"];
+                newRow["CreateDate"] = _mOrdersDataTable.Rows[i]["DocDateTime"];
+                newRow["Cost"] = _mOrdersDataTable.Rows[i]["OrderCost"];
+                newRow["Square"] = _mOrdersDataTable.Rows[i]["FrontsSquare"];
+                newRow["Description"] = _mOrdersDataTable.Rows[i]["Description"];
+                newRow["Foto"] = _mOrdersDataTable.Rows[i]["Foto"];
+                newRow["DispDate"] = _mOrdersDataTable.Rows[i]["DispDate"];
+                var rows = _mShopAddressesDataTable.Select(
+                    "ClientID=" + Convert.ToInt32(_mOrdersDataTable.Rows[i]["ClientID"]));
+                if (rows.Any())
+                    newRow["ShopAddresses"] = "Показать магазины";
+                else
+                    newRow["ShopAddresses"] = "Добавить магазины";
+                _ordersDataTable.Rows.Add(newRow);
+            }
+
+            for (var i = 0; i < _zOrdersDataTable.Rows.Count; i++)
+            {
+                var newRow = _ordersDataTable.NewRow();
+                newRow["FirmType"] = 0;
+                newRow["ClientID"] = _zOrdersDataTable.Rows[i]["ClientID"];
+                newRow["ClientName"] = _zOrdersDataTable.Rows[i]["ClientName"];
+                newRow["OrderNumber"] = _zOrdersDataTable.Rows[i]["DocNumber"];
+                newRow["MainOrderID"] = _zOrdersDataTable.Rows[i]["MainOrderID"];
+                newRow["CreateDate"] = _zOrdersDataTable.Rows[i]["DocDateTime"];
+                newRow["Cost"] = _zOrdersDataTable.Rows[i]["OrderCost"];
+                newRow["Square"] = _zOrdersDataTable.Rows[i]["FrontsSquare"];
+                newRow["Description"] = _zOrdersDataTable.Rows[i]["Description"];
+                newRow["Foto"] = _zOrdersDataTable.Rows[i]["Foto"];
+                newRow["DispDate"] = _zOrdersDataTable.Rows[i]["DispDate"];
+                var rows = _zShopAddressesDataTable.Select(
+                    "ClientID=" + Convert.ToInt32(_zOrdersDataTable.Rows[i]["ClientID"]));
+                if (rows.Any())
+                    newRow["ShopAddresses"] = "Показать магазины";
+                else
+                    newRow["ShopAddresses"] = "Добавить магазины";
+                _ordersDataTable.Rows.Add(newRow);
+            }
+
+            _ordersDataTable.AcceptChanges();
+        }
+
+        public void SearchPartMDocNumber(string docText)
+        {
+            var search = string.Format(" WHERE OrderNumber LIKE '%" + docText + "%'");
+
+            var selectCommand =
+                @"SELECT SampleMainOrders.*, MegaOrders.OrderNumber, MegaOrders.ClientID, Clients.ClientName FROM SampleMainOrders
+                INNER JOIN MegaOrders ON SampleMainOrders.MegaOrderID=MegaOrders.MegaOrderID
+                INNER JOIN infiniu2_marketingreference.dbo.Clients AS Clients ON MegaOrders.ClientID=Clients.ClientID" +
+                search;
+            using (var da = new SqlDataAdapter(selectCommand, ConnectionStrings.MarketingOrdersConnectionString))
+            {
+                _mOrdersDataTable.Clear();
+                da.Fill(_mOrdersDataTable);
+            }
+
+            _ordersDataTable.Clear();
+            for (var i = 0; i < _mOrdersDataTable.Rows.Count; i++)
+            {
+                var newRow = _ordersDataTable.NewRow();
+                newRow["FirmType"] = 1;
+                newRow["ClientID"] = _mOrdersDataTable.Rows[i]["ClientID"];
+                newRow["ClientName"] = _mOrdersDataTable.Rows[i]["ClientName"];
+                newRow["OrderNumber"] = _mOrdersDataTable.Rows[i]["OrderNumber"];
+                newRow["MainOrderID"] = _mOrdersDataTable.Rows[i]["MainOrderID"];
+                newRow["CreateDate"] = _mOrdersDataTable.Rows[i]["DocDateTime"];
+                newRow["Cost"] = _mOrdersDataTable.Rows[i]["OrderCost"];
+                newRow["Square"] = _mOrdersDataTable.Rows[i]["FrontsSquare"];
+                newRow["Description"] = _mOrdersDataTable.Rows[i]["Description"];
+                newRow["Foto"] = _mOrdersDataTable.Rows[i]["Foto"];
+                newRow["DispDate"] = _mOrdersDataTable.Rows[i]["DispDate"];
+                _ordersDataTable.Rows.Add(newRow);
+            }
+
+            _ordersDataTable.AcceptChanges();
+        }
+
+        public void SearchPartZDocNumber(string docText)
+        {
+            var search = string.Format(" WHERE DocNumber LIKE '%" + docText + "%'");
+
+            var selectCommand = @"SELECT SampleMainOrders.*, Clients.ClientName FROM SampleMainOrders
+                INNER JOIN infiniu2_zovreference.dbo.Clients AS Clients ON SampleMainOrders.ClientID=Clients.ClientID" +
+                                search;
+            using (var da = new SqlDataAdapter(selectCommand, ConnectionStrings.ZOVOrdersConnectionString))
+            {
+                _zOrdersDataTable.Clear();
+                da.Fill(_zOrdersDataTable);
+            }
+
+            _ordersDataTable.Clear();
+            for (var i = 0; i < _zOrdersDataTable.Rows.Count; i++)
+            {
+                var newRow = _ordersDataTable.NewRow();
+                newRow["FirmType"] = 0;
+                newRow["ClientID"] = _zOrdersDataTable.Rows[i]["ClientID"];
+                newRow["ClientName"] = _zOrdersDataTable.Rows[i]["ClientName"];
+                newRow["OrderNumber"] = _zOrdersDataTable.Rows[i]["DocNumber"];
+                newRow["MainOrderID"] = _zOrdersDataTable.Rows[i]["MainOrderID"];
+                newRow["CreateDate"] = _zOrdersDataTable.Rows[i]["DocDateTime"];
+                newRow["Cost"] = _zOrdersDataTable.Rows[i]["OrderCost"];
+                newRow["Square"] = _zOrdersDataTable.Rows[i]["FrontsSquare"];
+                newRow["Description"] = _zOrdersDataTable.Rows[i]["Description"];
+                newRow["Foto"] = _zOrdersDataTable.Rows[i]["Foto"];
+                newRow["DispDate"] = _zOrdersDataTable.Rows[i]["DispDate"];
+                _ordersDataTable.Rows.Add(newRow);
+            }
+
+            _ordersDataTable.AcceptChanges();
+        }
+
+        public void SearchPartMNotes(string docText)
+        {
+            var search = string.Format(" WHERE Description LIKE '%" + docText + "%'");
+
+            var selectCommand =
+                @"SELECT SampleMainOrders.*, MegaOrders.OrderNumber, MegaOrders.ClientID, Clients.ClientName FROM SampleMainOrders
+                INNER JOIN MegaOrders ON SampleMainOrders.MegaOrderID=MegaOrders.MegaOrderID
+                INNER JOIN infiniu2_marketingreference.dbo.Clients AS Clients ON MegaOrders.ClientID=Clients.ClientID" +
+                search;
+            using (var da = new SqlDataAdapter(selectCommand, ConnectionStrings.MarketingOrdersConnectionString))
+            {
+                _mOrdersDataTable.Clear();
+                da.Fill(_mOrdersDataTable);
+            }
+
+            _ordersDataTable.Clear();
+            for (var i = 0; i < _mOrdersDataTable.Rows.Count; i++)
+            {
+                var newRow = _ordersDataTable.NewRow();
+                newRow["FirmType"] = 1;
+                newRow["ClientID"] = _mOrdersDataTable.Rows[i]["ClientID"];
+                newRow["ClientName"] = _mOrdersDataTable.Rows[i]["ClientName"];
+                newRow["OrderNumber"] = _mOrdersDataTable.Rows[i]["OrderNumber"];
+                newRow["MainOrderID"] = _mOrdersDataTable.Rows[i]["MainOrderID"];
+                newRow["CreateDate"] = _mOrdersDataTable.Rows[i]["DocDateTime"];
+                newRow["Cost"] = _mOrdersDataTable.Rows[i]["OrderCost"];
+                newRow["Square"] = _mOrdersDataTable.Rows[i]["FrontsSquare"];
+                newRow["Description"] = _mOrdersDataTable.Rows[i]["Description"];
+                newRow["Foto"] = _mOrdersDataTable.Rows[i]["Foto"];
+                newRow["DispDate"] = _mOrdersDataTable.Rows[i]["DispDate"];
+                _ordersDataTable.Rows.Add(newRow);
+            }
+
+            _ordersDataTable.AcceptChanges();
+        }
+
+        public void SearchPartZNotes(string docText)
+        {
+            var search = string.Format(" WHERE Description LIKE '%" + docText + "%'");
+
+            var selectCommand = @"SELECT SampleMainOrders.*, Clients.ClientName FROM SampleMainOrders
+                INNER JOIN infiniu2_zovreference.dbo.Clients AS Clients ON SampleMainOrders.ClientID=Clients.ClientID" +
+                                search;
+            using (var da = new SqlDataAdapter(selectCommand, ConnectionStrings.ZOVOrdersConnectionString))
+            {
+                _zOrdersDataTable.Clear();
+                da.Fill(_zOrdersDataTable);
+            }
+
+            _ordersDataTable.Clear();
+            for (var i = 0; i < _zOrdersDataTable.Rows.Count; i++)
+            {
+                var newRow = _ordersDataTable.NewRow();
+                newRow["FirmType"] = 0;
+                newRow["ClientID"] = _zOrdersDataTable.Rows[i]["ClientID"];
+                newRow["ClientName"] = _zOrdersDataTable.Rows[i]["ClientName"];
+                newRow["OrderNumber"] = _zOrdersDataTable.Rows[i]["DocNumber"];
+                newRow["MainOrderID"] = _zOrdersDataTable.Rows[i]["MainOrderID"];
+                newRow["CreateDate"] = _zOrdersDataTable.Rows[i]["DocDateTime"];
+                newRow["Cost"] = _zOrdersDataTable.Rows[i]["OrderCost"];
+                newRow["Square"] = _zOrdersDataTable.Rows[i]["FrontsSquare"];
+                newRow["Description"] = _zOrdersDataTable.Rows[i]["Description"];
+                newRow["Foto"] = _zOrdersDataTable.Rows[i]["Foto"];
+                newRow["DispDate"] = _zOrdersDataTable.Rows[i]["DispDate"];
+                _ordersDataTable.Rows.Add(newRow);
+            }
+
+            _ordersDataTable.AcceptChanges();
+        }
+
+        public void FilterProductByMainOrder(bool isZov, int mainOrderId, ref bool frontsVisible, ref bool decorVisible)
+        {
+            if (isZov)
+            {
+                frontsVisible = ZFrontsOrders.Filter(mainOrderId, 0);
+                decorVisible = ZDecorOrders.Filter(mainOrderId, 0);
+            }
+            else
+            {
+                frontsVisible = MFrontsOrders.Filter(mainOrderId, 0);
+                decorVisible = MDecorOrders.Filter(mainOrderId, 0);
             }
         }
 
-        public DataTable GetPermissions(int UserID, string FormName)
+        public DataTable GetPermissions(int userId, string formName)
         {
-            using (SqlDataAdapter DA = new SqlDataAdapter("SELECT * FROM UserRoles WHERE UserID = " + UserID +
-                " AND RoleID IN (SELECT RoleID FROM Roles WHERE ModuleID IN " +
-                " (SELECT ModuleID FROM Modules WHERE FormName = '" + FormName + "'))", ConnectionStrings.UsersConnectionString))
+            using (var da = new SqlDataAdapter("SELECT * FROM UserRoles WHERE UserID = " + userId +
+                                               " AND RoleID IN (SELECT RoleID FROM Roles WHERE ModuleID IN " +
+                                               " (SELECT ModuleID FROM Modules WHERE FormName = '" + formName + "'))",
+                ConnectionStrings.UsersConnectionString))
             {
-                using (DataTable DT = new DataTable())
+                using (var dt = new DataTable())
                 {
-                    DA.Fill(DT);
+                    da.Fill(dt);
 
-                    return (DataTable)DT;
+                    return dt;
                 }
             }
         }
 
-        static public void FixOrderEvent(int MegaOrderID, string Event)
+        public static void FixOrderEvent(int megaOrderId, string @event)
         {
-            DataTable TempDT = new DataTable();
-            string SelectCommand = @"SELECT * FROM MegaOrders WHERE MegaOrderID = " + MegaOrderID;
-            using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.MarketingOrdersConnectionString))
+            var tempDt = new DataTable();
+            var selectCommand = @"SELECT * FROM MegaOrders WHERE MegaOrderID = " + megaOrderId;
+            using (var da = new SqlDataAdapter(selectCommand, ConnectionStrings.MarketingOrdersConnectionString))
             {
-                DA.Fill(TempDT);
+                da.Fill(tempDt);
             }
-            SelectCommand = @"SELECT TOP 0 * FROM MegaOrdersEvents";
-            using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.MarketingOrdersConnectionString))
+
+            selectCommand = @"SELECT TOP 0 * FROM MegaOrdersEvents";
+            using (var da = new SqlDataAdapter(selectCommand, ConnectionStrings.MarketingOrdersConnectionString))
             {
-                using (SqlCommandBuilder CB = new SqlCommandBuilder(DA))
+                using (var cb = new SqlCommandBuilder(da))
                 {
-                    using (DataTable DT = new DataTable())
+                    using (var dt = new DataTable())
                     {
-                        DA.Fill(DT);
-                        if (Event == "Заказ удален")
+                        da.Fill(dt);
+                        if (@event == "Заказ удален")
                         {
-                            DataRow NewRow = DT.NewRow();
-                            NewRow["MegaOrderID"] = MegaOrderID;
-                            NewRow["Event"] = Event;
-                            NewRow["EventDate"] = Security.GetCurrentDate();
-                            NewRow["EventUserID"] = Security.CurrentUserID;
-                            DT.Rows.Add(NewRow);
-                            DA.Update(DT);
+                            var newRow = dt.NewRow();
+                            newRow["MegaOrderID"] = megaOrderId;
+                            newRow["Event"] = @event;
+                            newRow["EventDate"] = Security.GetCurrentDate();
+                            newRow["EventUserID"] = Security.CurrentUserID;
+                            dt.Rows.Add(newRow);
+                            da.Update(dt);
                         }
-                        if (TempDT.Rows.Count > 0)
+
+                        if (tempDt.Rows.Count > 0)
                         {
-                            DataRow NewRow = DT.NewRow();
-                            NewRow.ItemArray = TempDT.Rows[0].ItemArray;
-                            NewRow["Event"] = Event;
-                            NewRow["EventDate"] = Security.GetCurrentDate();
-                            NewRow["EventUserID"] = Security.CurrentUserID;
-                            DT.Rows.Add(NewRow);
-                            DA.Update(DT);
+                            var newRow = dt.NewRow();
+                            newRow.ItemArray = tempDt.Rows[0].ItemArray;
+                            newRow["Event"] = @event;
+                            newRow["EventDate"] = Security.GetCurrentDate();
+                            newRow["EventUserID"] = Security.CurrentUserID;
+                            dt.Rows.Add(newRow);
+                            da.Update(dt);
                         }
                         else
                         {
-                            DataRow NewRow = DT.NewRow();
-                            NewRow["MegaOrderID"] = MegaOrderID;
-                            NewRow["Event"] = "Заказа не существует";
-                            NewRow["EventDate"] = Security.GetCurrentDate();
-                            NewRow["EventUserID"] = Security.CurrentUserID;
-                            DT.Rows.Add(NewRow);
-                            DA.Update(DT);
+                            var newRow = dt.NewRow();
+                            newRow["MegaOrderID"] = megaOrderId;
+                            newRow["Event"] = "Заказа не существует";
+                            newRow["EventDate"] = Security.GetCurrentDate();
+                            newRow["EventUserID"] = Security.CurrentUserID;
+                            dt.Rows.Add(newRow);
+                            da.Update(dt);
                         }
                     }
                 }
@@ -3915,41 +4113,46 @@ namespace Infinium.Modules.ZOV.Samples
 
         public void SaveMDescription()
         {
-            string filter = "FirmType=1";
-            DataTable DT1 = new DataTable();
-            using (DataView DV = new DataView(OrdersDataTable, filter, string.Empty, DataViewRowState.ModifiedCurrent))
+            var filter = "FirmType=1";
+            var dt1 = new DataTable();
+            using (var dv = new DataView(_ordersDataTable, filter, string.Empty, DataViewRowState.ModifiedCurrent))
             {
-                DT1 = DV.ToTable(true, new string[] { "MainOrderID", "Description" });
+                dt1 = dv.ToTable(true, "MainOrderID", "Description");
             }
-            if (DT1.Rows.Count == 0)
+
+            if (dt1.Rows.Count == 0)
                 return;
             filter = string.Empty;
-            for (int i = 0; i < DT1.Rows.Count; i++)
-                filter += Convert.ToInt32(DT1.Rows[i]["MainOrderID"]) + ",";
+            for (var i = 0; i < dt1.Rows.Count; i++)
+                filter += Convert.ToInt32(dt1.Rows[i]["MainOrderID"]) + ",";
             if (filter.Length > 0)
             {
                 filter = filter.Substring(0, filter.Length - 1);
                 filter = " WHERE MainOrderID IN (" + filter + ")";
             }
             else
-                filter = " WHERE MainOrderID = - 1";
-            string SelectCommand = @"SELECT SampleMainOrderID, MainOrderID, Description FROM SampleMainOrders" + filter;
-            using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.MarketingOrdersConnectionString))
             {
-                using (SqlCommandBuilder CB = new SqlCommandBuilder(DA))
+                filter = " WHERE MainOrderID = - 1";
+            }
+
+            var selectCommand = @"SELECT SampleMainOrderID, MainOrderID, Description FROM SampleMainOrders" + filter;
+            using (var da = new SqlDataAdapter(selectCommand, ConnectionStrings.MarketingOrdersConnectionString))
+            {
+                using (var cb = new SqlCommandBuilder(da))
                 {
-                    using (DataTable DT2 = new DataTable())
+                    using (var dt2 = new DataTable())
                     {
-                        if (DA.Fill(DT2) > 0)
+                        if (da.Fill(dt2) > 0)
                         {
-                            for (int i = 0; i < DT1.Rows.Count; i++)
+                            for (var i = 0; i < dt1.Rows.Count; i++)
                             {
-                                int MainOrderID = Convert.ToInt32(DT1.Rows[i]["MainOrderID"]);
-                                DataRow[] Rows = DT2.Select("MainOrderID=" + MainOrderID);
-                                if (Rows.Count() > 0)
-                                    Rows[0]["Description"] = DT1.Rows[i]["Description"];
+                                var mainOrderId = Convert.ToInt32(dt1.Rows[i]["MainOrderID"]);
+                                var rows = dt2.Select("MainOrderID=" + mainOrderId);
+                                if (rows.Count() > 0)
+                                    rows[0]["Description"] = dt1.Rows[i]["Description"];
                             }
-                            DA.Update(DT2);
+
+                            da.Update(dt2);
                         }
                     }
                 }
@@ -3958,67 +4161,72 @@ namespace Infinium.Modules.ZOV.Samples
 
         public void SaveZDescription()
         {
-            string filter = "FirmType=0";
-            DataTable DT1 = new DataTable();
-            using (DataView DV = new DataView(OrdersDataTable, filter, string.Empty, DataViewRowState.ModifiedCurrent))
+            var filter = "FirmType=0";
+            var dt1 = new DataTable();
+            using (var dv = new DataView(_ordersDataTable, filter, string.Empty, DataViewRowState.ModifiedCurrent))
             {
-                DT1 = DV.ToTable(true, new string[] { "MainOrderID", "Description" });
+                dt1 = dv.ToTable(true, "MainOrderID", "Description");
             }
-            if (DT1.Rows.Count == 0)
+
+            if (dt1.Rows.Count == 0)
                 return;
             filter = string.Empty;
-            for (int i = 0; i < DT1.Rows.Count; i++)
-                filter += Convert.ToInt32(DT1.Rows[i]["MainOrderID"]) + ",";
+            for (var i = 0; i < dt1.Rows.Count; i++)
+                filter += Convert.ToInt32(dt1.Rows[i]["MainOrderID"]) + ",";
             if (filter.Length > 0)
             {
                 filter = filter.Substring(0, filter.Length - 1);
                 filter = " WHERE MainOrderID IN (" + filter + ")";
             }
             else
-                filter = " WHERE MainOrderID = - 1";
-            string SelectCommand = @"SELECT SampleMainOrderID, MainOrderID, Description FROM SampleMainOrders" + filter;
-            using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.ZOVOrdersConnectionString))
             {
-                using (SqlCommandBuilder CB = new SqlCommandBuilder(DA))
+                filter = " WHERE MainOrderID = - 1";
+            }
+
+            var selectCommand = @"SELECT SampleMainOrderID, MainOrderID, Description FROM SampleMainOrders" + filter;
+            using (var da = new SqlDataAdapter(selectCommand, ConnectionStrings.ZOVOrdersConnectionString))
+            {
+                using (var cb = new SqlCommandBuilder(da))
                 {
-                    using (DataTable DT2 = new DataTable())
+                    using (var dt2 = new DataTable())
                     {
-                        if (DA.Fill(DT2) > 0)
+                        if (da.Fill(dt2) > 0)
                         {
-                            for (int i = 0; i < DT1.Rows.Count; i++)
+                            for (var i = 0; i < dt1.Rows.Count; i++)
                             {
-                                int MainOrderID = Convert.ToInt32(DT1.Rows[i]["MainOrderID"]);
-                                DataRow[] Rows = DT2.Select("MainOrderID=" + MainOrderID);
-                                if (Rows.Count() > 0)
-                                    Rows[0]["Description"] = DT1.Rows[i]["Description"];
+                                var mainOrderId = Convert.ToInt32(dt1.Rows[i]["MainOrderID"]);
+                                var rows = dt2.Select("MainOrderID=" + mainOrderId);
+                                if (rows.Count() > 0)
+                                    rows[0]["Description"] = dt1.Rows[i]["Description"];
                             }
-                            DA.Update(DT2);
+
+                            da.Update(dt2);
                         }
                     }
                 }
             }
         }
 
-        public Image GetMFoto(int MainOrderID)
+        public Image GetMFoto(int mainOrderId)
         {
-            using (SqlDataAdapter DA = new SqlDataAdapter("SELECT * FROM SamplesFoto WHERE MainOrderID = " + MainOrderID,
+            using (var da = new SqlDataAdapter("SELECT * FROM SamplesFoto WHERE MainOrderID = " + mainOrderId,
                 ConnectionStrings.MarketingOrdersConnectionString))
             {
-                using (DataTable DT = new DataTable())
+                using (var dt = new DataTable())
                 {
-                    if (DA.Fill(DT) == 0)
+                    if (da.Fill(dt) == 0)
                         return null;
 
-                    if (DT.Rows[0]["FileName"] == DBNull.Value)
+                    if (dt.Rows[0]["FileName"] == DBNull.Value)
                         return null;
 
-                    string FileName = DT.Rows[0]["FileName"].ToString();
+                    var fileName = dt.Rows[0]["FileName"].ToString();
 
                     try
                     {
-                        using (MemoryStream ms = new MemoryStream(
-                            FM.ReadFile(Configs.DocumentsPath + FileManager.GetPath("SamplesFoto") + "/" + FileName,
-                            Convert.ToInt64(DT.Rows[0]["FileSize"]), Configs.FTPType)))
+                        using (var ms = new MemoryStream(
+                            Fm.ReadFile(Configs.DocumentsPath + FileManager.GetPath("SamplesFoto") + "/" + fileName,
+                                Convert.ToInt64(dt.Rows[0]["FileSize"]), Configs.FTPType)))
                         {
                             return Image.FromStream(ms);
                         }
@@ -4032,23 +4240,23 @@ namespace Infinium.Modules.ZOV.Samples
             }
         }
 
-        public Image GetZFoto(int MainOrderID)
+        public Image GetZFoto(int mainOrderId)
         {
-            using (SqlDataAdapter DA = new SqlDataAdapter("SELECT * FROM SamplesFoto WHERE MainOrderID = " + MainOrderID,
+            using (var da = new SqlDataAdapter("SELECT * FROM SamplesFoto WHERE MainOrderID = " + mainOrderId,
                 ConnectionStrings.ZOVOrdersConnectionString))
             {
-                using (DataTable DT = new DataTable())
+                using (var dt = new DataTable())
                 {
-                    if (DA.Fill(DT) == 0)
+                    if (da.Fill(dt) == 0)
                         return null;
-                    if (DT.Rows[0]["FileName"] == DBNull.Value)
+                    if (dt.Rows[0]["FileName"] == DBNull.Value)
                         return null;
-                    string FileName = DT.Rows[0]["FileName"].ToString();
+                    var fileName = dt.Rows[0]["FileName"].ToString();
                     try
                     {
-                        using (MemoryStream ms = new MemoryStream(
-                            FM.ReadFile(Configs.DocumentsPath + FileManager.GetPath("SamplesFoto") + "/" + FileName,
-                            Convert.ToInt64(DT.Rows[0]["FileSize"]), Configs.FTPType)))
+                        using (var ms = new MemoryStream(
+                            Fm.ReadFile(Configs.DocumentsPath + FileManager.GetPath("SamplesFoto") + "/" + fileName,
+                                Convert.ToInt64(dt.Rows[0]["FileSize"]), Configs.FTPType)))
                         {
                             return Image.FromStream(ms);
                         }
@@ -4062,250 +4270,257 @@ namespace Infinium.Modules.ZOV.Samples
             }
         }
 
-        public bool AttachMFoto(string Extension, string FileName, string Path, int MainOrderID)
+        public bool AttachMFoto(string extension, string fileName, string path, int mainOrderId)
         {
-            bool Ok = true;
+            var ok = true;
             try
             {
-                string sDestFolder = Configs.DocumentsPath + FileManager.GetPath("SamplesFoto");
-                string sFileName = FileName;
-                int j = 1;
-                while (FM.FileExist(sDestFolder + "/" + sFileName + Extension, Configs.FTPType))
-                {
-                    sFileName = FileName.ToString() + "(" + j++ + ")";
-                }
-                FileName = sFileName + Extension;
-                if (FM.UploadFile(Path, sDestFolder + "/" + sFileName + Extension, Configs.FTPType) == false)
-                    Ok = false;
+                var sDestFolder = Configs.DocumentsPath + FileManager.GetPath("SamplesFoto");
+                var sFileName = fileName;
+                var j = 1;
+                while (Fm.FileExist(sDestFolder + "/" + sFileName + extension, Configs.FTPType))
+                    sFileName = fileName + "(" + j++ + ")";
+                fileName = sFileName + extension;
+                if (Fm.UploadFile(path, sDestFolder + "/" + sFileName + extension, Configs.FTPType) == false)
+                    ok = false;
             }
             catch
             {
-                Ok = false;
+                ok = false;
             }
-            using (SqlDataAdapter DA = new SqlDataAdapter("SELECT TOP 0 * FROM SamplesFoto", ConnectionStrings.MarketingOrdersConnectionString))
+
+            using (var da = new SqlDataAdapter("SELECT TOP 0 * FROM SamplesFoto",
+                ConnectionStrings.MarketingOrdersConnectionString))
             {
-                using (SqlCommandBuilder CB = new SqlCommandBuilder(DA))
+                using (var cb = new SqlCommandBuilder(da))
                 {
-                    using (DataTable DT = new DataTable())
+                    using (var dt = new DataTable())
                     {
-                        DA.Fill(DT);
+                        da.Fill(dt);
 
                         FileInfo fi;
                         try
                         {
-                            fi = new FileInfo(Path);
+                            fi = new FileInfo(path);
                         }
                         catch
                         {
-                            Ok = false;
+                            ok = false;
                             return false;
                         }
-                        DataRow NewRow = DT.NewRow();
-                        NewRow["MainOrderID"] = MainOrderID;
-                        NewRow["FileName"] = FileName;
-                        NewRow["FileSize"] = fi.Length;
-                        DT.Rows.Add(NewRow);
 
-                        DA.Update(DT);
+                        var newRow = dt.NewRow();
+                        newRow["MainOrderID"] = mainOrderId;
+                        newRow["FileName"] = fileName;
+                        newRow["FileSize"] = fi.Length;
+                        dt.Rows.Add(newRow);
+
+                        da.Update(dt);
                     }
                 }
             }
-            if (Ok)
-            {
-                using (SqlDataAdapter DA = new SqlDataAdapter("SELECT SampleMainOrderID, MainOrderID, Foto FROM SampleMainOrders WHERE MainOrderID = " + MainOrderID,
+
+            if (ok)
+                using (var da = new SqlDataAdapter(
+                    "SELECT SampleMainOrderID, MainOrderID, Foto FROM SampleMainOrders WHERE MainOrderID = " +
+                    mainOrderId,
                     ConnectionStrings.MarketingOrdersConnectionString))
                 {
-                    using (SqlCommandBuilder CB = new SqlCommandBuilder(DA))
+                    using (var cb = new SqlCommandBuilder(da))
                     {
-                        using (DataTable DT = new DataTable())
+                        using (var dt = new DataTable())
                         {
-                            if (DA.Fill(DT) > 0)
+                            if (da.Fill(dt) > 0)
                             {
-                                DT.Rows[0]["Foto"] = true;
-                                DA.Update(DT);
+                                dt.Rows[0]["Foto"] = true;
+                                da.Update(dt);
                             }
                         }
                     }
                 }
-            }
-            return Ok;
+
+            return ok;
         }
 
-        public bool AttachZFoto(string Extension, string FileName, string Path, int MainOrderID)
+        public bool AttachZFoto(string extension, string fileName, string path, int mainOrderId)
         {
-            bool Ok = true;
+            var ok = true;
             try
             {
-                string sDestFolder = Configs.DocumentsPath + FileManager.GetPath("SamplesFoto");
-                string sFileName = FileName;
-                int j = 1;
-                while (FM.FileExist(sDestFolder + "/" + sFileName + Extension, Configs.FTPType))
-                {
-                    sFileName = FileName.ToString() + "(" + j++ + ")";
-                }
-                FileName = sFileName + Extension;
-                if (FM.UploadFile(Path, sDestFolder + "/" + sFileName + Extension, Configs.FTPType) == false)
-                    Ok = false;
+                var sDestFolder = Configs.DocumentsPath + FileManager.GetPath("SamplesFoto");
+                var sFileName = fileName;
+                var j = 1;
+                while (Fm.FileExist(sDestFolder + "/" + sFileName + extension, Configs.FTPType))
+                    sFileName = fileName + "(" + j++ + ")";
+                fileName = sFileName + extension;
+                if (Fm.UploadFile(path, sDestFolder + "/" + sFileName + extension, Configs.FTPType) == false)
+                    ok = false;
             }
             catch
             {
-                Ok = false;
+                ok = false;
             }
-            using (SqlDataAdapter DA = new SqlDataAdapter("SELECT TOP 0 * FROM SamplesFoto", ConnectionStrings.ZOVOrdersConnectionString))
+
+            using (var da = new SqlDataAdapter("SELECT TOP 0 * FROM SamplesFoto",
+                ConnectionStrings.ZOVOrdersConnectionString))
             {
-                using (SqlCommandBuilder CB = new SqlCommandBuilder(DA))
+                using (var cb = new SqlCommandBuilder(da))
                 {
-                    using (DataTable DT = new DataTable())
+                    using (var dt = new DataTable())
                     {
-                        DA.Fill(DT);
+                        da.Fill(dt);
 
                         FileInfo fi;
                         try
                         {
-                            fi = new FileInfo(Path);
+                            fi = new FileInfo(path);
                         }
                         catch
                         {
-                            Ok = false;
+                            ok = false;
                             return false;
                         }
-                        DataRow NewRow = DT.NewRow();
-                        NewRow["MainOrderID"] = MainOrderID;
-                        NewRow["FileName"] = FileName;
-                        NewRow["FileSize"] = fi.Length;
-                        DT.Rows.Add(NewRow);
 
-                        DA.Update(DT);
+                        var newRow = dt.NewRow();
+                        newRow["MainOrderID"] = mainOrderId;
+                        newRow["FileName"] = fileName;
+                        newRow["FileSize"] = fi.Length;
+                        dt.Rows.Add(newRow);
+
+                        da.Update(dt);
                     }
                 }
             }
-            if (Ok)
-            {
-                using (SqlDataAdapter DA = new SqlDataAdapter("SELECT SampleMainOrderID, MainOrderID, Foto FROM SampleMainOrders WHERE MainOrderID = " + MainOrderID,
+
+            if (ok)
+                using (var da = new SqlDataAdapter(
+                    "SELECT SampleMainOrderID, MainOrderID, Foto FROM SampleMainOrders WHERE MainOrderID = " +
+                    mainOrderId,
                     ConnectionStrings.ZOVOrdersConnectionString))
                 {
-                    using (SqlCommandBuilder CB = new SqlCommandBuilder(DA))
+                    using (var cb = new SqlCommandBuilder(da))
                     {
-                        using (DataTable DT = new DataTable())
+                        using (var dt = new DataTable())
                         {
-                            if (DA.Fill(DT) > 0)
+                            if (da.Fill(dt) > 0)
                             {
-                                DT.Rows[0]["Foto"] = true;
-                                DA.Update(DT);
+                                dt.Rows[0]["Foto"] = true;
+                                da.Update(dt);
                             }
                         }
                     }
                 }
-            }
-            return Ok;
+
+            return ok;
         }
 
-        public void DetachMFoto(int MainOrderID)
+        public void DetachMFoto(int mainOrderId)
         {
-            using (SqlDataAdapter DA = new SqlDataAdapter("SELECT * FROM SamplesFoto WHERE MainOrderID = " + MainOrderID,
+            using (var da = new SqlDataAdapter("SELECT * FROM SamplesFoto WHERE MainOrderID = " + mainOrderId,
                 ConnectionStrings.MarketingOrdersConnectionString))
             {
-                using (SqlCommandBuilder CB = new SqlCommandBuilder(DA))
+                using (var cb = new SqlCommandBuilder(da))
                 {
-                    using (DataTable DT = new DataTable())
+                    using (var dt = new DataTable())
                     {
-                        DA.Fill(DT);
-                        bool bOk = false;
-                        foreach (DataRow Row in DT.Rows)
-                        {
-                            bOk = FM.DeleteFile(Configs.DocumentsPath + FileManager.GetPath("SamplesFoto") + "/" + Row["FileName"].ToString(), Configs.FTPType);
-                        }
+                        da.Fill(dt);
+                        var bOk = false;
+                        foreach (DataRow row in dt.Rows)
+                            bOk = Fm.DeleteFile(
+                                Configs.DocumentsPath + FileManager.GetPath("SamplesFoto") + "/" + row["FileName"],
+                                Configs.FTPType);
                         if (bOk)
                         {
-                            DT.Rows[0].Delete();
-                            DA.Update(DT);
+                            dt.Rows[0].Delete();
+                            da.Update(dt);
                         }
                     }
                 }
             }
 
-            using (SqlDataAdapter DA = new SqlDataAdapter("DELETE FROM SamplesFoto WHERE MainOrderID = " + MainOrderID,
+            using (var da = new SqlDataAdapter("DELETE FROM SamplesFoto WHERE MainOrderID = " + mainOrderId,
                 ConnectionStrings.MarketingOrdersConnectionString))
             {
-                using (SqlCommandBuilder CB = new SqlCommandBuilder(DA))
+                using (var cb = new SqlCommandBuilder(da))
                 {
-                    using (DataTable DT = new DataTable())
+                    using (var dt = new DataTable())
                     {
-                        DA.Fill(DT);
+                        da.Fill(dt);
                     }
                 }
             }
 
-            using (SqlDataAdapter DA = new SqlDataAdapter("SELECT SampleMainOrderID, MainOrderID, Foto FROM SampleMainOrders WHERE MainOrderID = " + MainOrderID,
+            using (var da = new SqlDataAdapter(
+                "SELECT SampleMainOrderID, MainOrderID, Foto FROM SampleMainOrders WHERE MainOrderID = " + mainOrderId,
                 ConnectionStrings.MarketingOrdersConnectionString))
             {
-                using (SqlCommandBuilder CB = new SqlCommandBuilder(DA))
+                using (var cb = new SqlCommandBuilder(da))
                 {
-                    using (DataTable DT = new DataTable())
+                    using (var dt = new DataTable())
                     {
-                        if (DA.Fill(DT) > 0)
+                        if (da.Fill(dt) > 0)
                         {
-                            DT.Rows[0]["Foto"] = false;
-                            DA.Update(DT);
+                            dt.Rows[0]["Foto"] = false;
+                            da.Update(dt);
                         }
                     }
                 }
             }
         }
 
-        public void DetachZFoto(int MainOrderID)
+        public void DetachZFoto(int mainOrderId)
         {
-            using (SqlDataAdapter DA = new SqlDataAdapter("SELECT * FROM SamplesFoto WHERE MainOrderID = " + MainOrderID,
+            using (var da = new SqlDataAdapter("SELECT * FROM SamplesFoto WHERE MainOrderID = " + mainOrderId,
                 ConnectionStrings.ZOVOrdersConnectionString))
             {
-                using (SqlCommandBuilder CB = new SqlCommandBuilder(DA))
+                using (var cb = new SqlCommandBuilder(da))
                 {
-                    using (DataTable DT = new DataTable())
+                    using (var dt = new DataTable())
                     {
-                        DA.Fill(DT);
-                        bool bOk = false;
-                        foreach (DataRow Row in DT.Rows)
-                        {
-                            bOk = FM.DeleteFile(Configs.DocumentsPath + FileManager.GetPath("SamplesFoto") + "/" + Row["FileName"].ToString(), Configs.FTPType);
-                        }
+                        da.Fill(dt);
+                        var bOk = false;
+                        foreach (DataRow row in dt.Rows)
+                            bOk = Fm.DeleteFile(
+                                Configs.DocumentsPath + FileManager.GetPath("SamplesFoto") + "/" + row["FileName"],
+                                Configs.FTPType);
                         if (bOk)
                         {
-                            DT.Rows[0].Delete();
-                            DA.Update(DT);
+                            dt.Rows[0].Delete();
+                            da.Update(dt);
                         }
                     }
                 }
             }
 
-            using (SqlDataAdapter DA = new SqlDataAdapter("DELETE FROM SamplesFoto WHERE MainOrderID = " + MainOrderID,
+            using (var da = new SqlDataAdapter("DELETE FROM SamplesFoto WHERE MainOrderID = " + mainOrderId,
                 ConnectionStrings.ZOVOrdersConnectionString))
             {
-                using (SqlCommandBuilder CB = new SqlCommandBuilder(DA))
+                using (var cb = new SqlCommandBuilder(da))
                 {
-                    using (DataTable DT = new DataTable())
+                    using (var dt = new DataTable())
                     {
-                        DA.Fill(DT);
+                        da.Fill(dt);
                     }
                 }
             }
 
-            using (SqlDataAdapter DA = new SqlDataAdapter("SELECT SampleMainOrderID, MainOrderID, Foto FROM SampleMainOrders WHERE MainOrderID = " + MainOrderID,
+            using (var da = new SqlDataAdapter(
+                "SELECT SampleMainOrderID, MainOrderID, Foto FROM SampleMainOrders WHERE MainOrderID = " + mainOrderId,
                 ConnectionStrings.MarketingOrdersConnectionString))
             {
-                using (SqlCommandBuilder CB = new SqlCommandBuilder(DA))
+                using (var cb = new SqlCommandBuilder(da))
                 {
-                    using (DataTable DT = new DataTable())
+                    using (var dt = new DataTable())
                     {
-                        if (DA.Fill(DT) > 0)
+                        if (da.Fill(dt) > 0)
                         {
-                            DT.Rows[0]["Foto"] = false;
-                            DA.Update(DT);
+                            dt.Rows[0]["Foto"] = false;
+                            da.Update(dt);
                         }
                     }
                 }
             }
         }
-
         public DataTable FillShopAddressesDataTable(int FirmType, int ClientID)
         {
             DataTable ShopAddressesDataTable = new DataTable();
@@ -4326,330 +4541,508 @@ namespace Infinium.Modules.ZOV.Samples
             }
             return ShopAddressesDataTable;
         }
+    }
 
+    public class ZovSampleShops
+    {
+        public int ClientId { get; set; } = -1;
+        public int MainOrderId { get; set; } = -1;
+
+        private SqlDataAdapter _shopsDataAdapter;
+        private SqlDataAdapter _shopAddressDataAdapter;
+
+        public BindingSource AllShopsBindingSource;
+        public BindingSource OrderShopsBindingSource;
+        private DataTable _allShopsDataTable;
+        private DataTable _orderShopsDataTable;
+        private DataTable _shopAddressOrdersDataTable;
+
+        private SqlCommandBuilder _shopsCommandBuilder;
+        private SqlCommandBuilder _shopAddressCommandBuilder;
+
+        public ZovSampleShops()
+        {
+
+        }
+
+        public void Fill()
+        {
+            _shopAddressOrdersDataTable = new DataTable();
+            _allShopsDataTable = new DataTable();
+            _orderShopsDataTable = new DataTable();
+
+            _shopAddressDataAdapter = new SqlDataAdapter("SELECT * FROM ShopAddressOrders",
+                ConnectionStrings.ZOVReferenceConnectionString);
+            _shopAddressCommandBuilder = new SqlCommandBuilder(_shopAddressDataAdapter);
+            _shopAddressDataAdapter.Fill(_shopAddressOrdersDataTable);
+
+            var selectCommand = "SELECT * FROM ShopAddresses WHERE ClientID=" + ClientId + " ORDER BY Address";
+            _shopsDataAdapter = new SqlDataAdapter(selectCommand, ConnectionStrings.ZOVReferenceConnectionString);
+            _shopsCommandBuilder = new SqlCommandBuilder(_shopsDataAdapter);
+            _shopsDataAdapter.Fill(_allShopsDataTable);
+            _allShopsDataTable.Columns.Add(new DataColumn("Check", Type.GetType("System.Boolean")));
+            _orderShopsDataTable = _allShopsDataTable.Clone();
+
+            for (var i = 0; i < _allShopsDataTable.Rows.Count; i++)
+            {
+                _allShopsDataTable.Rows[i]["Check"] = false;
+            }
+
+            AllShopsBindingSource = new BindingSource
+            {
+                DataSource = _allShopsDataTable,
+                Sort = "Check"
+            };
+            OrderShopsBindingSource = new BindingSource
+            {
+                DataSource = _orderShopsDataTable,
+                Filter = "Check=1"
+            };
+        }
+
+        public void SaveShopAddressOrders()
+        {
+            try
+            {
+                for (var i = 0; i < _orderShopsDataTable.Rows.Count; i++)
+                {
+                    bool check = Convert.ToBoolean(_orderShopsDataTable.Rows[i]["Check"]);
+                    int shopAddressId = Convert.ToInt32(_orderShopsDataTable.Rows[i]["ShopAddressID"]);
+
+                    if (check)
+                    {
+                        var rows = _shopAddressOrdersDataTable.Select("MainOrderID=" + MainOrderId + " AND ShopAddressID=" + shopAddressId);
+                        if (!rows.Any())
+                        {
+                            var newRow = _shopAddressOrdersDataTable.NewRow();
+                            newRow["ShopAddressID"] = shopAddressId;
+                            newRow["MainOrderID"] = MainOrderId;
+
+                            _shopAddressOrdersDataTable.Rows.Add(newRow);
+                        }
+                    }
+                    else
+                    {
+                        var rows = _shopAddressOrdersDataTable.Select("MainOrderID=" + MainOrderId + " AND ShopAddressID=" + shopAddressId);
+                        foreach (var t in rows)
+                        {
+                            t.Delete();
+                        }
+                    }
+
+                }
+                _shopAddressDataAdapter.Update(_shopAddressOrdersDataTable);
+                _shopAddressOrdersDataTable.Clear();
+                _shopAddressDataAdapter.Fill(_shopAddressOrdersDataTable);
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, @"Error");
+            }
+        }
+
+        public void SaveShopAddresses()
+        {
+            try
+            {
+                _shopsDataAdapter.Update(_allShopsDataTable);
+                _allShopsDataTable.Clear();
+                _shopsDataAdapter.Fill(_allShopsDataTable);
+                for (var i = 0; i < _allShopsDataTable.Rows.Count; i++)
+                {
+                    _allShopsDataTable.Rows[i]["Check"] = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, @"Error");
+            }
+        }
+
+        public void AddNewShopAddressOrder(int shopAddressId)
+        {
+            if (_shopAddressOrdersDataTable.Select("MainOrderID=" + MainOrderId + " AND ShopAddressID=" + shopAddressId).Any())
+                return;
+            
+            var rows = _allShopsDataTable.Select("ShopAddressID=" + shopAddressId);
+            if (rows.Any())
+            {
+                int index = _allShopsDataTable.Rows.IndexOf(rows[0]);
+
+                var newRow = _orderShopsDataTable.NewRow();
+                for (var j = 0; j < _allShopsDataTable.Columns.Count; j++)
+                {
+                    var columnName = _allShopsDataTable.Columns[j].ColumnName;
+                    if (_orderShopsDataTable.Columns.Contains(columnName))
+                        newRow[_allShopsDataTable.Columns[j].ColumnName] =
+                            _allShopsDataTable.Rows[index][columnName];
+                    newRow["Check"] = true;
+                }
+                _orderShopsDataTable.Rows.Add(newRow);
+            }
+        }
+
+        public void UpdatesTables()
+        {
+            _orderShopsDataTable.Clear();
+
+            for (var i = 0; i < _allShopsDataTable.Rows.Count; i++)
+            {
+                if (_allShopsDataTable.Rows[i].RowState == DataRowState.Added)
+                    continue;
+                
+                _allShopsDataTable.Rows[i]["Check"] = false;
+                int shopAddressId = Convert.ToInt32(_allShopsDataTable.Rows[i]["ShopAddressID"]);
+
+                var rows = _shopAddressOrdersDataTable.Select("MainOrderID=" + MainOrderId + " AND ShopAddressID=" + shopAddressId);
+                if (rows.Any())
+                {
+                    _allShopsDataTable.Rows[i]["Check"] = true;
+
+                    var newRow = _orderShopsDataTable.NewRow();
+                    for (var j = 0; j < _allShopsDataTable.Columns.Count; j++)
+                    {
+                        var columnName = _allShopsDataTable.Columns[j].ColumnName;
+                        if (_orderShopsDataTable.Columns.Contains(columnName))
+                            newRow[_allShopsDataTable.Columns[j].ColumnName] =
+                                _allShopsDataTable.Rows[i][columnName];
+                        newRow["Check"] = true;
+                    }
+
+                    _orderShopsDataTable.Rows.Add(newRow);
+                }
+            }
+
+            //AllShopsBindingSource.Filter = "Check=0";
+        }
     }
 
     public class SampleOrders
     {
-        private DataTable FrontsDataTable = null;
-        private DataTable FrameColorsDataTable = null;
-        private DataTable PatinaDataTable = null;
-        private DataTable PatinaRALDataTable = null;
-        private DataTable InsetTypesDataTable = null;
-        private DataTable InsetColorsDataTable = null;
-        private DataTable ProductsDataTable = null;
-        private DataTable DecorDataTable = null;
+        private readonly DataTable _decorDataTable;
+        private DataTable _frameColorsDataTable;
+        private readonly DataTable _frontsDataTable;
+        private DataTable _insetColorsDataTable;
+        private readonly DataTable _insetTypesDataTable;
+        private DataTable _patinaDataTable;
+        private DataTable _patinaRalDataTable;
+        private readonly DataTable _productsDataTable;
 
         public SampleOrders()
         {
-            string SelectCommand = @"SELECT TechStoreID AS FrontID, TechStoreName AS FrontName FROM TechStore 
+            var selectCommand = @"SELECT TechStoreID AS FrontID, TechStoreName AS FrontName FROM TechStore 
                 WHERE TechStoreID IN (SELECT FrontID FROM FrontsConfig WHERE Enabled = 1 AND AccountingName IS NOT NULL AND InvNumber IS NOT NULL)
                 ORDER BY TechStoreName";
-            FrontsDataTable = new DataTable();
-            using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.CatalogConnectionString))
+            _frontsDataTable = new DataTable();
+            using (var da = new SqlDataAdapter(selectCommand, ConnectionStrings.CatalogConnectionString))
             {
-                DA.Fill(FrontsDataTable);
+                da.Fill(_frontsDataTable);
             }
-            InsetTypesDataTable = new DataTable();
-            using (SqlDataAdapter DA = new SqlDataAdapter("SELECT * FROM InsetTypes",
+
+            _insetTypesDataTable = new DataTable();
+            using (var da = new SqlDataAdapter("SELECT * FROM InsetTypes",
                 ConnectionStrings.CatalogConnectionString))
             {
-                DA.Fill(InsetTypesDataTable);
+                da.Fill(_insetTypesDataTable);
             }
-            GetColorsDT();
-            GetPatinaDT();
-            GetInsetColorsDT();
 
-            SelectCommand = @"SELECT ProductID, ProductName FROM DecorProducts" +
-                " WHERE ProductID IN (SELECT ProductID FROM DecorConfig ) ORDER BY ProductName ASC";
-            ProductsDataTable = new DataTable();
-            using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.CatalogConnectionString))
+            GetColorsDt();
+            GetPatinaDt();
+            GetInsetColorsDt();
+
+            selectCommand = @"SELECT ProductID, ProductName FROM DecorProducts" +
+                            " WHERE ProductID IN (SELECT ProductID FROM DecorConfig ) ORDER BY ProductName ASC";
+            _productsDataTable = new DataTable();
+            using (var da = new SqlDataAdapter(selectCommand, ConnectionStrings.CatalogConnectionString))
             {
-                DA.Fill(ProductsDataTable);
+                da.Fill(_productsDataTable);
             }
-            DecorDataTable = new DataTable();
-            SelectCommand = @"SELECT DISTINCT TechStore.TechStoreID AS DecorID, TechStore.TechStoreName AS Name, DecorConfig.ProductID FROM TechStore 
+
+            _decorDataTable = new DataTable();
+            selectCommand =
+                @"SELECT DISTINCT TechStore.TechStoreID AS DecorID, TechStore.TechStoreName AS Name, DecorConfig.ProductID FROM TechStore 
                 INNER JOIN DecorConfig ON TechStore.TechStoreID = DecorConfig.DecorID ORDER BY TechStoreName";
-            using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.CatalogConnectionString))
+            using (var da = new SqlDataAdapter(selectCommand, ConnectionStrings.CatalogConnectionString))
             {
-                DA.Fill(DecorDataTable);
+                da.Fill(_decorDataTable);
             }
         }
 
-        private void GetColorsDT()
+        private void GetColorsDt()
         {
-            FrameColorsDataTable = new DataTable();
-            FrameColorsDataTable.Columns.Add(new DataColumn("ColorID", Type.GetType("System.Int64")));
-            FrameColorsDataTable.Columns.Add(new DataColumn("ColorName", Type.GetType("System.String")));
-            string SelectCommand = @"SELECT TechStoreID, TechStoreName FROM TechStore
+            _frameColorsDataTable = new DataTable();
+            _frameColorsDataTable.Columns.Add(new DataColumn("ColorID", Type.GetType("System.Int64")));
+            _frameColorsDataTable.Columns.Add(new DataColumn("ColorName", Type.GetType("System.String")));
+            var selectCommand = @"SELECT TechStoreID, TechStoreName FROM TechStore
                 WHERE TechStoreSubGroupID IN (SELECT TechStoreSubGroupID FROM TechStoreSubGroups WHERE TechStoreGroupID = 11)
                 ORDER BY TechStoreName";
-            using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.CatalogConnectionString))
+            using (var da = new SqlDataAdapter(selectCommand, ConnectionStrings.CatalogConnectionString))
             {
-                using (DataTable DT = new DataTable())
+                using (var dt = new DataTable())
                 {
-                    DA.Fill(DT);
+                    da.Fill(dt);
                     {
-                        DataRow NewRow = FrameColorsDataTable.NewRow();
-                        NewRow["ColorID"] = -1;
-                        NewRow["ColorName"] = "-";
-                        FrameColorsDataTable.Rows.Add(NewRow);
+                        var newRow = _frameColorsDataTable.NewRow();
+                        newRow["ColorID"] = -1;
+                        newRow["ColorName"] = "-";
+                        _frameColorsDataTable.Rows.Add(newRow);
                     }
                     {
-                        DataRow NewRow = FrameColorsDataTable.NewRow();
-                        NewRow["ColorID"] = 0;
-                        NewRow["ColorName"] = "на выбор";
-                        FrameColorsDataTable.Rows.Add(NewRow);
+                        var newRow = _frameColorsDataTable.NewRow();
+                        newRow["ColorID"] = 0;
+                        newRow["ColorName"] = "на выбор";
+                        _frameColorsDataTable.Rows.Add(newRow);
                     }
-                    for (int i = 0; i < DT.Rows.Count; i++)
+                    for (var i = 0; i < dt.Rows.Count; i++)
                     {
-                        DataRow NewRow = FrameColorsDataTable.NewRow();
-                        NewRow["ColorID"] = Convert.ToInt64(DT.Rows[i]["TechStoreID"]);
-                        NewRow["ColorName"] = DT.Rows[i]["TechStoreName"].ToString();
-                        FrameColorsDataTable.Rows.Add(NewRow);
+                        var newRow = _frameColorsDataTable.NewRow();
+                        newRow["ColorID"] = Convert.ToInt64(dt.Rows[i]["TechStoreID"]);
+                        newRow["ColorName"] = dt.Rows[i]["TechStoreName"].ToString();
+                        _frameColorsDataTable.Rows.Add(newRow);
                     }
                 }
             }
         }
 
-        private void GetInsetColorsDT()
+        private void GetInsetColorsDt()
         {
-            InsetColorsDataTable = new DataTable();
-            using (SqlDataAdapter DA = new SqlDataAdapter("SELECT InsetColors.InsetColorID, InsetColors.GroupID, infiniu2_catalog.dbo.TechStore.TechStoreName AS InsetColorName FROM InsetColors" +
-                " INNER JOIN infiniu2_catalog.dbo.TechStore ON InsetColors.InsetColorID = infiniu2_catalog.dbo.TechStore.TechStoreID ORDER BY TechStoreName", ConnectionStrings.CatalogConnectionString))
-            {
-                DA.Fill(InsetColorsDataTable);
-                {
-                    DataRow NewRow = InsetColorsDataTable.NewRow();
-                    NewRow["InsetColorID"] = -1;
-                    NewRow["GroupID"] = -1;
-                    NewRow["InsetColorName"] = "-";
-                    InsetColorsDataTable.Rows.Add(NewRow);
-                }
-                {
-                    DataRow NewRow = InsetColorsDataTable.NewRow();
-                    NewRow["InsetColorID"] = 0;
-                    NewRow["GroupID"] = -1;
-                    NewRow["InsetColorName"] = "на выбор";
-                    InsetColorsDataTable.Rows.Add(NewRow);
-                }
-
-            }
-
-        }
-
-        private void GetPatinaDT()
-        {
-            PatinaDataTable = new DataTable();
-            using (SqlDataAdapter DA = new SqlDataAdapter("SELECT * FROM Patina",
+            _insetColorsDataTable = new DataTable();
+            using (var da = new SqlDataAdapter(
+                "SELECT InsetColors.InsetColorID, InsetColors.GroupID, infiniu2_catalog.dbo.TechStore.TechStoreName AS InsetColorName FROM InsetColors" +
+                " INNER JOIN infiniu2_catalog.dbo.TechStore ON InsetColors.InsetColorID = infiniu2_catalog.dbo.TechStore.TechStoreID ORDER BY TechStoreName",
                 ConnectionStrings.CatalogConnectionString))
             {
-                DA.Fill(PatinaDataTable);
+                da.Fill(_insetColorsDataTable);
+                {
+                    var newRow = _insetColorsDataTable.NewRow();
+                    newRow["InsetColorID"] = -1;
+                    newRow["GroupID"] = -1;
+                    newRow["InsetColorName"] = "-";
+                    _insetColorsDataTable.Rows.Add(newRow);
+                }
+                {
+                    var newRow = _insetColorsDataTable.NewRow();
+                    newRow["InsetColorID"] = 0;
+                    newRow["GroupID"] = -1;
+                    newRow["InsetColorName"] = "на выбор";
+                    _insetColorsDataTable.Rows.Add(newRow);
+                }
             }
-            PatinaRALDataTable = new DataTable();
-            using (SqlDataAdapter DA = new SqlDataAdapter("SELECT * FROM PatinaRAL WHERE Enabled=1",
+        }
+
+        private void GetPatinaDt()
+        {
+            _patinaDataTable = new DataTable();
+            using (var da = new SqlDataAdapter("SELECT * FROM Patina",
                 ConnectionStrings.CatalogConnectionString))
             {
-                DA.Fill(PatinaRALDataTable);
+                da.Fill(_patinaDataTable);
             }
-            foreach (DataRow item in PatinaRALDataTable.Rows)
+
+            _patinaRalDataTable = new DataTable();
+            using (var da = new SqlDataAdapter("SELECT * FROM PatinaRAL WHERE Enabled=1",
+                ConnectionStrings.CatalogConnectionString))
             {
-                DataRow NewRow = PatinaDataTable.NewRow();
-                NewRow["PatinaID"] = item["PatinaRALID"];
-                NewRow["PatinaName"] = item["PatinaRAL"];
-                NewRow["DisplayName"] = item["DisplayName"];
-                PatinaDataTable.Rows.Add(NewRow);
+                da.Fill(_patinaRalDataTable);
+            }
+
+            foreach (DataRow item in _patinaRalDataTable.Rows)
+            {
+                var newRow = _patinaDataTable.NewRow();
+                newRow["PatinaID"] = item["PatinaRALID"];
+                newRow["PatinaName"] = item["PatinaRAL"];
+                newRow["DisplayName"] = item["DisplayName"];
+                _patinaDataTable.Rows.Add(newRow);
             }
         }
 
-        public DataTable f1(int ClientID)
+        public DataTable F1(int clientId)
         {
-            DataTable DT = new DataTable();
-            string SelectCommand = @"SELECT MegaOrders.OrderNumber, SampleMainOrders.MegaOrderID, SampleMainOrders.MainOrderID, SampleMainOrders.DocDateTime FROM SampleMainOrders INNER JOIN MegaOrders ON SampleMainOrders.MegaOrderID=MegaOrders.MegaOrderID AND ClientID=" + ClientID;
-            using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.MarketingOrdersConnectionString))
+            var dt = new DataTable();
+            var selectCommand =
+                @"SELECT MegaOrders.OrderNumber, SampleMainOrders.MegaOrderID, SampleMainOrders.MainOrderID, SampleMainOrders.DocDateTime FROM SampleMainOrders INNER JOIN MegaOrders ON SampleMainOrders.MegaOrderID=MegaOrders.MegaOrderID AND ClientID=" +
+                clientId;
+            using (var da = new SqlDataAdapter(selectCommand, ConnectionStrings.MarketingOrdersConnectionString))
             {
-                DA.Fill(DT);
+                da.Fill(dt);
             }
-            return DT;
+
+            return dt;
         }
 
-        public DataTable f2(int MainOrderID)
+        public DataTable F2(int mainOrderId)
         {
-            DataTable DT = new DataTable();
-            DT.Columns.Add(new DataColumn("FrontName", Type.GetType("System.String")));
-            DT.Columns.Add(new DataColumn("ColorName", Type.GetType("System.String")));
-            DT.Columns.Add(new DataColumn("TechnoColorName", Type.GetType("System.String")));
-            DT.Columns.Add(new DataColumn("PatinaName", Type.GetType("System.String")));
-            DT.Columns.Add(new DataColumn("InsetTypeName", Type.GetType("System.String")));
-            DT.Columns.Add(new DataColumn("InsetColorName", Type.GetType("System.String")));
-            DT.Columns.Add(new DataColumn("TechnoInsetTypeName", Type.GetType("System.String")));
-            DT.Columns.Add(new DataColumn("TechnoInsetColorName", Type.GetType("System.String")));
-            DT.Columns.Add(new DataColumn("Height", Type.GetType("System.Int32")));
-            DT.Columns.Add(new DataColumn("Width", Type.GetType("System.Int32")));
-            DT.Columns.Add(new DataColumn("Count", Type.GetType("System.Int32")));
-            DT.Columns.Add(new DataColumn("IsSample", Type.GetType("System.Boolean")));
-            using (SqlDataAdapter DA = new SqlDataAdapter("SELECT * FROM SampleFrontsOrders WHERE MainOrderID = " + MainOrderID,
+            var dt = new DataTable();
+            dt.Columns.Add(new DataColumn("FrontName", Type.GetType("System.String")));
+            dt.Columns.Add(new DataColumn("ColorName", Type.GetType("System.String")));
+            dt.Columns.Add(new DataColumn("TechnoColorName", Type.GetType("System.String")));
+            dt.Columns.Add(new DataColumn("PatinaName", Type.GetType("System.String")));
+            dt.Columns.Add(new DataColumn("InsetTypeName", Type.GetType("System.String")));
+            dt.Columns.Add(new DataColumn("InsetColorName", Type.GetType("System.String")));
+            dt.Columns.Add(new DataColumn("TechnoInsetTypeName", Type.GetType("System.String")));
+            dt.Columns.Add(new DataColumn("TechnoInsetColorName", Type.GetType("System.String")));
+            dt.Columns.Add(new DataColumn("Height", Type.GetType("System.Int32")));
+            dt.Columns.Add(new DataColumn("Width", Type.GetType("System.Int32")));
+            dt.Columns.Add(new DataColumn("Count", Type.GetType("System.Int32")));
+            dt.Columns.Add(new DataColumn("IsSample", Type.GetType("System.Boolean")));
+            using (var da = new SqlDataAdapter("SELECT * FROM SampleFrontsOrders WHERE MainOrderID = " + mainOrderId,
                 ConnectionStrings.MarketingOrdersConnectionString))
             {
-                using (DataTable DT1 = new DataTable())
+                using (var dt1 = new DataTable())
                 {
-                    if (DA.Fill(DT1) > 0)
-                    {
-                        for (int i = 0; i < DT1.Rows.Count; i++)
+                    if (da.Fill(dt1) > 0)
+                        for (var i = 0; i < dt1.Rows.Count; i++)
                         {
-                            int FrontID = Convert.ToInt32(DT1.Rows[i]["FrontID"]);
-                            int ColorID = Convert.ToInt32(DT1.Rows[i]["ColorID"]);
-                            int PatinaID = Convert.ToInt32(DT1.Rows[i]["PatinaID"]);
-                            int InsetTypeID = Convert.ToInt32(DT1.Rows[i]["InsetTypeID"]);
-                            int InsetColorID = Convert.ToInt32(DT1.Rows[i]["InsetColorID"]);
-                            int TechnoColorID = Convert.ToInt32(DT1.Rows[i]["TechnoColorID"]);
-                            int TechnoInsetTypeID = Convert.ToInt32(DT1.Rows[i]["TechnoInsetTypeID"]);
-                            int TechnoInsetColorID = Convert.ToInt32(DT1.Rows[i]["TechnoInsetColorID"]);
-                            int Height = Convert.ToInt32(DT1.Rows[i]["Height"]);
-                            int Width = Convert.ToInt32(DT1.Rows[i]["Width"]);
-                            int Count = Convert.ToInt32(DT1.Rows[i]["Count"]);
-                            bool IsSample = Convert.ToBoolean(DT1.Rows[i]["IsSample"]);
+                            var frontId = Convert.ToInt32(dt1.Rows[i]["FrontID"]);
+                            var colorId = Convert.ToInt32(dt1.Rows[i]["ColorID"]);
+                            var patinaId = Convert.ToInt32(dt1.Rows[i]["PatinaID"]);
+                            var insetTypeId = Convert.ToInt32(dt1.Rows[i]["InsetTypeID"]);
+                            var insetColorId = Convert.ToInt32(dt1.Rows[i]["InsetColorID"]);
+                            var technoColorId = Convert.ToInt32(dt1.Rows[i]["TechnoColorID"]);
+                            var technoInsetTypeId = Convert.ToInt32(dt1.Rows[i]["TechnoInsetTypeID"]);
+                            var technoInsetColorId = Convert.ToInt32(dt1.Rows[i]["TechnoInsetColorID"]);
+                            var height = Convert.ToInt32(dt1.Rows[i]["Height"]);
+                            var width = Convert.ToInt32(dt1.Rows[i]["Width"]);
+                            var count = Convert.ToInt32(dt1.Rows[i]["Count"]);
+                            var isSample = Convert.ToBoolean(dt1.Rows[i]["IsSample"]);
 
-                            DataRow NewRow = DT.NewRow();
-                            NewRow["FrontName"] = GetFrontName(FrontID);
-                            NewRow["ColorName"] = GetColorName(ColorID);
-                            NewRow["TechnoColorName"] = GetColorName(TechnoColorID);
-                            NewRow["PatinaName"] = GetPatinaName(PatinaID);
-                            NewRow["InsetTypeName"] = GetInsetTypeName(InsetTypeID);
-                            NewRow["InsetColorName"] = GetInsetColorName(InsetColorID);
-                            NewRow["TechnoInsetTypeName"] = GetInsetTypeName(TechnoInsetTypeID);
-                            NewRow["TechnoInsetColorName"] = GetInsetColorName(TechnoInsetColorID);
-                            NewRow["Height"] = Height;
-                            NewRow["Width"] = Width;
-                            NewRow["Count"] = Count;
-                            NewRow["IsSample"] = IsSample;
-                            DT.Rows.Add(NewRow);
+                            var newRow = dt.NewRow();
+                            newRow["FrontName"] = GetFrontName(frontId);
+                            newRow["ColorName"] = GetColorName(colorId);
+                            newRow["TechnoColorName"] = GetColorName(technoColorId);
+                            newRow["PatinaName"] = GetPatinaName(patinaId);
+                            newRow["InsetTypeName"] = GetInsetTypeName(insetTypeId);
+                            newRow["InsetColorName"] = GetInsetColorName(insetColorId);
+                            newRow["TechnoInsetTypeName"] = GetInsetTypeName(technoInsetTypeId);
+                            newRow["TechnoInsetColorName"] = GetInsetColorName(technoInsetColorId);
+                            newRow["Height"] = height;
+                            newRow["Width"] = width;
+                            newRow["Count"] = count;
+                            newRow["IsSample"] = isSample;
+                            dt.Rows.Add(newRow);
                         }
-                    }
                 }
             }
 
-            return DT;
+            return dt;
         }
 
-        public DataTable f3(int MainOrderID)
+        public DataTable F3(int mainOrderId)
         {
-            DataTable DT = new DataTable();
-            DT.Columns.Add(new DataColumn("FrontName", Type.GetType("System.String")));
-            DT.Columns.Add(new DataColumn("ColorName", Type.GetType("System.String")));
-            DT.Columns.Add(new DataColumn("DecorName", Type.GetType("System.String")));
-            DT.Columns.Add(new DataColumn("PatinaName", Type.GetType("System.String")));
-            DT.Columns.Add(new DataColumn("InsetTypeName", Type.GetType("System.String")));
-            DT.Columns.Add(new DataColumn("InsetColorName", Type.GetType("System.String")));
-            DT.Columns.Add(new DataColumn("Length", Type.GetType("System.Int32")));
-            DT.Columns.Add(new DataColumn("Height", Type.GetType("System.Int32")));
-            DT.Columns.Add(new DataColumn("Width", Type.GetType("System.Int32")));
-            DT.Columns.Add(new DataColumn("Count", Type.GetType("System.Int32")));
-            DT.Columns.Add(new DataColumn("IsSample", Type.GetType("System.Boolean")));
-            using (SqlDataAdapter DA = new SqlDataAdapter("SELECT * FROM SampleDecorOrders WHERE MainOrderID = " + MainOrderID,
+            var dt = new DataTable();
+            dt.Columns.Add(new DataColumn("FrontName", Type.GetType("System.String")));
+            dt.Columns.Add(new DataColumn("ColorName", Type.GetType("System.String")));
+            dt.Columns.Add(new DataColumn("DecorName", Type.GetType("System.String")));
+            dt.Columns.Add(new DataColumn("PatinaName", Type.GetType("System.String")));
+            dt.Columns.Add(new DataColumn("InsetTypeName", Type.GetType("System.String")));
+            dt.Columns.Add(new DataColumn("InsetColorName", Type.GetType("System.String")));
+            dt.Columns.Add(new DataColumn("Length", Type.GetType("System.Int32")));
+            dt.Columns.Add(new DataColumn("Height", Type.GetType("System.Int32")));
+            dt.Columns.Add(new DataColumn("Width", Type.GetType("System.Int32")));
+            dt.Columns.Add(new DataColumn("Count", Type.GetType("System.Int32")));
+            dt.Columns.Add(new DataColumn("IsSample", Type.GetType("System.Boolean")));
+            using (var da = new SqlDataAdapter("SELECT * FROM SampleDecorOrders WHERE MainOrderID = " + mainOrderId,
                 ConnectionStrings.MarketingOrdersConnectionString))
             {
-                using (DataTable DT1 = new DataTable())
+                using (var dt1 = new DataTable())
                 {
-                    if (DA.Fill(DT1) > 0)
-                    {
-                        for (int i = 0; i < DT1.Rows.Count; i++)
+                    if (da.Fill(dt1) > 0)
+                        for (var i = 0; i < dt1.Rows.Count; i++)
                         {
-                            int ProductID = Convert.ToInt32(DT1.Rows[i]["ProductID"]);
-                            int DecorID = Convert.ToInt32(DT1.Rows[i]["DecorID"]);
-                            int ColorID = Convert.ToInt32(DT1.Rows[i]["ColorID"]);
-                            int PatinaID = Convert.ToInt32(DT1.Rows[i]["PatinaID"]);
-                            int InsetTypeID = Convert.ToInt32(DT1.Rows[i]["InsetTypeID"]);
-                            int InsetColorID = Convert.ToInt32(DT1.Rows[i]["InsetColorID"]);
-                            int Length = Convert.ToInt32(DT1.Rows[i]["Length"]);
-                            int Height = Convert.ToInt32(DT1.Rows[i]["Height"]);
-                            int Width = Convert.ToInt32(DT1.Rows[i]["Width"]);
-                            int Count = Convert.ToInt32(DT1.Rows[i]["Count"]);
-                            bool IsSample = Convert.ToBoolean(DT1.Rows[i]["IsSample"]);
+                            var productId = Convert.ToInt32(dt1.Rows[i]["ProductID"]);
+                            var decorId = Convert.ToInt32(dt1.Rows[i]["DecorID"]);
+                            var colorId = Convert.ToInt32(dt1.Rows[i]["ColorID"]);
+                            var patinaId = Convert.ToInt32(dt1.Rows[i]["PatinaID"]);
+                            var insetTypeId = Convert.ToInt32(dt1.Rows[i]["InsetTypeID"]);
+                            var insetColorId = Convert.ToInt32(dt1.Rows[i]["InsetColorID"]);
+                            var length = Convert.ToInt32(dt1.Rows[i]["Length"]);
+                            var height = Convert.ToInt32(dt1.Rows[i]["Height"]);
+                            var width = Convert.ToInt32(dt1.Rows[i]["Width"]);
+                            var count = Convert.ToInt32(dt1.Rows[i]["Count"]);
+                            var isSample = Convert.ToBoolean(dt1.Rows[i]["IsSample"]);
 
-                            DataRow NewRow = DT.NewRow();
-                            NewRow["FrontName"] = GetProductName(ProductID);
-                            NewRow["ColorName"] = GetColorName(ColorID);
-                            NewRow["DecorName"] = GetDecorName(DecorID);
-                            NewRow["PatinaName"] = GetPatinaName(PatinaID);
-                            NewRow["InsetTypeName"] = GetInsetTypeName(InsetTypeID);
-                            NewRow["InsetColorName"] = GetInsetColorName(InsetColorID);
-                            NewRow["Length"] = Length;
-                            NewRow["Height"] = Height;
-                            NewRow["Width"] = Width;
-                            NewRow["Count"] = Count;
-                            NewRow["IsSample"] = IsSample;
-                            DT.Rows.Add(NewRow);
+                            var newRow = dt.NewRow();
+                            newRow["FrontName"] = GetProductName(productId);
+                            newRow["ColorName"] = GetColorName(colorId);
+                            newRow["DecorName"] = GetDecorName(decorId);
+                            newRow["PatinaName"] = GetPatinaName(patinaId);
+                            newRow["InsetTypeName"] = GetInsetTypeName(insetTypeId);
+                            newRow["InsetColorName"] = GetInsetColorName(insetColorId);
+                            newRow["Length"] = length;
+                            newRow["Height"] = height;
+                            newRow["Width"] = width;
+                            newRow["Count"] = count;
+                            newRow["IsSample"] = isSample;
+                            dt.Rows.Add(newRow);
                         }
-                    }
                 }
             }
 
-            return DT;
+            return dt;
         }
 
-        private string GetFrontName(int FrontID)
+        private string GetFrontName(int frontId)
         {
-            string name = string.Empty;
-            DataRow[] Rows = FrontsDataTable.Select("FrontID = " + FrontID);
-            if (Rows.Count() > 0)
-                name = Rows[0]["FrontName"].ToString();
+            var name = string.Empty;
+            var rows = _frontsDataTable.Select("FrontID = " + frontId);
+            if (rows.Length > 0)
+                name = rows[0]["FrontName"].ToString();
             return name;
         }
 
-        private string GetColorName(int ColorID)
+        private string GetColorName(int colorId)
         {
-            string name = string.Empty;
-            DataRow[] Rows = FrameColorsDataTable.Select("ColorID = " + ColorID);
-            if (Rows.Count() > 0)
-                name = Rows[0]["ColorName"].ToString();
+            var name = string.Empty;
+            var rows = _frameColorsDataTable.Select("ColorID = " + colorId);
+            if (rows.Any())
+                name = rows[0]["ColorName"].ToString();
             return name;
         }
 
-        private string GetPatinaName(int PatinaID)
+        private string GetPatinaName(int patinaId)
         {
-            string name = string.Empty;
-            DataRow[] Rows = PatinaDataTable.Select("PatinaID = " + PatinaID);
-            if (Rows.Count() > 0)
-                name = Rows[0]["PatinaName"].ToString();
+            var name = string.Empty;
+            var rows = _patinaDataTable.Select("PatinaID = " + patinaId);
+            if (rows.Count() > 0)
+                name = rows[0]["PatinaName"].ToString();
             return name;
         }
 
-        private string GetInsetColorName(int InsetColorID)
+        private string GetInsetColorName(int insetColorId)
         {
-            string name = string.Empty;
-            DataRow[] Rows = InsetColorsDataTable.Select("InsetColorID = " + InsetColorID);
-            if (Rows.Count() > 0)
-                name = Rows[0]["InsetColorName"].ToString();
+            var name = string.Empty;
+            var rows = _insetColorsDataTable.Select("InsetColorID = " + insetColorId);
+            if (rows.Count() > 0)
+                name = rows[0]["InsetColorName"].ToString();
             return name;
         }
 
-        private string GetInsetTypeName(int InsetTypeID)
+        private string GetInsetTypeName(int insetTypeId)
         {
-            string name = string.Empty;
-            DataRow[] Rows = InsetTypesDataTable.Select("InsetTypeID = " + InsetTypeID);
-            if (Rows.Count() > 0)
-                name = Rows[0]["InsetTypeName"].ToString();
+            var name = string.Empty;
+            var rows = _insetTypesDataTable.Select("InsetTypeID = " + insetTypeId);
+            if (rows.Count() > 0)
+                name = rows[0]["InsetTypeName"].ToString();
             return name;
         }
 
-        public string GetProductName(int ProductID)
+        public string GetProductName(int productId)
         {
-            string name = string.Empty;
-            DataRow[] Rows = ProductsDataTable.Select("ProductID = " + ProductID);
-            if (Rows.Count() > 0)
-                name = Rows[0]["ProductName"].ToString();
+            var name = string.Empty;
+            var rows = _productsDataTable.Select("ProductID = " + productId);
+            if (rows.Count() > 0)
+                name = rows[0]["ProductName"].ToString();
             return name;
         }
 
-        public string GetDecorName(int DecorID)
+        public string GetDecorName(int decorId)
         {
-            string name = string.Empty;
-            DataRow[] Rows = DecorDataTable.Select("DecorID = " + DecorID);
-            if (Rows.Count() > 0)
-                name = Rows[0]["Name"].ToString();
+            var name = string.Empty;
+            var rows = _decorDataTable.Select("DecorID = " + decorId);
+            if (rows.Count() > 0)
+                name = rows[0]["Name"].ToString();
             return name;
         }
-
     }
 }

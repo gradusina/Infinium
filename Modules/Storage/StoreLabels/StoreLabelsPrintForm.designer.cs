@@ -214,7 +214,7 @@
             this.dgvStoreLabels.AllowUserToResizeRows = false;
             this.dgvStoreLabels.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvStoreLabels.BackText = "Нет данных";
-            this.dgvStoreLabels.ColumnHeadersHeight = 55;
+            this.dgvStoreLabels.ColumnHeadersHeight = 40;
             this.dgvStoreLabels.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgvStoreLabels.ColumnHeadersVisible = false;
             this.dgvStoreLabels.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -223,7 +223,7 @@
             this.dgvStoreLabels.PercentLineWidth = 0;
             this.dgvStoreLabels.ReadOnly = true;
             this.dgvStoreLabels.RowHeadersVisible = false;
-            this.dgvStoreLabels.RowTemplate.Height = 40;
+            this.dgvStoreLabels.RowTemplate.Height = 30;
             this.dgvStoreLabels.SelectedColorStyle = Infinium.PercentageDataGrid.ColorStyle.Blue;
             this.dgvStoreLabels.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvStoreLabels.Size = new System.Drawing.Size(275, 605);
@@ -238,7 +238,7 @@
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.dgvStoreLabels.StateCommon.DataCell.Content.Color1 = System.Drawing.Color.Black;
-            this.dgvStoreLabels.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.dgvStoreLabels.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.dgvStoreLabels.StateCommon.HeaderColumn.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
             this.dgvStoreLabels.StateCommon.HeaderColumn.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
             this.dgvStoreLabels.StateCommon.HeaderColumn.Border.Color1 = System.Drawing.Color.Black;
@@ -247,7 +247,7 @@
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.dgvStoreLabels.StateCommon.HeaderColumn.Content.Color1 = System.Drawing.Color.White;
-            this.dgvStoreLabels.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.dgvStoreLabels.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.dgvStoreLabels.StateSelected.DataCell.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(177)))), ((int)(((byte)(229)))));
             this.dgvStoreLabels.StateSelected.DataCell.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
             this.dgvStoreLabels.StateSelected.DataCell.Content.Color1 = System.Drawing.Color.White;
@@ -286,7 +286,7 @@
             this.dgvStore.AllowUserToResizeRows = false;
             this.dgvStore.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvStore.BackText = "Нет данных";
-            this.dgvStore.ColumnHeadersHeight = 55;
+            this.dgvStore.ColumnHeadersHeight = 40;
             this.dgvStore.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgvStore.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvStore.Location = new System.Drawing.Point(0, 0);
@@ -294,7 +294,7 @@
             this.dgvStore.Name = "dgvStore";
             this.dgvStore.PercentLineWidth = 0;
             this.dgvStore.RowHeadersVisible = false;
-            this.dgvStore.RowTemplate.Height = 40;
+            this.dgvStore.RowTemplate.Height = 30;
             this.dgvStore.SelectedColorStyle = Infinium.PercentageDataGrid.ColorStyle.Orange;
             this.dgvStore.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvStore.Size = new System.Drawing.Size(968, 604);
@@ -309,7 +309,7 @@
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.dgvStore.StateCommon.DataCell.Content.Color1 = System.Drawing.Color.Black;
-            this.dgvStore.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.dgvStore.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.dgvStore.StateCommon.HeaderColumn.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
             this.dgvStore.StateCommon.HeaderColumn.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
             this.dgvStore.StateCommon.HeaderColumn.Border.Color1 = System.Drawing.Color.Black;

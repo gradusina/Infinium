@@ -445,7 +445,7 @@
             this.OnStorageDataGrid.AllowUserToResizeRows = false;
             this.OnStorageDataGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.OnStorageDataGrid.BackText = "Нет данных";
-            this.OnStorageDataGrid.ColumnHeadersHeight = 55;
+            this.OnStorageDataGrid.ColumnHeadersHeight = 40;
             this.OnStorageDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.OnStorageDataGrid.ColumnHeadersVisible = false;
             this.OnStorageDataGrid.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -456,7 +456,7 @@
             this.OnStorageDataGrid.PercentLineWidth = 0;
             this.OnStorageDataGrid.ReadOnly = true;
             this.OnStorageDataGrid.RowHeadersVisible = false;
-            this.OnStorageDataGrid.RowTemplate.Height = 40;
+            this.OnStorageDataGrid.RowTemplate.Height = 30;
             this.OnStorageDataGrid.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.OnStorageDataGrid.SelectedColorStyle = Infinium.PercentageDataGrid.ColorStyle.Blue;
             this.OnStorageDataGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -743,7 +743,7 @@
             this.OnExpeditionDataGrid.AllowUserToResizeRows = false;
             this.OnExpeditionDataGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.OnExpeditionDataGrid.BackText = "Нет данных";
-            this.OnExpeditionDataGrid.ColumnHeadersHeight = 55;
+            this.OnExpeditionDataGrid.ColumnHeadersHeight = 40;
             this.OnExpeditionDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.OnExpeditionDataGrid.ColumnHeadersVisible = false;
             this.OnExpeditionDataGrid.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -754,7 +754,7 @@
             this.OnExpeditionDataGrid.PercentLineWidth = 0;
             this.OnExpeditionDataGrid.ReadOnly = true;
             this.OnExpeditionDataGrid.RowHeadersVisible = false;
-            this.OnExpeditionDataGrid.RowTemplate.Height = 40;
+            this.OnExpeditionDataGrid.RowTemplate.Height = 30;
             this.OnExpeditionDataGrid.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.OnExpeditionDataGrid.SelectedColorStyle = Infinium.PercentageDataGrid.ColorStyle.Blue;
             this.OnExpeditionDataGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -995,7 +995,7 @@
             this.OnProductionDataGrid.AllowUserToResizeRows = false;
             this.OnProductionDataGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.OnProductionDataGrid.BackText = "Нет данных";
-            this.OnProductionDataGrid.ColumnHeadersHeight = 55;
+            this.OnProductionDataGrid.ColumnHeadersHeight = 40;
             this.OnProductionDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.OnProductionDataGrid.ColumnHeadersVisible = false;
             this.OnProductionDataGrid.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -1006,7 +1006,7 @@
             this.OnProductionDataGrid.PercentLineWidth = 0;
             this.OnProductionDataGrid.ReadOnly = true;
             this.OnProductionDataGrid.RowHeadersVisible = false;
-            this.OnProductionDataGrid.RowTemplate.Height = 40;
+            this.OnProductionDataGrid.RowTemplate.Height = 30;
             this.OnProductionDataGrid.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.OnProductionDataGrid.SelectedColorStyle = Infinium.PercentageDataGrid.ColorStyle.Blue;
             this.OnProductionDataGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -1451,7 +1451,7 @@
             this.NonAgreementDataGrid.AllowUserToResizeRows = false;
             this.NonAgreementDataGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.NonAgreementDataGrid.BackText = "Нет данных";
-            this.NonAgreementDataGrid.ColumnHeadersHeight = 55;
+            this.NonAgreementDataGrid.ColumnHeadersHeight = 40;
             this.NonAgreementDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.NonAgreementDataGrid.ColumnHeadersVisible = false;
             this.NonAgreementDataGrid.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -1462,7 +1462,7 @@
             this.NonAgreementDataGrid.PercentLineWidth = 0;
             this.NonAgreementDataGrid.ReadOnly = true;
             this.NonAgreementDataGrid.RowHeadersVisible = false;
-            this.NonAgreementDataGrid.RowTemplate.Height = 40;
+            this.NonAgreementDataGrid.RowTemplate.Height = 30;
             this.NonAgreementDataGrid.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.NonAgreementDataGrid.SelectedColorStyle = Infinium.PercentageDataGrid.ColorStyle.Blue;
             this.NonAgreementDataGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -1546,7 +1546,7 @@
             this.InProductionDataGrid.AllowUserToResizeRows = false;
             this.InProductionDataGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.InProductionDataGrid.BackText = "Нет данных";
-            this.InProductionDataGrid.ColumnHeadersHeight = 55;
+            this.InProductionDataGrid.ColumnHeadersHeight = 40;
             this.InProductionDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.InProductionDataGrid.ColumnHeadersVisible = false;
             this.InProductionDataGrid.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -1557,7 +1557,7 @@
             this.InProductionDataGrid.PercentLineWidth = 0;
             this.InProductionDataGrid.ReadOnly = true;
             this.InProductionDataGrid.RowHeadersVisible = false;
-            this.InProductionDataGrid.RowTemplate.Height = 40;
+            this.InProductionDataGrid.RowTemplate.Height = 30;
             this.InProductionDataGrid.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.InProductionDataGrid.SelectedColorStyle = Infinium.PercentageDataGrid.ColorStyle.Blue;
             this.InProductionDataGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -1697,7 +1697,7 @@
             this.AgreementDataGrid.AllowUserToResizeRows = false;
             this.AgreementDataGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.AgreementDataGrid.BackText = "Нет данных";
-            this.AgreementDataGrid.ColumnHeadersHeight = 55;
+            this.AgreementDataGrid.ColumnHeadersHeight = 40;
             this.AgreementDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.AgreementDataGrid.ColumnHeadersVisible = false;
             this.AgreementDataGrid.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -1708,7 +1708,7 @@
             this.AgreementDataGrid.PercentLineWidth = 0;
             this.AgreementDataGrid.ReadOnly = true;
             this.AgreementDataGrid.RowHeadersVisible = false;
-            this.AgreementDataGrid.RowTemplate.Height = 40;
+            this.AgreementDataGrid.RowTemplate.Height = 30;
             this.AgreementDataGrid.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.AgreementDataGrid.SelectedColorStyle = Infinium.PercentageDataGrid.ColorStyle.Blue;
             this.AgreementDataGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;

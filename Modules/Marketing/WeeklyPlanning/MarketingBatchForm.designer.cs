@@ -6353,7 +6353,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.TraysDataGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.TraysDataGrid.BackText = "Нет данных";
-            this.TraysDataGrid.ColumnHeadersHeight = 55;
+            this.TraysDataGrid.ColumnHeadersHeight = 40;
             this.TraysDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.TraysDataGrid.Location = new System.Drawing.Point(1, 12);
             this.TraysDataGrid.MultiSelect = false;
@@ -6361,7 +6361,7 @@
             this.TraysDataGrid.PercentLineWidth = 0;
             this.TraysDataGrid.ReadOnly = true;
             this.TraysDataGrid.RowHeadersVisible = false;
-            this.TraysDataGrid.RowTemplate.Height = 40;
+            this.TraysDataGrid.RowTemplate.Height = 30;
             this.TraysDataGrid.SelectedColorStyle = Infinium.PercentageDataGrid.ColorStyle.Blue;
             this.TraysDataGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.TraysDataGrid.Size = new System.Drawing.Size(415, 507);

@@ -353,6 +353,9 @@ namespace Infinium
                 if (e.RowIndex == -1)//header
                     return;
 
+                if (this.Rows[e.RowIndex].Cells[e.ColumnIndex].Value == DBNull.Value)//null
+                    return;
+
                 if (Convert.ToBoolean(this.Rows[e.RowIndex].Cells[e.ColumnIndex].Value) == true)
                     this.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = false;
                 else
@@ -398,19 +401,17 @@ namespace Infinium
         {
             base.OnPaint(e);
 
-            if (this.RowCount == 0)
-            {
-                e.Graphics.TextRenderingHint = TextRenderingHint.ClearTypeGridFit;
+            if (this.RowCount != 0) return;
+            e.Graphics.TextRenderingHint = TextRenderingHint.ClearTypeGridFit;
 
-                e.Graphics.DrawString(sBackText, NoDataLabelFont, NoDataLabelBrush,
-                            (this.ClientRectangle.Width - e.Graphics.MeasureString(sBackText, NoDataLabelFont).Width) / 2 + 4,
-                            (this.ClientRectangle.Height - e.Graphics.MeasureString(sBackText, NoDataLabelFont).Height) / 2);
-            }
+            e.Graphics.DrawString(sBackText, NoDataLabelFont, NoDataLabelBrush,
+                (this.ClientRectangle.Width - e.Graphics.MeasureString(sBackText, NoDataLabelFont).Width) / 2 + 4,
+                (this.ClientRectangle.Height - e.Graphics.MeasureString(sBackText, NoDataLabelFont).Height) / 2);
         }
 
         public bool UseCustomBackColor
         {
-            get { return bUseCustomBackColor; }
+            get => bUseCustomBackColor;
             set { bUseCustomBackColor = value; this.Refresh(); }
         }
     }
@@ -620,9 +621,9 @@ namespace Infinium
             this.AllowUserToOrderColumns = false;
             this.AllowUserToResizeColumns = false;
             this.AllowUserToResizeRows = false;
-            this.ColumnHeadersHeight = 55;
+            this.ColumnHeadersHeight = 40;
             //this.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            this.RowTemplate.Height = 40;
+            this.RowTemplate.Height = 30;
             this.RowHeadersVisible = false;
 
 
@@ -1099,9 +1100,9 @@ namespace Infinium
             this.AllowUserToOrderColumns = false;
             this.AllowUserToResizeColumns = false;
             this.AllowUserToResizeRows = false;
-            this.ColumnHeadersHeight = 55;
+            this.ColumnHeadersHeight = 40;
             //this.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            this.RowTemplate.Height = 40;
+            this.RowTemplate.Height = 30;
             this.RowHeadersVisible = false;
 
 
@@ -1573,9 +1574,9 @@ namespace Infinium
             this.AllowUserToOrderColumns = false;
             this.AllowUserToResizeColumns = false;
             this.AllowUserToResizeRows = false;
-            this.ColumnHeadersHeight = 55;
+            this.ColumnHeadersHeight = 40;
             //this.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            this.RowTemplate.Height = 40;
+            this.RowTemplate.Height = 30;
             this.RowHeadersVisible = false;
 
 
@@ -2010,9 +2011,9 @@ namespace Infinium
             this.AllowUserToOrderColumns = false;
             this.AllowUserToResizeColumns = false;
             this.AllowUserToResizeRows = false;
-            this.ColumnHeadersHeight = 55;
+            this.ColumnHeadersHeight = 40;
             //this.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            this.RowTemplate.Height = 40;
+            this.RowTemplate.Height = 30;
             this.RowHeadersVisible = false;
 
 

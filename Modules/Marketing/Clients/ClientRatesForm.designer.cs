@@ -177,7 +177,7 @@
             this.dgvClientRates.AllowUserToResizeRows = false;
             this.dgvClientRates.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvClientRates.BackText = "Нет данных";
-            this.dgvClientRates.ColumnHeadersHeight = 55;
+            this.dgvClientRates.ColumnHeadersHeight = 40;
             this.dgvClientRates.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgvClientRates.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvClientRates.HideOuterBorders = true;
@@ -186,7 +186,7 @@
             this.dgvClientRates.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2010Black;
             this.dgvClientRates.PercentLineWidth = 0;
             this.dgvClientRates.RowHeadersVisible = false;
-            this.dgvClientRates.RowTemplate.Height = 40;
+            this.dgvClientRates.RowTemplate.Height = 30;
             this.dgvClientRates.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.dgvClientRates.SelectedColorStyle = Infinium.PercentageDataGrid.ColorStyle.Blue;
             this.dgvClientRates.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -204,7 +204,7 @@
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.dgvClientRates.StateCommon.DataCell.Content.Color1 = System.Drawing.Color.Black;
-            this.dgvClientRates.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.dgvClientRates.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.dgvClientRates.StateCommon.HeaderColumn.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
             this.dgvClientRates.StateCommon.HeaderColumn.Back.Color2 = System.Drawing.Color.Transparent;
             this.dgvClientRates.StateCommon.HeaderColumn.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
@@ -215,7 +215,7 @@
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.dgvClientRates.StateCommon.HeaderColumn.Border.Width = 1;
             this.dgvClientRates.StateCommon.HeaderColumn.Content.Color1 = System.Drawing.Color.White;
-            this.dgvClientRates.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.dgvClientRates.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.dgvClientRates.StateSelected.DataCell.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(177)))), ((int)(((byte)(229)))));
             this.dgvClientRates.StateSelected.DataCell.Back.Color2 = System.Drawing.Color.Transparent;
             this.dgvClientRates.StateSelected.DataCell.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;

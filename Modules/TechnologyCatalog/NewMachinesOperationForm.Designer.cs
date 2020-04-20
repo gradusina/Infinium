@@ -223,7 +223,7 @@
             this.MachinesOperationsGrid.AllowUserToResizeRows = false;
             this.MachinesOperationsGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.MachinesOperationsGrid.BackText = "Нет данных";
-            this.MachinesOperationsGrid.ColumnHeadersHeight = 55;
+            this.MachinesOperationsGrid.ColumnHeadersHeight = 40;
             this.MachinesOperationsGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.MachinesOperationsGrid.ColumnHeadersVisible = false;
             this.MachinesOperationsGrid.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -233,7 +233,7 @@
             this.MachinesOperationsGrid.PercentLineWidth = 0;
             this.MachinesOperationsGrid.ReadOnly = true;
             this.MachinesOperationsGrid.RowHeadersVisible = false;
-            this.MachinesOperationsGrid.RowTemplate.Height = 40;
+            this.MachinesOperationsGrid.RowTemplate.Height = 30;
             this.MachinesOperationsGrid.SelectedColorStyle = Infinium.PercentageDataGrid.ColorStyle.Blue;
             this.MachinesOperationsGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.MachinesOperationsGrid.Size = new System.Drawing.Size(508, 186);
@@ -248,7 +248,7 @@
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.MachinesOperationsGrid.StateCommon.DataCell.Content.Color1 = System.Drawing.Color.Black;
-            this.MachinesOperationsGrid.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.MachinesOperationsGrid.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.MachinesOperationsGrid.StateCommon.HeaderColumn.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
             this.MachinesOperationsGrid.StateCommon.HeaderColumn.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
             this.MachinesOperationsGrid.StateCommon.HeaderColumn.Border.Color1 = System.Drawing.Color.Black;
@@ -257,7 +257,7 @@
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.MachinesOperationsGrid.StateCommon.HeaderColumn.Content.Color1 = System.Drawing.Color.White;
-            this.MachinesOperationsGrid.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.MachinesOperationsGrid.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.MachinesOperationsGrid.StateSelected.DataCell.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(177)))), ((int)(((byte)(229)))));
             this.MachinesOperationsGrid.StateSelected.DataCell.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
             this.MachinesOperationsGrid.StateSelected.DataCell.Content.Color1 = System.Drawing.Color.White;

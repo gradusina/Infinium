@@ -381,7 +381,7 @@
             this.IncomeDataGrid.AllowUserToResizeRows = false;
             this.IncomeDataGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.IncomeDataGrid.BackText = "Нет данных";
-            this.IncomeDataGrid.ColumnHeadersHeight = 55;
+            this.IncomeDataGrid.ColumnHeadersHeight = 40;
             this.IncomeDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.IncomeDataGrid.Dock = System.Windows.Forms.DockStyle.Fill;
             this.IncomeDataGrid.Location = new System.Drawing.Point(0, 0);
@@ -391,7 +391,7 @@
             this.IncomeDataGrid.PercentLineWidth = 0;
             this.IncomeDataGrid.ReadOnly = true;
             this.IncomeDataGrid.RowHeadersVisible = false;
-            this.IncomeDataGrid.RowTemplate.Height = 40;
+            this.IncomeDataGrid.RowTemplate.Height = 30;
             this.IncomeDataGrid.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.IncomeDataGrid.SelectedColorStyle = Infinium.PercentageDataGrid.ColorStyle.Blue;
             this.IncomeDataGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -409,7 +409,7 @@
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.IncomeDataGrid.StateCommon.DataCell.Content.Color1 = System.Drawing.Color.Black;
-            this.IncomeDataGrid.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.IncomeDataGrid.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.IncomeDataGrid.StateCommon.HeaderColumn.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
             this.IncomeDataGrid.StateCommon.HeaderColumn.Back.Color2 = System.Drawing.Color.Transparent;
             this.IncomeDataGrid.StateCommon.HeaderColumn.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
@@ -420,7 +420,7 @@
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.IncomeDataGrid.StateCommon.HeaderColumn.Border.Width = 1;
             this.IncomeDataGrid.StateCommon.HeaderColumn.Content.Color1 = System.Drawing.Color.White;
-            this.IncomeDataGrid.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.IncomeDataGrid.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.IncomeDataGrid.StateSelected.DataCell.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(177)))), ((int)(((byte)(229)))));
             this.IncomeDataGrid.StateSelected.DataCell.Back.Color2 = System.Drawing.Color.Transparent;
             this.IncomeDataGrid.StateSelected.DataCell.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;

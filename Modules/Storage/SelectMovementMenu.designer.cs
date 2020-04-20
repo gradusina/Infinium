@@ -399,7 +399,7 @@
             this.StoreAllocFromDataGrid.AllowUserToResizeRows = false;
             this.StoreAllocFromDataGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.StoreAllocFromDataGrid.BackText = "Нет данных";
-            this.StoreAllocFromDataGrid.ColumnHeadersHeight = 55;
+            this.StoreAllocFromDataGrid.ColumnHeadersHeight = 40;
             this.StoreAllocFromDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.StoreAllocFromDataGrid.ColumnHeadersVisible = false;
             this.StoreAllocFromDataGrid.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -449,7 +449,7 @@
             this.ClientsDataGrid.AllowUserToResizeRows = false;
             this.ClientsDataGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.ClientsDataGrid.BackText = "Нет данных";
-            this.ClientsDataGrid.ColumnHeadersHeight = 55;
+            this.ClientsDataGrid.ColumnHeadersHeight = 40;
             this.ClientsDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.ClientsDataGrid.ColumnHeadersVisible = false;
             this.ClientsDataGrid.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -499,7 +499,7 @@
             this.StoreAllocToDataGrid.AllowUserToResizeRows = false;
             this.StoreAllocToDataGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.StoreAllocToDataGrid.BackText = "Нет данных";
-            this.StoreAllocToDataGrid.ColumnHeadersHeight = 55;
+            this.StoreAllocToDataGrid.ColumnHeadersHeight = 40;
             this.StoreAllocToDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.StoreAllocToDataGrid.ColumnHeadersVisible = false;
             this.StoreAllocToDataGrid.Dock = System.Windows.Forms.DockStyle.Fill;

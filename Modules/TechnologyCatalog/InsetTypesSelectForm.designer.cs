@@ -229,7 +229,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvInsetTypes.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvInsetTypes.BackText = "Нет данных";
-            this.dgvInsetTypes.ColumnHeadersHeight = 55;
+            this.dgvInsetTypes.ColumnHeadersHeight = 40;
             this.dgvInsetTypes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgvInsetTypes.ColumnHeadersVisible = false;
             this.dgvInsetTypes.Location = new System.Drawing.Point(-1, -1);
@@ -237,7 +237,7 @@
             this.dgvInsetTypes.Name = "dgvInsetTypes";
             this.dgvInsetTypes.PercentLineWidth = 0;
             this.dgvInsetTypes.RowHeadersVisible = false;
-            this.dgvInsetTypes.RowTemplate.Height = 40;
+            this.dgvInsetTypes.RowTemplate.Height = 30;
             this.dgvInsetTypes.SelectedColorStyle = Infinium.PercentageDataGrid.ColorStyle.Blue;
             this.dgvInsetTypes.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvInsetTypes.Size = new System.Drawing.Size(282, 333);
@@ -261,7 +261,7 @@
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.dgvInsetTypes.StateCommon.HeaderColumn.Content.Color1 = System.Drawing.Color.White;
-            this.dgvInsetTypes.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.dgvInsetTypes.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.dgvInsetTypes.StateSelected.DataCell.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(177)))), ((int)(((byte)(229)))));
             this.dgvInsetTypes.StateSelected.DataCell.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
             this.dgvInsetTypes.StateSelected.DataCell.Content.Color1 = System.Drawing.Color.White;

@@ -117,27 +117,17 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <metadata name="AnimateTimer.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+  <metadata name="StandardButtonsPalette.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>168, 17</value>
+  </metadata>
+  <metadata name="toolTipController1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
   <metadata name="NavigateMenuButtonsPalette.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>296, 17</value>
+    <value>626, 17</value>
   </metadata>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="NavigateMenuCloseButton.Values.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAABGdBTUEAALGPC/xhBQAAAbdJREFUSEvt
-        lkFnA1EUhYdSQgmhhFBCtiWErELINqsQui1Z5cdk1d8Quu0PKKXbrrrtqlRLKaWU0krPac7Ql7nvzXud
-        0kXzcYh3v3uknWQm2Zb/x2q12kXOkVO+1nEy6mEHu8p7IC2RHC7taRQNd7Sbs9TIBsJi7TlcIftSSqGr
-        nU0WUlwwGKznJjfIgVQvdOT6GEh1wWCGvH8pRe6QQ6kFOJNjwc6ZVBsIE+SVtsETUnjXPNPMgl0TqWEg
-        DpFnbhmwaCyV7lhnFuwYSo0DC13kgdsG/NcdK75Lw92u6tLAYhsJfVh8cKetmp+BgiZifT180G1qvRoo
-        4g3hgq0l0Em+4QRBYR25Z7sHzurSfwcUNpBLtpdAp6G1aqCI1/iarZHQrXaNUdBBbtlm8KFYcKejmjSw
-        2EMe2WLwhhwpfG3B3Z7q4sDCCHnhtgHPR1KT3CAQp0jSX8EzzSzYNZVqA2GO+G6BwevGmRwLds6lumBQ
-        Q3y3x6hPKh25FuyuSXXBoIVsPlP53Yy+MdDVznfY2ZJiA4EP9PzZeobY7zIAd7RL2OX9AeEAsY+cIDs6
-        Soa76ujraMtfkGWfMlTytbIAecIAAAAASUVORK5CYII=
-</value>
-  </data>
-  <data name="btnSaveAssignments.Values.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="btnSave.Values.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABGdBTUEAALGeYUxB9wAAACBjSFJNAACH
         EAAAjBIAAP1NAACBPgAAWesAARIPAAA85gAAGc66ySIyAAABK2lDQ1BQaG90b3Nob3AgSUNDIHByb2Zp
@@ -151,28 +141,26 @@
         oIppQaGkPQIAsrDkpVguAAAAAElFTkSuQmCC
 </value>
   </data>
-  <data name="MinimizeButton.Values.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="NavigateMenuCloseButton.Values.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
-        iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAAIGNIUk0AAHonAACAgwAA+mQAAIDSAAB2
-        hgAA7OkAADmeAAAV/sZ+0zoAAAAJcEhZcwAACwwAAAsMAT9AIsgAAACNSURBVEhLxc2xCYNQAEVRh0mV
-        VsgMmSEDuJPgJBnAyioLfV/j5xcXA8K/PjjNbd5QSrkFRgNGA0YDRgNGA0YDRgNGA0YDRgNGA0YDRgNG
-        A0YDRgNGA0YDRgNGA8VnjBe8YzrxiPrTHh5+0WOfqD/t4eG24zV67O/xEtsF35hPvKL+tIcqjAaMBoz9
-        lWEHTDvaUlzx71MAAAAASUVORK5CYII=
+        iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAABGdBTUEAALGPC/xhBQAAAbdJREFUSEvt
+        lkFnA1EUhYdSQgmhhFBCtiWErELINqsQui1Z5cdk1d8Quu0PKKXbrrrtqlRLKaWU0krPac7Ql7nvzXud
+        0kXzcYh3v3uknWQm2Zb/x2q12kXOkVO+1nEy6mEHu8p7IC2RHC7taRQNd7Sbs9TIBsJi7TlcIftSSqGr
+        nU0WUlwwGKznJjfIgVQvdOT6GEh1wWCGvH8pRe6QQ6kFOJNjwc6ZVBsIE+SVtsETUnjXPNPMgl0TqWEg
+        DpFnbhmwaCyV7lhnFuwYSo0DC13kgdsG/NcdK75Lw92u6tLAYhsJfVh8cKetmp+BgiZifT180G1qvRoo
+        4g3hgq0l0Em+4QRBYR25Z7sHzurSfwcUNpBLtpdAp6G1aqCI1/iarZHQrXaNUdBBbtlm8KFYcKejmjSw
+        2EMe2WLwhhwpfG3B3Z7q4sDCCHnhtgHPR1KT3CAQp0jSX8EzzSzYNZVqA2GO+G6BwevGmRwLds6lumBQ
+        Q3y3x6hPKh25FuyuSXXBoIVsPlP53Yy+MdDVznfY2ZJiA4EP9PzZeobY7zIAd7RL2OX9AeEAsY+cIDs6
+        Soa76ujraMtfkGWfMlTytbIAecIAAAAASUVORK5CYII=
 </value>
   </data>
-  <metadata name="PanelSelectPalette.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>145, 17</value>
+  <metadata name="AnimateTimer.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>348, 17</value>
   </metadata>
-  <metadata name="StandardButtonsPalette.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>507, 17</value>
-  </metadata>
-  <metadata name="kryptonContextMenu1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>687, 17</value>
-  </metadata>
-  <metadata name="openFileDialog4.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>861, 17</value>
+  <metadata name="kryptonCheckSet1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>476, 17</value>
   </metadata>
   <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>62</value>
+    <value>50</value>
   </metadata>
 </root>

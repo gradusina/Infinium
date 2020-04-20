@@ -297,7 +297,7 @@
             this.MegaOrdersDataGrid.AllowUserToResizeRows = false;
             this.MegaOrdersDataGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.MegaOrdersDataGrid.BackText = "Нет данных";
-            this.MegaOrdersDataGrid.ColumnHeadersHeight = 55;
+            this.MegaOrdersDataGrid.ColumnHeadersHeight = 40;
             this.MegaOrdersDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.MegaOrdersDataGrid.Dock = System.Windows.Forms.DockStyle.Fill;
             this.MegaOrdersDataGrid.Location = new System.Drawing.Point(0, 0);
@@ -307,7 +307,7 @@
             this.MegaOrdersDataGrid.PercentLineWidth = 0;
             this.MegaOrdersDataGrid.ReadOnly = true;
             this.MegaOrdersDataGrid.RowHeadersVisible = false;
-            this.MegaOrdersDataGrid.RowTemplate.Height = 40;
+            this.MegaOrdersDataGrid.RowTemplate.Height = 30;
             this.MegaOrdersDataGrid.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.MegaOrdersDataGrid.SelectedColorStyle = Infinium.PercentageDataGrid.ColorStyle.Blue;
             this.MegaOrdersDataGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -325,7 +325,7 @@
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.MegaOrdersDataGrid.StateCommon.DataCell.Content.Color1 = System.Drawing.Color.Black;
-            this.MegaOrdersDataGrid.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.MegaOrdersDataGrid.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.MegaOrdersDataGrid.StateCommon.HeaderColumn.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
             this.MegaOrdersDataGrid.StateCommon.HeaderColumn.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
             this.MegaOrdersDataGrid.StateCommon.HeaderColumn.Border.Color1 = System.Drawing.Color.Black;
@@ -335,7 +335,7 @@
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.MegaOrdersDataGrid.StateCommon.HeaderColumn.Border.Width = 1;
             this.MegaOrdersDataGrid.StateCommon.HeaderColumn.Content.Color1 = System.Drawing.Color.White;
-            this.MegaOrdersDataGrid.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.MegaOrdersDataGrid.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.MegaOrdersDataGrid.StateCommon.HeaderColumn.Content.TextH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
             this.MegaOrdersDataGrid.StateSelected.DataCell.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(177)))), ((int)(((byte)(229)))));
             this.MegaOrdersDataGrid.StateSelected.DataCell.Back.Color2 = System.Drawing.Color.Transparent;
@@ -553,7 +553,7 @@
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.FilterClientsDataGrid.StateCommon.DataCell.Content.Color1 = System.Drawing.Color.Black;
-            this.FilterClientsDataGrid.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.FilterClientsDataGrid.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.FilterClientsDataGrid.StateCommon.HeaderColumn.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
             this.FilterClientsDataGrid.StateCommon.HeaderColumn.Back.Color2 = System.Drawing.Color.Transparent;
             this.FilterClientsDataGrid.StateCommon.HeaderColumn.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;

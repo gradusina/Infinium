@@ -2286,7 +2286,7 @@
             this.TimeSheetDataGrid.AllowUserToResizeRows = false;
             this.TimeSheetDataGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.ColumnHeader;
             this.TimeSheetDataGrid.BackText = "Нет данных";
-            this.TimeSheetDataGrid.ColumnHeadersHeight = 55;
+            this.TimeSheetDataGrid.ColumnHeadersHeight = 40;
             this.TimeSheetDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.TimeSheetDataGrid.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TimeSheetDataGrid.Location = new System.Drawing.Point(0, 0);
@@ -2295,7 +2295,7 @@
             this.TimeSheetDataGrid.PercentLineWidth = 0;
             this.TimeSheetDataGrid.ReadOnly = true;
             this.TimeSheetDataGrid.RowHeadersVisible = false;
-            this.TimeSheetDataGrid.RowTemplate.Height = 40;
+            this.TimeSheetDataGrid.RowTemplate.Height = 30;
             this.TimeSheetDataGrid.SelectedColorStyle = Infinium.PercentageDataGrid.ColorStyle.Orange;
             this.TimeSheetDataGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.TimeSheetDataGrid.Size = new System.Drawing.Size(1229, 130);
@@ -2310,7 +2310,7 @@
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.TimeSheetDataGrid.StateCommon.DataCell.Content.Color1 = System.Drawing.Color.Black;
-            this.TimeSheetDataGrid.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.TimeSheetDataGrid.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.TimeSheetDataGrid.StateCommon.HeaderColumn.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
             this.TimeSheetDataGrid.StateCommon.HeaderColumn.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
             this.TimeSheetDataGrid.StateCommon.HeaderColumn.Border.Color1 = System.Drawing.Color.Black;
@@ -2318,7 +2318,7 @@
             this.TimeSheetDataGrid.StateCommon.HeaderColumn.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)(((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.TimeSheetDataGrid.StateCommon.HeaderColumn.Content.Color1 = System.Drawing.Color.White;
-            this.TimeSheetDataGrid.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.TimeSheetDataGrid.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.TimeSheetDataGrid.StateSelected.DataCell.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(253)))), ((int)(((byte)(164)))), ((int)(((byte)(61)))));
             this.TimeSheetDataGrid.StateSelected.DataCell.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
             this.TimeSheetDataGrid.StateSelected.DataCell.Content.Color1 = System.Drawing.Color.White;

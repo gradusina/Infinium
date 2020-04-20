@@ -267,7 +267,7 @@
             this.ClientsDataGrid.AllowUserToResizeRows = false;
             this.ClientsDataGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.ClientsDataGrid.BackText = "Нет данных";
-            this.ClientsDataGrid.ColumnHeadersHeight = 55;
+            this.ClientsDataGrid.ColumnHeadersHeight = 40;
             this.ClientsDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.ClientsDataGrid.ColumnHeadersVisible = false;
             this.ClientsDataGrid.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -546,7 +546,7 @@
             this.LoginJournalDataGrid.PercentLineWidth = 0;
             this.LoginJournalDataGrid.ReadOnly = true;
             this.LoginJournalDataGrid.RowHeadersVisible = false;
-            this.LoginJournalDataGrid.RowTemplate.Height = 40;
+            this.LoginJournalDataGrid.RowTemplate.Height = 30;
             this.LoginJournalDataGrid.SelectedColorStyle = Infinium.PercentageDataGrid.ColorStyle.Green;
             this.LoginJournalDataGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.LoginJournalDataGrid.Size = new System.Drawing.Size(349, 279);
@@ -634,7 +634,7 @@
             this.ComputerParamsDataGrid.PercentLineWidth = 0;
             this.ComputerParamsDataGrid.ReadOnly = true;
             this.ComputerParamsDataGrid.RowHeadersVisible = false;
-            this.ComputerParamsDataGrid.RowTemplate.Height = 40;
+            this.ComputerParamsDataGrid.RowTemplate.Height = 30;
             this.ComputerParamsDataGrid.SelectedColorStyle = Infinium.PercentageDataGrid.ColorStyle.Green;
             this.ComputerParamsDataGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.ComputerParamsDataGrid.Size = new System.Drawing.Size(193, 233);
@@ -696,7 +696,7 @@
             this.ModulesJornalDataGrid.PercentLineWidth = 0;
             this.ModulesJornalDataGrid.ReadOnly = true;
             this.ModulesJornalDataGrid.RowHeadersVisible = false;
-            this.ModulesJornalDataGrid.RowTemplate.Height = 40;
+            this.ModulesJornalDataGrid.RowTemplate.Height = 30;
             this.ModulesJornalDataGrid.SelectedColorStyle = Infinium.PercentageDataGrid.ColorStyle.Orange;
             this.ModulesJornalDataGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.ModulesJornalDataGrid.Size = new System.Drawing.Size(552, 210);
@@ -910,7 +910,7 @@
             this.ClientEventsJournalDataGrid.PercentLineWidth = 0;
             this.ClientEventsJournalDataGrid.ReadOnly = true;
             this.ClientEventsJournalDataGrid.RowHeadersVisible = false;
-            this.ClientEventsJournalDataGrid.RowTemplate.Height = 40;
+            this.ClientEventsJournalDataGrid.RowTemplate.Height = 30;
             this.ClientEventsJournalDataGrid.SelectedColorStyle = Infinium.PercentageDataGrid.ColorStyle.Orange;
             this.ClientEventsJournalDataGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.ClientEventsJournalDataGrid.Size = new System.Drawing.Size(552, 210);
@@ -982,7 +982,7 @@
             this.MessagesDataGrid.PercentLineWidth = 0;
             this.MessagesDataGrid.ReadOnly = true;
             this.MessagesDataGrid.RowHeadersVisible = false;
-            this.MessagesDataGrid.RowTemplate.Height = 40;
+            this.MessagesDataGrid.RowTemplate.Height = 30;
             this.MessagesDataGrid.SelectedColorStyle = Infinium.PercentageDataGrid.ColorStyle.Green;
             this.MessagesDataGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.MessagesDataGrid.Size = new System.Drawing.Size(1194, 520);

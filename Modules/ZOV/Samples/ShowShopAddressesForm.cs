@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace Infinium
 {
-    public partial class ShowShopAddressesForm : Form
+    public partial class MarketShopAddressesForm : Form
     {
         const int eHide = 2;
         const int eShow = 1;
@@ -15,15 +15,18 @@ namespace Infinium
         const int eMainMenu = 4;
 
         int FormEvent = 0;
+        int ClientID = -1;
 
         Form MainForm = null;
+        OrdersManager ordersManager;
 
-        public ShowShopAddressesForm(Form tMainForm, OrdersManager tOrdersManager, int FirmType, int ClientID)
+        public MarketShopAddressesForm(Form tMainForm, OrdersManager tOrdersManager, int FirmType, int iClientID)
         {
             MainForm = tMainForm;
             InitializeComponent();
-            ShopAddressesDataGrid.DataSource = tOrdersManager.FillShopAddressesDataTable(FirmType, ClientID);
-
+            ShopAddressesDataGrid.DataSource = tOrdersManager.FillShopAddressesDataTable(FirmType, iClientID);
+            ordersManager = tOrdersManager;
+            ClientID = iClientID;
 
             if (ShopAddressesDataGrid.Columns.Contains("Address"))
                 ShopAddressesDataGrid.Columns["Address"].HeaderText = "Адрес";
@@ -67,12 +70,16 @@ namespace Infinium
 
             foreach (DataGridViewColumn Column in ShopAddressesDataGrid.Columns)
             {
+                if (FirmType == 1)
+                    Column.ReadOnly = true;
                 Column.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             }
 
+            if (FirmType == 1)
+                ShopAddressesDataGrid.AllowUserToAddRows = false;
             ShopAddressesDataGrid.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             ShopAddressesDataGrid.Columns["Address"].DefaultCellStyle.ForeColor = Color.Blue;
-            ShopAddressesDataGrid.Columns["Address"].DefaultCellStyle.Font = new System.Drawing.Font("SEGOE UI", 15.0F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            ShopAddressesDataGrid.Columns["Address"].DefaultCellStyle.Font = new System.Drawing.Font("SEGOE UI", 13.0F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
         }
 
         private void AnimateTimer_Tick(object sender, EventArgs e)
@@ -154,31 +161,47 @@ namespace Infinium
 
         private void ShopAddressesDataGrid_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            string Address = string.Empty;
-            if (ShopAddressesDataGrid.SelectedRows.Count != 0 && ShopAddressesDataGrid.SelectedRows[0].Cells["Address"].Value != DBNull.Value)
-                Address = ShopAddressesDataGrid.SelectedRows[0].Cells["Address"].Value.ToString();
-            if (Address.Length == 0)
-                return;
-            try
+            PercentageDataGrid dataGridView = (PercentageDataGrid)sender;
+            if (e.ColumnIndex > -1 && e.RowIndex > -1 && dataGridView.Columns[e.ColumnIndex].Name == "Address"
+                && dataGridView.Rows[e.RowIndex].Cells[e.ColumnIndex].Value != null && dataGridView.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString().Length > 0)
             {
-                StringBuilder QuerryAddress = new StringBuilder();
-                QuerryAddress.Append("http://www.google.com/maps?q=");
-                QuerryAddress.Append(Address);
-                System.Diagnostics.Process.Start(QuerryAddress.ToString());
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message.ToString(), "Error");
+                string Address = string.Empty;
+                if (ShopAddressesDataGrid.SelectedRows.Count != 0 && ShopAddressesDataGrid.SelectedRows[0].Cells["Address"].Value != DBNull.Value)
+                    Address = ShopAddressesDataGrid.SelectedRows[0].Cells["Address"].Value.ToString();
+                if (Address.Length == 0)
+                    return;
+                try
+                {
+                    StringBuilder QuerryAddress = new StringBuilder();
+                    QuerryAddress.Append("http://www.google.com/maps?q=");
+                    QuerryAddress.Append(Address);
+                    System.Diagnostics.Process.Start(QuerryAddress.ToString());
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message.ToString(), "Error");
+                }
             }
         }
 
         private void ShopAddressesDataGrid_CellMouseEnter(object sender, DataGridViewCellEventArgs e)
         {
             PercentageDataGrid dataGridView = (PercentageDataGrid)sender;
-            if (e.ColumnIndex > -1 && e.RowIndex > -1 && dataGridView.Columns[e.ColumnIndex].Name == "Address" && dataGridView.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString().Length > 0)
+            if (e.ColumnIndex > -1 && e.RowIndex > -1 && dataGridView.Columns[e.ColumnIndex].Name == "Address" 
+                && dataGridView.Rows[e.RowIndex].Cells[e.ColumnIndex].Value != null && dataGridView.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString().Length > 0)
                 dataGridView.Cursor = Cursors.Hand;
             else
                 dataGridView.Cursor = Cursors.Default;
+        }
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void ShopAddressesDataGrid_DefaultValuesNeeded(object sender, DataGridViewRowEventArgs e)
+        {
+            e.Row.Cells["ClientID"].Value = ClientID;
         }
     }
 }

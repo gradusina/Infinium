@@ -358,7 +358,7 @@
             this.dgvClientErrors.Name = "dgvClientErrors";
             this.dgvClientErrors.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2010Black;
             this.dgvClientErrors.RowHeadersVisible = false;
-            this.dgvClientErrors.RowTemplate.Height = 40;
+            this.dgvClientErrors.RowTemplate.Height = 30;
             this.dgvClientErrors.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvClientErrors.Size = new System.Drawing.Size(1266, 553);
             this.dgvClientErrors.StateCommon.Background.Color1 = System.Drawing.Color.White;
@@ -371,7 +371,7 @@
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.dgvClientErrors.StateCommon.DataCell.Content.Color1 = System.Drawing.Color.Black;
-            this.dgvClientErrors.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.dgvClientErrors.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.dgvClientErrors.StateCommon.HeaderColumn.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
             this.dgvClientErrors.StateCommon.HeaderColumn.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
             this.dgvClientErrors.StateCommon.HeaderColumn.Border.Color1 = System.Drawing.Color.Black;
@@ -379,7 +379,7 @@
             this.dgvClientErrors.StateCommon.HeaderColumn.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)(((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.dgvClientErrors.StateCommon.HeaderColumn.Content.Color1 = System.Drawing.Color.White;
-            this.dgvClientErrors.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.dgvClientErrors.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.dgvClientErrors.StateCommon.HeaderColumn.Content.MultiLineH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
             this.dgvClientErrors.StateCommon.HeaderColumn.Content.TextH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
             this.dgvClientErrors.StateDisabled.DataCell.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(210)))), ((int)(((byte)(210)))), ((int)(((byte)(210)))));
@@ -446,7 +446,7 @@
             this.dgvNotPaidOrders.Name = "dgvNotPaidOrders";
             this.dgvNotPaidOrders.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2010Black;
             this.dgvNotPaidOrders.RowHeadersVisible = false;
-            this.dgvNotPaidOrders.RowTemplate.Height = 40;
+            this.dgvNotPaidOrders.RowTemplate.Height = 30;
             this.dgvNotPaidOrders.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvNotPaidOrders.Size = new System.Drawing.Size(1266, 553);
             this.dgvNotPaidOrders.StateCommon.Background.Color1 = System.Drawing.Color.White;
@@ -459,7 +459,7 @@
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.dgvNotPaidOrders.StateCommon.DataCell.Content.Color1 = System.Drawing.Color.Black;
-            this.dgvNotPaidOrders.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.dgvNotPaidOrders.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.dgvNotPaidOrders.StateCommon.HeaderColumn.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
             this.dgvNotPaidOrders.StateCommon.HeaderColumn.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
             this.dgvNotPaidOrders.StateCommon.HeaderColumn.Border.Color1 = System.Drawing.Color.Black;
@@ -467,7 +467,7 @@
             this.dgvNotPaidOrders.StateCommon.HeaderColumn.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)(((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.dgvNotPaidOrders.StateCommon.HeaderColumn.Content.Color1 = System.Drawing.Color.White;
-            this.dgvNotPaidOrders.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.dgvNotPaidOrders.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.dgvNotPaidOrders.StateCommon.HeaderColumn.Content.MultiLineH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
             this.dgvNotPaidOrders.StateCommon.HeaderColumn.Content.TextH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
             this.dgvNotPaidOrders.StateDisabled.DataCell.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(210)))), ((int)(((byte)(210)))), ((int)(((byte)(210)))));
@@ -533,7 +533,7 @@
             this.dgvAssemblyOrders.Name = "dgvAssemblyOrders";
             this.dgvAssemblyOrders.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2010Black;
             this.dgvAssemblyOrders.RowHeadersVisible = false;
-            this.dgvAssemblyOrders.RowTemplate.Height = 40;
+            this.dgvAssemblyOrders.RowTemplate.Height = 30;
             this.dgvAssemblyOrders.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvAssemblyOrders.Size = new System.Drawing.Size(1266, 553);
             this.dgvAssemblyOrders.StateCommon.Background.Color1 = System.Drawing.Color.White;
@@ -546,7 +546,7 @@
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.dgvAssemblyOrders.StateCommon.DataCell.Content.Color1 = System.Drawing.Color.Black;
-            this.dgvAssemblyOrders.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.dgvAssemblyOrders.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.dgvAssemblyOrders.StateCommon.HeaderColumn.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
             this.dgvAssemblyOrders.StateCommon.HeaderColumn.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
             this.dgvAssemblyOrders.StateCommon.HeaderColumn.Border.Color1 = System.Drawing.Color.Black;
@@ -554,7 +554,7 @@
             this.dgvAssemblyOrders.StateCommon.HeaderColumn.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)(((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.dgvAssemblyOrders.StateCommon.HeaderColumn.Content.Color1 = System.Drawing.Color.White;
-            this.dgvAssemblyOrders.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.dgvAssemblyOrders.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.dgvAssemblyOrders.StateCommon.HeaderColumn.Content.MultiLineH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
             this.dgvAssemblyOrders.StateCommon.HeaderColumn.Content.TextH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
             this.dgvAssemblyOrders.StateDisabled.DataCell.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(210)))), ((int)(((byte)(210)))), ((int)(((byte)(210)))));

@@ -220,7 +220,7 @@
             this.SectorsGrid.AllowUserToResizeRows = false;
             this.SectorsGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.SectorsGrid.BackText = "Нет данных";
-            this.SectorsGrid.ColumnHeadersHeight = 55;
+            this.SectorsGrid.ColumnHeadersHeight = 40;
             this.SectorsGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.SectorsGrid.ColumnHeadersVisible = false;
             this.SectorsGrid.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -230,7 +230,7 @@
             this.SectorsGrid.PercentLineWidth = 0;
             this.SectorsGrid.ReadOnly = true;
             this.SectorsGrid.RowHeadersVisible = false;
-            this.SectorsGrid.RowTemplate.Height = 40;
+            this.SectorsGrid.RowTemplate.Height = 30;
             this.SectorsGrid.SelectedColorStyle = Infinium.PercentageDataGrid.ColorStyle.Blue;
             this.SectorsGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.SectorsGrid.Size = new System.Drawing.Size(373, 317);
@@ -245,7 +245,7 @@
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.SectorsGrid.StateCommon.DataCell.Content.Color1 = System.Drawing.Color.Black;
-            this.SectorsGrid.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.SectorsGrid.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.SectorsGrid.StateCommon.HeaderColumn.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
             this.SectorsGrid.StateCommon.HeaderColumn.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
             this.SectorsGrid.StateCommon.HeaderColumn.Border.Color1 = System.Drawing.Color.Black;
@@ -254,7 +254,7 @@
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.SectorsGrid.StateCommon.HeaderColumn.Content.Color1 = System.Drawing.Color.White;
-            this.SectorsGrid.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.SectorsGrid.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.SectorsGrid.StateSelected.DataCell.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(177)))), ((int)(((byte)(229)))));
             this.SectorsGrid.StateSelected.DataCell.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
             this.SectorsGrid.StateSelected.DataCell.Content.Color1 = System.Drawing.Color.White;

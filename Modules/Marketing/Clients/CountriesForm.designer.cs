@@ -256,7 +256,7 @@
             this.dgvCountries.AllowUserToResizeRows = false;
             this.dgvCountries.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvCountries.BackText = "Нет данных";
-            this.dgvCountries.ColumnHeadersHeight = 55;
+            this.dgvCountries.ColumnHeadersHeight = 40;
             this.dgvCountries.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgvCountries.ColumnHeadersVisible = false;
             this.dgvCountries.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -284,7 +284,7 @@
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.dgvCountries.StateCommon.DataCell.Content.Color1 = System.Drawing.Color.Black;
-            this.dgvCountries.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.dgvCountries.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.dgvCountries.StateCommon.HeaderColumn.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
             this.dgvCountries.StateCommon.HeaderColumn.Back.Color2 = System.Drawing.Color.Transparent;
             this.dgvCountries.StateCommon.HeaderColumn.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
@@ -295,7 +295,7 @@
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.dgvCountries.StateCommon.HeaderColumn.Border.Width = 1;
             this.dgvCountries.StateCommon.HeaderColumn.Content.Color1 = System.Drawing.Color.White;
-            this.dgvCountries.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.dgvCountries.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.dgvCountries.StateSelected.DataCell.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(177)))), ((int)(((byte)(229)))));
             this.dgvCountries.StateSelected.DataCell.Back.Color2 = System.Drawing.Color.Transparent;
             this.dgvCountries.StateSelected.DataCell.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;

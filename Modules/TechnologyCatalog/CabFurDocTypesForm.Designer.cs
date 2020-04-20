@@ -263,7 +263,7 @@
             this.dgvDocTypes.AllowUserToResizeRows = false;
             this.dgvDocTypes.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvDocTypes.BackText = "Нет данных";
-            this.dgvDocTypes.ColumnHeadersHeight = 55;
+            this.dgvDocTypes.ColumnHeadersHeight = 40;
             this.dgvDocTypes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgvDocTypes.ColumnHeadersVisible = false;
             this.dgvDocTypes.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -287,7 +287,7 @@
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.dgvDocTypes.StateCommon.DataCell.Content.Color1 = System.Drawing.Color.Black;
-            this.dgvDocTypes.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.dgvDocTypes.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.dgvDocTypes.StateCommon.HeaderColumn.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
             this.dgvDocTypes.StateCommon.HeaderColumn.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
             this.dgvDocTypes.StateCommon.HeaderColumn.Border.Color1 = System.Drawing.Color.Black;
@@ -296,7 +296,7 @@
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.dgvDocTypes.StateCommon.HeaderColumn.Content.Color1 = System.Drawing.Color.White;
-            this.dgvDocTypes.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.dgvDocTypes.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.dgvDocTypes.StateSelected.DataCell.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(177)))), ((int)(((byte)(229)))));
             this.dgvDocTypes.StateSelected.DataCell.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
             this.dgvDocTypes.StateSelected.DataCell.Content.Color1 = System.Drawing.Color.White;

@@ -552,7 +552,7 @@
             this.MegaOrdersDataGrid.PercentLineWidth = 0;
             this.MegaOrdersDataGrid.ReadOnly = true;
             this.MegaOrdersDataGrid.RowHeadersVisible = false;
-            this.MegaOrdersDataGrid.RowTemplate.Height = 40;
+            this.MegaOrdersDataGrid.RowTemplate.Height = 30;
             this.MegaOrdersDataGrid.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.MegaOrdersDataGrid.SelectedColorStyle = Infinium.PercentageDataGrid.ColorStyle.Blue;
             this.MegaOrdersDataGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -570,7 +570,7 @@
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.MegaOrdersDataGrid.StateCommon.DataCell.Content.Color1 = System.Drawing.Color.Black;
-            this.MegaOrdersDataGrid.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.MegaOrdersDataGrid.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.MegaOrdersDataGrid.StateCommon.HeaderColumn.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
             this.MegaOrdersDataGrid.StateCommon.HeaderColumn.Back.Color2 = System.Drawing.Color.Transparent;
             this.MegaOrdersDataGrid.StateCommon.HeaderColumn.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
@@ -621,7 +621,7 @@
             this.MainOrdersDataGrid.PercentLineWidth = 0;
             this.MainOrdersDataGrid.ReadOnly = true;
             this.MainOrdersDataGrid.RowHeadersVisible = false;
-            this.MainOrdersDataGrid.RowTemplate.Height = 40;
+            this.MainOrdersDataGrid.RowTemplate.Height = 30;
             this.MainOrdersDataGrid.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.MainOrdersDataGrid.SelectedColorStyle = Infinium.PercentageDataGrid.ColorStyle.Blue;
             this.MainOrdersDataGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -639,7 +639,7 @@
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.MainOrdersDataGrid.StateCommon.DataCell.Content.Color1 = System.Drawing.Color.Black;
-            this.MainOrdersDataGrid.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.MainOrdersDataGrid.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.MainOrdersDataGrid.StateCommon.HeaderColumn.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
             this.MainOrdersDataGrid.StateCommon.HeaderColumn.Back.Color2 = System.Drawing.Color.Transparent;
             this.MainOrdersDataGrid.StateCommon.HeaderColumn.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
@@ -720,7 +720,7 @@
             this.MainOrdersFrontsOrdersDataGrid.PercentLineWidth = 0;
             this.MainOrdersFrontsOrdersDataGrid.ReadOnly = true;
             this.MainOrdersFrontsOrdersDataGrid.RowHeadersVisible = false;
-            this.MainOrdersFrontsOrdersDataGrid.RowTemplate.Height = 40;
+            this.MainOrdersFrontsOrdersDataGrid.RowTemplate.Height = 30;
             this.MainOrdersFrontsOrdersDataGrid.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.MainOrdersFrontsOrdersDataGrid.SelectedColorStyle = Infinium.PercentageDataGrid.ColorStyle.Green;
             this.MainOrdersFrontsOrdersDataGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -739,7 +739,7 @@
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.MainOrdersFrontsOrdersDataGrid.StateCommon.DataCell.Content.Color1 = System.Drawing.Color.Black;
-            this.MainOrdersFrontsOrdersDataGrid.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.MainOrdersFrontsOrdersDataGrid.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.MainOrdersFrontsOrdersDataGrid.StateCommon.HeaderColumn.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
             this.MainOrdersFrontsOrdersDataGrid.StateCommon.HeaderColumn.Back.Color2 = System.Drawing.Color.Transparent;
             this.MainOrdersFrontsOrdersDataGrid.StateCommon.HeaderColumn.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
@@ -2044,7 +2044,7 @@
             this.PaymentWeeksDataGrid.AllowUserToResizeRows = false;
             this.PaymentWeeksDataGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.PaymentWeeksDataGrid.BackText = "Нет данных";
-            this.PaymentWeeksDataGrid.ColumnHeadersHeight = 55;
+            this.PaymentWeeksDataGrid.ColumnHeadersHeight = 40;
             this.PaymentWeeksDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.PaymentWeeksDataGrid.Dock = System.Windows.Forms.DockStyle.Fill;
             this.PaymentWeeksDataGrid.HideOuterBorders = true;
@@ -2053,7 +2053,7 @@
             this.PaymentWeeksDataGrid.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2010Black;
             this.PaymentWeeksDataGrid.PercentLineWidth = 0;
             this.PaymentWeeksDataGrid.RowHeadersVisible = false;
-            this.PaymentWeeksDataGrid.RowTemplate.Height = 40;
+            this.PaymentWeeksDataGrid.RowTemplate.Height = 30;
             this.PaymentWeeksDataGrid.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.PaymentWeeksDataGrid.SelectedColorStyle = Infinium.PercentageDataGrid.ColorStyle.Blue;
             this.PaymentWeeksDataGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -2071,7 +2071,7 @@
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.PaymentWeeksDataGrid.StateCommon.DataCell.Content.Color1 = System.Drawing.Color.Black;
-            this.PaymentWeeksDataGrid.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.PaymentWeeksDataGrid.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.PaymentWeeksDataGrid.StateCommon.HeaderColumn.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
             this.PaymentWeeksDataGrid.StateCommon.HeaderColumn.Back.Color2 = System.Drawing.Color.Transparent;
             this.PaymentWeeksDataGrid.StateCommon.HeaderColumn.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
@@ -2082,7 +2082,7 @@
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.PaymentWeeksDataGrid.StateCommon.HeaderColumn.Border.Width = 1;
             this.PaymentWeeksDataGrid.StateCommon.HeaderColumn.Content.Color1 = System.Drawing.Color.White;
-            this.PaymentWeeksDataGrid.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.PaymentWeeksDataGrid.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.PaymentWeeksDataGrid.StateSelected.DataCell.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(177)))), ((int)(((byte)(229)))));
             this.PaymentWeeksDataGrid.StateSelected.DataCell.Back.Color2 = System.Drawing.Color.Transparent;
             this.PaymentWeeksDataGrid.StateSelected.DataCell.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
@@ -2105,7 +2105,7 @@
             this.PaymentDetailDataGrid.AllowUserToResizeRows = false;
             this.PaymentDetailDataGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.PaymentDetailDataGrid.BackText = "Нет данных";
-            this.PaymentDetailDataGrid.ColumnHeadersHeight = 55;
+            this.PaymentDetailDataGrid.ColumnHeadersHeight = 40;
             this.PaymentDetailDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.PaymentDetailDataGrid.Dock = System.Windows.Forms.DockStyle.Fill;
             this.PaymentDetailDataGrid.HideOuterBorders = true;
@@ -2114,7 +2114,7 @@
             this.PaymentDetailDataGrid.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2010Black;
             this.PaymentDetailDataGrid.PercentLineWidth = 0;
             this.PaymentDetailDataGrid.RowHeadersVisible = false;
-            this.PaymentDetailDataGrid.RowTemplate.Height = 40;
+            this.PaymentDetailDataGrid.RowTemplate.Height = 30;
             this.PaymentDetailDataGrid.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.PaymentDetailDataGrid.SelectedColorStyle = Infinium.PercentageDataGrid.ColorStyle.Blue;
             this.PaymentDetailDataGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -2132,7 +2132,7 @@
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.PaymentDetailDataGrid.StateCommon.DataCell.Content.Color1 = System.Drawing.Color.Black;
-            this.PaymentDetailDataGrid.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.PaymentDetailDataGrid.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.PaymentDetailDataGrid.StateCommon.HeaderColumn.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
             this.PaymentDetailDataGrid.StateCommon.HeaderColumn.Back.Color2 = System.Drawing.Color.Transparent;
             this.PaymentDetailDataGrid.StateCommon.HeaderColumn.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
@@ -2143,7 +2143,7 @@
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.PaymentDetailDataGrid.StateCommon.HeaderColumn.Border.Width = 1;
             this.PaymentDetailDataGrid.StateCommon.HeaderColumn.Content.Color1 = System.Drawing.Color.White;
-            this.PaymentDetailDataGrid.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.PaymentDetailDataGrid.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.PaymentDetailDataGrid.StateSelected.DataCell.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(177)))), ((int)(((byte)(229)))));
             this.PaymentDetailDataGrid.StateSelected.DataCell.Back.Color2 = System.Drawing.Color.Transparent;
             this.PaymentDetailDataGrid.StateSelected.DataCell.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
@@ -2186,7 +2186,7 @@
             this.TempPaymentDetailDataGrid.AllowUserToResizeRows = false;
             this.TempPaymentDetailDataGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.TempPaymentDetailDataGrid.BackText = "Нет данных";
-            this.TempPaymentDetailDataGrid.ColumnHeadersHeight = 55;
+            this.TempPaymentDetailDataGrid.ColumnHeadersHeight = 40;
             this.TempPaymentDetailDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.TempPaymentDetailDataGrid.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TempPaymentDetailDataGrid.HideOuterBorders = true;
@@ -2195,7 +2195,7 @@
             this.TempPaymentDetailDataGrid.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2010Black;
             this.TempPaymentDetailDataGrid.PercentLineWidth = 0;
             this.TempPaymentDetailDataGrid.RowHeadersVisible = false;
-            this.TempPaymentDetailDataGrid.RowTemplate.Height = 40;
+            this.TempPaymentDetailDataGrid.RowTemplate.Height = 30;
             this.TempPaymentDetailDataGrid.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.TempPaymentDetailDataGrid.SelectedColorStyle = Infinium.PercentageDataGrid.ColorStyle.Blue;
             this.TempPaymentDetailDataGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -2213,7 +2213,7 @@
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.TempPaymentDetailDataGrid.StateCommon.DataCell.Content.Color1 = System.Drawing.Color.Black;
-            this.TempPaymentDetailDataGrid.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.TempPaymentDetailDataGrid.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.TempPaymentDetailDataGrid.StateCommon.HeaderColumn.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
             this.TempPaymentDetailDataGrid.StateCommon.HeaderColumn.Back.Color2 = System.Drawing.Color.Transparent;
             this.TempPaymentDetailDataGrid.StateCommon.HeaderColumn.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
@@ -2224,7 +2224,7 @@
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.TempPaymentDetailDataGrid.StateCommon.HeaderColumn.Border.Width = 1;
             this.TempPaymentDetailDataGrid.StateCommon.HeaderColumn.Content.Color1 = System.Drawing.Color.White;
-            this.TempPaymentDetailDataGrid.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.TempPaymentDetailDataGrid.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.TempPaymentDetailDataGrid.StateSelected.DataCell.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(177)))), ((int)(((byte)(229)))));
             this.TempPaymentDetailDataGrid.StateSelected.DataCell.Back.Color2 = System.Drawing.Color.Transparent;
             this.TempPaymentDetailDataGrid.StateSelected.DataCell.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;

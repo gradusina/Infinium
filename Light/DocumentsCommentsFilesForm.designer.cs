@@ -283,7 +283,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.FilesDataGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.FilesDataGrid.BackText = "Нет файлов";
-            this.FilesDataGrid.ColumnHeadersHeight = 55;
+            this.FilesDataGrid.ColumnHeadersHeight = 40;
             this.FilesDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.FilesDataGrid.ColumnHeadersVisible = false;
             this.FilesDataGrid.Location = new System.Drawing.Point(12, 62);
@@ -292,7 +292,7 @@
             this.FilesDataGrid.PercentLineWidth = 0;
             this.FilesDataGrid.ReadOnly = true;
             this.FilesDataGrid.RowHeadersVisible = false;
-            this.FilesDataGrid.RowTemplate.Height = 40;
+            this.FilesDataGrid.RowTemplate.Height = 30;
             this.FilesDataGrid.SelectedColorStyle = Infinium.PercentageDataGrid.ColorStyle.Orange;
             this.FilesDataGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.FilesDataGrid.Size = new System.Drawing.Size(706, 319);
@@ -316,7 +316,7 @@
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.FilesDataGrid.StateCommon.HeaderColumn.Content.Color1 = System.Drawing.Color.White;
-            this.FilesDataGrid.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.FilesDataGrid.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.FilesDataGrid.StateSelected.DataCell.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
             this.FilesDataGrid.StateSelected.DataCell.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
             this.FilesDataGrid.StateSelected.DataCell.Content.Color1 = System.Drawing.Color.Black;

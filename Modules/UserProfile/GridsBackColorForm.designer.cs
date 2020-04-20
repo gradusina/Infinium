@@ -340,14 +340,14 @@
             this.percentageDataGrid1.AllowUserToResizeRows = false;
             this.percentageDataGrid1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.percentageDataGrid1.BackText = "Нет данных";
-            this.percentageDataGrid1.ColumnHeadersHeight = 55;
+            this.percentageDataGrid1.ColumnHeadersHeight = 40;
             this.percentageDataGrid1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.percentageDataGrid1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.percentageDataGrid1.Location = new System.Drawing.Point(0, 0);
             this.percentageDataGrid1.Name = "percentageDataGrid1";
             this.percentageDataGrid1.PercentLineWidth = 0;
             this.percentageDataGrid1.RowHeadersVisible = false;
-            this.percentageDataGrid1.RowTemplate.Height = 40;
+            this.percentageDataGrid1.RowTemplate.Height = 30;
             this.percentageDataGrid1.SelectedColorStyle = Infinium.PercentageDataGrid.ColorStyle.Orange;
             this.percentageDataGrid1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.percentageDataGrid1.Size = new System.Drawing.Size(1204, 550);

@@ -1420,7 +1420,7 @@
             this.TechnoColorsDataGrid.AllowUserToResizeRows = false;
             this.TechnoColorsDataGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.TechnoColorsDataGrid.BackText = "Нет данных";
-            this.TechnoColorsDataGrid.ColumnHeadersHeight = 55;
+            this.TechnoColorsDataGrid.ColumnHeadersHeight = 40;
             this.TechnoColorsDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.TechnoColorsDataGrid.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TechnoColorsDataGrid.Location = new System.Drawing.Point(1, 1);
@@ -1455,7 +1455,7 @@
             this.TechnoColorsDataGrid.StateCommon.HeaderColumn.Border.DrawBorders = ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom;
             this.TechnoColorsDataGrid.StateCommon.HeaderColumn.Border.Width = 1;
             this.TechnoColorsDataGrid.StateCommon.HeaderColumn.Content.Color1 = System.Drawing.Color.White;
-            this.TechnoColorsDataGrid.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.TechnoColorsDataGrid.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.TechnoColorsDataGrid.StateSelected.DataCell.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(177)))), ((int)(((byte)(229)))));
             this.TechnoColorsDataGrid.StateSelected.DataCell.Back.Color2 = System.Drawing.Color.Transparent;
             this.TechnoColorsDataGrid.StateSelected.DataCell.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
@@ -1552,7 +1552,7 @@
             this.TechnoInsetTypesDataGrid.AllowUserToResizeRows = false;
             this.TechnoInsetTypesDataGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.TechnoInsetTypesDataGrid.BackText = "Нет данных";
-            this.TechnoInsetTypesDataGrid.ColumnHeadersHeight = 55;
+            this.TechnoInsetTypesDataGrid.ColumnHeadersHeight = 40;
             this.TechnoInsetTypesDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.TechnoInsetTypesDataGrid.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TechnoInsetTypesDataGrid.Location = new System.Drawing.Point(1, 0);
@@ -1587,7 +1587,7 @@
             this.TechnoInsetTypesDataGrid.StateCommon.HeaderColumn.Border.DrawBorders = ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom;
             this.TechnoInsetTypesDataGrid.StateCommon.HeaderColumn.Border.Width = 1;
             this.TechnoInsetTypesDataGrid.StateCommon.HeaderColumn.Content.Color1 = System.Drawing.Color.White;
-            this.TechnoInsetTypesDataGrid.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.TechnoInsetTypesDataGrid.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.TechnoInsetTypesDataGrid.StateSelected.DataCell.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(177)))), ((int)(((byte)(229)))));
             this.TechnoInsetTypesDataGrid.StateSelected.DataCell.Back.Color2 = System.Drawing.Color.Transparent;
             this.TechnoInsetTypesDataGrid.StateSelected.DataCell.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
@@ -1628,7 +1628,7 @@
             this.TechnoInsetColorsDataGrid.AllowUserToResizeRows = false;
             this.TechnoInsetColorsDataGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.TechnoInsetColorsDataGrid.BackText = "Нет данных";
-            this.TechnoInsetColorsDataGrid.ColumnHeadersHeight = 55;
+            this.TechnoInsetColorsDataGrid.ColumnHeadersHeight = 40;
             this.TechnoInsetColorsDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.TechnoInsetColorsDataGrid.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TechnoInsetColorsDataGrid.Location = new System.Drawing.Point(1, 1);
@@ -1663,7 +1663,7 @@
             this.TechnoInsetColorsDataGrid.StateCommon.HeaderColumn.Border.DrawBorders = ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom;
             this.TechnoInsetColorsDataGrid.StateCommon.HeaderColumn.Border.Width = 1;
             this.TechnoInsetColorsDataGrid.StateCommon.HeaderColumn.Content.Color1 = System.Drawing.Color.White;
-            this.TechnoInsetColorsDataGrid.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.TechnoInsetColorsDataGrid.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.TechnoInsetColorsDataGrid.StateSelected.DataCell.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(158)))), ((int)(((byte)(0)))));
             this.TechnoInsetColorsDataGrid.StateSelected.DataCell.Back.Color2 = System.Drawing.Color.Transparent;
             this.TechnoInsetColorsDataGrid.StateSelected.DataCell.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
@@ -1876,7 +1876,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.FrontsDataGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.FrontsDataGrid.BackText = "Нет данных";
-            this.FrontsDataGrid.ColumnHeadersHeight = 55;
+            this.FrontsDataGrid.ColumnHeadersHeight = 40;
             this.FrontsDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.FrontsDataGrid.Location = new System.Drawing.Point(0, 0);
             this.FrontsDataGrid.Name = "FrontsDataGrid";
@@ -1910,7 +1910,7 @@
             this.FrontsDataGrid.StateCommon.HeaderColumn.Border.DrawBorders = ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom;
             this.FrontsDataGrid.StateCommon.HeaderColumn.Border.Width = 1;
             this.FrontsDataGrid.StateCommon.HeaderColumn.Content.Color1 = System.Drawing.Color.White;
-            this.FrontsDataGrid.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.FrontsDataGrid.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.FrontsDataGrid.StateSelected.DataCell.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(253)))), ((int)(((byte)(164)))), ((int)(((byte)(61)))));
             this.FrontsDataGrid.StateSelected.DataCell.Back.Color2 = System.Drawing.Color.Transparent;
             this.FrontsDataGrid.StateSelected.DataCell.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
@@ -2018,7 +2018,7 @@
             this.FrameColorsDataGrid.AllowUserToResizeRows = false;
             this.FrameColorsDataGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.FrameColorsDataGrid.BackText = "Нет данных";
-            this.FrameColorsDataGrid.ColumnHeadersHeight = 55;
+            this.FrameColorsDataGrid.ColumnHeadersHeight = 40;
             this.FrameColorsDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.FrameColorsDataGrid.Dock = System.Windows.Forms.DockStyle.Fill;
             this.FrameColorsDataGrid.Location = new System.Drawing.Point(1, 1);
@@ -2053,7 +2053,7 @@
             this.FrameColorsDataGrid.StateCommon.HeaderColumn.Border.DrawBorders = ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom;
             this.FrameColorsDataGrid.StateCommon.HeaderColumn.Border.Width = 1;
             this.FrameColorsDataGrid.StateCommon.HeaderColumn.Content.Color1 = System.Drawing.Color.White;
-            this.FrameColorsDataGrid.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.FrameColorsDataGrid.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.FrameColorsDataGrid.StateSelected.DataCell.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(177)))), ((int)(((byte)(229)))));
             this.FrameColorsDataGrid.StateSelected.DataCell.Back.Color2 = System.Drawing.Color.Transparent;
             this.FrameColorsDataGrid.StateSelected.DataCell.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
@@ -2133,7 +2133,7 @@
             this.SizesDataGrid.AllowUserToResizeRows = false;
             this.SizesDataGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.SizesDataGrid.BackText = "Нет данных";
-            this.SizesDataGrid.ColumnHeadersHeight = 55;
+            this.SizesDataGrid.ColumnHeadersHeight = 40;
             this.SizesDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.SizesDataGrid.Dock = System.Windows.Forms.DockStyle.Fill;
             this.SizesDataGrid.Location = new System.Drawing.Point(1, 1);
@@ -2168,7 +2168,7 @@
             this.SizesDataGrid.StateCommon.HeaderColumn.Border.DrawBorders = ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom;
             this.SizesDataGrid.StateCommon.HeaderColumn.Border.Width = 1;
             this.SizesDataGrid.StateCommon.HeaderColumn.Content.Color1 = System.Drawing.Color.White;
-            this.SizesDataGrid.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.SizesDataGrid.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.SizesDataGrid.StateSelected.DataCell.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(158)))), ((int)(((byte)(0)))));
             this.SizesDataGrid.StateSelected.DataCell.Back.Color2 = System.Drawing.Color.Transparent;
             this.SizesDataGrid.StateSelected.DataCell.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
@@ -2298,7 +2298,7 @@
             this.InsetTypesDataGrid.AllowUserToResizeRows = false;
             this.InsetTypesDataGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.InsetTypesDataGrid.BackText = "Нет данных";
-            this.InsetTypesDataGrid.ColumnHeadersHeight = 55;
+            this.InsetTypesDataGrid.ColumnHeadersHeight = 40;
             this.InsetTypesDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.InsetTypesDataGrid.Dock = System.Windows.Forms.DockStyle.Fill;
             this.InsetTypesDataGrid.Location = new System.Drawing.Point(1, 0);
@@ -2333,7 +2333,7 @@
             this.InsetTypesDataGrid.StateCommon.HeaderColumn.Border.DrawBorders = ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom;
             this.InsetTypesDataGrid.StateCommon.HeaderColumn.Border.Width = 1;
             this.InsetTypesDataGrid.StateCommon.HeaderColumn.Content.Color1 = System.Drawing.Color.White;
-            this.InsetTypesDataGrid.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.InsetTypesDataGrid.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.InsetTypesDataGrid.StateSelected.DataCell.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(177)))), ((int)(((byte)(229)))));
             this.InsetTypesDataGrid.StateSelected.DataCell.Back.Color2 = System.Drawing.Color.Transparent;
             this.InsetTypesDataGrid.StateSelected.DataCell.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
@@ -2374,7 +2374,7 @@
             this.InsetColorsDataGrid.AllowUserToResizeRows = false;
             this.InsetColorsDataGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.InsetColorsDataGrid.BackText = "Нет данных";
-            this.InsetColorsDataGrid.ColumnHeadersHeight = 55;
+            this.InsetColorsDataGrid.ColumnHeadersHeight = 40;
             this.InsetColorsDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.InsetColorsDataGrid.Dock = System.Windows.Forms.DockStyle.Fill;
             this.InsetColorsDataGrid.Location = new System.Drawing.Point(1, 1);
@@ -2409,7 +2409,7 @@
             this.InsetColorsDataGrid.StateCommon.HeaderColumn.Border.DrawBorders = ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom;
             this.InsetColorsDataGrid.StateCommon.HeaderColumn.Border.Width = 1;
             this.InsetColorsDataGrid.StateCommon.HeaderColumn.Content.Color1 = System.Drawing.Color.White;
-            this.InsetColorsDataGrid.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.InsetColorsDataGrid.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.InsetColorsDataGrid.StateSelected.DataCell.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(158)))), ((int)(((byte)(0)))));
             this.InsetColorsDataGrid.StateSelected.DataCell.Back.Color2 = System.Drawing.Color.Transparent;
             this.InsetColorsDataGrid.StateSelected.DataCell.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
@@ -2546,7 +2546,7 @@
             this.DecorSizesDataGrid.AllowUserToResizeRows = false;
             this.DecorSizesDataGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.DecorSizesDataGrid.BackText = "Нет данных";
-            this.DecorSizesDataGrid.ColumnHeadersHeight = 55;
+            this.DecorSizesDataGrid.ColumnHeadersHeight = 40;
             this.DecorSizesDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.DecorSizesDataGrid.Dock = System.Windows.Forms.DockStyle.Fill;
             this.DecorSizesDataGrid.Location = new System.Drawing.Point(1, 0);
@@ -2581,7 +2581,7 @@
             this.DecorSizesDataGrid.StateCommon.HeaderColumn.Border.DrawBorders = ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom;
             this.DecorSizesDataGrid.StateCommon.HeaderColumn.Border.Width = 1;
             this.DecorSizesDataGrid.StateCommon.HeaderColumn.Content.Color1 = System.Drawing.Color.White;
-            this.DecorSizesDataGrid.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.DecorSizesDataGrid.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.DecorSizesDataGrid.StateSelected.DataCell.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(158)))), ((int)(((byte)(0)))));
             this.DecorSizesDataGrid.StateSelected.DataCell.Back.Color2 = System.Drawing.Color.Transparent;
             this.DecorSizesDataGrid.StateSelected.DataCell.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
@@ -2709,7 +2709,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.DecorProductsDataGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.DecorProductsDataGrid.BackText = "Нет данных";
-            this.DecorProductsDataGrid.ColumnHeadersHeight = 55;
+            this.DecorProductsDataGrid.ColumnHeadersHeight = 40;
             this.DecorProductsDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.DecorProductsDataGrid.Location = new System.Drawing.Point(0, 0);
             this.DecorProductsDataGrid.Name = "DecorProductsDataGrid";
@@ -2743,7 +2743,7 @@
             this.DecorProductsDataGrid.StateCommon.HeaderColumn.Border.DrawBorders = ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom;
             this.DecorProductsDataGrid.StateCommon.HeaderColumn.Border.Width = 1;
             this.DecorProductsDataGrid.StateCommon.HeaderColumn.Content.Color1 = System.Drawing.Color.White;
-            this.DecorProductsDataGrid.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.DecorProductsDataGrid.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.DecorProductsDataGrid.StateSelected.DataCell.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(177)))), ((int)(((byte)(229)))));
             this.DecorProductsDataGrid.StateSelected.DataCell.Back.Color2 = System.Drawing.Color.Transparent;
             this.DecorProductsDataGrid.StateSelected.DataCell.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
@@ -2906,7 +2906,7 @@
             this.DecorItemsDataGrid.AllowUserToResizeRows = false;
             this.DecorItemsDataGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.DecorItemsDataGrid.BackText = "Нет данных";
-            this.DecorItemsDataGrid.ColumnHeadersHeight = 55;
+            this.DecorItemsDataGrid.ColumnHeadersHeight = 40;
             this.DecorItemsDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.DecorItemsDataGrid.Dock = System.Windows.Forms.DockStyle.Fill;
             this.DecorItemsDataGrid.Location = new System.Drawing.Point(1, 0);
@@ -2941,7 +2941,7 @@
             this.DecorItemsDataGrid.StateCommon.HeaderColumn.Border.DrawBorders = ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom;
             this.DecorItemsDataGrid.StateCommon.HeaderColumn.Border.Width = 1;
             this.DecorItemsDataGrid.StateCommon.HeaderColumn.Content.Color1 = System.Drawing.Color.White;
-            this.DecorItemsDataGrid.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.DecorItemsDataGrid.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.DecorItemsDataGrid.StateSelected.DataCell.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(177)))), ((int)(((byte)(229)))));
             this.DecorItemsDataGrid.StateSelected.DataCell.Back.Color2 = System.Drawing.Color.Transparent;
             this.DecorItemsDataGrid.StateSelected.DataCell.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
@@ -3010,7 +3010,7 @@
             this.DecorColorsDataGrid.AllowUserToResizeRows = false;
             this.DecorColorsDataGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.DecorColorsDataGrid.BackText = "Нет данных";
-            this.DecorColorsDataGrid.ColumnHeadersHeight = 55;
+            this.DecorColorsDataGrid.ColumnHeadersHeight = 40;
             this.DecorColorsDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.DecorColorsDataGrid.Dock = System.Windows.Forms.DockStyle.Fill;
             this.DecorColorsDataGrid.Location = new System.Drawing.Point(1, 0);
@@ -3045,7 +3045,7 @@
             this.DecorColorsDataGrid.StateCommon.HeaderColumn.Border.DrawBorders = ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom;
             this.DecorColorsDataGrid.StateCommon.HeaderColumn.Border.Width = 1;
             this.DecorColorsDataGrid.StateCommon.HeaderColumn.Content.Color1 = System.Drawing.Color.White;
-            this.DecorColorsDataGrid.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.DecorColorsDataGrid.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.DecorColorsDataGrid.StateSelected.DataCell.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(158)))), ((int)(((byte)(0)))));
             this.DecorColorsDataGrid.StateSelected.DataCell.Back.Color2 = System.Drawing.Color.Transparent;
             this.DecorColorsDataGrid.StateSelected.DataCell.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
@@ -3161,7 +3161,7 @@
             this.ClientGroupsDataGrid.AllowUserToResizeRows = false;
             this.ClientGroupsDataGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.ClientGroupsDataGrid.BackText = "Нет данных";
-            this.ClientGroupsDataGrid.ColumnHeadersHeight = 55;
+            this.ClientGroupsDataGrid.ColumnHeadersHeight = 40;
             this.ClientGroupsDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.ClientGroupsDataGrid.ColumnHeadersVisible = false;
             this.ClientGroupsDataGrid.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -3196,7 +3196,7 @@
             this.ClientGroupsDataGrid.StateCommon.HeaderColumn.Border.DrawBorders = ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom;
             this.ClientGroupsDataGrid.StateCommon.HeaderColumn.Border.Width = 1;
             this.ClientGroupsDataGrid.StateCommon.HeaderColumn.Content.Color1 = System.Drawing.Color.White;
-            this.ClientGroupsDataGrid.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.ClientGroupsDataGrid.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.ClientGroupsDataGrid.StateDisabled.DataCell.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.ClientGroupsDataGrid.StateSelected.DataCell.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(177)))), ((int)(((byte)(229)))));
             this.ClientGroupsDataGrid.StateSelected.DataCell.Back.Color2 = System.Drawing.Color.Transparent;
@@ -3370,7 +3370,7 @@
             this.ClientsDataGrid.StateCommon.HeaderColumn.Border.DrawBorders = ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom;
             this.ClientsDataGrid.StateCommon.HeaderColumn.Border.Width = 1;
             this.ClientsDataGrid.StateCommon.HeaderColumn.Content.Color1 = System.Drawing.Color.White;
-            this.ClientsDataGrid.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.ClientsDataGrid.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.ClientsDataGrid.StateDisabled.DataCell.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.ClientsDataGrid.StateDisabled.DataCell.Content.Color1 = System.Drawing.Color.White;
             this.ClientsDataGrid.StateSelected.DataCell.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(177)))), ((int)(((byte)(229)))));
@@ -3797,7 +3797,7 @@
             this.dgvMarketManagers.AllowUserToResizeRows = false;
             this.dgvMarketManagers.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvMarketManagers.BackText = "Нет данных";
-            this.dgvMarketManagers.ColumnHeadersHeight = 55;
+            this.dgvMarketManagers.ColumnHeadersHeight = 40;
             this.dgvMarketManagers.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgvMarketManagers.ColumnHeadersVisible = false;
             this.dgvMarketManagers.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -3832,7 +3832,7 @@
             this.dgvMarketManagers.StateCommon.HeaderColumn.Border.DrawBorders = ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom;
             this.dgvMarketManagers.StateCommon.HeaderColumn.Border.Width = 1;
             this.dgvMarketManagers.StateCommon.HeaderColumn.Content.Color1 = System.Drawing.Color.White;
-            this.dgvMarketManagers.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.dgvMarketManagers.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.dgvMarketManagers.StateDisabled.DataCell.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.dgvMarketManagers.StateSelected.DataCell.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(177)))), ((int)(((byte)(229)))));
             this.dgvMarketManagers.StateSelected.DataCell.Back.Color2 = System.Drawing.Color.Transparent;
@@ -3991,7 +3991,7 @@
             this.ZOVClientsDataGrid.StateCommon.HeaderColumn.Border.DrawBorders = ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom;
             this.ZOVClientsDataGrid.StateCommon.HeaderColumn.Border.Width = 1;
             this.ZOVClientsDataGrid.StateCommon.HeaderColumn.Content.Color1 = System.Drawing.Color.White;
-            this.ZOVClientsDataGrid.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.ZOVClientsDataGrid.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.ZOVClientsDataGrid.StateDisabled.DataCell.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.ZOVClientsDataGrid.StateDisabled.DataCell.Content.Color1 = System.Drawing.Color.White;
             this.ZOVClientsDataGrid.StateSelected.DataCell.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(177)))), ((int)(((byte)(229)))));
@@ -4112,7 +4112,7 @@
             this.ZOVClientGroupsDataGrid.StateCommon.HeaderColumn.Border.DrawBorders = ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom;
             this.ZOVClientGroupsDataGrid.StateCommon.HeaderColumn.Border.Width = 1;
             this.ZOVClientGroupsDataGrid.StateCommon.HeaderColumn.Content.Color1 = System.Drawing.Color.White;
-            this.ZOVClientGroupsDataGrid.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.ZOVClientGroupsDataGrid.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.ZOVClientGroupsDataGrid.StateDisabled.DataCell.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.ZOVClientGroupsDataGrid.StateSelected.DataCell.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(177)))), ((int)(((byte)(229)))));
             this.ZOVClientGroupsDataGrid.StateSelected.DataCell.Back.Color2 = System.Drawing.Color.Transparent;
@@ -4397,7 +4397,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.StoreFrontsDataGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.StoreFrontsDataGrid.BackText = "Нет данных";
-            this.StoreFrontsDataGrid.ColumnHeadersHeight = 55;
+            this.StoreFrontsDataGrid.ColumnHeadersHeight = 40;
             this.StoreFrontsDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.StoreFrontsDataGrid.Location = new System.Drawing.Point(0, 0);
             this.StoreFrontsDataGrid.MultiSelect = false;
@@ -4406,7 +4406,7 @@
             this.StoreFrontsDataGrid.PercentLineWidth = 0;
             this.StoreFrontsDataGrid.ReadOnly = true;
             this.StoreFrontsDataGrid.RowHeadersVisible = false;
-            this.StoreFrontsDataGrid.RowTemplate.Height = 40;
+            this.StoreFrontsDataGrid.RowTemplate.Height = 30;
             this.StoreFrontsDataGrid.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.StoreFrontsDataGrid.SelectedColorStyle = Infinium.PercentageDataGrid.ColorStyle.Orange;
             this.StoreFrontsDataGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -4424,7 +4424,7 @@
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.StoreFrontsDataGrid.StateCommon.DataCell.Content.Color1 = System.Drawing.Color.Black;
-            this.StoreFrontsDataGrid.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.StoreFrontsDataGrid.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.StoreFrontsDataGrid.StateCommon.HeaderColumn.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
             this.StoreFrontsDataGrid.StateCommon.HeaderColumn.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
             this.StoreFrontsDataGrid.StateCommon.HeaderColumn.Border.Color1 = System.Drawing.Color.Black;
@@ -4432,7 +4432,7 @@
             this.StoreFrontsDataGrid.StateCommon.HeaderColumn.Border.DrawBorders = ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom;
             this.StoreFrontsDataGrid.StateCommon.HeaderColumn.Border.Width = 1;
             this.StoreFrontsDataGrid.StateCommon.HeaderColumn.Content.Color1 = System.Drawing.Color.White;
-            this.StoreFrontsDataGrid.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.StoreFrontsDataGrid.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.StoreFrontsDataGrid.StateSelected.DataCell.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(253)))), ((int)(((byte)(164)))), ((int)(((byte)(61)))));
             this.StoreFrontsDataGrid.StateSelected.DataCell.Back.Color2 = System.Drawing.Color.Transparent;
             this.StoreFrontsDataGrid.StateSelected.DataCell.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
@@ -4612,7 +4612,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.StoreMFSummaryDG.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.StoreMFSummaryDG.BackText = "Нет данных";
-            this.StoreMFSummaryDG.ColumnHeadersHeight = 55;
+            this.StoreMFSummaryDG.ColumnHeadersHeight = 40;
             this.StoreMFSummaryDG.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.StoreMFSummaryDG.Location = new System.Drawing.Point(1, 0);
             this.StoreMFSummaryDG.MultiSelect = false;
@@ -4621,7 +4621,7 @@
             this.StoreMFSummaryDG.PercentLineWidth = 10;
             this.StoreMFSummaryDG.ReadOnly = true;
             this.StoreMFSummaryDG.RowHeadersVisible = false;
-            this.StoreMFSummaryDG.RowTemplate.Height = 40;
+            this.StoreMFSummaryDG.RowTemplate.Height = 30;
             this.StoreMFSummaryDG.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.StoreMFSummaryDG.SelectedColorStyle = Infinium.PercentageDataGrid.ColorStyle.Orange;
             this.StoreMFSummaryDG.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -4639,7 +4639,7 @@
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.StoreMFSummaryDG.StateCommon.DataCell.Content.Color1 = System.Drawing.Color.Black;
-            this.StoreMFSummaryDG.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.StoreMFSummaryDG.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.StoreMFSummaryDG.StateCommon.HeaderColumn.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
             this.StoreMFSummaryDG.StateCommon.HeaderColumn.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
             this.StoreMFSummaryDG.StateCommon.HeaderColumn.Border.Color1 = System.Drawing.Color.Black;
@@ -4649,7 +4649,7 @@
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.StoreMFSummaryDG.StateCommon.HeaderColumn.Border.Width = 1;
             this.StoreMFSummaryDG.StateCommon.HeaderColumn.Content.Color1 = System.Drawing.Color.White;
-            this.StoreMFSummaryDG.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.StoreMFSummaryDG.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.StoreMFSummaryDG.StateSelected.DataCell.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(253)))), ((int)(((byte)(164)))), ((int)(((byte)(61)))));
             this.StoreMFSummaryDG.StateSelected.DataCell.Back.Color2 = System.Drawing.Color.Transparent;
             this.StoreMFSummaryDG.StateSelected.DataCell.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
@@ -4669,7 +4669,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.StorePrepareFSummaryDG.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.StorePrepareFSummaryDG.BackText = "Нет данных";
-            this.StorePrepareFSummaryDG.ColumnHeadersHeight = 55;
+            this.StorePrepareFSummaryDG.ColumnHeadersHeight = 40;
             this.StorePrepareFSummaryDG.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.StorePrepareFSummaryDG.Location = new System.Drawing.Point(1, 0);
             this.StorePrepareFSummaryDG.Name = "StorePrepareFSummaryDG";
@@ -4677,7 +4677,7 @@
             this.StorePrepareFSummaryDG.PercentLineWidth = 10;
             this.StorePrepareFSummaryDG.ReadOnly = true;
             this.StorePrepareFSummaryDG.RowHeadersVisible = false;
-            this.StorePrepareFSummaryDG.RowTemplate.Height = 40;
+            this.StorePrepareFSummaryDG.RowTemplate.Height = 30;
             this.StorePrepareFSummaryDG.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.StorePrepareFSummaryDG.SelectedColorStyle = Infinium.PercentageDataGrid.ColorStyle.Orange;
             this.StorePrepareFSummaryDG.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -4695,7 +4695,7 @@
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.StorePrepareFSummaryDG.StateCommon.DataCell.Content.Color1 = System.Drawing.Color.Black;
-            this.StorePrepareFSummaryDG.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.StorePrepareFSummaryDG.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.StorePrepareFSummaryDG.StateCommon.HeaderColumn.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
             this.StorePrepareFSummaryDG.StateCommon.HeaderColumn.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
             this.StorePrepareFSummaryDG.StateCommon.HeaderColumn.Border.Color1 = System.Drawing.Color.Black;
@@ -4705,7 +4705,7 @@
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.StorePrepareFSummaryDG.StateCommon.HeaderColumn.Border.Width = 1;
             this.StorePrepareFSummaryDG.StateCommon.HeaderColumn.Content.Color1 = System.Drawing.Color.White;
-            this.StorePrepareFSummaryDG.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.StorePrepareFSummaryDG.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.StorePrepareFSummaryDG.StateSelected.DataCell.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(253)))), ((int)(((byte)(164)))), ((int)(((byte)(61)))));
             this.StorePrepareFSummaryDG.StateSelected.DataCell.Back.Color2 = System.Drawing.Color.Transparent;
             this.StorePrepareFSummaryDG.StateSelected.DataCell.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
@@ -4724,7 +4724,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.StoreZFSummaryDG.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.StoreZFSummaryDG.BackText = "Нет данных";
-            this.StoreZFSummaryDG.ColumnHeadersHeight = 55;
+            this.StoreZFSummaryDG.ColumnHeadersHeight = 40;
             this.StoreZFSummaryDG.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.StoreZFSummaryDG.Location = new System.Drawing.Point(1, 0);
             this.StoreZFSummaryDG.Name = "StoreZFSummaryDG";
@@ -4732,7 +4732,7 @@
             this.StoreZFSummaryDG.PercentLineWidth = 10;
             this.StoreZFSummaryDG.ReadOnly = true;
             this.StoreZFSummaryDG.RowHeadersVisible = false;
-            this.StoreZFSummaryDG.RowTemplate.Height = 40;
+            this.StoreZFSummaryDG.RowTemplate.Height = 30;
             this.StoreZFSummaryDG.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.StoreZFSummaryDG.SelectedColorStyle = Infinium.PercentageDataGrid.ColorStyle.Orange;
             this.StoreZFSummaryDG.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -4750,7 +4750,7 @@
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.StoreZFSummaryDG.StateCommon.DataCell.Content.Color1 = System.Drawing.Color.Black;
-            this.StoreZFSummaryDG.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.StoreZFSummaryDG.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.StoreZFSummaryDG.StateCommon.HeaderColumn.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
             this.StoreZFSummaryDG.StateCommon.HeaderColumn.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
             this.StoreZFSummaryDG.StateCommon.HeaderColumn.Border.Color1 = System.Drawing.Color.Black;
@@ -4760,7 +4760,7 @@
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.StoreZFSummaryDG.StateCommon.HeaderColumn.Border.Width = 1;
             this.StoreZFSummaryDG.StateCommon.HeaderColumn.Content.Color1 = System.Drawing.Color.White;
-            this.StoreZFSummaryDG.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.StoreZFSummaryDG.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.StoreZFSummaryDG.StateSelected.DataCell.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(253)))), ((int)(((byte)(164)))), ((int)(((byte)(61)))));
             this.StoreZFSummaryDG.StateSelected.DataCell.Back.Color2 = System.Drawing.Color.Transparent;
             this.StoreZFSummaryDG.StateSelected.DataCell.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
@@ -4881,7 +4881,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.StoreMDSummaryDG.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.StoreMDSummaryDG.BackText = "Нет данных";
-            this.StoreMDSummaryDG.ColumnHeadersHeight = 55;
+            this.StoreMDSummaryDG.ColumnHeadersHeight = 40;
             this.StoreMDSummaryDG.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.StoreMDSummaryDG.Location = new System.Drawing.Point(1, 0);
             this.StoreMDSummaryDG.Name = "StoreMDSummaryDG";
@@ -4889,7 +4889,7 @@
             this.StoreMDSummaryDG.PercentLineWidth = 10;
             this.StoreMDSummaryDG.ReadOnly = true;
             this.StoreMDSummaryDG.RowHeadersVisible = false;
-            this.StoreMDSummaryDG.RowTemplate.Height = 40;
+            this.StoreMDSummaryDG.RowTemplate.Height = 30;
             this.StoreMDSummaryDG.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.StoreMDSummaryDG.SelectedColorStyle = Infinium.PercentageDataGrid.ColorStyle.Orange;
             this.StoreMDSummaryDG.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -4907,7 +4907,7 @@
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.StoreMDSummaryDG.StateCommon.DataCell.Content.Color1 = System.Drawing.Color.Black;
-            this.StoreMDSummaryDG.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.StoreMDSummaryDG.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.StoreMDSummaryDG.StateCommon.HeaderColumn.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
             this.StoreMDSummaryDG.StateCommon.HeaderColumn.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
             this.StoreMDSummaryDG.StateCommon.HeaderColumn.Border.Color1 = System.Drawing.Color.Black;
@@ -4917,7 +4917,7 @@
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.StoreMDSummaryDG.StateCommon.HeaderColumn.Border.Width = 1;
             this.StoreMDSummaryDG.StateCommon.HeaderColumn.Content.Color1 = System.Drawing.Color.White;
-            this.StoreMDSummaryDG.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.StoreMDSummaryDG.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.StoreMDSummaryDG.StateSelected.DataCell.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(253)))), ((int)(((byte)(164)))), ((int)(((byte)(61)))));
             this.StoreMDSummaryDG.StateSelected.DataCell.Back.Color2 = System.Drawing.Color.Transparent;
             this.StoreMDSummaryDG.StateSelected.DataCell.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
@@ -4967,7 +4967,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.StorePrepareDSummaryDG.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.StorePrepareDSummaryDG.BackText = "Нет данных";
-            this.StorePrepareDSummaryDG.ColumnHeadersHeight = 55;
+            this.StorePrepareDSummaryDG.ColumnHeadersHeight = 40;
             this.StorePrepareDSummaryDG.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.StorePrepareDSummaryDG.Location = new System.Drawing.Point(1, 0);
             this.StorePrepareDSummaryDG.Name = "StorePrepareDSummaryDG";
@@ -4975,7 +4975,7 @@
             this.StorePrepareDSummaryDG.PercentLineWidth = 10;
             this.StorePrepareDSummaryDG.ReadOnly = true;
             this.StorePrepareDSummaryDG.RowHeadersVisible = false;
-            this.StorePrepareDSummaryDG.RowTemplate.Height = 40;
+            this.StorePrepareDSummaryDG.RowTemplate.Height = 30;
             this.StorePrepareDSummaryDG.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.StorePrepareDSummaryDG.SelectedColorStyle = Infinium.PercentageDataGrid.ColorStyle.Orange;
             this.StorePrepareDSummaryDG.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -4993,7 +4993,7 @@
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.StorePrepareDSummaryDG.StateCommon.DataCell.Content.Color1 = System.Drawing.Color.Black;
-            this.StorePrepareDSummaryDG.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.StorePrepareDSummaryDG.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.StorePrepareDSummaryDG.StateCommon.HeaderColumn.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
             this.StorePrepareDSummaryDG.StateCommon.HeaderColumn.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
             this.StorePrepareDSummaryDG.StateCommon.HeaderColumn.Border.Color1 = System.Drawing.Color.Black;
@@ -5003,7 +5003,7 @@
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.StorePrepareDSummaryDG.StateCommon.HeaderColumn.Border.Width = 1;
             this.StorePrepareDSummaryDG.StateCommon.HeaderColumn.Content.Color1 = System.Drawing.Color.White;
-            this.StorePrepareDSummaryDG.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.StorePrepareDSummaryDG.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.StorePrepareDSummaryDG.StateSelected.DataCell.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(253)))), ((int)(((byte)(164)))), ((int)(((byte)(61)))));
             this.StorePrepareDSummaryDG.StateSelected.DataCell.Back.Color2 = System.Drawing.Color.Transparent;
             this.StorePrepareDSummaryDG.StateSelected.DataCell.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
@@ -5022,7 +5022,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.StoreZDSummaryDG.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.StoreZDSummaryDG.BackText = "Нет данных";
-            this.StoreZDSummaryDG.ColumnHeadersHeight = 55;
+            this.StoreZDSummaryDG.ColumnHeadersHeight = 40;
             this.StoreZDSummaryDG.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.StoreZDSummaryDG.Location = new System.Drawing.Point(1, 0);
             this.StoreZDSummaryDG.Name = "StoreZDSummaryDG";
@@ -5030,7 +5030,7 @@
             this.StoreZDSummaryDG.PercentLineWidth = 10;
             this.StoreZDSummaryDG.ReadOnly = true;
             this.StoreZDSummaryDG.RowHeadersVisible = false;
-            this.StoreZDSummaryDG.RowTemplate.Height = 40;
+            this.StoreZDSummaryDG.RowTemplate.Height = 30;
             this.StoreZDSummaryDG.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.StoreZDSummaryDG.SelectedColorStyle = Infinium.PercentageDataGrid.ColorStyle.Orange;
             this.StoreZDSummaryDG.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -5048,7 +5048,7 @@
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.StoreZDSummaryDG.StateCommon.DataCell.Content.Color1 = System.Drawing.Color.Black;
-            this.StoreZDSummaryDG.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.StoreZDSummaryDG.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.StoreZDSummaryDG.StateCommon.HeaderColumn.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
             this.StoreZDSummaryDG.StateCommon.HeaderColumn.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
             this.StoreZDSummaryDG.StateCommon.HeaderColumn.Border.Color1 = System.Drawing.Color.Black;
@@ -5058,7 +5058,7 @@
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.StoreZDSummaryDG.StateCommon.HeaderColumn.Border.Width = 1;
             this.StoreZDSummaryDG.StateCommon.HeaderColumn.Content.Color1 = System.Drawing.Color.White;
-            this.StoreZDSummaryDG.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.StoreZDSummaryDG.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.StoreZDSummaryDG.StateSelected.DataCell.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(253)))), ((int)(((byte)(164)))), ((int)(((byte)(61)))));
             this.StoreZDSummaryDG.StateSelected.DataCell.Back.Color2 = System.Drawing.Color.Transparent;
             this.StoreZDSummaryDG.StateSelected.DataCell.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
@@ -5161,7 +5161,7 @@
             this.StoreDecorProductsDataGrid.AllowUserToResizeRows = false;
             this.StoreDecorProductsDataGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.StoreDecorProductsDataGrid.BackText = "Нет данных";
-            this.StoreDecorProductsDataGrid.ColumnHeadersHeight = 55;
+            this.StoreDecorProductsDataGrid.ColumnHeadersHeight = 40;
             this.StoreDecorProductsDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.StoreDecorProductsDataGrid.Dock = System.Windows.Forms.DockStyle.Fill;
             this.StoreDecorProductsDataGrid.Location = new System.Drawing.Point(0, 0);
@@ -5171,7 +5171,7 @@
             this.StoreDecorProductsDataGrid.PercentLineWidth = 0;
             this.StoreDecorProductsDataGrid.ReadOnly = true;
             this.StoreDecorProductsDataGrid.RowHeadersVisible = false;
-            this.StoreDecorProductsDataGrid.RowTemplate.Height = 40;
+            this.StoreDecorProductsDataGrid.RowTemplate.Height = 30;
             this.StoreDecorProductsDataGrid.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.StoreDecorProductsDataGrid.SelectedColorStyle = Infinium.PercentageDataGrid.ColorStyle.Blue;
             this.StoreDecorProductsDataGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -5189,7 +5189,7 @@
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.StoreDecorProductsDataGrid.StateCommon.DataCell.Content.Color1 = System.Drawing.Color.Black;
-            this.StoreDecorProductsDataGrid.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.StoreDecorProductsDataGrid.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.StoreDecorProductsDataGrid.StateCommon.HeaderColumn.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
             this.StoreDecorProductsDataGrid.StateCommon.HeaderColumn.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
             this.StoreDecorProductsDataGrid.StateCommon.HeaderColumn.Border.Color1 = System.Drawing.Color.Black;
@@ -5197,7 +5197,7 @@
             this.StoreDecorProductsDataGrid.StateCommon.HeaderColumn.Border.DrawBorders = ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom;
             this.StoreDecorProductsDataGrid.StateCommon.HeaderColumn.Border.Width = 1;
             this.StoreDecorProductsDataGrid.StateCommon.HeaderColumn.Content.Color1 = System.Drawing.Color.White;
-            this.StoreDecorProductsDataGrid.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.StoreDecorProductsDataGrid.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.StoreDecorProductsDataGrid.StateSelected.DataCell.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(177)))), ((int)(((byte)(229)))));
             this.StoreDecorProductsDataGrid.StateSelected.DataCell.Back.Color2 = System.Drawing.Color.Transparent;
             this.StoreDecorProductsDataGrid.StateSelected.DataCell.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
@@ -5360,7 +5360,7 @@
             this.StoreDecorItemsDataGrid.AllowUserToResizeRows = false;
             this.StoreDecorItemsDataGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.StoreDecorItemsDataGrid.BackText = "Нет данных";
-            this.StoreDecorItemsDataGrid.ColumnHeadersHeight = 55;
+            this.StoreDecorItemsDataGrid.ColumnHeadersHeight = 40;
             this.StoreDecorItemsDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.StoreDecorItemsDataGrid.Dock = System.Windows.Forms.DockStyle.Fill;
             this.StoreDecorItemsDataGrid.Location = new System.Drawing.Point(1, 0);
@@ -5370,7 +5370,7 @@
             this.StoreDecorItemsDataGrid.PercentLineWidth = 0;
             this.StoreDecorItemsDataGrid.ReadOnly = true;
             this.StoreDecorItemsDataGrid.RowHeadersVisible = false;
-            this.StoreDecorItemsDataGrid.RowTemplate.Height = 40;
+            this.StoreDecorItemsDataGrid.RowTemplate.Height = 30;
             this.StoreDecorItemsDataGrid.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.StoreDecorItemsDataGrid.SelectedColorStyle = Infinium.PercentageDataGrid.ColorStyle.Blue;
             this.StoreDecorItemsDataGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -5388,7 +5388,7 @@
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.StoreDecorItemsDataGrid.StateCommon.DataCell.Content.Color1 = System.Drawing.Color.Black;
-            this.StoreDecorItemsDataGrid.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.StoreDecorItemsDataGrid.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.StoreDecorItemsDataGrid.StateCommon.HeaderColumn.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
             this.StoreDecorItemsDataGrid.StateCommon.HeaderColumn.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
             this.StoreDecorItemsDataGrid.StateCommon.HeaderColumn.Border.Color1 = System.Drawing.Color.Black;
@@ -5396,7 +5396,7 @@
             this.StoreDecorItemsDataGrid.StateCommon.HeaderColumn.Border.DrawBorders = ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom;
             this.StoreDecorItemsDataGrid.StateCommon.HeaderColumn.Border.Width = 1;
             this.StoreDecorItemsDataGrid.StateCommon.HeaderColumn.Content.Color1 = System.Drawing.Color.White;
-            this.StoreDecorItemsDataGrid.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.StoreDecorItemsDataGrid.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.StoreDecorItemsDataGrid.StateSelected.DataCell.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(177)))), ((int)(((byte)(229)))));
             this.StoreDecorItemsDataGrid.StateSelected.DataCell.Back.Color2 = System.Drawing.Color.Transparent;
             this.StoreDecorItemsDataGrid.StateSelected.DataCell.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
@@ -5672,7 +5672,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.DispFrontsDataGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.DispFrontsDataGrid.BackText = "Нет данных";
-            this.DispFrontsDataGrid.ColumnHeadersHeight = 55;
+            this.DispFrontsDataGrid.ColumnHeadersHeight = 40;
             this.DispFrontsDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.DispFrontsDataGrid.Location = new System.Drawing.Point(0, 0);
             this.DispFrontsDataGrid.MultiSelect = false;
@@ -5681,7 +5681,7 @@
             this.DispFrontsDataGrid.PercentLineWidth = 0;
             this.DispFrontsDataGrid.ReadOnly = true;
             this.DispFrontsDataGrid.RowHeadersVisible = false;
-            this.DispFrontsDataGrid.RowTemplate.Height = 40;
+            this.DispFrontsDataGrid.RowTemplate.Height = 30;
             this.DispFrontsDataGrid.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.DispFrontsDataGrid.SelectedColorStyle = Infinium.PercentageDataGrid.ColorStyle.Orange;
             this.DispFrontsDataGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -5699,7 +5699,7 @@
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.DispFrontsDataGrid.StateCommon.DataCell.Content.Color1 = System.Drawing.Color.Black;
-            this.DispFrontsDataGrid.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.DispFrontsDataGrid.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.DispFrontsDataGrid.StateCommon.HeaderColumn.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
             this.DispFrontsDataGrid.StateCommon.HeaderColumn.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
             this.DispFrontsDataGrid.StateCommon.HeaderColumn.Border.Color1 = System.Drawing.Color.Black;
@@ -5707,7 +5707,7 @@
             this.DispFrontsDataGrid.StateCommon.HeaderColumn.Border.DrawBorders = ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom;
             this.DispFrontsDataGrid.StateCommon.HeaderColumn.Border.Width = 1;
             this.DispFrontsDataGrid.StateCommon.HeaderColumn.Content.Color1 = System.Drawing.Color.White;
-            this.DispFrontsDataGrid.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.DispFrontsDataGrid.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.DispFrontsDataGrid.StateSelected.DataCell.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(253)))), ((int)(((byte)(164)))), ((int)(((byte)(61)))));
             this.DispFrontsDataGrid.StateSelected.DataCell.Back.Color2 = System.Drawing.Color.Transparent;
             this.DispFrontsDataGrid.StateSelected.DataCell.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
@@ -5925,7 +5925,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.DispMFSummaryDG.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.DispMFSummaryDG.BackText = "Нет данных";
-            this.DispMFSummaryDG.ColumnHeadersHeight = 55;
+            this.DispMFSummaryDG.ColumnHeadersHeight = 40;
             this.DispMFSummaryDG.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.DispMFSummaryDG.Location = new System.Drawing.Point(1, 0);
             this.DispMFSummaryDG.MultiSelect = false;
@@ -5934,7 +5934,7 @@
             this.DispMFSummaryDG.PercentLineWidth = 10;
             this.DispMFSummaryDG.ReadOnly = true;
             this.DispMFSummaryDG.RowHeadersVisible = false;
-            this.DispMFSummaryDG.RowTemplate.Height = 40;
+            this.DispMFSummaryDG.RowTemplate.Height = 30;
             this.DispMFSummaryDG.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.DispMFSummaryDG.SelectedColorStyle = Infinium.PercentageDataGrid.ColorStyle.Orange;
             this.DispMFSummaryDG.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -5952,7 +5952,7 @@
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.DispMFSummaryDG.StateCommon.DataCell.Content.Color1 = System.Drawing.Color.Black;
-            this.DispMFSummaryDG.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.DispMFSummaryDG.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.DispMFSummaryDG.StateCommon.HeaderColumn.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
             this.DispMFSummaryDG.StateCommon.HeaderColumn.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
             this.DispMFSummaryDG.StateCommon.HeaderColumn.Border.Color1 = System.Drawing.Color.Black;
@@ -5962,7 +5962,7 @@
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.DispMFSummaryDG.StateCommon.HeaderColumn.Border.Width = 1;
             this.DispMFSummaryDG.StateCommon.HeaderColumn.Content.Color1 = System.Drawing.Color.White;
-            this.DispMFSummaryDG.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.DispMFSummaryDG.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.DispMFSummaryDG.StateSelected.DataCell.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(253)))), ((int)(((byte)(164)))), ((int)(((byte)(61)))));
             this.DispMFSummaryDG.StateSelected.DataCell.Back.Color2 = System.Drawing.Color.Transparent;
             this.DispMFSummaryDG.StateSelected.DataCell.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
@@ -5982,7 +5982,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.DispZFSummaryDG.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.DispZFSummaryDG.BackText = "Нет данных";
-            this.DispZFSummaryDG.ColumnHeadersHeight = 55;
+            this.DispZFSummaryDG.ColumnHeadersHeight = 40;
             this.DispZFSummaryDG.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.DispZFSummaryDG.Location = new System.Drawing.Point(1, 0);
             this.DispZFSummaryDG.Name = "DispZFSummaryDG";
@@ -5990,7 +5990,7 @@
             this.DispZFSummaryDG.PercentLineWidth = 10;
             this.DispZFSummaryDG.ReadOnly = true;
             this.DispZFSummaryDG.RowHeadersVisible = false;
-            this.DispZFSummaryDG.RowTemplate.Height = 40;
+            this.DispZFSummaryDG.RowTemplate.Height = 30;
             this.DispZFSummaryDG.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.DispZFSummaryDG.SelectedColorStyle = Infinium.PercentageDataGrid.ColorStyle.Orange;
             this.DispZFSummaryDG.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -6008,7 +6008,7 @@
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.DispZFSummaryDG.StateCommon.DataCell.Content.Color1 = System.Drawing.Color.Black;
-            this.DispZFSummaryDG.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.DispZFSummaryDG.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.DispZFSummaryDG.StateCommon.HeaderColumn.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
             this.DispZFSummaryDG.StateCommon.HeaderColumn.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
             this.DispZFSummaryDG.StateCommon.HeaderColumn.Border.Color1 = System.Drawing.Color.Black;
@@ -6018,7 +6018,7 @@
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.DispZFSummaryDG.StateCommon.HeaderColumn.Border.Width = 1;
             this.DispZFSummaryDG.StateCommon.HeaderColumn.Content.Color1 = System.Drawing.Color.White;
-            this.DispZFSummaryDG.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.DispZFSummaryDG.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.DispZFSummaryDG.StateSelected.DataCell.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(253)))), ((int)(((byte)(164)))), ((int)(((byte)(61)))));
             this.DispZFSummaryDG.StateSelected.DataCell.Back.Color2 = System.Drawing.Color.Transparent;
             this.DispZFSummaryDG.StateSelected.DataCell.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
@@ -6138,7 +6138,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.DispMDSummaryDG.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.DispMDSummaryDG.BackText = "Нет данных";
-            this.DispMDSummaryDG.ColumnHeadersHeight = 55;
+            this.DispMDSummaryDG.ColumnHeadersHeight = 40;
             this.DispMDSummaryDG.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.DispMDSummaryDG.Location = new System.Drawing.Point(1, 0);
             this.DispMDSummaryDG.MultiSelect = false;
@@ -6147,7 +6147,7 @@
             this.DispMDSummaryDG.PercentLineWidth = 10;
             this.DispMDSummaryDG.ReadOnly = true;
             this.DispMDSummaryDG.RowHeadersVisible = false;
-            this.DispMDSummaryDG.RowTemplate.Height = 40;
+            this.DispMDSummaryDG.RowTemplate.Height = 30;
             this.DispMDSummaryDG.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.DispMDSummaryDG.SelectedColorStyle = Infinium.PercentageDataGrid.ColorStyle.Orange;
             this.DispMDSummaryDG.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -6165,7 +6165,7 @@
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.DispMDSummaryDG.StateCommon.DataCell.Content.Color1 = System.Drawing.Color.Black;
-            this.DispMDSummaryDG.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.DispMDSummaryDG.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.DispMDSummaryDG.StateCommon.HeaderColumn.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
             this.DispMDSummaryDG.StateCommon.HeaderColumn.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
             this.DispMDSummaryDG.StateCommon.HeaderColumn.Border.Color1 = System.Drawing.Color.Black;
@@ -6175,7 +6175,7 @@
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.DispMDSummaryDG.StateCommon.HeaderColumn.Border.Width = 1;
             this.DispMDSummaryDG.StateCommon.HeaderColumn.Content.Color1 = System.Drawing.Color.White;
-            this.DispMDSummaryDG.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.DispMDSummaryDG.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.DispMDSummaryDG.StateSelected.DataCell.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(253)))), ((int)(((byte)(164)))), ((int)(((byte)(61)))));
             this.DispMDSummaryDG.StateSelected.DataCell.Back.Color2 = System.Drawing.Color.Transparent;
             this.DispMDSummaryDG.StateSelected.DataCell.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
@@ -6225,7 +6225,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.DispZDSummaryDG.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.DispZDSummaryDG.BackText = "Нет данных";
-            this.DispZDSummaryDG.ColumnHeadersHeight = 55;
+            this.DispZDSummaryDG.ColumnHeadersHeight = 40;
             this.DispZDSummaryDG.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.DispZDSummaryDG.HideOuterBorders = true;
             this.DispZDSummaryDG.Location = new System.Drawing.Point(1, 0);
@@ -6234,7 +6234,7 @@
             this.DispZDSummaryDG.PercentLineWidth = 10;
             this.DispZDSummaryDG.ReadOnly = true;
             this.DispZDSummaryDG.RowHeadersVisible = false;
-            this.DispZDSummaryDG.RowTemplate.Height = 40;
+            this.DispZDSummaryDG.RowTemplate.Height = 30;
             this.DispZDSummaryDG.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.DispZDSummaryDG.SelectedColorStyle = Infinium.PercentageDataGrid.ColorStyle.Blue;
             this.DispZDSummaryDG.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -6252,7 +6252,7 @@
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.DispZDSummaryDG.StateCommon.DataCell.Content.Color1 = System.Drawing.Color.Black;
-            this.DispZDSummaryDG.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.DispZDSummaryDG.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.DispZDSummaryDG.StateCommon.HeaderColumn.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
             this.DispZDSummaryDG.StateCommon.HeaderColumn.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
             this.DispZDSummaryDG.StateCommon.HeaderColumn.Border.Color1 = System.Drawing.Color.Black;
@@ -6262,7 +6262,7 @@
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.DispZDSummaryDG.StateCommon.HeaderColumn.Border.Width = 1;
             this.DispZDSummaryDG.StateCommon.HeaderColumn.Content.Color1 = System.Drawing.Color.White;
-            this.DispZDSummaryDG.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.DispZDSummaryDG.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.DispZDSummaryDG.StateSelected.DataCell.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(177)))), ((int)(((byte)(229)))));
             this.DispZDSummaryDG.StateSelected.DataCell.Back.Color2 = System.Drawing.Color.Transparent;
             this.DispZDSummaryDG.StateSelected.DataCell.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
@@ -6365,7 +6365,7 @@
             this.DispDecorProductsDataGrid.AllowUserToResizeRows = false;
             this.DispDecorProductsDataGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.DispDecorProductsDataGrid.BackText = "Нет данных";
-            this.DispDecorProductsDataGrid.ColumnHeadersHeight = 55;
+            this.DispDecorProductsDataGrid.ColumnHeadersHeight = 40;
             this.DispDecorProductsDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.DispDecorProductsDataGrid.Dock = System.Windows.Forms.DockStyle.Fill;
             this.DispDecorProductsDataGrid.Location = new System.Drawing.Point(0, 0);
@@ -6375,7 +6375,7 @@
             this.DispDecorProductsDataGrid.PercentLineWidth = 0;
             this.DispDecorProductsDataGrid.ReadOnly = true;
             this.DispDecorProductsDataGrid.RowHeadersVisible = false;
-            this.DispDecorProductsDataGrid.RowTemplate.Height = 40;
+            this.DispDecorProductsDataGrid.RowTemplate.Height = 30;
             this.DispDecorProductsDataGrid.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.DispDecorProductsDataGrid.SelectedColorStyle = Infinium.PercentageDataGrid.ColorStyle.Blue;
             this.DispDecorProductsDataGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -6393,7 +6393,7 @@
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.DispDecorProductsDataGrid.StateCommon.DataCell.Content.Color1 = System.Drawing.Color.Black;
-            this.DispDecorProductsDataGrid.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.DispDecorProductsDataGrid.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.DispDecorProductsDataGrid.StateCommon.HeaderColumn.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
             this.DispDecorProductsDataGrid.StateCommon.HeaderColumn.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
             this.DispDecorProductsDataGrid.StateCommon.HeaderColumn.Border.Color1 = System.Drawing.Color.Black;
@@ -6401,7 +6401,7 @@
             this.DispDecorProductsDataGrid.StateCommon.HeaderColumn.Border.DrawBorders = ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom;
             this.DispDecorProductsDataGrid.StateCommon.HeaderColumn.Border.Width = 1;
             this.DispDecorProductsDataGrid.StateCommon.HeaderColumn.Content.Color1 = System.Drawing.Color.White;
-            this.DispDecorProductsDataGrid.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.DispDecorProductsDataGrid.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.DispDecorProductsDataGrid.StateSelected.DataCell.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(177)))), ((int)(((byte)(229)))));
             this.DispDecorProductsDataGrid.StateSelected.DataCell.Back.Color2 = System.Drawing.Color.Transparent;
             this.DispDecorProductsDataGrid.StateSelected.DataCell.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
@@ -6564,7 +6564,7 @@
             this.DispDecorItemsDataGrid.AllowUserToResizeRows = false;
             this.DispDecorItemsDataGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.DispDecorItemsDataGrid.BackText = "Нет данных";
-            this.DispDecorItemsDataGrid.ColumnHeadersHeight = 55;
+            this.DispDecorItemsDataGrid.ColumnHeadersHeight = 40;
             this.DispDecorItemsDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.DispDecorItemsDataGrid.Dock = System.Windows.Forms.DockStyle.Fill;
             this.DispDecorItemsDataGrid.Location = new System.Drawing.Point(1, 0);
@@ -6574,7 +6574,7 @@
             this.DispDecorItemsDataGrid.PercentLineWidth = 0;
             this.DispDecorItemsDataGrid.ReadOnly = true;
             this.DispDecorItemsDataGrid.RowHeadersVisible = false;
-            this.DispDecorItemsDataGrid.RowTemplate.Height = 40;
+            this.DispDecorItemsDataGrid.RowTemplate.Height = 30;
             this.DispDecorItemsDataGrid.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.DispDecorItemsDataGrid.SelectedColorStyle = Infinium.PercentageDataGrid.ColorStyle.Blue;
             this.DispDecorItemsDataGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -6592,7 +6592,7 @@
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.DispDecorItemsDataGrid.StateCommon.DataCell.Content.Color1 = System.Drawing.Color.Black;
-            this.DispDecorItemsDataGrid.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.DispDecorItemsDataGrid.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.DispDecorItemsDataGrid.StateCommon.HeaderColumn.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
             this.DispDecorItemsDataGrid.StateCommon.HeaderColumn.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
             this.DispDecorItemsDataGrid.StateCommon.HeaderColumn.Border.Color1 = System.Drawing.Color.Black;
@@ -6600,7 +6600,7 @@
             this.DispDecorItemsDataGrid.StateCommon.HeaderColumn.Border.DrawBorders = ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom;
             this.DispDecorItemsDataGrid.StateCommon.HeaderColumn.Border.Width = 1;
             this.DispDecorItemsDataGrid.StateCommon.HeaderColumn.Content.Color1 = System.Drawing.Color.White;
-            this.DispDecorItemsDataGrid.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.DispDecorItemsDataGrid.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.DispDecorItemsDataGrid.StateSelected.DataCell.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(177)))), ((int)(((byte)(229)))));
             this.DispDecorItemsDataGrid.StateSelected.DataCell.Back.Color2 = System.Drawing.Color.Transparent;
             this.DispDecorItemsDataGrid.StateSelected.DataCell.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
@@ -6828,7 +6828,7 @@
             this.FridayFrontsDG.AllowUserToResizeRows = false;
             this.FridayFrontsDG.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.FridayFrontsDG.BackText = "Нет данных";
-            this.FridayFrontsDG.ColumnHeadersHeight = 55;
+            this.FridayFrontsDG.ColumnHeadersHeight = 40;
             this.FridayFrontsDG.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.FridayFrontsDG.Dock = System.Windows.Forms.DockStyle.Fill;
             this.FridayFrontsDG.Location = new System.Drawing.Point(0, 0);
@@ -6838,7 +6838,7 @@
             this.FridayFrontsDG.PercentLineWidth = 0;
             this.FridayFrontsDG.ReadOnly = true;
             this.FridayFrontsDG.RowHeadersVisible = false;
-            this.FridayFrontsDG.RowTemplate.Height = 40;
+            this.FridayFrontsDG.RowTemplate.Height = 30;
             this.FridayFrontsDG.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.FridayFrontsDG.SelectedColorStyle = Infinium.PercentageDataGrid.ColorStyle.Orange;
             this.FridayFrontsDG.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -6856,7 +6856,7 @@
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.FridayFrontsDG.StateCommon.DataCell.Content.Color1 = System.Drawing.Color.Black;
-            this.FridayFrontsDG.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.FridayFrontsDG.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.FridayFrontsDG.StateCommon.HeaderColumn.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
             this.FridayFrontsDG.StateCommon.HeaderColumn.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
             this.FridayFrontsDG.StateCommon.HeaderColumn.Border.Color1 = System.Drawing.Color.Black;
@@ -6864,7 +6864,7 @@
             this.FridayFrontsDG.StateCommon.HeaderColumn.Border.DrawBorders = ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom;
             this.FridayFrontsDG.StateCommon.HeaderColumn.Border.Width = 1;
             this.FridayFrontsDG.StateCommon.HeaderColumn.Content.Color1 = System.Drawing.Color.White;
-            this.FridayFrontsDG.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.FridayFrontsDG.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.FridayFrontsDG.StateSelected.DataCell.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(253)))), ((int)(((byte)(164)))), ((int)(((byte)(61)))));
             this.FridayFrontsDG.StateSelected.DataCell.Back.Color2 = System.Drawing.Color.Transparent;
             this.FridayFrontsDG.StateSelected.DataCell.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
@@ -7116,7 +7116,7 @@
             this.WednesdayFrontsDG.AllowUserToResizeRows = false;
             this.WednesdayFrontsDG.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.WednesdayFrontsDG.BackText = "Нет данных";
-            this.WednesdayFrontsDG.ColumnHeadersHeight = 55;
+            this.WednesdayFrontsDG.ColumnHeadersHeight = 40;
             this.WednesdayFrontsDG.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.WednesdayFrontsDG.Dock = System.Windows.Forms.DockStyle.Fill;
             this.WednesdayFrontsDG.Location = new System.Drawing.Point(0, 0);
@@ -7126,7 +7126,7 @@
             this.WednesdayFrontsDG.PercentLineWidth = 0;
             this.WednesdayFrontsDG.ReadOnly = true;
             this.WednesdayFrontsDG.RowHeadersVisible = false;
-            this.WednesdayFrontsDG.RowTemplate.Height = 40;
+            this.WednesdayFrontsDG.RowTemplate.Height = 30;
             this.WednesdayFrontsDG.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.WednesdayFrontsDG.SelectedColorStyle = Infinium.PercentageDataGrid.ColorStyle.Orange;
             this.WednesdayFrontsDG.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -7144,7 +7144,7 @@
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.WednesdayFrontsDG.StateCommon.DataCell.Content.Color1 = System.Drawing.Color.Black;
-            this.WednesdayFrontsDG.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.WednesdayFrontsDG.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.WednesdayFrontsDG.StateCommon.HeaderColumn.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
             this.WednesdayFrontsDG.StateCommon.HeaderColumn.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
             this.WednesdayFrontsDG.StateCommon.HeaderColumn.Border.Color1 = System.Drawing.Color.Black;
@@ -7152,7 +7152,7 @@
             this.WednesdayFrontsDG.StateCommon.HeaderColumn.Border.DrawBorders = ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom;
             this.WednesdayFrontsDG.StateCommon.HeaderColumn.Border.Width = 1;
             this.WednesdayFrontsDG.StateCommon.HeaderColumn.Content.Color1 = System.Drawing.Color.White;
-            this.WednesdayFrontsDG.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.WednesdayFrontsDG.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.WednesdayFrontsDG.StateSelected.DataCell.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(253)))), ((int)(((byte)(164)))), ((int)(((byte)(61)))));
             this.WednesdayFrontsDG.StateSelected.DataCell.Back.Color2 = System.Drawing.Color.Transparent;
             this.WednesdayFrontsDG.StateSelected.DataCell.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
@@ -7424,7 +7424,7 @@
             this.MondayFrontsDG.AllowUserToResizeRows = false;
             this.MondayFrontsDG.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.MondayFrontsDG.BackText = "Нет данных";
-            this.MondayFrontsDG.ColumnHeadersHeight = 55;
+            this.MondayFrontsDG.ColumnHeadersHeight = 40;
             this.MondayFrontsDG.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.MondayFrontsDG.Dock = System.Windows.Forms.DockStyle.Fill;
             this.MondayFrontsDG.Location = new System.Drawing.Point(0, 0);
@@ -7434,7 +7434,7 @@
             this.MondayFrontsDG.PercentLineWidth = 0;
             this.MondayFrontsDG.ReadOnly = true;
             this.MondayFrontsDG.RowHeadersVisible = false;
-            this.MondayFrontsDG.RowTemplate.Height = 40;
+            this.MondayFrontsDG.RowTemplate.Height = 30;
             this.MondayFrontsDG.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.MondayFrontsDG.SelectedColorStyle = Infinium.PercentageDataGrid.ColorStyle.Orange;
             this.MondayFrontsDG.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -7452,7 +7452,7 @@
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.MondayFrontsDG.StateCommon.DataCell.Content.Color1 = System.Drawing.Color.Black;
-            this.MondayFrontsDG.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.MondayFrontsDG.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.MondayFrontsDG.StateCommon.HeaderColumn.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
             this.MondayFrontsDG.StateCommon.HeaderColumn.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
             this.MondayFrontsDG.StateCommon.HeaderColumn.Border.Color1 = System.Drawing.Color.Black;
@@ -7460,7 +7460,7 @@
             this.MondayFrontsDG.StateCommon.HeaderColumn.Border.DrawBorders = ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom;
             this.MondayFrontsDG.StateCommon.HeaderColumn.Border.Width = 1;
             this.MondayFrontsDG.StateCommon.HeaderColumn.Content.Color1 = System.Drawing.Color.White;
-            this.MondayFrontsDG.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.MondayFrontsDG.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.MondayFrontsDG.StateSelected.DataCell.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(253)))), ((int)(((byte)(164)))), ((int)(((byte)(61)))));
             this.MondayFrontsDG.StateSelected.DataCell.Back.Color2 = System.Drawing.Color.Transparent;
             this.MondayFrontsDG.StateSelected.DataCell.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
@@ -7702,7 +7702,7 @@
             this.FridayDecorItemsDG.AllowUserToResizeRows = false;
             this.FridayDecorItemsDG.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.FridayDecorItemsDG.BackText = "Нет данных";
-            this.FridayDecorItemsDG.ColumnHeadersHeight = 55;
+            this.FridayDecorItemsDG.ColumnHeadersHeight = 40;
             this.FridayDecorItemsDG.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.FridayDecorItemsDG.Dock = System.Windows.Forms.DockStyle.Fill;
             this.FridayDecorItemsDG.Location = new System.Drawing.Point(1, 0);
@@ -7712,7 +7712,7 @@
             this.FridayDecorItemsDG.PercentLineWidth = 0;
             this.FridayDecorItemsDG.ReadOnly = true;
             this.FridayDecorItemsDG.RowHeadersVisible = false;
-            this.FridayDecorItemsDG.RowTemplate.Height = 40;
+            this.FridayDecorItemsDG.RowTemplate.Height = 30;
             this.FridayDecorItemsDG.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.FridayDecorItemsDG.SelectedColorStyle = Infinium.PercentageDataGrid.ColorStyle.Blue;
             this.FridayDecorItemsDG.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -7730,7 +7730,7 @@
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.FridayDecorItemsDG.StateCommon.DataCell.Content.Color1 = System.Drawing.Color.Black;
-            this.FridayDecorItemsDG.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.FridayDecorItemsDG.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.FridayDecorItemsDG.StateCommon.HeaderColumn.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
             this.FridayDecorItemsDG.StateCommon.HeaderColumn.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
             this.FridayDecorItemsDG.StateCommon.HeaderColumn.Border.Color1 = System.Drawing.Color.Black;
@@ -7738,7 +7738,7 @@
             this.FridayDecorItemsDG.StateCommon.HeaderColumn.Border.DrawBorders = ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom;
             this.FridayDecorItemsDG.StateCommon.HeaderColumn.Border.Width = 1;
             this.FridayDecorItemsDG.StateCommon.HeaderColumn.Content.Color1 = System.Drawing.Color.White;
-            this.FridayDecorItemsDG.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.FridayDecorItemsDG.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.FridayDecorItemsDG.StateSelected.DataCell.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(177)))), ((int)(((byte)(229)))));
             this.FridayDecorItemsDG.StateSelected.DataCell.Back.Color2 = System.Drawing.Color.Transparent;
             this.FridayDecorItemsDG.StateSelected.DataCell.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
@@ -7806,7 +7806,7 @@
             this.WednesdayDecorItemsDG.AllowUserToResizeRows = false;
             this.WednesdayDecorItemsDG.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.WednesdayDecorItemsDG.BackText = "Нет данных";
-            this.WednesdayDecorItemsDG.ColumnHeadersHeight = 55;
+            this.WednesdayDecorItemsDG.ColumnHeadersHeight = 40;
             this.WednesdayDecorItemsDG.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.WednesdayDecorItemsDG.Dock = System.Windows.Forms.DockStyle.Fill;
             this.WednesdayDecorItemsDG.Location = new System.Drawing.Point(1, 0);
@@ -7816,7 +7816,7 @@
             this.WednesdayDecorItemsDG.PercentLineWidth = 0;
             this.WednesdayDecorItemsDG.ReadOnly = true;
             this.WednesdayDecorItemsDG.RowHeadersVisible = false;
-            this.WednesdayDecorItemsDG.RowTemplate.Height = 40;
+            this.WednesdayDecorItemsDG.RowTemplate.Height = 30;
             this.WednesdayDecorItemsDG.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.WednesdayDecorItemsDG.SelectedColorStyle = Infinium.PercentageDataGrid.ColorStyle.Blue;
             this.WednesdayDecorItemsDG.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -7834,7 +7834,7 @@
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.WednesdayDecorItemsDG.StateCommon.DataCell.Content.Color1 = System.Drawing.Color.Black;
-            this.WednesdayDecorItemsDG.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.WednesdayDecorItemsDG.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.WednesdayDecorItemsDG.StateCommon.HeaderColumn.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
             this.WednesdayDecorItemsDG.StateCommon.HeaderColumn.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
             this.WednesdayDecorItemsDG.StateCommon.HeaderColumn.Border.Color1 = System.Drawing.Color.Black;
@@ -7842,7 +7842,7 @@
             this.WednesdayDecorItemsDG.StateCommon.HeaderColumn.Border.DrawBorders = ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom;
             this.WednesdayDecorItemsDG.StateCommon.HeaderColumn.Border.Width = 1;
             this.WednesdayDecorItemsDG.StateCommon.HeaderColumn.Content.Color1 = System.Drawing.Color.White;
-            this.WednesdayDecorItemsDG.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.WednesdayDecorItemsDG.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.WednesdayDecorItemsDG.StateSelected.DataCell.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(177)))), ((int)(((byte)(229)))));
             this.WednesdayDecorItemsDG.StateSelected.DataCell.Back.Color2 = System.Drawing.Color.Transparent;
             this.WednesdayDecorItemsDG.StateSelected.DataCell.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
@@ -7956,7 +7956,7 @@
             this.FridayDecorProductsDG.AllowUserToResizeRows = false;
             this.FridayDecorProductsDG.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.FridayDecorProductsDG.BackText = "Нет данных";
-            this.FridayDecorProductsDG.ColumnHeadersHeight = 55;
+            this.FridayDecorProductsDG.ColumnHeadersHeight = 40;
             this.FridayDecorProductsDG.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.FridayDecorProductsDG.Dock = System.Windows.Forms.DockStyle.Fill;
             this.FridayDecorProductsDG.Location = new System.Drawing.Point(0, 0);
@@ -7966,7 +7966,7 @@
             this.FridayDecorProductsDG.PercentLineWidth = 0;
             this.FridayDecorProductsDG.ReadOnly = true;
             this.FridayDecorProductsDG.RowHeadersVisible = false;
-            this.FridayDecorProductsDG.RowTemplate.Height = 40;
+            this.FridayDecorProductsDG.RowTemplate.Height = 30;
             this.FridayDecorProductsDG.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.FridayDecorProductsDG.SelectedColorStyle = Infinium.PercentageDataGrid.ColorStyle.Blue;
             this.FridayDecorProductsDG.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -7984,7 +7984,7 @@
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.FridayDecorProductsDG.StateCommon.DataCell.Content.Color1 = System.Drawing.Color.Black;
-            this.FridayDecorProductsDG.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.FridayDecorProductsDG.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.FridayDecorProductsDG.StateCommon.HeaderColumn.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
             this.FridayDecorProductsDG.StateCommon.HeaderColumn.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
             this.FridayDecorProductsDG.StateCommon.HeaderColumn.Border.Color1 = System.Drawing.Color.Black;
@@ -7992,7 +7992,7 @@
             this.FridayDecorProductsDG.StateCommon.HeaderColumn.Border.DrawBorders = ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom;
             this.FridayDecorProductsDG.StateCommon.HeaderColumn.Border.Width = 1;
             this.FridayDecorProductsDG.StateCommon.HeaderColumn.Content.Color1 = System.Drawing.Color.White;
-            this.FridayDecorProductsDG.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.FridayDecorProductsDG.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.FridayDecorProductsDG.StateSelected.DataCell.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(177)))), ((int)(((byte)(229)))));
             this.FridayDecorProductsDG.StateSelected.DataCell.Back.Color2 = System.Drawing.Color.Transparent;
             this.FridayDecorProductsDG.StateSelected.DataCell.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
@@ -8201,7 +8201,7 @@
             this.WednesdayDecorProductsDG.AllowUserToResizeRows = false;
             this.WednesdayDecorProductsDG.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.WednesdayDecorProductsDG.BackText = "Нет данных";
-            this.WednesdayDecorProductsDG.ColumnHeadersHeight = 55;
+            this.WednesdayDecorProductsDG.ColumnHeadersHeight = 40;
             this.WednesdayDecorProductsDG.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.WednesdayDecorProductsDG.Dock = System.Windows.Forms.DockStyle.Fill;
             this.WednesdayDecorProductsDG.Location = new System.Drawing.Point(0, 0);
@@ -8211,7 +8211,7 @@
             this.WednesdayDecorProductsDG.PercentLineWidth = 0;
             this.WednesdayDecorProductsDG.ReadOnly = true;
             this.WednesdayDecorProductsDG.RowHeadersVisible = false;
-            this.WednesdayDecorProductsDG.RowTemplate.Height = 40;
+            this.WednesdayDecorProductsDG.RowTemplate.Height = 30;
             this.WednesdayDecorProductsDG.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.WednesdayDecorProductsDG.SelectedColorStyle = Infinium.PercentageDataGrid.ColorStyle.Blue;
             this.WednesdayDecorProductsDG.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -8229,7 +8229,7 @@
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.WednesdayDecorProductsDG.StateCommon.DataCell.Content.Color1 = System.Drawing.Color.Black;
-            this.WednesdayDecorProductsDG.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.WednesdayDecorProductsDG.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.WednesdayDecorProductsDG.StateCommon.HeaderColumn.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
             this.WednesdayDecorProductsDG.StateCommon.HeaderColumn.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
             this.WednesdayDecorProductsDG.StateCommon.HeaderColumn.Border.Color1 = System.Drawing.Color.Black;
@@ -8237,7 +8237,7 @@
             this.WednesdayDecorProductsDG.StateCommon.HeaderColumn.Border.DrawBorders = ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom;
             this.WednesdayDecorProductsDG.StateCommon.HeaderColumn.Border.Width = 1;
             this.WednesdayDecorProductsDG.StateCommon.HeaderColumn.Content.Color1 = System.Drawing.Color.White;
-            this.WednesdayDecorProductsDG.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.WednesdayDecorProductsDG.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.WednesdayDecorProductsDG.StateSelected.DataCell.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(177)))), ((int)(((byte)(229)))));
             this.WednesdayDecorProductsDG.StateSelected.DataCell.Back.Color2 = System.Drawing.Color.Transparent;
             this.WednesdayDecorProductsDG.StateSelected.DataCell.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
@@ -8506,7 +8506,7 @@
             this.MondayDecorProductsDG.AllowUserToResizeRows = false;
             this.MondayDecorProductsDG.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.MondayDecorProductsDG.BackText = "Нет данных";
-            this.MondayDecorProductsDG.ColumnHeadersHeight = 55;
+            this.MondayDecorProductsDG.ColumnHeadersHeight = 40;
             this.MondayDecorProductsDG.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.MondayDecorProductsDG.Dock = System.Windows.Forms.DockStyle.Fill;
             this.MondayDecorProductsDG.Location = new System.Drawing.Point(0, 0);
@@ -8516,7 +8516,7 @@
             this.MondayDecorProductsDG.PercentLineWidth = 0;
             this.MondayDecorProductsDG.ReadOnly = true;
             this.MondayDecorProductsDG.RowHeadersVisible = false;
-            this.MondayDecorProductsDG.RowTemplate.Height = 40;
+            this.MondayDecorProductsDG.RowTemplate.Height = 30;
             this.MondayDecorProductsDG.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.MondayDecorProductsDG.SelectedColorStyle = Infinium.PercentageDataGrid.ColorStyle.Blue;
             this.MondayDecorProductsDG.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -8534,7 +8534,7 @@
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.MondayDecorProductsDG.StateCommon.DataCell.Content.Color1 = System.Drawing.Color.Black;
-            this.MondayDecorProductsDG.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.MondayDecorProductsDG.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.MondayDecorProductsDG.StateCommon.HeaderColumn.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
             this.MondayDecorProductsDG.StateCommon.HeaderColumn.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
             this.MondayDecorProductsDG.StateCommon.HeaderColumn.Border.Color1 = System.Drawing.Color.Black;
@@ -8542,7 +8542,7 @@
             this.MondayDecorProductsDG.StateCommon.HeaderColumn.Border.DrawBorders = ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom;
             this.MondayDecorProductsDG.StateCommon.HeaderColumn.Border.Width = 1;
             this.MondayDecorProductsDG.StateCommon.HeaderColumn.Content.Color1 = System.Drawing.Color.White;
-            this.MondayDecorProductsDG.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.MondayDecorProductsDG.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.MondayDecorProductsDG.StateSelected.DataCell.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(177)))), ((int)(((byte)(229)))));
             this.MondayDecorProductsDG.StateSelected.DataCell.Back.Color2 = System.Drawing.Color.Transparent;
             this.MondayDecorProductsDG.StateSelected.DataCell.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
@@ -8705,7 +8705,7 @@
             this.MondayDecorItemsDG.AllowUserToResizeRows = false;
             this.MondayDecorItemsDG.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.MondayDecorItemsDG.BackText = "Нет данных";
-            this.MondayDecorItemsDG.ColumnHeadersHeight = 55;
+            this.MondayDecorItemsDG.ColumnHeadersHeight = 40;
             this.MondayDecorItemsDG.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.MondayDecorItemsDG.Dock = System.Windows.Forms.DockStyle.Fill;
             this.MondayDecorItemsDG.Location = new System.Drawing.Point(1, 0);
@@ -8715,7 +8715,7 @@
             this.MondayDecorItemsDG.PercentLineWidth = 0;
             this.MondayDecorItemsDG.ReadOnly = true;
             this.MondayDecorItemsDG.RowHeadersVisible = false;
-            this.MondayDecorItemsDG.RowTemplate.Height = 40;
+            this.MondayDecorItemsDG.RowTemplate.Height = 30;
             this.MondayDecorItemsDG.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.MondayDecorItemsDG.SelectedColorStyle = Infinium.PercentageDataGrid.ColorStyle.Blue;
             this.MondayDecorItemsDG.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -8733,7 +8733,7 @@
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.MondayDecorItemsDG.StateCommon.DataCell.Content.Color1 = System.Drawing.Color.Black;
-            this.MondayDecorItemsDG.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.MondayDecorItemsDG.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.MondayDecorItemsDG.StateCommon.HeaderColumn.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
             this.MondayDecorItemsDG.StateCommon.HeaderColumn.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
             this.MondayDecorItemsDG.StateCommon.HeaderColumn.Border.Color1 = System.Drawing.Color.Black;
@@ -8741,7 +8741,7 @@
             this.MondayDecorItemsDG.StateCommon.HeaderColumn.Border.DrawBorders = ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom;
             this.MondayDecorItemsDG.StateCommon.HeaderColumn.Border.Width = 1;
             this.MondayDecorItemsDG.StateCommon.HeaderColumn.Content.Color1 = System.Drawing.Color.White;
-            this.MondayDecorItemsDG.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.MondayDecorItemsDG.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.MondayDecorItemsDG.StateSelected.DataCell.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(177)))), ((int)(((byte)(229)))));
             this.MondayDecorItemsDG.StateSelected.DataCell.Back.Color2 = System.Drawing.Color.Transparent;
             this.MondayDecorItemsDG.StateSelected.DataCell.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
@@ -9095,7 +9095,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvClientsGroups.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvClientsGroups.BackText = "Нет данных";
-            this.dgvClientsGroups.ColumnHeadersHeight = 55;
+            this.dgvClientsGroups.ColumnHeadersHeight = 40;
             this.dgvClientsGroups.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgvClientsGroups.ColumnHeadersVisible = false;
             this.dgvClientsGroups.Location = new System.Drawing.Point(12, 117);
@@ -9104,7 +9104,7 @@
             this.dgvClientsGroups.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2010Black;
             this.dgvClientsGroups.PercentLineWidth = 0;
             this.dgvClientsGroups.RowHeadersVisible = false;
-            this.dgvClientsGroups.RowTemplate.Height = 40;
+            this.dgvClientsGroups.RowTemplate.Height = 30;
             this.dgvClientsGroups.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.dgvClientsGroups.SelectedColorStyle = Infinium.PercentageDataGrid.ColorStyle.Orange;
             this.dgvClientsGroups.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -9122,7 +9122,7 @@
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.dgvClientsGroups.StateCommon.DataCell.Content.Color1 = System.Drawing.Color.Black;
-            this.dgvClientsGroups.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.dgvClientsGroups.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.dgvClientsGroups.StateCommon.HeaderColumn.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
             this.dgvClientsGroups.StateCommon.HeaderColumn.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
             this.dgvClientsGroups.StateCommon.HeaderColumn.Border.Color1 = System.Drawing.Color.Black;
@@ -9130,7 +9130,7 @@
             this.dgvClientsGroups.StateCommon.HeaderColumn.Border.DrawBorders = ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom;
             this.dgvClientsGroups.StateCommon.HeaderColumn.Border.Width = 1;
             this.dgvClientsGroups.StateCommon.HeaderColumn.Content.Color1 = System.Drawing.Color.White;
-            this.dgvClientsGroups.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.dgvClientsGroups.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.dgvClientsGroups.StateSelected.DataCell.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(253)))), ((int)(((byte)(164)))), ((int)(((byte)(61)))));
             this.dgvClientsGroups.StateSelected.DataCell.Back.Color2 = System.Drawing.Color.Transparent;
             this.dgvClientsGroups.StateSelected.DataCell.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
@@ -9767,7 +9767,7 @@
             this.ConditionGroupsDG.AllowUserToResizeRows = false;
             this.ConditionGroupsDG.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.ConditionGroupsDG.BackText = "Нет данных";
-            this.ConditionGroupsDG.ColumnHeadersHeight = 55;
+            this.ConditionGroupsDG.ColumnHeadersHeight = 40;
             this.ConditionGroupsDG.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.ConditionGroupsDG.ColumnHeadersVisible = false;
             this.ConditionGroupsDG.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -9777,7 +9777,7 @@
             this.ConditionGroupsDG.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2010Black;
             this.ConditionGroupsDG.PercentLineWidth = 0;
             this.ConditionGroupsDG.RowHeadersVisible = false;
-            this.ConditionGroupsDG.RowTemplate.Height = 40;
+            this.ConditionGroupsDG.RowTemplate.Height = 30;
             this.ConditionGroupsDG.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.ConditionGroupsDG.SelectedColorStyle = Infinium.PercentageDataGrid.ColorStyle.Green;
             this.ConditionGroupsDG.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -10328,7 +10328,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.StoreCurvedFrontsDataGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.StoreCurvedFrontsDataGrid.BackText = "Нет данных";
-            this.StoreCurvedFrontsDataGrid.ColumnHeadersHeight = 55;
+            this.StoreCurvedFrontsDataGrid.ColumnHeadersHeight = 40;
             this.StoreCurvedFrontsDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.StoreCurvedFrontsDataGrid.Location = new System.Drawing.Point(0, 0);
             this.StoreCurvedFrontsDataGrid.MultiSelect = false;
@@ -10337,7 +10337,7 @@
             this.StoreCurvedFrontsDataGrid.PercentLineWidth = 0;
             this.StoreCurvedFrontsDataGrid.ReadOnly = true;
             this.StoreCurvedFrontsDataGrid.RowHeadersVisible = false;
-            this.StoreCurvedFrontsDataGrid.RowTemplate.Height = 40;
+            this.StoreCurvedFrontsDataGrid.RowTemplate.Height = 30;
             this.StoreCurvedFrontsDataGrid.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.StoreCurvedFrontsDataGrid.SelectedColorStyle = Infinium.PercentageDataGrid.ColorStyle.Orange;
             this.StoreCurvedFrontsDataGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -10355,7 +10355,7 @@
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.StoreCurvedFrontsDataGrid.StateCommon.DataCell.Content.Color1 = System.Drawing.Color.Black;
-            this.StoreCurvedFrontsDataGrid.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.StoreCurvedFrontsDataGrid.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.StoreCurvedFrontsDataGrid.StateCommon.HeaderColumn.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
             this.StoreCurvedFrontsDataGrid.StateCommon.HeaderColumn.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
             this.StoreCurvedFrontsDataGrid.StateCommon.HeaderColumn.Border.Color1 = System.Drawing.Color.Black;
@@ -10363,7 +10363,7 @@
             this.StoreCurvedFrontsDataGrid.StateCommon.HeaderColumn.Border.DrawBorders = ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom;
             this.StoreCurvedFrontsDataGrid.StateCommon.HeaderColumn.Border.Width = 1;
             this.StoreCurvedFrontsDataGrid.StateCommon.HeaderColumn.Content.Color1 = System.Drawing.Color.White;
-            this.StoreCurvedFrontsDataGrid.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.StoreCurvedFrontsDataGrid.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.StoreCurvedFrontsDataGrid.StateSelected.DataCell.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(253)))), ((int)(((byte)(164)))), ((int)(((byte)(61)))));
             this.StoreCurvedFrontsDataGrid.StateSelected.DataCell.Back.Color2 = System.Drawing.Color.Transparent;
             this.StoreCurvedFrontsDataGrid.StateSelected.DataCell.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
@@ -10517,7 +10517,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.StoreMCurvedFSummaryDG.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.StoreMCurvedFSummaryDG.BackText = "Нет данных";
-            this.StoreMCurvedFSummaryDG.ColumnHeadersHeight = 55;
+            this.StoreMCurvedFSummaryDG.ColumnHeadersHeight = 40;
             this.StoreMCurvedFSummaryDG.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.StoreMCurvedFSummaryDG.Location = new System.Drawing.Point(1, 0);
             this.StoreMCurvedFSummaryDG.MultiSelect = false;
@@ -10526,7 +10526,7 @@
             this.StoreMCurvedFSummaryDG.PercentLineWidth = 10;
             this.StoreMCurvedFSummaryDG.ReadOnly = true;
             this.StoreMCurvedFSummaryDG.RowHeadersVisible = false;
-            this.StoreMCurvedFSummaryDG.RowTemplate.Height = 40;
+            this.StoreMCurvedFSummaryDG.RowTemplate.Height = 30;
             this.StoreMCurvedFSummaryDG.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.StoreMCurvedFSummaryDG.SelectedColorStyle = Infinium.PercentageDataGrid.ColorStyle.Orange;
             this.StoreMCurvedFSummaryDG.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -10544,7 +10544,7 @@
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.StoreMCurvedFSummaryDG.StateCommon.DataCell.Content.Color1 = System.Drawing.Color.Black;
-            this.StoreMCurvedFSummaryDG.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.StoreMCurvedFSummaryDG.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.StoreMCurvedFSummaryDG.StateCommon.HeaderColumn.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
             this.StoreMCurvedFSummaryDG.StateCommon.HeaderColumn.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
             this.StoreMCurvedFSummaryDG.StateCommon.HeaderColumn.Border.Color1 = System.Drawing.Color.Black;
@@ -10554,7 +10554,7 @@
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.StoreMCurvedFSummaryDG.StateCommon.HeaderColumn.Border.Width = 1;
             this.StoreMCurvedFSummaryDG.StateCommon.HeaderColumn.Content.Color1 = System.Drawing.Color.White;
-            this.StoreMCurvedFSummaryDG.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.StoreMCurvedFSummaryDG.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.StoreMCurvedFSummaryDG.StateSelected.DataCell.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(253)))), ((int)(((byte)(164)))), ((int)(((byte)(61)))));
             this.StoreMCurvedFSummaryDG.StateSelected.DataCell.Back.Color2 = System.Drawing.Color.Transparent;
             this.StoreMCurvedFSummaryDG.StateSelected.DataCell.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
@@ -10573,7 +10573,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.StorePrepareCurvedFSummaryDG.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.StorePrepareCurvedFSummaryDG.BackText = "Нет данных";
-            this.StorePrepareCurvedFSummaryDG.ColumnHeadersHeight = 55;
+            this.StorePrepareCurvedFSummaryDG.ColumnHeadersHeight = 40;
             this.StorePrepareCurvedFSummaryDG.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.StorePrepareCurvedFSummaryDG.Location = new System.Drawing.Point(1, 0);
             this.StorePrepareCurvedFSummaryDG.Name = "StorePrepareCurvedFSummaryDG";
@@ -10581,7 +10581,7 @@
             this.StorePrepareCurvedFSummaryDG.PercentLineWidth = 10;
             this.StorePrepareCurvedFSummaryDG.ReadOnly = true;
             this.StorePrepareCurvedFSummaryDG.RowHeadersVisible = false;
-            this.StorePrepareCurvedFSummaryDG.RowTemplate.Height = 40;
+            this.StorePrepareCurvedFSummaryDG.RowTemplate.Height = 30;
             this.StorePrepareCurvedFSummaryDG.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.StorePrepareCurvedFSummaryDG.SelectedColorStyle = Infinium.PercentageDataGrid.ColorStyle.Orange;
             this.StorePrepareCurvedFSummaryDG.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -10599,7 +10599,7 @@
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.StorePrepareCurvedFSummaryDG.StateCommon.DataCell.Content.Color1 = System.Drawing.Color.Black;
-            this.StorePrepareCurvedFSummaryDG.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.StorePrepareCurvedFSummaryDG.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.StorePrepareCurvedFSummaryDG.StateCommon.HeaderColumn.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
             this.StorePrepareCurvedFSummaryDG.StateCommon.HeaderColumn.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
             this.StorePrepareCurvedFSummaryDG.StateCommon.HeaderColumn.Border.Color1 = System.Drawing.Color.Black;
@@ -10609,7 +10609,7 @@
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.StorePrepareCurvedFSummaryDG.StateCommon.HeaderColumn.Border.Width = 1;
             this.StorePrepareCurvedFSummaryDG.StateCommon.HeaderColumn.Content.Color1 = System.Drawing.Color.White;
-            this.StorePrepareCurvedFSummaryDG.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.StorePrepareCurvedFSummaryDG.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.StorePrepareCurvedFSummaryDG.StateSelected.DataCell.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(253)))), ((int)(((byte)(164)))), ((int)(((byte)(61)))));
             this.StorePrepareCurvedFSummaryDG.StateSelected.DataCell.Back.Color2 = System.Drawing.Color.Transparent;
             this.StorePrepareCurvedFSummaryDG.StateSelected.DataCell.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
@@ -10628,7 +10628,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.StoreZCurvedFSummaryDG.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.StoreZCurvedFSummaryDG.BackText = "Нет данных";
-            this.StoreZCurvedFSummaryDG.ColumnHeadersHeight = 55;
+            this.StoreZCurvedFSummaryDG.ColumnHeadersHeight = 40;
             this.StoreZCurvedFSummaryDG.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.StoreZCurvedFSummaryDG.Location = new System.Drawing.Point(1, 0);
             this.StoreZCurvedFSummaryDG.Name = "StoreZCurvedFSummaryDG";
@@ -10636,7 +10636,7 @@
             this.StoreZCurvedFSummaryDG.PercentLineWidth = 10;
             this.StoreZCurvedFSummaryDG.ReadOnly = true;
             this.StoreZCurvedFSummaryDG.RowHeadersVisible = false;
-            this.StoreZCurvedFSummaryDG.RowTemplate.Height = 40;
+            this.StoreZCurvedFSummaryDG.RowTemplate.Height = 30;
             this.StoreZCurvedFSummaryDG.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.StoreZCurvedFSummaryDG.SelectedColorStyle = Infinium.PercentageDataGrid.ColorStyle.Orange;
             this.StoreZCurvedFSummaryDG.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -10654,7 +10654,7 @@
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.StoreZCurvedFSummaryDG.StateCommon.DataCell.Content.Color1 = System.Drawing.Color.Black;
-            this.StoreZCurvedFSummaryDG.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.StoreZCurvedFSummaryDG.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.StoreZCurvedFSummaryDG.StateCommon.HeaderColumn.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
             this.StoreZCurvedFSummaryDG.StateCommon.HeaderColumn.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
             this.StoreZCurvedFSummaryDG.StateCommon.HeaderColumn.Border.Color1 = System.Drawing.Color.Black;
@@ -10664,7 +10664,7 @@
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.StoreZCurvedFSummaryDG.StateCommon.HeaderColumn.Border.Width = 1;
             this.StoreZCurvedFSummaryDG.StateCommon.HeaderColumn.Content.Color1 = System.Drawing.Color.White;
-            this.StoreZCurvedFSummaryDG.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.StoreZCurvedFSummaryDG.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.StoreZCurvedFSummaryDG.StateSelected.DataCell.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(253)))), ((int)(((byte)(164)))), ((int)(((byte)(61)))));
             this.StoreZCurvedFSummaryDG.StateSelected.DataCell.Back.Color2 = System.Drawing.Color.Transparent;
             this.StoreZCurvedFSummaryDG.StateSelected.DataCell.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
@@ -12954,7 +12954,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.ExpFrontsDataGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.ExpFrontsDataGrid.BackText = "Нет данных";
-            this.ExpFrontsDataGrid.ColumnHeadersHeight = 55;
+            this.ExpFrontsDataGrid.ColumnHeadersHeight = 40;
             this.ExpFrontsDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.ExpFrontsDataGrid.Location = new System.Drawing.Point(0, 0);
             this.ExpFrontsDataGrid.MultiSelect = false;
@@ -12963,7 +12963,7 @@
             this.ExpFrontsDataGrid.PercentLineWidth = 0;
             this.ExpFrontsDataGrid.ReadOnly = true;
             this.ExpFrontsDataGrid.RowHeadersVisible = false;
-            this.ExpFrontsDataGrid.RowTemplate.Height = 40;
+            this.ExpFrontsDataGrid.RowTemplate.Height = 30;
             this.ExpFrontsDataGrid.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.ExpFrontsDataGrid.SelectedColorStyle = Infinium.PercentageDataGrid.ColorStyle.Orange;
             this.ExpFrontsDataGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -12981,7 +12981,7 @@
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.ExpFrontsDataGrid.StateCommon.DataCell.Content.Color1 = System.Drawing.Color.Black;
-            this.ExpFrontsDataGrid.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.ExpFrontsDataGrid.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.ExpFrontsDataGrid.StateCommon.HeaderColumn.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
             this.ExpFrontsDataGrid.StateCommon.HeaderColumn.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
             this.ExpFrontsDataGrid.StateCommon.HeaderColumn.Border.Color1 = System.Drawing.Color.Black;
@@ -12989,7 +12989,7 @@
             this.ExpFrontsDataGrid.StateCommon.HeaderColumn.Border.DrawBorders = ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom;
             this.ExpFrontsDataGrid.StateCommon.HeaderColumn.Border.Width = 1;
             this.ExpFrontsDataGrid.StateCommon.HeaderColumn.Content.Color1 = System.Drawing.Color.White;
-            this.ExpFrontsDataGrid.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.ExpFrontsDataGrid.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.ExpFrontsDataGrid.StateSelected.DataCell.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(253)))), ((int)(((byte)(164)))), ((int)(((byte)(61)))));
             this.ExpFrontsDataGrid.StateSelected.DataCell.Back.Color2 = System.Drawing.Color.Transparent;
             this.ExpFrontsDataGrid.StateSelected.DataCell.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
@@ -13208,7 +13208,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.ExpMFSummaryDG.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.ExpMFSummaryDG.BackText = "Нет данных";
-            this.ExpMFSummaryDG.ColumnHeadersHeight = 55;
+            this.ExpMFSummaryDG.ColumnHeadersHeight = 40;
             this.ExpMFSummaryDG.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.ExpMFSummaryDG.Location = new System.Drawing.Point(1, 0);
             this.ExpMFSummaryDG.MultiSelect = false;
@@ -13217,7 +13217,7 @@
             this.ExpMFSummaryDG.PercentLineWidth = 10;
             this.ExpMFSummaryDG.ReadOnly = true;
             this.ExpMFSummaryDG.RowHeadersVisible = false;
-            this.ExpMFSummaryDG.RowTemplate.Height = 40;
+            this.ExpMFSummaryDG.RowTemplate.Height = 30;
             this.ExpMFSummaryDG.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.ExpMFSummaryDG.SelectedColorStyle = Infinium.PercentageDataGrid.ColorStyle.Orange;
             this.ExpMFSummaryDG.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -13235,7 +13235,7 @@
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.ExpMFSummaryDG.StateCommon.DataCell.Content.Color1 = System.Drawing.Color.Black;
-            this.ExpMFSummaryDG.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.ExpMFSummaryDG.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.ExpMFSummaryDG.StateCommon.HeaderColumn.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
             this.ExpMFSummaryDG.StateCommon.HeaderColumn.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
             this.ExpMFSummaryDG.StateCommon.HeaderColumn.Border.Color1 = System.Drawing.Color.Black;
@@ -13245,7 +13245,7 @@
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.ExpMFSummaryDG.StateCommon.HeaderColumn.Border.Width = 1;
             this.ExpMFSummaryDG.StateCommon.HeaderColumn.Content.Color1 = System.Drawing.Color.White;
-            this.ExpMFSummaryDG.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.ExpMFSummaryDG.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.ExpMFSummaryDG.StateSelected.DataCell.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(253)))), ((int)(((byte)(164)))), ((int)(((byte)(61)))));
             this.ExpMFSummaryDG.StateSelected.DataCell.Back.Color2 = System.Drawing.Color.Transparent;
             this.ExpMFSummaryDG.StateSelected.DataCell.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
@@ -13265,7 +13265,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.ExpPrepareFSummaryDG.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.ExpPrepareFSummaryDG.BackText = "Нет данных";
-            this.ExpPrepareFSummaryDG.ColumnHeadersHeight = 55;
+            this.ExpPrepareFSummaryDG.ColumnHeadersHeight = 40;
             this.ExpPrepareFSummaryDG.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.ExpPrepareFSummaryDG.Location = new System.Drawing.Point(1, 0);
             this.ExpPrepareFSummaryDG.Name = "ExpPrepareFSummaryDG";
@@ -13273,7 +13273,7 @@
             this.ExpPrepareFSummaryDG.PercentLineWidth = 10;
             this.ExpPrepareFSummaryDG.ReadOnly = true;
             this.ExpPrepareFSummaryDG.RowHeadersVisible = false;
-            this.ExpPrepareFSummaryDG.RowTemplate.Height = 40;
+            this.ExpPrepareFSummaryDG.RowTemplate.Height = 30;
             this.ExpPrepareFSummaryDG.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.ExpPrepareFSummaryDG.SelectedColorStyle = Infinium.PercentageDataGrid.ColorStyle.Orange;
             this.ExpPrepareFSummaryDG.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -13291,7 +13291,7 @@
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.ExpPrepareFSummaryDG.StateCommon.DataCell.Content.Color1 = System.Drawing.Color.Black;
-            this.ExpPrepareFSummaryDG.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.ExpPrepareFSummaryDG.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.ExpPrepareFSummaryDG.StateCommon.HeaderColumn.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
             this.ExpPrepareFSummaryDG.StateCommon.HeaderColumn.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
             this.ExpPrepareFSummaryDG.StateCommon.HeaderColumn.Border.Color1 = System.Drawing.Color.Black;
@@ -13301,7 +13301,7 @@
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.ExpPrepareFSummaryDG.StateCommon.HeaderColumn.Border.Width = 1;
             this.ExpPrepareFSummaryDG.StateCommon.HeaderColumn.Content.Color1 = System.Drawing.Color.White;
-            this.ExpPrepareFSummaryDG.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.ExpPrepareFSummaryDG.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.ExpPrepareFSummaryDG.StateSelected.DataCell.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(253)))), ((int)(((byte)(164)))), ((int)(((byte)(61)))));
             this.ExpPrepareFSummaryDG.StateSelected.DataCell.Back.Color2 = System.Drawing.Color.Transparent;
             this.ExpPrepareFSummaryDG.StateSelected.DataCell.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
@@ -13320,7 +13320,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.ExpZFSummaryDG.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.ExpZFSummaryDG.BackText = "Нет данных";
-            this.ExpZFSummaryDG.ColumnHeadersHeight = 55;
+            this.ExpZFSummaryDG.ColumnHeadersHeight = 40;
             this.ExpZFSummaryDG.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.ExpZFSummaryDG.Location = new System.Drawing.Point(1, 0);
             this.ExpZFSummaryDG.Name = "ExpZFSummaryDG";
@@ -13328,7 +13328,7 @@
             this.ExpZFSummaryDG.PercentLineWidth = 10;
             this.ExpZFSummaryDG.ReadOnly = true;
             this.ExpZFSummaryDG.RowHeadersVisible = false;
-            this.ExpZFSummaryDG.RowTemplate.Height = 40;
+            this.ExpZFSummaryDG.RowTemplate.Height = 30;
             this.ExpZFSummaryDG.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.ExpZFSummaryDG.SelectedColorStyle = Infinium.PercentageDataGrid.ColorStyle.Orange;
             this.ExpZFSummaryDG.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -13346,7 +13346,7 @@
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.ExpZFSummaryDG.StateCommon.DataCell.Content.Color1 = System.Drawing.Color.Black;
-            this.ExpZFSummaryDG.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.ExpZFSummaryDG.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.ExpZFSummaryDG.StateCommon.HeaderColumn.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
             this.ExpZFSummaryDG.StateCommon.HeaderColumn.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
             this.ExpZFSummaryDG.StateCommon.HeaderColumn.Border.Color1 = System.Drawing.Color.Black;
@@ -13356,7 +13356,7 @@
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.ExpZFSummaryDG.StateCommon.HeaderColumn.Border.Width = 1;
             this.ExpZFSummaryDG.StateCommon.HeaderColumn.Content.Color1 = System.Drawing.Color.White;
-            this.ExpZFSummaryDG.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.ExpZFSummaryDG.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.ExpZFSummaryDG.StateSelected.DataCell.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(253)))), ((int)(((byte)(164)))), ((int)(((byte)(61)))));
             this.ExpZFSummaryDG.StateSelected.DataCell.Back.Color2 = System.Drawing.Color.Transparent;
             this.ExpZFSummaryDG.StateSelected.DataCell.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
@@ -13489,7 +13489,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.ExpMDSummaryDG.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.ExpMDSummaryDG.BackText = "Нет данных";
-            this.ExpMDSummaryDG.ColumnHeadersHeight = 55;
+            this.ExpMDSummaryDG.ColumnHeadersHeight = 40;
             this.ExpMDSummaryDG.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.ExpMDSummaryDG.Location = new System.Drawing.Point(1, 0);
             this.ExpMDSummaryDG.Name = "ExpMDSummaryDG";
@@ -13497,7 +13497,7 @@
             this.ExpMDSummaryDG.PercentLineWidth = 10;
             this.ExpMDSummaryDG.ReadOnly = true;
             this.ExpMDSummaryDG.RowHeadersVisible = false;
-            this.ExpMDSummaryDG.RowTemplate.Height = 40;
+            this.ExpMDSummaryDG.RowTemplate.Height = 30;
             this.ExpMDSummaryDG.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.ExpMDSummaryDG.SelectedColorStyle = Infinium.PercentageDataGrid.ColorStyle.Orange;
             this.ExpMDSummaryDG.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -13515,7 +13515,7 @@
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.ExpMDSummaryDG.StateCommon.DataCell.Content.Color1 = System.Drawing.Color.Black;
-            this.ExpMDSummaryDG.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.ExpMDSummaryDG.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.ExpMDSummaryDG.StateCommon.HeaderColumn.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
             this.ExpMDSummaryDG.StateCommon.HeaderColumn.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
             this.ExpMDSummaryDG.StateCommon.HeaderColumn.Border.Color1 = System.Drawing.Color.Black;
@@ -13525,7 +13525,7 @@
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.ExpMDSummaryDG.StateCommon.HeaderColumn.Border.Width = 1;
             this.ExpMDSummaryDG.StateCommon.HeaderColumn.Content.Color1 = System.Drawing.Color.White;
-            this.ExpMDSummaryDG.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.ExpMDSummaryDG.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.ExpMDSummaryDG.StateSelected.DataCell.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(253)))), ((int)(((byte)(164)))), ((int)(((byte)(61)))));
             this.ExpMDSummaryDG.StateSelected.DataCell.Back.Color2 = System.Drawing.Color.Transparent;
             this.ExpMDSummaryDG.StateSelected.DataCell.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
@@ -13575,7 +13575,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.ExpPrepareDSummaryDG.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.ExpPrepareDSummaryDG.BackText = "Нет данных";
-            this.ExpPrepareDSummaryDG.ColumnHeadersHeight = 55;
+            this.ExpPrepareDSummaryDG.ColumnHeadersHeight = 40;
             this.ExpPrepareDSummaryDG.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.ExpPrepareDSummaryDG.Location = new System.Drawing.Point(1, 0);
             this.ExpPrepareDSummaryDG.Name = "ExpPrepareDSummaryDG";
@@ -13583,7 +13583,7 @@
             this.ExpPrepareDSummaryDG.PercentLineWidth = 10;
             this.ExpPrepareDSummaryDG.ReadOnly = true;
             this.ExpPrepareDSummaryDG.RowHeadersVisible = false;
-            this.ExpPrepareDSummaryDG.RowTemplate.Height = 40;
+            this.ExpPrepareDSummaryDG.RowTemplate.Height = 30;
             this.ExpPrepareDSummaryDG.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.ExpPrepareDSummaryDG.SelectedColorStyle = Infinium.PercentageDataGrid.ColorStyle.Orange;
             this.ExpPrepareDSummaryDG.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -13601,7 +13601,7 @@
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.ExpPrepareDSummaryDG.StateCommon.DataCell.Content.Color1 = System.Drawing.Color.Black;
-            this.ExpPrepareDSummaryDG.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.ExpPrepareDSummaryDG.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.ExpPrepareDSummaryDG.StateCommon.HeaderColumn.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
             this.ExpPrepareDSummaryDG.StateCommon.HeaderColumn.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
             this.ExpPrepareDSummaryDG.StateCommon.HeaderColumn.Border.Color1 = System.Drawing.Color.Black;
@@ -13611,7 +13611,7 @@
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.ExpPrepareDSummaryDG.StateCommon.HeaderColumn.Border.Width = 1;
             this.ExpPrepareDSummaryDG.StateCommon.HeaderColumn.Content.Color1 = System.Drawing.Color.White;
-            this.ExpPrepareDSummaryDG.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.ExpPrepareDSummaryDG.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.ExpPrepareDSummaryDG.StateSelected.DataCell.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(253)))), ((int)(((byte)(164)))), ((int)(((byte)(61)))));
             this.ExpPrepareDSummaryDG.StateSelected.DataCell.Back.Color2 = System.Drawing.Color.Transparent;
             this.ExpPrepareDSummaryDG.StateSelected.DataCell.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
@@ -13630,7 +13630,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.ExpZDSummaryDG.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.ExpZDSummaryDG.BackText = "Нет данных";
-            this.ExpZDSummaryDG.ColumnHeadersHeight = 55;
+            this.ExpZDSummaryDG.ColumnHeadersHeight = 40;
             this.ExpZDSummaryDG.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.ExpZDSummaryDG.Location = new System.Drawing.Point(1, 0);
             this.ExpZDSummaryDG.Name = "ExpZDSummaryDG";
@@ -13638,7 +13638,7 @@
             this.ExpZDSummaryDG.PercentLineWidth = 10;
             this.ExpZDSummaryDG.ReadOnly = true;
             this.ExpZDSummaryDG.RowHeadersVisible = false;
-            this.ExpZDSummaryDG.RowTemplate.Height = 40;
+            this.ExpZDSummaryDG.RowTemplate.Height = 30;
             this.ExpZDSummaryDG.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.ExpZDSummaryDG.SelectedColorStyle = Infinium.PercentageDataGrid.ColorStyle.Orange;
             this.ExpZDSummaryDG.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -13656,7 +13656,7 @@
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.ExpZDSummaryDG.StateCommon.DataCell.Content.Color1 = System.Drawing.Color.Black;
-            this.ExpZDSummaryDG.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.ExpZDSummaryDG.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.ExpZDSummaryDG.StateCommon.HeaderColumn.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
             this.ExpZDSummaryDG.StateCommon.HeaderColumn.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
             this.ExpZDSummaryDG.StateCommon.HeaderColumn.Border.Color1 = System.Drawing.Color.Black;
@@ -13666,7 +13666,7 @@
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.ExpZDSummaryDG.StateCommon.HeaderColumn.Border.Width = 1;
             this.ExpZDSummaryDG.StateCommon.HeaderColumn.Content.Color1 = System.Drawing.Color.White;
-            this.ExpZDSummaryDG.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.ExpZDSummaryDG.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.ExpZDSummaryDG.StateSelected.DataCell.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(253)))), ((int)(((byte)(164)))), ((int)(((byte)(61)))));
             this.ExpZDSummaryDG.StateSelected.DataCell.Back.Color2 = System.Drawing.Color.Transparent;
             this.ExpZDSummaryDG.StateSelected.DataCell.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
@@ -13769,7 +13769,7 @@
             this.ExpDecorProductsDataGrid.AllowUserToResizeRows = false;
             this.ExpDecorProductsDataGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.ExpDecorProductsDataGrid.BackText = "Нет данных";
-            this.ExpDecorProductsDataGrid.ColumnHeadersHeight = 55;
+            this.ExpDecorProductsDataGrid.ColumnHeadersHeight = 40;
             this.ExpDecorProductsDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.ExpDecorProductsDataGrid.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ExpDecorProductsDataGrid.Location = new System.Drawing.Point(0, 0);
@@ -13779,7 +13779,7 @@
             this.ExpDecorProductsDataGrid.PercentLineWidth = 0;
             this.ExpDecorProductsDataGrid.ReadOnly = true;
             this.ExpDecorProductsDataGrid.RowHeadersVisible = false;
-            this.ExpDecorProductsDataGrid.RowTemplate.Height = 40;
+            this.ExpDecorProductsDataGrid.RowTemplate.Height = 30;
             this.ExpDecorProductsDataGrid.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.ExpDecorProductsDataGrid.SelectedColorStyle = Infinium.PercentageDataGrid.ColorStyle.Blue;
             this.ExpDecorProductsDataGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -13797,7 +13797,7 @@
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.ExpDecorProductsDataGrid.StateCommon.DataCell.Content.Color1 = System.Drawing.Color.Black;
-            this.ExpDecorProductsDataGrid.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.ExpDecorProductsDataGrid.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.ExpDecorProductsDataGrid.StateCommon.HeaderColumn.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
             this.ExpDecorProductsDataGrid.StateCommon.HeaderColumn.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
             this.ExpDecorProductsDataGrid.StateCommon.HeaderColumn.Border.Color1 = System.Drawing.Color.Black;
@@ -13805,7 +13805,7 @@
             this.ExpDecorProductsDataGrid.StateCommon.HeaderColumn.Border.DrawBorders = ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom;
             this.ExpDecorProductsDataGrid.StateCommon.HeaderColumn.Border.Width = 1;
             this.ExpDecorProductsDataGrid.StateCommon.HeaderColumn.Content.Color1 = System.Drawing.Color.White;
-            this.ExpDecorProductsDataGrid.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.ExpDecorProductsDataGrid.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.ExpDecorProductsDataGrid.StateSelected.DataCell.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(177)))), ((int)(((byte)(229)))));
             this.ExpDecorProductsDataGrid.StateSelected.DataCell.Back.Color2 = System.Drawing.Color.Transparent;
             this.ExpDecorProductsDataGrid.StateSelected.DataCell.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
@@ -13968,7 +13968,7 @@
             this.ExpDecorItemsDataGrid.AllowUserToResizeRows = false;
             this.ExpDecorItemsDataGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.ExpDecorItemsDataGrid.BackText = "Нет данных";
-            this.ExpDecorItemsDataGrid.ColumnHeadersHeight = 55;
+            this.ExpDecorItemsDataGrid.ColumnHeadersHeight = 40;
             this.ExpDecorItemsDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.ExpDecorItemsDataGrid.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ExpDecorItemsDataGrid.Location = new System.Drawing.Point(1, 0);
@@ -13978,7 +13978,7 @@
             this.ExpDecorItemsDataGrid.PercentLineWidth = 0;
             this.ExpDecorItemsDataGrid.ReadOnly = true;
             this.ExpDecorItemsDataGrid.RowHeadersVisible = false;
-            this.ExpDecorItemsDataGrid.RowTemplate.Height = 40;
+            this.ExpDecorItemsDataGrid.RowTemplate.Height = 30;
             this.ExpDecorItemsDataGrid.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.ExpDecorItemsDataGrid.SelectedColorStyle = Infinium.PercentageDataGrid.ColorStyle.Blue;
             this.ExpDecorItemsDataGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -13996,7 +13996,7 @@
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.ExpDecorItemsDataGrid.StateCommon.DataCell.Content.Color1 = System.Drawing.Color.Black;
-            this.ExpDecorItemsDataGrid.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.ExpDecorItemsDataGrid.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.ExpDecorItemsDataGrid.StateCommon.HeaderColumn.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
             this.ExpDecorItemsDataGrid.StateCommon.HeaderColumn.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
             this.ExpDecorItemsDataGrid.StateCommon.HeaderColumn.Border.Color1 = System.Drawing.Color.Black;
@@ -14004,7 +14004,7 @@
             this.ExpDecorItemsDataGrid.StateCommon.HeaderColumn.Border.DrawBorders = ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom;
             this.ExpDecorItemsDataGrid.StateCommon.HeaderColumn.Border.Width = 1;
             this.ExpDecorItemsDataGrid.StateCommon.HeaderColumn.Content.Color1 = System.Drawing.Color.White;
-            this.ExpDecorItemsDataGrid.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.ExpDecorItemsDataGrid.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.ExpDecorItemsDataGrid.StateSelected.DataCell.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(177)))), ((int)(((byte)(229)))));
             this.ExpDecorItemsDataGrid.StateSelected.DataCell.Back.Color2 = System.Drawing.Color.Transparent;
             this.ExpDecorItemsDataGrid.StateSelected.DataCell.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;

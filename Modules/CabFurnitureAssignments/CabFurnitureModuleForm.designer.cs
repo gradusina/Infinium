@@ -4219,7 +4219,7 @@
             this.dgvScan.AllowUserToResizeRows = false;
             this.dgvScan.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvScan.BackText = "Нет данных";
-            this.dgvScan.ColumnHeadersHeight = 55;
+            this.dgvScan.ColumnHeadersHeight = 40;
             this.dgvScan.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgvScan.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvScan.Location = new System.Drawing.Point(0, 0);
@@ -4228,7 +4228,7 @@
             this.dgvScan.PercentLineWidth = 0;
             this.dgvScan.ReadOnly = true;
             this.dgvScan.RowHeadersVisible = false;
-            this.dgvScan.RowTemplate.Height = 40;
+            this.dgvScan.RowTemplate.Height = 30;
             this.dgvScan.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.dgvScan.SelectedColorStyle = Infinium.PercentageDataGrid.ColorStyle.Blue;
             this.dgvScan.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -4246,7 +4246,7 @@
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.dgvScan.StateCommon.DataCell.Content.Color1 = System.Drawing.Color.Black;
-            this.dgvScan.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.dgvScan.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.dgvScan.StateCommon.HeaderColumn.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
             this.dgvScan.StateCommon.HeaderColumn.Back.Color2 = System.Drawing.Color.Transparent;
             this.dgvScan.StateCommon.HeaderColumn.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
@@ -4257,7 +4257,7 @@
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.dgvScan.StateCommon.HeaderColumn.Border.Width = 1;
             this.dgvScan.StateCommon.HeaderColumn.Content.Color1 = System.Drawing.Color.White;
-            this.dgvScan.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.dgvScan.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.dgvScan.StateCommon.HeaderColumn.Content.MultiLine = ComponentFactory.Krypton.Toolkit.InheritBool.True;
             this.dgvScan.StateCommon.HeaderColumn.Content.MultiLineH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
             this.dgvScan.StateCommon.HeaderColumn.Content.TextH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;

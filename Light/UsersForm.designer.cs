@@ -457,7 +457,7 @@
             this.DepartmentsDataGrid.AllowUserToResizeRows = false;
             this.DepartmentsDataGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.DepartmentsDataGrid.BackText = "Нет данных";
-            this.DepartmentsDataGrid.ColumnHeadersHeight = 55;
+            this.DepartmentsDataGrid.ColumnHeadersHeight = 40;
             this.DepartmentsDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.DepartmentsDataGrid.ColumnHeadersVisible = false;
             this.DepartmentsDataGrid.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -468,7 +468,7 @@
             this.DepartmentsDataGrid.PercentLineWidth = 0;
             this.DepartmentsDataGrid.ReadOnly = true;
             this.DepartmentsDataGrid.RowHeadersVisible = false;
-            this.DepartmentsDataGrid.RowTemplate.Height = 40;
+            this.DepartmentsDataGrid.RowTemplate.Height = 30;
             this.DepartmentsDataGrid.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.DepartmentsDataGrid.SelectedColorStyle = Infinium.PercentageDataGrid.ColorStyle.Green;
             this.DepartmentsDataGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;

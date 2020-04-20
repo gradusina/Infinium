@@ -45,6 +45,34 @@ namespace Infinium
             Director = 3
         }
 
+        public SamplesOrdersForm()
+        {
+            InitializeComponent();
+
+            this.MaximumSize = Screen.PrimaryScreen.WorkingArea.Size;
+
+            Initialize();
+
+            RolePermissionsDataTable = OrdersManager.GetPermissions(Security.CurrentUserID, this.Name);
+
+            //if (!PermissionGranted(iMarketing) && !PermissionGranted(iDirector) && !PermissionGranted(iAdmin))
+            //{
+            //    tableLayoutPanel1.Height = this.Height - NavigatePanel.Height - 10;
+            //}
+            //if (PermissionGranted(iMarketing))
+            //{
+            //    RoleType = RoleTypes.Marketing;
+            //}
+            //if (PermissionGranted(iAdmin))
+            //{
+            //    RoleType = RoleTypes.Admin;
+            //}
+            //if (PermissionGranted(iDirector))
+            //{
+            //    RoleType = RoleTypes.Director;
+            //}
+        }
+
         public SamplesOrdersForm(LightStartForm tLightStartForm)
         {
             InitializeComponent();
@@ -234,6 +262,8 @@ namespace Infinium
                 dgvMainOrders.Columns["FirmType"].Visible = false;
             if (dgvMainOrders.Columns.Contains("ClientID"))
                 dgvMainOrders.Columns["ClientID"].Visible = false;
+            if (dgvMainOrders.Columns.Contains("MainOrderID"))
+                dgvMainOrders.Columns["MainOrderID"].Visible = false;
 
             dgvMainOrders.Columns["ClientName"].HeaderText = "Клиент";
             dgvMainOrders.Columns["OrderNumber"].HeaderText = "№ заказа";
@@ -286,7 +316,7 @@ namespace Infinium
             dgvMainOrders.AutoGenerateColumns = false;
             dgvMainOrders.Columns["Description"].ReadOnly = false;
             dgvMainOrders.Columns["ShopAddresses"].DefaultCellStyle.ForeColor = Color.Blue;
-            dgvMainOrders.Columns["ShopAddresses"].DefaultCellStyle.Font = new System.Drawing.Font("SEGOE UI", 15.0F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            dgvMainOrders.Columns["ShopAddresses"].DefaultCellStyle.Font = new System.Drawing.Font("SEGOE UI", 13.0F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
         }
 
         private void MainOrdersDataGrid_SelectionChanged(object sender, EventArgs e)
@@ -748,18 +778,40 @@ namespace Infinium
 
         private void dgvMainOrders_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex > -1 && dgvMainOrders.Columns[e.ColumnIndex].Name == "ShopAddresses" && dgvMainOrders.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString().Length > 0)
+            if (e.RowIndex > -1 && dgvMainOrders.Columns[e.ColumnIndex].Name == "ShopAddresses"
+                                && dgvMainOrders.Rows[e.RowIndex].Cells[e.ColumnIndex].Value != null
+                                && dgvMainOrders.Rows[e.RowIndex].Cells[e.ColumnIndex].Value != DBNull.Value
+                                && dgvMainOrders.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString().Length > 0)
             {
-                PhantomForm PhantomForm = new Infinium.PhantomForm();
-                PhantomForm.Show();
-                ShowShopAddressesForm ShowShopAddressesForm = new ShowShopAddressesForm(this, OrdersManager,
-                    Convert.ToInt32(dgvMainOrders.SelectedRows[0].Cells["FirmType"].Value), Convert.ToInt32(dgvMainOrders.SelectedRows[0].Cells["ClientID"].Value));
-                TopForm = ShowShopAddressesForm;
-                ShowShopAddressesForm.ShowDialog();
-                PhantomForm.Close();
-                PhantomForm.Dispose();
-                ShowShopAddressesForm.Dispose();
-                TopForm = null;
+                int FirmType = Convert.ToInt32(dgvMainOrders.SelectedRows[0].Cells["FirmType"].Value);
+                if (FirmType == 1)
+                {
+                    PhantomForm PhantomForm = new Infinium.PhantomForm();
+                    PhantomForm.Show();
+                    MarketShopAddressesForm ShopAddressesForm = new MarketShopAddressesForm(this, OrdersManager,
+                        FirmType, Convert.ToInt32(dgvMainOrders.SelectedRows[0].Cells["ClientID"].Value));
+                    TopForm = ShopAddressesForm;
+                    ShopAddressesForm.ShowDialog();
+                    PhantomForm.Close();
+                    PhantomForm.Dispose();
+                    ShopAddressesForm.Dispose();
+                    TopForm = null;
+                }
+                if (FirmType == 0)
+                {
+                    int ClientID = Convert.ToInt32(dgvMainOrders.SelectedRows[0].Cells["ClientID"].Value);
+                    int MainOrderID = Convert.ToInt32(dgvMainOrders.SelectedRows[0].Cells["MainOrderID"].Value);
+
+                    PhantomForm PhantomForm = new Infinium.PhantomForm();
+                    PhantomForm.Show();
+                    ZOVShopAddressesForm ShopAddressesForm = new ZOVShopAddressesForm(this, ClientID, MainOrderID);
+                    TopForm = ShopAddressesForm;
+                    ShopAddressesForm.ShowDialog();
+                    PhantomForm.Close();
+                    PhantomForm.Dispose();
+                    ShopAddressesForm.Dispose();
+                    TopForm = null;
+                }
             }
         }
     }

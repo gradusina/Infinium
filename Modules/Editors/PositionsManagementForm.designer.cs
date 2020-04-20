@@ -355,7 +355,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.UsersGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.UsersGrid.BackText = "Нет данных";
-            this.UsersGrid.ColumnHeadersHeight = 55;
+            this.UsersGrid.ColumnHeadersHeight = 40;
             this.UsersGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.UsersGrid.Location = new System.Drawing.Point(1, 1);
             this.UsersGrid.MultiSelect = false;
@@ -363,7 +363,7 @@
             this.UsersGrid.PercentLineWidth = 0;
             this.UsersGrid.ReadOnly = true;
             this.UsersGrid.RowHeadersVisible = false;
-            this.UsersGrid.RowTemplate.Height = 40;
+            this.UsersGrid.RowTemplate.Height = 30;
             this.UsersGrid.SelectedColorStyle = Infinium.PercentageDataGrid.ColorStyle.Orange;
             this.UsersGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.UsersGrid.Size = new System.Drawing.Size(901, 467);
@@ -378,7 +378,7 @@
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.UsersGrid.StateCommon.DataCell.Content.Color1 = System.Drawing.Color.Black;
-            this.UsersGrid.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.UsersGrid.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.UsersGrid.StateCommon.HeaderColumn.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
             this.UsersGrid.StateCommon.HeaderColumn.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
             this.UsersGrid.StateCommon.HeaderColumn.Border.Color1 = System.Drawing.Color.Black;
@@ -387,7 +387,7 @@
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.UsersGrid.StateCommon.HeaderColumn.Content.Color1 = System.Drawing.Color.White;
-            this.UsersGrid.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.UsersGrid.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.UsersGrid.StateSelected.DataCell.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(253)))), ((int)(((byte)(164)))), ((int)(((byte)(61)))));
             this.UsersGrid.StateSelected.DataCell.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
             this.UsersGrid.StateSelected.DataCell.Content.Color1 = System.Drawing.Color.White;
@@ -504,7 +504,7 @@
             this.PositionsDataGrid.AllowUserToResizeRows = false;
             this.PositionsDataGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.PositionsDataGrid.BackText = "Нет данных";
-            this.PositionsDataGrid.ColumnHeadersHeight = 55;
+            this.PositionsDataGrid.ColumnHeadersHeight = 40;
             this.PositionsDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.PositionsDataGrid.ColumnHeadersVisible = false;
             this.PositionsDataGrid.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -515,7 +515,7 @@
             this.PositionsDataGrid.PercentLineWidth = 0;
             this.PositionsDataGrid.ReadOnly = true;
             this.PositionsDataGrid.RowHeadersVisible = false;
-            this.PositionsDataGrid.RowTemplate.Height = 40;
+            this.PositionsDataGrid.RowTemplate.Height = 30;
             this.PositionsDataGrid.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.PositionsDataGrid.SelectedColorStyle = Infinium.PercentageDataGrid.ColorStyle.Green;
             this.PositionsDataGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;

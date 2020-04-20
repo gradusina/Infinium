@@ -282,13 +282,13 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.NewItemsDataGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.NewItemsDataGrid.BackText = "Нет данных";
-            this.NewItemsDataGrid.ColumnHeadersHeight = 55;
+            this.NewItemsDataGrid.ColumnHeadersHeight = 40;
             this.NewItemsDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.NewItemsDataGrid.Location = new System.Drawing.Point(0, -1);
             this.NewItemsDataGrid.Name = "NewItemsDataGrid";
             this.NewItemsDataGrid.PercentLineWidth = 0;
             this.NewItemsDataGrid.RowHeadersVisible = false;
-            this.NewItemsDataGrid.RowTemplate.Height = 40;
+            this.NewItemsDataGrid.RowTemplate.Height = 30;
             this.NewItemsDataGrid.SelectedColorStyle = Infinium.PercentageDataGrid.ColorStyle.Green;
             this.NewItemsDataGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.NewItemsDataGrid.Size = new System.Drawing.Size(1226, 574);

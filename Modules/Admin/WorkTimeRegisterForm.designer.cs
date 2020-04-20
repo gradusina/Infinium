@@ -485,7 +485,7 @@
             this.WorkDaysGrid.AllowUserToResizeRows = false;
             this.WorkDaysGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.WorkDaysGrid.BackText = "Нет данных";
-            this.WorkDaysGrid.ColumnHeadersHeight = 55;
+            this.WorkDaysGrid.ColumnHeadersHeight = 40;
             this.WorkDaysGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.WorkDaysGrid.Dock = System.Windows.Forms.DockStyle.Fill;
             this.WorkDaysGrid.Location = new System.Drawing.Point(0, 0);
@@ -494,7 +494,7 @@
             this.WorkDaysGrid.PercentLineWidth = 0;
             this.WorkDaysGrid.ReadOnly = true;
             this.WorkDaysGrid.RowHeadersVisible = false;
-            this.WorkDaysGrid.RowTemplate.Height = 40;
+            this.WorkDaysGrid.RowTemplate.Height = 30;
             this.WorkDaysGrid.SelectedColorStyle = Infinium.PercentageDataGrid.ColorStyle.Orange;
             this.WorkDaysGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.WorkDaysGrid.Size = new System.Drawing.Size(1229, 605);
@@ -509,7 +509,7 @@
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.WorkDaysGrid.StateCommon.DataCell.Content.Color1 = System.Drawing.Color.Black;
-            this.WorkDaysGrid.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.WorkDaysGrid.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.WorkDaysGrid.StateCommon.HeaderColumn.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
             this.WorkDaysGrid.StateCommon.HeaderColumn.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
             this.WorkDaysGrid.StateCommon.HeaderColumn.Border.Color1 = System.Drawing.Color.Black;
@@ -517,7 +517,7 @@
             this.WorkDaysGrid.StateCommon.HeaderColumn.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)(((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.WorkDaysGrid.StateCommon.HeaderColumn.Content.Color1 = System.Drawing.Color.White;
-            this.WorkDaysGrid.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.WorkDaysGrid.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.WorkDaysGrid.StateSelected.DataCell.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(253)))), ((int)(((byte)(164)))), ((int)(((byte)(61)))));
             this.WorkDaysGrid.StateSelected.DataCell.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
             this.WorkDaysGrid.StateSelected.DataCell.Content.Color1 = System.Drawing.Color.White;
@@ -957,7 +957,7 @@
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.ProdSheduleDataGrid.StateCommon.DataCell.Content.Color1 = System.Drawing.Color.Black;
-            this.ProdSheduleDataGrid.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.ProdSheduleDataGrid.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.ProdSheduleDataGrid.StateCommon.HeaderColumn.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
             this.ProdSheduleDataGrid.StateCommon.HeaderColumn.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
             this.ProdSheduleDataGrid.StateCommon.HeaderColumn.Border.Color1 = System.Drawing.Color.Black;
@@ -1261,7 +1261,7 @@
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.absencesDataGrid.StateCommon.DataCell.Content.Color1 = System.Drawing.Color.Black;
-            this.absencesDataGrid.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.absencesDataGrid.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.absencesDataGrid.StateCommon.HeaderColumn.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
             this.absencesDataGrid.StateCommon.HeaderColumn.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
             this.absencesDataGrid.StateCommon.HeaderColumn.Border.Color1 = System.Drawing.Color.Black;

@@ -214,7 +214,7 @@
             this.SelectDateDataGrid.AllowUserToResizeRows = false;
             this.SelectDateDataGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.SelectDateDataGrid.BackText = "Нет данных";
-            this.SelectDateDataGrid.ColumnHeadersHeight = 55;
+            this.SelectDateDataGrid.ColumnHeadersHeight = 40;
             this.SelectDateDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.SelectDateDataGrid.Dock = System.Windows.Forms.DockStyle.Fill;
             this.SelectDateDataGrid.Location = new System.Drawing.Point(0, 0);
@@ -224,7 +224,7 @@
             this.SelectDateDataGrid.PercentLineWidth = 0;
             this.SelectDateDataGrid.ReadOnly = true;
             this.SelectDateDataGrid.RowHeadersVisible = false;
-            this.SelectDateDataGrid.RowTemplate.Height = 40;
+            this.SelectDateDataGrid.RowTemplate.Height = 30;
             this.SelectDateDataGrid.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.SelectDateDataGrid.SelectedColorStyle = Infinium.PercentageDataGrid.ColorStyle.Blue;
             this.SelectDateDataGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -240,7 +240,7 @@
             this.SelectDateDataGrid.StateCommon.DataCell.Border.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
             this.SelectDateDataGrid.StateCommon.DataCell.Border.DrawBorders = ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom;
             this.SelectDateDataGrid.StateCommon.DataCell.Content.Color1 = System.Drawing.Color.Black;
-            this.SelectDateDataGrid.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.SelectDateDataGrid.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.SelectDateDataGrid.StateCommon.HeaderColumn.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
             this.SelectDateDataGrid.StateCommon.HeaderColumn.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
             this.SelectDateDataGrid.StateCommon.HeaderColumn.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
@@ -249,7 +249,7 @@
             this.SelectDateDataGrid.StateCommon.HeaderColumn.Border.DrawBorders = ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom;
             this.SelectDateDataGrid.StateCommon.HeaderColumn.Border.Width = 1;
             this.SelectDateDataGrid.StateCommon.HeaderColumn.Content.Color1 = System.Drawing.Color.White;
-            this.SelectDateDataGrid.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.SelectDateDataGrid.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.SelectDateDataGrid.StateCommon.HeaderColumn.Content.TextH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
             this.SelectDateDataGrid.StateSelected.DataCell.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(177)))), ((int)(((byte)(229)))));
             this.SelectDateDataGrid.StateSelected.DataCell.Back.Color2 = System.Drawing.Color.Transparent;
