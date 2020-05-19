@@ -2595,6 +2595,7 @@ namespace Infinium
                     FrontID == Convert.ToInt32(Fronts.Porto) || FrontID == Convert.ToInt32(Fronts.Monte) ||
                     FrontID == Convert.ToInt32(Fronts.Techno1) || FrontID == Convert.ToInt32(Fronts.Shervud) ||
                     FrontID == Convert.ToInt32(Fronts.Techno2) || FrontID == Convert.ToInt32(Fronts.Techno4) || FrontID == Convert.ToInt32(Fronts.pFox) ||
+                    FrontID == Convert.ToInt32(Fronts.p1418) ||
                     FrontID == Convert.ToInt32(Fronts.Techno5) || FrontID == Convert.ToInt32(Fronts.PRU8))
                     FrontsID.Add(Convert.ToInt32(dgvFrontsSummary.Rows[i].Cells["FrontID"].Value));
             }
@@ -3253,6 +3254,7 @@ namespace Infinium
                     FrontID == Convert.ToInt32(Fronts.Jersy110) || FrontID == Convert.ToInt32(Fronts.Porto) || FrontID == Convert.ToInt32(Fronts.Monte) ||
                     FrontID == Convert.ToInt32(Fronts.Techno1) || FrontID == Convert.ToInt32(Fronts.Shervud) ||
                     FrontID == Convert.ToInt32(Fronts.Techno2) || FrontID == Convert.ToInt32(Fronts.Techno4) || FrontID == Convert.ToInt32(Fronts.pFox) ||
+                    FrontID == Convert.ToInt32(Fronts.p1418) ||
                     FrontID == Convert.ToInt32(Fronts.Techno5) || FrontID == Convert.ToInt32(Fronts.PRU8))
                     FrontsID.Add(Convert.ToInt32(dgvFrontsSummary.SelectedRows[i].Cells["FrontID"].Value));
             }

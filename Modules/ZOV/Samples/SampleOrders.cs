@@ -5,9 +5,13 @@ using System.Data.SqlClient;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Windows.Forms;
 using ComponentFactory.Krypton.Toolkit;
 using DevExpress.XtraTab;
+using NPOI.HPSF;
+using NPOI.HSSF.UserModel;
+using NPOI.HSSF.Util;
 
 namespace Infinium.Modules.ZOV.Samples
 {
@@ -904,14 +908,14 @@ namespace Infinium.Modules.ZOV.Samples
                 ItemPatinaDataTable.AcceptChanges();
 
                 foreach (DataRow row in ddd.Rows)
-                foreach (var item in _patinaRalDataTable.Select("PatinaID=" + Convert.ToInt32(row["PatinaID"])))
-                {
-                    var newRow = ItemPatinaDataTable.NewRow();
-                    newRow["PatinaID"] = item["PatinaRALID"];
-                    newRow["PatinaName"] = item["PatinaRAL"];
-                    newRow["DisplayName"] = item["DisplayName"];
-                    ItemPatinaDataTable.Rows.Add(newRow);
-                }
+                    foreach (var item in _patinaRalDataTable.Select("PatinaID=" + Convert.ToInt32(row["PatinaID"])))
+                    {
+                        var newRow = ItemPatinaDataTable.NewRow();
+                        newRow["PatinaID"] = item["PatinaRALID"];
+                        newRow["PatinaName"] = item["PatinaRAL"];
+                        newRow["DisplayName"] = item["DisplayName"];
+                        ItemPatinaDataTable.Rows.Add(newRow);
+                    }
             }
 
             ItemPatinaDataTable.DefaultView.Sort = "PatinaName ASC";
@@ -2078,9 +2082,9 @@ namespace Infinium.Modules.ZOV.Samples
             var itemsCount = 0;
 
             for (var i = 0; i < _decorCatalogOrder.DecorProductsCount; i++)
-            for (var r = 0; r < DecorItemOrdersDataTables[i].Rows.Count; r++)
-                if (DecorItemOrdersDataTables[i].Rows[r].RowState != DataRowState.Deleted)
-                    itemsCount += DecorItemOrdersDataTables[i].Rows.Count;
+                for (var r = 0; r < DecorItemOrdersDataTables[i].Rows.Count; r++)
+                    if (DecorItemOrdersDataTables[i].Rows[r].RowState != DataRowState.Deleted)
+                        itemsCount += DecorItemOrdersDataTables[i].Rows.Count;
 
             return itemsCount > 0;
         }
@@ -2762,7 +2766,7 @@ namespace Infinium.Modules.ZOV.Samples
 
         private void FrontsOrdersDataGrid_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            var grid = (PercentageDataGrid) sender;
+            var grid = (PercentageDataGrid)sender;
             if (grid.Columns.Contains("PatinaColumn") && e.ColumnIndex == grid.Columns["PatinaColumn"].Index
                                                       && e.Value != null)
             {
@@ -2778,6 +2782,22 @@ namespace Infinium.Modules.ZOV.Samples
 
                 cell.ToolTipText = displayName;
             }
+        }
+
+        public string GetFrontName(int id)
+        {
+            var rows = _frontsDataTable.Select("FrontID = " + id);
+            if (rows.Any())
+                return rows[0]["FrontName"].ToString();
+            return string.Empty;
+        }
+
+        public string GetColorName(int id)
+        {
+            var rows = _frameColorsDataTable.Select("ColorID = " + id);
+            if (rows.Any())
+                return rows[0]["ColorName"].ToString();
+            return string.Empty;
         }
 
         public string PatinaDisplayName(int patinaId)
@@ -3244,7 +3264,7 @@ namespace Infinium.Modules.ZOV.Samples
 
         private void MainOrdersDecorOrders_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
         {
-            var grid = (PercentageDataGrid) sender;
+            var grid = (PercentageDataGrid)sender;
             _selectedGridIndex = Convert.ToInt32(grid.Tag);
             if (e.Button == MouseButtons.Right)
                 DecorItemOrdersBindingSources[_selectedGridIndex].Position = e.RowIndex;
@@ -3431,6 +3451,12 @@ namespace Infinium.Modules.ZOV.Samples
             Initialize();
         }
 
+        public DataTable OrdersDataTable
+        {
+            get => _ordersDataTable;
+            set => _ordersDataTable = value;
+        }
+
 
         private void Create()
         {
@@ -3443,19 +3469,19 @@ namespace Infinium.Modules.ZOV.Samples
             _mShopAddressesDataTable = new DataTable();
             _zShopAddressesDataTable = new DataTable();
 
-            _ordersDataTable = new DataTable();
-            _ordersDataTable.Columns.Add(new DataColumn("FirmType", Type.GetType("System.Int32")));
-            _ordersDataTable.Columns.Add(new DataColumn("ClientID", Type.GetType("System.Int32")));
-            _ordersDataTable.Columns.Add(new DataColumn("ClientName", Type.GetType("System.String")));
-            _ordersDataTable.Columns.Add(new DataColumn("OrderNumber", Type.GetType("System.String")));
-            _ordersDataTable.Columns.Add(new DataColumn("MainOrderID", Type.GetType("System.Int32")));
-            _ordersDataTable.Columns.Add(new DataColumn("CreateDate", Type.GetType("System.DateTime")));
-            _ordersDataTable.Columns.Add(new DataColumn("DispDate", Type.GetType("System.DateTime")));
-            _ordersDataTable.Columns.Add(new DataColumn("Description", Type.GetType("System.String")));
-            _ordersDataTable.Columns.Add(new DataColumn("Cost", Type.GetType("System.Decimal")));
-            _ordersDataTable.Columns.Add(new DataColumn("Square", Type.GetType("System.Decimal")));
-            _ordersDataTable.Columns.Add(new DataColumn("ShopAddresses", Type.GetType("System.String")));
-            _ordersDataTable.Columns.Add(new DataColumn("Foto", Type.GetType("System.Boolean")));
+            OrdersDataTable = new DataTable();
+            OrdersDataTable.Columns.Add(new DataColumn("FirmType", Type.GetType("System.Int32")));
+            OrdersDataTable.Columns.Add(new DataColumn("ClientID", Type.GetType("System.Int32")));
+            OrdersDataTable.Columns.Add(new DataColumn("ClientName", Type.GetType("System.String")));
+            OrdersDataTable.Columns.Add(new DataColumn("OrderNumber", Type.GetType("System.String")));
+            OrdersDataTable.Columns.Add(new DataColumn("MainOrderID", Type.GetType("System.Int32")));
+            OrdersDataTable.Columns.Add(new DataColumn("CreateDate", Type.GetType("System.DateTime")));
+            OrdersDataTable.Columns.Add(new DataColumn("DispDate", Type.GetType("System.DateTime")));
+            OrdersDataTable.Columns.Add(new DataColumn("Description", Type.GetType("System.String")));
+            OrdersDataTable.Columns.Add(new DataColumn("Cost", Type.GetType("System.Decimal")));
+            OrdersDataTable.Columns.Add(new DataColumn("Square", Type.GetType("System.Decimal")));
+            OrdersDataTable.Columns.Add(new DataColumn("ShopAddresses", Type.GetType("System.String")));
+            OrdersDataTable.Columns.Add(new DataColumn("Foto", Type.GetType("System.Boolean")));
 
             MClientsBindingSource = new BindingSource();
             ZClientsBindingSource = new BindingSource();
@@ -3534,7 +3560,7 @@ namespace Infinium.Modules.ZOV.Samples
             MClientsGroupsBindingSource.DataSource = _mClientsGroupsDataTable;
             ZClientsBindingSource.DataSource = _zClientsDataTable;
             ZClientsGroupsBindingSource.DataSource = _zClientsGroupsDataTable;
-            MainOrdersBindingSource.DataSource = _ordersDataTable;
+            MainOrdersBindingSource.DataSource = OrdersDataTable;
         }
 
         public void Initialize()
@@ -3677,6 +3703,159 @@ namespace Infinium.Modules.ZOV.Samples
                 _zClientsGroupsDataTable.Rows[i]["Check"] = check;
         }
 
+        public DataTable GetFrontsDataTable(
+            bool bZov,
+            bool bZClients,
+            bool bZCreateDate,
+            object zCreateDateFrom,
+            object zCreateDateTo,
+            bool bZDispDate,
+            object zDispDateFrom,
+            object zDispDateTo)
+        {
+            DataTable shopAddressOrdersDataTable = new DataTable();
+            string selectCommand = @"SELECT ShopAddressOrders.*, ShopAddresses.Address FROM ShopAddressOrders INNER JOIN ShopAddresses ON ShopAddressOrders.ShopAddressID=ShopAddresses.ShopAddressID";
+            using (var da = new SqlDataAdapter(selectCommand, ConnectionStrings.ZOVReferenceConnectionString))
+            {
+                da.Fill(shopAddressOrdersDataTable);
+            }
+
+            string zFilter = GetFilterString(bZov, bZClients, bZCreateDate, zCreateDateFrom, zCreateDateTo, bZDispDate, zDispDateFrom, zDispDateTo);
+            using (DataTable dtTable = new DataTable())
+            {
+                using (var da = new SqlDataAdapter(
+                    @"SELECT FrontID, ColorID, SampleFrontsOrders.MainOrderID, Clients.ClientName, infiniu2_zovorders.dbo.MainOrders.DocNumber, DispDate, Description, SUM(SampleFrontsOrders.Cost), SUM(SampleFrontsOrders.Square) FROM SampleFrontsOrders 
+INNER JOIN SampleMainOrders ON SampleFrontsOrders.MainOrderID = SampleMainOrders.MainOrderID
+INNER JOIN JoinMainOrders ON SampleMainOrders.MainOrderID = JoinMainOrders.MarketMainOrderID
+                INNER JOIN infiniu2_zovorders.dbo.MainOrders ON JoinMainOrders.ZOVMainOrderID=infiniu2_zovorders.dbo.MainOrders.MainOrderID
+                INNER JOIN infiniu2_zovreference.dbo.Clients AS Clients ON JoinMainOrders.ZOVClientID=Clients.ClientID" + zFilter +
+                    " GROUP BY FrontID, ColorID, SampleFrontsOrders.MainOrderID, Clients.ClientName, infiniu2_zovorders.dbo.MainOrders.DocNumber, DispDate, Description",
+                    ConnectionStrings.MarketingOrdersConnectionString))
+                {
+                    if (da.Fill(dtTable) > 0)
+                    {
+                        dtTable.Columns.Add(new DataColumn("FrontName", Type.GetType("System.String")));
+                        dtTable.Columns.Add(new DataColumn("ColorName", Type.GetType("System.String")));
+                        dtTable.Columns.Add(new DataColumn("ShopAddresses", Type.GetType("System.String")));
+                        for (int i = 0; i < dtTable.Rows.Count; i++)
+                        {
+                            dtTable.Rows[i]["FrontName"] =
+                                MFrontsOrders.GetFrontName(Convert.ToInt32(dtTable.Rows[i]["FrontID"]));
+                            dtTable.Rows[i]["ColorName"] =
+                                MFrontsOrders.GetColorName(Convert.ToInt32(dtTable.Rows[i]["ColorID"]));
+
+                            int mainOrderId = Convert.ToInt32(dtTable.Rows[i]["MainOrderID"]);
+                            var rows = shopAddressOrdersDataTable.Select("MainOrderID=" + mainOrderId);
+                            if (rows.Any())
+                            {
+                                StringBuilder ShopAddresses = new StringBuilder();
+                                DataRow last = rows.Last();
+                                foreach (var t in rows)
+                                {
+                                    ShopAddresses.Append(t["Address"].ToString());
+                                    if (!t.Equals(last))
+                                        ShopAddresses.AppendLine();
+                                }
+
+                                dtTable.Rows[i]["ShopAddresses"] = ShopAddresses.ToString();
+                            }
+                            else
+                                dtTable.Rows[i]["ShopAddresses"] = "";
+                        }
+                        dtTable.Columns.Remove("MainOrderID");
+                        dtTable.Columns.Remove("FrontID");
+                        dtTable.Columns.Remove("ColorID");
+                        dtTable.Columns["FrontName"].SetOrdinal(4);
+                        dtTable.Columns["ColorName"].SetOrdinal(5);
+
+                    }
+                }
+                DataView dv = dtTable.DefaultView;
+                if (dtTable.Rows.Count > 0)
+                    dv.Sort = "ClientName, DocNumber, DispDate, FrontName, ColorName";
+                return dv.ToTable();
+            }
+        }
+
+        public string GetFilterString(
+            bool bZov,
+            bool bZClients,
+            bool bZCreateDate,
+            object zCreateDateFrom,
+            object zCreateDateTo,
+            bool bZDispDate,
+            object zDispDateFrom,
+            object zDispDateTo)
+        {
+            var zFilter = string.Empty;
+
+            if (bZov)
+            {
+                if (bZClients)
+                {
+                    var zClients = GetZClients();
+                    if (zClients.Count > 0)
+                    {
+                        if (zFilter.Length > 0)
+                            zFilter += " AND infiniu2_zovorders.dbo.MainOrders.ClientID IN (" +
+                                       string.Join(",", zClients.OfType<int>().ToArray()) + ")";
+                        else
+                            zFilter = " WHERE infiniu2_zovorders.dbo.MainOrders.ClientID IN (" +
+                                      string.Join(",", zClients.OfType<int>().ToArray()) + ")";
+                    }
+                    else
+                    {
+                        if (zFilter.Length > 0)
+                            zFilter += " AND infiniu2_zovorders.dbo.MainOrders.ClientID = -1";
+                        else
+                            zFilter = " WHERE infiniu2_zovorders.dbo.MainOrders.ClientID = -1";
+                    }
+                }
+
+                if (bZCreateDate)
+                {
+                    if (zFilter.Length > 0)
+                        zFilter += " AND CAST(DocDateTime AS DATE) >= '" +
+                                   Convert.ToDateTime(zCreateDateFrom).ToString("yyyy-MM-dd") +
+                                   "' AND CAST(DocDateTime AS DATE) <= '" +
+                                   Convert.ToDateTime(zCreateDateTo).ToString("yyyy-MM-dd") + "' ";
+                    else
+                        zFilter = " WHERE CAST(DocDateTime AS DATE) >= '" +
+                                  Convert.ToDateTime(zCreateDateFrom).ToString("yyyy-MM-dd") +
+                                  "' AND CAST(DocDateTime AS DATE) <= '" +
+                                  Convert.ToDateTime(zCreateDateTo).ToString("yyyy-MM-dd") + "' ";
+                }
+
+                if (bZDispDate)
+                {
+                    if (zFilter.Length > 0)
+                        zFilter += " AND CAST(DispDate AS DATE) >= '" +
+                                   Convert.ToDateTime(zDispDateFrom).ToString("yyyy-MM-dd") +
+                                   "' AND CAST(DispDate AS DATE) <= '" +
+                                   Convert.ToDateTime(zDispDateTo).ToString("yyyy-MM-dd") + "' ";
+                    else
+                        zFilter = " WHERE CAST(DispDate AS DATE) >= '" +
+                                  Convert.ToDateTime(zDispDateFrom).ToString("yyyy-MM-dd") +
+                                  "' AND CAST(DispDate AS DATE) <= '" +
+                                  Convert.ToDateTime(zDispDateTo).ToString("yyyy-MM-dd") + "' ";
+                }
+
+                if (!bZClients && !bZCreateDate && !bZDispDate)
+                    zFilter = " WHERE SampleMainOrders.MainOrderID = -1";
+            }
+            else
+            {
+                zFilter = " WHERE SampleMainOrders.MainOrderID = -1";
+            }
+
+            string selectCommand =
+                @"SELECT infiniu2_zovorders.dbo.MainOrders.MainOrderID FROM SampleMainOrders
+                INNER JOIN JoinMainOrders ON SampleMainOrders.MainOrderID = JoinMainOrders.MarketMainOrderID
+                INNER JOIN infiniu2_zovorders.dbo.MainOrders ON JoinMainOrders.ZOVMainOrderID=infiniu2_zovorders.dbo.MainOrders.MainOrderID
+                INNER JOIN infiniu2_zovreference.dbo.Clients AS Clients ON JoinMainOrders.ZOVClientID=Clients.ClientID" + zFilter;
+            return zFilter;
+        }
+
         public void FilterOrders(
             bool bMarketing,
             bool bMClients,
@@ -3737,14 +3916,14 @@ namespace Infinium.Modules.ZOV.Samples
                 if (bMDispDate)
                 {
                     if (mFilter.Length > 0)
-                        mFilter += " AND CAST(DispDateTime AS DATE) >= '" +
+                        mFilter += " AND CAST(DispDate AS DATE) >= '" +
                                    Convert.ToDateTime(mDispDateFrom).ToString("yyyy-MM-dd") +
-                                   "' AND CAST(DispDateTime AS DATE) <= '" +
+                                   "' AND CAST(DispDate AS DATE) <= '" +
                                    Convert.ToDateTime(mDispDateTo).ToString("yyyy-MM-dd") + "' ";
                     else
-                        mFilter = " WHERE CAST(DispDateTime AS DATE) >= '" +
+                        mFilter = " WHERE CAST(DispDate AS DATE) >= '" +
                                   Convert.ToDateTime(mDispDateFrom).ToString("yyyy-MM-dd") +
-                                  "' AND CAST(DispDateTime AS DATE) <= '" +
+                                  "' AND CAST(DispDate AS DATE) <= '" +
                                   Convert.ToDateTime(mDispDateTo).ToString("yyyy-MM-dd") + "' ";
                 }
 
@@ -3796,14 +3975,14 @@ namespace Infinium.Modules.ZOV.Samples
                 if (bZDispDate)
                 {
                     if (zFilter.Length > 0)
-                        zFilter += " AND CAST(DispDateTime AS DATE) >= '" +
+                        zFilter += " AND CAST(DispDate AS DATE) >= '" +
                                    Convert.ToDateTime(zDispDateFrom).ToString("yyyy-MM-dd") +
-                                   "' AND CAST(DispDateTime AS DATE) <= '" +
+                                   "' AND CAST(DispDate AS DATE) <= '" +
                                    Convert.ToDateTime(zDispDateTo).ToString("yyyy-MM-dd") + "' ";
                     else
-                        zFilter = " WHERE CAST(DispDateTime AS DATE) >= '" +
+                        zFilter = " WHERE CAST(DispDate AS DATE) >= '" +
                                   Convert.ToDateTime(zDispDateFrom).ToString("yyyy-MM-dd") +
-                                  "' AND CAST(DispDateTime AS DATE) <= '" +
+                                  "' AND CAST(DispDate AS DATE) <= '" +
                                   Convert.ToDateTime(zDispDateTo).ToString("yyyy-MM-dd") + "' ";
                 }
 
@@ -3838,10 +4017,10 @@ namespace Infinium.Modules.ZOV.Samples
                 da.Fill(_zOrdersDataTable);
             }
 
-            _ordersDataTable.Clear();
+            OrdersDataTable.Clear();
             for (var i = 0; i < _mOrdersDataTable.Rows.Count; i++)
             {
-                var newRow = _ordersDataTable.NewRow();
+                var newRow = OrdersDataTable.NewRow();
                 newRow["FirmType"] = 1;
                 newRow["ClientID"] = _mOrdersDataTable.Rows[i]["ClientID"];
                 newRow["ClientName"] = _mOrdersDataTable.Rows[i]["ClientName"];
@@ -3859,12 +4038,12 @@ namespace Infinium.Modules.ZOV.Samples
                     newRow["ShopAddresses"] = "Показать магазины";
                 else
                     newRow["ShopAddresses"] = "Добавить магазины";
-                _ordersDataTable.Rows.Add(newRow);
+                OrdersDataTable.Rows.Add(newRow);
             }
 
             for (var i = 0; i < _zOrdersDataTable.Rows.Count; i++)
             {
-                var newRow = _ordersDataTable.NewRow();
+                var newRow = OrdersDataTable.NewRow();
                 newRow["FirmType"] = 0;
                 newRow["ClientID"] = _zOrdersDataTable.Rows[i]["ClientID"];
                 newRow["ClientName"] = _zOrdersDataTable.Rows[i]["ClientName"];
@@ -3882,10 +4061,10 @@ namespace Infinium.Modules.ZOV.Samples
                     newRow["ShopAddresses"] = "Показать магазины";
                 else
                     newRow["ShopAddresses"] = "Добавить магазины";
-                _ordersDataTable.Rows.Add(newRow);
+                OrdersDataTable.Rows.Add(newRow);
             }
 
-            _ordersDataTable.AcceptChanges();
+            OrdersDataTable.AcceptChanges();
         }
 
         public void SearchPartMDocNumber(string docText)
@@ -3903,10 +4082,10 @@ namespace Infinium.Modules.ZOV.Samples
                 da.Fill(_mOrdersDataTable);
             }
 
-            _ordersDataTable.Clear();
+            OrdersDataTable.Clear();
             for (var i = 0; i < _mOrdersDataTable.Rows.Count; i++)
             {
-                var newRow = _ordersDataTable.NewRow();
+                var newRow = OrdersDataTable.NewRow();
                 newRow["FirmType"] = 1;
                 newRow["ClientID"] = _mOrdersDataTable.Rows[i]["ClientID"];
                 newRow["ClientName"] = _mOrdersDataTable.Rows[i]["ClientName"];
@@ -3918,29 +4097,36 @@ namespace Infinium.Modules.ZOV.Samples
                 newRow["Description"] = _mOrdersDataTable.Rows[i]["Description"];
                 newRow["Foto"] = _mOrdersDataTable.Rows[i]["Foto"];
                 newRow["DispDate"] = _mOrdersDataTable.Rows[i]["DispDate"];
-                _ordersDataTable.Rows.Add(newRow);
+                OrdersDataTable.Rows.Add(newRow);
             }
 
-            _ordersDataTable.AcceptChanges();
+            OrdersDataTable.AcceptChanges();
         }
 
         public void SearchPartZDocNumber(string docText)
         {
-            var search = string.Format(" WHERE DocNumber LIKE '%" + docText + "%'");
+            var search = string.Format(" WHERE infiniu2_zovorders.dbo.MainOrders.DocNumber LIKE '%" + docText + "%'");
 
-            var selectCommand = @"SELECT SampleMainOrders.*, Clients.ClientName FROM SampleMainOrders
-                INNER JOIN infiniu2_zovreference.dbo.Clients AS Clients ON SampleMainOrders.ClientID=Clients.ClientID" +
-                                search;
-            using (var da = new SqlDataAdapter(selectCommand, ConnectionStrings.ZOVOrdersConnectionString))
+            //var selectCommand = @"SELECT SampleMainOrders.*, Clients.ClientName FROM SampleMainOrders
+            //    INNER JOIN infiniu2_zovreference.dbo.Clients AS Clients ON SampleMainOrders.ClientID=Clients.ClientID" +
+            //                    search;
+
+            var selectCommand =
+                @"SELECT SampleMainOrders.*, infiniu2_zovorders.dbo.MainOrders.ClientID, infiniu2_zovorders.dbo.MainOrders.DocNumber, Clients.ClientName FROM SampleMainOrders
+                INNER JOIN JoinMainOrders ON SampleMainOrders.MainOrderID = JoinMainOrders.MarketMainOrderID
+                INNER JOIN infiniu2_zovorders.dbo.MainOrders ON JoinMainOrders.ZOVMainOrderID=infiniu2_zovorders.dbo.MainOrders.MainOrderID
+                INNER JOIN infiniu2_zovreference.dbo.Clients AS Clients ON JoinMainOrders.ZOVClientID=Clients.ClientID" +
+                search + " ORDER BY SampleMainOrders.MainOrderID DESC";
+            using (var da = new SqlDataAdapter(selectCommand, ConnectionStrings.MarketingOrdersConnectionString))
             {
                 _zOrdersDataTable.Clear();
                 da.Fill(_zOrdersDataTable);
             }
 
-            _ordersDataTable.Clear();
+            OrdersDataTable.Clear();
             for (var i = 0; i < _zOrdersDataTable.Rows.Count; i++)
             {
-                var newRow = _ordersDataTable.NewRow();
+                var newRow = OrdersDataTable.NewRow();
                 newRow["FirmType"] = 0;
                 newRow["ClientID"] = _zOrdersDataTable.Rows[i]["ClientID"];
                 newRow["ClientName"] = _zOrdersDataTable.Rows[i]["ClientName"];
@@ -3952,10 +4138,10 @@ namespace Infinium.Modules.ZOV.Samples
                 newRow["Description"] = _zOrdersDataTable.Rows[i]["Description"];
                 newRow["Foto"] = _zOrdersDataTable.Rows[i]["Foto"];
                 newRow["DispDate"] = _zOrdersDataTable.Rows[i]["DispDate"];
-                _ordersDataTable.Rows.Add(newRow);
+                OrdersDataTable.Rows.Add(newRow);
             }
 
-            _ordersDataTable.AcceptChanges();
+            OrdersDataTable.AcceptChanges();
         }
 
         public void SearchPartMNotes(string docText)
@@ -3973,10 +4159,10 @@ namespace Infinium.Modules.ZOV.Samples
                 da.Fill(_mOrdersDataTable);
             }
 
-            _ordersDataTable.Clear();
+            OrdersDataTable.Clear();
             for (var i = 0; i < _mOrdersDataTable.Rows.Count; i++)
             {
-                var newRow = _ordersDataTable.NewRow();
+                var newRow = OrdersDataTable.NewRow();
                 newRow["FirmType"] = 1;
                 newRow["ClientID"] = _mOrdersDataTable.Rows[i]["ClientID"];
                 newRow["ClientName"] = _mOrdersDataTable.Rows[i]["ClientName"];
@@ -3988,29 +4174,32 @@ namespace Infinium.Modules.ZOV.Samples
                 newRow["Description"] = _mOrdersDataTable.Rows[i]["Description"];
                 newRow["Foto"] = _mOrdersDataTable.Rows[i]["Foto"];
                 newRow["DispDate"] = _mOrdersDataTable.Rows[i]["DispDate"];
-                _ordersDataTable.Rows.Add(newRow);
+                OrdersDataTable.Rows.Add(newRow);
             }
 
-            _ordersDataTable.AcceptChanges();
+            OrdersDataTable.AcceptChanges();
         }
 
         public void SearchPartZNotes(string docText)
         {
-            var search = string.Format(" WHERE Description LIKE '%" + docText + "%'");
+            var search = string.Format(" WHERE SampleMainOrders.Description LIKE '%" + docText + "%'");
 
-            var selectCommand = @"SELECT SampleMainOrders.*, Clients.ClientName FROM SampleMainOrders
-                INNER JOIN infiniu2_zovreference.dbo.Clients AS Clients ON SampleMainOrders.ClientID=Clients.ClientID" +
-                                search;
+            var selectCommand =
+                @"SELECT SampleMainOrders.*, infiniu2_zovorders.dbo.MainOrders.ClientID, infiniu2_zovorders.dbo.MainOrders.DocNumber, Clients.ClientName FROM SampleMainOrders
+                INNER JOIN JoinMainOrders ON SampleMainOrders.MainOrderID = JoinMainOrders.MarketMainOrderID
+                INNER JOIN infiniu2_zovorders.dbo.MainOrders ON JoinMainOrders.ZOVMainOrderID=infiniu2_zovorders.dbo.MainOrders.MainOrderID
+                INNER JOIN infiniu2_zovreference.dbo.Clients AS Clients ON JoinMainOrders.ZOVClientID=Clients.ClientID" +
+                search + " ORDER BY SampleMainOrders.MainOrderID DESC";
             using (var da = new SqlDataAdapter(selectCommand, ConnectionStrings.ZOVOrdersConnectionString))
             {
                 _zOrdersDataTable.Clear();
                 da.Fill(_zOrdersDataTable);
             }
 
-            _ordersDataTable.Clear();
+            OrdersDataTable.Clear();
             for (var i = 0; i < _zOrdersDataTable.Rows.Count; i++)
             {
-                var newRow = _ordersDataTable.NewRow();
+                var newRow = OrdersDataTable.NewRow();
                 newRow["FirmType"] = 0;
                 newRow["ClientID"] = _zOrdersDataTable.Rows[i]["ClientID"];
                 newRow["ClientName"] = _zOrdersDataTable.Rows[i]["ClientName"];
@@ -4022,23 +4211,25 @@ namespace Infinium.Modules.ZOV.Samples
                 newRow["Description"] = _zOrdersDataTable.Rows[i]["Description"];
                 newRow["Foto"] = _zOrdersDataTable.Rows[i]["Foto"];
                 newRow["DispDate"] = _zOrdersDataTable.Rows[i]["DispDate"];
-                _ordersDataTable.Rows.Add(newRow);
+                OrdersDataTable.Rows.Add(newRow);
             }
 
-            _ordersDataTable.AcceptChanges();
+            OrdersDataTable.AcceptChanges();
         }
 
-        public void FilterProductByMainOrder(bool isZov, int mainOrderId, ref bool frontsVisible, ref bool decorVisible)
+        public void FilterProductByMainOrder(bool isZov, bool isMDecor, bool isZDecor, int mainOrderId, ref bool frontsVisible, ref bool decorVisible)
         {
             if (isZov)
             {
                 frontsVisible = ZFrontsOrders.Filter(mainOrderId, 0);
-                decorVisible = ZDecorOrders.Filter(mainOrderId, 0);
+                if (isZDecor)
+                    decorVisible = ZDecorOrders.Filter(mainOrderId, 0);
             }
             else
             {
                 frontsVisible = MFrontsOrders.Filter(mainOrderId, 0);
-                decorVisible = MDecorOrders.Filter(mainOrderId, 0);
+                if (isMDecor)
+                    decorVisible = MDecorOrders.Filter(mainOrderId, 0);
             }
         }
 
@@ -4115,7 +4306,7 @@ namespace Infinium.Modules.ZOV.Samples
         {
             var filter = "FirmType=1";
             var dt1 = new DataTable();
-            using (var dv = new DataView(_ordersDataTable, filter, string.Empty, DataViewRowState.ModifiedCurrent))
+            using (var dv = new DataView(OrdersDataTable, filter, string.Empty, DataViewRowState.ModifiedCurrent))
             {
                 dt1 = dv.ToTable(true, "MainOrderID", "Description");
             }
@@ -4163,7 +4354,7 @@ namespace Infinium.Modules.ZOV.Samples
         {
             var filter = "FirmType=0";
             var dt1 = new DataTable();
-            using (var dv = new DataView(_ordersDataTable, filter, string.Empty, DataViewRowState.ModifiedCurrent))
+            using (var dv = new DataView(OrdersDataTable, filter, string.Empty, DataViewRowState.ModifiedCurrent))
             {
                 dt1 = dv.ToTable(true, "MainOrderID", "Description");
             }
@@ -4521,6 +4712,7 @@ namespace Infinium.Modules.ZOV.Samples
                 }
             }
         }
+
         public DataTable FillShopAddressesDataTable(int FirmType, int ClientID)
         {
             DataTable ShopAddressesDataTable = new DataTable();
@@ -4541,6 +4733,75 @@ namespace Infinium.Modules.ZOV.Samples
             }
             return ShopAddressesDataTable;
         }
+
+        public DataTable GetData()
+        {
+            DataTable dt = OrdersDataTable.Copy();
+
+            string selectCommand = @"SELECT ShopAddressOrders.*, ShopAddresses.Address FROM ShopAddressOrders INNER JOIN ShopAddresses ON ShopAddressOrders.ShopAddressID=ShopAddresses.ShopAddressID";
+            using (DataTable shopAddressOrdersDataTable = new DataTable())
+            {
+                using (var da = new SqlDataAdapter(selectCommand, ConnectionStrings.ZOVReferenceConnectionString))
+                {
+                    da.Fill(shopAddressOrdersDataTable);
+
+                    for (int i = 0; i < dt.Rows.Count; i++)
+                    {
+                        int firmType = Convert.ToInt32(dt.Rows[i]["FirmType"]);
+                        int clietnId = Convert.ToInt32(dt.Rows[i]["ClientID"]);
+                        int mainOrderId = Convert.ToInt32(dt.Rows[i]["MainOrderID"]);
+                        if (firmType == 0)
+                        {
+                            var rows = shopAddressOrdersDataTable.Select("MainOrderID=" + mainOrderId);
+                            if (rows.Any())
+                            {
+                                StringBuilder ShopAddresses = new StringBuilder();
+                                DataRow last = rows.Last();
+                                foreach (var t in rows)
+                                {
+                                    ShopAddresses.Append(t["Address"].ToString());
+                                    if (!t.Equals(last))
+                                        ShopAddresses.AppendLine();
+                                }
+
+                                dt.Rows[i]["ShopAddresses"] = ShopAddresses.ToString();
+                            }
+                            else
+                                dt.Rows[i]["ShopAddresses"] = "";
+                        }
+
+                        if (firmType == 1)
+                        {
+                            var rows = _mShopAddressesDataTable.Select("ClientID=" + clietnId);
+                            if (rows.Any())
+                            {
+                                StringBuilder ShopAddresses = new StringBuilder();
+                                DataRow last = rows.Last();
+                                foreach (var t in rows)
+                                {
+                                    //ShopAddresses.Append(t["City"].ToString());
+                                    //ShopAddresses.Append(" ");
+                                    ShopAddresses.Append(t["Address"].ToString());
+                                    if (!t.Equals(last))
+                                        ShopAddresses.AppendLine();
+                                }
+
+                                dt.Rows[i]["ShopAddresses"] = ShopAddresses.ToString();
+                            }
+                            else
+                                dt.Rows[i]["ShopAddresses"] = "";
+                        }
+                    }
+                }
+            }
+
+            dt.Columns.Remove("FirmType");
+            dt.Columns.Remove("ClientID");
+            dt.Columns.Remove("MainOrderID");
+            dt.Columns.Remove("CreateDate");
+            dt.Columns.Remove("Foto");
+            return dt;
+        }
     }
 
     public class ZovSampleShops
@@ -4559,11 +4820,6 @@ namespace Infinium.Modules.ZOV.Samples
 
         private SqlCommandBuilder _shopsCommandBuilder;
         private SqlCommandBuilder _shopAddressCommandBuilder;
-
-        public ZovSampleShops()
-        {
-
-        }
 
         public void Fill()
         {
@@ -4664,7 +4920,7 @@ namespace Infinium.Modules.ZOV.Samples
         {
             if (_shopAddressOrdersDataTable.Select("MainOrderID=" + MainOrderId + " AND ShopAddressID=" + shopAddressId).Any())
                 return;
-            
+
             var rows = _allShopsDataTable.Select("ShopAddressID=" + shopAddressId);
             if (rows.Any())
             {
@@ -4691,7 +4947,7 @@ namespace Infinium.Modules.ZOV.Samples
             {
                 if (_allShopsDataTable.Rows[i].RowState == DataRowState.Added)
                     continue;
-                
+
                 _allShopsDataTable.Rows[i]["Check"] = false;
                 int shopAddressId = Convert.ToInt32(_allShopsDataTable.Rows[i]["ShopAddressID"]);
 
@@ -4717,6 +4973,465 @@ namespace Infinium.Modules.ZOV.Samples
             //AllShopsBindingSource.Filter = "Check=0";
         }
     }
+
+    public class samplesReport
+    {
+        DataTable samplesDt = null;
+        DataTable samplesFrontsDt = null;
+
+        public samplesReport()
+        {
+            samplesDt = new DataTable();
+            samplesFrontsDt = new DataTable();
+        }
+
+        public void GetSamples(DataTable dt)
+        {
+            if (dt.Rows.Count == 0) return;
+
+            samplesDt.Clear();
+            using (DataView dv = new DataView(dt))
+            {
+                dv.Sort = "ClientName";
+                samplesDt = dv.ToTable();
+            }
+        }
+
+        public void GetSamplesFronts(DataTable dt)
+        {
+            if (dt.Rows.Count == 0) return;
+
+            samplesFrontsDt.Clear();
+            using (DataView dv = new DataView(dt))
+            {
+                dv.Sort = "ClientName, DocNumber, DispDate, FrontName, ColorName";
+                samplesFrontsDt = dv.ToTable();
+            }
+        }
+
+        public void Report(string FileName)
+        {
+            if (samplesDt.Rows.Count <= 0) return;
+
+            int pos = 0;
+
+            //Export to excel
+            HSSFWorkbook hssfworkbook = new HSSFWorkbook();
+
+            ////create a entry of DocumentSummaryInformation
+            DocumentSummaryInformation dsi = PropertySetFactory.CreateDocumentSummaryInformation();
+            dsi.Company = "NPOI Team";
+            hssfworkbook.DocumentSummaryInformation = dsi;
+
+            ////create a entry of SummaryInformation
+            SummaryInformation si = PropertySetFactory.CreateSummaryInformation();
+            si.Subject = "NPOI SDK Example";
+            hssfworkbook.SummaryInformation = si;
+
+            #region Create fonts and styles
+
+            HSSFFont HeaderF1 = hssfworkbook.CreateFont();
+            HeaderF1.FontHeightInPoints = 11;
+            HeaderF1.Boldweight = 11 * 256;
+            HeaderF1.FontName = "Calibri";
+
+            HSSFFont HeaderF2 = hssfworkbook.CreateFont();
+            HeaderF2.FontHeightInPoints = 10;
+            HeaderF2.Boldweight = 10 * 256;
+            HeaderF2.FontName = "Calibri";
+
+            HSSFFont HeaderF3 = hssfworkbook.CreateFont();
+            HeaderF3.FontHeightInPoints = 9;
+            HeaderF3.Boldweight = 9 * 256;
+            HeaderF3.FontName = "Calibri";
+
+            HSSFFont SimpleF = hssfworkbook.CreateFont();
+            SimpleF.FontHeightInPoints = 10;
+            SimpleF.FontName = "Calibri";
+
+            HSSFCellStyle SimpleCS = hssfworkbook.CreateCellStyle();
+            SimpleCS.BorderBottom = HSSFCellStyle.BORDER_THIN;
+            SimpleCS.BottomBorderColor = HSSFColor.BLACK.index;
+            SimpleCS.BorderLeft = HSSFCellStyle.BORDER_THIN;
+            SimpleCS.LeftBorderColor = HSSFColor.BLACK.index;
+            SimpleCS.BorderRight = HSSFCellStyle.BORDER_THIN;
+            SimpleCS.RightBorderColor = HSSFColor.BLACK.index;
+            SimpleCS.BorderTop = HSSFCellStyle.BORDER_THIN;
+            SimpleCS.TopBorderColor = HSSFColor.BLACK.index;
+            SimpleCS.SetFont(SimpleF);
+
+            HSSFCellStyle CountCS = hssfworkbook.CreateCellStyle();
+            CountCS.DataFormat = hssfworkbook.CreateDataFormat().GetFormat("### ### ##0.00");
+            CountCS.BorderBottom = HSSFCellStyle.BORDER_THIN;
+            CountCS.BottomBorderColor = HSSFColor.BLACK.index;
+            CountCS.BorderLeft = HSSFCellStyle.BORDER_THIN;
+            CountCS.LeftBorderColor = HSSFColor.BLACK.index;
+            CountCS.BorderRight = HSSFCellStyle.BORDER_THIN;
+            CountCS.RightBorderColor = HSSFColor.BLACK.index;
+            CountCS.BorderTop = HSSFCellStyle.BORDER_THIN;
+            CountCS.TopBorderColor = HSSFColor.BLACK.index;
+            CountCS.SetFont(SimpleF);
+
+            HSSFCellStyle WeightCS = hssfworkbook.CreateCellStyle();
+            WeightCS.BorderBottom = HSSFCellStyle.BORDER_THIN;
+            WeightCS.BottomBorderColor = HSSFColor.BLACK.index;
+            WeightCS.BorderLeft = HSSFCellStyle.BORDER_THIN;
+            WeightCS.LeftBorderColor = HSSFColor.BLACK.index;
+            WeightCS.BorderRight = HSSFCellStyle.BORDER_THIN;
+            WeightCS.RightBorderColor = HSSFColor.BLACK.index;
+            WeightCS.BorderTop = HSSFCellStyle.BORDER_THIN;
+            WeightCS.TopBorderColor = HSSFColor.BLACK.index;
+            WeightCS.WrapText = true;
+            WeightCS.SetFont(SimpleF);
+
+            HSSFCellStyle PriceBelCS = hssfworkbook.CreateCellStyle();
+            PriceBelCS.DataFormat = hssfworkbook.CreateDataFormat().GetFormat("### ### ##0");
+            PriceBelCS.BorderBottom = HSSFCellStyle.BORDER_THIN;
+            PriceBelCS.BottomBorderColor = HSSFColor.BLACK.index;
+            PriceBelCS.BorderLeft = HSSFCellStyle.BORDER_THIN;
+            PriceBelCS.LeftBorderColor = HSSFColor.BLACK.index;
+            PriceBelCS.BorderRight = HSSFCellStyle.BORDER_THIN;
+            PriceBelCS.RightBorderColor = HSSFColor.BLACK.index;
+            PriceBelCS.BorderTop = HSSFCellStyle.BORDER_THIN;
+            PriceBelCS.TopBorderColor = HSSFColor.BLACK.index;
+            PriceBelCS.SetFont(SimpleF);
+
+            HSSFCellStyle PriceForeignCS = hssfworkbook.CreateCellStyle();
+            PriceForeignCS.DataFormat = hssfworkbook.CreateDataFormat().GetFormat("### ### ##0.00");
+            PriceForeignCS.BorderBottom = HSSFCellStyle.BORDER_THIN;
+            PriceForeignCS.BottomBorderColor = HSSFColor.BLACK.index;
+            PriceForeignCS.BorderLeft = HSSFCellStyle.BORDER_THIN;
+            PriceForeignCS.LeftBorderColor = HSSFColor.BLACK.index;
+            PriceForeignCS.BorderRight = HSSFCellStyle.BORDER_THIN;
+            PriceForeignCS.RightBorderColor = HSSFColor.BLACK.index;
+            PriceForeignCS.BorderTop = HSSFCellStyle.BORDER_THIN;
+            PriceForeignCS.TopBorderColor = HSSFColor.BLACK.index;
+            PriceForeignCS.SetFont(SimpleF);
+
+            HSSFCellStyle ReportCS1 = hssfworkbook.CreateCellStyle();
+            ReportCS1.BorderBottom = HSSFCellStyle.BORDER_MEDIUM;
+            ReportCS1.BottomBorderColor = HSSFColor.BLACK.index;
+            ReportCS1.SetFont(HeaderF1);
+
+            HSSFCellStyle ReportCS2 = hssfworkbook.CreateCellStyle();
+            ReportCS2.SetFont(HeaderF1);
+
+            HSSFCellStyle SummaryWithoutBorderBelCS = hssfworkbook.CreateCellStyle();
+            SummaryWithoutBorderBelCS.DataFormat = hssfworkbook.CreateDataFormat().GetFormat("### ### ##0");
+            SummaryWithoutBorderBelCS.SetFont(HeaderF2);
+
+            HSSFCellStyle SummaryWithoutBorderForeignCS = hssfworkbook.CreateCellStyle();
+            SummaryWithoutBorderForeignCS.DataFormat = hssfworkbook.CreateDataFormat().GetFormat("### ### ##0.00");
+            SummaryWithoutBorderForeignCS.SetFont(HeaderF2);
+
+            HSSFCellStyle SummaryWeightCS = hssfworkbook.CreateCellStyle();
+            SummaryWeightCS.DataFormat = hssfworkbook.CreateDataFormat().GetFormat("### ### ##0.00");
+            SummaryWeightCS.SetFont(HeaderF2);
+
+            HSSFCellStyle SummaryWithBorderBelCS = hssfworkbook.CreateCellStyle();
+            SummaryWithBorderBelCS.DataFormat = hssfworkbook.CreateDataFormat().GetFormat("### ### ##0");
+            SummaryWithBorderBelCS.BorderBottom = HSSFCellStyle.BORDER_THIN;
+            SummaryWithBorderBelCS.BottomBorderColor = HSSFColor.BLACK.index;
+            SummaryWithBorderBelCS.BorderLeft = HSSFCellStyle.BORDER_THIN;
+            SummaryWithBorderBelCS.LeftBorderColor = HSSFColor.BLACK.index;
+            SummaryWithBorderBelCS.BorderRight = HSSFCellStyle.BORDER_THIN;
+            SummaryWithBorderBelCS.RightBorderColor = HSSFColor.BLACK.index;
+            SummaryWithBorderBelCS.BorderTop = HSSFCellStyle.BORDER_THIN;
+            SummaryWithBorderBelCS.TopBorderColor = HSSFColor.BLACK.index;
+            SummaryWithBorderBelCS.WrapText = true;
+            SummaryWithBorderBelCS.SetFont(HeaderF2);
+
+            HSSFCellStyle SummaryWithBorderForeignCS = hssfworkbook.CreateCellStyle();
+            SummaryWithBorderForeignCS.DataFormat = hssfworkbook.CreateDataFormat().GetFormat("### ### ##0.00");
+            SummaryWithBorderForeignCS.BorderBottom = HSSFCellStyle.BORDER_THIN;
+            SummaryWithBorderForeignCS.BottomBorderColor = HSSFColor.BLACK.index;
+            SummaryWithBorderForeignCS.BorderLeft = HSSFCellStyle.BORDER_THIN;
+            SummaryWithBorderForeignCS.LeftBorderColor = HSSFColor.BLACK.index;
+            SummaryWithBorderForeignCS.BorderRight = HSSFCellStyle.BORDER_THIN;
+            SummaryWithBorderForeignCS.RightBorderColor = HSSFColor.BLACK.index;
+            SummaryWithBorderForeignCS.BorderTop = HSSFCellStyle.BORDER_THIN;
+            SummaryWithBorderForeignCS.TopBorderColor = HSSFColor.BLACK.index;
+            SummaryWithBorderForeignCS.WrapText = true;
+            SummaryWithBorderForeignCS.SetFont(HeaderF2);
+
+            HSSFCellStyle SimpleHeaderCS = hssfworkbook.CreateCellStyle();
+            SimpleHeaderCS.BorderBottom = HSSFCellStyle.BORDER_MEDIUM;
+            SimpleHeaderCS.BottomBorderColor = HSSFColor.BLACK.index;
+            SimpleHeaderCS.BorderLeft = HSSFCellStyle.BORDER_MEDIUM;
+            SimpleHeaderCS.LeftBorderColor = HSSFColor.BLACK.index;
+            SimpleHeaderCS.BorderRight = HSSFCellStyle.BORDER_MEDIUM;
+            SimpleHeaderCS.RightBorderColor = HSSFColor.BLACK.index;
+            SimpleHeaderCS.BorderTop = HSSFCellStyle.BORDER_MEDIUM;
+            SimpleHeaderCS.TopBorderColor = HSSFColor.BLACK.index;
+            //SimpleHeaderCS.WrapText = true;
+            SimpleHeaderCS.SetFont(HeaderF3);
+
+            #endregion
+
+            HSSFSheet sheet1 = hssfworkbook.CreateSheet("Образцы");
+            sheet1.PrintSetup.PaperSize = (short)PaperSizeType.A4;
+
+            sheet1.SetMargin(HSSFSheet.LeftMargin, (double).12);
+            sheet1.SetMargin(HSSFSheet.RightMargin, (double).07);
+            sheet1.SetMargin(HSSFSheet.TopMargin, (double).20);
+            sheet1.SetMargin(HSSFSheet.BottomMargin, (double).20);
+
+            int displayIndex = 0;
+            sheet1.SetColumnWidth(displayIndex++, 25 * 256);
+            sheet1.SetColumnWidth(displayIndex++, 20 * 256);
+            sheet1.SetColumnWidth(displayIndex++, 15 * 256);
+            sheet1.SetColumnWidth(displayIndex++, 25 * 256);
+            sheet1.SetColumnWidth(displayIndex++, 10 * 256);
+            sheet1.SetColumnWidth(displayIndex++, 10 * 256);
+            sheet1.SetColumnWidth(displayIndex, 50 * 256);
+            displayIndex = 0;
+
+
+            pos += 2;
+
+            var cell1 = sheet1.CreateRow(pos).CreateCell(displayIndex++);
+            cell1.SetCellValue("Клиент");
+            cell1.CellStyle = SimpleHeaderCS;
+
+            cell1 = sheet1.CreateRow(pos).CreateCell(displayIndex++);
+            cell1.SetCellValue("№ заказа");
+            cell1.CellStyle = SimpleHeaderCS;
+
+            cell1 = sheet1.CreateRow(pos).CreateCell(displayIndex++);
+            cell1.SetCellValue("Дата отгрузки");
+            cell1.CellStyle = SimpleHeaderCS;
+
+            cell1 = sheet1.CreateRow(pos).CreateCell(displayIndex++);
+            cell1.SetCellValue("Описание");
+            cell1.CellStyle = SimpleHeaderCS;
+
+            cell1 = sheet1.CreateRow(pos).CreateCell(displayIndex++);
+            cell1.SetCellValue("Квадратура");
+            cell1.CellStyle = SimpleHeaderCS;
+
+            cell1 = sheet1.CreateRow(pos).CreateCell(displayIndex++);
+            cell1.SetCellValue("Стоимость");
+            cell1.CellStyle = SimpleHeaderCS;
+
+            cell1 = sheet1.CreateRow(pos).CreateCell(displayIndex);
+            cell1.SetCellValue("Магазины");
+            cell1.CellStyle = SimpleHeaderCS;
+
+            pos++;
+
+            int ColumnCount = samplesDt.Columns.Count;
+            for (int x = 0; x < samplesDt.Rows.Count; x++)
+            {
+                for (int y = 0; y < ColumnCount; y++)
+                {
+                    Type t = samplesDt.Rows[x][y].GetType();
+
+
+
+                    if (samplesDt.Columns.IndexOf("ShopAddresses") == y)
+                    {
+                        string str = samplesDt.Rows[x][y].ToString();
+                        HSSFCell cell = sheet1.CreateRow(pos).CreateCell(y);
+                        cell.SetCellValue(str);
+
+                        cell.CellStyle = WeightCS;
+                        continue;
+                    }
+
+                    if (t.Name == "Decimal")
+                    {
+                        HSSFCell cell = sheet1.CreateRow(pos).CreateCell(y);
+                        cell.SetCellValue(Convert.ToDouble(samplesDt.Rows[x][y]));
+
+                        cell.CellStyle = CountCS;
+                        continue;
+                    }
+                    if (t.Name == "Int32")
+                    {
+                        HSSFCell cell = sheet1.CreateRow(pos).CreateCell(y);
+                        cell.SetCellValue(Convert.ToInt32(samplesDt.Rows[x][y]));
+                        cell.CellStyle = SimpleCS;
+                        continue;
+                    }
+                    if (t.Name == "Boolean")
+                    {
+                        bool b = Convert.ToBoolean(samplesDt.Rows[x][y]);
+                        string str = "Да";
+                        if (!b)
+                            str = "Нет";
+                        HSSFCell cell = sheet1.CreateRow(pos).CreateCell(y);
+                        cell.SetCellValue(str);
+                        cell.CellStyle = SimpleCS;
+                        continue;
+                    }
+                    if (t.Name == "DateTime")
+                    {
+                        string dateTime = Convert.ToDateTime(samplesDt.Rows[x][y]).ToShortDateString();
+                        HSSFCell cell = sheet1.CreateRow(pos).CreateCell(y);
+                        cell.SetCellValue(dateTime);
+                        cell.CellStyle = SimpleCS;
+                        continue;
+                    }
+
+                    if (t.Name == "String" || t.Name == "DBNull")
+                    {
+                        HSSFCell cell = sheet1.CreateRow(pos).CreateCell(y);
+                        cell.SetCellValue(samplesDt.Rows[x][y].ToString());
+                        cell.CellStyle = SimpleCS;
+                        continue;
+                    }
+                }
+                pos++;
+            }
+
+            FrontsReport(ref hssfworkbook, SimpleHeaderCS, WeightCS, SimpleCS, CountCS);
+
+            string tempFolder = System.Environment.GetEnvironmentVariable("TEMP");
+            FileInfo file = new FileInfo(tempFolder + @"\" + FileName + ".xls");
+            int j = 1;
+            while (file.Exists)
+            {
+                file = new FileInfo(tempFolder + @"\" + FileName + "(" + j++ + ").xls");
+            }
+
+            FileStream NewFile = new FileStream(file.FullName, FileMode.Create);
+            hssfworkbook.Write(NewFile);
+            NewFile.Close();
+
+            System.Diagnostics.Process.Start(file.FullName);
+        }
+
+        public void FrontsReport(ref HSSFWorkbook hssfworkbook, HSSFCellStyle SimpleHeaderCS, HSSFCellStyle WeightCS, HSSFCellStyle SimpleCS, HSSFCellStyle CountCS)
+        {
+            int pos = 0;
+
+            HSSFSheet sheet1 = hssfworkbook.CreateSheet("Фасады");
+            sheet1.PrintSetup.PaperSize = (short)PaperSizeType.A4;
+
+            sheet1.SetMargin(HSSFSheet.LeftMargin, (double).12);
+            sheet1.SetMargin(HSSFSheet.RightMargin, (double).07);
+            sheet1.SetMargin(HSSFSheet.TopMargin, (double).20);
+            sheet1.SetMargin(HSSFSheet.BottomMargin, (double).20);
+
+            int displayIndex = 0;
+            sheet1.SetColumnWidth(displayIndex++, 25 * 256);
+            sheet1.SetColumnWidth(displayIndex++, 20 * 256);
+            sheet1.SetColumnWidth(displayIndex++, 15 * 256);
+            sheet1.SetColumnWidth(displayIndex++, 25 * 256);
+            sheet1.SetColumnWidth(displayIndex++, 25 * 256);
+            sheet1.SetColumnWidth(displayIndex++, 25 * 256);
+            sheet1.SetColumnWidth(displayIndex++, 10 * 256);
+            sheet1.SetColumnWidth(displayIndex++, 10 * 256);
+            sheet1.SetColumnWidth(displayIndex, 50 * 256);
+            displayIndex = 0;
+
+            if (samplesFrontsDt.Rows.Count <= 0) return;
+
+            pos += 2;
+
+            var cell1 = sheet1.CreateRow(pos).CreateCell(displayIndex++);
+            cell1.SetCellValue("Клиент");
+            cell1.CellStyle = SimpleHeaderCS;
+
+            cell1 = sheet1.CreateRow(pos).CreateCell(displayIndex++);
+            cell1.SetCellValue("№ заказа");
+            cell1.CellStyle = SimpleHeaderCS;
+
+            cell1 = sheet1.CreateRow(pos).CreateCell(displayIndex++);
+            cell1.SetCellValue("Дата отгрузки");
+            cell1.CellStyle = SimpleHeaderCS;
+
+            cell1 = sheet1.CreateRow(pos).CreateCell(displayIndex++);
+            cell1.SetCellValue("Описание");
+            cell1.CellStyle = SimpleHeaderCS;
+            
+            cell1 = sheet1.CreateRow(pos).CreateCell(displayIndex++);
+            cell1.SetCellValue("Фасад");
+            cell1.CellStyle = SimpleHeaderCS;
+
+            cell1 = sheet1.CreateRow(pos).CreateCell(displayIndex++);
+            cell1.SetCellValue("Цвет");
+            cell1.CellStyle = SimpleHeaderCS;
+
+            cell1 = sheet1.CreateRow(pos).CreateCell(displayIndex++);
+            cell1.SetCellValue("Квадратура");
+            cell1.CellStyle = SimpleHeaderCS;
+
+            cell1 = sheet1.CreateRow(pos).CreateCell(displayIndex++);
+            cell1.SetCellValue("Стоимость");
+            cell1.CellStyle = SimpleHeaderCS;
+
+            cell1 = sheet1.CreateRow(pos).CreateCell(displayIndex);
+            cell1.SetCellValue("Магазины");
+            cell1.CellStyle = SimpleHeaderCS;
+
+            pos++;
+
+            int ColumnCount = samplesFrontsDt.Columns.Count;
+            for (int x = 0; x < samplesFrontsDt.Rows.Count; x++)
+            {
+                for (int y = 0; y < ColumnCount; y++)
+                {
+                    Type t = samplesFrontsDt.Rows[x][y].GetType();
+
+                    if (samplesFrontsDt.Columns.IndexOf("ShopAddresses") == y)
+                    {
+                        string str = samplesFrontsDt.Rows[x][y].ToString();
+                        HSSFCell cell = sheet1.CreateRow(pos).CreateCell(y);
+                        cell.SetCellValue(str);
+
+                        cell.CellStyle = WeightCS;
+                        continue;
+                    }
+
+                    if (t.Name == "Decimal")
+                    {
+                        HSSFCell cell = sheet1.CreateRow(pos).CreateCell(y);
+                        cell.SetCellValue(Convert.ToDouble(samplesFrontsDt.Rows[x][y]));
+
+                        cell.CellStyle = CountCS;
+                        continue;
+                    }
+                    if (t.Name == "Int32")
+                    {
+                        HSSFCell cell = sheet1.CreateRow(pos).CreateCell(y);
+                        cell.SetCellValue(Convert.ToInt32(samplesFrontsDt.Rows[x][y]));
+                        cell.CellStyle = SimpleCS;
+                        continue;
+                    }
+                    if (t.Name == "Boolean")
+                    {
+                        bool b = Convert.ToBoolean(samplesFrontsDt.Rows[x][y]);
+                        string str = "Да";
+                        if (!b)
+                            str = "Нет";
+                        HSSFCell cell = sheet1.CreateRow(pos).CreateCell(y);
+                        cell.SetCellValue(str);
+                        cell.CellStyle = SimpleCS;
+                        continue;
+                    }
+                    if (t.Name == "DateTime")
+                    {
+                        string dateTime = Convert.ToDateTime(samplesFrontsDt.Rows[x][y]).ToShortDateString();
+                        HSSFCell cell = sheet1.CreateRow(pos).CreateCell(y);
+                        cell.SetCellValue(dateTime);
+                        cell.CellStyle = SimpleCS;
+                        continue;
+                    }
+
+                    if (t.Name == "String" || t.Name == "DBNull")
+                    {
+                        HSSFCell cell = sheet1.CreateRow(pos).CreateCell(y);
+                        cell.SetCellValue(samplesFrontsDt.Rows[x][y].ToString());
+                        cell.CellStyle = SimpleCS;
+                        continue;
+                    }
+                }
+                pos++;
+            }
+        }
+    }
+
 
     public class SampleOrders
     {

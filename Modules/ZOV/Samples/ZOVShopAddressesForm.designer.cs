@@ -54,10 +54,10 @@
             this.kryptonBorderEdge7 = new ComponentFactory.Krypton.Toolkit.KryptonBorderEdge();
             this.kryptonBorderEdge8 = new ComponentFactory.Krypton.Toolkit.KryptonBorderEdge();
             this.kryptonBorderEdge9 = new ComponentFactory.Krypton.Toolkit.KryptonBorderEdge();
-            this.orderShopsDataGrid = new Infinium.PercentageDataGrid();
-            this.allShopsDataGrid = new Infinium.PercentageDataGrid();
             this.label12 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.orderShopsDataGrid = new Infinium.PercentageDataGrid();
+            this.allShopsDataGrid = new Infinium.PercentageDataGrid();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonCheckSet1)).BeginInit();
             this.panel2.SuspendLayout();
@@ -396,6 +396,29 @@
             this.kryptonBorderEdge9.StateCommon.Color1 = System.Drawing.Color.Black;
             this.kryptonBorderEdge9.Text = "kryptonBorderEdge9";
             // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("Segoe UI", 14.06F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.label12.ForeColor = System.Drawing.Color.Black;
+            this.label12.Location = new System.Drawing.Point(7, 65);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(156, 20);
+            this.label12.TabIndex = 483;
+            this.label12.Text = "Салоны этого заказа:";
+            // 
+            // label1
+            // 
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 14.06F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.label1.ForeColor = System.Drawing.Color.Black;
+            this.label1.Location = new System.Drawing.Point(7, 369);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(151, 20);
+            this.label1.TabIndex = 484;
+            this.label1.Text = "Все салоны клиента:";
+            // 
             // orderShopsDataGrid
             // 
             this.orderShopsDataGrid.AllowUserToDeleteRows = false;
@@ -518,29 +541,6 @@
             this.allShopsDataGrid.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.ShopAddressesDataGrid_CellMouseEnter);
             this.allShopsDataGrid.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.allShopsDataGrid_CellValueChanged);
             this.allShopsDataGrid.DefaultValuesNeeded += new System.Windows.Forms.DataGridViewRowEventHandler(this.ShopAddressesDataGrid_DefaultValuesNeeded);
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Font = new System.Drawing.Font("Segoe UI", 14.06F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.label12.ForeColor = System.Drawing.Color.Black;
-            this.label12.Location = new System.Drawing.Point(7, 65);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(156, 20);
-            this.label12.TabIndex = 483;
-            this.label12.Text = "Салоны этого заказа:";
-            // 
-            // label1
-            // 
-            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 14.06F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.label1.ForeColor = System.Drawing.Color.Black;
-            this.label1.Location = new System.Drawing.Point(7, 369);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(151, 20);
-            this.label1.TabIndex = 484;
-            this.label1.Text = "Все салоны клиента:";
             // 
             // ZOVShopAddressesForm
             // 

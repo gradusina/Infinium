@@ -102,7 +102,9 @@ namespace Infinium
             //    RoleType = RoleTypes.Director;
             //}
 
-            while (!SplashForm.bCreated) ;
+            while (!SplashForm.bCreated)
+            {
+            }
         }
 
         private bool PermissionGranted(int RoleID)
@@ -337,7 +339,7 @@ namespace Infinium
                             dgvZFrontsOrders.Visible = false;
                             MDecorTabControl.Visible = true;
                             ZDecorTabControl.Visible = false;
-                            OrdersManager.FilterProductByMainOrder(false, MainOrderID, ref FrontsVisible, ref DecorVisible);
+                            OrdersManager.FilterProductByMainOrder(false, cbMDecor.Checked, cbZDecor.Checked, MainOrderID, ref FrontsVisible, ref DecorVisible);
                         }
                         if (Convert.ToInt32(((DataRowView)OrdersManager.MainOrdersBindingSource.Current)["FirmType"]) == 0)
                         {
@@ -345,7 +347,7 @@ namespace Infinium
                             dgvZFrontsOrders.Visible = true;
                             MDecorTabControl.Visible = false;
                             ZDecorTabControl.Visible = true;
-                            OrdersManager.FilterProductByMainOrder(true, MainOrderID, ref FrontsVisible, ref DecorVisible);
+                            OrdersManager.FilterProductByMainOrder(true, cbMDecor.Checked, cbZDecor.Checked, MainOrderID, ref FrontsVisible, ref DecorVisible);
                         }
 
                         if (MainOrderID > 0)
@@ -380,9 +382,9 @@ namespace Infinium
                 }
                 else
                 {
-                    OrdersManager.FilterProductByMainOrder(true, -1, ref FrontsVisible, ref DecorVisible);
+                    OrdersManager.FilterProductByMainOrder(true, false, false, -1, ref FrontsVisible, ref DecorVisible);
                     MainOrdersTabControl.TabPages[2].PageVisible = false;
-                    OrdersManager.FilterProductByMainOrder(false, -1, ref FrontsVisible, ref DecorVisible);
+                    OrdersManager.FilterProductByMainOrder(false, false, false, -1, ref FrontsVisible, ref DecorVisible);
                 }
             }
         }
@@ -425,7 +427,7 @@ namespace Infinium
             bool bMCreateDate = cbMCreateDate.Checked;
             object MCreateDateFrom = dtpMCreateDateFrom.Value;
             object MCreateDateTo = dtpMCreateDateTo.Value;
-            bool bMDispDate = false;
+            bool bMDispDate = cbMDispDate.Checked;
             object MDispDateFrom = dtpMDispDateFrom.Value;
             object MDispDateTo = dtpMDispDateTo.Value;
 
@@ -813,6 +815,33 @@ namespace Infinium
                     TopForm = null;
                 }
             }
+        }
+
+        private void ReportCreate()
+        {
+            bool bZOV = cbZOV.Checked;
+            bool bZClients = cbZClients.Checked;
+            bool bZCreateDate = cbZCreateDate.Checked;
+            object ZCreateDateFrom = dtpZCreateDateFrom.Value;
+            object ZCreateDateTo = dtpZCreateDateTo.Value;
+            bool bZDispDate = cbZDispDate.Checked;
+            object ZDispDateFrom = dtpZDispDateFrom.Value;
+            object ZDispDateTo = dtpZDispDateTo.Value;
+            string FileName = "Образцы";
+            samplesReport samplesReport = new samplesReport();
+            samplesReport.GetSamples(OrdersManager.GetData());
+            samplesReport.GetSamplesFronts(OrdersManager.GetFrontsDataTable(bZOV, bZClients, bZCreateDate, ZCreateDateFrom, ZCreateDateTo, bZDispDate, ZDispDateFrom, ZDispDateTo));
+            samplesReport.Report(FileName);
+        }
+
+        private void btnExcelExport_Click(object sender, EventArgs e)
+        {
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Создание отчета.\r\nПодождите..."); });
+            T.Start();
+            while (!SplashWindow.bSmallCreated) ;
+            ReportCreate();
+            while (SplashWindow.bSmallCreated)
+                SmallWaitForm.CloseS = true;
         }
     }
 }

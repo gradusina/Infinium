@@ -9466,7 +9466,7 @@ namespace Infinium.Modules.Marketing.NewOrders
                     EURBYRCurrency = Convert.ToDecimal(xmlNode.InnerText = xmlNode.InnerText.Replace('.', ','));
                 else
                     EURBYRCurrency = Convert.ToDecimal(xmlNode.InnerText);
-                EURBYRCurrency = 2.54m;
+                //EURBYRCurrency = 2.54m;
             }
             catch (WebException ex)
             {

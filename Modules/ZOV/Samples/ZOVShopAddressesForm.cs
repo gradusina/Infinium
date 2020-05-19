@@ -139,6 +139,8 @@ namespace Infinium
                 percentageDataGrid.Columns["Phone"].HeaderText = "Телефон";
             if (percentageDataGrid.Columns.Contains("WebSite"))
                 percentageDataGrid.Columns["WebSite"].HeaderText = "Сайт";
+            if (percentageDataGrid.Columns.Contains("Check"))
+                percentageDataGrid.Columns["Check"].HeaderText = "Прикрепить к заказу";
 
             if (percentageDataGrid.Columns.Contains("ShopAddressOrderID"))
                 percentageDataGrid.Columns["ShopAddressOrderID"].Visible = false;

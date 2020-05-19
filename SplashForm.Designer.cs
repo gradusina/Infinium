@@ -59,7 +59,7 @@
             this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(119)))), ((int)(((byte)(244)))));
             this.label2.Location = new System.Drawing.Point(569, 681);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(136, 17);
+            this.label2.Size = new System.Drawing.Size(105, 13);
             this.label2.TabIndex = 33;
             this.label2.Text = "http://preloaders.net";
             this.label2.Click += new System.EventHandler(this.label2_Click);
@@ -88,11 +88,11 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 14.06F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 13.06F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.label1.ForeColor = System.Drawing.Color.Black;
             this.label1.Location = new System.Drawing.Point(105, 31);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(197, 40);
+            this.label1.Size = new System.Drawing.Size(179, 38);
             this.label1.TabIndex = 32;
             this.label1.Text = "Загрузка данных с сервера\r\nПодождите...";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;

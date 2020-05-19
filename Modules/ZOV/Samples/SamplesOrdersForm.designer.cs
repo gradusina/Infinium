@@ -35,6 +35,8 @@
             this.NavigateMenuButtonsPalette = new ComponentFactory.Krypton.Toolkit.KryptonPalette(this.components);
             this.label1 = new System.Windows.Forms.Label();
             this.NavigatePanel = new System.Windows.Forms.Panel();
+            this.btnExportToExcel = new ComponentFactory.Krypton.Toolkit.KryptonButton();
+            this.btnSave = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.MinimizeButton = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.MenuButton = new ComponentFactory.Krypton.Toolkit.KryptonCheckButton();
             this.kryptonBorderEdge3 = new ComponentFactory.Krypton.Toolkit.KryptonBorderEdge();
@@ -59,6 +61,7 @@
             this.MenuPanel = new System.Windows.Forms.Panel();
             this.cbZOV = new ComponentFactory.Krypton.Toolkit.KryptonCheckBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.cbZDecor = new ComponentFactory.Krypton.Toolkit.KryptonCheckBox();
             this.btnUncheckAllZClientsGroups = new System.Windows.Forms.Button();
             this.btnCheckAllZClientsGroups = new System.Windows.Forms.Button();
             this.panel5 = new System.Windows.Forms.Panel();
@@ -98,6 +101,7 @@
             this.btnFilterOrders = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.StandardButtonsPalette = new ComponentFactory.Krypton.Toolkit.KryptonPalette(this.components);
             this.panel3 = new System.Windows.Forms.Panel();
+            this.cbMDecor = new ComponentFactory.Krypton.Toolkit.KryptonCheckBox();
             this.label14 = new System.Windows.Forms.Label();
             this.tbSearchMDoc = new System.Windows.Forms.TextBox();
             this.panel6 = new System.Windows.Forms.Panel();
@@ -148,8 +152,8 @@
             this.btnSaveDescription = new ComponentFactory.Krypton.Toolkit.KryptonContextMenuItem();
             this.btnAttachFoto = new ComponentFactory.Krypton.Toolkit.KryptonContextMenuItem();
             this.btnDetachFoto = new ComponentFactory.Krypton.Toolkit.KryptonContextMenuItem();
+            this.btnExcelExport = new ComponentFactory.Krypton.Toolkit.KryptonContextMenuItem();
             this.openFileDialog4 = new System.Windows.Forms.OpenFileDialog();
-            this.btnSave = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.NavigatePanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MainOrdersSplitContainer)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.MainOrdersSplitContainer.Panel1)).BeginInit();
@@ -281,6 +285,7 @@
             // NavigatePanel
             // 
             this.NavigatePanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
+            this.NavigatePanel.Controls.Add(this.btnExportToExcel);
             this.NavigatePanel.Controls.Add(this.btnSave);
             this.NavigatePanel.Controls.Add(this.MinimizeButton);
             this.NavigatePanel.Controls.Add(this.MenuButton);
@@ -292,6 +297,50 @@
             this.NavigatePanel.Name = "NavigatePanel";
             this.NavigatePanel.Size = new System.Drawing.Size(1270, 54);
             this.NavigatePanel.TabIndex = 34;
+            // 
+            // btnExportToExcel
+            // 
+            this.btnExportToExcel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnExportToExcel.Location = new System.Drawing.Point(1024, 8);
+            this.btnExportToExcel.Name = "btnExportToExcel";
+            this.btnExportToExcel.Palette = this.NavigateMenuButtonsPalette;
+            this.btnExportToExcel.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Custom;
+            this.btnExportToExcel.Size = new System.Drawing.Size(42, 39);
+            this.btnExportToExcel.StateCommon.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.btnExportToExcel.StateCommon.Content.Image.ImageH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
+            this.btnExportToExcel.StateCommon.Content.Image.ImageV = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
+            this.btnExportToExcel.StateCommon.Content.ShortText.Color1 = System.Drawing.Color.White;
+            this.btnExportToExcel.StateCommon.Content.ShortText.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.btnExportToExcel.StateCommon.Content.ShortText.TextH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
+            this.btnExportToExcel.StateCommon.Content.ShortText.TextV = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
+            this.btnExportToExcel.StateTracking.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
+            this.btnExportToExcel.TabIndex = 461;
+            this.btnExportToExcel.TabStop = false;
+            this.btnExportToExcel.Values.Text = ".XLS";
+            this.btnExportToExcel.Click += new System.EventHandler(this.btnExcelExport_Click);
+            // 
+            // btnSave
+            // 
+            this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSave.Location = new System.Drawing.Point(1073, 7);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Palette = this.NavigateMenuButtonsPalette;
+            this.btnSave.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Custom;
+            this.btnSave.Size = new System.Drawing.Size(42, 39);
+            this.btnSave.StateCommon.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.btnSave.StateCommon.Content.Image.ImageH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
+            this.btnSave.StateCommon.Content.Image.ImageV = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
+            this.btnSave.StateCommon.Content.ShortText.Font = new System.Drawing.Font("Microsoft Sans Serif", 25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.btnSave.StateTracking.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
+            this.btnSave.TabIndex = 458;
+            this.btnSave.TabStop = false;
+            this.btnSave.Values.Image = ((System.Drawing.Image)(resources.GetObject("btnSave.Values.Image")));
+            this.btnSave.Values.Text = "";
+            this.btnSave.Click += new System.EventHandler(this.btnSaveDescription_Click);
             // 
             // MinimizeButton
             // 
@@ -825,6 +874,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.cbZDecor);
             this.panel1.Controls.Add(this.btnUncheckAllZClientsGroups);
             this.panel1.Controls.Add(this.btnCheckAllZClientsGroups);
             this.panel1.Controls.Add(this.panel5);
@@ -854,6 +904,20 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(610, 424);
             this.panel1.TabIndex = 441;
+            // 
+            // cbZDecor
+            // 
+            this.cbZDecor.LabelStyle = ComponentFactory.Krypton.Toolkit.LabelStyle.NormalControl;
+            this.cbZDecor.Location = new System.Drawing.Point(525, 249);
+            this.cbZDecor.Name = "cbZDecor";
+            this.cbZDecor.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2010Black;
+            this.cbZDecor.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.cbZDecor.Size = new System.Drawing.Size(72, 26);
+            this.cbZDecor.StateCommon.ShortText.Color1 = System.Drawing.Color.White;
+            this.cbZDecor.StateCommon.ShortText.Font = new System.Drawing.Font("Segoe UI", 15.94F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.cbZDecor.TabIndex = 458;
+            this.cbZDecor.Text = "Декор";
+            this.cbZDecor.Values.Text = "Декор";
             // 
             // btnUncheckAllZClientsGroups
             // 
@@ -1405,6 +1469,7 @@
             // 
             // panel3
             // 
+            this.panel3.Controls.Add(this.cbMDecor);
             this.panel3.Controls.Add(this.label14);
             this.panel3.Controls.Add(this.tbSearchMDoc);
             this.panel3.Controls.Add(this.panel6);
@@ -1432,6 +1497,20 @@
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(556, 424);
             this.panel3.TabIndex = 381;
+            // 
+            // cbMDecor
+            // 
+            this.cbMDecor.LabelStyle = ComponentFactory.Krypton.Toolkit.LabelStyle.NormalControl;
+            this.cbMDecor.Location = new System.Drawing.Point(472, 249);
+            this.cbMDecor.Name = "cbMDecor";
+            this.cbMDecor.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2010Black;
+            this.cbMDecor.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.cbMDecor.Size = new System.Drawing.Size(72, 26);
+            this.cbMDecor.StateCommon.ShortText.Color1 = System.Drawing.Color.White;
+            this.cbMDecor.StateCommon.ShortText.Font = new System.Drawing.Font("Segoe UI", 15.94F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.cbMDecor.TabIndex = 457;
+            this.cbMDecor.Text = "Декор";
+            this.cbMDecor.Values.Text = "Декор";
             // 
             // label14
             // 
@@ -2020,7 +2099,8 @@
             this.kryptonContextMenuItems2.Items.AddRange(new ComponentFactory.Krypton.Toolkit.KryptonContextMenuItemBase[] {
             this.btnSaveDescription,
             this.btnAttachFoto,
-            this.btnDetachFoto});
+            this.btnDetachFoto,
+            this.btnExcelExport});
             // 
             // btnSaveDescription
             // 
@@ -2037,30 +2117,14 @@
             this.btnDetachFoto.Text = "Удалить фото";
             this.btnDetachFoto.Click += new System.EventHandler(this.btnDetachFoto_Click);
             // 
+            // btnExcelExport
+            // 
+            this.btnExcelExport.Text = "Отчет в Excel";
+            this.btnExcelExport.Click += new System.EventHandler(this.btnExcelExport_Click);
+            // 
             // openFileDialog4
             // 
             this.openFileDialog4.FileOk += new System.ComponentModel.CancelEventHandler(this.openFileDialog4_FileOk);
-            // 
-            // btnSave
-            // 
-            this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSave.Location = new System.Drawing.Point(1073, 7);
-            this.btnSave.Name = "btnSave";
-            this.btnSave.Palette = this.NavigateMenuButtonsPalette;
-            this.btnSave.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Custom;
-            this.btnSave.Size = new System.Drawing.Size(42, 39);
-            this.btnSave.StateCommon.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
-            this.btnSave.StateCommon.Content.Image.ImageH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
-            this.btnSave.StateCommon.Content.Image.ImageV = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
-            this.btnSave.StateCommon.Content.ShortText.Font = new System.Drawing.Font("Microsoft Sans Serif", 25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.btnSave.StateTracking.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
-            this.btnSave.TabIndex = 458;
-            this.btnSave.TabStop = false;
-            this.btnSave.Values.Image = ((System.Drawing.Image)(resources.GetObject("btnSaveAssignments.Values.Image")));
-            this.btnSave.Values.Text = "";
-            this.btnSave.Click += new System.EventHandler(this.btnSaveDescription_Click);
             // 
             // SamplesOrdersForm
             // 
@@ -2255,5 +2319,9 @@
         private DevExpress.XtraTab.XtraTabPage xtraTabPage3;
         private System.Windows.Forms.PictureBox pcbxFoto;
         private ComponentFactory.Krypton.Toolkit.KryptonButton btnSave;
+        private ComponentFactory.Krypton.Toolkit.KryptonContextMenuItem btnExcelExport;
+        private ComponentFactory.Krypton.Toolkit.KryptonCheckBox cbZDecor;
+        private ComponentFactory.Krypton.Toolkit.KryptonCheckBox cbMDecor;
+        private ComponentFactory.Krypton.Toolkit.KryptonButton btnExportToExcel;
     }
 }
