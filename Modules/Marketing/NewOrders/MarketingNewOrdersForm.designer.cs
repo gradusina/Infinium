@@ -148,6 +148,7 @@
             this.btnDeleteAgreedOrder = new ComponentFactory.Krypton.Toolkit.KryptonContextMenuItem();
             this.kryptonContextMenuItem25 = new ComponentFactory.Krypton.Toolkit.KryptonContextMenuItem();
             this.kryptonContextMenuItem27 = new ComponentFactory.Krypton.Toolkit.KryptonContextMenuItem();
+            this.kryptonContextMenuItem28 = new ComponentFactory.Krypton.Toolkit.KryptonContextMenuItem();
             this.kryptonContextMenu2 = new ComponentFactory.Krypton.Toolkit.KryptonContextMenu();
             this.kryptonContextMenuItems2 = new ComponentFactory.Krypton.Toolkit.KryptonContextMenuItems();
             this.kryptonContextMenuItem9 = new ComponentFactory.Krypton.Toolkit.KryptonContextMenuItem();
@@ -2121,7 +2122,8 @@
             this.btnSetAgreementStatus,
             this.btnDeleteAgreedOrder,
             this.kryptonContextMenuItem25,
-            this.kryptonContextMenuItem27});
+            this.kryptonContextMenuItem27,
+            this.kryptonContextMenuItem28});
             // 
             // kryptonContextMenuItem6
             // 
@@ -2178,6 +2180,11 @@
             // 
             this.kryptonContextMenuItem27.Text = "Перенести заказ";
             this.kryptonContextMenuItem27.Click += new System.EventHandler(this.kryptonContextMenuItem27_Click);
+            // 
+            // kryptonContextMenuItem28
+            // 
+            this.kryptonContextMenuItem28.Text = "Выставить статус выбранных заказов";
+            this.kryptonContextMenuItem28.Click += new System.EventHandler(this.kryptonContextMenuItem28_Click);
             // 
             // kryptonContextMenu2
             // 
@@ -2600,5 +2607,6 @@
         private ComponentFactory.Krypton.Toolkit.KryptonContextMenuItem kryptonContextMenuItem25;
         private ComponentFactory.Krypton.Toolkit.KryptonContextMenuItem kryptonContextMenuItem26;
         private ComponentFactory.Krypton.Toolkit.KryptonContextMenuItem kryptonContextMenuItem27;
+        private ComponentFactory.Krypton.Toolkit.KryptonContextMenuItem kryptonContextMenuItem28;
     }
 }

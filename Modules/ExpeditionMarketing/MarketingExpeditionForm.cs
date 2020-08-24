@@ -928,6 +928,12 @@ namespace Infinium
 
         private void kryptonButton2_Click(object sender, EventArgs e)
         {
+            for (int i = 0; i < MegaOrdersDataGrid.Rows.Count; i++)
+            {
+                //CheckOrdersStatus.GG(
+                //    Convert.ToInt32(Convert.ToInt32(MegaOrdersDataGrid.Rows[i].Cells["MegaOrderID"].Value)));
+            }
+
             for (int i = 0; i < MegaOrdersDataGrid.SelectedRows.Count; i++)
             {
                 CheckOrdersStatus.GG(
@@ -4389,6 +4395,16 @@ namespace Infinium
         private void kryptonButton3_Click_1(object sender, EventArgs e)
         {
             CheckOrdersStatus.SetToExpedition(kryptonMonthCalendar1.SelectionStart, GetSelectedPackages());
+        }
+
+        private void kryptonButton6_Click(object sender, EventArgs e)
+        {
+            CheckOrdersStatus.SetToPack(kryptonMonthCalendar1.SelectionStart, GetSelectedPackages());
+        }
+
+        private void kryptonButton7_Click(object sender, EventArgs e)
+        {
+            CheckOrdersStatus.SetToNotPack(GetSelectedPackages());
         }
     }
 }

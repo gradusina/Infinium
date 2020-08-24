@@ -596,17 +596,17 @@ WHERE        CAST(CreateDateTime AS date) >= '2019-12-26 00:00' AND CAST(CreateD
         {
             TechStoreGroupsBS = new BindingSource()
             {
-                DataSource = new DataView(TechStoreGroupsDT, "TechStoreGroupID IN (45,52,53,56,57,58)", string.Empty, DataViewRowState.CurrentRows),
+                DataSource = new DataView(TechStoreGroupsDT, "TechStoreGroupID IN (45,52,53,56,57,58,62)", string.Empty, DataViewRowState.CurrentRows),
                 Sort = "TechStoreGroupName"
             };
             TechStoreSubGroupsBS = new BindingSource()
             {
-                DataSource = new DataView(TechStoreSubGroupsDT, "TechStoreGroupID IN (45,52,53,56,57,58)", string.Empty, DataViewRowState.CurrentRows),
+                DataSource = new DataView(TechStoreSubGroupsDT, "TechStoreGroupID IN (45,52,53,56,57,58,62)", string.Empty, DataViewRowState.CurrentRows),
                 Sort = "TechStoreSubGroupName"
             };
             TechStoreBS = new BindingSource()
             {
-                DataSource = new DataView(TechStoreDT, "TechStoreGroupID IN (45,52,53,56,57,58)", string.Empty, DataViewRowState.CurrentRows),
+                DataSource = new DataView(TechStoreDT, "TechStoreGroupID IN (45,52,53,56,57,58,62)", string.Empty, DataViewRowState.CurrentRows),
                 Sort = "TechStoreName"
             };
             CoversBS = new BindingSource()

@@ -256,6 +256,10 @@ namespace Infinium
 
         private void MegaOrdersDataGrid_SelectionChanged(object sender, EventArgs e)
         {
+            if (MegaOrdersDataGrid.Focused)
+            {
+
+            }
             if (OrdersManager != null)
                 if (OrdersManager.MegaOrdersBindingSource.Count > 0)
                 {
@@ -308,7 +312,10 @@ namespace Infinium
         private void MainOrdersDataGrid_SelectionChanged(object sender, EventArgs e)
         {
             //MainOrdersSquareLabel.Text = string.Empty;
+            if (MainOrdersDataGrid.Focused)
+            {
 
+            }
             if (OrdersManager != null)
                 if (OrdersManager.MainOrdersBindingSource.Count > 0)
                 {
@@ -2836,6 +2843,15 @@ namespace Infinium
                 NeedSplash = false;
                 Filter();
                 NeedSplash = true;
+            }
+        }
+
+        private void kryptonContextMenuItem28_Click(object sender, EventArgs e)
+        {
+            for (int i = 0; i < MegaOrdersDataGrid.SelectedRows.Count; i++)
+            {
+                CheckOrdersStatus.GG(
+                    Convert.ToInt32(Convert.ToInt32(MegaOrdersDataGrid.SelectedRows[i].Cells["MegaOrderID"].Value)));
             }
         }
     }

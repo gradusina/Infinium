@@ -2438,6 +2438,7 @@ namespace Infinium
             /// 2 - все
             /// </summary>
             public int ProfilNotPacked;
+
             public int ProfilPacked;
             public int ProfilStore;
             public int ProfilExp;
@@ -2478,7 +2479,9 @@ namespace Infinium
 
             using (SqlDataAdapter DA = new SqlDataAdapter(@"SELECT MegaOrderID FROM MegaOrders
 				WHERE MegaOrderID IN (SELECT DISTINCT MegaOrderID FROM MainOrders
-				WHERE MainOrderID IN (SELECT DISTINCT MainOrderID FROM Packages WHERE DispatchID IN (" + string.Join(",", DispatchIDs.OfType<Int32>().ToArray()) + ")))",
+				WHERE MainOrderID IN (SELECT DISTINCT MainOrderID FROM Packages WHERE DispatchID IN (" +
+                                                          string.Join(",", DispatchIDs.OfType<Int32>().ToArray()) +
+                                                          ")))",
                 OrdersConnectionString))
             {
                 using (DataTable DT = new DataTable())
@@ -2490,6 +2493,7 @@ namespace Infinium
                     }
                 }
             }
+
             return MegaOrders;
         }
 
@@ -2513,6 +2517,7 @@ namespace Infinium
                     }
                 }
             }
+
             return MegaOrders;
         }
 
@@ -2528,14 +2533,19 @@ namespace Infinium
             DataTable DecorDT = new DataTable();
 
             using (SqlDataAdapter DA = new SqlDataAdapter("SELECT PackNumber FROM PackageDetails WHERE PackageID IN " +
-                "(SELECT PackageID FROM Packages WHERE MainOrderID = " + MainOrderID +
-                " AND ProductType = 0" + " AND FactoryID=" + FactoryID + ")", OrdersConnectionString))
+                                                          "(SELECT PackageID FROM Packages WHERE MainOrderID = " +
+                                                          MainOrderID +
+                                                          " AND ProductType = 0" + " AND FactoryID=" + FactoryID + ")",
+                OrdersConnectionString))
             {
                 DA.Fill(FrontsDT);
             }
+
             using (SqlDataAdapter DA = new SqlDataAdapter("SELECT PackNumber FROM PackageDetails WHERE PackageID IN " +
-                "(SELECT PackageID FROM Packages WHERE MainOrderID = " + MainOrderID +
-                " AND ProductType = 1" + " AND FactoryID=" + FactoryID + ")", OrdersConnectionString))
+                                                          "(SELECT PackageID FROM Packages WHERE MainOrderID = " +
+                                                          MainOrderID +
+                                                          " AND ProductType = 1" + " AND FactoryID=" + FactoryID + ")",
+                OrdersConnectionString))
             {
                 DA.Fill(DecorDT);
             }
@@ -2561,7 +2571,7 @@ namespace Infinium
                 DT.Clear();
 
                 DV.Sort = "PackNumber ASC";
-                DT = DV.ToTable(true, new string[] { "PackNumber" });
+                DT = DV.ToTable(true, new string[] {"PackNumber"});
             }
 
             for (int i = 0; i < DT.Rows.Count; i++)
@@ -2593,7 +2603,8 @@ namespace Infinium
             int TPSPackages = 0;
 
             using (SqlDataAdapter DA = new SqlDataAdapter("SELECT * FROM Packages" +
-                " WHERE MainOrderID = " + MainOrderID + " ORDER BY DispatchDateTime",
+                                                          " WHERE MainOrderID = " + MainOrderID +
+                                                          " ORDER BY DispatchDateTime",
                 OrdersConnectionString))
             {
                 using (DataTable DT = new DataTable())
@@ -2611,6 +2622,7 @@ namespace Infinium
 
                         PS.FullDisp = false;
                         PS.DispDate = DBNull.Value;
+
                         #region Profil
 
                         if (FactoryID == 1)
@@ -2937,6 +2949,7 @@ namespace Infinium
             {
                 DA.Fill(TempDT);
             }
+
             SelectCommand = @"SELECT * FROM SampleMainOrders WHERE MainOrderID = " + MainOrderID;
             using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, OrdersConnectionString))
             {
@@ -2949,7 +2962,8 @@ namespace Infinium
                         {
                             for (int i = 0; i < TempDT.Rows.Count; i++)
                             {
-                                DataRow[] Rows = DT.Select("MainOrderID=" + Convert.ToInt32(TempDT.Rows[i]["MainOrderID"]));
+                                DataRow[] Rows =
+                                    DT.Select("MainOrderID=" + Convert.ToInt32(TempDT.Rows[i]["MainOrderID"]));
                                 if (Rows.Count() > 0)
                                     continue;
                                 DataRow NewRow = DT.NewRow();
@@ -2958,11 +2972,13 @@ namespace Infinium
                                     NewRow["DispDate"] = DispDate;
                                 DT.Rows.Add(NewRow);
                             }
+
                             DA.Update(DT);
                         }
                     }
                 }
             }
+
             TempDT.Dispose();
             TempDT = new DataTable();
             SelectCommand = @"SELECT * FROM FrontsOrders WHERE MainOrderID = " + MainOrderID;
@@ -2970,6 +2986,7 @@ namespace Infinium
             {
                 DA.Fill(TempDT);
             }
+
             SelectCommand = @"SELECT * FROM SampleFrontsOrders WHERE MainOrderID = " + MainOrderID;
             using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, OrdersConnectionString))
             {
@@ -2982,18 +2999,21 @@ namespace Infinium
                         {
                             for (int i = 0; i < TempDT.Rows.Count; i++)
                             {
-                                DataRow[] Rows = DT.Select("FrontsOrdersID=" + Convert.ToInt32(TempDT.Rows[i]["FrontsOrdersID"]));
+                                DataRow[] Rows =
+                                    DT.Select("FrontsOrdersID=" + Convert.ToInt32(TempDT.Rows[i]["FrontsOrdersID"]));
                                 if (Rows.Count() > 0)
                                     continue;
                                 DataRow NewRow = DT.NewRow();
                                 NewRow.ItemArray = TempDT.Rows[i].ItemArray;
                                 DT.Rows.Add(NewRow);
                             }
+
                             DA.Update(DT);
                         }
                     }
                 }
             }
+
             TempDT.Dispose();
             TempDT = new DataTable();
             SelectCommand = @"SELECT * FROM DecorOrders WHERE MainOrderID = " + MainOrderID;
@@ -3001,6 +3021,7 @@ namespace Infinium
             {
                 DA.Fill(TempDT);
             }
+
             SelectCommand = @"SELECT * FROM SampleDecorOrders WHERE MainOrderID = " + MainOrderID;
             using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, OrdersConnectionString))
             {
@@ -3013,13 +3034,15 @@ namespace Infinium
                         {
                             for (int i = 0; i < TempDT.Rows.Count; i++)
                             {
-                                DataRow[] Rows = DT.Select("DecorOrderID=" + Convert.ToInt32(TempDT.Rows[i]["DecorOrderID"]));
+                                DataRow[] Rows =
+                                    DT.Select("DecorOrderID=" + Convert.ToInt32(TempDT.Rows[i]["DecorOrderID"]));
                                 if (Rows.Count() > 0)
                                     continue;
                                 DataRow NewRow = DT.NewRow();
                                 NewRow.ItemArray = TempDT.Rows[i].ItemArray;
                                 DT.Rows.Add(NewRow);
                             }
+
                             DA.Update(DT);
                         }
                     }
@@ -3049,9 +3072,10 @@ namespace Infinium
             if (Marketing)
             {
                 string SelectCommand = "SELECT MainOrderID, IsSample, FactoryID," +
-                        " ProfilProductionStatusID, ProfilStorageStatusID, ProfilExpeditionStatusID, ProfilDispatchStatusID, " +
-                        " TPSProductionStatusID, TPSStorageStatusID, TPSExpeditionStatusID, TPSDispatchStatusID FROM MainOrders WHERE MainOrderID IN" +
-                        " (SELECT DISTINCT MainOrderID FROM Packages WHERE DispatchID IN (" + string.Join(",", DispatchIDs.OfType<Int32>().ToArray()) + "))";
+                                       " ProfilProductionStatusID, ProfilStorageStatusID, ProfilExpeditionStatusID, ProfilDispatchStatusID, " +
+                                       " TPSProductionStatusID, TPSStorageStatusID, TPSExpeditionStatusID, TPSDispatchStatusID FROM MainOrders WHERE MainOrderID IN" +
+                                       " (SELECT DISTINCT MainOrderID FROM Packages WHERE DispatchID IN (" +
+                                       string.Join(",", DispatchIDs.OfType<Int32>().ToArray()) + "))";
                 PackageStatues PS = new PackageStatues();
 
                 using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand,
@@ -3076,23 +3100,28 @@ namespace Infinium
                                     TPSExpeditionStatusID = Convert.ToInt32(DT.Rows[i]["TPSExpeditionStatusID"]);
                                     TPSDispatchStatusID = Convert.ToInt32(DT.Rows[i]["TPSDispatchStatusID"]);
                                     PS.ClearStatuses();
-                                    IsAllocPack = GetPackageStatuses(Marketing, FactoryID, Convert.ToInt32(DT.Rows[i]["MainOrderID"]), ref PS);
+                                    IsAllocPack = GetPackageStatuses(Marketing, FactoryID,
+                                        Convert.ToInt32(DT.Rows[i]["MainOrderID"]), ref PS);
                                     if (!IsAllocPack)
                                         return;
                                     if (FactoryID == 1)
                                     {
-                                        SetProfilMainOrderStatus(ref ProfilProductionStatusID, ref ProfilStorageStatusID,
+                                        SetProfilMainOrderStatus(ref ProfilProductionStatusID,
+                                            ref ProfilStorageStatusID,
                                             ref ProfilExpeditionStatusID, ref ProfilDispatchStatusID, ref PS);
                                         if (IsSample)
                                         {
                                             if (PS.FullDisp)
-                                                CopySampleOrders(Marketing, Convert.ToInt32(DT.Rows[i]["MainOrderID"]), PS.DispDate);
+                                                CopySampleOrders(Marketing, Convert.ToInt32(DT.Rows[i]["MainOrderID"]),
+                                                    PS.DispDate);
                                         }
+
                                         TPSProductionStatusID = 0;
                                         TPSStorageStatusID = 0;
                                         TPSExpeditionStatusID = 0;
                                         TPSDispatchStatusID = 0;
                                     }
+
                                     if (FactoryID == 2)
                                     {
                                         SetTPSMainOrderStatus(ref TPSProductionStatusID, ref TPSStorageStatusID,
@@ -3100,16 +3129,20 @@ namespace Infinium
                                         if (IsSample)
                                         {
                                             if (PS.FullDisp)
-                                                CopySampleOrders(Marketing, Convert.ToInt32(DT.Rows[i]["MainOrderID"]), PS.DispDate);
+                                                CopySampleOrders(Marketing, Convert.ToInt32(DT.Rows[i]["MainOrderID"]),
+                                                    PS.DispDate);
                                         }
+
                                         ProfilProductionStatusID = 0;
                                         ProfilStorageStatusID = 0;
                                         ProfilExpeditionStatusID = 0;
                                         ProfilDispatchStatusID = 0;
                                     }
+
                                     if (FactoryID == 0)
                                     {
-                                        SetProfilMainOrderStatus(ref ProfilProductionStatusID, ref ProfilStorageStatusID,
+                                        SetProfilMainOrderStatus(ref ProfilProductionStatusID,
+                                            ref ProfilStorageStatusID,
                                             ref ProfilExpeditionStatusID, ref ProfilDispatchStatusID, ref PS);
 
                                         SetTPSMainOrderStatus(ref TPSProductionStatusID, ref TPSStorageStatusID,
@@ -3117,7 +3150,8 @@ namespace Infinium
                                         if (IsSample)
                                         {
                                             if (PS.FullDisp)
-                                                CopySampleOrders(Marketing, Convert.ToInt32(DT.Rows[i]["MainOrderID"]), PS.DispDate);
+                                                CopySampleOrders(Marketing, Convert.ToInt32(DT.Rows[i]["MainOrderID"]),
+                                                    PS.DispDate);
                                         }
                                     }
 
@@ -3146,6 +3180,7 @@ namespace Infinium
                                         DT.Rows[i]["TPSDispatchStatusID"] = TPSDispatchStatusID;
 
                                 }
+
                                 DA.Update(DT);
                             }
                         }
@@ -3165,9 +3200,10 @@ namespace Infinium
                 TPSDispatchStatusID = 0;
 
                 SelectCommand = "SELECT MainOrderID, IsSample, FactoryID," +
-                        " ProfilProductionStatusID, ProfilStorageStatusID, ProfilExpeditionStatusID, ProfilDispatchStatusID, " +
-                        " TPSProductionStatusID, TPSStorageStatusID, TPSExpeditionStatusID, TPSDispatchStatusID FROM NewMainOrders WHERE MainOrderID IN" +
-                        " (SELECT DISTINCT MainOrderID FROM Packages WHERE DispatchID IN (" + string.Join(",", DispatchIDs.OfType<Int32>().ToArray()) + "))";
+                                " ProfilProductionStatusID, ProfilStorageStatusID, ProfilExpeditionStatusID, ProfilDispatchStatusID, " +
+                                " TPSProductionStatusID, TPSStorageStatusID, TPSExpeditionStatusID, TPSDispatchStatusID FROM NewMainOrders WHERE MainOrderID IN" +
+                                " (SELECT DISTINCT MainOrderID FROM Packages WHERE DispatchID IN (" +
+                                string.Join(",", DispatchIDs.OfType<Int32>().ToArray()) + "))";
                 PS = new PackageStatues();
                 using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand,
                     ConnectionStrings.MarketingOrdersConnectionString))
@@ -3191,25 +3227,30 @@ namespace Infinium
                                     TPSExpeditionStatusID = Convert.ToInt32(DT.Rows[i]["TPSExpeditionStatusID"]);
                                     TPSDispatchStatusID = Convert.ToInt32(DT.Rows[i]["TPSDispatchStatusID"]);
                                     PS.ClearStatuses();
-                                    IsAllocPack = GetPackageStatuses(Marketing, FactoryID, Convert.ToInt32(DT.Rows[i]["MainOrderID"]), ref PS);
+                                    IsAllocPack = GetPackageStatuses(Marketing, FactoryID,
+                                        Convert.ToInt32(DT.Rows[i]["MainOrderID"]), ref PS);
                                     if (!IsAllocPack)
                                         return;
 
                                     if (FactoryID == 1)
                                     {
-                                        SetProfilMainOrderStatus(ref ProfilProductionStatusID, ref ProfilStorageStatusID,
+                                        SetProfilMainOrderStatus(ref ProfilProductionStatusID,
+                                            ref ProfilStorageStatusID,
                                             ref ProfilExpeditionStatusID, ref ProfilDispatchStatusID, ref PS);
 
                                         if (IsSample)
                                         {
                                             if (PS.FullDisp)
-                                                CopySampleOrders(Marketing, Convert.ToInt32(DT.Rows[i]["MainOrderID"]), PS.DispDate);
+                                                CopySampleOrders(Marketing, Convert.ToInt32(DT.Rows[i]["MainOrderID"]),
+                                                    PS.DispDate);
                                         }
+
                                         TPSProductionStatusID = 0;
                                         TPSStorageStatusID = 0;
                                         TPSExpeditionStatusID = 0;
                                         TPSDispatchStatusID = 0;
                                     }
+
                                     if (FactoryID == 2)
                                     {
                                         SetTPSMainOrderStatus(ref TPSProductionStatusID, ref TPSStorageStatusID,
@@ -3218,16 +3259,20 @@ namespace Infinium
                                         if (IsSample)
                                         {
                                             if (PS.FullDisp)
-                                                CopySampleOrders(Marketing, Convert.ToInt32(DT.Rows[i]["MainOrderID"]), PS.DispDate);
+                                                CopySampleOrders(Marketing, Convert.ToInt32(DT.Rows[i]["MainOrderID"]),
+                                                    PS.DispDate);
                                         }
+
                                         ProfilProductionStatusID = 0;
                                         ProfilStorageStatusID = 0;
                                         ProfilExpeditionStatusID = 0;
                                         ProfilDispatchStatusID = 0;
                                     }
+
                                     if (FactoryID == 0)
                                     {
-                                        SetProfilMainOrderStatus(ref ProfilProductionStatusID, ref ProfilStorageStatusID,
+                                        SetProfilMainOrderStatus(ref ProfilProductionStatusID,
+                                            ref ProfilStorageStatusID,
                                             ref ProfilExpeditionStatusID, ref ProfilDispatchStatusID, ref PS);
 
                                         SetTPSMainOrderStatus(ref TPSProductionStatusID, ref TPSStorageStatusID,
@@ -3235,7 +3280,8 @@ namespace Infinium
                                         if (IsSample)
                                         {
                                             if (PS.FullDisp)
-                                                CopySampleOrders(Marketing, Convert.ToInt32(DT.Rows[i]["MainOrderID"]), PS.DispDate);
+                                                CopySampleOrders(Marketing, Convert.ToInt32(DT.Rows[i]["MainOrderID"]),
+                                                    PS.DispDate);
                                         }
                                     }
 
@@ -3264,6 +3310,7 @@ namespace Infinium
                                         DT.Rows[i]["TPSDispatchStatusID"] = TPSDispatchStatusID;
 
                                 }
+
                                 DA.Update(DT);
                             }
                         }
@@ -3273,9 +3320,10 @@ namespace Infinium
             else
             {
                 string SelectCommand = "SELECT MainOrderID, IsSample, FactoryID," +
-                        " ProfilProductionStatusID, ProfilStorageStatusID, ProfilExpeditionStatusID, ProfilDispatchStatusID, " +
-                        " TPSProductionStatusID, TPSStorageStatusID, TPSExpeditionStatusID, TPSDispatchStatusID FROM MainOrders WHERE MainOrderID IN" +
-                        " (SELECT DISTINCT MainOrderID FROM Packages WHERE DispatchID IN (" + string.Join(",", DispatchIDs.OfType<Int32>().ToArray()) + "))";
+                                       " ProfilProductionStatusID, ProfilStorageStatusID, ProfilExpeditionStatusID, ProfilDispatchStatusID, " +
+                                       " TPSProductionStatusID, TPSStorageStatusID, TPSExpeditionStatusID, TPSDispatchStatusID FROM MainOrders WHERE MainOrderID IN" +
+                                       " (SELECT DISTINCT MainOrderID FROM Packages WHERE DispatchID IN (" +
+                                       string.Join(",", DispatchIDs.OfType<Int32>().ToArray()) + "))";
                 PackageStatues PS = new PackageStatues();
 
                 using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand,
@@ -3300,24 +3348,29 @@ namespace Infinium
                                     TPSExpeditionStatusID = Convert.ToInt32(DT.Rows[i]["TPSExpeditionStatusID"]);
                                     TPSDispatchStatusID = Convert.ToInt32(DT.Rows[i]["TPSDispatchStatusID"]);
                                     PS.ClearStatuses();
-                                    IsAllocPack = GetPackageStatuses(Marketing, FactoryID, Convert.ToInt32(DT.Rows[i]["MainOrderID"]), ref PS);
+                                    IsAllocPack = GetPackageStatuses(Marketing, FactoryID,
+                                        Convert.ToInt32(DT.Rows[i]["MainOrderID"]), ref PS);
                                     if (!IsAllocPack)
                                         return;
 
                                     if (FactoryID == 1)
                                     {
-                                        SetProfilMainOrderStatus(ref ProfilProductionStatusID, ref ProfilStorageStatusID,
+                                        SetProfilMainOrderStatus(ref ProfilProductionStatusID,
+                                            ref ProfilStorageStatusID,
                                             ref ProfilExpeditionStatusID, ref ProfilDispatchStatusID, ref PS);
                                         if (IsSample)
                                         {
                                             if (PS.FullDisp)
-                                                CopySampleOrders(Marketing, Convert.ToInt32(DT.Rows[i]["MainOrderID"]), PS.DispDate);
+                                                CopySampleOrders(Marketing, Convert.ToInt32(DT.Rows[i]["MainOrderID"]),
+                                                    PS.DispDate);
                                         }
+
                                         TPSProductionStatusID = 0;
                                         TPSStorageStatusID = 0;
                                         TPSExpeditionStatusID = 0;
                                         TPSDispatchStatusID = 0;
                                     }
+
                                     if (FactoryID == 2)
                                     {
                                         SetTPSMainOrderStatus(ref TPSProductionStatusID, ref TPSStorageStatusID,
@@ -3325,23 +3378,28 @@ namespace Infinium
                                         if (IsSample)
                                         {
                                             if (PS.FullDisp)
-                                                CopySampleOrders(Marketing, Convert.ToInt32(DT.Rows[i]["MainOrderID"]), PS.DispDate);
+                                                CopySampleOrders(Marketing, Convert.ToInt32(DT.Rows[i]["MainOrderID"]),
+                                                    PS.DispDate);
                                         }
+
                                         ProfilProductionStatusID = 0;
                                         ProfilStorageStatusID = 0;
                                         ProfilExpeditionStatusID = 0;
                                         ProfilDispatchStatusID = 0;
                                     }
+
                                     if (FactoryID == 0)
                                     {
-                                        SetProfilMainOrderStatus(ref ProfilProductionStatusID, ref ProfilStorageStatusID,
+                                        SetProfilMainOrderStatus(ref ProfilProductionStatusID,
+                                            ref ProfilStorageStatusID,
                                             ref ProfilExpeditionStatusID, ref ProfilDispatchStatusID, ref PS);
                                         SetTPSMainOrderStatus(ref TPSProductionStatusID, ref TPSStorageStatusID,
                                             ref TPSExpeditionStatusID, ref TPSDispatchStatusID, ref PS);
                                         if (IsSample)
                                         {
                                             if (PS.FullDisp)
-                                                CopySampleOrders(Marketing, Convert.ToInt32(DT.Rows[i]["MainOrderID"]), PS.DispDate);
+                                                CopySampleOrders(Marketing, Convert.ToInt32(DT.Rows[i]["MainOrderID"]),
+                                                    PS.DispDate);
                                         }
                                     }
 
@@ -3370,6 +3428,7 @@ namespace Infinium
                                         DT.Rows[i]["TPSDispatchStatusID"] = TPSDispatchStatusID;
 
                                 }
+
                                 DA.Update(DT);
                             }
                         }
@@ -3393,15 +3452,17 @@ namespace Infinium
             if (Marketing)
             {
                 string SelectCommand = "SELECT MainOrderID, IsSample, FactoryID," +
-                    " ProfilProductionStatusID, ProfilStorageStatusID, ProfilExpeditionStatusID, ProfilDispatchStatusID, " +
-                    " TPSProductionStatusID, TPSStorageStatusID, TPSExpeditionStatusID, TPSDispatchStatusID FROM MainOrders WHERE MainOrderID = " + MainOrderID;
+                                       " ProfilProductionStatusID, ProfilStorageStatusID, ProfilExpeditionStatusID, ProfilDispatchStatusID, " +
+                                       " TPSProductionStatusID, TPSStorageStatusID, TPSExpeditionStatusID, TPSDispatchStatusID FROM MainOrders WHERE MainOrderID = " +
+                                       MainOrderID;
                 if (IsTray)
                     SelectCommand = "SELECT MainOrderID, IsSample, FactoryID," +
-                        " ProfilProductionStatusID, ProfilStorageStatusID, ProfilExpeditionStatusID, ProfilDispatchStatusID, " +
-                        " TPSProductionStatusID, TPSStorageStatusID, TPSExpeditionStatusID, TPSDispatchStatusID FROM MainOrders WHERE MainOrderID IN" +
-                        " (SELECT DISTINCT MainOrderID FROM Packages WHERE TrayID = " + MainOrderID + ")";
+                                    " ProfilProductionStatusID, ProfilStorageStatusID, ProfilExpeditionStatusID, ProfilDispatchStatusID, " +
+                                    " TPSProductionStatusID, TPSStorageStatusID, TPSExpeditionStatusID, TPSDispatchStatusID FROM MainOrders WHERE MainOrderID IN" +
+                                    " (SELECT DISTINCT MainOrderID FROM Packages WHERE TrayID = " + MainOrderID + ")";
                 PackageStatues PS = new PackageStatues();
-                using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.MarketingOrdersConnectionString))
+                using (SqlDataAdapter DA =
+                    new SqlDataAdapter(SelectCommand, ConnectionStrings.MarketingOrdersConnectionString))
                 {
                     using (SqlCommandBuilder CB = new SqlCommandBuilder(DA))
                     {
@@ -3422,23 +3483,28 @@ namespace Infinium
                                     TPSExpeditionStatusID = Convert.ToInt32(DT.Rows[i]["TPSExpeditionStatusID"]);
                                     TPSDispatchStatusID = Convert.ToInt32(DT.Rows[i]["TPSDispatchStatusID"]);
                                     PS.ClearStatuses();
-                                    IsAllocPack = GetPackageStatuses(Marketing, FactoryID, Convert.ToInt32(DT.Rows[i]["MainOrderID"]), ref PS);
+                                    IsAllocPack = GetPackageStatuses(Marketing, FactoryID,
+                                        Convert.ToInt32(DT.Rows[i]["MainOrderID"]), ref PS);
                                     if (!IsAllocPack)
                                         return;
                                     if (FactoryID == 1)
                                     {
-                                        SetProfilMainOrderStatus(ref ProfilProductionStatusID, ref ProfilStorageStatusID,
+                                        SetProfilMainOrderStatus(ref ProfilProductionStatusID,
+                                            ref ProfilStorageStatusID,
                                             ref ProfilExpeditionStatusID, ref ProfilDispatchStatusID, ref PS);
                                         if (IsSample)
                                         {
                                             if (PS.FullDisp)
-                                                CopySampleOrders(Marketing, Convert.ToInt32(DT.Rows[i]["MainOrderID"]), PS.DispDate);
+                                                CopySampleOrders(Marketing, Convert.ToInt32(DT.Rows[i]["MainOrderID"]),
+                                                    PS.DispDate);
                                         }
+
                                         TPSProductionStatusID = 0;
                                         TPSStorageStatusID = 0;
                                         TPSExpeditionStatusID = 0;
                                         TPSDispatchStatusID = 0;
                                     }
+
                                     if (FactoryID == 2)
                                     {
                                         SetTPSMainOrderStatus(ref TPSProductionStatusID, ref TPSStorageStatusID,
@@ -3446,25 +3512,31 @@ namespace Infinium
                                         if (IsSample)
                                         {
                                             if (PS.FullDisp)
-                                                CopySampleOrders(Marketing, Convert.ToInt32(DT.Rows[i]["MainOrderID"]), PS.DispDate);
+                                                CopySampleOrders(Marketing, Convert.ToInt32(DT.Rows[i]["MainOrderID"]),
+                                                    PS.DispDate);
                                         }
+
                                         ProfilProductionStatusID = 0;
                                         ProfilStorageStatusID = 0;
                                         ProfilExpeditionStatusID = 0;
                                         ProfilDispatchStatusID = 0;
                                     }
+
                                     if (FactoryID == 0)
                                     {
-                                        SetProfilMainOrderStatus(ref ProfilProductionStatusID, ref ProfilStorageStatusID,
+                                        SetProfilMainOrderStatus(ref ProfilProductionStatusID,
+                                            ref ProfilStorageStatusID,
                                             ref ProfilExpeditionStatusID, ref ProfilDispatchStatusID, ref PS);
                                         SetTPSMainOrderStatus(ref TPSProductionStatusID, ref TPSStorageStatusID,
                                             ref TPSExpeditionStatusID, ref TPSDispatchStatusID, ref PS);
                                         if (IsSample)
                                         {
                                             if (PS.FullDisp)
-                                                CopySampleOrders(Marketing, Convert.ToInt32(DT.Rows[i]["MainOrderID"]), PS.DispDate);
+                                                CopySampleOrders(Marketing, Convert.ToInt32(DT.Rows[i]["MainOrderID"]),
+                                                    PS.DispDate);
                                         }
                                     }
+
                                     if (Convert.ToInt32(DT.Rows[i]["ProfilProductionStatusID"]) != 0)
                                         DT.Rows[i]["ProfilProductionStatusID"] = ProfilProductionStatusID;
                                     if (Convert.ToInt32(DT.Rows[i]["ProfilStorageStatusID"]) != 0)
@@ -3482,6 +3554,7 @@ namespace Infinium
                                     if (Convert.ToInt32(DT.Rows[i]["TPSDispatchStatusID"]) != 0)
                                         DT.Rows[i]["TPSDispatchStatusID"] = TPSDispatchStatusID;
                                 }
+
                                 DA.Update(DT);
                             }
                         }
@@ -3501,15 +3574,17 @@ namespace Infinium
                 TPSDispatchStatusID = 0;
 
                 SelectCommand = "SELECT MainOrderID, IsSample, FactoryID," +
-                    " ProfilProductionStatusID, ProfilStorageStatusID, ProfilExpeditionStatusID, ProfilDispatchStatusID, " +
-                    " TPSProductionStatusID, TPSStorageStatusID, TPSExpeditionStatusID, TPSDispatchStatusID FROM NewMainOrders WHERE MainOrderID = " + MainOrderID;
+                                " ProfilProductionStatusID, ProfilStorageStatusID, ProfilExpeditionStatusID, ProfilDispatchStatusID, " +
+                                " TPSProductionStatusID, TPSStorageStatusID, TPSExpeditionStatusID, TPSDispatchStatusID FROM NewMainOrders WHERE MainOrderID = " +
+                                MainOrderID;
                 if (IsTray)
                     SelectCommand = "SELECT MainOrderID, IsSample, FactoryID," +
-                        " ProfilProductionStatusID, ProfilStorageStatusID, ProfilExpeditionStatusID, ProfilDispatchStatusID, " +
-                        " TPSProductionStatusID, TPSStorageStatusID, TPSExpeditionStatusID, TPSDispatchStatusID FROM NewMainOrders WHERE MainOrderID IN" +
-                        " (SELECT DISTINCT MainOrderID FROM Packages WHERE TrayID = " + MainOrderID + ")";
+                                    " ProfilProductionStatusID, ProfilStorageStatusID, ProfilExpeditionStatusID, ProfilDispatchStatusID, " +
+                                    " TPSProductionStatusID, TPSStorageStatusID, TPSExpeditionStatusID, TPSDispatchStatusID FROM NewMainOrders WHERE MainOrderID IN" +
+                                    " (SELECT DISTINCT MainOrderID FROM Packages WHERE TrayID = " + MainOrderID + ")";
                 PS = new PackageStatues();
-                using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.MarketingOrdersConnectionString))
+                using (SqlDataAdapter DA =
+                    new SqlDataAdapter(SelectCommand, ConnectionStrings.MarketingOrdersConnectionString))
                 {
                     using (SqlCommandBuilder CB = new SqlCommandBuilder(DA))
                     {
@@ -3530,23 +3605,28 @@ namespace Infinium
                                     TPSExpeditionStatusID = Convert.ToInt32(DT.Rows[i]["TPSExpeditionStatusID"]);
                                     TPSDispatchStatusID = Convert.ToInt32(DT.Rows[i]["TPSDispatchStatusID"]);
                                     PS.ClearStatuses();
-                                    IsAllocPack = GetPackageStatuses(Marketing, FactoryID, Convert.ToInt32(DT.Rows[i]["MainOrderID"]), ref PS);
+                                    IsAllocPack = GetPackageStatuses(Marketing, FactoryID,
+                                        Convert.ToInt32(DT.Rows[i]["MainOrderID"]), ref PS);
                                     if (!IsAllocPack)
                                         return;
                                     if (FactoryID == 1)
                                     {
-                                        SetProfilMainOrderStatus(ref ProfilProductionStatusID, ref ProfilStorageStatusID,
+                                        SetProfilMainOrderStatus(ref ProfilProductionStatusID,
+                                            ref ProfilStorageStatusID,
                                             ref ProfilExpeditionStatusID, ref ProfilDispatchStatusID, ref PS);
                                         if (IsSample)
                                         {
                                             if (PS.FullDisp)
-                                                CopySampleOrders(Marketing, Convert.ToInt32(DT.Rows[i]["MainOrderID"]), PS.DispDate);
+                                                CopySampleOrders(Marketing, Convert.ToInt32(DT.Rows[i]["MainOrderID"]),
+                                                    PS.DispDate);
                                         }
+
                                         TPSProductionStatusID = 0;
                                         TPSStorageStatusID = 0;
                                         TPSExpeditionStatusID = 0;
                                         TPSDispatchStatusID = 0;
                                     }
+
                                     if (FactoryID == 2)
                                     {
                                         SetTPSMainOrderStatus(ref TPSProductionStatusID, ref TPSStorageStatusID,
@@ -3554,25 +3634,31 @@ namespace Infinium
                                         if (IsSample)
                                         {
                                             if (PS.FullDisp)
-                                                CopySampleOrders(Marketing, Convert.ToInt32(DT.Rows[i]["MainOrderID"]), PS.DispDate);
+                                                CopySampleOrders(Marketing, Convert.ToInt32(DT.Rows[i]["MainOrderID"]),
+                                                    PS.DispDate);
                                         }
+
                                         ProfilProductionStatusID = 0;
                                         ProfilStorageStatusID = 0;
                                         ProfilExpeditionStatusID = 0;
                                         ProfilDispatchStatusID = 0;
                                     }
+
                                     if (FactoryID == 0)
                                     {
-                                        SetProfilMainOrderStatus(ref ProfilProductionStatusID, ref ProfilStorageStatusID,
+                                        SetProfilMainOrderStatus(ref ProfilProductionStatusID,
+                                            ref ProfilStorageStatusID,
                                             ref ProfilExpeditionStatusID, ref ProfilDispatchStatusID, ref PS);
                                         SetTPSMainOrderStatus(ref TPSProductionStatusID, ref TPSStorageStatusID,
                                             ref TPSExpeditionStatusID, ref TPSDispatchStatusID, ref PS);
                                         if (IsSample)
                                         {
                                             if (PS.FullDisp)
-                                                CopySampleOrders(Marketing, Convert.ToInt32(DT.Rows[i]["MainOrderID"]), PS.DispDate);
+                                                CopySampleOrders(Marketing, Convert.ToInt32(DT.Rows[i]["MainOrderID"]),
+                                                    PS.DispDate);
                                         }
                                     }
+
                                     if (Convert.ToInt32(DT.Rows[i]["ProfilProductionStatusID"]) != 0)
                                         DT.Rows[i]["ProfilProductionStatusID"] = ProfilProductionStatusID;
                                     if (Convert.ToInt32(DT.Rows[i]["ProfilStorageStatusID"]) != 0)
@@ -3590,6 +3676,7 @@ namespace Infinium
                                     if (Convert.ToInt32(DT.Rows[i]["TPSDispatchStatusID"]) != 0)
                                         DT.Rows[i]["TPSDispatchStatusID"] = TPSDispatchStatusID;
                                 }
+
                                 DA.Update(DT);
                             }
                         }
@@ -3599,15 +3686,17 @@ namespace Infinium
             else
             {
                 string SelectCommand = "SELECT MainOrderID, IsSample, FactoryID," +
-                    " ProfilProductionStatusID, ProfilStorageStatusID, ProfilExpeditionStatusID, ProfilDispatchStatusID, " +
-                    " TPSProductionStatusID, TPSStorageStatusID, TPSExpeditionStatusID, TPSDispatchStatusID FROM MainOrders WHERE MainOrderID = " + MainOrderID;
+                                       " ProfilProductionStatusID, ProfilStorageStatusID, ProfilExpeditionStatusID, ProfilDispatchStatusID, " +
+                                       " TPSProductionStatusID, TPSStorageStatusID, TPSExpeditionStatusID, TPSDispatchStatusID FROM MainOrders WHERE MainOrderID = " +
+                                       MainOrderID;
                 if (IsTray)
                     SelectCommand = "SELECT MainOrderID, IsSample, FactoryID," +
-                        " ProfilProductionStatusID, ProfilStorageStatusID, ProfilExpeditionStatusID, ProfilDispatchStatusID, " +
-                        " TPSProductionStatusID, TPSStorageStatusID, TPSExpeditionStatusID, TPSDispatchStatusID FROM MainOrders WHERE MainOrderID IN" +
-                        " (SELECT DISTINCT MainOrderID FROM Packages WHERE TrayID = " + MainOrderID + ")";
+                                    " ProfilProductionStatusID, ProfilStorageStatusID, ProfilExpeditionStatusID, ProfilDispatchStatusID, " +
+                                    " TPSProductionStatusID, TPSStorageStatusID, TPSExpeditionStatusID, TPSDispatchStatusID FROM MainOrders WHERE MainOrderID IN" +
+                                    " (SELECT DISTINCT MainOrderID FROM Packages WHERE TrayID = " + MainOrderID + ")";
                 PackageStatues PS = new PackageStatues();
-                using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.ZOVOrdersConnectionString))
+                using (SqlDataAdapter DA =
+                    new SqlDataAdapter(SelectCommand, ConnectionStrings.ZOVOrdersConnectionString))
                 {
                     using (SqlCommandBuilder CB = new SqlCommandBuilder(DA))
                     {
@@ -3628,23 +3717,28 @@ namespace Infinium
                                     TPSExpeditionStatusID = Convert.ToInt32(DT.Rows[i]["TPSExpeditionStatusID"]);
                                     TPSDispatchStatusID = Convert.ToInt32(DT.Rows[i]["TPSDispatchStatusID"]);
                                     PS.ClearStatuses();
-                                    IsAllocPack = GetPackageStatuses(Marketing, FactoryID, Convert.ToInt32(DT.Rows[i]["MainOrderID"]), ref PS);
+                                    IsAllocPack = GetPackageStatuses(Marketing, FactoryID,
+                                        Convert.ToInt32(DT.Rows[i]["MainOrderID"]), ref PS);
                                     if (!IsAllocPack)
                                         return;
                                     if (FactoryID == 1)
                                     {
-                                        SetProfilMainOrderStatus(ref ProfilProductionStatusID, ref ProfilStorageStatusID,
+                                        SetProfilMainOrderStatus(ref ProfilProductionStatusID,
+                                            ref ProfilStorageStatusID,
                                             ref ProfilExpeditionStatusID, ref ProfilDispatchStatusID, ref PS);
                                         if (IsSample)
                                         {
                                             if (PS.FullDisp)
-                                                CopySampleOrders(Marketing, Convert.ToInt32(DT.Rows[i]["MainOrderID"]), PS.DispDate);
+                                                CopySampleOrders(Marketing, Convert.ToInt32(DT.Rows[i]["MainOrderID"]),
+                                                    PS.DispDate);
                                         }
+
                                         TPSProductionStatusID = 0;
                                         TPSStorageStatusID = 0;
                                         TPSExpeditionStatusID = 0;
                                         TPSDispatchStatusID = 0;
                                     }
+
                                     if (FactoryID == 2)
                                     {
                                         SetTPSMainOrderStatus(ref TPSProductionStatusID, ref TPSStorageStatusID,
@@ -3652,25 +3746,31 @@ namespace Infinium
                                         if (IsSample)
                                         {
                                             if (PS.FullDisp)
-                                                CopySampleOrders(Marketing, Convert.ToInt32(DT.Rows[i]["MainOrderID"]), PS.DispDate);
+                                                CopySampleOrders(Marketing, Convert.ToInt32(DT.Rows[i]["MainOrderID"]),
+                                                    PS.DispDate);
                                         }
+
                                         ProfilProductionStatusID = 0;
                                         ProfilStorageStatusID = 0;
                                         ProfilExpeditionStatusID = 0;
                                         ProfilDispatchStatusID = 0;
                                     }
+
                                     if (FactoryID == 0)
                                     {
-                                        SetProfilMainOrderStatus(ref ProfilProductionStatusID, ref ProfilStorageStatusID,
+                                        SetProfilMainOrderStatus(ref ProfilProductionStatusID,
+                                            ref ProfilStorageStatusID,
                                             ref ProfilExpeditionStatusID, ref ProfilDispatchStatusID, ref PS);
                                         SetTPSMainOrderStatus(ref TPSProductionStatusID, ref TPSStorageStatusID,
                                             ref TPSExpeditionStatusID, ref TPSDispatchStatusID, ref PS);
                                         if (IsSample)
                                         {
                                             if (PS.FullDisp)
-                                                CopySampleOrders(Marketing, Convert.ToInt32(DT.Rows[i]["MainOrderID"]), PS.DispDate);
+                                                CopySampleOrders(Marketing, Convert.ToInt32(DT.Rows[i]["MainOrderID"]),
+                                                    PS.DispDate);
                                         }
                                     }
+
                                     if (Convert.ToInt32(DT.Rows[i]["ProfilProductionStatusID"]) != 0)
                                         DT.Rows[i]["ProfilProductionStatusID"] = ProfilProductionStatusID;
                                     if (Convert.ToInt32(DT.Rows[i]["ProfilStorageStatusID"]) != 0)
@@ -3688,6 +3788,7 @@ namespace Infinium
                                     if (Convert.ToInt32(DT.Rows[i]["TPSDispatchStatusID"]) != 0)
                                         DT.Rows[i]["TPSDispatchStatusID"] = TPSDispatchStatusID;
                                 }
+
                                 DA.Update(DT);
                             }
                         }
@@ -3707,6 +3808,7 @@ namespace Infinium
                 TPSExpeditionStatusID = 1;
                 TPSDispatchStatusID = 1;
             }
+
             if (PS.TPSNotPacked == 0 && PS.TPSPacked == 2 && PS.TPSStore == 0 && PS.TPSExp == 0 && PS.TPSDisp == 0)
             {
                 TPSProductionStatusID = 1;
@@ -3714,6 +3816,7 @@ namespace Infinium
                 TPSExpeditionStatusID = 1;
                 TPSDispatchStatusID = 1;
             }
+
             if (PS.TPSNotPacked == 0 && PS.TPSPacked == 0 && PS.TPSStore == 2 && PS.TPSExp == 0 && PS.TPSDisp == 0)
             {
                 TPSProductionStatusID = 1;
@@ -3721,6 +3824,7 @@ namespace Infinium
                 TPSExpeditionStatusID = 1;
                 TPSDispatchStatusID = 1;
             }
+
             if (PS.TPSNotPacked == 0 && PS.TPSPacked == 0 && PS.TPSStore == 0 && PS.TPSExp == 2 && PS.TPSDisp == 0)
             {
                 TPSProductionStatusID = 1;
@@ -3728,6 +3832,7 @@ namespace Infinium
                 TPSExpeditionStatusID = 2;
                 TPSDispatchStatusID = 1;
             }
+
             if (PS.TPSNotPacked == 0 && PS.TPSPacked == 0 && PS.TPSStore == 0 && PS.TPSExp == 0 && PS.TPSDisp == 2)
             {
                 TPSProductionStatusID = 1;
@@ -3736,6 +3841,7 @@ namespace Infinium
                 TPSDispatchStatusID = 2;
                 PS.FullDisp = true;
             }
+
             if (PS.TPSNotPacked == 0 && PS.TPSPacked == 0 && PS.TPSStore == 0 && PS.TPSExp == 1 && PS.TPSDisp == 1)
             {
                 TPSProductionStatusID = 1;
@@ -3743,6 +3849,7 @@ namespace Infinium
                 TPSExpeditionStatusID = 2;
                 TPSDispatchStatusID = 2;
             }
+
             if (PS.TPSNotPacked == 0 && PS.TPSPacked == 0 && PS.TPSStore == 1 && PS.TPSExp == 0 && PS.TPSDisp == 1)
             {
                 TPSProductionStatusID = 1;
@@ -3750,6 +3857,7 @@ namespace Infinium
                 TPSExpeditionStatusID = 1;
                 TPSDispatchStatusID = 2;
             }
+
             if (PS.TPSNotPacked == 0 && PS.TPSPacked == 0 && PS.TPSStore == 1 && PS.TPSExp == 1 && PS.TPSDisp == 0)
             {
                 TPSProductionStatusID = 1;
@@ -3757,6 +3865,7 @@ namespace Infinium
                 TPSExpeditionStatusID = 2;
                 TPSDispatchStatusID = 1;
             }
+
             if (PS.TPSNotPacked == 0 && PS.TPSPacked == 0 && PS.TPSStore == 1 && PS.TPSExp == 1 && PS.TPSDisp == 1)
             {
                 TPSProductionStatusID = 1;
@@ -3764,6 +3873,7 @@ namespace Infinium
                 TPSExpeditionStatusID = 2;
                 TPSDispatchStatusID = 2;
             }
+
             if (PS.TPSNotPacked == 0 && PS.TPSPacked == 1 && PS.TPSStore == 0 && PS.TPSExp == 0 && PS.TPSDisp == 1)
             {
                 TPSProductionStatusID = 1;
@@ -3771,6 +3881,7 @@ namespace Infinium
                 TPSExpeditionStatusID = 1;
                 TPSDispatchStatusID = 2;
             }
+
             if (PS.TPSNotPacked == 0 && PS.TPSPacked == 1 && PS.TPSStore == 0 && PS.TPSExp == 1 && PS.TPSDisp == 0)
             {
                 TPSProductionStatusID = 1;
@@ -3778,6 +3889,7 @@ namespace Infinium
                 TPSExpeditionStatusID = 2;
                 TPSDispatchStatusID = 1;
             }
+
             if (PS.TPSNotPacked == 0 && PS.TPSPacked == 1 && PS.TPSStore == 0 && PS.TPSExp == 1 && PS.TPSDisp == 1)
             {
                 TPSProductionStatusID = 1;
@@ -3785,6 +3897,7 @@ namespace Infinium
                 TPSExpeditionStatusID = 2;
                 TPSDispatchStatusID = 2;
             }
+
             if (PS.TPSNotPacked == 0 && PS.TPSPacked == 1 && PS.TPSStore == 1 && PS.TPSExp == 0 && PS.TPSDisp == 0)
             {
                 TPSProductionStatusID = 1;
@@ -3792,6 +3905,7 @@ namespace Infinium
                 TPSExpeditionStatusID = 1;
                 TPSDispatchStatusID = 1;
             }
+
             if (PS.TPSNotPacked == 0 && PS.TPSPacked == 1 && PS.TPSStore == 1 && PS.TPSExp == 0 && PS.TPSDisp == 1)
             {
                 TPSProductionStatusID = 1;
@@ -3799,6 +3913,7 @@ namespace Infinium
                 TPSExpeditionStatusID = 1;
                 TPSDispatchStatusID = 2;
             }
+
             if (PS.TPSNotPacked == 0 && PS.TPSPacked == 1 && PS.TPSStore == 1 && PS.TPSExp == 1 && PS.TPSDisp == 0)
             {
                 TPSProductionStatusID = 1;
@@ -3806,6 +3921,7 @@ namespace Infinium
                 TPSExpeditionStatusID = 2;
                 TPSDispatchStatusID = 1;
             }
+
             if (PS.TPSNotPacked == 0 && PS.TPSPacked == 1 && PS.TPSStore == 1 && PS.TPSExp == 1 && PS.TPSDisp == 1)
             {
                 TPSProductionStatusID = 1;
@@ -3813,6 +3929,7 @@ namespace Infinium
                 TPSExpeditionStatusID = 2;
                 TPSDispatchStatusID = 2;
             }
+
             if (PS.TPSNotPacked == 1 && PS.TPSPacked == 0 && PS.TPSStore == 0 && PS.TPSExp == 0 && PS.TPSDisp == 1)
             {
                 TPSProductionStatusID = 2;
@@ -3820,6 +3937,7 @@ namespace Infinium
                 TPSExpeditionStatusID = 1;
                 TPSDispatchStatusID = 2;
             }
+
             if (PS.TPSNotPacked == 1 && PS.TPSPacked == 0 && PS.TPSStore == 0 && PS.TPSExp == 1 && PS.TPSDisp == 0)
             {
                 TPSProductionStatusID = 2;
@@ -3827,6 +3945,7 @@ namespace Infinium
                 TPSExpeditionStatusID = 2;
                 TPSDispatchStatusID = 1;
             }
+
             if (PS.TPSNotPacked == 1 && PS.TPSPacked == 0 && PS.TPSStore == 0 && PS.TPSExp == 1 && PS.TPSDisp == 1)
             {
                 TPSProductionStatusID = 2;
@@ -3834,6 +3953,7 @@ namespace Infinium
                 TPSExpeditionStatusID = 2;
                 TPSDispatchStatusID = 2;
             }
+
             if (PS.TPSNotPacked == 1 && PS.TPSPacked == 0 && PS.TPSStore == 1 && PS.TPSExp == 0 && PS.TPSDisp == 0)
             {
                 TPSProductionStatusID = 2;
@@ -3841,6 +3961,7 @@ namespace Infinium
                 TPSExpeditionStatusID = 1;
                 TPSDispatchStatusID = 1;
             }
+
             if (PS.TPSNotPacked == 1 && PS.TPSPacked == 0 && PS.TPSStore == 1 && PS.TPSExp == 0 && PS.TPSDisp == 1)
             {
                 TPSProductionStatusID = 2;
@@ -3848,6 +3969,7 @@ namespace Infinium
                 TPSExpeditionStatusID = 1;
                 TPSDispatchStatusID = 2;
             }
+
             if (PS.TPSNotPacked == 1 && PS.TPSPacked == 0 && PS.TPSStore == 1 && PS.TPSExp == 1 && PS.TPSDisp == 0)
             {
                 TPSProductionStatusID = 2;
@@ -3855,6 +3977,7 @@ namespace Infinium
                 TPSExpeditionStatusID = 2;
                 TPSDispatchStatusID = 1;
             }
+
             if (PS.TPSNotPacked == 1 && PS.TPSPacked == 0 && PS.TPSStore == 1 && PS.TPSExp == 1 && PS.TPSDisp == 1)
             {
                 TPSProductionStatusID = 2;
@@ -3862,6 +3985,7 @@ namespace Infinium
                 TPSExpeditionStatusID = 2;
                 TPSDispatchStatusID = 2;
             }
+
             if (PS.TPSNotPacked == 1 && PS.TPSPacked == 1 && PS.TPSStore == 0 && PS.TPSExp == 0 && PS.TPSDisp == 0)
             {
                 TPSProductionStatusID = 2;
@@ -3869,6 +3993,7 @@ namespace Infinium
                 TPSExpeditionStatusID = 1;
                 TPSDispatchStatusID = 1;
             }
+
             if (PS.TPSNotPacked == 1 && PS.TPSPacked == 1 && PS.TPSStore == 0 && PS.TPSExp == 0 && PS.TPSDisp == 1)
             {
                 TPSProductionStatusID = 2;
@@ -3876,6 +4001,7 @@ namespace Infinium
                 TPSExpeditionStatusID = 1;
                 TPSDispatchStatusID = 2;
             }
+
             if (PS.TPSNotPacked == 1 && PS.TPSPacked == 1 && PS.TPSStore == 0 && PS.TPSExp == 1 && PS.TPSDisp == 0)
             {
                 TPSProductionStatusID = 2;
@@ -3883,6 +4009,7 @@ namespace Infinium
                 TPSExpeditionStatusID = 2;
                 TPSDispatchStatusID = 1;
             }
+
             if (PS.TPSNotPacked == 1 && PS.TPSPacked == 1 && PS.TPSStore == 0 && PS.TPSExp == 1 && PS.TPSDisp == 1)
             {
                 TPSProductionStatusID = 2;
@@ -3890,6 +4017,7 @@ namespace Infinium
                 TPSExpeditionStatusID = 2;
                 TPSDispatchStatusID = 2;
             }
+
             if (PS.TPSNotPacked == 1 && PS.TPSPacked == 1 && PS.TPSStore == 1 && PS.TPSExp == 0 && PS.TPSDisp == 0)
             {
                 TPSProductionStatusID = 2;
@@ -3897,6 +4025,7 @@ namespace Infinium
                 TPSExpeditionStatusID = 1;
                 TPSDispatchStatusID = 1;
             }
+
             if (PS.TPSNotPacked == 1 && PS.TPSPacked == 1 && PS.TPSStore == 1 && PS.TPSExp == 0 && PS.TPSDisp == 1)
             {
                 TPSProductionStatusID = 2;
@@ -3904,6 +4033,7 @@ namespace Infinium
                 TPSExpeditionStatusID = 1;
                 TPSDispatchStatusID = 2;
             }
+
             if (PS.TPSNotPacked == 1 && PS.TPSPacked == 1 && PS.TPSStore == 1 && PS.TPSExp == 1 && PS.TPSDisp == 0)
             {
                 TPSProductionStatusID = 2;
@@ -3911,6 +4041,7 @@ namespace Infinium
                 TPSExpeditionStatusID = 2;
                 TPSDispatchStatusID = 1;
             }
+
             if (PS.TPSNotPacked == 1 && PS.TPSPacked == 1 && PS.TPSStore == 1 && PS.TPSExp == 1 && PS.TPSDisp == 1)
             {
                 TPSProductionStatusID = 2;
@@ -3924,35 +4055,44 @@ namespace Infinium
             ref int ProfilExpeditionStatusID, ref int ProfilDispatchStatusID,
             ref PackageStatues PS)
         {
-            if (PS.ProfilNotPacked == 2 && PS.ProfilPacked == 0 && PS.ProfilStore == 0 && PS.ProfilExp == 0 && PS.ProfilDisp == 0)
+            if (PS.ProfilNotPacked == 2 && PS.ProfilPacked == 0 && PS.ProfilStore == 0 && PS.ProfilExp == 0 &&
+                PS.ProfilDisp == 0)
             {
                 ProfilProductionStatusID = 2;
                 ProfilStorageStatusID = 1;
                 ProfilExpeditionStatusID = 1;
                 ProfilDispatchStatusID = 1;
             }
-            if (PS.ProfilNotPacked == 0 && PS.ProfilPacked == 2 && PS.ProfilStore == 0 && PS.ProfilExp == 0 && PS.ProfilDisp == 0)
+
+            if (PS.ProfilNotPacked == 0 && PS.ProfilPacked == 2 && PS.ProfilStore == 0 && PS.ProfilExp == 0 &&
+                PS.ProfilDisp == 0)
             {
                 ProfilProductionStatusID = 1;
                 ProfilStorageStatusID = 2;
                 ProfilExpeditionStatusID = 1;
                 ProfilDispatchStatusID = 1;
             }
-            if (PS.ProfilNotPacked == 0 && PS.ProfilPacked == 0 && PS.ProfilStore == 2 && PS.ProfilExp == 0 && PS.ProfilDisp == 0)
+
+            if (PS.ProfilNotPacked == 0 && PS.ProfilPacked == 0 && PS.ProfilStore == 2 && PS.ProfilExp == 0 &&
+                PS.ProfilDisp == 0)
             {
                 ProfilProductionStatusID = 1;
                 ProfilStorageStatusID = 2;
                 ProfilExpeditionStatusID = 1;
                 ProfilDispatchStatusID = 1;
             }
-            if (PS.ProfilNotPacked == 0 && PS.ProfilPacked == 0 && PS.ProfilStore == 0 && PS.ProfilExp == 2 && PS.ProfilDisp == 0)
+
+            if (PS.ProfilNotPacked == 0 && PS.ProfilPacked == 0 && PS.ProfilStore == 0 && PS.ProfilExp == 2 &&
+                PS.ProfilDisp == 0)
             {
                 ProfilProductionStatusID = 1;
                 ProfilStorageStatusID = 1;
                 ProfilExpeditionStatusID = 2;
                 ProfilDispatchStatusID = 1;
             }
-            if (PS.ProfilNotPacked == 0 && PS.ProfilPacked == 0 && PS.ProfilStore == 0 && PS.ProfilExp == 0 && PS.ProfilDisp == 2)
+
+            if (PS.ProfilNotPacked == 0 && PS.ProfilPacked == 0 && PS.ProfilStore == 0 && PS.ProfilExp == 0 &&
+                PS.ProfilDisp == 2)
             {
                 ProfilProductionStatusID = 1;
                 ProfilStorageStatusID = 1;
@@ -3960,182 +4100,234 @@ namespace Infinium
                 ProfilDispatchStatusID = 2;
                 PS.FullDisp = true;
             }
-            if (PS.ProfilNotPacked == 0 && PS.ProfilPacked == 0 && PS.ProfilStore == 0 && PS.ProfilExp == 1 && PS.ProfilDisp == 1)
+
+            if (PS.ProfilNotPacked == 0 && PS.ProfilPacked == 0 && PS.ProfilStore == 0 && PS.ProfilExp == 1 &&
+                PS.ProfilDisp == 1)
             {
                 ProfilProductionStatusID = 1;
                 ProfilStorageStatusID = 1;
                 ProfilExpeditionStatusID = 2;
                 ProfilDispatchStatusID = 2;
             }
-            if (PS.ProfilNotPacked == 0 && PS.ProfilPacked == 0 && PS.ProfilStore == 1 && PS.ProfilExp == 0 && PS.ProfilDisp == 1)
+
+            if (PS.ProfilNotPacked == 0 && PS.ProfilPacked == 0 && PS.ProfilStore == 1 && PS.ProfilExp == 0 &&
+                PS.ProfilDisp == 1)
             {
                 ProfilProductionStatusID = 1;
                 ProfilStorageStatusID = 2;
                 ProfilExpeditionStatusID = 1;
                 ProfilDispatchStatusID = 2;
             }
-            if (PS.ProfilNotPacked == 0 && PS.ProfilPacked == 0 && PS.ProfilStore == 1 && PS.ProfilExp == 1 && PS.ProfilDisp == 0)
+
+            if (PS.ProfilNotPacked == 0 && PS.ProfilPacked == 0 && PS.ProfilStore == 1 && PS.ProfilExp == 1 &&
+                PS.ProfilDisp == 0)
             {
                 ProfilProductionStatusID = 1;
                 ProfilStorageStatusID = 2;
                 ProfilExpeditionStatusID = 2;
                 ProfilDispatchStatusID = 1;
             }
-            if (PS.ProfilNotPacked == 0 && PS.ProfilPacked == 0 && PS.ProfilStore == 1 && PS.ProfilExp == 1 && PS.ProfilDisp == 1)
+
+            if (PS.ProfilNotPacked == 0 && PS.ProfilPacked == 0 && PS.ProfilStore == 1 && PS.ProfilExp == 1 &&
+                PS.ProfilDisp == 1)
             {
                 ProfilProductionStatusID = 1;
                 ProfilStorageStatusID = 2;
                 ProfilExpeditionStatusID = 2;
                 ProfilDispatchStatusID = 2;
             }
-            if (PS.ProfilNotPacked == 0 && PS.ProfilPacked == 1 && PS.ProfilStore == 0 && PS.ProfilExp == 0 && PS.ProfilDisp == 1)
+
+            if (PS.ProfilNotPacked == 0 && PS.ProfilPacked == 1 && PS.ProfilStore == 0 && PS.ProfilExp == 0 &&
+                PS.ProfilDisp == 1)
             {
                 ProfilProductionStatusID = 1;
                 ProfilStorageStatusID = 2;
                 ProfilExpeditionStatusID = 1;
                 ProfilDispatchStatusID = 2;
             }
-            if (PS.ProfilNotPacked == 0 && PS.ProfilPacked == 1 && PS.ProfilStore == 0 && PS.ProfilExp == 1 && PS.ProfilDisp == 0)
+
+            if (PS.ProfilNotPacked == 0 && PS.ProfilPacked == 1 && PS.ProfilStore == 0 && PS.ProfilExp == 1 &&
+                PS.ProfilDisp == 0)
             {
                 ProfilProductionStatusID = 1;
                 ProfilStorageStatusID = 2;
                 ProfilExpeditionStatusID = 2;
                 ProfilDispatchStatusID = 1;
             }
-            if (PS.ProfilNotPacked == 0 && PS.ProfilPacked == 1 && PS.ProfilStore == 0 && PS.ProfilExp == 1 && PS.ProfilDisp == 1)
+
+            if (PS.ProfilNotPacked == 0 && PS.ProfilPacked == 1 && PS.ProfilStore == 0 && PS.ProfilExp == 1 &&
+                PS.ProfilDisp == 1)
             {
                 ProfilProductionStatusID = 1;
                 ProfilStorageStatusID = 2;
                 ProfilExpeditionStatusID = 2;
                 ProfilDispatchStatusID = 2;
             }
-            if (PS.ProfilNotPacked == 0 && PS.ProfilPacked == 1 && PS.ProfilStore == 1 && PS.ProfilExp == 0 && PS.ProfilDisp == 0)
+
+            if (PS.ProfilNotPacked == 0 && PS.ProfilPacked == 1 && PS.ProfilStore == 1 && PS.ProfilExp == 0 &&
+                PS.ProfilDisp == 0)
             {
                 ProfilProductionStatusID = 1;
                 ProfilStorageStatusID = 2;
                 ProfilExpeditionStatusID = 1;
                 ProfilDispatchStatusID = 1;
             }
-            if (PS.ProfilNotPacked == 0 && PS.ProfilPacked == 1 && PS.ProfilStore == 1 && PS.ProfilExp == 0 && PS.ProfilDisp == 1)
+
+            if (PS.ProfilNotPacked == 0 && PS.ProfilPacked == 1 && PS.ProfilStore == 1 && PS.ProfilExp == 0 &&
+                PS.ProfilDisp == 1)
             {
                 ProfilProductionStatusID = 1;
                 ProfilStorageStatusID = 2;
                 ProfilExpeditionStatusID = 1;
                 ProfilDispatchStatusID = 2;
             }
-            if (PS.ProfilNotPacked == 0 && PS.ProfilPacked == 1 && PS.ProfilStore == 1 && PS.ProfilExp == 1 && PS.ProfilDisp == 0)
+
+            if (PS.ProfilNotPacked == 0 && PS.ProfilPacked == 1 && PS.ProfilStore == 1 && PS.ProfilExp == 1 &&
+                PS.ProfilDisp == 0)
             {
                 ProfilProductionStatusID = 1;
                 ProfilStorageStatusID = 2;
                 ProfilExpeditionStatusID = 2;
                 ProfilDispatchStatusID = 1;
             }
-            if (PS.ProfilNotPacked == 0 && PS.ProfilPacked == 1 && PS.ProfilStore == 1 && PS.ProfilExp == 1 && PS.ProfilDisp == 1)
+
+            if (PS.ProfilNotPacked == 0 && PS.ProfilPacked == 1 && PS.ProfilStore == 1 && PS.ProfilExp == 1 &&
+                PS.ProfilDisp == 1)
             {
                 ProfilProductionStatusID = 1;
                 ProfilStorageStatusID = 2;
                 ProfilExpeditionStatusID = 2;
                 ProfilDispatchStatusID = 2;
             }
-            if (PS.ProfilNotPacked == 1 && PS.ProfilPacked == 0 && PS.ProfilStore == 0 && PS.ProfilExp == 0 && PS.ProfilDisp == 1)
+
+            if (PS.ProfilNotPacked == 1 && PS.ProfilPacked == 0 && PS.ProfilStore == 0 && PS.ProfilExp == 0 &&
+                PS.ProfilDisp == 1)
             {
                 ProfilProductionStatusID = 2;
                 ProfilStorageStatusID = 1;
                 ProfilExpeditionStatusID = 1;
                 ProfilDispatchStatusID = 2;
             }
-            if (PS.ProfilNotPacked == 1 && PS.ProfilPacked == 0 && PS.ProfilStore == 0 && PS.ProfilExp == 1 && PS.ProfilDisp == 0)
+
+            if (PS.ProfilNotPacked == 1 && PS.ProfilPacked == 0 && PS.ProfilStore == 0 && PS.ProfilExp == 1 &&
+                PS.ProfilDisp == 0)
             {
                 ProfilProductionStatusID = 2;
                 ProfilStorageStatusID = 1;
                 ProfilExpeditionStatusID = 2;
                 ProfilDispatchStatusID = 1;
             }
-            if (PS.ProfilNotPacked == 1 && PS.ProfilPacked == 0 && PS.ProfilStore == 0 && PS.ProfilExp == 1 && PS.ProfilDisp == 1)
+
+            if (PS.ProfilNotPacked == 1 && PS.ProfilPacked == 0 && PS.ProfilStore == 0 && PS.ProfilExp == 1 &&
+                PS.ProfilDisp == 1)
             {
                 ProfilProductionStatusID = 2;
                 ProfilStorageStatusID = 1;
                 ProfilExpeditionStatusID = 2;
                 ProfilDispatchStatusID = 2;
             }
-            if (PS.ProfilNotPacked == 1 && PS.ProfilPacked == 0 && PS.ProfilStore == 1 && PS.ProfilExp == 0 && PS.ProfilDisp == 0)
+
+            if (PS.ProfilNotPacked == 1 && PS.ProfilPacked == 0 && PS.ProfilStore == 1 && PS.ProfilExp == 0 &&
+                PS.ProfilDisp == 0)
             {
                 ProfilProductionStatusID = 2;
                 ProfilStorageStatusID = 2;
                 ProfilExpeditionStatusID = 1;
                 ProfilDispatchStatusID = 1;
             }
-            if (PS.ProfilNotPacked == 1 && PS.ProfilPacked == 0 && PS.ProfilStore == 1 && PS.ProfilExp == 0 && PS.ProfilDisp == 1)
-            {
-                ProfilProductionStatusID = 2;
-                ProfilStorageStatusID = 2;
-                ProfilExpeditionStatusID = 1;
-                ProfilDispatchStatusID = 2;
-            }
-            if (PS.ProfilNotPacked == 1 && PS.ProfilPacked == 0 && PS.ProfilStore == 1 && PS.ProfilExp == 1 && PS.ProfilDisp == 0)
-            {
-                ProfilProductionStatusID = 2;
-                ProfilStorageStatusID = 2;
-                ProfilExpeditionStatusID = 2;
-                ProfilDispatchStatusID = 1;
-            }
-            if (PS.ProfilNotPacked == 1 && PS.ProfilPacked == 0 && PS.ProfilStore == 1 && PS.ProfilExp == 1 && PS.ProfilDisp == 1)
-            {
-                ProfilProductionStatusID = 2;
-                ProfilStorageStatusID = 2;
-                ProfilExpeditionStatusID = 2;
-                ProfilDispatchStatusID = 2;
-            }
-            if (PS.ProfilNotPacked == 1 && PS.ProfilPacked == 1 && PS.ProfilStore == 0 && PS.ProfilExp == 0 && PS.ProfilDisp == 0)
-            {
-                ProfilProductionStatusID = 2;
-                ProfilStorageStatusID = 2;
-                ProfilExpeditionStatusID = 1;
-                ProfilDispatchStatusID = 1;
-            }
-            if (PS.ProfilNotPacked == 1 && PS.ProfilPacked == 1 && PS.ProfilStore == 0 && PS.ProfilExp == 0 && PS.ProfilDisp == 1)
+
+            if (PS.ProfilNotPacked == 1 && PS.ProfilPacked == 0 && PS.ProfilStore == 1 && PS.ProfilExp == 0 &&
+                PS.ProfilDisp == 1)
             {
                 ProfilProductionStatusID = 2;
                 ProfilStorageStatusID = 2;
                 ProfilExpeditionStatusID = 1;
                 ProfilDispatchStatusID = 2;
             }
-            if (PS.ProfilNotPacked == 1 && PS.ProfilPacked == 1 && PS.ProfilStore == 0 && PS.ProfilExp == 1 && PS.ProfilDisp == 0)
+
+            if (PS.ProfilNotPacked == 1 && PS.ProfilPacked == 0 && PS.ProfilStore == 1 && PS.ProfilExp == 1 &&
+                PS.ProfilDisp == 0)
             {
                 ProfilProductionStatusID = 2;
                 ProfilStorageStatusID = 2;
                 ProfilExpeditionStatusID = 2;
                 ProfilDispatchStatusID = 1;
             }
-            if (PS.ProfilNotPacked == 1 && PS.ProfilPacked == 1 && PS.ProfilStore == 0 && PS.ProfilExp == 1 && PS.ProfilDisp == 1)
+
+            if (PS.ProfilNotPacked == 1 && PS.ProfilPacked == 0 && PS.ProfilStore == 1 && PS.ProfilExp == 1 &&
+                PS.ProfilDisp == 1)
             {
                 ProfilProductionStatusID = 2;
                 ProfilStorageStatusID = 2;
                 ProfilExpeditionStatusID = 2;
                 ProfilDispatchStatusID = 2;
             }
-            if (PS.ProfilNotPacked == 1 && PS.ProfilPacked == 1 && PS.ProfilStore == 1 && PS.ProfilExp == 0 && PS.ProfilDisp == 0)
+
+            if (PS.ProfilNotPacked == 1 && PS.ProfilPacked == 1 && PS.ProfilStore == 0 && PS.ProfilExp == 0 &&
+                PS.ProfilDisp == 0)
             {
                 ProfilProductionStatusID = 2;
                 ProfilStorageStatusID = 2;
                 ProfilExpeditionStatusID = 1;
                 ProfilDispatchStatusID = 1;
             }
-            if (PS.ProfilNotPacked == 1 && PS.ProfilPacked == 1 && PS.ProfilStore == 1 && PS.ProfilExp == 0 && PS.ProfilDisp == 1)
+
+            if (PS.ProfilNotPacked == 1 && PS.ProfilPacked == 1 && PS.ProfilStore == 0 && PS.ProfilExp == 0 &&
+                PS.ProfilDisp == 1)
             {
                 ProfilProductionStatusID = 2;
                 ProfilStorageStatusID = 2;
                 ProfilExpeditionStatusID = 1;
                 ProfilDispatchStatusID = 2;
             }
-            if (PS.ProfilNotPacked == 1 && PS.ProfilPacked == 1 && PS.ProfilStore == 1 && PS.ProfilExp == 1 && PS.ProfilDisp == 0)
+
+            if (PS.ProfilNotPacked == 1 && PS.ProfilPacked == 1 && PS.ProfilStore == 0 && PS.ProfilExp == 1 &&
+                PS.ProfilDisp == 0)
             {
                 ProfilProductionStatusID = 2;
                 ProfilStorageStatusID = 2;
                 ProfilExpeditionStatusID = 2;
                 ProfilDispatchStatusID = 1;
             }
-            if (PS.ProfilNotPacked == 1 && PS.ProfilPacked == 1 && PS.ProfilStore == 1 && PS.ProfilExp == 1 && PS.ProfilDisp == 1)
+
+            if (PS.ProfilNotPacked == 1 && PS.ProfilPacked == 1 && PS.ProfilStore == 0 && PS.ProfilExp == 1 &&
+                PS.ProfilDisp == 1)
+            {
+                ProfilProductionStatusID = 2;
+                ProfilStorageStatusID = 2;
+                ProfilExpeditionStatusID = 2;
+                ProfilDispatchStatusID = 2;
+            }
+
+            if (PS.ProfilNotPacked == 1 && PS.ProfilPacked == 1 && PS.ProfilStore == 1 && PS.ProfilExp == 0 &&
+                PS.ProfilDisp == 0)
+            {
+                ProfilProductionStatusID = 2;
+                ProfilStorageStatusID = 2;
+                ProfilExpeditionStatusID = 1;
+                ProfilDispatchStatusID = 1;
+            }
+
+            if (PS.ProfilNotPacked == 1 && PS.ProfilPacked == 1 && PS.ProfilStore == 1 && PS.ProfilExp == 0 &&
+                PS.ProfilDisp == 1)
+            {
+                ProfilProductionStatusID = 2;
+                ProfilStorageStatusID = 2;
+                ProfilExpeditionStatusID = 1;
+                ProfilDispatchStatusID = 2;
+            }
+
+            if (PS.ProfilNotPacked == 1 && PS.ProfilPacked == 1 && PS.ProfilStore == 1 && PS.ProfilExp == 1 &&
+                PS.ProfilDisp == 0)
+            {
+                ProfilProductionStatusID = 2;
+                ProfilStorageStatusID = 2;
+                ProfilExpeditionStatusID = 2;
+                ProfilDispatchStatusID = 1;
+            }
+
+            if (PS.ProfilNotPacked == 1 && PS.ProfilPacked == 1 && PS.ProfilStore == 1 && PS.ProfilExp == 1 &&
+                PS.ProfilDisp == 1)
             {
                 ProfilProductionStatusID = 2;
                 ProfilStorageStatusID = 2;
@@ -4157,13 +4349,16 @@ namespace Infinium
             int TPSDispatchStatusID = 0;
             int ProfilPackAllocStatusID = 0;
             int TPSPackAllocStatusID = 0;
-            string SelectCommand = "SELECT MainOrderID, IsSample, FactoryID, ProfilPackAllocStatusID, TPSPackAllocStatusID," +
+            string SelectCommand =
+                "SELECT MainOrderID, IsSample, FactoryID, ProfilPackAllocStatusID, TPSPackAllocStatusID," +
                 " ProfilProductionStatusID, ProfilStorageStatusID, ProfilExpeditionStatusID, ProfilDispatchStatusID, " +
-                " TPSProductionStatusID, TPSStorageStatusID, TPSExpeditionStatusID, TPSDispatchStatusID FROM MainOrders WHERE MainOrderID = " + MainOrderID;
+                " TPSProductionStatusID, TPSStorageStatusID, TPSExpeditionStatusID, TPSDispatchStatusID FROM MainOrders WHERE MainOrderID = " +
+                MainOrderID;
 
             DateTime DispDate = Security.GetCurrentDate();
             //PackageStatues PS = new PackageStatues();
-            using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.MarketingOrdersConnectionString))
+            using (SqlDataAdapter DA =
+                new SqlDataAdapter(SelectCommand, ConnectionStrings.MarketingOrdersConnectionString))
             {
                 using (SqlCommandBuilder CB = new SqlCommandBuilder(DA))
                 {
@@ -4180,6 +4375,7 @@ namespace Infinium
                                 {
                                     CopySampleOrders(true, Convert.ToInt32(DT.Rows[i]["MainOrderID"]), DispDate);
                                 }
+
                                 if (FactoryID == 1)
                                 {
                                     ProfilProductionStatusID = 1;
@@ -4193,6 +4389,7 @@ namespace Infinium
                                     ProfilPackAllocStatusID = 2;
                                     TPSPackAllocStatusID = 0;
                                 }
+
                                 if (FactoryID == 2)
                                 {
                                     ProfilProductionStatusID = 0;
@@ -4206,6 +4403,7 @@ namespace Infinium
                                     ProfilPackAllocStatusID = 0;
                                     TPSPackAllocStatusID = 2;
                                 }
+
                                 if (FactoryID == 0)
                                 {
                                     ProfilProductionStatusID = 1;
@@ -4219,6 +4417,7 @@ namespace Infinium
                                     ProfilPackAllocStatusID = 2;
                                     TPSPackAllocStatusID = 2;
                                 }
+
                                 if (Convert.ToInt32(DT.Rows[i]["ProfilProductionStatusID"]) != 0)
                                     DT.Rows[i]["ProfilProductionStatusID"] = ProfilProductionStatusID;
                                 if (Convert.ToInt32(DT.Rows[i]["ProfilStorageStatusID"]) != 0)
@@ -4238,6 +4437,7 @@ namespace Infinium
                                 DT.Rows[i]["ProfilPackAllocStatusID"] = ProfilPackAllocStatusID;
                                 DT.Rows[i]["TPSPackAllocStatusID"] = TPSPackAllocStatusID;
                             }
+
                             DA.Update(DT);
                         }
                     }
@@ -4255,11 +4455,13 @@ namespace Infinium
             TPSDispatchStatusID = 0;
 
             SelectCommand = "SELECT MainOrderID, IsSample, FactoryID, ProfilPackAllocStatusID, TPSPackAllocStatusID," +
-                " ProfilProductionStatusID, ProfilStorageStatusID, ProfilExpeditionStatusID, ProfilDispatchStatusID, " +
-                " TPSProductionStatusID, TPSStorageStatusID, TPSExpeditionStatusID, TPSDispatchStatusID FROM NewMainOrders WHERE MainOrderID = " + MainOrderID;
+                            " ProfilProductionStatusID, ProfilStorageStatusID, ProfilExpeditionStatusID, ProfilDispatchStatusID, " +
+                            " TPSProductionStatusID, TPSStorageStatusID, TPSExpeditionStatusID, TPSDispatchStatusID FROM NewMainOrders WHERE MainOrderID = " +
+                            MainOrderID;
 
             //PS = new PackageStatues();
-            using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.MarketingOrdersConnectionString))
+            using (SqlDataAdapter DA =
+                new SqlDataAdapter(SelectCommand, ConnectionStrings.MarketingOrdersConnectionString))
             {
                 using (SqlCommandBuilder CB = new SqlCommandBuilder(DA))
                 {
@@ -4275,6 +4477,7 @@ namespace Infinium
                                 {
                                     CopySampleOrders(true, Convert.ToInt32(DT.Rows[i]["MainOrderID"]), DispDate);
                                 }
+
                                 if (FactoryID == 1)
                                 {
                                     ProfilProductionStatusID = 1;
@@ -4286,6 +4489,7 @@ namespace Infinium
                                     TPSExpeditionStatusID = 0;
                                     TPSDispatchStatusID = 0;
                                 }
+
                                 if (FactoryID == 2)
                                 {
                                     ProfilProductionStatusID = 0;
@@ -4297,6 +4501,7 @@ namespace Infinium
                                     TPSExpeditionStatusID = 1;
                                     TPSDispatchStatusID = 2;
                                 }
+
                                 if (FactoryID == 0)
                                 {
                                     ProfilProductionStatusID = 1;
@@ -4328,6 +4533,7 @@ namespace Infinium
                                 DT.Rows[i]["ProfilPackAllocStatusID"] = ProfilPackAllocStatusID;
                                 DT.Rows[i]["TPSPackAllocStatusID"] = TPSPackAllocStatusID;
                             }
+
                             DA.Update(DT);
                         }
                     }
@@ -4341,9 +4547,11 @@ namespace Infinium
             int PS = -1;
             int TS = -1;
 
-            using (SqlDataAdapter DA = new SqlDataAdapter("SELECT MainOrderID, ProfilProductionStatusID, ProfilStorageStatusID, ProfilExpeditionStatusID, ProfilDispatchStatusID," +
+            using (SqlDataAdapter DA = new SqlDataAdapter(
+                "SELECT MainOrderID, ProfilProductionStatusID, ProfilStorageStatusID, ProfilExpeditionStatusID, ProfilDispatchStatusID," +
                 " TPSProductionStatusID, TPSStorageStatusID, TPSExpeditionStatusID, TPSDispatchStatusID" +
-                " FROM NewMainOrders WHERE MegaOrderID = " + MegaOrderID, ConnectionStrings.MarketingOrdersConnectionString))
+                " FROM NewMainOrders WHERE MegaOrderID = " + MegaOrderID,
+                ConnectionStrings.MarketingOrdersConnectionString))
             {
                 using (DataTable DT = new DataTable())
                 {
@@ -4397,57 +4605,93 @@ namespace Infinium
                         //5      3 	   1     1	    1
 
                         //PROFIL
-                        if (ProfilProductionStatusID == 0 && ProfilStorageStatusID == 0 && ProfilExpeditionStatusID == 0 && ProfilDispatchStatusID == 0)
+                        if (ProfilProductionStatusID == 0 && ProfilStorageStatusID == 0 &&
+                            ProfilExpeditionStatusID == 0 && ProfilDispatchStatusID == 0)
                             PMOST[i] = 0;
-                        if (ProfilProductionStatusID == 1 && ProfilStorageStatusID == 1 && ProfilExpeditionStatusID == 1 && ProfilDispatchStatusID == 1)
+                        if (ProfilProductionStatusID == 1 && ProfilStorageStatusID == 1 &&
+                            ProfilExpeditionStatusID == 1 && ProfilDispatchStatusID == 1)
                             PMOST[i] = 1;
-                        if (ProfilProductionStatusID == 1 && ProfilStorageStatusID == 1 && ProfilExpeditionStatusID == 1 && ProfilDispatchStatusID == 2)
+                        if (ProfilProductionStatusID == 1 && ProfilStorageStatusID == 1 &&
+                            ProfilExpeditionStatusID == 1 && ProfilDispatchStatusID == 2)
                             PMOST[i] = 4;
-                        if ((ProfilProductionStatusID == 1 && ProfilStorageStatusID == 1 && ProfilExpeditionStatusID == 2 && ProfilDispatchStatusID == 1) ||
-                            (ProfilProductionStatusID == 1 && ProfilStorageStatusID == 1 && ProfilExpeditionStatusID == 2 && ProfilDispatchStatusID == 2))
+                        if ((ProfilProductionStatusID == 1 && ProfilStorageStatusID == 1 &&
+                             ProfilExpeditionStatusID == 2 && ProfilDispatchStatusID == 1) ||
+                            (ProfilProductionStatusID == 1 && ProfilStorageStatusID == 1 &&
+                             ProfilExpeditionStatusID == 2 && ProfilDispatchStatusID == 2))
                             PMOST[i] = 6;
-                        if ((ProfilProductionStatusID == 1 && ProfilStorageStatusID == 2 && ProfilExpeditionStatusID == 1 && ProfilDispatchStatusID == 1) ||
-                            (ProfilProductionStatusID == 1 && ProfilStorageStatusID == 2 && ProfilExpeditionStatusID == 1 && ProfilDispatchStatusID == 2) ||
-                            (ProfilProductionStatusID == 1 && ProfilStorageStatusID == 2 && ProfilExpeditionStatusID == 2 && ProfilDispatchStatusID == 1) ||
-                            (ProfilProductionStatusID == 1 && ProfilStorageStatusID == 2 && ProfilExpeditionStatusID == 2 && ProfilDispatchStatusID == 2))
+                        if ((ProfilProductionStatusID == 1 && ProfilStorageStatusID == 2 &&
+                             ProfilExpeditionStatusID == 1 && ProfilDispatchStatusID == 1) ||
+                            (ProfilProductionStatusID == 1 && ProfilStorageStatusID == 2 &&
+                             ProfilExpeditionStatusID == 1 && ProfilDispatchStatusID == 2) ||
+                            (ProfilProductionStatusID == 1 && ProfilStorageStatusID == 2 &&
+                             ProfilExpeditionStatusID == 2 && ProfilDispatchStatusID == 1) ||
+                            (ProfilProductionStatusID == 1 && ProfilStorageStatusID == 2 &&
+                             ProfilExpeditionStatusID == 2 && ProfilDispatchStatusID == 2))
                             PMOST[i] = 3;
-                        if ((ProfilProductionStatusID == 2 && ProfilStorageStatusID == 1 && ProfilExpeditionStatusID == 1 && ProfilDispatchStatusID == 1) ||
-                            (ProfilProductionStatusID == 2 && ProfilStorageStatusID == 1 && ProfilExpeditionStatusID == 1 && ProfilDispatchStatusID == 2) ||
-                            (ProfilProductionStatusID == 2 && ProfilStorageStatusID == 1 && ProfilExpeditionStatusID == 2 && ProfilDispatchStatusID == 1) ||
-                            (ProfilProductionStatusID == 2 && ProfilStorageStatusID == 1 && ProfilExpeditionStatusID == 2 && ProfilDispatchStatusID == 2) ||
-                            (ProfilProductionStatusID == 2 && ProfilStorageStatusID == 2 && ProfilExpeditionStatusID == 1 && ProfilDispatchStatusID == 1) ||
-                            (ProfilProductionStatusID == 2 && ProfilStorageStatusID == 2 && ProfilExpeditionStatusID == 1 && ProfilDispatchStatusID == 2) ||
-                            (ProfilProductionStatusID == 2 && ProfilStorageStatusID == 2 && ProfilExpeditionStatusID == 2 && ProfilDispatchStatusID == 1) ||
-                            (ProfilProductionStatusID == 2 && ProfilStorageStatusID == 2 && ProfilExpeditionStatusID == 2 && ProfilDispatchStatusID == 2))
+                        if ((ProfilProductionStatusID == 2 && ProfilStorageStatusID == 1 &&
+                             ProfilExpeditionStatusID == 1 && ProfilDispatchStatusID == 1) ||
+                            (ProfilProductionStatusID == 2 && ProfilStorageStatusID == 1 &&
+                             ProfilExpeditionStatusID == 1 && ProfilDispatchStatusID == 2) ||
+                            (ProfilProductionStatusID == 2 && ProfilStorageStatusID == 1 &&
+                             ProfilExpeditionStatusID == 2 && ProfilDispatchStatusID == 1) ||
+                            (ProfilProductionStatusID == 2 && ProfilStorageStatusID == 1 &&
+                             ProfilExpeditionStatusID == 2 && ProfilDispatchStatusID == 2) ||
+                            (ProfilProductionStatusID == 2 && ProfilStorageStatusID == 2 &&
+                             ProfilExpeditionStatusID == 1 && ProfilDispatchStatusID == 1) ||
+                            (ProfilProductionStatusID == 2 && ProfilStorageStatusID == 2 &&
+                             ProfilExpeditionStatusID == 1 && ProfilDispatchStatusID == 2) ||
+                            (ProfilProductionStatusID == 2 && ProfilStorageStatusID == 2 &&
+                             ProfilExpeditionStatusID == 2 && ProfilDispatchStatusID == 1) ||
+                            (ProfilProductionStatusID == 2 && ProfilStorageStatusID == 2 &&
+                             ProfilExpeditionStatusID == 2 && ProfilDispatchStatusID == 2))
                             PMOST[i] = 2;
-                        if (ProfilProductionStatusID == 3 && ProfilStorageStatusID == 1 && ProfilExpeditionStatusID == 1 && ProfilDispatchStatusID == 1)
+                        if (ProfilProductionStatusID == 3 && ProfilStorageStatusID == 1 &&
+                            ProfilExpeditionStatusID == 1 && ProfilDispatchStatusID == 1)
                             PMOST[i] = 5;
 
                         //TPS
-                        if (TPSProductionStatusID == 0 && TPSStorageStatusID == 0 && TPSExpeditionStatusID == 0 && TPSDispatchStatusID == 0)
+                        if (TPSProductionStatusID == 0 && TPSStorageStatusID == 0 && TPSExpeditionStatusID == 0 &&
+                            TPSDispatchStatusID == 0)
                             TMOST[i] = 0;
-                        if (TPSProductionStatusID == 1 && TPSStorageStatusID == 1 && TPSExpeditionStatusID == 1 && TPSDispatchStatusID == 1)
+                        if (TPSProductionStatusID == 1 && TPSStorageStatusID == 1 && TPSExpeditionStatusID == 1 &&
+                            TPSDispatchStatusID == 1)
                             TMOST[i] = 1;
-                        if (TPSProductionStatusID == 1 && TPSStorageStatusID == 1 && TPSExpeditionStatusID == 1 && TPSDispatchStatusID == 2)
+                        if (TPSProductionStatusID == 1 && TPSStorageStatusID == 1 && TPSExpeditionStatusID == 1 &&
+                            TPSDispatchStatusID == 2)
                             TMOST[i] = 4;
-                        if ((TPSProductionStatusID == 1 && TPSStorageStatusID == 1 && TPSExpeditionStatusID == 2 && TPSDispatchStatusID == 1) ||
-                            (TPSProductionStatusID == 1 && TPSStorageStatusID == 1 && TPSExpeditionStatusID == 2 && TPSDispatchStatusID == 2))
+                        if ((TPSProductionStatusID == 1 && TPSStorageStatusID == 1 && TPSExpeditionStatusID == 2 &&
+                             TPSDispatchStatusID == 1) ||
+                            (TPSProductionStatusID == 1 && TPSStorageStatusID == 1 && TPSExpeditionStatusID == 2 &&
+                             TPSDispatchStatusID == 2))
                             TMOST[i] = 6;
-                        if ((TPSProductionStatusID == 1 && TPSStorageStatusID == 2 && TPSExpeditionStatusID == 1 && TPSDispatchStatusID == 1) ||
-                            (TPSProductionStatusID == 1 && TPSStorageStatusID == 2 && TPSExpeditionStatusID == 1 && TPSDispatchStatusID == 2) ||
-                            (TPSProductionStatusID == 1 && TPSStorageStatusID == 2 && TPSExpeditionStatusID == 2 && TPSDispatchStatusID == 1) ||
-                            (TPSProductionStatusID == 1 && TPSStorageStatusID == 2 && TPSExpeditionStatusID == 2 && TPSDispatchStatusID == 2))
+                        if ((TPSProductionStatusID == 1 && TPSStorageStatusID == 2 && TPSExpeditionStatusID == 1 &&
+                             TPSDispatchStatusID == 1) ||
+                            (TPSProductionStatusID == 1 && TPSStorageStatusID == 2 && TPSExpeditionStatusID == 1 &&
+                             TPSDispatchStatusID == 2) ||
+                            (TPSProductionStatusID == 1 && TPSStorageStatusID == 2 && TPSExpeditionStatusID == 2 &&
+                             TPSDispatchStatusID == 1) ||
+                            (TPSProductionStatusID == 1 && TPSStorageStatusID == 2 && TPSExpeditionStatusID == 2 &&
+                             TPSDispatchStatusID == 2))
                             TMOST[i] = 3;
-                        if ((TPSProductionStatusID == 2 && TPSStorageStatusID == 1 && TPSExpeditionStatusID == 1 && TPSDispatchStatusID == 1) ||
-                            (TPSProductionStatusID == 2 && TPSStorageStatusID == 1 && TPSExpeditionStatusID == 1 && TPSDispatchStatusID == 2) ||
-                            (TPSProductionStatusID == 2 && TPSStorageStatusID == 1 && TPSExpeditionStatusID == 2 && TPSDispatchStatusID == 1) ||
-                            (TPSProductionStatusID == 2 && TPSStorageStatusID == 1 && TPSExpeditionStatusID == 2 && TPSDispatchStatusID == 2) ||
-                            (TPSProductionStatusID == 2 && TPSStorageStatusID == 2 && TPSExpeditionStatusID == 1 && TPSDispatchStatusID == 1) ||
-                            (TPSProductionStatusID == 2 && TPSStorageStatusID == 2 && TPSExpeditionStatusID == 1 && TPSDispatchStatusID == 2) ||
-                            (TPSProductionStatusID == 2 && TPSStorageStatusID == 2 && TPSExpeditionStatusID == 2 && TPSDispatchStatusID == 1) ||
-                            (TPSProductionStatusID == 2 && TPSStorageStatusID == 2 && TPSExpeditionStatusID == 2 && TPSDispatchStatusID == 2))
+                        if ((TPSProductionStatusID == 2 && TPSStorageStatusID == 1 && TPSExpeditionStatusID == 1 &&
+                             TPSDispatchStatusID == 1) ||
+                            (TPSProductionStatusID == 2 && TPSStorageStatusID == 1 && TPSExpeditionStatusID == 1 &&
+                             TPSDispatchStatusID == 2) ||
+                            (TPSProductionStatusID == 2 && TPSStorageStatusID == 1 && TPSExpeditionStatusID == 2 &&
+                             TPSDispatchStatusID == 1) ||
+                            (TPSProductionStatusID == 2 && TPSStorageStatusID == 1 && TPSExpeditionStatusID == 2 &&
+                             TPSDispatchStatusID == 2) ||
+                            (TPSProductionStatusID == 2 && TPSStorageStatusID == 2 && TPSExpeditionStatusID == 1 &&
+                             TPSDispatchStatusID == 1) ||
+                            (TPSProductionStatusID == 2 && TPSStorageStatusID == 2 && TPSExpeditionStatusID == 1 &&
+                             TPSDispatchStatusID == 2) ||
+                            (TPSProductionStatusID == 2 && TPSStorageStatusID == 2 && TPSExpeditionStatusID == 2 &&
+                             TPSDispatchStatusID == 1) ||
+                            (TPSProductionStatusID == 2 && TPSStorageStatusID == 2 && TPSExpeditionStatusID == 2 &&
+                             TPSDispatchStatusID == 2))
                             TMOST[i] = 2;
-                        if (TPSProductionStatusID == 3 && TPSStorageStatusID == 1 && TPSExpeditionStatusID == 1 && TPSDispatchStatusID == 1)
+                        if (TPSProductionStatusID == 3 && TPSStorageStatusID == 1 && TPSExpeditionStatusID == 1 &&
+                            TPSDispatchStatusID == 1)
                             TMOST[i] = 5;
                     }
 
@@ -4507,6 +4751,7 @@ namespace Infinium
                             }
                         }
                     }
+
                     if (OnProd > 0 && OnProd == ALL - Disp - Exp - Stor - Prod - NotProd - No)
                         PS = 5;
 
@@ -4562,6 +4807,7 @@ namespace Infinium
                             }
                         }
                     }
+
                     if (OnProd > 0 && OnProd == ALL - Disp - Exp - Stor - Prod - NotProd - No)
                         TS = 5;
                 }
@@ -4598,15 +4844,20 @@ namespace Infinium
                 TS = 1;
             if ((PS == 1 && TS == 1) || (PS == 0 && TS == 1) || (PS == 1 && TS == 0))
                 MegaOrderStatusID = 0;
-            if ((PS == 3 && TS == 0) || (PS == 3 && TS == 4) || (PS == 3 && TS == 5) || (PS == 3 && TS == 6) || (PS == 3 && TS == 3) ||
+            if ((PS == 3 && TS == 0) || (PS == 3 && TS == 4) || (PS == 3 && TS == 5) || (PS == 3 && TS == 6) ||
+                (PS == 3 && TS == 3) ||
                 (TS == 3 && PS == 0) || (TS == 3 && PS == 4) || (TS == 3 && PS == 5) || (TS == 3 && PS == 6))
                 MegaOrderStatusID = 2;
             if ((PS == 4 && TS == 4) || (PS == 0 && TS == 4) || (PS == 4 && TS == 0))
                 MegaOrderStatusID = 3;
-            if ((PS == 1 && TS == 2) || (PS == 1 && TS == 3) || (PS == 1 && TS == 4) || (PS == 1 && TS == 5) || (PS == 1 && TS == 6) ||
-                (TS == 1 && PS == 2) || (TS == 1 && PS == 3) || (TS == 1 && PS == 4) || (TS == 1 && PS == 5) || (TS == 1 && PS == 6) ||
-                (PS == 2 && TS == 0) || (PS == 2 && TS == 3) || (PS == 2 && TS == 4) || (PS == 2 && TS == 5) || (PS == 2 && TS == 6) || (PS == 2 && TS == 2) ||
-                (TS == 2 && PS == 0) || (TS == 2 && PS == 3) || (TS == 2 && PS == 4) || (TS == 2 && PS == 5) || (TS == 2 && PS == 6))
+            if ((PS == 1 && TS == 2) || (PS == 1 && TS == 3) || (PS == 1 && TS == 4) || (PS == 1 && TS == 5) ||
+                (PS == 1 && TS == 6) ||
+                (TS == 1 && PS == 2) || (TS == 1 && PS == 3) || (TS == 1 && PS == 4) || (TS == 1 && PS == 5) ||
+                (TS == 1 && PS == 6) ||
+                (PS == 2 && TS == 0) || (PS == 2 && TS == 3) || (PS == 2 && TS == 4) || (PS == 2 && TS == 5) ||
+                (PS == 2 && TS == 6) || (PS == 2 && TS == 2) ||
+                (TS == 2 && PS == 0) || (TS == 2 && PS == 3) || (TS == 2 && PS == 4) || (TS == 2 && PS == 5) ||
+                (TS == 2 && PS == 6))
                 MegaOrderStatusID = 1;
             if ((PS == 4 && TS == 5) || (PS == 5 && TS == 0) || (PS == 5 && TS == 5) ||
                 (TS == 4 && PS == 5) || (TS == 5 && PS == 0))
@@ -4617,8 +4868,10 @@ namespace Infinium
             if (MegaOrderStatusID == -1)
                 MegaOrderStatusID = 0;
 
-            using (SqlDataAdapter DA = new SqlDataAdapter("SELECT MegaOrderID, ProfilOrderStatusID, TPSOrderStatusID, OrderStatusID" +
-                " FROM NewMegaOrders WHERE MegaOrderID = " + MegaOrderID, ConnectionStrings.MarketingOrdersConnectionString))
+            using (SqlDataAdapter DA = new SqlDataAdapter(
+                "SELECT MegaOrderID, ProfilOrderStatusID, TPSOrderStatusID, OrderStatusID" +
+                " FROM NewMegaOrders WHERE MegaOrderID = " + MegaOrderID,
+                ConnectionStrings.MarketingOrdersConnectionString))
             {
                 using (SqlCommandBuilder CB = new SqlCommandBuilder(DA))
                 {
@@ -4645,9 +4898,11 @@ namespace Infinium
             int PS = -1;
             int TS = -1;
 
-            using (SqlDataAdapter DA = new SqlDataAdapter("SELECT MainOrderID, ProfilProductionStatusID, ProfilStorageStatusID, ProfilExpeditionStatusID, ProfilDispatchStatusID," +
+            using (SqlDataAdapter DA = new SqlDataAdapter(
+                "SELECT MainOrderID, ProfilProductionStatusID, ProfilStorageStatusID, ProfilExpeditionStatusID, ProfilDispatchStatusID," +
                 " TPSProductionStatusID, TPSStorageStatusID, TPSExpeditionStatusID, TPSDispatchStatusID" +
-                " FROM MainOrders WHERE MegaOrderID = " + MegaOrderID, ConnectionStrings.MarketingOrdersConnectionString))
+                " FROM MainOrders WHERE MegaOrderID = " + MegaOrderID,
+                ConnectionStrings.MarketingOrdersConnectionString))
             {
                 using (DataTable DT = new DataTable())
                 {
@@ -4701,57 +4956,93 @@ namespace Infinium
                         //5      3 	   1     1	    1
 
                         //PROFIL
-                        if (ProfilProductionStatusID == 0 && ProfilStorageStatusID == 0 && ProfilExpeditionStatusID == 0 && ProfilDispatchStatusID == 0)
+                        if (ProfilProductionStatusID == 0 && ProfilStorageStatusID == 0 &&
+                            ProfilExpeditionStatusID == 0 && ProfilDispatchStatusID == 0)
                             PMOST[i] = 0;
-                        if (ProfilProductionStatusID == 1 && ProfilStorageStatusID == 1 && ProfilExpeditionStatusID == 1 && ProfilDispatchStatusID == 1)
+                        if (ProfilProductionStatusID == 1 && ProfilStorageStatusID == 1 &&
+                            ProfilExpeditionStatusID == 1 && ProfilDispatchStatusID == 1)
                             PMOST[i] = 1;
-                        if (ProfilProductionStatusID == 1 && ProfilStorageStatusID == 1 && ProfilExpeditionStatusID == 1 && ProfilDispatchStatusID == 2)
+                        if (ProfilProductionStatusID == 1 && ProfilStorageStatusID == 1 &&
+                            ProfilExpeditionStatusID == 1 && ProfilDispatchStatusID == 2)
                             PMOST[i] = 4;
-                        if ((ProfilProductionStatusID == 1 && ProfilStorageStatusID == 1 && ProfilExpeditionStatusID == 2 && ProfilDispatchStatusID == 1) ||
-                            (ProfilProductionStatusID == 1 && ProfilStorageStatusID == 1 && ProfilExpeditionStatusID == 2 && ProfilDispatchStatusID == 2))
+                        if ((ProfilProductionStatusID == 1 && ProfilStorageStatusID == 1 &&
+                             ProfilExpeditionStatusID == 2 && ProfilDispatchStatusID == 1) ||
+                            (ProfilProductionStatusID == 1 && ProfilStorageStatusID == 1 &&
+                             ProfilExpeditionStatusID == 2 && ProfilDispatchStatusID == 2))
                             PMOST[i] = 6;
-                        if ((ProfilProductionStatusID == 1 && ProfilStorageStatusID == 2 && ProfilExpeditionStatusID == 1 && ProfilDispatchStatusID == 1) ||
-                            (ProfilProductionStatusID == 1 && ProfilStorageStatusID == 2 && ProfilExpeditionStatusID == 1 && ProfilDispatchStatusID == 2) ||
-                            (ProfilProductionStatusID == 1 && ProfilStorageStatusID == 2 && ProfilExpeditionStatusID == 2 && ProfilDispatchStatusID == 1) ||
-                            (ProfilProductionStatusID == 1 && ProfilStorageStatusID == 2 && ProfilExpeditionStatusID == 2 && ProfilDispatchStatusID == 2))
+                        if ((ProfilProductionStatusID == 1 && ProfilStorageStatusID == 2 &&
+                             ProfilExpeditionStatusID == 1 && ProfilDispatchStatusID == 1) ||
+                            (ProfilProductionStatusID == 1 && ProfilStorageStatusID == 2 &&
+                             ProfilExpeditionStatusID == 1 && ProfilDispatchStatusID == 2) ||
+                            (ProfilProductionStatusID == 1 && ProfilStorageStatusID == 2 &&
+                             ProfilExpeditionStatusID == 2 && ProfilDispatchStatusID == 1) ||
+                            (ProfilProductionStatusID == 1 && ProfilStorageStatusID == 2 &&
+                             ProfilExpeditionStatusID == 2 && ProfilDispatchStatusID == 2))
                             PMOST[i] = 3;
-                        if ((ProfilProductionStatusID == 2 && ProfilStorageStatusID == 1 && ProfilExpeditionStatusID == 1 && ProfilDispatchStatusID == 1) ||
-                            (ProfilProductionStatusID == 2 && ProfilStorageStatusID == 1 && ProfilExpeditionStatusID == 1 && ProfilDispatchStatusID == 2) ||
-                            (ProfilProductionStatusID == 2 && ProfilStorageStatusID == 1 && ProfilExpeditionStatusID == 2 && ProfilDispatchStatusID == 1) ||
-                            (ProfilProductionStatusID == 2 && ProfilStorageStatusID == 1 && ProfilExpeditionStatusID == 2 && ProfilDispatchStatusID == 2) ||
-                            (ProfilProductionStatusID == 2 && ProfilStorageStatusID == 2 && ProfilExpeditionStatusID == 1 && ProfilDispatchStatusID == 1) ||
-                            (ProfilProductionStatusID == 2 && ProfilStorageStatusID == 2 && ProfilExpeditionStatusID == 1 && ProfilDispatchStatusID == 2) ||
-                            (ProfilProductionStatusID == 2 && ProfilStorageStatusID == 2 && ProfilExpeditionStatusID == 2 && ProfilDispatchStatusID == 1) ||
-                            (ProfilProductionStatusID == 2 && ProfilStorageStatusID == 2 && ProfilExpeditionStatusID == 2 && ProfilDispatchStatusID == 2))
+                        if ((ProfilProductionStatusID == 2 && ProfilStorageStatusID == 1 &&
+                             ProfilExpeditionStatusID == 1 && ProfilDispatchStatusID == 1) ||
+                            (ProfilProductionStatusID == 2 && ProfilStorageStatusID == 1 &&
+                             ProfilExpeditionStatusID == 1 && ProfilDispatchStatusID == 2) ||
+                            (ProfilProductionStatusID == 2 && ProfilStorageStatusID == 1 &&
+                             ProfilExpeditionStatusID == 2 && ProfilDispatchStatusID == 1) ||
+                            (ProfilProductionStatusID == 2 && ProfilStorageStatusID == 1 &&
+                             ProfilExpeditionStatusID == 2 && ProfilDispatchStatusID == 2) ||
+                            (ProfilProductionStatusID == 2 && ProfilStorageStatusID == 2 &&
+                             ProfilExpeditionStatusID == 1 && ProfilDispatchStatusID == 1) ||
+                            (ProfilProductionStatusID == 2 && ProfilStorageStatusID == 2 &&
+                             ProfilExpeditionStatusID == 1 && ProfilDispatchStatusID == 2) ||
+                            (ProfilProductionStatusID == 2 && ProfilStorageStatusID == 2 &&
+                             ProfilExpeditionStatusID == 2 && ProfilDispatchStatusID == 1) ||
+                            (ProfilProductionStatusID == 2 && ProfilStorageStatusID == 2 &&
+                             ProfilExpeditionStatusID == 2 && ProfilDispatchStatusID == 2))
                             PMOST[i] = 2;
-                        if (ProfilProductionStatusID == 3 && ProfilStorageStatusID == 1 && ProfilExpeditionStatusID == 1 && ProfilDispatchStatusID == 1)
+                        if (ProfilProductionStatusID == 3 && ProfilStorageStatusID == 1 &&
+                            ProfilExpeditionStatusID == 1 && ProfilDispatchStatusID == 1)
                             PMOST[i] = 5;
 
                         //TPS
-                        if (TPSProductionStatusID == 0 && TPSStorageStatusID == 0 && TPSExpeditionStatusID == 0 && TPSDispatchStatusID == 0)
+                        if (TPSProductionStatusID == 0 && TPSStorageStatusID == 0 && TPSExpeditionStatusID == 0 &&
+                            TPSDispatchStatusID == 0)
                             TMOST[i] = 0;
-                        if (TPSProductionStatusID == 1 && TPSStorageStatusID == 1 && TPSExpeditionStatusID == 1 && TPSDispatchStatusID == 1)
+                        if (TPSProductionStatusID == 1 && TPSStorageStatusID == 1 && TPSExpeditionStatusID == 1 &&
+                            TPSDispatchStatusID == 1)
                             TMOST[i] = 1;
-                        if (TPSProductionStatusID == 1 && TPSStorageStatusID == 1 && TPSExpeditionStatusID == 1 && TPSDispatchStatusID == 2)
+                        if (TPSProductionStatusID == 1 && TPSStorageStatusID == 1 && TPSExpeditionStatusID == 1 &&
+                            TPSDispatchStatusID == 2)
                             TMOST[i] = 4;
-                        if ((TPSProductionStatusID == 1 && TPSStorageStatusID == 1 && TPSExpeditionStatusID == 2 && TPSDispatchStatusID == 1) ||
-                            (TPSProductionStatusID == 1 && TPSStorageStatusID == 1 && TPSExpeditionStatusID == 2 && TPSDispatchStatusID == 2))
+                        if ((TPSProductionStatusID == 1 && TPSStorageStatusID == 1 && TPSExpeditionStatusID == 2 &&
+                             TPSDispatchStatusID == 1) ||
+                            (TPSProductionStatusID == 1 && TPSStorageStatusID == 1 && TPSExpeditionStatusID == 2 &&
+                             TPSDispatchStatusID == 2))
                             TMOST[i] = 6;
-                        if ((TPSProductionStatusID == 1 && TPSStorageStatusID == 2 && TPSExpeditionStatusID == 1 && TPSDispatchStatusID == 1) ||
-                            (TPSProductionStatusID == 1 && TPSStorageStatusID == 2 && TPSExpeditionStatusID == 1 && TPSDispatchStatusID == 2) ||
-                            (TPSProductionStatusID == 1 && TPSStorageStatusID == 2 && TPSExpeditionStatusID == 2 && TPSDispatchStatusID == 1) ||
-                            (TPSProductionStatusID == 1 && TPSStorageStatusID == 2 && TPSExpeditionStatusID == 2 && TPSDispatchStatusID == 2))
+                        if ((TPSProductionStatusID == 1 && TPSStorageStatusID == 2 && TPSExpeditionStatusID == 1 &&
+                             TPSDispatchStatusID == 1) ||
+                            (TPSProductionStatusID == 1 && TPSStorageStatusID == 2 && TPSExpeditionStatusID == 1 &&
+                             TPSDispatchStatusID == 2) ||
+                            (TPSProductionStatusID == 1 && TPSStorageStatusID == 2 && TPSExpeditionStatusID == 2 &&
+                             TPSDispatchStatusID == 1) ||
+                            (TPSProductionStatusID == 1 && TPSStorageStatusID == 2 && TPSExpeditionStatusID == 2 &&
+                             TPSDispatchStatusID == 2))
                             TMOST[i] = 3;
-                        if ((TPSProductionStatusID == 2 && TPSStorageStatusID == 1 && TPSExpeditionStatusID == 1 && TPSDispatchStatusID == 1) ||
-                            (TPSProductionStatusID == 2 && TPSStorageStatusID == 1 && TPSExpeditionStatusID == 1 && TPSDispatchStatusID == 2) ||
-                            (TPSProductionStatusID == 2 && TPSStorageStatusID == 1 && TPSExpeditionStatusID == 2 && TPSDispatchStatusID == 1) ||
-                            (TPSProductionStatusID == 2 && TPSStorageStatusID == 1 && TPSExpeditionStatusID == 2 && TPSDispatchStatusID == 2) ||
-                            (TPSProductionStatusID == 2 && TPSStorageStatusID == 2 && TPSExpeditionStatusID == 1 && TPSDispatchStatusID == 1) ||
-                            (TPSProductionStatusID == 2 && TPSStorageStatusID == 2 && TPSExpeditionStatusID == 1 && TPSDispatchStatusID == 2) ||
-                            (TPSProductionStatusID == 2 && TPSStorageStatusID == 2 && TPSExpeditionStatusID == 2 && TPSDispatchStatusID == 1) ||
-                            (TPSProductionStatusID == 2 && TPSStorageStatusID == 2 && TPSExpeditionStatusID == 2 && TPSDispatchStatusID == 2))
+                        if ((TPSProductionStatusID == 2 && TPSStorageStatusID == 1 && TPSExpeditionStatusID == 1 &&
+                             TPSDispatchStatusID == 1) ||
+                            (TPSProductionStatusID == 2 && TPSStorageStatusID == 1 && TPSExpeditionStatusID == 1 &&
+                             TPSDispatchStatusID == 2) ||
+                            (TPSProductionStatusID == 2 && TPSStorageStatusID == 1 && TPSExpeditionStatusID == 2 &&
+                             TPSDispatchStatusID == 1) ||
+                            (TPSProductionStatusID == 2 && TPSStorageStatusID == 1 && TPSExpeditionStatusID == 2 &&
+                             TPSDispatchStatusID == 2) ||
+                            (TPSProductionStatusID == 2 && TPSStorageStatusID == 2 && TPSExpeditionStatusID == 1 &&
+                             TPSDispatchStatusID == 1) ||
+                            (TPSProductionStatusID == 2 && TPSStorageStatusID == 2 && TPSExpeditionStatusID == 1 &&
+                             TPSDispatchStatusID == 2) ||
+                            (TPSProductionStatusID == 2 && TPSStorageStatusID == 2 && TPSExpeditionStatusID == 2 &&
+                             TPSDispatchStatusID == 1) ||
+                            (TPSProductionStatusID == 2 && TPSStorageStatusID == 2 && TPSExpeditionStatusID == 2 &&
+                             TPSDispatchStatusID == 2))
                             TMOST[i] = 2;
-                        if (TPSProductionStatusID == 3 && TPSStorageStatusID == 1 && TPSExpeditionStatusID == 1 && TPSDispatchStatusID == 1)
+                        if (TPSProductionStatusID == 3 && TPSStorageStatusID == 1 && TPSExpeditionStatusID == 1 &&
+                            TPSDispatchStatusID == 1)
                             TMOST[i] = 5;
                     }
 
@@ -4811,6 +5102,7 @@ namespace Infinium
                             }
                         }
                     }
+
                     if (OnProd > 0 && OnProd == ALL - Disp - Exp - Stor - Prod - NotProd - No)
                         PS = 5;
 
@@ -4866,13 +5158,17 @@ namespace Infinium
                             }
                         }
                     }
+
                     if (OnProd > 0 && OnProd == ALL - Disp - Exp - Stor - Prod - NotProd - No)
                         TS = 5;
                 }
             }
-            using (SqlDataAdapter DA = new SqlDataAdapter("SELECT MainOrderID, ProfilProductionStatusID, ProfilStorageStatusID, ProfilExpeditionStatusID, ProfilDispatchStatusID," +
+
+            using (SqlDataAdapter DA = new SqlDataAdapter(
+                "SELECT MainOrderID, ProfilProductionStatusID, ProfilStorageStatusID, ProfilExpeditionStatusID, ProfilDispatchStatusID," +
                 " TPSProductionStatusID, TPSStorageStatusID, TPSExpeditionStatusID, TPSDispatchStatusID" +
-                " FROM NewMainOrders WHERE MegaOrderID = " + MegaOrderID, ConnectionStrings.MarketingOrdersConnectionString))
+                " FROM NewMainOrders WHERE MegaOrderID = " + MegaOrderID,
+                ConnectionStrings.MarketingOrdersConnectionString))
             {
                 using (DataTable DT = new DataTable())
                 {
@@ -4926,57 +5222,93 @@ namespace Infinium
                         //5      3 	   1     1	    1
 
                         //PROFIL
-                        if (ProfilProductionStatusID == 0 && ProfilStorageStatusID == 0 && ProfilExpeditionStatusID == 0 && ProfilDispatchStatusID == 0)
+                        if (ProfilProductionStatusID == 0 && ProfilStorageStatusID == 0 &&
+                            ProfilExpeditionStatusID == 0 && ProfilDispatchStatusID == 0)
                             PMOST[i] = 0;
-                        if (ProfilProductionStatusID == 1 && ProfilStorageStatusID == 1 && ProfilExpeditionStatusID == 1 && ProfilDispatchStatusID == 1)
+                        if (ProfilProductionStatusID == 1 && ProfilStorageStatusID == 1 &&
+                            ProfilExpeditionStatusID == 1 && ProfilDispatchStatusID == 1)
                             PMOST[i] = 1;
-                        if (ProfilProductionStatusID == 1 && ProfilStorageStatusID == 1 && ProfilExpeditionStatusID == 1 && ProfilDispatchStatusID == 2)
+                        if (ProfilProductionStatusID == 1 && ProfilStorageStatusID == 1 &&
+                            ProfilExpeditionStatusID == 1 && ProfilDispatchStatusID == 2)
                             PMOST[i] = 4;
-                        if ((ProfilProductionStatusID == 1 && ProfilStorageStatusID == 1 && ProfilExpeditionStatusID == 2 && ProfilDispatchStatusID == 1) ||
-                            (ProfilProductionStatusID == 1 && ProfilStorageStatusID == 1 && ProfilExpeditionStatusID == 2 && ProfilDispatchStatusID == 2))
+                        if ((ProfilProductionStatusID == 1 && ProfilStorageStatusID == 1 &&
+                             ProfilExpeditionStatusID == 2 && ProfilDispatchStatusID == 1) ||
+                            (ProfilProductionStatusID == 1 && ProfilStorageStatusID == 1 &&
+                             ProfilExpeditionStatusID == 2 && ProfilDispatchStatusID == 2))
                             PMOST[i] = 6;
-                        if ((ProfilProductionStatusID == 1 && ProfilStorageStatusID == 2 && ProfilExpeditionStatusID == 1 && ProfilDispatchStatusID == 1) ||
-                            (ProfilProductionStatusID == 1 && ProfilStorageStatusID == 2 && ProfilExpeditionStatusID == 1 && ProfilDispatchStatusID == 2) ||
-                            (ProfilProductionStatusID == 1 && ProfilStorageStatusID == 2 && ProfilExpeditionStatusID == 2 && ProfilDispatchStatusID == 1) ||
-                            (ProfilProductionStatusID == 1 && ProfilStorageStatusID == 2 && ProfilExpeditionStatusID == 2 && ProfilDispatchStatusID == 2))
+                        if ((ProfilProductionStatusID == 1 && ProfilStorageStatusID == 2 &&
+                             ProfilExpeditionStatusID == 1 && ProfilDispatchStatusID == 1) ||
+                            (ProfilProductionStatusID == 1 && ProfilStorageStatusID == 2 &&
+                             ProfilExpeditionStatusID == 1 && ProfilDispatchStatusID == 2) ||
+                            (ProfilProductionStatusID == 1 && ProfilStorageStatusID == 2 &&
+                             ProfilExpeditionStatusID == 2 && ProfilDispatchStatusID == 1) ||
+                            (ProfilProductionStatusID == 1 && ProfilStorageStatusID == 2 &&
+                             ProfilExpeditionStatusID == 2 && ProfilDispatchStatusID == 2))
                             PMOST[i] = 3;
-                        if ((ProfilProductionStatusID == 2 && ProfilStorageStatusID == 1 && ProfilExpeditionStatusID == 1 && ProfilDispatchStatusID == 1) ||
-                            (ProfilProductionStatusID == 2 && ProfilStorageStatusID == 1 && ProfilExpeditionStatusID == 1 && ProfilDispatchStatusID == 2) ||
-                            (ProfilProductionStatusID == 2 && ProfilStorageStatusID == 1 && ProfilExpeditionStatusID == 2 && ProfilDispatchStatusID == 1) ||
-                            (ProfilProductionStatusID == 2 && ProfilStorageStatusID == 1 && ProfilExpeditionStatusID == 2 && ProfilDispatchStatusID == 2) ||
-                            (ProfilProductionStatusID == 2 && ProfilStorageStatusID == 2 && ProfilExpeditionStatusID == 1 && ProfilDispatchStatusID == 1) ||
-                            (ProfilProductionStatusID == 2 && ProfilStorageStatusID == 2 && ProfilExpeditionStatusID == 1 && ProfilDispatchStatusID == 2) ||
-                            (ProfilProductionStatusID == 2 && ProfilStorageStatusID == 2 && ProfilExpeditionStatusID == 2 && ProfilDispatchStatusID == 1) ||
-                            (ProfilProductionStatusID == 2 && ProfilStorageStatusID == 2 && ProfilExpeditionStatusID == 2 && ProfilDispatchStatusID == 2))
+                        if ((ProfilProductionStatusID == 2 && ProfilStorageStatusID == 1 &&
+                             ProfilExpeditionStatusID == 1 && ProfilDispatchStatusID == 1) ||
+                            (ProfilProductionStatusID == 2 && ProfilStorageStatusID == 1 &&
+                             ProfilExpeditionStatusID == 1 && ProfilDispatchStatusID == 2) ||
+                            (ProfilProductionStatusID == 2 && ProfilStorageStatusID == 1 &&
+                             ProfilExpeditionStatusID == 2 && ProfilDispatchStatusID == 1) ||
+                            (ProfilProductionStatusID == 2 && ProfilStorageStatusID == 1 &&
+                             ProfilExpeditionStatusID == 2 && ProfilDispatchStatusID == 2) ||
+                            (ProfilProductionStatusID == 2 && ProfilStorageStatusID == 2 &&
+                             ProfilExpeditionStatusID == 1 && ProfilDispatchStatusID == 1) ||
+                            (ProfilProductionStatusID == 2 && ProfilStorageStatusID == 2 &&
+                             ProfilExpeditionStatusID == 1 && ProfilDispatchStatusID == 2) ||
+                            (ProfilProductionStatusID == 2 && ProfilStorageStatusID == 2 &&
+                             ProfilExpeditionStatusID == 2 && ProfilDispatchStatusID == 1) ||
+                            (ProfilProductionStatusID == 2 && ProfilStorageStatusID == 2 &&
+                             ProfilExpeditionStatusID == 2 && ProfilDispatchStatusID == 2))
                             PMOST[i] = 2;
-                        if (ProfilProductionStatusID == 3 && ProfilStorageStatusID == 1 && ProfilExpeditionStatusID == 1 && ProfilDispatchStatusID == 1)
+                        if (ProfilProductionStatusID == 3 && ProfilStorageStatusID == 1 &&
+                            ProfilExpeditionStatusID == 1 && ProfilDispatchStatusID == 1)
                             PMOST[i] = 5;
 
                         //TPS
-                        if (TPSProductionStatusID == 0 && TPSStorageStatusID == 0 && TPSExpeditionStatusID == 0 && TPSDispatchStatusID == 0)
+                        if (TPSProductionStatusID == 0 && TPSStorageStatusID == 0 && TPSExpeditionStatusID == 0 &&
+                            TPSDispatchStatusID == 0)
                             TMOST[i] = 0;
-                        if (TPSProductionStatusID == 1 && TPSStorageStatusID == 1 && TPSExpeditionStatusID == 1 && TPSDispatchStatusID == 1)
+                        if (TPSProductionStatusID == 1 && TPSStorageStatusID == 1 && TPSExpeditionStatusID == 1 &&
+                            TPSDispatchStatusID == 1)
                             TMOST[i] = 1;
-                        if (TPSProductionStatusID == 1 && TPSStorageStatusID == 1 && TPSExpeditionStatusID == 1 && TPSDispatchStatusID == 2)
+                        if (TPSProductionStatusID == 1 && TPSStorageStatusID == 1 && TPSExpeditionStatusID == 1 &&
+                            TPSDispatchStatusID == 2)
                             TMOST[i] = 4;
-                        if ((TPSProductionStatusID == 1 && TPSStorageStatusID == 1 && TPSExpeditionStatusID == 2 && TPSDispatchStatusID == 1) ||
-                            (TPSProductionStatusID == 1 && TPSStorageStatusID == 1 && TPSExpeditionStatusID == 2 && TPSDispatchStatusID == 2))
+                        if ((TPSProductionStatusID == 1 && TPSStorageStatusID == 1 && TPSExpeditionStatusID == 2 &&
+                             TPSDispatchStatusID == 1) ||
+                            (TPSProductionStatusID == 1 && TPSStorageStatusID == 1 && TPSExpeditionStatusID == 2 &&
+                             TPSDispatchStatusID == 2))
                             TMOST[i] = 6;
-                        if ((TPSProductionStatusID == 1 && TPSStorageStatusID == 2 && TPSExpeditionStatusID == 1 && TPSDispatchStatusID == 1) ||
-                            (TPSProductionStatusID == 1 && TPSStorageStatusID == 2 && TPSExpeditionStatusID == 1 && TPSDispatchStatusID == 2) ||
-                            (TPSProductionStatusID == 1 && TPSStorageStatusID == 2 && TPSExpeditionStatusID == 2 && TPSDispatchStatusID == 1) ||
-                            (TPSProductionStatusID == 1 && TPSStorageStatusID == 2 && TPSExpeditionStatusID == 2 && TPSDispatchStatusID == 2))
+                        if ((TPSProductionStatusID == 1 && TPSStorageStatusID == 2 && TPSExpeditionStatusID == 1 &&
+                             TPSDispatchStatusID == 1) ||
+                            (TPSProductionStatusID == 1 && TPSStorageStatusID == 2 && TPSExpeditionStatusID == 1 &&
+                             TPSDispatchStatusID == 2) ||
+                            (TPSProductionStatusID == 1 && TPSStorageStatusID == 2 && TPSExpeditionStatusID == 2 &&
+                             TPSDispatchStatusID == 1) ||
+                            (TPSProductionStatusID == 1 && TPSStorageStatusID == 2 && TPSExpeditionStatusID == 2 &&
+                             TPSDispatchStatusID == 2))
                             TMOST[i] = 3;
-                        if ((TPSProductionStatusID == 2 && TPSStorageStatusID == 1 && TPSExpeditionStatusID == 1 && TPSDispatchStatusID == 1) ||
-                            (TPSProductionStatusID == 2 && TPSStorageStatusID == 1 && TPSExpeditionStatusID == 1 && TPSDispatchStatusID == 2) ||
-                            (TPSProductionStatusID == 2 && TPSStorageStatusID == 1 && TPSExpeditionStatusID == 2 && TPSDispatchStatusID == 1) ||
-                            (TPSProductionStatusID == 2 && TPSStorageStatusID == 1 && TPSExpeditionStatusID == 2 && TPSDispatchStatusID == 2) ||
-                            (TPSProductionStatusID == 2 && TPSStorageStatusID == 2 && TPSExpeditionStatusID == 1 && TPSDispatchStatusID == 1) ||
-                            (TPSProductionStatusID == 2 && TPSStorageStatusID == 2 && TPSExpeditionStatusID == 1 && TPSDispatchStatusID == 2) ||
-                            (TPSProductionStatusID == 2 && TPSStorageStatusID == 2 && TPSExpeditionStatusID == 2 && TPSDispatchStatusID == 1) ||
-                            (TPSProductionStatusID == 2 && TPSStorageStatusID == 2 && TPSExpeditionStatusID == 2 && TPSDispatchStatusID == 2))
+                        if ((TPSProductionStatusID == 2 && TPSStorageStatusID == 1 && TPSExpeditionStatusID == 1 &&
+                             TPSDispatchStatusID == 1) ||
+                            (TPSProductionStatusID == 2 && TPSStorageStatusID == 1 && TPSExpeditionStatusID == 1 &&
+                             TPSDispatchStatusID == 2) ||
+                            (TPSProductionStatusID == 2 && TPSStorageStatusID == 1 && TPSExpeditionStatusID == 2 &&
+                             TPSDispatchStatusID == 1) ||
+                            (TPSProductionStatusID == 2 && TPSStorageStatusID == 1 && TPSExpeditionStatusID == 2 &&
+                             TPSDispatchStatusID == 2) ||
+                            (TPSProductionStatusID == 2 && TPSStorageStatusID == 2 && TPSExpeditionStatusID == 1 &&
+                             TPSDispatchStatusID == 1) ||
+                            (TPSProductionStatusID == 2 && TPSStorageStatusID == 2 && TPSExpeditionStatusID == 1 &&
+                             TPSDispatchStatusID == 2) ||
+                            (TPSProductionStatusID == 2 && TPSStorageStatusID == 2 && TPSExpeditionStatusID == 2 &&
+                             TPSDispatchStatusID == 1) ||
+                            (TPSProductionStatusID == 2 && TPSStorageStatusID == 2 && TPSExpeditionStatusID == 2 &&
+                             TPSDispatchStatusID == 2))
                             TMOST[i] = 2;
-                        if (TPSProductionStatusID == 3 && TPSStorageStatusID == 1 && TPSExpeditionStatusID == 1 && TPSDispatchStatusID == 1)
+                        if (TPSProductionStatusID == 3 && TPSStorageStatusID == 1 && TPSExpeditionStatusID == 1 &&
+                            TPSDispatchStatusID == 1)
                             TMOST[i] = 5;
                     }
 
@@ -5036,6 +5368,7 @@ namespace Infinium
                             }
                         }
                     }
+
                     if (OnProd > 0 && OnProd == ALL - Disp - Exp - Stor - Prod - NotProd - No)
                         PS = 5;
 
@@ -5091,6 +5424,7 @@ namespace Infinium
                             }
                         }
                     }
+
                     if (OnProd > 0 && OnProd == ALL - Disp - Exp - Stor - Prod - NotProd - No)
                         TS = 5;
                 }
@@ -5127,15 +5461,20 @@ namespace Infinium
                 TS = 1;
             if ((PS == 1 && TS == 1) || (PS == 0 && TS == 1) || (PS == 1 && TS == 0))
                 MegaOrderStatusID = 0;
-            if ((PS == 3 && TS == 0) || (PS == 3 && TS == 4) || (PS == 3 && TS == 5) || (PS == 3 && TS == 6) || (PS == 3 && TS == 3) ||
+            if ((PS == 3 && TS == 0) || (PS == 3 && TS == 4) || (PS == 3 && TS == 5) || (PS == 3 && TS == 6) ||
+                (PS == 3 && TS == 3) ||
                 (TS == 3 && PS == 0) || (TS == 3 && PS == 4) || (TS == 3 && PS == 5) || (TS == 3 && PS == 6))
                 MegaOrderStatusID = 2;
             if ((PS == 4 && TS == 4) || (PS == 0 && TS == 4) || (PS == 4 && TS == 0))
                 MegaOrderStatusID = 3;
-            if ((PS == 1 && TS == 2) || (PS == 1 && TS == 3) || (PS == 1 && TS == 4) || (PS == 1 && TS == 5) || (PS == 1 && TS == 6) ||
-                (TS == 1 && PS == 2) || (TS == 1 && PS == 3) || (TS == 1 && PS == 4) || (TS == 1 && PS == 5) || (TS == 1 && PS == 6) ||
-                (PS == 2 && TS == 0) || (PS == 2 && TS == 3) || (PS == 2 && TS == 4) || (PS == 2 && TS == 5) || (PS == 2 && TS == 6) || (PS == 2 && TS == 2) ||
-                (TS == 2 && PS == 0) || (TS == 2 && PS == 3) || (TS == 2 && PS == 4) || (TS == 2 && PS == 5) || (TS == 2 && PS == 6))
+            if ((PS == 1 && TS == 2) || (PS == 1 && TS == 3) || (PS == 1 && TS == 4) || (PS == 1 && TS == 5) ||
+                (PS == 1 && TS == 6) ||
+                (TS == 1 && PS == 2) || (TS == 1 && PS == 3) || (TS == 1 && PS == 4) || (TS == 1 && PS == 5) ||
+                (TS == 1 && PS == 6) ||
+                (PS == 2 && TS == 0) || (PS == 2 && TS == 3) || (PS == 2 && TS == 4) || (PS == 2 && TS == 5) ||
+                (PS == 2 && TS == 6) || (PS == 2 && TS == 2) ||
+                (TS == 2 && PS == 0) || (TS == 2 && PS == 3) || (TS == 2 && PS == 4) || (TS == 2 && PS == 5) ||
+                (TS == 2 && PS == 6))
                 MegaOrderStatusID = 1;
             if ((PS == 4 && TS == 5) || (PS == 5 && TS == 0) || (PS == 5 && TS == 5) ||
                 (TS == 4 && PS == 5) || (TS == 5 && PS == 0))
@@ -5146,8 +5485,10 @@ namespace Infinium
             if (MegaOrderStatusID == -1)
                 MegaOrderStatusID = 0;
 
-            using (SqlDataAdapter DA = new SqlDataAdapter("SELECT MegaOrderID, ProfilOrderStatusID, TPSOrderStatusID, OrderStatusID" +
-                " FROM MegaOrders WHERE MegaOrderID = " + MegaOrderID, ConnectionStrings.MarketingOrdersConnectionString))
+            using (SqlDataAdapter DA = new SqlDataAdapter(
+                "SELECT MegaOrderID, ProfilOrderStatusID, TPSOrderStatusID, OrderStatusID" +
+                " FROM MegaOrders WHERE MegaOrderID = " + MegaOrderID,
+                ConnectionStrings.MarketingOrdersConnectionString))
             {
                 using (SqlCommandBuilder CB = new SqlCommandBuilder(DA))
                 {
@@ -5166,8 +5507,11 @@ namespace Infinium
                     }
                 }
             }
-            using (SqlDataAdapter DA = new SqlDataAdapter("SELECT MegaOrderID, ProfilOrderStatusID, TPSOrderStatusID, OrderStatusID" +
-                " FROM NewMegaOrders WHERE MegaOrderID = " + MegaOrderID, ConnectionStrings.MarketingOrdersConnectionString))
+
+            using (SqlDataAdapter DA = new SqlDataAdapter(
+                "SELECT MegaOrderID, ProfilOrderStatusID, TPSOrderStatusID, OrderStatusID" +
+                " FROM NewMegaOrders WHERE MegaOrderID = " + MegaOrderID,
+                ConnectionStrings.MarketingOrdersConnectionString))
             {
                 using (SqlCommandBuilder CB = new SqlCommandBuilder(DA))
                 {
@@ -5221,32 +5565,40 @@ namespace Infinium
             DataTable DecorOrdersDT = new DataTable();
             DataTable DecorPackagesDT = new DataTable();
 
-            using (SqlDataAdapter DA = new SqlDataAdapter("SELECT MainOrderID, FactoryID, Count FROM FrontsOrders WHERE MainOrderID IN " +
+            using (SqlDataAdapter DA = new SqlDataAdapter(
+                "SELECT MainOrderID, FactoryID, Count FROM FrontsOrders WHERE MainOrderID IN " +
                 " (SELECT MainOrderID FROM MainOrders WHERE MegaOrderID = " + MegaOrderID + ")",
                 OrdersConnectionString))
             {
                 DA.Fill(FrontsOrdersDT);
             }
-            using (SqlDataAdapter DA = new SqlDataAdapter("SELECT MainOrderID, FactoryID, Count FROM DecorOrders WHERE MainOrderID IN " +
+
+            using (SqlDataAdapter DA = new SqlDataAdapter(
+                "SELECT MainOrderID, FactoryID, Count FROM DecorOrders WHERE MainOrderID IN " +
                 " (SELECT MainOrderID FROM MainOrders WHERE MegaOrderID = " + MegaOrderID + ")",
                 OrdersConnectionString))
             {
                 DA.Fill(DecorOrdersDT);
             }
 
-            using (SqlDataAdapter DA = new SqlDataAdapter("SELECT PackageDetails.PackageID, Packages.MainOrderID, Packages.FactoryID, Count FROM PackageDetails" +
+            using (SqlDataAdapter DA = new SqlDataAdapter(
+                "SELECT PackageDetails.PackageID, Packages.MainOrderID, Packages.FactoryID, Count FROM PackageDetails" +
                 " INNER JOIN Packages ON PackageDetails.PackageID = Packages.PackageID" +
                 " WHERE PackageDetails.PackageID IN" +
-                " (SELECT PackageID FROM Packages WHERE MainOrderID IN (SELECT MainOrderID FROM MainOrders WHERE MegaOrderID = " + MegaOrderID + ")" +
+                " (SELECT PackageID FROM Packages WHERE MainOrderID IN (SELECT MainOrderID FROM MainOrders WHERE MegaOrderID = " +
+                MegaOrderID + ")" +
                 " AND ProductType = 0)",
                 OrdersConnectionString))
             {
                 DA.Fill(FrontsPackagesDT);
             }
-            using (SqlDataAdapter DA = new SqlDataAdapter("SELECT PackageDetails.PackageID, Packages.MainOrderID, Packages.FactoryID, Count FROM PackageDetails" +
+
+            using (SqlDataAdapter DA = new SqlDataAdapter(
+                "SELECT PackageDetails.PackageID, Packages.MainOrderID, Packages.FactoryID, Count FROM PackageDetails" +
                 " INNER JOIN Packages ON PackageDetails.PackageID = Packages.PackageID" +
                 " WHERE PackageDetails.PackageID IN" +
-                " (SELECT PackageID FROM Packages WHERE MainOrderID IN (SELECT MainOrderID FROM MainOrders WHERE MegaOrderID = " + MegaOrderID + ")" +
+                " (SELECT PackageID FROM Packages WHERE MainOrderID IN (SELECT MainOrderID FROM MainOrders WHERE MegaOrderID = " +
+                MegaOrderID + ")" +
                 " AND ProductType = 1)",
                 OrdersConnectionString))
             {
@@ -5255,7 +5607,8 @@ namespace Infinium
 
             #region MainOrders
 
-            using (SqlDataAdapter DA = new SqlDataAdapter("SELECT MainOrderID, FactoryID, ProfilPackAllocStatusID, TPSPackAllocStatusID," +
+            using (SqlDataAdapter DA = new SqlDataAdapter(
+                "SELECT MainOrderID, FactoryID, ProfilPackAllocStatusID, TPSPackAllocStatusID," +
                 " ProfilPackCount, TPSPackCount FROM MainOrders" +
                 " WHERE MegaOrderID = " + MegaOrderID,
                 OrdersConnectionString))
@@ -5282,14 +5635,16 @@ namespace Infinium
 
                             if (Convert.ToInt32(MainOrdersDT.Rows[i]["FactoryID"]) == 1)
                             {
-                                DataRow[] ProfilFProws = FrontsPackagesDT.Select("FactoryID = 1 AND MainOrderID = " + MainOrderID);
+                                DataRow[] ProfilFProws =
+                                    FrontsPackagesDT.Select("FactoryID = 1 AND MainOrderID = " + MainOrderID);
                                 foreach (DataRow row in ProfilFProws)
                                 {
                                     if (row["Count"] != DBNull.Value)
                                         FrontsPackCount += Convert.ToInt32(row["Count"]);
                                 }
 
-                                DataRow[] ProfilFOrows = FrontsOrdersDT.Select("FactoryID = 1 AND MainOrderID = " + MainOrderID);
+                                DataRow[] ProfilFOrows =
+                                    FrontsOrdersDT.Select("FactoryID = 1 AND MainOrderID = " + MainOrderID);
                                 foreach (DataRow row in ProfilFProws)
                                 {
                                     if (row["Count"] != DBNull.Value)
@@ -5306,14 +5661,16 @@ namespace Infinium
                                         MainFrontsPackageAllocStatus = 1;
                                 }
 
-                                DataRow[] ProfilDProws = DecorPackagesDT.Select("FactoryID = 1 AND MainOrderID = " + MainOrderID);
+                                DataRow[] ProfilDProws =
+                                    DecorPackagesDT.Select("FactoryID = 1 AND MainOrderID = " + MainOrderID);
                                 foreach (DataRow row in ProfilDProws)
                                 {
                                     if (row["Count"] != DBNull.Value)
                                         DecorPackCount += Convert.ToInt32(row["Count"]);
                                 }
 
-                                DataRow[] ProfilDOrows = DecorOrdersDT.Select("FactoryID = 1 AND MainOrderID = " + MainOrderID);
+                                DataRow[] ProfilDOrows =
+                                    DecorOrdersDT.Select("FactoryID = 1 AND MainOrderID = " + MainOrderID);
                                 foreach (DataRow row in ProfilDOrows)
                                 {
                                     if (row["Count"] != DBNull.Value)
@@ -5356,14 +5713,16 @@ namespace Infinium
 
                             if (Convert.ToInt32(MainOrdersDT.Rows[i]["FactoryID"]) == 2)
                             {
-                                DataRow[] TPSFProws = FrontsPackagesDT.Select("FactoryID = 2 AND MainOrderID = " + MainOrderID);
+                                DataRow[] TPSFProws =
+                                    FrontsPackagesDT.Select("FactoryID = 2 AND MainOrderID = " + MainOrderID);
                                 foreach (DataRow row in TPSFProws)
                                 {
                                     if (row["Count"] != DBNull.Value)
                                         FrontsPackCount += Convert.ToInt32(row["Count"]);
                                 }
 
-                                DataRow[] TPSFOrows = FrontsOrdersDT.Select("FactoryID = 2 AND MainOrderID = " + MainOrderID);
+                                DataRow[] TPSFOrows =
+                                    FrontsOrdersDT.Select("FactoryID = 2 AND MainOrderID = " + MainOrderID);
                                 foreach (DataRow row in TPSFProws)
                                 {
                                     if (row["Count"] != DBNull.Value)
@@ -5380,14 +5739,16 @@ namespace Infinium
                                         MainFrontsPackageAllocStatus = 1;
                                 }
 
-                                DataRow[] TPSDProws = DecorPackagesDT.Select("FactoryID = 2 AND MainOrderID = " + MainOrderID);
+                                DataRow[] TPSDProws =
+                                    DecorPackagesDT.Select("FactoryID = 2 AND MainOrderID = " + MainOrderID);
                                 foreach (DataRow row in TPSDProws)
                                 {
                                     if (row["Count"] != DBNull.Value)
                                         DecorPackCount += Convert.ToInt32(row["Count"]);
                                 }
 
-                                DataRow[] TPSDOrows = DecorOrdersDT.Select("FactoryID = 2 AND MainOrderID = " + MainOrderID);
+                                DataRow[] TPSDOrows =
+                                    DecorOrdersDT.Select("FactoryID = 2 AND MainOrderID = " + MainOrderID);
                                 foreach (DataRow row in TPSDProws)
                                 {
                                     if (row["Count"] != DBNull.Value)
@@ -5427,17 +5788,20 @@ namespace Infinium
                             #endregion
 
                             #region Profil + TPS
+
                             if (Convert.ToInt32(MainOrdersDT.Rows[i]["FactoryID"]) == 0)
                             {
                                 // ПРОФИЛЬ
-                                DataRow[] ProfilFProws = FrontsPackagesDT.Select("FactoryID = 1 AND MainOrderID = " + MainOrderID);
+                                DataRow[] ProfilFProws =
+                                    FrontsPackagesDT.Select("FactoryID = 1 AND MainOrderID = " + MainOrderID);
                                 foreach (DataRow row in ProfilFProws)
                                 {
                                     if (row["Count"] != DBNull.Value)
                                         FrontsPackCount += Convert.ToInt32(row["Count"]);
                                 }
 
-                                DataRow[] ProfilFOrows = FrontsOrdersDT.Select("FactoryID = 1 AND MainOrderID = " + MainOrderID);
+                                DataRow[] ProfilFOrows =
+                                    FrontsOrdersDT.Select("FactoryID = 1 AND MainOrderID = " + MainOrderID);
                                 foreach (DataRow row in ProfilFProws)
                                 {
                                     if (row["Count"] != DBNull.Value)
@@ -5454,14 +5818,16 @@ namespace Infinium
                                         MainFrontsPackageAllocStatus = 1;
                                 }
 
-                                DataRow[] ProfilDProws = DecorPackagesDT.Select("FactoryID = 1 AND MainOrderID = " + MainOrderID);
+                                DataRow[] ProfilDProws =
+                                    DecorPackagesDT.Select("FactoryID = 1 AND MainOrderID = " + MainOrderID);
                                 foreach (DataRow row in ProfilDProws)
                                 {
                                     if (row["Count"] != DBNull.Value)
                                         DecorPackCount += Convert.ToInt32(row["Count"]);
                                 }
 
-                                DataRow[] ProfilDOrows = DecorOrdersDT.Select("FactoryID = 1 AND MainOrderID = " + MainOrderID);
+                                DataRow[] ProfilDOrows =
+                                    DecorOrdersDT.Select("FactoryID = 1 AND MainOrderID = " + MainOrderID);
                                 foreach (DataRow row in ProfilDOrows)
                                 {
                                     if (row["Count"] != DBNull.Value)
@@ -5498,14 +5864,16 @@ namespace Infinium
                                 MainOrdersDT.Rows[i]["ProfilPackAllocStatusID"] = MainProfilPackAllocStatusID;
 
                                 // ТПС
-                                DataRow[] TPSFProws = FrontsPackagesDT.Select("FactoryID = 2 AND MainOrderID = " + MainOrderID);
+                                DataRow[] TPSFProws =
+                                    FrontsPackagesDT.Select("FactoryID = 2 AND MainOrderID = " + MainOrderID);
                                 foreach (DataRow row in TPSFProws)
                                 {
                                     if (row["Count"] != DBNull.Value)
                                         FrontsPackCount += Convert.ToInt32(row["Count"]);
                                 }
 
-                                DataRow[] TPSFOrows = FrontsOrdersDT.Select("FactoryID = 2 AND MainOrderID = " + MainOrderID);
+                                DataRow[] TPSFOrows =
+                                    FrontsOrdersDT.Select("FactoryID = 2 AND MainOrderID = " + MainOrderID);
                                 foreach (DataRow row in TPSFProws)
                                 {
                                     if (row["Count"] != DBNull.Value)
@@ -5522,14 +5890,16 @@ namespace Infinium
                                         MainFrontsPackageAllocStatus = 1;
                                 }
 
-                                DataRow[] TPSDProws = DecorPackagesDT.Select("FactoryID = 2 AND MainOrderID = " + MainOrderID);
+                                DataRow[] TPSDProws =
+                                    DecorPackagesDT.Select("FactoryID = 2 AND MainOrderID = " + MainOrderID);
                                 foreach (DataRow row in TPSDProws)
                                 {
                                     if (row["Count"] != DBNull.Value)
                                         DecorPackCount += Convert.ToInt32(row["Count"]);
                                 }
 
-                                DataRow[] TPSDOrows = DecorOrdersDT.Select("FactoryID = 2 AND MainOrderID = " + MainOrderID);
+                                DataRow[] TPSDOrows =
+                                    DecorOrdersDT.Select("FactoryID = 2 AND MainOrderID = " + MainOrderID);
                                 foreach (DataRow row in TPSDProws)
                                 {
                                     if (row["Count"] != DBNull.Value)
@@ -5581,7 +5951,8 @@ namespace Infinium
 
             #region MegaOrders
 
-            using (SqlDataAdapter DA = new SqlDataAdapter("SELECT MegaOrderID, ProfilPackAllocStatusID, TPSPackAllocStatusID," +
+            using (SqlDataAdapter DA = new SqlDataAdapter(
+                "SELECT MegaOrderID, ProfilPackAllocStatusID, TPSPackAllocStatusID," +
                 " ProfilPackCount, TPSPackCount FROM MegaOrders WHERE MegaOrderID = " + MegaOrderID,
                 OrdersConnectionString))
             {
@@ -5664,8 +6035,10 @@ namespace Infinium
                 OrdersConnectionString = ConnectionStrings.ZOVOrdersConnectionString;
 
             using (SqlDataAdapter DA = new SqlDataAdapter("SELECT * FROM PackageDetails WHERE PackageID IN" +
-                " (SELECT PackageID FROM Packages WHERE ProductType = 0 AND MainOrderID = " + MainOrderID + ")" +
-                " AND OrderID NOT IN (SELECT FrontsOrdersID FROM FrontsOrders WHERE MainOrderID = " + MainOrderID + ")",
+                                                          " (SELECT PackageID FROM Packages WHERE ProductType = 0 AND MainOrderID = " +
+                                                          MainOrderID + ")" +
+                                                          " AND OrderID NOT IN (SELECT FrontsOrdersID FROM FrontsOrders WHERE MainOrderID = " +
+                                                          MainOrderID + ")",
                 OrdersConnectionString))
             {
                 using (SqlCommandBuilder CB = new SqlCommandBuilder(DA))
@@ -5678,6 +6051,7 @@ namespace Infinium
                             {
                                 row.Delete();
                             }
+
                             DA.Update(DT);
                         }
                     }
@@ -5685,8 +6059,10 @@ namespace Infinium
             }
 
             using (SqlDataAdapter DA = new SqlDataAdapter("SELECT * FROM PackageDetails WHERE PackageID IN" +
-                " (SELECT PackageID FROM Packages WHERE ProductType = 1 AND MainOrderID = " + MainOrderID + ")" +
-                " AND OrderID NOT IN (SELECT DecorOrderID FROM DecorOrders WHERE MainOrderID = " + MainOrderID + ")",
+                                                          " (SELECT PackageID FROM Packages WHERE ProductType = 1 AND MainOrderID = " +
+                                                          MainOrderID + ")" +
+                                                          " AND OrderID NOT IN (SELECT DecorOrderID FROM DecorOrders WHERE MainOrderID = " +
+                                                          MainOrderID + ")",
                 OrdersConnectionString))
             {
                 using (SqlCommandBuilder CB = new SqlCommandBuilder(DA))
@@ -5699,6 +6075,7 @@ namespace Infinium
                             {
                                 row.Delete();
                             }
+
                             DA.Update(DT);
                         }
                     }
@@ -5706,7 +6083,8 @@ namespace Infinium
             }
 
             using (SqlDataAdapter DA = new SqlDataAdapter("SELECT * FROM Packages WHERE PackageID NOT IN" +
-                " (SELECT PackageID FROM PackageDetails) AND MainOrderID = " + MainOrderID,
+                                                          " (SELECT PackageID FROM PackageDetails) AND MainOrderID = " +
+                                                          MainOrderID,
                 OrdersConnectionString))
             {
                 using (SqlCommandBuilder CB = new SqlCommandBuilder(DA))
@@ -5719,6 +6097,7 @@ namespace Infinium
                             {
                                 row.Delete();
                             }
+
                             DA.Update(DT);
                         }
                     }
@@ -5813,6 +6192,7 @@ namespace Infinium
                 SetMainOrderStatus(false, MainOrderID, IsTray);
                 //CheckAllocPack(MegaOrderID);
             }
+
             sw.Stop();
             double G = sw.Elapsed.Milliseconds;
         }
@@ -5822,7 +6202,8 @@ namespace Infinium
             System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
             sw.Start();
 
-            using (SqlDataAdapter DA = new SqlDataAdapter("SELECT MainOrderID FROM MainOrders WHERE MegaOrderID = " + MegaOrderID,
+            using (SqlDataAdapter DA = new SqlDataAdapter(
+                "SELECT MainOrderID FROM MainOrders WHERE MegaOrderID = " + MegaOrderID,
                 ConnectionStrings.MarketingOrdersConnectionString))
             {
                 using (DataTable DT = new DataTable())
@@ -5838,7 +6219,9 @@ namespace Infinium
                     }
                 }
             }
-            using (SqlDataAdapter DA = new SqlDataAdapter("SELECT MainOrderID FROM NewMainOrders WHERE MegaOrderID = " + MegaOrderID,
+
+            using (SqlDataAdapter DA = new SqlDataAdapter(
+                "SELECT MainOrderID FROM NewMainOrders WHERE MegaOrderID = " + MegaOrderID,
                 ConnectionStrings.MarketingOrdersConnectionString))
             {
                 using (DataTable DT = new DataTable())
@@ -5864,7 +6247,8 @@ namespace Infinium
             System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
             sw.Start();
 
-            using (SqlDataAdapter DA = new SqlDataAdapter("SELECT MainOrderID FROM MainOrders WHERE MegaOrderID = " + MegaOrderID,
+            using (SqlDataAdapter DA = new SqlDataAdapter(
+                "SELECT MainOrderID FROM MainOrders WHERE MegaOrderID = " + MegaOrderID,
                 ConnectionStrings.MarketingOrdersConnectionString))
             {
                 using (DataTable DT = new DataTable())
@@ -5881,7 +6265,9 @@ namespace Infinium
                     }
                 }
             }
-            using (SqlDataAdapter DA = new SqlDataAdapter("SELECT MainOrderID FROM NewMainOrders WHERE MegaOrderID = " + MegaOrderID,
+
+            using (SqlDataAdapter DA = new SqlDataAdapter(
+                "SELECT MainOrderID FROM NewMainOrders WHERE MegaOrderID = " + MegaOrderID,
                 ConnectionStrings.MarketingOrdersConnectionString))
             {
                 using (DataTable DT = new DataTable())
@@ -5921,13 +6307,16 @@ namespace Infinium
 
             if (NotProduction)
             {
-                OrdersProductionStatus = "((ProfilProductionStatusID=1 AND ProfilStorageStatusID=1 AND ProfilDispatchStatusID=1)" +
-                       " OR (TPSProductionStatusID=1 AND TPSStorageStatusID=1 AND TPSDispatchStatusID=1))";
+                OrdersProductionStatus =
+                    "((ProfilProductionStatusID=1 AND ProfilStorageStatusID=1 AND ProfilDispatchStatusID=1)" +
+                    " OR (TPSProductionStatusID=1 AND TPSStorageStatusID=1 AND TPSDispatchStatusID=1))";
 
                 if (FactoryID == 1)
-                    OrdersProductionStatus = "(ProfilProductionStatusID=1 AND ProfilStorageStatusID=1 AND ProfilDispatchStatusID=1)";
+                    OrdersProductionStatus =
+                        "(ProfilProductionStatusID=1 AND ProfilStorageStatusID=1 AND ProfilDispatchStatusID=1)";
                 if (FactoryID == 2)
-                    OrdersProductionStatus = "(TPSProductionStatusID=1 AND TPSStorageStatusID=1 AND TPSDispatchStatusID=1)";
+                    OrdersProductionStatus =
+                        "(TPSProductionStatusID=1 AND TPSStorageStatusID=1 AND TPSDispatchStatusID=1)";
             }
 
             if (InProduction)
@@ -5959,18 +6348,22 @@ namespace Infinium
                     OrdersProductionStatus += " OR (ProfilProductionStatusID=3 OR TPSProductionStatusID=3)";
 
                     if (FactoryID == 1)
-                        OrdersProductionStatus += " OR (ProfilProductionStatusID=3 AND ProfilStorageStatusID=1 AND ProfilDispatchStatusID=1)";
+                        OrdersProductionStatus +=
+                            " OR (ProfilProductionStatusID=3 AND ProfilStorageStatusID=1 AND ProfilDispatchStatusID=1)";
                     if (FactoryID == 2)
-                        OrdersProductionStatus += " OR (TPSProductionStatusID=3 AND TPSStorageStatusID=1 AND TPSDispatchStatusID=1)";
+                        OrdersProductionStatus +=
+                            " OR (TPSProductionStatusID=3 AND TPSStorageStatusID=1 AND TPSDispatchStatusID=1)";
                 }
                 else
                 {
                     OrdersProductionStatus = "(ProfilProductionStatusID=3 OR TPSProductionStatusID=3)";
 
                     if (FactoryID == 1)
-                        OrdersProductionStatus = "(ProfilProductionStatusID=3 AND ProfilStorageStatusID=1 AND ProfilDispatchStatusID=1)";
+                        OrdersProductionStatus =
+                            "(ProfilProductionStatusID=3 AND ProfilStorageStatusID=1 AND ProfilDispatchStatusID=1)";
                     if (FactoryID == 2)
-                        OrdersProductionStatus = "(TPSProductionStatusID=3 AND TPSStorageStatusID=1 AND TPSDispatchStatusID=1)";
+                        OrdersProductionStatus =
+                            "(TPSProductionStatusID=3 AND TPSStorageStatusID=1 AND TPSDispatchStatusID=1)";
                 }
             }
 
@@ -6024,7 +6417,7 @@ namespace Infinium
             #endregion
 
             string SelectionCommand = "SELECT * FROM MainOrders" +
-                " WHERE MegaOrderID = " + MegaOrderID + FactoryFilter + OrdersProductionStatus;
+                                      " WHERE MegaOrderID = " + MegaOrderID + FactoryFilter + OrdersProductionStatus;
 
             using (SqlDataAdapter DA = new SqlDataAdapter(SelectionCommand,
                 ConnectionStrings.ZOVOrdersConnectionString))
@@ -6046,8 +6439,10 @@ namespace Infinium
             bool HasPackages = false;
             if (Packages.Count() > 0)
             {
-                using (SqlDataAdapter DA = new SqlDataAdapter("SELECT PackageID, PackageStatusID, PackingDateTime, StorageDateTime, ExpUserID, ExpeditionDateTime, DispUserID, DispatchDateTime FROM Packages" +
-                    " WHERE PackageID IN (" + string.Join(",", Packages) + ")", ConnectionStrings.MarketingOrdersConnectionString))
+                using (SqlDataAdapter DA = new SqlDataAdapter(
+                    "SELECT PackageID, PackageStatusID, PackingDateTime, StorageDateTime, ExpUserID, ExpeditionDateTime, DispUserID, DispatchDateTime FROM Packages" +
+                    " WHERE PackageID IN (" + string.Join(",", Packages) + ")",
+                    ConnectionStrings.MarketingOrdersConnectionString))
                 {
                     using (SqlCommandBuilder CB = new SqlCommandBuilder(DA))
                     {
@@ -6068,6 +6463,7 @@ namespace Infinium
                                         DT.Rows[i]["ExpeditionDateTime"] = date;
                                         DT.Rows[i]["ExpUserID"] = 380;
                                     }
+
                                     if (DT.Rows[i]["DispatchDateTime"] == DBNull.Value)
                                     {
                                         DT.Rows[i]["DispatchDateTime"] = date;
@@ -6075,12 +6471,14 @@ namespace Infinium
                                     }
 
                                 }
+
                                 DA.Update(DT);
                             }
                         }
                     }
                 }
             }
+
             DateTime DispDate = Security.GetCurrentDate();
             if (!HasPackages)
             {
@@ -6095,10 +6493,12 @@ namespace Infinium
                 int ProfilPackAllocStatusID = 0;
                 int TPSPackAllocStatusID = 0;
                 string SelectCommand = "SELECT MainOrderID, IsSample, FactoryID," +
-                    " ProfilProductionStatusID, ProfilStorageStatusID, ProfilExpeditionStatusID, ProfilDispatchStatusID, ProfilPackAllocStatusID, " +
-                    " TPSProductionStatusID, TPSStorageStatusID, TPSExpeditionStatusID, TPSDispatchStatusID, TPSPackAllocStatusID FROM MainOrders WHERE MainOrderID = " + MainOrderID;
+                                       " ProfilProductionStatusID, ProfilStorageStatusID, ProfilExpeditionStatusID, ProfilDispatchStatusID, ProfilPackAllocStatusID, " +
+                                       " TPSProductionStatusID, TPSStorageStatusID, TPSExpeditionStatusID, TPSDispatchStatusID, TPSPackAllocStatusID FROM MainOrders WHERE MainOrderID = " +
+                                       MainOrderID;
 
-                using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.MarketingOrdersConnectionString))
+                using (SqlDataAdapter DA =
+                    new SqlDataAdapter(SelectCommand, ConnectionStrings.MarketingOrdersConnectionString))
                 {
                     using (SqlCommandBuilder CB = new SqlCommandBuilder(DA))
                     {
@@ -6128,6 +6528,7 @@ namespace Infinium
                                         ProfilPackAllocStatusID = 2;
                                         TPSPackAllocStatusID = 0;
                                     }
+
                                     if (FactoryID == 2)
                                     {
                                         ProfilProductionStatusID = 0;
@@ -6141,6 +6542,7 @@ namespace Infinium
                                         ProfilPackAllocStatusID = 0;
                                         TPSPackAllocStatusID = 2;
                                     }
+
                                     if (FactoryID == 0)
                                     {
                                         ProfilProductionStatusID = 1;
@@ -6154,6 +6556,7 @@ namespace Infinium
                                         ProfilPackAllocStatusID = 2;
                                         TPSPackAllocStatusID = 2;
                                     }
+
                                     if (Convert.ToInt32(DT.Rows[i]["ProfilProductionStatusID"]) != 0)
                                         DT.Rows[i]["ProfilProductionStatusID"] = ProfilProductionStatusID;
                                     if (Convert.ToInt32(DT.Rows[i]["ProfilStorageStatusID"]) != 0)
@@ -6173,11 +6576,13 @@ namespace Infinium
                                     DT.Rows[i]["ProfilPackAllocStatusID"] = ProfilPackAllocStatusID;
                                     DT.Rows[i]["TPSPackAllocStatusID"] = TPSPackAllocStatusID;
                                 }
+
                                 DA.Update(DT);
                             }
                         }
                     }
                 }
+
                 ProfilProductionStatusID = 0;
                 ProfilStorageStatusID = 0;
                 ProfilExpeditionStatusID = 0;
@@ -6189,10 +6594,12 @@ namespace Infinium
                 ProfilPackAllocStatusID = 0;
                 TPSPackAllocStatusID = 0;
                 SelectCommand = "SELECT MainOrderID, IsSample, FactoryID," +
-                    " ProfilProductionStatusID, ProfilStorageStatusID, ProfilExpeditionStatusID, ProfilDispatchStatusID, ProfilPackAllocStatusID, TPSPackAllocStatusID, " +
-                    " TPSProductionStatusID, TPSStorageStatusID, TPSExpeditionStatusID, TPSDispatchStatusID FROM NewMainOrders WHERE MainOrderID = " + MainOrderID;
+                                " ProfilProductionStatusID, ProfilStorageStatusID, ProfilExpeditionStatusID, ProfilDispatchStatusID, ProfilPackAllocStatusID, TPSPackAllocStatusID, " +
+                                " TPSProductionStatusID, TPSStorageStatusID, TPSExpeditionStatusID, TPSDispatchStatusID FROM NewMainOrders WHERE MainOrderID = " +
+                                MainOrderID;
 
-                using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.MarketingOrdersConnectionString))
+                using (SqlDataAdapter DA =
+                    new SqlDataAdapter(SelectCommand, ConnectionStrings.MarketingOrdersConnectionString))
                 {
                     using (SqlCommandBuilder CB = new SqlCommandBuilder(DA))
                     {
@@ -6222,6 +6629,7 @@ namespace Infinium
                                         ProfilPackAllocStatusID = 2;
                                         TPSPackAllocStatusID = 0;
                                     }
+
                                     if (FactoryID == 2)
                                     {
                                         ProfilProductionStatusID = 0;
@@ -6235,6 +6643,7 @@ namespace Infinium
                                         ProfilPackAllocStatusID = 0;
                                         TPSPackAllocStatusID = 2;
                                     }
+
                                     if (FactoryID == 0)
                                     {
                                         ProfilProductionStatusID = 1;
@@ -6248,6 +6657,7 @@ namespace Infinium
                                         ProfilPackAllocStatusID = 2;
                                         TPSPackAllocStatusID = 2;
                                     }
+
                                     if (Convert.ToInt32(DT.Rows[i]["ProfilProductionStatusID"]) != 0)
                                         DT.Rows[i]["ProfilProductionStatusID"] = ProfilProductionStatusID;
                                     if (Convert.ToInt32(DT.Rows[i]["ProfilStorageStatusID"]) != 0)
@@ -6267,6 +6677,7 @@ namespace Infinium
                                     DT.Rows[i]["ProfilPackAllocStatusID"] = ProfilPackAllocStatusID;
                                     DT.Rows[i]["TPSPackAllocStatusID"] = TPSPackAllocStatusID;
                                 }
+
                                 DA.Update(DT);
                             }
                         }
@@ -6280,8 +6691,10 @@ namespace Infinium
             bool HasPackages = false;
             if (Packages.Count() > 0)
             {
-                using (SqlDataAdapter DA = new SqlDataAdapter("SELECT PackageID, PackageStatusID, PackingDateTime, StorageDateTime, ExpUserID, ExpeditionDateTime, DispUserID, DispatchDateTime FROM Packages" +
-                    " WHERE PackageID IN (" + string.Join(",", Packages) + ")", ConnectionStrings.ZOVOrdersConnectionString))
+                using (SqlDataAdapter DA = new SqlDataAdapter(
+                    "SELECT PackageID, PackageStatusID, PackingDateTime, StorageDateTime, ExpUserID, ExpeditionDateTime, DispUserID, DispatchDateTime FROM Packages" +
+                    " WHERE PackageID IN (" + string.Join(",", Packages) + ")",
+                    ConnectionStrings.ZOVOrdersConnectionString))
                 {
                     using (SqlCommandBuilder CB = new SqlCommandBuilder(DA))
                     {
@@ -6302,6 +6715,7 @@ namespace Infinium
                                         DT.Rows[i]["ExpeditionDateTime"] = date;
                                         DT.Rows[i]["ExpUserID"] = 380;
                                     }
+
                                     if (DT.Rows[i]["DispatchDateTime"] == DBNull.Value)
                                     {
                                         DT.Rows[i]["DispatchDateTime"] = date;
@@ -6309,12 +6723,14 @@ namespace Infinium
                                     }
 
                                 }
+
                                 DA.Update(DT);
                             }
                         }
                     }
                 }
             }
+
             DateTime DispDate = Security.GetCurrentDate();
             if (!HasPackages)
             {
@@ -6327,10 +6743,12 @@ namespace Infinium
                 int TPSExpeditionStatusID = 0;
                 int TPSDispatchStatusID = 0;
                 string SelectCommand = "SELECT MainOrderID, IsSample, FactoryID," +
-                    " ProfilProductionStatusID, ProfilStorageStatusID, ProfilExpeditionStatusID, ProfilDispatchStatusID, " +
-                    " TPSProductionStatusID, TPSStorageStatusID, TPSExpeditionStatusID, TPSDispatchStatusID FROM MainOrders WHERE MainOrderID = " + MainOrderID;
+                                       " ProfilProductionStatusID, ProfilStorageStatusID, ProfilExpeditionStatusID, ProfilDispatchStatusID, " +
+                                       " TPSProductionStatusID, TPSStorageStatusID, TPSExpeditionStatusID, TPSDispatchStatusID FROM MainOrders WHERE MainOrderID = " +
+                                       MainOrderID;
 
-                using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.ZOVOrdersConnectionString))
+                using (SqlDataAdapter DA =
+                    new SqlDataAdapter(SelectCommand, ConnectionStrings.ZOVOrdersConnectionString))
                 {
                     using (SqlCommandBuilder CB = new SqlCommandBuilder(DA))
                     {
@@ -6358,6 +6776,7 @@ namespace Infinium
                                         TPSExpeditionStatusID = 0;
                                         TPSDispatchStatusID = 0;
                                     }
+
                                     if (FactoryID == 2)
                                     {
                                         ProfilProductionStatusID = 0;
@@ -6369,6 +6788,7 @@ namespace Infinium
                                         TPSExpeditionStatusID = 1;
                                         TPSDispatchStatusID = 2;
                                     }
+
                                     if (FactoryID == 0)
                                     {
                                         ProfilProductionStatusID = 1;
@@ -6380,6 +6800,7 @@ namespace Infinium
                                         TPSExpeditionStatusID = 1;
                                         TPSDispatchStatusID = 2;
                                     }
+
                                     if (Convert.ToInt32(DT.Rows[i]["ProfilProductionStatusID"]) != 0)
                                         DT.Rows[i]["ProfilProductionStatusID"] = ProfilProductionStatusID;
                                     if (Convert.ToInt32(DT.Rows[i]["ProfilStorageStatusID"]) != 0)
@@ -6397,8 +6818,74 @@ namespace Infinium
                                     if (Convert.ToInt32(DT.Rows[i]["TPSDispatchStatusID"]) != 0)
                                         DT.Rows[i]["TPSDispatchStatusID"] = TPSDispatchStatusID;
                                 }
+
                                 DA.Update(DT);
                             }
+                        }
+                    }
+                }
+            }
+        }
+
+        static public void SetToNotPack(int[] Packages)
+        {
+            using (SqlDataAdapter DA = new SqlDataAdapter("SELECT * FROM Packages" +
+                                                          " WHERE PackageID IN (" + string.Join(",", Packages) + ")",
+                ConnectionStrings.MarketingOrdersConnectionString))
+            {
+                using (SqlCommandBuilder CB = new SqlCommandBuilder(DA))
+                {
+                    using (DataTable DT = new DataTable())
+                    {
+                        if (DA.Fill(DT) > 0)
+                        {
+                            for (int i = 0; i < DT.Rows.Count; i++)
+                            {
+                                DT.Rows[i]["PackageStatusID"] = 0;
+                                DT.Rows[i]["PackingDateTime"] = DBNull.Value;
+                                DT.Rows[i]["PackUserID"] = DBNull.Value;
+                                DT.Rows[i]["StorageDateTime"] = DBNull.Value;
+                                DT.Rows[i]["StoreUserID"] = DBNull.Value;
+                                DT.Rows[i]["ExpeditionDateTime"] = DBNull.Value;
+                                DT.Rows[i]["ExpUserID"] = DBNull.Value;
+                                DT.Rows[i]["DispatchDateTime"] = DBNull.Value;
+                                DT.Rows[i]["DispUserID"] = DBNull.Value;
+                            }
+
+                            DA.Update(DT);
+                        }
+                    }
+                }
+            }
+        }
+
+        static public void SetToPack(DateTime date, int[] Packages)
+        {
+            using (SqlDataAdapter DA = new SqlDataAdapter("SELECT * FROM Packages" +
+                                                          " WHERE PackageID IN (" + string.Join(",", Packages) + ")",
+                ConnectionStrings.MarketingOrdersConnectionString))
+            {
+                using (SqlCommandBuilder CB = new SqlCommandBuilder(DA))
+                {
+                    using (DataTable DT = new DataTable())
+                    {
+                        if (DA.Fill(DT) > 0)
+                        {
+                            for (int i = 0; i < DT.Rows.Count; i++)
+                            {
+                                DT.Rows[i]["PackageStatusID"] = 1;
+
+                                DT.Rows[i]["PackingDateTime"] = date;
+                                DT.Rows[i]["PackUserID"] = 322;
+                                DT.Rows[i]["StorageDateTime"] = DBNull.Value;
+                                DT.Rows[i]["StoreUserID"] = DBNull.Value;
+                                DT.Rows[i]["ExpeditionDateTime"] = DBNull.Value;
+                                DT.Rows[i]["ExpUserID"] = DBNull.Value;
+                                DT.Rows[i]["DispatchDateTime"] = DBNull.Value;
+                                DT.Rows[i]["DispUserID"] = DBNull.Value;
+                            }
+
+                            DA.Update(DT);
                         }
                     }
                 }
@@ -6408,7 +6895,8 @@ namespace Infinium
         static public void SetToStorage(DateTime date, int[] Packages)
         {
             using (SqlDataAdapter DA = new SqlDataAdapter("SELECT * FROM Packages" +
-                " WHERE PackageID IN (" + string.Join(",", Packages) + ")", ConnectionStrings.MarketingOrdersConnectionString))
+                                                          " WHERE PackageID IN (" + string.Join(",", Packages) + ")",
+                ConnectionStrings.MarketingOrdersConnectionString))
             {
                 using (SqlCommandBuilder CB = new SqlCommandBuilder(DA))
                 {
@@ -6419,18 +6907,15 @@ namespace Infinium
                             for (int i = 0; i < DT.Rows.Count; i++)
                             {
                                 DT.Rows[i]["PackageStatusID"] = 2;
-                                if (DT.Rows[i]["PackingDateTime"] == DBNull.Value)
-                                    DT.Rows[i]["PackingDateTime"] = date;
-                                if (DT.Rows[i]["StorageDateTime"] == DBNull.Value)
-                                {
-                                    DT.Rows[i]["StorageDateTime"] = date;
-                                    DT.Rows[i]["StoreUserID"] = 322;
-                                }
+                                DT.Rows[i]["PackingDateTime"] = date;
+                                DT.Rows[i]["StorageDateTime"] = date;
+                                DT.Rows[i]["StoreUserID"] = 322;
                                 DT.Rows[i]["ExpeditionDateTime"] = DBNull.Value;
                                 DT.Rows[i]["ExpUserID"] = DBNull.Value;
                                 DT.Rows[i]["DispatchDateTime"] = DBNull.Value;
                                 DT.Rows[i]["DispUserID"] = DBNull.Value;
                             }
+
                             DA.Update(DT);
                         }
                     }
@@ -6441,7 +6926,8 @@ namespace Infinium
         static public void SetToExpedition(DateTime date, int[] Packages)
         {
             using (SqlDataAdapter DA = new SqlDataAdapter("SELECT * FROM Packages" +
-                " WHERE PackageID IN (" + string.Join(",", Packages) + ")", ConnectionStrings.MarketingOrdersConnectionString))
+                                                          " WHERE PackageID IN (" + string.Join(",", Packages) + ")",
+                ConnectionStrings.MarketingOrdersConnectionString))
             {
                 using (SqlCommandBuilder CB = new SqlCommandBuilder(DA))
                 {
@@ -6451,26 +6937,19 @@ namespace Infinium
                         {
                             for (int i = 0; i < DT.Rows.Count; i++)
                             {
-                                if (DT.Rows[i]["PackingDateTime"] == DBNull.Value)
-                                    DT.Rows[i]["PackingDateTime"] = date;
-                                if (DT.Rows[i]["StorageDateTime"] == DBNull.Value)
-                                    DT.Rows[i]["StorageDateTime"] = date;
-                                if (DT.Rows[i]["ExpeditionDateTime"] == DBNull.Value)
+                                DT.Rows[i]["PackingDateTime"] = date;
+                                DT.Rows[i]["StorageDateTime"] = date;
 
 
-                                    DT.Rows[i]["PackageStatusID"] = 4;
-                                if (DT.Rows[i]["PackingDateTime"] == DBNull.Value)
-                                    DT.Rows[i]["PackingDateTime"] = date;
-                                if (DT.Rows[i]["StorageDateTime"] == DBNull.Value)
-                                    DT.Rows[i]["StorageDateTime"] = date;
-                                if (DT.Rows[i]["ExpeditionDateTime"] == DBNull.Value)
-                                {
-                                    DT.Rows[i]["ExpeditionDateTime"] = date;
-                                    DT.Rows[i]["ExpUserID"] = 322;
-                                }
+                                DT.Rows[i]["PackageStatusID"] = 4;
+                                DT.Rows[i]["PackingDateTime"] = date;
+                                DT.Rows[i]["StorageDateTime"] = date;
+                                DT.Rows[i]["ExpeditionDateTime"] = date;
+                                DT.Rows[i]["ExpUserID"] = 322;
                                 DT.Rows[i]["DispatchDateTime"] = DBNull.Value;
                                 DT.Rows[i]["DispUserID"] = DBNull.Value;
                             }
+
                             DA.Update(DT);
                         }
                     }

@@ -831,7 +831,7 @@ namespace Infinium.Modules.Marketing.Orders
                 }
             }
             //Стекло
-            if (InsetTypeID == 2)
+            if (IsAluminium(FrontsOrdersRow) > -1 && InsetTypeID == 2)
             {
                 int InsetColorID = Convert.ToInt32(FrontsOrdersRow["InsetColorID"]);
                 DataRow[] Rows = DecorConfigDataTable.Select("DecorID = " + InsetColorID);

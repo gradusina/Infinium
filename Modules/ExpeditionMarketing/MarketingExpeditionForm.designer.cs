@@ -61,6 +61,9 @@
             this.kryptonContextMenuItem15 = new ComponentFactory.Krypton.Toolkit.KryptonContextMenuItem();
             this.kryptonBorderEdge1 = new ComponentFactory.Krypton.Toolkit.KryptonBorderEdge();
             this.MenuPanel = new System.Windows.Forms.Panel();
+            this.kryptonButton7 = new ComponentFactory.Krypton.Toolkit.KryptonButton();
+            this.kryptonButton6 = new ComponentFactory.Krypton.Toolkit.KryptonButton();
+            this.kryptonButton3 = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.kryptonButton5 = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.kryptonButton4 = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.panel9 = new System.Windows.Forms.Panel();
@@ -186,7 +189,6 @@
             this.kryptonContextMenu7 = new ComponentFactory.Krypton.Toolkit.KryptonContextMenu();
             this.kryptonContextMenuItems8 = new ComponentFactory.Krypton.Toolkit.KryptonContextMenuItems();
             this.kryptonContextMenuItem19 = new ComponentFactory.Krypton.Toolkit.KryptonContextMenuItem();
-            this.kryptonButton3 = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.NavigatePanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MainOrdersSplitContainer)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.MainOrdersSplitContainer.Panel1)).BeginInit();
@@ -968,6 +970,8 @@
             // 
             this.MenuPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.MenuPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
+            this.MenuPanel.Controls.Add(this.kryptonButton7);
+            this.MenuPanel.Controls.Add(this.kryptonButton6);
             this.MenuPanel.Controls.Add(this.kryptonButton3);
             this.MenuPanel.Controls.Add(this.kryptonButton5);
             this.MenuPanel.Controls.Add(this.kryptonButton4);
@@ -991,6 +995,33 @@
             this.MenuPanel.TabIndex = 38;
             this.MenuPanel.Visible = false;
             // 
+            // kryptonButton7
+            // 
+            this.kryptonButton7.Location = new System.Drawing.Point(26, 462);
+            this.kryptonButton7.Name = "kryptonButton7";
+            this.kryptonButton7.Size = new System.Drawing.Size(116, 49);
+            this.kryptonButton7.TabIndex = 450;
+            this.kryptonButton7.Values.Text = "Не упаковано";
+            this.kryptonButton7.Click += new System.EventHandler(this.kryptonButton7_Click);
+            // 
+            // kryptonButton6
+            // 
+            this.kryptonButton6.Location = new System.Drawing.Point(26, 407);
+            this.kryptonButton6.Name = "kryptonButton6";
+            this.kryptonButton6.Size = new System.Drawing.Size(116, 49);
+            this.kryptonButton6.TabIndex = 449;
+            this.kryptonButton6.Values.Text = "Упаковано";
+            this.kryptonButton6.Click += new System.EventHandler(this.kryptonButton6_Click);
+            // 
+            // kryptonButton3
+            // 
+            this.kryptonButton3.Location = new System.Drawing.Point(290, 407);
+            this.kryptonButton3.Name = "kryptonButton3";
+            this.kryptonButton3.Size = new System.Drawing.Size(116, 49);
+            this.kryptonButton3.TabIndex = 444;
+            this.kryptonButton3.Values.Text = "Экспедиция";
+            this.kryptonButton3.Click += new System.EventHandler(this.kryptonButton3_Click_1);
+            // 
             // kryptonButton5
             // 
             this.kryptonButton5.Location = new System.Drawing.Point(444, 6);
@@ -1004,9 +1035,9 @@
             // 
             // kryptonButton4
             // 
-            this.kryptonButton4.Location = new System.Drawing.Point(26, 407);
+            this.kryptonButton4.Location = new System.Drawing.Point(158, 407);
             this.kryptonButton4.Name = "kryptonButton4";
-            this.kryptonButton4.Size = new System.Drawing.Size(163, 49);
+            this.kryptonButton4.Size = new System.Drawing.Size(116, 49);
             this.kryptonButton4.TabIndex = 434;
             this.kryptonButton4.Values.Text = "Склад";
             this.kryptonButton4.Click += new System.EventHandler(this.kryptonButton4_Click);
@@ -1445,9 +1476,9 @@
             // 
             // kryptonButton1
             // 
-            this.kryptonButton1.Location = new System.Drawing.Point(364, 407);
+            this.kryptonButton1.Location = new System.Drawing.Point(422, 407);
             this.kryptonButton1.Name = "kryptonButton1";
-            this.kryptonButton1.Size = new System.Drawing.Size(163, 49);
+            this.kryptonButton1.Size = new System.Drawing.Size(116, 49);
             this.kryptonButton1.TabIndex = 396;
             this.kryptonButton1.Values.Text = "Отгрузить";
             this.kryptonButton1.Click += new System.EventHandler(this.kryptonButton1_Click_1);
@@ -1456,8 +1487,11 @@
             // 
             this.kryptonMonthCalendar1.Location = new System.Drawing.Point(544, 407);
             this.kryptonMonthCalendar1.Name = "kryptonMonthCalendar1";
+            this.kryptonMonthCalendar1.SelectionEnd = new System.DateTime(2020, 6, 12, 0, 0, 0, 0);
+            this.kryptonMonthCalendar1.SelectionStart = new System.DateTime(2020, 6, 12, 0, 0, 0, 0);
             this.kryptonMonthCalendar1.Size = new System.Drawing.Size(230, 184);
             this.kryptonMonthCalendar1.TabIndex = 395;
+            this.kryptonMonthCalendar1.TodayDate = new System.DateTime(2020, 6, 12, 0, 0, 0, 0);
             this.kryptonMonthCalendar1.DateChanged += new System.Windows.Forms.DateRangeEventHandler(this.kryptonMonthCalendar1_DateChanged);
             // 
             // ClientCheckBox
@@ -1695,6 +1729,8 @@
             this.kryptonMonthCalendar2.Margin = new System.Windows.Forms.Padding(4);
             this.kryptonMonthCalendar2.MaxSelectionCount = 1;
             this.kryptonMonthCalendar2.Name = "kryptonMonthCalendar2";
+            this.kryptonMonthCalendar2.SelectionEnd = new System.DateTime(2020, 6, 12, 0, 0, 0, 0);
+            this.kryptonMonthCalendar2.SelectionStart = new System.DateTime(2020, 6, 12, 0, 0, 0, 0);
             this.kryptonMonthCalendar2.Size = new System.Drawing.Size(230, 184);
             this.kryptonMonthCalendar2.StateCommon.Day.Content.ShortText.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.kryptonMonthCalendar2.StateCommon.DayOfWeek.Content.ShortText.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
@@ -1702,6 +1738,7 @@
             this.kryptonMonthCalendar2.StateCommon.Header.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
             this.kryptonMonthCalendar2.StateCommon.Header.Content.ShortText.Color1 = System.Drawing.Color.White;
             this.kryptonMonthCalendar2.TabIndex = 1;
+            this.kryptonMonthCalendar2.TodayDate = new System.DateTime(2020, 6, 12, 0, 0, 0, 0);
             // 
             // barManager1
             // 
@@ -2583,15 +2620,6 @@
             this.kryptonContextMenuItem19.Text = "Найти в отгрузке";
             this.kryptonContextMenuItem19.Click += new System.EventHandler(this.kryptonContextMenuItem19_Click);
             // 
-            // kryptonButton3
-            // 
-            this.kryptonButton3.Location = new System.Drawing.Point(195, 407);
-            this.kryptonButton3.Name = "kryptonButton3";
-            this.kryptonButton3.Size = new System.Drawing.Size(163, 49);
-            this.kryptonButton3.TabIndex = 444;
-            this.kryptonButton3.Values.Text = "Экспедиция";
-            this.kryptonButton3.Click += new System.EventHandler(this.kryptonButton3_Click_1);
-            // 
             // MarketingExpeditionForm
             // 
             this.AccessibleName = "false";
@@ -2864,5 +2892,7 @@
         private ComponentFactory.Krypton.Toolkit.KryptonButton kryptonButton5;
         private ComponentFactory.Krypton.Toolkit.KryptonBorderEdge kryptonBorderEdge7;
         private ComponentFactory.Krypton.Toolkit.KryptonButton kryptonButton3;
+        private ComponentFactory.Krypton.Toolkit.KryptonButton kryptonButton6;
+        private ComponentFactory.Krypton.Toolkit.KryptonButton kryptonButton7;
     }
 }

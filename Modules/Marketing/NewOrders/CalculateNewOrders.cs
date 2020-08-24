@@ -1155,7 +1155,7 @@ namespace Infinium.Modules.Marketing.NewOrders
                 }
             }
             //Стекло
-            if (InsetTypeID == 2)
+            if (IsAluminium(FrontsOrdersRow) > -1 && InsetTypeID == 2)
             {
                 int InsetColorID = Convert.ToInt32(FrontsOrdersRow["InsetColorID"]);
                 DataRow[] Rows = DecorConfigDataTable.Select("DecorID = " + InsetColorID);
@@ -1804,7 +1804,7 @@ namespace Infinium.Modules.Marketing.NewOrders
             }
             return 0;
         }
-
+        //61e104bd06d8b5b63af0db1a6d9cbc03
         public decimal GetAluminiumWeight(DataRow FrontsOrdersRow, bool WithGlass)
         {
             DataRow[] Row = AluminiumFrontsDataTable.Select("FrontID = " + IsAluminium(FrontsOrdersRow));

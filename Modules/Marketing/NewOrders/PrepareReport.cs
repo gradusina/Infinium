@@ -1235,6 +1235,20 @@ namespace Infinium.Modules.Marketing.NewOrders.PrepareReport
             decimal PriceKrizet = 0;
             if (OrdersDataTable.Select("InsetTypeID = 2").Count() == 0)
                 return;
+
+            bool hasGlass = false;
+            for (int i = 0; i < OrdersDataTable.Rows.Count; i++)
+            {
+                int frontID = Convert.ToInt32(OrdersDataTable.Rows[0]["FrontID"]);
+                if (FC.IsAluminium(OrdersDataTable.Rows[i]) > -1)
+                {
+                    hasGlass = true;
+                    break;
+                }
+            }
+            if (!hasGlass)
+                return;
+
             decimal TotalDiscount = 0;
             DataRow[] FRows = OrdersDataTable.Select("InsetColorID = 3944");
 
@@ -9678,6 +9692,19 @@ namespace Infinium.Modules.Marketing.NewOrders.PrepareReport
             int fID = Convert.ToInt32(OrdersDataTable.Rows[0]["FactoryID"]);
 
             if (OrdersDataTable.Select("InsetTypeID = 2").Count() == 0)
+                return;
+
+            bool hasGlass = false;
+            for (int i = 0; i < OrdersDataTable.Rows.Count; i++)
+            {
+                int frontID = Convert.ToInt32(OrdersDataTable.Rows[0]["FrontID"]);
+                if (IsAluminium(OrdersDataTable.Rows[i]) > -1)
+                {
+                    hasGlass = true;
+                    break;
+                }
+            }
+            if (!hasGlass)
                 return;
 
             DataRow[] FRows = OrdersDataTable.Select("InsetColorID = 3944");
