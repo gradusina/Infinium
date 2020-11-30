@@ -3413,10 +3413,10 @@ namespace Infinium.Modules.Marketing.WeeklyPlanning
             MegaBatchDataGrid.Columns["CreateDateTime"].DefaultCellStyle.Format = "dd.MM.yyyy HH:mm";
             //MegaBatchDataGrid.Columns["ProfilInputDateTime"].DefaultCellStyle.Format = "dd.MM.yyyy";
 
-            BatchDataGrid.Columns["ProfilEnabledColumn"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-            BatchDataGrid.Columns["ProfilEnabledColumn"].Width = 40;
-            BatchDataGrid.Columns["TPSEnabledColumn"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-            BatchDataGrid.Columns["TPSEnabledColumn"].Width = 40;
+            MegaBatchDataGrid.Columns["ProfilEnabledColumn"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            MegaBatchDataGrid.Columns["ProfilEnabledColumn"].Width = 40;
+            MegaBatchDataGrid.Columns["TPSEnabledColumn"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            MegaBatchDataGrid.Columns["TPSEnabledColumn"].Width = 40;
 
             MegaBatchDataGrid.Columns["MegaBatchID"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
             MegaBatchDataGrid.Columns["MegaBatchID"].Width = 60;
@@ -3428,10 +3428,10 @@ namespace Infinium.Modules.Marketing.WeeklyPlanning
             MegaBatchDataGrid.Columns["CreateDateTime"].MinimumWidth = 130;
             MegaBatchDataGrid.Columns["Notes"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             MegaBatchDataGrid.Columns["Notes"].MinimumWidth = 80;
-            MegaBatchDataGrid.Columns["ProfilBatchClose"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-            MegaBatchDataGrid.Columns["ProfilBatchClose"].Width = 40;
-            MegaBatchDataGrid.Columns["TPSBatchClose"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-            MegaBatchDataGrid.Columns["TPSBatchClose"].Width = 40;
+            MegaBatchDataGrid.Columns["ProfilBatchClose"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            MegaBatchDataGrid.Columns["ProfilBatchClose"].MinimumWidth = 40;
+            MegaBatchDataGrid.Columns["TPSBatchClose"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            MegaBatchDataGrid.Columns["TPSBatchClose"].MinimumWidth = 40;
             //MegaBatchDataGrid.Columns["ProfilInputDateTime"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             //MegaBatchDataGrid.Columns["ProfilInputDateTime"].MinimumWidth = 130;
 

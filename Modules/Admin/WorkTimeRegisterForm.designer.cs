@@ -64,8 +64,6 @@
             this.NotesRichTextBox = new System.Windows.Forms.RichTextBox();
             this.kryptonBorderEdge1 = new ComponentFactory.Krypton.Toolkit.KryptonBorderEdge();
             this.xtraTabPage3 = new DevExpress.XtraTab.XtraTabPage();
-            this.kryptonRadioButton13 = new ComponentFactory.Krypton.Toolkit.KryptonRadioButton();
-            this.kryptonRadioButton14 = new ComponentFactory.Krypton.Toolkit.KryptonRadioButton();
             this.kryptonBorderEdge2 = new ComponentFactory.Krypton.Toolkit.KryptonBorderEdge();
             this.ExportButton = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.panel5 = new System.Windows.Forms.Panel();
@@ -81,10 +79,8 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.ProdSheduleDataGrid = new Infinium.PercentageDataGrid();
             this.xtraTabPage5 = new DevExpress.XtraTab.XtraTabPage();
-            this.panel7 = new System.Windows.Forms.Panel();
-            this.rbtnTPS = new ComponentFactory.Krypton.Toolkit.KryptonRadioButton();
-            this.rbtnProfil = new ComponentFactory.Krypton.Toolkit.KryptonRadioButton();
             this.panel12 = new System.Windows.Forms.Panel();
+            this.kryptonRadioButton13 = new ComponentFactory.Krypton.Toolkit.KryptonRadioButton();
             this.kryptonRadioButton12 = new ComponentFactory.Krypton.Toolkit.KryptonRadioButton();
             this.kryptonRadioButton11 = new ComponentFactory.Krypton.Toolkit.KryptonRadioButton();
             this.kryptonRadioButton10 = new ComponentFactory.Krypton.Toolkit.KryptonRadioButton();
@@ -132,7 +128,6 @@
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ProdSheduleDataGrid)).BeginInit();
             this.xtraTabPage5.SuspendLayout();
-            this.panel7.SuspendLayout();
             this.panel12.SuspendLayout();
             this.panel6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.absencesDataGrid)).BeginInit();
@@ -517,7 +512,7 @@
             this.WorkDaysGrid.StateCommon.HeaderColumn.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)(((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.WorkDaysGrid.StateCommon.HeaderColumn.Content.Color1 = System.Drawing.Color.White;
-            this.WorkDaysGrid.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.WorkDaysGrid.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.WorkDaysGrid.StateSelected.DataCell.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(253)))), ((int)(((byte)(164)))), ((int)(((byte)(61)))));
             this.WorkDaysGrid.StateSelected.DataCell.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
             this.WorkDaysGrid.StateSelected.DataCell.Content.Color1 = System.Drawing.Color.White;
@@ -635,8 +630,6 @@
             // 
             // xtraTabPage3
             // 
-            this.xtraTabPage3.Controls.Add(this.kryptonRadioButton13);
-            this.xtraTabPage3.Controls.Add(this.kryptonRadioButton14);
             this.xtraTabPage3.Controls.Add(this.kryptonBorderEdge2);
             this.xtraTabPage3.Controls.Add(this.ExportButton);
             this.xtraTabPage3.Controls.Add(this.panel5);
@@ -646,29 +639,6 @@
             this.xtraTabPage3.Name = "xtraTabPage3";
             this.xtraTabPage3.Size = new System.Drawing.Size(1264, 628);
             this.xtraTabPage3.Text = "Табель";
-            // 
-            // kryptonRadioButton13
-            // 
-            this.kryptonRadioButton13.Location = new System.Drawing.Point(540, 19);
-            this.kryptonRadioButton13.Name = "kryptonRadioButton13";
-            this.kryptonRadioButton13.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2010Black;
-            this.kryptonRadioButton13.Size = new System.Drawing.Size(78, 21);
-            this.kryptonRadioButton13.StateCommon.ShortText.Color1 = System.Drawing.Color.Black;
-            this.kryptonRadioButton13.StateCommon.ShortText.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.kryptonRadioButton13.TabIndex = 438;
-            this.kryptonRadioButton13.Values.Text = "ЗОВ-ТПС";
-            // 
-            // kryptonRadioButton14
-            // 
-            this.kryptonRadioButton14.Checked = true;
-            this.kryptonRadioButton14.Location = new System.Drawing.Point(383, 19);
-            this.kryptonRadioButton14.Name = "kryptonRadioButton14";
-            this.kryptonRadioButton14.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2010Black;
-            this.kryptonRadioButton14.Size = new System.Drawing.Size(109, 21);
-            this.kryptonRadioButton14.StateCommon.ShortText.Color1 = System.Drawing.Color.Black;
-            this.kryptonRadioButton14.StateCommon.ShortText.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.kryptonRadioButton14.TabIndex = 437;
-            this.kryptonRadioButton14.Values.Text = "ЗОВ-Профиль";
             // 
             // kryptonBorderEdge2
             // 
@@ -974,7 +944,6 @@
             // 
             // xtraTabPage5
             // 
-            this.xtraTabPage5.Controls.Add(this.panel7);
             this.xtraTabPage5.Controls.Add(this.panel12);
             this.xtraTabPage5.Controls.Add(this.kryptonButton2);
             this.xtraTabPage5.Controls.Add(this.panel6);
@@ -986,44 +955,10 @@
             this.xtraTabPage5.Size = new System.Drawing.Size(1264, 628);
             this.xtraTabPage5.Text = "Журнал неявок";
             // 
-            // panel7
-            // 
-            this.panel7.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel7.Controls.Add(this.rbtnTPS);
-            this.panel7.Controls.Add(this.rbtnProfil);
-            this.panel7.Location = new System.Drawing.Point(17, 58);
-            this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(290, 42);
-            this.panel7.TabIndex = 439;
-            // 
-            // rbtnTPS
-            // 
-            this.rbtnTPS.Location = new System.Drawing.Point(160, 3);
-            this.rbtnTPS.Name = "rbtnTPS";
-            this.rbtnTPS.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2010Black;
-            this.rbtnTPS.Size = new System.Drawing.Size(78, 21);
-            this.rbtnTPS.StateCommon.ShortText.Color1 = System.Drawing.Color.Black;
-            this.rbtnTPS.StateCommon.ShortText.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.rbtnTPS.TabIndex = 438;
-            this.rbtnTPS.Values.Text = "ЗОВ-ТПС";
-            this.rbtnTPS.CheckedChanged += new System.EventHandler(this.AbsenceTypesRadioButtons_CheckedChanged);
-            // 
-            // rbtnProfil
-            // 
-            this.rbtnProfil.Checked = true;
-            this.rbtnProfil.Location = new System.Drawing.Point(3, 3);
-            this.rbtnProfil.Name = "rbtnProfil";
-            this.rbtnProfil.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2010Black;
-            this.rbtnProfil.Size = new System.Drawing.Size(109, 21);
-            this.rbtnProfil.StateCommon.ShortText.Color1 = System.Drawing.Color.Black;
-            this.rbtnProfil.StateCommon.ShortText.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.rbtnProfil.TabIndex = 437;
-            this.rbtnProfil.Values.Text = "ЗОВ-Профиль";
-            this.rbtnProfil.CheckedChanged += new System.EventHandler(this.AbsenceTypesRadioButtons_CheckedChanged);
-            // 
             // panel12
             // 
             this.panel12.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel12.Controls.Add(this.kryptonRadioButton13);
             this.panel12.Controls.Add(this.kryptonRadioButton12);
             this.panel12.Controls.Add(this.kryptonRadioButton11);
             this.panel12.Controls.Add(this.kryptonRadioButton10);
@@ -1037,10 +972,22 @@
             this.panel12.Controls.Add(this.kryptonRadioButton2);
             this.panel12.Controls.Add(this.kryptonRadioButton1);
             this.panel12.Controls.Add(this.kryptonRadioButton0);
-            this.panel12.Location = new System.Drawing.Point(17, 103);
+            this.panel12.Location = new System.Drawing.Point(17, 58);
             this.panel12.Name = "panel12";
-            this.panel12.Size = new System.Drawing.Size(290, 516);
+            this.panel12.Size = new System.Drawing.Size(290, 561);
             this.panel12.TabIndex = 435;
+            // 
+            // kryptonRadioButton13
+            // 
+            this.kryptonRadioButton13.Location = new System.Drawing.Point(3, 378);
+            this.kryptonRadioButton13.Name = "kryptonRadioButton13";
+            this.kryptonRadioButton13.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2010Black;
+            this.kryptonRadioButton13.Size = new System.Drawing.Size(140, 21);
+            this.kryptonRadioButton13.StateCommon.ShortText.Color1 = System.Drawing.Color.Black;
+            this.kryptonRadioButton13.StateCommon.ShortText.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.kryptonRadioButton13.TabIndex = 360;
+            this.kryptonRadioButton13.Tag = "13";
+            this.kryptonRadioButton13.Values.Text = "СУ - сверхурочные";
             // 
             // kryptonRadioButton12
             // 
@@ -1051,6 +998,7 @@
             this.kryptonRadioButton12.StateCommon.ShortText.Color1 = System.Drawing.Color.Black;
             this.kryptonRadioButton12.StateCommon.ShortText.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.kryptonRadioButton12.TabIndex = 359;
+            this.kryptonRadioButton12.Tag = "12";
             this.kryptonRadioButton12.Values.Text = "В - отгул";
             this.kryptonRadioButton12.CheckedChanged += new System.EventHandler(this.AbsenceTypesRadioButtons_CheckedChanged);
             // 
@@ -1063,6 +1011,7 @@
             this.kryptonRadioButton11.StateCommon.ShortText.Color1 = System.Drawing.Color.Black;
             this.kryptonRadioButton11.StateCommon.ShortText.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.kryptonRadioButton11.TabIndex = 358;
+            this.kryptonRadioButton11.Tag = "11";
             this.kryptonRadioButton11.Values.Text = "П - прогул";
             this.kryptonRadioButton11.CheckedChanged += new System.EventHandler(this.AbsenceTypesRadioButtons_CheckedChanged);
             // 
@@ -1075,6 +1024,7 @@
             this.kryptonRadioButton10.StateCommon.ShortText.Color1 = System.Drawing.Color.Black;
             this.kryptonRadioButton10.StateCommon.ShortText.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.kryptonRadioButton10.TabIndex = 357;
+            this.kryptonRadioButton10.Tag = "10";
             this.kryptonRadioButton10.Values.Text = "МО - медосмотр";
             this.kryptonRadioButton10.CheckedChanged += new System.EventHandler(this.AbsenceTypesRadioButtons_CheckedChanged);
             // 
@@ -1087,6 +1037,7 @@
             this.kryptonRadioButton9.StateCommon.ShortText.Color1 = System.Drawing.Color.Black;
             this.kryptonRadioButton9.StateCommon.ShortText.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.kryptonRadioButton9.TabIndex = 356;
+            this.kryptonRadioButton9.Tag = "9";
             this.kryptonRadioButton9.Values.Text = "ОТ - отпуск по коллективному договору";
             this.kryptonRadioButton9.CheckedChanged += new System.EventHandler(this.AbsenceTypesRadioButtons_CheckedChanged);
             // 
@@ -1099,6 +1050,7 @@
             this.kryptonRadioButton8.StateCommon.ShortText.Color1 = System.Drawing.Color.Black;
             this.kryptonRadioButton8.StateCommon.ShortText.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.kryptonRadioButton8.TabIndex = 355;
+            this.kryptonRadioButton8.Tag = "8";
             this.kryptonRadioButton8.Values.Text = "Г - гражданские обязанности";
             this.kryptonRadioButton8.CheckedChanged += new System.EventHandler(this.AbsenceTypesRadioButtons_CheckedChanged);
             // 
@@ -1111,6 +1063,7 @@
             this.kryptonRadioButton7.StateCommon.ShortText.Color1 = System.Drawing.Color.Black;
             this.kryptonRadioButton7.StateCommon.ShortText.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.kryptonRadioButton7.TabIndex = 354;
+            this.kryptonRadioButton7.Tag = "7";
             this.kryptonRadioButton7.Values.Text = "К - командировка";
             this.kryptonRadioButton7.CheckedChanged += new System.EventHandler(this.AbsenceTypesRadioButtons_CheckedChanged);
             // 
@@ -1119,11 +1072,12 @@
             this.kryptonRadioButton6.Location = new System.Drawing.Point(3, 177);
             this.kryptonRadioButton6.Name = "kryptonRadioButton6";
             this.kryptonRadioButton6.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2010Black;
-            this.kryptonRadioButton6.Size = new System.Drawing.Size(267, 21);
+            this.kryptonRadioButton6.Size = new System.Drawing.Size(276, 21);
             this.kryptonRadioButton6.StateCommon.ShortText.Color1 = System.Drawing.Color.Black;
             this.kryptonRadioButton6.StateCommon.ShortText.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.kryptonRadioButton6.TabIndex = 353;
-            this.kryptonRadioButton6.Values.Text = "ОА - отпуск по инициативе нанимателя";
+            this.kryptonRadioButton6.Tag = "6";
+            this.kryptonRadioButton6.Values.Text = "ОНБ - отпуск по инициативе нанимателя";
             this.kryptonRadioButton6.CheckedChanged += new System.EventHandler(this.AbsenceTypesRadioButtons_CheckedChanged);
             // 
             // kryptonRadioButton5
@@ -1135,6 +1089,7 @@
             this.kryptonRadioButton5.StateCommon.ShortText.Color1 = System.Drawing.Color.Black;
             this.kryptonRadioButton5.StateCommon.ShortText.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.kryptonRadioButton5.TabIndex = 352;
+            this.kryptonRadioButton5.Tag = "5";
             this.kryptonRadioButton5.Values.Text = "Д - донорские";
             this.kryptonRadioButton5.CheckedChanged += new System.EventHandler(this.AbsenceTypesRadioButtons_CheckedChanged);
             // 
@@ -1147,6 +1102,7 @@
             this.kryptonRadioButton4.StateCommon.ShortText.Color1 = System.Drawing.Color.Black;
             this.kryptonRadioButton4.StateCommon.ShortText.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.kryptonRadioButton4.TabIndex = 351;
+            this.kryptonRadioButton4.Tag = "4";
             this.kryptonRadioButton4.Values.Text = "ДМ - день матери";
             this.kryptonRadioButton4.CheckedChanged += new System.EventHandler(this.AbsenceTypesRadioButtons_CheckedChanged);
             // 
@@ -1159,6 +1115,7 @@
             this.kryptonRadioButton3.StateCommon.ShortText.Color1 = System.Drawing.Color.Black;
             this.kryptonRadioButton3.StateCommon.ShortText.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.kryptonRadioButton3.TabIndex = 350;
+            this.kryptonRadioButton3.Tag = "3";
             this.kryptonRadioButton3.Values.Text = "Б - больничный";
             this.kryptonRadioButton3.CheckedChanged += new System.EventHandler(this.AbsenceTypesRadioButtons_CheckedChanged);
             // 
@@ -1171,6 +1128,7 @@
             this.kryptonRadioButton2.StateCommon.ShortText.Color1 = System.Drawing.Color.Black;
             this.kryptonRadioButton2.StateCommon.ShortText.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.kryptonRadioButton2.TabIndex = 349;
+            this.kryptonRadioButton2.Tag = "2";
             this.kryptonRadioButton2.Values.Text = "У - обучение";
             this.kryptonRadioButton2.CheckedChanged += new System.EventHandler(this.AbsenceTypesRadioButtons_CheckedChanged);
             // 
@@ -1183,6 +1141,7 @@
             this.kryptonRadioButton1.StateCommon.ShortText.Color1 = System.Drawing.Color.Black;
             this.kryptonRadioButton1.StateCommon.ShortText.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.kryptonRadioButton1.TabIndex = 348;
+            this.kryptonRadioButton1.Tag = "1";
             this.kryptonRadioButton1.Values.Text = "О - отпуск";
             this.kryptonRadioButton1.CheckedChanged += new System.EventHandler(this.AbsenceTypesRadioButtons_CheckedChanged);
             // 
@@ -1196,6 +1155,7 @@
             this.kryptonRadioButton0.StateCommon.ShortText.Color1 = System.Drawing.Color.Black;
             this.kryptonRadioButton0.StateCommon.ShortText.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.kryptonRadioButton0.TabIndex = 347;
+            this.kryptonRadioButton0.Tag = "0";
             this.kryptonRadioButton0.Values.Text = "А - за свой счет";
             this.kryptonRadioButton0.CheckedChanged += new System.EventHandler(this.AbsenceTypesRadioButtons_CheckedChanged);
             // 
@@ -1424,7 +1384,6 @@
             this.xtraTabPage2.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             this.xtraTabPage3.ResumeLayout(false);
-            this.xtraTabPage3.PerformLayout();
             this.panel5.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.TimeSheetDataGrid)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.YearComboBox)).EndInit();
@@ -1434,8 +1393,6 @@
             this.panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.ProdSheduleDataGrid)).EndInit();
             this.xtraTabPage5.ResumeLayout(false);
-            this.panel7.ResumeLayout(false);
-            this.panel7.PerformLayout();
             this.panel12.ResumeLayout(false);
             this.panel12.PerformLayout();
             this.panel6.ResumeLayout(false);
@@ -1527,10 +1484,6 @@
         private ComponentFactory.Krypton.Toolkit.KryptonRadioButton kryptonRadioButton3;
         private ComponentFactory.Krypton.Toolkit.KryptonRadioButton kryptonRadioButton2;
         private ComponentFactory.Krypton.Toolkit.KryptonRadioButton kryptonRadioButton12;
-        private System.Windows.Forms.Panel panel7;
-        private ComponentFactory.Krypton.Toolkit.KryptonRadioButton rbtnTPS;
-        private ComponentFactory.Krypton.Toolkit.KryptonRadioButton rbtnProfil;
         private ComponentFactory.Krypton.Toolkit.KryptonRadioButton kryptonRadioButton13;
-        private ComponentFactory.Krypton.Toolkit.KryptonRadioButton kryptonRadioButton14;
     }
 }

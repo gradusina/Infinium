@@ -3966,7 +3966,7 @@
             this.dgvPackagesDetails.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvPackagesDetails.HideOuterBorders = true;
             this.dgvPackagesDetails.Location = new System.Drawing.Point(0, 0);
-            this.dgvPackagesDetails.MultiSelect = false;
+            this.dgvPackagesDetails.MultiSelect = true;
             this.dgvPackagesDetails.Name = "dgvPackagesDetails";
             this.dgvPackagesDetails.PercentLineWidth = 0;
             this.dgvPackagesDetails.ReadOnly = true;

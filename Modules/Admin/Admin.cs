@@ -3844,6 +3844,7 @@ namespace Infinium
         public DataTable TimeSheetDataTable;
         private DataTable userTable;
         private DataTable dtTimeSheetNew;
+        private DataTable _productionShedule;
         Excel Ex = null;
 
         public WorkTimeSheet()
@@ -3951,7 +3952,7 @@ namespace Infinium
                     else if (absenceTypeId == 6)
                         absenceTypeString = "Д/" + absenceHour;
                     else if (absenceTypeId == 7)
-                        absenceTypeString = "ОА/" + absenceHour;
+                        absenceTypeString = "ОНБ/" + absenceHour;
                     else if (absenceTypeId == 8)
                         absenceTypeString = "К/" + absenceHour;
                     else if (absenceTypeId == 9)
@@ -3964,6 +3965,8 @@ namespace Infinium
                         absenceTypeString = "П/" + absenceHour;
                     else if (absenceTypeId == 13)
                         absenceTypeString = "В/" + absenceHour;
+                    else if (absenceTypeId == 14)
+                        absenceTypeString = "СУ/" + absenceHour;
 
                     row[date.Day + 1] = absenceTypeString;
                 }
@@ -4004,13 +4007,12 @@ namespace Infinium
         {
             int monthInt = Convert.ToDateTime(MonthComboBox + " 2013").Month;
             int yearInt = int.Parse(YearComboBox);
-            int factoryId = 1;
 
             if (dtTimeSheet == null)
                 dtTimeSheet = new DataTable();
             if (_dtAbsences == null)
                 _dtAbsences = new DataTable();
-            _dtAbsences = GetAbsences(yearInt, monthInt, factoryId);
+            _dtAbsences = GetAbsences(yearInt, monthInt);
 
             DataTable dtProdShedule = GetShedule(yearInt, monthInt);
 
@@ -4144,34 +4146,40 @@ namespace Infinium
                     if (timeWork.TotalHours > 0)
                         absenceTypeString = Decimal.Round(absenceHour, 1, MidpointRounding.AwayFromZero) + " " + Math.Round(timeWork.TotalHours, 1) + "/" + Math.Round(planHour - absenceHour, 1) + "(" + Math.Round(timeSpan.TotalHours, 1) + ")";
                     else
-                        absenceTypeString = Decimal.Round(absenceHour, 1, MidpointRounding.AwayFromZero).ToString();
-
+                    {
+                        if (planHour != 0)
+                            absenceTypeString = Decimal.Round(absenceHour, 1, MidpointRounding.AwayFromZero).ToString();
+                        else
+                            absenceTypeString = Decimal.Round(0, 1, MidpointRounding.AwayFromZero).ToString();
+                    }
                     if (absenceTypeId == 1)
-                        absenceTypeString = "А/" + absenceTypeString;
+                        absenceTypeString = "А (" + absenceTypeString + ")";
                     else if (absenceTypeId == 2)
-                        absenceTypeString = "О/" + absenceTypeString;
+                        absenceTypeString = "О (" + absenceTypeString + ")";
                     else if (absenceTypeId == 3)
-                        absenceTypeString = "У/" + absenceTypeString;
+                        absenceTypeString = "У (" + absenceTypeString + ")";
                     else if (absenceTypeId == 4)
-                        absenceTypeString = "Б/" + absenceTypeString;
+                        absenceTypeString = "Б (" + absenceTypeString + ")";
                     else if (absenceTypeId == 5)
-                        absenceTypeString = "ДМ/" + absenceTypeString;
+                        absenceTypeString = "ДМ (" + absenceTypeString + ")";
                     else if (absenceTypeId == 6)
-                        absenceTypeString = "Д/" + absenceTypeString;
+                        absenceTypeString = "Д (" + absenceTypeString + ")";
                     else if (absenceTypeId == 7)
-                        absenceTypeString = "ОА/" + absenceTypeString;
+                        absenceTypeString = "ОНБ (" + absenceTypeString + ")";
                     else if (absenceTypeId == 8)
-                        absenceTypeString = "К/" + absenceTypeString;
+                        absenceTypeString = "К (" + absenceTypeString + ")";
                     else if (absenceTypeId == 9)
-                        absenceTypeString = "Г/" + absenceTypeString;
+                        absenceTypeString = "Г (" + absenceTypeString + ")";
                     else if (absenceTypeId == 10)
-                        absenceTypeString = "ОТ/" + absenceTypeString;
+                        absenceTypeString = "ОТ (" + absenceTypeString + ")";
                     else if (absenceTypeId == 11)
-                        absenceTypeString = "МО/" + absenceTypeString;
+                        absenceTypeString = "МО (" + absenceTypeString + ")";
                     else if (absenceTypeId == 12)
-                        absenceTypeString = "П/" + absenceTypeString;
+                        absenceTypeString = "П (" + absenceTypeString + ")";
                     else if (absenceTypeId == 13)
-                        absenceTypeString = "В/" + absenceTypeString;
+                        absenceTypeString = "В (" + absenceTypeString + ")";
+                    else if (absenceTypeId == 14)
+                        absenceTypeString = "СУ (" + absenceTypeString + ")";
 
                     row[j + 1] = absenceTypeString;
                 }
@@ -4204,6 +4212,7 @@ namespace Infinium
             TimeSheetDataGrid.Columns["Total"].DisplayIndex = TimeSheetDataGrid.Columns.Count - 1;
             TimeSheetDataGrid.Columns["Total"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
             TimeSheetDataGrid.Columns["Total"].Width = 130;
+            TimeSheetDataGrid.Columns["Name"].Frozen = true;
 
 
             //DataGridViewCellStyle styleUser1 = new DataGridViewCellStyle();
@@ -4258,13 +4267,12 @@ namespace Infinium
             string header;
             int monthInt = Convert.ToDateTime(MonthComboBox + " 2013").Month;
             int yearInt = int.Parse(YearComboBox);
-            int factoryId = 1;
 
             if (dtTimeSheet == null)
                 dtTimeSheet = new DataTable();
             if (_dtAbsences == null)
                 _dtAbsences = new DataTable();
-            _dtAbsences = GetAbsences(yearInt, monthInt, factoryId);
+            _dtAbsences = GetAbsences(yearInt, monthInt);
 
             DataTable dtProdShedule = GetShedule(yearInt, monthInt);
 
@@ -4432,10 +4440,10 @@ namespace Infinium
             return dt;
         }
 
-        public DataTable GetAbsences(int year, int month, int factoryId)
+        public DataTable GetAbsences(int year, int month)
         {
             DataTable dt = new DataTable();
-            using (SqlDataAdapter da = new SqlDataAdapter(@"SELECT * FROM AbsencesJournal WHERE FactoryID=" + factoryId + " AND ((DATEPART(month, DateStart) = " + month + " AND DATEPART(year, DateStart) = " + year + ") OR (DATEPART(month, DateFinish) = " + month + " AND DATEPART(year, DateFinish) = " + year + "))", ConnectionStrings.LightConnectionString))
+            using (SqlDataAdapter da = new SqlDataAdapter(@"SELECT * FROM AbsencesJournal WHERE ((DATEPART(month, DateStart) = " + month + " AND DATEPART(year, DateStart) = " + year + ") OR (DATEPART(month, DateFinish) = " + month + " AND DATEPART(year, DateFinish) = " + year + "))", ConnectionStrings.LightConnectionString))
             {
                 da.Fill(dt);
             }

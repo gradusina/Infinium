@@ -162,11 +162,6 @@ namespace Infinium
             AnimateTimer.Enabled = true;
         }
 
-        private void MenuButton_Click(object sender, EventArgs e)
-        {
-
-        }
-
         protected override void WndProc(ref Message m)
         {
             base.WndProc(ref m);
@@ -263,7 +258,13 @@ namespace Infinium
             ShowColumns(FactoryID, ref dgvMarketMegaBatches, ref dgvMarketBatches);
             ShowColumns(FactoryID, ref dgvZOVMegaBatches, ref dgvZOVBatches);
 
-            ControlAssignmentsManager.UpdateWorkAssignments(FactoryID);
+            DateTimePicker1.ValueNullable = DateTime.Today.AddDays(-60);
+            DateTimePicker2.ValueNullable = DateTime.Today;
+
+            DateTime date1 = DateTime.Today.AddDays(-60);
+            DateTime date2 = DateTime.Today;
+
+            ControlAssignmentsManager.UpdateWorkAssignments(FactoryID, date1, date2);
         }
 
         private void DataBinding()
@@ -1173,7 +1174,10 @@ namespace Infinium
             ShowColumns(FactoryID, ref dgvMarketMegaBatches, ref dgvMarketBatches);
             ShowColumns(FactoryID, ref dgvZOVMegaBatches, ref dgvZOVBatches);
 
-            ControlAssignmentsManager.UpdateWorkAssignments(FactoryID);
+            DateTime date1 = DateTimePicker1.Value.Date;
+            DateTime date2 = DateTimePicker2.Value.Date;
+
+            ControlAssignmentsManager.UpdateWorkAssignments(FactoryID, date1, date2);
 
             NeedSplash = true;
             while (SplashWindow.bSmallCreated)
@@ -1369,7 +1373,7 @@ namespace Infinium
                 FactoryID = Convert.ToInt32(dgvWorkAssignments.SelectedRows[0].Cells["FactoryID"].Value);
             if (GroupType == 1)
                 ZOV = false;
-            flowLayoutPanel2.Visible = false;
+            //flowLayoutPanel2.Visible = false;
             if (FactoryID == 1)
             {
                 if (cbtnAllProfil.Checked)
@@ -1395,6 +1399,24 @@ namespace Infinium
                     pnlWDecor.BringToFront();
                     pnlDecorSummary.BringToFront();
                 }
+                if (cbtnGeneva.Checked)
+                {
+                    pnlWFronts.BringToFront();
+                    pnlFrontsSummary.BringToFront();
+                    FilterType = 1;
+                }
+                if (cbtnTafel.Checked)
+                {
+                    pnlWFronts.BringToFront();
+                    pnlFrontsSummary.BringToFront();
+                    FilterType = 3;
+                }
+                if (cbtnRAL.Checked)
+                {
+                    pnlWFronts.BringToFront();
+                    pnlFrontsSummary.BringToFront();
+                    FilterType = 6;
+                }
             }
             if (FactoryID == 2)
             {
@@ -1404,31 +1426,11 @@ namespace Infinium
                     pnlFrontsSummary.BringToFront();
                     FilterType = 0;
                 }
-                if (cbtnGeneva.Checked)
-                {
-                    pnlWFronts.BringToFront();
-                    pnlFrontsSummary.BringToFront();
-                    FilterType = 1;
-                }
                 if (cbtnAngle45TPS.Checked)
                 {
                     pnlWFronts.BringToFront();
                     pnlFrontsSummary.BringToFront();
                     FilterType = 2;
-                }
-                if (cbtnTafel.Checked)
-                {
-                    flowLayoutPanel2.Visible = true;
-                    pnlWFronts.BringToFront();
-                    pnlFrontsSummary.BringToFront();
-                    FilterType = 3;
-                }
-                if (cbtnRAL.Checked)
-                {
-                    flowLayoutPanel2.Visible = true;
-                    pnlWFronts.BringToFront();
-                    pnlFrontsSummary.BringToFront();
-                    FilterType = 6;
                 }
                 if (cbtnDecorTPS.Checked)
                 {
@@ -1529,64 +1531,6 @@ namespace Infinium
             ArrayList MRows = new ArrayList();
             ArrayList ZRows = new ArrayList();
 
-            //if (dgvMarketMegaBatches.SelectedRows.Count > 0
-            //    && dgvMarketMegaBatches.SelectedRows[0].Cells["MegaBatchID"].Value != DBNull.Value)
-            //{
-            //    bool IsBatchSelect = false;
-            //    for (int i = 0; i < dgvMarketBatches.Rows.Count; i++)
-            //    {
-            //        if (Convert.ToBoolean(dgvMarketBatches.Rows[i].Cells["CheckColumn"].Value))
-            //        {
-            //            IsBatchSelect = true;
-            //            break;
-            //        }
-            //    }
-            //    if (IsBatchSelect)
-            //    {
-            //        BatchName += "М(" + dgvMarketMegaBatches.SelectedRows[0].Cells["MegaBatchID"].Value.ToString() + "-";
-            //        for (int i = 0; i < dgvMarketBatches.Rows.Count; i++)
-            //        {
-            //            if (Convert.ToBoolean(dgvMarketBatches.Rows[i].Cells["CheckColumn"].Value))
-            //            {
-            //                MRows.Add(Convert.ToInt32(dgvMarketBatches.Rows[i].Cells["BatchID"].Value));
-            //                BatchName += dgvMarketBatches.Rows[i].Cells["BatchID"].Value + ",";
-            //            }
-            //        }
-            //        if (BatchName.Length > 0)
-            //            BatchName = BatchName.Substring(0, BatchName.Length - 1);
-            //        BatchName += ")+";
-            //    }
-            //}
-
-            //if (dgvZOVMegaBatches.SelectedRows.Count > 0
-            //    && dgvZOVMegaBatches.SelectedRows[0].Cells["MegaBatchID"].Value != DBNull.Value)
-            //{
-            //    bool IsBatchSelect = false;
-            //    for (int i = 0; i < dgvZOVBatches.Rows.Count; i++)
-            //    {
-            //        if (Convert.ToBoolean(dgvZOVBatches.Rows[i].Cells["CheckColumn"].Value))
-            //        {
-            //            IsBatchSelect = true;
-            //            break;
-            //        }
-            //    }
-            //    if (IsBatchSelect)
-            //    {
-            //        BatchName += "З(" + dgvZOVMegaBatches.SelectedRows[0].Cells["MegaBatchID"].Value.ToString() + "-";
-            //        for (int i = 0; i < dgvZOVBatches.Rows.Count; i++)
-            //        {
-            //            if (Convert.ToBoolean(dgvZOVBatches.Rows[i].Cells["CheckColumn"].Value))
-            //            {
-            //                ZRows.Add(Convert.ToInt32(dgvZOVBatches.Rows[i].Cells["BatchID"].Value));
-            //                BatchName += dgvZOVBatches.Rows[i].Cells["BatchID"].Value + ",";
-            //            }
-            //        }
-            //        if (BatchName.Length > 0)
-            //            BatchName = BatchName.Substring(0, BatchName.Length - 1);
-            //        BatchName += ")+";
-            //    }
-            //}
-
             for (int i = 0; i < dgvMarketBatches.Rows.Count; i++)
             {
                 if (Convert.ToBoolean(dgvMarketBatches.Rows[i].Cells["CheckColumn"].Value))
@@ -1628,14 +1572,20 @@ namespace Infinium
 
             ControlAssignmentsManager.CreateWorkAssignment(BatchName, FactoryID);
             ControlAssignmentsManager.SaveWorkAssignments();
-            int WorkAssignmentID = ControlAssignmentsManager.UpdateWorkAssignments(FactoryID);
+
+            DateTime date1 = DateTimePicker1.Value.Date;
+            DateTime date2 = DateTimePicker2.Value.Date;
+
+            int WorkAssignmentID = ControlAssignmentsManager.UpdateWorkAssignments(FactoryID, date1, date2);
 
             if (MRows.Count > 0)
                 ControlAssignmentsManager.SaveBatches(false, MRows.OfType<int>().ToArray(), WorkAssignmentID, FactoryID);
             if (ZRows.Count > 0)
                 ControlAssignmentsManager.SaveBatches(true, ZRows.OfType<int>().ToArray(), WorkAssignmentID, FactoryID);
 
-            ControlAssignmentsManager.UpdateWorkAssignments(FactoryID);
+
+            ControlAssignmentsManager.UpdateWorkAssignments(FactoryID, date1, date2);
+
             ControlAssignmentsManager.MoveToWorkAssignment(WorkAssignmentID);
 
             if (MRows.Count > 0)
@@ -1842,7 +1792,12 @@ namespace Infinium
 
             ControlAssignmentsManager.SetName(WorkAssignmentID, FactoryID);
             ControlAssignmentsManager.SaveWorkAssignments();
-            ControlAssignmentsManager.UpdateWorkAssignments(FactoryID);
+
+            DateTime date1 = DateTimePicker1.Value.Date;
+            DateTime date2 = DateTimePicker2.Value.Date;
+
+            ControlAssignmentsManager.UpdateWorkAssignments(FactoryID, date1, date2);
+
             ControlAssignmentsManager.MoveToWorkAssignment(WorkAssignmentID);
             //CreationAssignmentsManager.GetMegaBatchFronts(false, FactoryID);
             //CreationAssignmentsManager.GetBatchFronts(false, FactoryID);
@@ -1908,7 +1863,12 @@ namespace Infinium
 
             ControlAssignmentsManager.SetName(WorkAssignmentID, FactoryID);
             ControlAssignmentsManager.SaveWorkAssignments();
-            ControlAssignmentsManager.UpdateWorkAssignments(FactoryID);
+
+            DateTime date1 = DateTimePicker1.Value.Date;
+            DateTime date2 = DateTimePicker2.Value.Date;
+
+            ControlAssignmentsManager.UpdateWorkAssignments(FactoryID, date1, date2);
+
             ControlAssignmentsManager.MoveToWorkAssignment(WorkAssignmentID);
 
             //CreationAssignmentsManager.GetMegaBatchFronts(true, FactoryID);
@@ -2208,7 +2168,13 @@ namespace Infinium
             if (dgvWorkAssignments.SelectedRows.Count != 0 && dgvWorkAssignments.SelectedRows[0].Cells["WorkAssignmentID"].Value != DBNull.Value)
                 WorkAssignmentID = Convert.ToInt32(dgvWorkAssignments.SelectedRows[0].Cells["WorkAssignmentID"].Value);
             ControlAssignmentsManager.RemoveWorkAssignment(WorkAssignmentID, FactoryID);
-            ControlAssignmentsManager.UpdateWorkAssignments(FactoryID);
+
+
+            DateTime date1 = DateTimePicker1.Value.Date;
+            DateTime date2 = DateTimePicker2.Value.Date;
+
+            ControlAssignmentsManager.UpdateWorkAssignments(FactoryID, date1, date2);
+
             CreationAssignmentsManager.GetMarketBatchesInAssignment(FactoryID);
             CreationAssignmentsManager.GetZOVBatchesInAssignment(FactoryID);
 
@@ -2595,7 +2561,7 @@ namespace Infinium
                     FrontID == Convert.ToInt32(Fronts.Porto) || FrontID == Convert.ToInt32(Fronts.Monte) ||
                     FrontID == Convert.ToInt32(Fronts.Techno1) || FrontID == Convert.ToInt32(Fronts.Shervud) ||
                     FrontID == Convert.ToInt32(Fronts.Techno2) || FrontID == Convert.ToInt32(Fronts.Techno4) || FrontID == Convert.ToInt32(Fronts.pFox) ||
-                    FrontID == Convert.ToInt32(Fronts.p1418) ||
+                    FrontID == Convert.ToInt32(Fronts.pFlorenc) ||
                     FrontID == Convert.ToInt32(Fronts.Techno5) || FrontID == Convert.ToInt32(Fronts.PRU8))
                     FrontsID.Add(Convert.ToInt32(dgvFrontsSummary.Rows[i].Cells["FrontID"].Value));
             }
@@ -2973,6 +2939,7 @@ namespace Infinium
                     FrontID == Convert.ToInt32(Fronts.Boston) ||
                     FrontID == Convert.ToInt32(Fronts.Leon) || FrontID == Convert.ToInt32(Fronts.Limog) ||
                     FrontID == Convert.ToInt32(Fronts.ep018Marsel1) || FrontID == Convert.ToInt32(Fronts.ep043Shervud) ||
+                    FrontID == Convert.ToInt32(Fronts.ep112) ||
                     FrontID == Convert.ToInt32(Fronts.Urban) || FrontID == Convert.ToInt32(Fronts.Alby) || FrontID == Convert.ToInt32(Fronts.Bruno) ||
                     FrontID == Convert.ToInt32(Fronts.ep066Marsel4) || FrontID == Convert.ToInt32(Fronts.ep110Jersy) ||
                     FrontID == Convert.ToInt32(Fronts.epsh406Techno4) ||
@@ -3073,6 +3040,7 @@ namespace Infinium
                     FrontID == Convert.ToInt32(Fronts.Boston) ||
                     FrontID == Convert.ToInt32(Fronts.Leon) || FrontID == Convert.ToInt32(Fronts.Limog) ||
                     FrontID == Convert.ToInt32(Fronts.ep018Marsel1) || FrontID == Convert.ToInt32(Fronts.ep043Shervud) ||
+                    FrontID == Convert.ToInt32(Fronts.ep112) ||
                     FrontID == Convert.ToInt32(Fronts.Urban) || FrontID == Convert.ToInt32(Fronts.Alby) || FrontID == Convert.ToInt32(Fronts.Bruno) ||
                     FrontID == Convert.ToInt32(Fronts.ep066Marsel4) || FrontID == Convert.ToInt32(Fronts.ep110Jersy) ||
                     FrontID == Convert.ToInt32(Fronts.epsh406Techno4) ||
@@ -3254,7 +3222,7 @@ namespace Infinium
                     FrontID == Convert.ToInt32(Fronts.Jersy110) || FrontID == Convert.ToInt32(Fronts.Porto) || FrontID == Convert.ToInt32(Fronts.Monte) ||
                     FrontID == Convert.ToInt32(Fronts.Techno1) || FrontID == Convert.ToInt32(Fronts.Shervud) ||
                     FrontID == Convert.ToInt32(Fronts.Techno2) || FrontID == Convert.ToInt32(Fronts.Techno4) || FrontID == Convert.ToInt32(Fronts.pFox) ||
-                    FrontID == Convert.ToInt32(Fronts.p1418) ||
+                    FrontID == Convert.ToInt32(Fronts.pFlorenc) ||
                     FrontID == Convert.ToInt32(Fronts.Techno5) || FrontID == Convert.ToInt32(Fronts.PRU8))
                     FrontsID.Add(Convert.ToInt32(dgvFrontsSummary.SelectedRows[i].Cells["FrontID"].Value));
             }
@@ -4003,6 +3971,29 @@ namespace Infinium
                 DecorAssignments.CreateExcel(WorkAssignmentID, ClientName, BatchName, ref sSourceFileName);
             }
             dgvWBatches_SelectionChanged(null, null);
+
+            NeedSplash = true;
+            while (SplashWindow.bSmallCreated)
+                SmallWaitForm.CloseS = true;
+        }
+
+        private void MenuButton_Click(object sender, EventArgs e)
+        {
+            MenuPanel.BringToFront();
+            MenuPanel.Visible = !MenuPanel.Visible;
+        }
+
+        private void btnUpdateComplements_Click(object sender, EventArgs e)
+        {
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Обновление.\r\nПодождите..."); });
+            T.Start();
+            while (!SplashWindow.bSmallCreated) ;
+            NeedSplash = false;
+
+            DateTime date1 = DateTimePicker1.Value.Date;
+            DateTime date2 = DateTimePicker2.Value.Date;
+
+            ControlAssignmentsManager.UpdateWorkAssignments(FactoryID, date1, date2);
 
             NeedSplash = true;
             while (SplashWindow.bSmallCreated)

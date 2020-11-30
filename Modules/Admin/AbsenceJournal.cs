@@ -128,7 +128,7 @@ namespace Infinium.Modules.Admin
             {
                 da.Fill(_positionsDataTable);
             }
-            using (SqlDataAdapter da = new SqlDataAdapter(@"SELECT TOP 0 StaffListID, FactoryID, PositionID, UserID, Rate FROM StaffList", ConnectionStrings.LightConnectionString))
+            using (SqlDataAdapter da = new SqlDataAdapter(@"SELECT TOP 0 StaffListID, PositionID, UserID, Rate FROM StaffList", ConnectionStrings.LightConnectionString))
             {
                 da.Fill(_staffListDataTable);
             }
@@ -172,11 +172,10 @@ namespace Infinium.Modules.Admin
         {
             for (int i = 0; i < _absencesJournalDataTable.Rows.Count; i++)
             {
-                int factoryId = Convert.ToInt32(_absencesJournalDataTable.Rows[i]["FactoryID"]);
                 int userId = Convert.ToInt32(_absencesJournalDataTable.Rows[i]["UserID"]);
                 int positionId = 0;
                 decimal rate = 0;
-                var tuple = GetFactoryAndPosition(factoryId, userId);
+                Tuple<int, decimal> tuple = GetRateAndPosition(userId);
                 positionId = tuple.Item1;
                 rate = tuple.Item2;
 
@@ -185,18 +184,18 @@ namespace Infinium.Modules.Admin
             }
         }
 
-        public void FilterAbsenceJournal(int absenceTypeId, int factoryId)
+        public void FilterAbsenceJournal(int absenceTypeId)
         {
-            AbsencesJournalBindingSource.Filter = "AbsenceTypeID=" + absenceTypeId + " AND FactoryID=" + factoryId;
+            AbsencesJournalBindingSource.Filter = "AbsenceTypeID=" + absenceTypeId;
         }
 
-        private Tuple<int, decimal> GetFactoryAndPosition(int factoryId, int userId)
+        private Tuple<int, decimal> GetRateAndPosition(int userId)
         {
             int positionId = 0;
             decimal rate = 0;
 
-            using (SqlDataAdapter da = new SqlDataAdapter(@"SELECT StaffListID, FactoryID, PositionID, UserID, Rate FROM StaffList
-                WHERE FactoryID=" + factoryId + " AND UserID=" + userId, ConnectionStrings.LightConnectionString))
+            using (SqlDataAdapter da = new SqlDataAdapter(@"SELECT StaffListID, PositionID, UserID, Rate FROM StaffList
+                WHERE UserID=" + userId, ConnectionStrings.LightConnectionString))
             {
                 _staffListDataTable.Clear();
                 da.Fill(_staffListDataTable);
@@ -208,7 +207,7 @@ namespace Infinium.Modules.Admin
                 rate = Convert.ToDecimal(_staffListDataTable.Rows[0]["Rate"]);
             }
 
-            var tuple = new Tuple<int, decimal>(positionId, rate);
+            Tuple<int, decimal> tuple = new Tuple<int, decimal>(positionId, rate);
             return tuple;
         }
 

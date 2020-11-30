@@ -20,7 +20,7 @@ namespace Infinium
         const int iAgreementRole = 61;
         const int iAdminRole = 62;
         const int iWorkerRole = 63;
-
+        
         const int eHide = 2;
         const int eShow = 1;
         const int eClose = 3;

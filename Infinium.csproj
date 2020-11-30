@@ -158,6 +158,7 @@
       <HintPath>bin\Debug\NPOI.Util.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="Microsoft.CSharp" />
@@ -2645,6 +2646,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Modules\Storage\StorageForm.resx">
       <DependentUpon>StorageForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Modules\Storage\StoreLabels\StoreLabelsPrintForm.resx">
       <DependentUpon>StoreLabelsPrintForm.cs</DependentUpon>
@@ -3092,22 +3094,22 @@
   <ItemGroup>
     <PublishFile Include="ComponentFactory.Krypton.Toolkit">
       <Visible>False</Visible>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
       <FileType>Assembly</FileType>
     </PublishFile>
     <PublishFile Include="inf.ico">
       <Visible>False</Visible>
-      <PublishState>Exclude</PublishState>
-      <IncludeHash>True</IncludeHash>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
+      <PublishState>Exclude</PublishState>
+      <IncludeHash>True</IncludeHash>
       <FileType>File</FileType>
     </PublishFile>
   </ItemGroup>

@@ -9268,7 +9268,17 @@ namespace Infinium
 
     public class DayPlannerWorkTimeSheet
     {
+        int TodayDay = 0;
+        decimal TodayPlanHours = 0;
+        decimal OverHours = 0;
+        decimal OverWork = 0;
+        decimal Rate = 0;
+        decimal PlanHours = 0;
+        decimal FactHours = 0;
+
         public DataTable TimeSheetDataTable;
+        private DataTable _absJournalDataTable;
+        private DataTable _prodSheduleDataTable;
         Excel Ex = null;
 
         public DayPlannerWorkTimeSheet()
@@ -9280,6 +9290,8 @@ namespace Infinium
         private void Create()
         {
             TimeSheetDataTable = new DataTable();
+            _absJournalDataTable = new DataTable();
+            _prodSheduleDataTable = new DataTable();
         }
 
         private void Fill()
@@ -9288,6 +9300,14 @@ namespace Infinium
                 ConnectionStrings.LightConnectionString))
             {
                 DA.Fill(TimeSheetDataTable);
+            }
+            using (SqlDataAdapter da = new SqlDataAdapter(@"SELECT TOP 0 * FROM AbsencesJournal", ConnectionStrings.LightConnectionString))
+            {
+                da.Fill(_absJournalDataTable);
+            }
+            using (SqlDataAdapter da = new SqlDataAdapter(@"SELECT TOP 0 * FROM ProductionShedule", ConnectionStrings.LightConnectionString))
+            {
+                da.Fill(_prodSheduleDataTable);
             }
         }
 
@@ -9438,6 +9458,75 @@ namespace Infinium
             Ex.Visible = true;
         }
 
+        public void GetAbsJournal(string year, string month)
+        {
+            int Monthint = Convert.ToDateTime(month + " " + year).Month;
+            int Yearint = Convert.ToInt32(year);
+            using (SqlDataAdapter da = new SqlDataAdapter(@"SELECT * FROM AbsencesJournal WHERE" +
+                " ((DATEPART(month, DateStart) = " + Monthint + " AND DATEPART(year, DateStart) = " + Yearint +
+                ") OR (DATEPART(month, DateFinish) = " + Monthint + " AND DATEPART(year, DateFinish) = " + Yearint + "))", ConnectionStrings.LightConnectionString))
+            {
+                _absJournalDataTable.Clear();
+                da.Fill(_absJournalDataTable);
+            }
+        }
+
+        public void GetProdShedule(string year, string month)
+        {
+            int Monthint = Convert.ToDateTime(month + " " + year).Month;
+            int Yearint = Convert.ToInt32(year);
+            using (SqlDataAdapter da = new SqlDataAdapter(@"SELECT * FROM ProductionShedule WHERE" +
+                " Year = " + Yearint + " and Month = " + Monthint, ConnectionStrings.LightConnectionString))
+            {
+                _prodSheduleDataTable.Clear();
+                da.Fill(_prodSheduleDataTable);
+            }
+            PlanHours = 0;
+            TodayPlanHours = 0;
+            for (int i = 0; i < _prodSheduleDataTable.Rows.Count; i++)
+            {
+                if (Convert.ToInt32(_prodSheduleDataTable.Rows[i]["Day"]) == TodayDay)
+                {
+                    TodayPlanHours = Convert.ToInt32(_prodSheduleDataTable.Rows[i]["Hour"]) * Rate;
+                    break;
+                }
+                PlanHours += Convert.ToInt32(_prodSheduleDataTable.Rows[i]["Hour"]) * Rate;
+            }
+        }
+
+        private int GetHourInProdShedule(DateTime date)
+        {
+            int hour = -1;
+
+            using (SqlDataAdapter da = new SqlDataAdapter(@"SELECT * FROM ProductionShedule
+                WHERE Year=" + date.Year + " AND Month=" + date.Month + " AND Day=" + date.Day, ConnectionStrings.LightConnectionString))
+            {
+                using (DataTable dt = new DataTable())
+                {
+                    if (da.Fill(dt) > 0)
+                        hour = Convert.ToInt32(dt.Rows[0]["Hour"]);
+                }
+            }
+
+            return hour;
+        }
+
+        private decimal GetRate(int userId)
+        {
+            decimal rate = 0;
+
+            using (SqlDataAdapter da = new SqlDataAdapter(@"SELECT StaffListID, PositionID, UserID, Rate FROM StaffList
+                WHERE UserID=" + userId, ConnectionStrings.LightConnectionString))
+            {
+                using (DataTable dt = new DataTable())
+                {
+                    if (da.Fill(dt) > 0)
+                        rate = Convert.ToDecimal(dt.Rows[0]["Rate"]);
+                }                
+            }
+
+            return rate;
+        }
         public void ClearReport()
         {
             if (Ex != null)

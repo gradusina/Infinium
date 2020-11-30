@@ -35,6 +35,7 @@
             this.NavigateMenuButtonsPalette = new ComponentFactory.Krypton.Toolkit.KryptonPalette(this.components);
             this.label1 = new System.Windows.Forms.Label();
             this.NavigatePanel = new System.Windows.Forms.Panel();
+            this.MenuButton = new ComponentFactory.Krypton.Toolkit.KryptonCheckButton();
             this.MinimizeButton = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.ZOVProfilCheckButton = new Infinium.MenuLabel();
             this.ZOVTPSCheckButton = new Infinium.MenuLabel();
@@ -119,20 +120,20 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.MainMenuPalette1 = new ComponentFactory.Krypton.Toolkit.KryptonPalette(this.components);
             this.pnlDispatchMenu = new ComponentFactory.Krypton.Toolkit.KryptonPanel();
-            this.flowLayoutPanel8 = new System.Windows.Forms.FlowLayoutPanel();
-            this.cbtnAllTPS = new ComponentFactory.Krypton.Toolkit.KryptonCheckButton();
-            this.cbtnGeneva = new ComponentFactory.Krypton.Toolkit.KryptonCheckButton();
-            this.cbtnAngle45TPS = new ComponentFactory.Krypton.Toolkit.KryptonCheckButton();
-            this.cbtnTafel = new ComponentFactory.Krypton.Toolkit.KryptonCheckButton();
-            this.cbtnDecorTPS = new ComponentFactory.Krypton.Toolkit.KryptonCheckButton();
-            this.cbtnRAL = new ComponentFactory.Krypton.Toolkit.KryptonCheckButton();
-            this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
-            this.kryptonButton1 = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.flowLayoutPanel9 = new System.Windows.Forms.FlowLayoutPanel();
             this.cbtnAllProfil = new ComponentFactory.Krypton.Toolkit.KryptonCheckButton();
             this.cbtnAngle90Profil = new ComponentFactory.Krypton.Toolkit.KryptonCheckButton();
             this.cbtnAngle45Profil = new ComponentFactory.Krypton.Toolkit.KryptonCheckButton();
+            this.cbtnGeneva = new ComponentFactory.Krypton.Toolkit.KryptonCheckButton();
+            this.cbtnTafel = new ComponentFactory.Krypton.Toolkit.KryptonCheckButton();
+            this.cbtnRAL = new ComponentFactory.Krypton.Toolkit.KryptonCheckButton();
             this.cbtnDecorProfil = new ComponentFactory.Krypton.Toolkit.KryptonCheckButton();
+            this.flowLayoutPanel8 = new System.Windows.Forms.FlowLayoutPanel();
+            this.cbtnAllTPS = new ComponentFactory.Krypton.Toolkit.KryptonCheckButton();
+            this.cbtnAngle45TPS = new ComponentFactory.Krypton.Toolkit.KryptonCheckButton();
+            this.cbtnDecorTPS = new ComponentFactory.Krypton.Toolkit.KryptonCheckButton();
+            this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
+            this.kryptonButton1 = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.cbtnMarketing = new ComponentFactory.Krypton.Toolkit.KryptonCheckButton();
             this.cbtnZOV = new ComponentFactory.Krypton.Toolkit.KryptonCheckButton();
@@ -327,6 +328,17 @@
             this.kryptonContextMenuItem28 = new ComponentFactory.Krypton.Toolkit.KryptonContextMenuItem();
             this.TraysDataGrid = new Infinium.PercentageDataGrid();
             this.kryptonCheckSet1 = new ComponentFactory.Krypton.Toolkit.KryptonCheckSet(this.components);
+            this.MenuPanel = new System.Windows.Forms.Panel();
+            this.btnUpdateComplements = new ComponentFactory.Krypton.Toolkit.KryptonButton();
+            this.label42 = new System.Windows.Forms.Label();
+            this.label40 = new System.Windows.Forms.Label();
+            this.DateTimePicker2 = new ComponentFactory.Krypton.Toolkit.KryptonDateTimePicker();
+            this.DateTimePicker1 = new ComponentFactory.Krypton.Toolkit.KryptonDateTimePicker();
+            this.label35 = new System.Windows.Forms.Label();
+            this.kryptonBorderEdge112 = new ComponentFactory.Krypton.Toolkit.KryptonBorderEdge();
+            this.kryptonBorderEdge113 = new ComponentFactory.Krypton.Toolkit.KryptonBorderEdge();
+            this.kryptonBorderEdge114 = new ComponentFactory.Krypton.Toolkit.KryptonBorderEdge();
+            this.kryptonBorderEdge115 = new ComponentFactory.Krypton.Toolkit.KryptonBorderEdge();
             this.NavigatePanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonSplitContainer4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonSplitContainer4.Panel1)).BeginInit();
@@ -371,9 +383,9 @@
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pnlDispatchMenu)).BeginInit();
             this.pnlDispatchMenu.SuspendLayout();
+            this.flowLayoutPanel9.SuspendLayout();
             this.flowLayoutPanel8.SuspendLayout();
             this.flowLayoutPanel2.SuspendLayout();
-            this.flowLayoutPanel9.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
             this.flowLayoutPanel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonCheckSet2)).BeginInit();
@@ -443,6 +455,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvDecorColors)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.TraysDataGrid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonCheckSet1)).BeginInit();
+            this.MenuPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // AnimateTimer
@@ -541,6 +554,7 @@
             // NavigatePanel
             // 
             this.NavigatePanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
+            this.NavigatePanel.Controls.Add(this.MenuButton);
             this.NavigatePanel.Controls.Add(this.MinimizeButton);
             this.NavigatePanel.Controls.Add(this.ZOVProfilCheckButton);
             this.NavigatePanel.Controls.Add(this.ZOVTPSCheckButton);
@@ -552,6 +566,27 @@
             this.NavigatePanel.Name = "NavigatePanel";
             this.NavigatePanel.Size = new System.Drawing.Size(1270, 54);
             this.NavigatePanel.TabIndex = 34;
+            // 
+            // MenuButton
+            // 
+            this.MenuButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.MenuButton.Location = new System.Drawing.Point(1116, 8);
+            this.MenuButton.Name = "MenuButton";
+            this.MenuButton.Palette = this.NavigateMenuButtonsPalette;
+            this.MenuButton.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Custom;
+            this.MenuButton.Size = new System.Drawing.Size(41, 39);
+            this.MenuButton.TabIndex = 342;
+            this.MenuButton.TabStop = false;
+            this.MenuButton.Values.ImageStates.ImageCheckedNormal = global::Infinium.Properties.Resources.MenuUp;
+            this.MenuButton.Values.ImageStates.ImageCheckedPressed = global::Infinium.Properties.Resources.MenuUp;
+            this.MenuButton.Values.ImageStates.ImageCheckedTracking = global::Infinium.Properties.Resources.MenuUp;
+            this.MenuButton.Values.ImageStates.ImageDisabled = global::Infinium.Properties.Resources.MenuDown;
+            this.MenuButton.Values.ImageStates.ImageNormal = global::Infinium.Properties.Resources.MenuDown;
+            this.MenuButton.Values.ImageStates.ImagePressed = global::Infinium.Properties.Resources.MenuDown;
+            this.MenuButton.Values.ImageStates.ImageTracking = global::Infinium.Properties.Resources.MenuDown;
+            this.MenuButton.Values.ImageTransparentColor = System.Drawing.Color.Transparent;
+            this.MenuButton.Values.Text = "";
+            this.MenuButton.Click += new System.EventHandler(this.MenuButton_Click);
             // 
             // MinimizeButton
             // 
@@ -575,7 +610,7 @@
             this.ZOVProfilCheckButton.CommonLineColor = System.Drawing.Color.White;
             this.ZOVProfilCheckButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.ZOVProfilCheckButton.LineWidth = 4;
-            this.ZOVProfilCheckButton.Location = new System.Drawing.Point(792, 6);
+            this.ZOVProfilCheckButton.Location = new System.Drawing.Point(712, 6);
             this.ZOVProfilCheckButton.Name = "ZOVProfilCheckButton";
             this.ZOVProfilCheckButton.OverrideDefault.Back.Color1 = System.Drawing.Color.Transparent;
             this.ZOVProfilCheckButton.OverrideDefault.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
@@ -611,6 +646,7 @@
             this.ZOVProfilCheckButton.ToWidth = true;
             this.ZOVProfilCheckButton.TrackingLineColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.ZOVProfilCheckButton.Values.Text = "ЗОВ-Профиль";
+            this.ZOVProfilCheckButton.Visible = false;
             // 
             // ZOVTPSCheckButton
             // 
@@ -618,7 +654,7 @@
             this.ZOVTPSCheckButton.CommonLineColor = System.Drawing.Color.White;
             this.ZOVTPSCheckButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.ZOVTPSCheckButton.LineWidth = 4;
-            this.ZOVTPSCheckButton.Location = new System.Drawing.Point(972, 6);
+            this.ZOVTPSCheckButton.Location = new System.Drawing.Point(892, 6);
             this.ZOVTPSCheckButton.Name = "ZOVTPSCheckButton";
             this.ZOVTPSCheckButton.OverrideDefault.Back.Color1 = System.Drawing.Color.Transparent;
             this.ZOVTPSCheckButton.OverrideDefault.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
@@ -654,6 +690,7 @@
             this.ZOVTPSCheckButton.ToWidth = true;
             this.ZOVTPSCheckButton.TrackingLineColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.ZOVTPSCheckButton.Values.Text = "ЗОВ-ТПС";
+            this.ZOVTPSCheckButton.Visible = false;
             // 
             // kryptonBorderEdge3
             // 
@@ -2036,9 +2073,9 @@
             // 
             // pnlDispatchMenu
             // 
+            this.pnlDispatchMenu.Controls.Add(this.flowLayoutPanel9);
             this.pnlDispatchMenu.Controls.Add(this.flowLayoutPanel8);
             this.pnlDispatchMenu.Controls.Add(this.flowLayoutPanel2);
-            this.pnlDispatchMenu.Controls.Add(this.flowLayoutPanel9);
             this.pnlDispatchMenu.Controls.Add(this.flowLayoutPanel1);
             this.pnlDispatchMenu.Controls.Add(this.flowLayoutPanel3);
             this.pnlDispatchMenu.Dock = System.Windows.Forms.DockStyle.Top;
@@ -2049,122 +2086,6 @@
             this.pnlDispatchMenu.StateCommon.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
             this.pnlDispatchMenu.TabIndex = 373;
             // 
-            // flowLayoutPanel8
-            // 
-            this.flowLayoutPanel8.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.flowLayoutPanel8.BackColor = System.Drawing.Color.Transparent;
-            this.flowLayoutPanel8.Controls.Add(this.cbtnAllTPS);
-            this.flowLayoutPanel8.Controls.Add(this.cbtnGeneva);
-            this.flowLayoutPanel8.Controls.Add(this.cbtnAngle45TPS);
-            this.flowLayoutPanel8.Controls.Add(this.cbtnTafel);
-            this.flowLayoutPanel8.Controls.Add(this.cbtnDecorTPS);
-            this.flowLayoutPanel8.Controls.Add(this.cbtnRAL);
-            this.flowLayoutPanel8.Location = new System.Drawing.Point(0, 0);
-            this.flowLayoutPanel8.Name = "flowLayoutPanel8";
-            this.flowLayoutPanel8.Size = new System.Drawing.Size(662, 41);
-            this.flowLayoutPanel8.TabIndex = 374;
-            this.flowLayoutPanel8.Visible = false;
-            // 
-            // cbtnAllTPS
-            // 
-            this.cbtnAllTPS.Checked = true;
-            this.cbtnAllTPS.Location = new System.Drawing.Point(3, 3);
-            this.cbtnAllTPS.Name = "cbtnAllTPS";
-            this.cbtnAllTPS.Palette = this.MainMenuPalette1;
-            this.cbtnAllTPS.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Custom;
-            this.cbtnAllTPS.Size = new System.Drawing.Size(104, 34);
-            this.cbtnAllTPS.StateTracking.Back.Color1 = System.Drawing.Color.LimeGreen;
-            this.cbtnAllTPS.TabIndex = 5;
-            this.cbtnAllTPS.Values.Text = "Всё";
-            // 
-            // cbtnGeneva
-            // 
-            this.cbtnGeneva.Location = new System.Drawing.Point(113, 3);
-            this.cbtnGeneva.Name = "cbtnGeneva";
-            this.cbtnGeneva.Palette = this.MainMenuPalette1;
-            this.cbtnGeneva.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Custom;
-            this.cbtnGeneva.Size = new System.Drawing.Size(104, 34);
-            this.cbtnGeneva.StateTracking.Back.Color1 = System.Drawing.Color.LimeGreen;
-            this.cbtnGeneva.TabIndex = 0;
-            this.cbtnGeneva.Values.Text = "Женева";
-            // 
-            // cbtnAngle45TPS
-            // 
-            this.cbtnAngle45TPS.Location = new System.Drawing.Point(223, 3);
-            this.cbtnAngle45TPS.Name = "cbtnAngle45TPS";
-            this.cbtnAngle45TPS.Palette = this.MainMenuPalette1;
-            this.cbtnAngle45TPS.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Custom;
-            this.cbtnAngle45TPS.Size = new System.Drawing.Size(104, 34);
-            this.cbtnAngle45TPS.StateTracking.Back.Color1 = System.Drawing.Color.LimeGreen;
-            this.cbtnAngle45TPS.TabIndex = 1;
-            this.cbtnAngle45TPS.Values.Text = "Угол 45";
-            // 
-            // cbtnTafel
-            // 
-            this.cbtnTafel.Location = new System.Drawing.Point(333, 3);
-            this.cbtnTafel.Name = "cbtnTafel";
-            this.cbtnTafel.Palette = this.MainMenuPalette1;
-            this.cbtnTafel.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Custom;
-            this.cbtnTafel.Size = new System.Drawing.Size(104, 34);
-            this.cbtnTafel.StateTracking.Back.Color1 = System.Drawing.Color.LimeGreen;
-            this.cbtnTafel.TabIndex = 2;
-            this.cbtnTafel.Values.Text = "Тафель";
-            this.cbtnTafel.Click += new System.EventHandler(this.cbtnTafel_Click);
-            // 
-            // cbtnDecorTPS
-            // 
-            this.cbtnDecorTPS.Location = new System.Drawing.Point(443, 3);
-            this.cbtnDecorTPS.Name = "cbtnDecorTPS";
-            this.cbtnDecorTPS.Palette = this.MainMenuPalette1;
-            this.cbtnDecorTPS.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Custom;
-            this.cbtnDecorTPS.Size = new System.Drawing.Size(104, 34);
-            this.cbtnDecorTPS.StateTracking.Back.Color1 = System.Drawing.Color.LimeGreen;
-            this.cbtnDecorTPS.TabIndex = 3;
-            this.cbtnDecorTPS.Values.Text = "Декор";
-            // 
-            // cbtnRAL
-            // 
-            this.cbtnRAL.Location = new System.Drawing.Point(553, 3);
-            this.cbtnRAL.Name = "cbtnRAL";
-            this.cbtnRAL.Palette = this.MainMenuPalette1;
-            this.cbtnRAL.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Custom;
-            this.cbtnRAL.Size = new System.Drawing.Size(104, 34);
-            this.cbtnRAL.StateTracking.Back.Color1 = System.Drawing.Color.LimeGreen;
-            this.cbtnRAL.TabIndex = 6;
-            this.cbtnRAL.Values.Text = "RAL";
-            // 
-            // flowLayoutPanel2
-            // 
-            this.flowLayoutPanel2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.flowLayoutPanel2.BackColor = System.Drawing.Color.Transparent;
-            this.flowLayoutPanel2.Controls.Add(this.kryptonButton1);
-            this.flowLayoutPanel2.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
-            this.flowLayoutPanel2.Location = new System.Drawing.Point(692, 0);
-            this.flowLayoutPanel2.Name = "flowLayoutPanel2";
-            this.flowLayoutPanel2.Size = new System.Drawing.Size(575, 39);
-            this.flowLayoutPanel2.TabIndex = 376;
-            this.flowLayoutPanel2.Visible = false;
-            // 
-            // kryptonButton1
-            // 
-            this.kryptonButton1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.kryptonButton1.Location = new System.Drawing.Point(438, 3);
-            this.kryptonButton1.Name = "kryptonButton1";
-            this.kryptonButton1.Palette = this.MainMenuPalette1;
-            this.kryptonButton1.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Custom;
-            this.kryptonButton1.Size = new System.Drawing.Size(134, 34);
-            this.kryptonButton1.StateCommon.Border.Color1 = System.Drawing.SystemColors.ControlLight;
-            this.kryptonButton1.StateCommon.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
-            this.kryptonButton1.StateTracking.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(198)))), ((int)(((byte)(0)))));
-            this.kryptonButton1.TabIndex = 372;
-            this.kryptonButton1.Tag = "0";
-            this.kryptonButton1.Values.Text = "Редактировать";
-            this.kryptonButton1.Click += new System.EventHandler(this.kryptonButton1_Click);
-            // 
             // flowLayoutPanel9
             // 
             this.flowLayoutPanel9.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -2173,10 +2094,13 @@
             this.flowLayoutPanel9.Controls.Add(this.cbtnAllProfil);
             this.flowLayoutPanel9.Controls.Add(this.cbtnAngle90Profil);
             this.flowLayoutPanel9.Controls.Add(this.cbtnAngle45Profil);
+            this.flowLayoutPanel9.Controls.Add(this.cbtnGeneva);
+            this.flowLayoutPanel9.Controls.Add(this.cbtnTafel);
+            this.flowLayoutPanel9.Controls.Add(this.cbtnRAL);
             this.flowLayoutPanel9.Controls.Add(this.cbtnDecorProfil);
             this.flowLayoutPanel9.Location = new System.Drawing.Point(0, 0);
             this.flowLayoutPanel9.Name = "flowLayoutPanel9";
-            this.flowLayoutPanel9.Size = new System.Drawing.Size(547, 41);
+            this.flowLayoutPanel9.Size = new System.Drawing.Size(812, 41);
             this.flowLayoutPanel9.TabIndex = 375;
             // 
             // cbtnAllProfil
@@ -2213,9 +2137,43 @@
             this.cbtnAngle45Profil.TabIndex = 1;
             this.cbtnAngle45Profil.Values.Text = "Угол 45";
             // 
+            // cbtnGeneva
+            // 
+            this.cbtnGeneva.Location = new System.Drawing.Point(333, 3);
+            this.cbtnGeneva.Name = "cbtnGeneva";
+            this.cbtnGeneva.Palette = this.MainMenuPalette1;
+            this.cbtnGeneva.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Custom;
+            this.cbtnGeneva.Size = new System.Drawing.Size(104, 34);
+            this.cbtnGeneva.StateTracking.Back.Color1 = System.Drawing.Color.LimeGreen;
+            this.cbtnGeneva.TabIndex = 0;
+            this.cbtnGeneva.Values.Text = "Женева";
+            // 
+            // cbtnTafel
+            // 
+            this.cbtnTafel.Location = new System.Drawing.Point(443, 3);
+            this.cbtnTafel.Name = "cbtnTafel";
+            this.cbtnTafel.Palette = this.MainMenuPalette1;
+            this.cbtnTafel.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Custom;
+            this.cbtnTafel.Size = new System.Drawing.Size(104, 34);
+            this.cbtnTafel.StateTracking.Back.Color1 = System.Drawing.Color.LimeGreen;
+            this.cbtnTafel.TabIndex = 2;
+            this.cbtnTafel.Values.Text = "Тафель";
+            this.cbtnTafel.Click += new System.EventHandler(this.cbtnTafel_Click);
+            // 
+            // cbtnRAL
+            // 
+            this.cbtnRAL.Location = new System.Drawing.Point(553, 3);
+            this.cbtnRAL.Name = "cbtnRAL";
+            this.cbtnRAL.Palette = this.MainMenuPalette1;
+            this.cbtnRAL.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Custom;
+            this.cbtnRAL.Size = new System.Drawing.Size(104, 34);
+            this.cbtnRAL.StateTracking.Back.Color1 = System.Drawing.Color.LimeGreen;
+            this.cbtnRAL.TabIndex = 6;
+            this.cbtnRAL.Values.Text = "RAL";
+            // 
             // cbtnDecorProfil
             // 
-            this.cbtnDecorProfil.Location = new System.Drawing.Point(333, 3);
+            this.cbtnDecorProfil.Location = new System.Drawing.Point(663, 3);
             this.cbtnDecorProfil.Name = "cbtnDecorProfil";
             this.cbtnDecorProfil.Palette = this.MainMenuPalette1;
             this.cbtnDecorProfil.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Custom;
@@ -2223,6 +2181,85 @@
             this.cbtnDecorProfil.StateTracking.Back.Color1 = System.Drawing.Color.LimeGreen;
             this.cbtnDecorProfil.TabIndex = 3;
             this.cbtnDecorProfil.Values.Text = "Декор";
+            // 
+            // flowLayoutPanel8
+            // 
+            this.flowLayoutPanel8.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.flowLayoutPanel8.BackColor = System.Drawing.Color.Transparent;
+            this.flowLayoutPanel8.Controls.Add(this.cbtnAllTPS);
+            this.flowLayoutPanel8.Controls.Add(this.cbtnAngle45TPS);
+            this.flowLayoutPanel8.Controls.Add(this.cbtnDecorTPS);
+            this.flowLayoutPanel8.Location = new System.Drawing.Point(0, 0);
+            this.flowLayoutPanel8.Name = "flowLayoutPanel8";
+            this.flowLayoutPanel8.Size = new System.Drawing.Size(662, 41);
+            this.flowLayoutPanel8.TabIndex = 374;
+            this.flowLayoutPanel8.Visible = false;
+            // 
+            // cbtnAllTPS
+            // 
+            this.cbtnAllTPS.Checked = true;
+            this.cbtnAllTPS.Location = new System.Drawing.Point(3, 3);
+            this.cbtnAllTPS.Name = "cbtnAllTPS";
+            this.cbtnAllTPS.Palette = this.MainMenuPalette1;
+            this.cbtnAllTPS.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Custom;
+            this.cbtnAllTPS.Size = new System.Drawing.Size(104, 34);
+            this.cbtnAllTPS.StateTracking.Back.Color1 = System.Drawing.Color.LimeGreen;
+            this.cbtnAllTPS.TabIndex = 5;
+            this.cbtnAllTPS.Values.Text = "Всё";
+            // 
+            // cbtnAngle45TPS
+            // 
+            this.cbtnAngle45TPS.Location = new System.Drawing.Point(113, 3);
+            this.cbtnAngle45TPS.Name = "cbtnAngle45TPS";
+            this.cbtnAngle45TPS.Palette = this.MainMenuPalette1;
+            this.cbtnAngle45TPS.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Custom;
+            this.cbtnAngle45TPS.Size = new System.Drawing.Size(104, 34);
+            this.cbtnAngle45TPS.StateTracking.Back.Color1 = System.Drawing.Color.LimeGreen;
+            this.cbtnAngle45TPS.TabIndex = 1;
+            this.cbtnAngle45TPS.Values.Text = "Угол 45";
+            // 
+            // cbtnDecorTPS
+            // 
+            this.cbtnDecorTPS.Location = new System.Drawing.Point(223, 3);
+            this.cbtnDecorTPS.Name = "cbtnDecorTPS";
+            this.cbtnDecorTPS.Palette = this.MainMenuPalette1;
+            this.cbtnDecorTPS.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Custom;
+            this.cbtnDecorTPS.Size = new System.Drawing.Size(104, 34);
+            this.cbtnDecorTPS.StateTracking.Back.Color1 = System.Drawing.Color.LimeGreen;
+            this.cbtnDecorTPS.TabIndex = 3;
+            this.cbtnDecorTPS.Values.Text = "Декор";
+            // 
+            // flowLayoutPanel2
+            // 
+            this.flowLayoutPanel2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.flowLayoutPanel2.BackColor = System.Drawing.Color.Transparent;
+            this.flowLayoutPanel2.Controls.Add(this.kryptonButton1);
+            this.flowLayoutPanel2.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
+            this.flowLayoutPanel2.Location = new System.Drawing.Point(824, 0);
+            this.flowLayoutPanel2.Name = "flowLayoutPanel2";
+            this.flowLayoutPanel2.Size = new System.Drawing.Size(443, 39);
+            this.flowLayoutPanel2.TabIndex = 376;
+            this.flowLayoutPanel2.Visible = false;
+            // 
+            // kryptonButton1
+            // 
+            this.kryptonButton1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.kryptonButton1.Location = new System.Drawing.Point(306, 3);
+            this.kryptonButton1.Name = "kryptonButton1";
+            this.kryptonButton1.Palette = this.MainMenuPalette1;
+            this.kryptonButton1.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Custom;
+            this.kryptonButton1.Size = new System.Drawing.Size(134, 34);
+            this.kryptonButton1.StateCommon.Border.Color1 = System.Drawing.SystemColors.ControlLight;
+            this.kryptonButton1.StateCommon.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.kryptonButton1.StateTracking.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(198)))), ((int)(((byte)(0)))));
+            this.kryptonButton1.TabIndex = 372;
+            this.kryptonButton1.Tag = "0";
+            this.kryptonButton1.Values.Text = "Редактировать";
+            this.kryptonButton1.Click += new System.EventHandler(this.kryptonButton1_Click);
             // 
             // flowLayoutPanel1
             // 
@@ -3378,7 +3415,6 @@
             // kryptonContextMenuItem13
             // 
             this.kryptonContextMenuItem13.Text = "Тафель";
-            this.kryptonContextMenuItem13.Visible = false;
             this.kryptonContextMenuItem13.Click += new System.EventHandler(this.kryptonContextMenuItem4_Click);
             // 
             // kryptonContextMenuItem20
@@ -3408,9 +3444,7 @@
             // 
             // kryptonCheckSet6
             // 
-            this.kryptonCheckSet6.CheckButtons.Add(this.cbtnGeneva);
             this.kryptonCheckSet6.CheckButtons.Add(this.cbtnAngle45TPS);
-            this.kryptonCheckSet6.CheckButtons.Add(this.cbtnTafel);
             this.kryptonCheckSet6.CheckButtons.Add(this.cbtnDecorTPS);
             this.kryptonCheckSet6.CheckButtons.Add(this.cbtnAllTPS);
             this.kryptonCheckSet6.CheckedButton = this.cbtnAllTPS;
@@ -4154,6 +4188,9 @@
             this.kryptonCheckSet7.CheckButtons.Add(this.cbtnAngle45Profil);
             this.kryptonCheckSet7.CheckButtons.Add(this.cbtnDecorProfil);
             this.kryptonCheckSet7.CheckButtons.Add(this.cbtnAllProfil);
+            this.kryptonCheckSet7.CheckButtons.Add(this.cbtnGeneva);
+            this.kryptonCheckSet7.CheckButtons.Add(this.cbtnTafel);
+            this.kryptonCheckSet7.CheckButtons.Add(this.cbtnRAL);
             this.kryptonCheckSet7.CheckedButton = this.cbtnAllProfil;
             this.kryptonCheckSet7.CheckedButtonChanged += new System.EventHandler(this.kryptonCheckSet7_CheckedButtonChanged);
             // 
@@ -4935,12 +4972,153 @@
             this.kryptonCheckSet1.CheckedButton = this.ZOVProfilCheckButton;
             this.kryptonCheckSet1.CheckedButtonChanged += new System.EventHandler(this.kryptonCheckSet1_CheckedButtonChanged);
             // 
+            // MenuPanel
+            // 
+            this.MenuPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.MenuPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
+            this.MenuPanel.Controls.Add(this.btnUpdateComplements);
+            this.MenuPanel.Controls.Add(this.label42);
+            this.MenuPanel.Controls.Add(this.label40);
+            this.MenuPanel.Controls.Add(this.DateTimePicker2);
+            this.MenuPanel.Controls.Add(this.DateTimePicker1);
+            this.MenuPanel.Controls.Add(this.label35);
+            this.MenuPanel.Controls.Add(this.kryptonBorderEdge112);
+            this.MenuPanel.Controls.Add(this.kryptonBorderEdge113);
+            this.MenuPanel.Controls.Add(this.kryptonBorderEdge114);
+            this.MenuPanel.Controls.Add(this.kryptonBorderEdge115);
+            this.MenuPanel.ForeColor = System.Drawing.Color.White;
+            this.MenuPanel.Location = new System.Drawing.Point(1026, 52);
+            this.MenuPanel.Name = "MenuPanel";
+            this.MenuPanel.Size = new System.Drawing.Size(246, 196);
+            this.MenuPanel.TabIndex = 511;
+            this.MenuPanel.Visible = false;
+            // 
+            // btnUpdateComplements
+            // 
+            this.btnUpdateComplements.Location = new System.Drawing.Point(37, 129);
+            this.btnUpdateComplements.Name = "btnUpdateComplements";
+            this.btnUpdateComplements.Palette = this.StandardButtonsPalette;
+            this.btnUpdateComplements.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Custom;
+            this.btnUpdateComplements.Size = new System.Drawing.Size(146, 39);
+            this.btnUpdateComplements.StateCommon.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.btnUpdateComplements.StateCommon.Content.Image.ImageH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
+            this.btnUpdateComplements.StateCommon.Content.Image.ImageV = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Near;
+            this.btnUpdateComplements.StateCommon.Content.ShortText.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.btnUpdateComplements.StateCommon.Content.ShortText.TextV = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
+            this.btnUpdateComplements.StateTracking.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(253)))), ((int)(((byte)(164)))), ((int)(((byte)(61)))));
+            this.btnUpdateComplements.StateTracking.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
+            this.btnUpdateComplements.TabIndex = 431;
+            this.btnUpdateComplements.TabStop = false;
+            this.btnUpdateComplements.Values.Text = "Поиск";
+            this.btnUpdateComplements.Click += new System.EventHandler(this.btnUpdateComplements_Click);
+            // 
+            // label42
+            // 
+            this.label42.AutoSize = true;
+            this.label42.Font = new System.Drawing.Font("Segoe UI", 17.81F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.label42.ForeColor = System.Drawing.Color.White;
+            this.label42.Location = new System.Drawing.Point(20, 89);
+            this.label42.Name = "label42";
+            this.label42.Size = new System.Drawing.Size(39, 25);
+            this.label42.TabIndex = 430;
+            this.label42.Text = "До:";
+            // 
+            // label40
+            // 
+            this.label40.AutoSize = true;
+            this.label40.Font = new System.Drawing.Font("Segoe UI", 17.81F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.label40.ForeColor = System.Drawing.Color.White;
+            this.label40.Location = new System.Drawing.Point(20, 48);
+            this.label40.Name = "label40";
+            this.label40.Size = new System.Drawing.Size(37, 25);
+            this.label40.TabIndex = 429;
+            this.label40.Text = "От:";
+            // 
+            // DateTimePicker2
+            // 
+            this.DateTimePicker2.Location = new System.Drawing.Point(57, 89);
+            this.DateTimePicker2.Name = "DateTimePicker2";
+            this.DateTimePicker2.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2010Black;
+            this.DateTimePicker2.Size = new System.Drawing.Size(146, 25);
+            this.DateTimePicker2.StateCommon.Content.Font = new System.Drawing.Font("Segoe UI", 14.06F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.DateTimePicker2.TabIndex = 428;
+            // 
+            // DateTimePicker1
+            // 
+            this.DateTimePicker1.Location = new System.Drawing.Point(57, 48);
+            this.DateTimePicker1.Name = "DateTimePicker1";
+            this.DateTimePicker1.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2010Black;
+            this.DateTimePicker1.Size = new System.Drawing.Size(146, 25);
+            this.DateTimePicker1.StateCommon.Content.Font = new System.Drawing.Font("Segoe UI", 14.06F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.DateTimePicker1.TabIndex = 427;
+            this.DateTimePicker1.ValueNullable = new System.DateTime(2020, 11, 24, 0, 0, 0, 0);
+            // 
+            // label35
+            // 
+            this.label35.AutoSize = true;
+            this.label35.Font = new System.Drawing.Font("Segoe UI", 17.81F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.label35.ForeColor = System.Drawing.Color.White;
+            this.label35.Location = new System.Drawing.Point(20, 14);
+            this.label35.Name = "label35";
+            this.label35.Size = new System.Drawing.Size(133, 25);
+            this.label35.TabIndex = 431;
+            this.label35.Text = "Дата создания:";
+            // 
+            // kryptonBorderEdge112
+            // 
+            this.kryptonBorderEdge112.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.kryptonBorderEdge112.AutoSize = false;
+            this.kryptonBorderEdge112.Location = new System.Drawing.Point(244, 1);
+            this.kryptonBorderEdge112.Name = "kryptonBorderEdge112";
+            this.kryptonBorderEdge112.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.kryptonBorderEdge112.Size = new System.Drawing.Size(1, 194);
+            this.kryptonBorderEdge112.StateCommon.Color1 = System.Drawing.Color.White;
+            this.kryptonBorderEdge112.Text = "kryptonBorderEdge112";
+            // 
+            // kryptonBorderEdge113
+            // 
+            this.kryptonBorderEdge113.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.kryptonBorderEdge113.AutoSize = false;
+            this.kryptonBorderEdge113.Location = new System.Drawing.Point(1, 194);
+            this.kryptonBorderEdge113.Name = "kryptonBorderEdge113";
+            this.kryptonBorderEdge113.Size = new System.Drawing.Size(244, 1);
+            this.kryptonBorderEdge113.StateCommon.Color1 = System.Drawing.Color.White;
+            this.kryptonBorderEdge113.Text = "kryptonBorderEdge113";
+            // 
+            // kryptonBorderEdge114
+            // 
+            this.kryptonBorderEdge114.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.kryptonBorderEdge114.AutoSize = false;
+            this.kryptonBorderEdge114.Location = new System.Drawing.Point(1, 1);
+            this.kryptonBorderEdge114.Name = "kryptonBorderEdge114";
+            this.kryptonBorderEdge114.Size = new System.Drawing.Size(244, 1);
+            this.kryptonBorderEdge114.StateCommon.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(104)))), ((int)(((byte)(123)))), ((int)(((byte)(97)))));
+            this.kryptonBorderEdge114.Text = "kryptonBorderEdge114";
+            // 
+            // kryptonBorderEdge115
+            // 
+            this.kryptonBorderEdge115.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.kryptonBorderEdge115.AutoSize = false;
+            this.kryptonBorderEdge115.Location = new System.Drawing.Point(1, 1);
+            this.kryptonBorderEdge115.Name = "kryptonBorderEdge115";
+            this.kryptonBorderEdge115.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.kryptonBorderEdge115.Size = new System.Drawing.Size(1, 194);
+            this.kryptonBorderEdge115.StateCommon.Color1 = System.Drawing.Color.White;
+            this.kryptonBorderEdge115.Text = "kryptonBorderEdge115";
+            // 
             // WorkAssignmentsForm
             // 
             this.AccessibleName = "false";
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1270, 732);
+            this.Controls.Add(this.MenuPanel);
             this.Controls.Add(this.panel5);
             this.Controls.Add(this.panel20);
             this.Controls.Add(this.panel2);
@@ -5015,9 +5193,9 @@
             this.panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pnlDispatchMenu)).EndInit();
             this.pnlDispatchMenu.ResumeLayout(false);
+            this.flowLayoutPanel9.ResumeLayout(false);
             this.flowLayoutPanel8.ResumeLayout(false);
             this.flowLayoutPanel2.ResumeLayout(false);
-            this.flowLayoutPanel9.ResumeLayout(false);
             this.flowLayoutPanel1.ResumeLayout(false);
             this.flowLayoutPanel3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.kryptonCheckSet2)).EndInit();
@@ -5105,6 +5283,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvDecorColors)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.TraysDataGrid)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonCheckSet1)).EndInit();
+            this.MenuPanel.ResumeLayout(false);
+            this.MenuPanel.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -5408,5 +5588,17 @@
         private ComponentFactory.Krypton.Toolkit.KryptonContextMenuItem kryptonContextMenuItem28;
         private ComponentFactory.Krypton.Toolkit.KryptonContextMenuItem kryptonContextMenuItem29;
         private ComponentFactory.Krypton.Toolkit.KryptonContextMenuItem kryptonContextMenuItem30;
+        private ComponentFactory.Krypton.Toolkit.KryptonCheckButton MenuButton;
+        private System.Windows.Forms.Panel MenuPanel;
+        private ComponentFactory.Krypton.Toolkit.KryptonButton btnUpdateComplements;
+        private System.Windows.Forms.Label label42;
+        private System.Windows.Forms.Label label40;
+        private ComponentFactory.Krypton.Toolkit.KryptonDateTimePicker DateTimePicker2;
+        private ComponentFactory.Krypton.Toolkit.KryptonDateTimePicker DateTimePicker1;
+        private System.Windows.Forms.Label label35;
+        private ComponentFactory.Krypton.Toolkit.KryptonBorderEdge kryptonBorderEdge112;
+        private ComponentFactory.Krypton.Toolkit.KryptonBorderEdge kryptonBorderEdge113;
+        private ComponentFactory.Krypton.Toolkit.KryptonBorderEdge kryptonBorderEdge114;
+        private ComponentFactory.Krypton.Toolkit.KryptonBorderEdge kryptonBorderEdge115;
     }
 }

@@ -20012,6 +20012,7 @@ namespace Infinium.Modules.Marketing.NewOrders
             DecorFromExcelDT.Columns.Add(new DataColumn(("Type"), System.Type.GetType("System.Int32")));
             DecorFromExcelDT.Columns.Add(new DataColumn(("MegaOrderID"), System.Type.GetType("System.Int32")));
             DecorFromExcelDT.Columns.Add(new DataColumn(("MainOrderID"), System.Type.GetType("System.Int32")));
+            DecorFromExcelDT.Columns.Add(new DataColumn(("Info"), System.Type.GetType("System.String")));
             DecorFromExcelDT.Columns.Add(new DataColumn(("ConfigID"), System.Type.GetType("System.Int32")));
             DecorFromExcelDT.Columns.Add(new DataColumn(("Length"), System.Type.GetType("System.Int32")));
             DecorFromExcelDT.Columns.Add(new DataColumn(("Height"), System.Type.GetType("System.Int32")));
@@ -20024,6 +20025,7 @@ namespace Infinium.Modules.Marketing.NewOrders
             FrontsFromExcelDT.Columns.Add(new DataColumn(("Type"), System.Type.GetType("System.Int32")));
             FrontsFromExcelDT.Columns.Add(new DataColumn(("MegaOrderID"), System.Type.GetType("System.Int32")));
             FrontsFromExcelDT.Columns.Add(new DataColumn(("MainOrderID"), System.Type.GetType("System.Int32")));
+            FrontsFromExcelDT.Columns.Add(new DataColumn(("Info"), System.Type.GetType("System.String")));
             FrontsFromExcelDT.Columns.Add(new DataColumn(("ConfigID"), System.Type.GetType("System.Int32")));
             FrontsFromExcelDT.Columns.Add(new DataColumn(("Length"), System.Type.GetType("System.Int32")));
             FrontsFromExcelDT.Columns.Add(new DataColumn(("Height"), System.Type.GetType("System.Int32")));
@@ -20088,7 +20090,7 @@ namespace Infinium.Modules.Marketing.NewOrders
                     string[] rowData = row.Split(new char[] { '\r', '\x09' });
                     if (rowData[0].ToString() == string.Empty || rowData[2].ToString() == string.Empty)
                         continue;
-                    if (rowData.Length != 9)
+                    if (rowData.Length != 10)
                     {
                         MessageBox.Show("Скопированы неверные данные");
                         return;
@@ -20188,8 +20190,8 @@ namespace Infinium.Modules.Marketing.NewOrders
 
             using (DataView DV = new DataView(SourceDT))
             {
-                DV.Sort = "MegaOrderID, MainOrderID";
-                DT = DV.ToTable(true, new string[] { "MegaOrderID", "MainOrderID" });
+                DV.Sort = "MegaOrderID, MainOrderID, Info";
+                DT = DV.ToTable(true, new string[] { "MegaOrderID", "MainOrderID", "Info" });
             }
 
             return DT;
@@ -20214,12 +20216,13 @@ namespace Infinium.Modules.Marketing.NewOrders
                 CreateMegaOrder(ClientID, DocDateTime);
                 using (DataView DV = new DataView(OrdersFromExcelDT, "MegaOrderID=" + MegaOrderID, "MainOrderID", DataViewRowState.CurrentRows))
                 {
-                    DT2 = DV.ToTable(true, new string[] { "MainOrderID" });
+                    DT2 = DV.ToTable(true, new string[] { "MainOrderID", "Info" });
                 }
                 for (int j = 0; j < DT2.Rows.Count; j++)
                 {
                     int MainOrderID = Convert.ToInt32(DT2.Rows[j]["MainOrderID"]);
-                    CreateNewMainOrder(DocDateTime, MainOrderID.ToString());
+                    string info = DT2.Rows[j]["Info"].ToString();
+                    CreateNewMainOrder(DocDateTime, info);
 
                     DataRow[] FrontsRows = FrontsFromExcelDT.Select("MegaOrderID = " + MegaOrderID + " AND MainOrderID=" + MainOrderID);
                     if (FrontsRows.Count() > 0)

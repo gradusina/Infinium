@@ -1,4 +1,6 @@
-﻿using Infinium.Modules.Admin;
+﻿using ComponentFactory.Krypton.Toolkit;
+
+using Infinium.Modules.Admin;
 
 using System;
 using System.Data;
@@ -32,7 +34,6 @@ namespace Infinium
         }
 
         int absenceTypeId = 0;
-        int factoryId = 1;
 
         //----------------------------------------------
         DateTime Date;
@@ -130,7 +131,6 @@ namespace Infinium
             absencesDataGrid.Columns.Add(_absenceJournal.DateFinishColumn);
 
             absencesDataGrid.Columns["AbsenceID"].Visible = false;
-            absencesDataGrid.Columns["FactoryID"].Visible = false;
             absencesDataGrid.Columns["PositionID"].Visible = false;
             absencesDataGrid.Columns["UserID"].Visible = false;
             absencesDataGrid.Columns["DateStart"].Visible = false;
@@ -835,45 +835,45 @@ namespace Infinium
 
         private void AbsenceTypesRadioButtons_CheckedChanged(object sender, EventArgs e)
         {
-            if (kryptonRadioButton0.Checked)
-                absenceTypeId = 1;
-            else if (kryptonRadioButton1.Checked)
-                absenceTypeId = 2;
-            else if (kryptonRadioButton2.Checked)
-                absenceTypeId = 3;
-            else if (kryptonRadioButton3.Checked)
-                absenceTypeId = 4;
-            else if (kryptonRadioButton4.Checked)
-                absenceTypeId = 5;
-            else if (kryptonRadioButton5.Checked)
-                absenceTypeId = 6;
-            else if (kryptonRadioButton6.Checked)
-                absenceTypeId = 7;
-            else if (kryptonRadioButton7.Checked)
-                absenceTypeId = 8;
-            else if (kryptonRadioButton8.Checked)
-                absenceTypeId = 9;
-            else if (kryptonRadioButton9.Checked)
-                absenceTypeId = 10;
-            else if (kryptonRadioButton10.Checked)
-                absenceTypeId = 11;
-            else if (kryptonRadioButton11.Checked)
-                absenceTypeId = 12;
-            else if (kryptonRadioButton1.Checked)
-                absenceTypeId = 13;
+            KryptonRadioButton radioButton = (KryptonRadioButton)sender;
+            if (radioButton != null && radioButton.Tag != null && radioButton.Tag != DBNull.Value)
+                absenceTypeId = Convert.ToInt32(radioButton.Tag);
 
-            if (rbtnProfil.Checked)
-                factoryId = 1;
-            if (rbtnTPS.Checked)
-                factoryId = 2;
+            _absenceJournal.FilterAbsenceJournal(absenceTypeId);
 
-            _absenceJournal.FilterAbsenceJournal(absenceTypeId, factoryId);
+            //if (kryptonRadioButton0.Checked)
+            //    absenceTypeId = 1;
+            //else if (kryptonRadioButton1.Checked)
+            //    absenceTypeId = 2;
+            //else if (kryptonRadioButton2.Checked)
+            //    absenceTypeId = 3;
+            //else if (kryptonRadioButton3.Checked)
+            //    absenceTypeId = 4;
+            //else if (kryptonRadioButton4.Checked)
+            //    absenceTypeId = 5;
+            //else if (kryptonRadioButton5.Checked)
+            //    absenceTypeId = 6;
+            //else if (kryptonRadioButton6.Checked)
+            //    absenceTypeId = 7;
+            //else if (kryptonRadioButton7.Checked)
+            //    absenceTypeId = 8;
+            //else if (kryptonRadioButton8.Checked)
+            //    absenceTypeId = 9;
+            //else if (kryptonRadioButton9.Checked)
+            //    absenceTypeId = 10;
+            //else if (kryptonRadioButton10.Checked)
+            //    absenceTypeId = 11;
+            //else if (kryptonRadioButton11.Checked)
+            //    absenceTypeId = 12;
+            //else if (kryptonRadioButton12.Checked)
+            //    absenceTypeId = 13;
+            //else if (kryptonRadioButton13.Checked)
+            //    absenceTypeId = 14;
         }
 
         private void absencesDataGrid_DefaultValuesNeeded(object sender, DataGridViewRowEventArgs e)
         {
             e.Row.Cells["AbsenceTypeID"].Value = absenceTypeId;
-            e.Row.Cells["FactoryID"].Value = factoryId;
         }
 
         private void kryptonButton2_Click(object sender, EventArgs e)
