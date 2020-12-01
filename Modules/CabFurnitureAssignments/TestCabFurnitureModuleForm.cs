@@ -1,6 +1,5 @@
 ﻿using ComponentFactory.Krypton.Toolkit;
 
-using Infinium.Modules.CabFurnitureAssignments;
 using Infinium.Modules.CabFurnitureModule;
 
 using System;
@@ -13,7 +12,7 @@ using System.Windows.Forms;
 
 namespace Infinium
 {
-    public partial class CabFurnitureModuleForm : Form
+    public partial class TestCabFurnitureModuleForm : Form
     {
         const int iResponsibleRole = 58;
         const int iTechnologyRole = 59;
@@ -53,7 +52,6 @@ namespace Infinium
         AssignmentsManager AssignmentsManager;
         ComplementsManager ComplementsManager;
         PackagesManager PackagesManager;
-        CabFurStorage cabFurStorage;
         Infinium.Modules.CabFurnitureModule.CheckLabel CheckLabel;
         //RoleTypes RoleType = RoleTypes.OrdinaryRole;
 
@@ -68,7 +66,7 @@ namespace Infinium
         //    WorkerRole = 6
         //}
 
-        public CabFurnitureModuleForm(LightStartForm tLightStartForm)
+        public TestCabFurnitureModuleForm(LightStartForm tLightStartForm)
         {
             InitializeComponent();
             LightStartForm = tLightStartForm;
@@ -237,133 +235,114 @@ namespace Infinium
         private void Initialize()
         {
 
-            //DateTime FirstDay = DateTime.Now.AddDays(-100);
-            //DateTime Today = DateTime.Now;
+            DateTime FirstDay = DateTime.Now.AddDays(-100);
+            DateTime Today = DateTime.Now;
 
-            //DateTimePicker1.Value = FirstDay;
+            DateTimePicker1.Value = FirstDay;
 
-            //complementLabel = new ComplementLabel();
-            //packageLabel = new PackageLabel();
+            complementLabel = new ComplementLabel();
+            packageLabel = new PackageLabel();
 
-            //AssignmentsManager = new AssignmentsManager();
-            //AssignmentsManager.Initialize();
+            AssignmentsManager = new AssignmentsManager();
+            AssignmentsManager.Initialize();
 
-            //ComplementsManager = new ComplementsManager();
-            //PackagesManager = new PackagesManager();
+            ComplementsManager = new ComplementsManager();
+            PackagesManager = new PackagesManager();
 
+            CheckLabel = new Modules.CabFurnitureModule.CheckLabel();
+            dgvScan.DataSource = CheckLabel.ScanContentBS;
+            dgvScanDetailsSetting(ref dgvScan);
 
-            //CheckLabel = new Modules.CabFurnitureModule.CheckLabel();
-            //dgvScan.DataSource = CheckLabel.ScanContentBS;
-            //dgvScanDetailsSetting(ref dgvScan);
+            cmbxTechStore.DataSource = AssignmentsManager.TechStoreBS;
+            cmbxTechStore.DisplayMember = "TechStoreName";
+            cmbxTechStore.ValueMember = "TechStoreID";
+            cmbxTechStoreSubGroups.DataSource = AssignmentsManager.TechStoreSubGroupsBS;
+            cmbxTechStoreSubGroups.DisplayMember = "TechStoreSubGroupName";
+            cmbxTechStoreSubGroups.ValueMember = "TechStoreSubGroupID";
+            cmbxTechStoreGroups.DataSource = AssignmentsManager.TechStoreGroupsBS;
+            cmbxTechStoreGroups.DisplayMember = "TechStoreGroupName";
+            cmbxTechStoreGroups.ValueMember = "TechStoreGroupID";
+            cmbxCovers.DataSource = AssignmentsManager.CoversBS;
+            cmbxCovers.DisplayMember = "CoverName";
+            cmbxCovers.ValueMember = "CoverID";
+            cmbxPatina.DataSource = AssignmentsManager.PatinaBS;
+            cmbxPatina.DisplayMember = "PatinaName";
+            cmbxPatina.ValueMember = "PatinaID";
 
-            //cmbxTechStore.DataSource = AssignmentsManager.TechStoreBS;
-            //cmbxTechStore.DisplayMember = "TechStoreName";
-            //cmbxTechStore.ValueMember = "TechStoreID";
-            //cmbxTechStoreSubGroups.DataSource = AssignmentsManager.TechStoreSubGroupsBS;
-            //cmbxTechStoreSubGroups.DisplayMember = "TechStoreSubGroupName";
-            //cmbxTechStoreSubGroups.ValueMember = "TechStoreSubGroupID";
-            //cmbxTechStoreGroups.DataSource = AssignmentsManager.TechStoreGroupsBS;
-            //cmbxTechStoreGroups.DisplayMember = "TechStoreGroupName";
-            //cmbxTechStoreGroups.ValueMember = "TechStoreGroupID";
-            //cmbxCovers.DataSource = AssignmentsManager.CoversBS;
-            //cmbxCovers.DisplayMember = "CoverName";
-            //cmbxCovers.ValueMember = "CoverID";
-            //cmbxPatina.DataSource = AssignmentsManager.PatinaBS;
-            //cmbxPatina.DisplayMember = "PatinaName";
-            //cmbxPatina.ValueMember = "PatinaID";
+            cmbxInsetColors.DataSource = AssignmentsManager.BasicInsetColorsBS;
+            cmbxInsetColors.DisplayMember = "InsetColorName";
+            cmbxInsetColors.ValueMember = "InsetColorID";
 
-            //cmbxInsetColors.DataSource = AssignmentsManager.BasicInsetColorsBS;
-            //cmbxInsetColors.DisplayMember = "InsetColorName";
-            //cmbxInsetColors.ValueMember = "InsetColorID";
+            dgvComplements.DataSource = ComplementsManager.ComplementsBS;
+            dgvMainOrders.DataSource = ComplementsManager.MainOrdersBS;
+            dgvComplementLabels.DataSource = ComplementsManager.ComplementLabelsBS;
+            dgvComplementDetails.DataSource = ComplementsManager.ComplementDetailsBS;
 
-            //dgvComplements.DataSource = ComplementsManager.ComplementsBS;
-            //dgvMainOrders.DataSource = ComplementsManager.MainOrdersBS;
-            //dgvComplementLabels.DataSource = ComplementsManager.ComplementLabelsBS;
-            //dgvComplementDetails.DataSource = ComplementsManager.ComplementDetailsBS;
+            dgvPackages.DataSource = PackagesManager.PackagesBS;
+            dgvPackagesLabels.DataSource = PackagesManager.PackageLabelsBS;
+            dgvPackagesDetails.DataSource = PackagesManager.PackageDetailsBS;
 
-            //dgvPackages.DataSource = PackagesManager.PackagesBS;
-            //dgvPackagesLabels.DataSource = PackagesManager.PackageLabelsBS;
-            //dgvPackagesDetails.DataSource = PackagesManager.PackageDetailsBS;
+            dgvDocuments.DataSource = AssignmentsManager.DocumentsBS;
+            dgvNewAssignment.DataSource = AssignmentsManager.NewAssignmentDetailsBS;
+            percentageDataGrid1.DataSource = AssignmentsManager.NewAssignmentDetailsBS;
+            dgvAllAssignments.DataSource = AssignmentsManager.AllAssignmentsBS;
 
-            //dgvDocuments.DataSource = AssignmentsManager.DocumentsBS;
-            //dgvNewAssignment.DataSource = AssignmentsManager.NewAssignmentDetailsBS;
-            //percentageDataGrid1.DataSource = AssignmentsManager.NewAssignmentDetailsBS;
-            //dgvAllAssignments.DataSource = AssignmentsManager.AllAssignmentsBS;
+            AssignmentsManager.NonAgreementOrders(true, ref NonAgreementCount);
+            AssignmentsManager.AgreedOrders(true, ref AgreedCount);
+            AssignmentsManager.OnProductionOrders(true, ref OnProdCount);
+            AssignmentsManager.InProductionOrders(true, ref InProdCount);
+            AssignmentsManager.OnStorageOrders(true, ref OnStoreCount);
+            AssignmentsManager.OnExpeditionOrders(true, ref OnExpCount);
 
-            //AssignmentsManager.NonAgreementOrders(true, ref NonAgreementCount);
-            //AssignmentsManager.AgreedOrders(true, ref AgreedCount);
-            //AssignmentsManager.OnProductionOrders(true, ref OnProdCount);
-            //AssignmentsManager.InProductionOrders(true, ref InProdCount);
-            //AssignmentsManager.OnStorageOrders(true, ref OnStoreCount);
-            //AssignmentsManager.OnExpeditionOrders(true, ref OnExpCount);
+            NonAgreementDataGrid.DataSource = AssignmentsManager.NonAgreementDetailBS;
+            AgreedDataGrid.DataSource = AssignmentsManager.AgreedDetailBS;
+            OnProductionDataGrid.DataSource = AssignmentsManager.OnProductionDetailBS;
+            InProductionDataGrid.DataSource = AssignmentsManager.InProductionDetailBS;
+            OnStorageDataGrid.DataSource = AssignmentsManager.OnStorageDetailBS;
+            OnExpeditionDataGrid.DataSource = AssignmentsManager.OnExpeditionDetailBS;
 
-            //NonAgreementDataGrid.DataSource = AssignmentsManager.NonAgreementDetailBS;
-            //AgreedDataGrid.DataSource = AssignmentsManager.AgreedDetailBS;
-            //OnProductionDataGrid.DataSource = AssignmentsManager.OnProductionDetailBS;
-            //InProductionDataGrid.DataSource = AssignmentsManager.InProductionDetailBS;
-            //OnStorageDataGrid.DataSource = AssignmentsManager.OnStorageDetailBS;
-            //OnExpeditionDataGrid.DataSource = AssignmentsManager.OnExpeditionDetailBS;
+            dgvComplementsSetting(ref dgvComplements);
+            dgvMainOrdersSetting(ref dgvMainOrders);
+            dgvComplementLabelsSetting(ref dgvComplementLabels);
+            dgvComplementDetailsSetting(ref dgvComplementDetails);
 
-            //dgvComplementsSetting(ref dgvComplements);
-            //dgvMainOrdersSetting(ref dgvMainOrders);
-            //dgvComplementLabelsSetting(ref dgvComplementLabels);
-            //dgvComplementDetailsSetting(ref dgvComplementDetails);
+            dgvPackagesSetting(ref dgvPackages);
+            dgvPackagesLabelsSetting(ref dgvPackagesLabels);
+            dgvPackagesDetailsSetting(ref dgvPackagesDetails);
 
-            //dgvPackagesSetting(ref dgvPackages);
-            //dgvPackagesLabelsSetting(ref dgvPackagesLabels);
-            //dgvPackagesDetailsSetting(ref dgvPackagesDetails);
+            dgvDocumentsSetting(ref dgvDocuments);
 
-            //dgvDocumentsSetting(ref dgvDocuments);
+            dgvDetailsSetting(true, ref NonAgreementDataGrid);
+            dgvDetailsSetting(true, ref AgreedDataGrid);
+            dgvDetailsSetting(true, ref OnProductionDataGrid);
+            dgvDetailsSetting(true, ref InProductionDataGrid);
+            dgvDetailsSetting(true, ref OnStorageDataGrid);
+            dgvDetailsSetting(true, ref OnExpeditionDataGrid);
 
-            //dgvDetailsSetting(true, ref NonAgreementDataGrid);
-            //dgvDetailsSetting(true, ref AgreedDataGrid);
-            //dgvDetailsSetting(true, ref OnProductionDataGrid);
-            //dgvDetailsSetting(true, ref InProductionDataGrid);
-            //dgvDetailsSetting(true, ref OnStorageDataGrid);
-            //dgvDetailsSetting(true, ref OnExpeditionDataGrid);
+            dgvNewAssignmentSetting(ref dgvNewAssignment);
+            dgvNewAssignmentSetting(ref percentageDataGrid1);
+            dgvAllAssignmentsSetting(ref dgvAllAssignments);
 
-            //dgvNewAssignmentSetting(ref dgvNewAssignment);
-            //dgvNewAssignmentSetting(ref percentageDataGrid1);
-            //dgvAllAssignmentsSetting(ref dgvAllAssignments);
+            AssignmentsManager.UpdateNewAssignment(0);
+            AssignmentsManager.UpdateDocuments();
+            AssignmentsManager.UpdateAllAssignments();
+            AssignmentsManager.FilterAllAssignments(true, true, true, true, true);
 
-            //AssignmentsManager.UpdateNewAssignment(0);
-            //AssignmentsManager.UpdateDocuments();
-            //AssignmentsManager.UpdateAllAssignments();
-            //AssignmentsManager.FilterAllAssignments(true, true, true, true, true);
+            label11.Text = NonAgreementCount.ToString() + " шт.";
+            label6.Text = AgreedCount.ToString() + " шт.";
+            label27.Text = OnProdCount.ToString() + " шт.";
+            label16.Text = InProdCount.ToString() + " шт.";
+            label41.Text = OnStoreCount.ToString() + " шт.";
+            label34.Text = OnExpCount.ToString() + " шт.";
 
+            BarcodeLabel.Text = "";
+            CheckPicture.Visible = false;
 
-            //label11.Text = NonAgreementCount.ToString() + " шт.";
-            //label6.Text = AgreedCount.ToString() + " шт.";
-            //label27.Text = OnProdCount.ToString() + " шт.";
-            //label16.Text = InProdCount.ToString() + " шт.";
-            //label41.Text = OnStoreCount.ToString() + " шт.";
-            //label34.Text = OnExpCount.ToString() + " шт.";
+            BarcodeLabel.ForeColor = Color.FromArgb(240, 0, 0);
 
-            //BarcodeLabel.Text = "";
-            //CheckPicture.Visible = false;
+            ClearControls();
 
-            //BarcodeLabel.ForeColor = Color.FromArgb(240, 0, 0);
-
-            //ClearControls();
-
-            //CheckLabel.Clear();
-
-
-            cabFurStorage = new CabFurStorage();
-            CabStorageSetting();
-        }
-
-        private void CabStorageSetting()
-        {
-            cmbxWorkShops.DataSource = cabFurStorage.workShopsBs;
-            cmbxWorkShops.DisplayMember = "Name";
-            cmbxWorkShops.ValueMember = "WorkShopID";
-
-            cmbxRacks.DataSource = cabFurStorage.racksBs;
-            cmbxRacks.DisplayMember = "Name";
-            cmbxRacks.ValueMember = "RackID";
-
-            dgvCells.DataSource = cabFurStorage.cellsBs;
+            CheckLabel.Clear();
         }
 
         private void dgvDocumentsSetting(ref PercentageDataGrid grid)
@@ -974,8 +953,8 @@ namespace Infinium
 
         private void kryptonCheckSet3_CheckedButtonChanged(object sender, EventArgs e)
         {
-            //if (AssignmentsManager == null)
-            //    return;
+            if (AssignmentsManager == null)
+                return;
 
 
             Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных.\r\nПодождите..."); });
@@ -1021,11 +1000,6 @@ namespace Infinium
             {
                 //pnlOrdersCondition.BringToFront();
                 tabControl1.SelectedIndex = 5;
-            }
-            if (kryptonCheckSet3.CheckedButton == cbtnStorage)
-            {
-                //pnlOrdersCondition.BringToFront();
-                tabControl1.SelectedIndex = 6;
             }
             NeedSplash = true;
             while (SplashWindow.bSmallCreated)
@@ -2763,294 +2737,6 @@ namespace Infinium
             NeedSplash = true;
             while (SplashWindow.bSmallCreated)
                 SmallWaitForm.CloseS = true;
-        }
-
-        private void btnAddWorkShop_Click(object sender, EventArgs e)
-        {
-            if (cabFurStorage == null)
-                return;
-            PhantomForm PhantomForm = new PhantomForm();
-            PhantomForm.Show();
-
-            NewCabFurWorkShopForm newCabFurWorkShopForm = new NewCabFurWorkShopForm();
-
-            TopForm = newCabFurWorkShopForm;
-
-            newCabFurWorkShopForm.ShowDialog();
-
-            PhantomForm.Close();
-            PhantomForm.Dispose();
-
-            TopForm = null;
-
-            bool bOk = newCabFurWorkShopForm.bOk;
-            string sName = newCabFurWorkShopForm.sName;
-
-            newCabFurWorkShopForm.Dispose();
-
-            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Обновление.\r\nПодождите..."); });
-            T.Start();
-            while (!SplashWindow.bSmallCreated) ;
-            NeedSplash = false;
-
-            if (bOk)
-            {
-                cabFurStorage.AddWorkShop(sName);
-                cabFurStorage.SaveWorkShops();
-                cabFurStorage.UpdateWorkShops();
-                cabFurStorage.SetWorkShopPosition(cabFurStorage.MaxWorkShopId);
-            }
-
-            NeedSplash = true;
-            while (SplashWindow.bSmallCreated)
-                SmallWaitForm.CloseS = true;
-        }
-
-        private void btnEditWorkShop_Click(object sender, EventArgs e)
-        {
-            if (cabFurStorage == null || !cabFurStorage.HasWorkShops || cabFurStorage.CurrentWorkShopId == -1)
-                return;
-
-            string oldName = cabFurStorage.CurrentWorkShopName;
-            int workShopId = cabFurStorage.CurrentWorkShopId;
-
-            PhantomForm PhantomForm = new PhantomForm();
-            PhantomForm.Show();
-
-            NewCabFurWorkShopForm newCabFurWorkShopForm = new NewCabFurWorkShopForm(oldName);
-
-            TopForm = newCabFurWorkShopForm;
-
-            newCabFurWorkShopForm.ShowDialog();
-
-            PhantomForm.Close();
-            PhantomForm.Dispose();
-
-            TopForm = null;
-
-            bool bOk = newCabFurWorkShopForm.bOk;
-            string sName = newCabFurWorkShopForm.sName;
-
-            newCabFurWorkShopForm.Dispose();
-
-            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Обновление.\r\nПодождите..."); });
-            T.Start();
-            while (!SplashWindow.bSmallCreated) ;
-            NeedSplash = false;
-
-            if (bOk)
-            {
-                cabFurStorage.EditWorkShop(cabFurStorage.CurrentWorkShopId, sName);
-                cabFurStorage.SaveWorkShops();
-                cabFurStorage.UpdateWorkShops();
-                cabFurStorage.SetWorkShopPosition(workShopId);
-            }
-
-            NeedSplash = true;
-            while (SplashWindow.bSmallCreated)
-                SmallWaitForm.CloseS = true;
-        }
-
-        private void btnRemoveWorkShop_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void btnAddRack_Click(object sender, EventArgs e)
-        {
-            if (cabFurStorage == null || !cabFurStorage.HasWorkShops || cabFurStorage.CurrentWorkShopId == -1)
-                return;
-            PhantomForm PhantomForm = new PhantomForm();
-            PhantomForm.Show();
-
-            NewCabFurRackForm newCabFurRackForm = new NewCabFurRackForm();
-
-            TopForm = newCabFurRackForm;
-
-            newCabFurRackForm.ShowDialog();
-
-            PhantomForm.Close();
-            PhantomForm.Dispose();
-
-            TopForm = null;
-
-            bool bOk = newCabFurRackForm.bOk;
-            string sName = newCabFurRackForm.newName;
-
-            newCabFurRackForm.Dispose();
-
-            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Обновление.\r\nПодождите..."); });
-            T.Start();
-            while (!SplashWindow.bSmallCreated) ;
-            NeedSplash = false;
-
-            if (bOk)
-            {
-                cabFurStorage.AddRack(sName, cabFurStorage.CurrentWorkShopId);
-                cabFurStorage.SaveRacks();
-                cabFurStorage.UpdateRacks();
-                cabFurStorage.SetRackPosition(cabFurStorage.MaxRackId);
-            }
-
-            NeedSplash = true;
-            while (SplashWindow.bSmallCreated)
-                SmallWaitForm.CloseS = true;
-        }
-
-        private void btnEditRack_Click(object sender, EventArgs e)
-        {
-            if (cabFurStorage == null || !cabFurStorage.HasRacks || cabFurStorage.CurrentRackId == -1)
-                return;
-
-            string oldName = cabFurStorage.CurrentRackName;
-            int rackId = cabFurStorage.CurrentRackId;
-
-            PhantomForm PhantomForm = new PhantomForm();
-            PhantomForm.Show();
-
-            NewCabFurRackForm newCabFurRackForm = new NewCabFurRackForm(oldName);
-
-            TopForm = newCabFurRackForm;
-
-            newCabFurRackForm.ShowDialog();
-
-            PhantomForm.Close();
-            PhantomForm.Dispose();
-
-            TopForm = null;
-
-            bool bOk = newCabFurRackForm.bOk;
-            string sName = newCabFurRackForm.newName;
-
-            newCabFurRackForm.Dispose();
-
-            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Обновление.\r\nПодождите..."); });
-            T.Start();
-            while (!SplashWindow.bSmallCreated) ;
-            NeedSplash = false;
-
-            if (bOk)
-            {
-                cabFurStorage.EditRack(cabFurStorage.CurrentRackId, sName);
-                cabFurStorage.SaveRacks();
-                cabFurStorage.UpdateRacks();
-                cabFurStorage.SetRackPosition(rackId);
-            }
-
-            NeedSplash = true;
-            while (SplashWindow.bSmallCreated)
-                SmallWaitForm.CloseS = true;
-        }
-
-        private void cmbxWorkShops_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (cabFurStorage == null)
-                return;
-            int workShopID = -1;
-            if (cmbxWorkShops.SelectedItem != null && ((DataRowView)cmbxWorkShops.SelectedItem).Row["WorkShopID"] != DBNull.Value)
-                workShopID = Convert.ToInt32(((DataRowView)cmbxWorkShops.SelectedItem).Row["WorkShopID"]);
-            cabFurStorage.FilterRacksByWorkShop(workShopID);
-            //cmbxRacks_SelectedIndexChanged(null, null);
-        }
-
-        private void cmbxRacks_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (cabFurStorage == null)
-                return;
-            int rackId = -1;
-            if (cmbxRacks.SelectedItem != null && ((DataRowView)cmbxRacks.SelectedItem).Row["RackID"] != DBNull.Value)
-                rackId = Convert.ToInt32(((DataRowView)cmbxRacks.SelectedItem).Row["RackID"]);
-            cabFurStorage.FilterCellsByRack(rackId);
-        }
-
-        private void btnAddCell_Click(object sender, EventArgs e)
-        {
-            if (cabFurStorage == null || !cabFurStorage.HasRacks || cabFurStorage.CurrentRackId == -1 || !cabFurStorage.HasWorkShops || cabFurStorage.CurrentWorkShopId == -1)
-                return;
-            PhantomForm PhantomForm = new PhantomForm();
-            PhantomForm.Show();
-
-            NewCabFurCellForm newCabFurCellForm = new NewCabFurCellForm();
-
-            TopForm = newCabFurCellForm;
-
-            newCabFurCellForm.ShowDialog();
-
-            PhantomForm.Close();
-            PhantomForm.Dispose();
-
-            TopForm = null;
-
-            bool bOk = newCabFurCellForm.bOk;
-            string sName = newCabFurCellForm.sName;
-
-            newCabFurCellForm.Dispose();
-
-            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Обновление.\r\nПодождите..."); });
-            T.Start();
-            while (!SplashWindow.bSmallCreated) ;
-            NeedSplash = false;
-
-            if (bOk)
-            {
-                cabFurStorage.AddCell(sName, cabFurStorage.CurrentRackId);
-                cabFurStorage.SaveCells();
-                cabFurStorage.UpdateCells();
-                //cabFurStorage.SetRackPosition(cabFurStorage.MaxRackId);
-            }
-
-            NeedSplash = true;
-            while (SplashWindow.bSmallCreated)
-                SmallWaitForm.CloseS = true;
-        }
-
-        private void btnEditCell_Click(object sender, EventArgs e)
-        {
-            if (cabFurStorage == null || !cabFurStorage.HasCells || cabFurStorage.CurrentCellId == -1)
-                return;
-
-            string oldName = cabFurStorage.CurrentCellName;
-            int rackId = cabFurStorage.CurrentCellId;
-
-            PhantomForm PhantomForm = new PhantomForm();
-            PhantomForm.Show();
-
-            NewCabFurCellForm newCabFurCellForm = new NewCabFurCellForm(oldName);
-
-            TopForm = newCabFurCellForm;
-
-            newCabFurCellForm.ShowDialog();
-
-            PhantomForm.Close();
-            PhantomForm.Dispose();
-
-            TopForm = null;
-
-            bool bOk = newCabFurCellForm.bOk;
-            string sName = newCabFurCellForm.sName;
-
-            newCabFurCellForm.Dispose();
-
-            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Обновление.\r\nПодождите..."); });
-            T.Start();
-            while (!SplashWindow.bSmallCreated) ;
-            NeedSplash = false;
-
-            if (bOk)
-            {
-                cabFurStorage.EditCell(cabFurStorage.CurrentCellId, sName);
-                cabFurStorage.SaveCells();
-                cabFurStorage.UpdateCells();
-                //cabFurStorage.SetRackPosition(rackId);
-            }
-
-            NeedSplash = true;
-            while (SplashWindow.bSmallCreated)
-                SmallWaitForm.CloseS = true;
-        }
-
-        private void btnRemoveCell_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }

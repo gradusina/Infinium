@@ -196,19 +196,19 @@ namespace Infinium
             int InsetColorID = 0;
             int PatinaID1 = 0;
             int PatinaID2 = 0;
-            if (cbInsetColors.SelectedItem != null || ((DataRowView)cbInsetColors.SelectedItem).Row["InsetColorID"] != DBNull.Value)
+            if (cbInsetColors.SelectedItem != null && ((DataRowView)cbInsetColors.SelectedItem).Row["InsetColorID"] != DBNull.Value)
                 InsetColorID = Convert.ToInt32(((DataRowView)cbInsetColors.SelectedItem).Row["InsetColorID"]);
-            if (cbCovers1.SelectedItem != null || ((DataRowView)cbCovers1.SelectedItem).Row["CoverID"] != DBNull.Value)
+            if (cbCovers1.SelectedItem != null && ((DataRowView)cbCovers1.SelectedItem).Row["CoverID"] != DBNull.Value)
                 CoverID1 = Convert.ToInt32(((DataRowView)cbCovers1.SelectedItem).Row["CoverID"]);
-            if (cbCovers2.SelectedItem != null || ((DataRowView)cbCovers2.SelectedItem).Row["CoverID"] != DBNull.Value)
+            if (cbCovers2.SelectedItem != null && ((DataRowView)cbCovers2.SelectedItem).Row["CoverID"] != DBNull.Value)
                 CoverID2 = Convert.ToInt32(((DataRowView)cbCovers2.SelectedItem).Row["CoverID"]);
-            if (cbTechStore.SelectedItem != null || ((DataRowView)cbTechStore.SelectedItem).Row["TechStoreID"] != DBNull.Value)
+            if (cbTechStore.SelectedItem != null && ((DataRowView)cbTechStore.SelectedItem).Row["TechStoreID"] != DBNull.Value)
                 TechStoreID = Convert.ToInt32(((DataRowView)cbTechStore.SelectedItem).Row["TechStoreID"]);
-            if (cbTechStoreSubGroups.SelectedItem != null || ((DataRowView)cbTechStoreSubGroups.SelectedItem).Row["TechStoreSubGroupID"] != DBNull.Value)
+            if (cbTechStoreSubGroups.SelectedItem != null && ((DataRowView)cbTechStoreSubGroups.SelectedItem).Row["TechStoreSubGroupID"] != DBNull.Value)
                 TechStoreSubGroupID = Convert.ToInt32(((DataRowView)cbTechStoreSubGroups.SelectedItem).Row["TechStoreSubGroupID"]);
-            if (cbPatina1.SelectedItem != null || ((DataRowView)cbPatina1.SelectedItem).Row["PatinaID"] != DBNull.Value)
+            if (cbPatina1.SelectedItem != null && ((DataRowView)cbPatina1.SelectedItem).Row["PatinaID"] != DBNull.Value)
                 PatinaID1 = Convert.ToInt32(((DataRowView)cbPatina1.SelectedItem).Row["PatinaID"]);
-            if (cbPatina2.SelectedItem != null || ((DataRowView)cbPatina2.SelectedItem).Row["PatinaID"] != DBNull.Value)
+            if (cbPatina2.SelectedItem != null && ((DataRowView)cbPatina2.SelectedItem).Row["PatinaID"] != DBNull.Value)
                 PatinaID2 = Convert.ToInt32(((DataRowView)cbPatina2.SelectedItem).Row["PatinaID"]);
 
             if (cbAddSubGroup.Checked)
@@ -273,7 +273,7 @@ namespace Infinium
             if (AssignmentsManager == null)
                 return;
             int TechStoreGroupID = 0;
-            if (cbTechStoreGroups.SelectedItem != null || ((DataRowView)cbTechStoreGroups.SelectedItem).Row["TechStoreGroupID"] != DBNull.Value)
+            if (cbTechStoreGroups.SelectedItem != null && ((DataRowView)cbTechStoreGroups.SelectedItem).Row["TechStoreGroupID"] != DBNull.Value)
                 TechStoreGroupID = Convert.ToInt32(((DataRowView)cbTechStoreGroups.SelectedItem).Row["TechStoreGroupID"]);
             AssignmentsManager.FilterBasicTechStoreSubGroups(TechStoreGroupID);
             cbTechStoreSubGroups_SelectedIndexChanged(null, null);
@@ -284,7 +284,7 @@ namespace Infinium
             if (AssignmentsManager == null)
                 return;
             int TechStoreSubGroupID = 0;
-            if (cbTechStoreSubGroups.SelectedItem != null || ((DataRowView)cbTechStoreSubGroups.SelectedItem).Row["TechStoreSubGroupID"] != DBNull.Value)
+            if (cbTechStoreSubGroups.SelectedItem != null && ((DataRowView)cbTechStoreSubGroups.SelectedItem).Row["TechStoreSubGroupID"] != DBNull.Value)
                 TechStoreSubGroupID = Convert.ToInt32(((DataRowView)cbTechStoreSubGroups.SelectedItem).Row["TechStoreSubGroupID"]);
             AssignmentsManager.FilterBasicTechStore(TechStoreSubGroupID);
         }
