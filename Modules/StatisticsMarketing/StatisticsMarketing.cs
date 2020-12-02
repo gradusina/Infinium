@@ -7852,80 +7852,98 @@ ORDER BY infiniu2_zovreference.dbo.Clients.ClientName, MainOrders.DocNumber";
             }
         }
 
-        public void NBRBDailyRates(DateTime date, ref decimal EURBYRCurrency)
+        public void GetDateRates(DateTime date, ref decimal EURBYRCurrency)
         {
-            string EuroXML = "";
-            string url = "http://www.nbrb.by/Services/XmlExRates.aspx?ondate=" + date.ToString("MM/dd/yyyy");
-
-            HttpWebRequest myHttpWebRequest;
-            HttpWebResponse myHttpWebResponse;
-
-            try
+            using (DataTable DT = new DataTable())
             {
-                myHttpWebRequest = (HttpWebRequest)HttpWebRequest.Create(url);
-                myHttpWebRequest.KeepAlive = false;
-                myHttpWebRequest.AllowAutoRedirect = true;
-                CookieContainer cookieContainer = new CookieContainer();
-                myHttpWebRequest.CookieContainer = cookieContainer;
-                myHttpWebResponse = (HttpWebResponse)myHttpWebRequest.GetResponse();
-            }
-            catch
-            {
-                return;
-            }
-
-            XmlTextReader reader = new XmlTextReader(myHttpWebResponse.GetResponseStream());
-            //XmlTextReader reader = new XmlTextReader("http://www.nbrb.by/Services/XmlExRates.aspx?ondate=" + date.ToString("MM/dd/yyyy"));
-            try
-            {
-                while (reader.Read())
+                using (SqlDataAdapter DA = new SqlDataAdapter(@"SELECT * FROM DateRates WHERE CAST(Date AS Date) = 
+                    '" + date.ToString("yyyy-MM-dd") + "'",
+                    ConnectionStrings.MarketingReferenceConnectionString))
                 {
-                    switch (reader.NodeType)
+                    DA.Fill(DT);
+                    if (DT.Rows.Count > 0)
                     {
-                        case XmlNodeType.Element:
-                            if (reader.Name == "Currency")
-                            {
-                                if (reader.HasAttributes)
-                                {
-                                    while (reader.MoveToNextAttribute())
-                                    {
-                                        if (reader.Name == "Id")
-                                        {
-                                            if (reader.Value == "292")
-                                            {
-                                                reader.MoveToElement();
-                                                EuroXML = reader.ReadOuterXml();
-                                            }
-                                        }
-                                        if (reader.Name == "Id")
-                                        {
-                                            if (reader.Value == "19")
-                                            {
-                                                reader.MoveToElement();
-                                                EuroXML = reader.ReadOuterXml();
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-
-                            break;
+                        EURBYRCurrency = Convert.ToDecimal(DT.Rows[0]["BYN"]);
                     }
                 }
-                XmlDocument euroXmlDocument = new XmlDocument();
-                euroXmlDocument.LoadXml(EuroXML);
-                XmlNode xmlNode = euroXmlDocument.SelectSingleNode("Currency/Rate");
-                bool b = decimal.TryParse(xmlNode.InnerText, out EURBYRCurrency);
-                if (!b)
-                    EURBYRCurrency = Convert.ToDecimal(xmlNode.InnerText = xmlNode.InnerText.Replace('.', ','));
-                else
-                    EURBYRCurrency = Convert.ToDecimal(xmlNode.InnerText);
             }
-            catch (WebException ex)
-            {
-                string s = ex.Message;
-            }
+            return;
         }
+
+        //public void NBRBDailyRates(DateTime date, ref decimal EURBYRCurrency)
+        //{
+        //    string EuroXML = "";
+        //    string url = "http://www.nbrb.by/Services/XmlExRates.aspx?ondate=" + date.ToString("MM/dd/yyyy");
+
+        //    HttpWebRequest myHttpWebRequest;
+        //    HttpWebResponse myHttpWebResponse;
+
+        //    try
+        //    {
+        //        myHttpWebRequest = (HttpWebRequest)HttpWebRequest.Create(url);
+        //        myHttpWebRequest.KeepAlive = false;
+        //        myHttpWebRequest.AllowAutoRedirect = true;
+        //        CookieContainer cookieContainer = new CookieContainer();
+        //        myHttpWebRequest.CookieContainer = cookieContainer;
+        //        myHttpWebResponse = (HttpWebResponse)myHttpWebRequest.GetResponse();
+        //    }
+        //    catch
+        //    {
+        //        return;
+        //    }
+
+        //    XmlTextReader reader = new XmlTextReader(myHttpWebResponse.GetResponseStream());
+        //    //XmlTextReader reader = new XmlTextReader("http://www.nbrb.by/Services/XmlExRates.aspx?ondate=" + date.ToString("MM/dd/yyyy"));
+        //    try
+        //    {
+        //        while (reader.Read())
+        //        {
+        //            switch (reader.NodeType)
+        //            {
+        //                case XmlNodeType.Element:
+        //                    if (reader.Name == "Currency")
+        //                    {
+        //                        if (reader.HasAttributes)
+        //                        {
+        //                            while (reader.MoveToNextAttribute())
+        //                            {
+        //                                if (reader.Name == "Id")
+        //                                {
+        //                                    if (reader.Value == "292")
+        //                                    {
+        //                                        reader.MoveToElement();
+        //                                        EuroXML = reader.ReadOuterXml();
+        //                                    }
+        //                                }
+        //                                if (reader.Name == "Id")
+        //                                {
+        //                                    if (reader.Value == "19")
+        //                                    {
+        //                                        reader.MoveToElement();
+        //                                        EuroXML = reader.ReadOuterXml();
+        //                                    }
+        //                                }
+        //                            }
+        //                        }
+        //                    }
+
+        //                    break;
+        //            }
+        //        }
+        //        XmlDocument euroXmlDocument = new XmlDocument();
+        //        euroXmlDocument.LoadXml(EuroXML);
+        //        XmlNode xmlNode = euroXmlDocument.SelectSingleNode("Currency/Rate");
+        //        bool b = decimal.TryParse(xmlNode.InnerText, out EURBYRCurrency);
+        //        if (!b)
+        //            EURBYRCurrency = Convert.ToDecimal(xmlNode.InnerText = xmlNode.InnerText.Replace('.', ','));
+        //        else
+        //            EURBYRCurrency = Convert.ToDecimal(xmlNode.InnerText);
+        //    }
+        //    catch (WebException ex)
+        //    {
+        //        string s = ex.Message;
+        //    }
+        //}
 
 
         public void CreateZOVDispReport(DateTime date1, DateTime date2, bool IsSample, bool IsNotSample, string FileName, decimal Rate, ArrayList MClients, ArrayList MClientGroups)

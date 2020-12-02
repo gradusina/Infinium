@@ -3129,7 +3129,8 @@ INNER JOIN infiniu2_marketingorders.dbo.MainOrders AS M ON C.MainOrderID=M.MainO
             PackageDetailsBS = new BindingSource();
 
 
-            string SelectCommand = @"SELECT TOP 0 CabFurniturePackageID, CabFurAssignmentDetailID, PackNumber, PackagesCount, TechStoreSubGroupID, PrintDateTime, AddToStorageDateTime, RemoveFromStorageDateTime FROM CabFurniturePackages";
+            string SelectCommand = @"SELECT TOP 0 CabFurniturePackageID, CabFurAssignmentDetailID, PackNumber, PackagesCount, TechStoreSubGroupID, PrintDateTime, AddToStorageDateTime, RemoveFromStorageDateTime, Cells.Name FROM CabFurniturePackages
+                INNER JOIN Cells ON CabFurniturePackages.CellID=Cells.CellID";
             PackageLabelsDA = new SqlDataAdapter(SelectCommand, ConnectionStrings.StorageConnectionString);
             PackageLabelsDA.Fill(PackageLabelsDT);
             PackageLabelsDT.Columns.Add(new DataColumn("Index", Type.GetType("System.Int32")));
@@ -3304,7 +3305,9 @@ INNER JOIN infiniu2_marketingorders.dbo.MainOrders AS M ON C.MainOrderID=M.MainO
             PackageDetailsDA.Fill(PackageDetailsDT);
 
             PackageLabelsDT.Clear();
-            SelectCommand = @"SELECT CabFurniturePackageID, CabFurAssignmentDetailID, PackNumber, PackagesCount, TechStoreSubGroupID, PrintDateTime, AddToStorageDateTime, RemoveFromStorageDateTime FROM CabFurniturePackages WHERE CabFurAssignmentID=" + CabFurAssignmentID;
+            SelectCommand = @"SELECT CabFurniturePackageID, CabFurAssignmentDetailID, PackNumber, PackagesCount, TechStoreSubGroupID, PrintDateTime, AddToStorageDateTime, RemoveFromStorageDateTime, Cells.Name FROM CabFurniturePackages
+                LEFT JOIN Cells ON CabFurniturePackages.CellID=Cells.CellID
+                WHERE CabFurAssignmentID=" + CabFurAssignmentID;
             PackageLabelsDA = new SqlDataAdapter(SelectCommand, ConnectionStrings.StorageConnectionString);
             PackageLabelsDA.Fill(PackageLabelsDT);
 

@@ -80,6 +80,43 @@ namespace Infinium.Modules.CabFurnitureAssignments
             cellsDa.Fill(cellsDt);
         }
 
+        /// <summary>
+        /// привязать упаковки к ячейке
+        /// </summary>
+        /// <param name="cellID"></param>
+        /// <param name="packageIds"></param>
+        public void BindPackagesToCell(int cellID, int[] packageIds)
+        {
+            string filter = string.Empty;
+            foreach (int item in packageIds)
+                filter += item.ToString() + ",";
+            if (filter.Length > 0)
+                filter = "SELECT * FROM CabFurniturePackages WHERE CabFurniturePackageID IN (" + filter.Substring(0, filter.Length - 1) + ")";
+
+            using (SqlDataAdapter DA = new SqlDataAdapter(filter, ConnectionStrings.StorageConnectionString))
+            {
+                using (new SqlCommandBuilder(DA))
+                {
+                    using (DataTable DT = new DataTable())
+                    {
+                        if (DA.Fill(DT) > 0)
+                        {
+                            DateTime dateTime = Security.GetCurrentDate();
+
+                            for (int i = 0; i < DT.Rows.Count; i++)
+                            {
+                                if (DT.Rows[i]["CellID"] == DBNull.Value)
+                                    DT.Rows[i]["CellID"] = cellID;
+                                if (DT.Rows[i]["BindDateTime"] == DBNull.Value)
+                                    DT.Rows[i]["BindDateTime"] = dateTime;
+                            }
+                            DA.Update(DT);
+                        }
+                    }
+                }
+            }
+        }
+
         #region WorkShops
 
         public bool HasWorkShops
@@ -222,6 +259,7 @@ namespace Infinium.Modules.CabFurnitureAssignments
         {
             racksDt.Clear();
             racksDa.Fill(racksDt);
+            racksBs.MoveFirst();
         }
 
         public void SaveRacks()
@@ -304,5 +342,141 @@ namespace Infinium.Modules.CabFurnitureAssignments
         }
 
         #endregion
+    }
+
+
+    public class StoragePackagesManager
+    {
+        DataTable PackageLabelsDT = null;
+        DataTable BindPackageLabelsDT = null;
+        DataTable TempPackageLabelsDT = null;
+        public BindingSource PackageLabelsBS = null;
+        public BindingSource BindPackageLabelsBS = null;
+        SqlDataAdapter PackageLabelsDA;
+        SqlDataAdapter BindPackageLabelsDA;
+
+        DataTable PackageDetailsDT = null;
+        public BindingSource PackageDetailsBS = null;
+        SqlDataAdapter PackageDetailsDA;
+
+        public StoragePackagesManager()
+        {
+            PackageLabelsDT = new DataTable();
+            BindPackageLabelsDT = new DataTable();
+            PackageDetailsDT = new DataTable();
+            TempPackageLabelsDT = new DataTable();
+
+            PackageLabelsBS = new BindingSource();
+            BindPackageLabelsBS = new BindingSource();
+            PackageDetailsBS = new BindingSource();
+
+            string SelectCommand = @"SELECT TOP 0 CabFurniturePackageID, CabFurAssignmentDetailID, PackNumber, PackagesCount, TechStoreSubGroupID, PrintDateTime, AddToStorageDateTime, RemoveFromStorageDateTime, Cells.Name FROM CabFurniturePackages 
+                INNER JOIN Cells ON CabFurniturePackages.CellID=Cells.CellID";
+            PackageLabelsDA = new SqlDataAdapter(SelectCommand, ConnectionStrings.StorageConnectionString);
+            PackageLabelsDA.Fill(PackageLabelsDT);
+            PackageLabelsDT.Columns.Add(new DataColumn("Index", Type.GetType("System.Int32")));
+
+            SelectCommand = @"SELECT TOP 0 CabFurniturePackageID, CabFurAssignmentDetailID, PackNumber, PackagesCount, TechStoreSubGroupID, PrintDateTime, AddToStorageDateTime, RemoveFromStorageDateTime, Cells.Name FROM CabFurniturePackages 
+                INNER JOIN Cells ON CabFurniturePackages.CellID=Cells.CellID";
+            BindPackageLabelsDA = new SqlDataAdapter(SelectCommand, ConnectionStrings.StorageConnectionString);
+            BindPackageLabelsDA.Fill(BindPackageLabelsDT);
+            BindPackageLabelsDA.Fill(TempPackageLabelsDT);
+            BindPackageLabelsDT.Columns.Add(new DataColumn("Index", Type.GetType("System.Int32")));
+
+            SelectCommand = @"SELECT TOP 0 C.PackNumber, C.TechStoreSubGroupID, C.TechStoreID AS CTechStoreID, C.CoverID, C.PatinaID, C.InsetColorID, 
+                CabFurniturePackageDetails.* FROM CabFurniturePackageDetails 
+                INNER JOIN CabFurniturePackages AS C ON CabFurniturePackageDetails.CabFurniturePackageID=C.CabFurniturePackageID";
+            PackageDetailsDA = new SqlDataAdapter(SelectCommand, ConnectionStrings.StorageConnectionString);
+            PackageDetailsDA.Fill(PackageDetailsDT);
+
+            PackageLabelsBS.DataSource = PackageLabelsDT;
+            BindPackageLabelsBS.DataSource = BindPackageLabelsDT;
+            PackageDetailsBS.DataSource = PackageDetailsDT;
+        }
+
+        public void FilterPackagesLabels(int CellID)
+        {
+            PackageDetailsDT.Clear();
+            string SelectCommand = @"SELECT C.PackNumber, C.TechStoreSubGroupID, C.TechStoreID AS CTechStoreID, C.CoverID, C.PatinaID, C.InsetColorID,
+                CabFurniturePackageDetails.* FROM CabFurniturePackageDetails 
+                INNER JOIN CabFurniturePackages AS C ON CabFurniturePackageDetails.CabFurniturePackageID=C.CabFurniturePackageID
+                WHERE CellID=" + CellID;
+            PackageDetailsDA = new SqlDataAdapter(SelectCommand, ConnectionStrings.StorageConnectionString);
+            PackageDetailsDA.Fill(PackageDetailsDT);
+
+            PackageLabelsDT.Clear();
+            SelectCommand = @"SELECT CabFurniturePackageID, CabFurAssignmentDetailID, PackNumber, PackagesCount, TechStoreSubGroupID, PrintDateTime, AddToStorageDateTime, RemoveFromStorageDateTime, Cells.Name FROM CabFurniturePackages
+                LEFT JOIN Cells ON CabFurniturePackages.CellID=Cells.CellID WHERE CabFurniturePackages.CellID=" + CellID;
+            PackageLabelsDA = new SqlDataAdapter(SelectCommand, ConnectionStrings.StorageConnectionString);
+            PackageLabelsDA.Fill(PackageLabelsDT);
+
+            for (int i = 0; i < PackageLabelsDT.Rows.Count; i++)
+            {
+                PackageLabelsDT.Rows[i]["Index"] = i + 1;
+            }
+        }
+
+        public void Clear()
+        {
+            BindPackageLabelsDT.Clear();
+        }
+
+        public bool GetPackagesLabels(int CabFurniturePackageID)
+        {
+            TempPackageLabelsDT.Clear();
+            string SelectCommand = @"SELECT CabFurniturePackageID, CabFurAssignmentDetailID, PackNumber, PackagesCount, TechStoreSubGroupID, PrintDateTime, AddToStorageDateTime, RemoveFromStorageDateTime, Cells.Name FROM CabFurniturePackages 
+                INNER JOIN Cells ON CabFurniturePackages.CellID=Cells.CellID WHERE CabFurniturePackageID=" + CabFurniturePackageID;
+            PackageLabelsDA = new SqlDataAdapter(SelectCommand, ConnectionStrings.StorageConnectionString);
+            PackageLabelsDA.Fill(TempPackageLabelsDT);
+
+            if (TempPackageLabelsDT.Rows.Count > 0)
+                BindPackageLabelsDT.Rows.Add(TempPackageLabelsDT.Rows[0].ItemArray);
+            return TempPackageLabelsDT.Rows.Count > 0;
+        }
+
+        public void FilterPackagesDetails(int CabFurniturePackageID)
+        {
+            PackageDetailsBS.Filter = "CabFurniturePackageID =" + CabFurniturePackageID;
+            PackageDetailsBS.MoveFirst();
+        }
+
+        public void ClearPackges()
+        {
+            PackageLabelsDT.Clear();
+            PackageDetailsDT.Clear();
+        }
+
+        public void PrintComplements(int[] CabFurniturePackageID)
+        {
+            string filter = string.Empty;
+            foreach (int item in CabFurniturePackageID)
+                filter += item.ToString() + ",";
+            if (filter.Length > 0)
+                filter = "SELECT * FROM CabFurniturePackages WHERE CabFurniturePackageID IN (" + filter.Substring(0, filter.Length - 1) + ")";
+
+            using (SqlDataAdapter DA = new SqlDataAdapter(filter, ConnectionStrings.StorageConnectionString))
+            {
+                using (new SqlCommandBuilder(DA))
+                {
+                    using (DataTable DT = new DataTable())
+                    {
+                        if (DA.Fill(DT) > 0)
+                        {
+                            DateTime PrintDateTime = Security.GetCurrentDate();
+
+                            for (int i = 0; i < DT.Rows.Count; i++)
+                            {
+                                if (DT.Rows[i]["PrintUserID"] == DBNull.Value)
+                                    DT.Rows[i]["PrintUserID"] = Security.CurrentUserID;
+                                if (DT.Rows[i]["PrintDateTime"] == DBNull.Value)
+                                    DT.Rows[i]["PrintDateTime"] = PrintDateTime;
+                            }
+                            DA.Update(DT);
+                        }
+                    }
+                }
+            }
+        }
+
     }
 }

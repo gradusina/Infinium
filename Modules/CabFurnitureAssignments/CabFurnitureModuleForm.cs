@@ -53,7 +53,10 @@ namespace Infinium
         AssignmentsManager AssignmentsManager;
         ComplementsManager ComplementsManager;
         PackagesManager PackagesManager;
+        StoragePackagesManager storagePackagesManager;
+
         CabFurStorage cabFurStorage;
+
         Infinium.Modules.CabFurnitureModule.CheckLabel CheckLabel;
         //RoleTypes RoleType = RoleTypes.OrdinaryRole;
 
@@ -74,6 +77,15 @@ namespace Infinium
             LightStartForm = tLightStartForm;
 
             this.MaximumSize = Screen.PrimaryScreen.WorkingArea.Size;
+            
+            ToolTip ToolTip1 = new ToolTip();
+            ToolTip1.SetToolTip(btnAddCell, "Добавить ячейку");
+            ToolTip1.SetToolTip(btnAddRack, "Добавить стеллаж");
+            ToolTip1.SetToolTip(btnAddWorkShop, "Добавить цех");
+            ToolTip1.SetToolTip(btnEditCell, "Редактировать");
+            ToolTip1.SetToolTip(btnEditRack, "Редактировать");
+            ToolTip1.SetToolTip(btnEditWorkShop, "Редактировать");
+            ToolTip1.SetToolTip(btnBindPackages, "Привязать к ячейке упаковки");
 
             Initialize();
 
@@ -351,6 +363,10 @@ namespace Infinium
 
             cabFurStorage = new CabFurStorage();
             CabStorageSetting();
+
+            storagePackagesManager = new StoragePackagesManager();
+            dgvStoragePackagesLabels.DataSource = storagePackagesManager.PackageLabelsBS;
+            dgvStoragePackagesDetails.DataSource = storagePackagesManager.PackageDetailsBS;
         }
 
         private void CabStorageSetting()
@@ -803,6 +819,8 @@ namespace Infinium
 
             if (grid.Columns.Contains("PackagesCount"))
                 grid.Columns["PackagesCount"].Visible = false;
+            if (grid.Columns.Contains("PackagesCount"))
+                grid.Columns["PackagesCount"].Visible = false;
             if (grid.Columns.Contains("TechStoreSubGroupID"))
                 grid.Columns["TechStoreSubGroupID"].Visible = false;
             if (grid.Columns.Contains("CabFurAssignmentDetailID"))
@@ -959,6 +977,46 @@ namespace Infinium
             grid.Columns["Width"].DisplayIndex = DisplayIndex++;
             grid.Columns["Count"].DisplayIndex = DisplayIndex++;
             grid.Columns["CreateDateTime"].DisplayIndex = DisplayIndex++;
+        }
+
+        private void dgvStoragePackagesSetting(ref PercentageDataGrid grid)
+        {
+            grid.AutoGenerateColumns = false;
+
+            if (grid.Columns.Contains("PackagesCount"))
+                grid.Columns["PackagesCount"].Visible = false;
+            if (grid.Columns.Contains("TechStoreSubGroupID"))
+                grid.Columns["TechStoreSubGroupID"].Visible = false;
+            if (grid.Columns.Contains("CabFurAssignmentDetailID"))
+                grid.Columns["CabFurAssignmentDetailID"].Visible = false;
+            if (grid.Columns.Contains("MainOrderID"))
+                grid.Columns["MainOrderID"].Visible = false;
+
+            grid.Columns["CabFurniturePackageID"].HeaderText = "ID";
+            grid.Columns["PackNumber"].HeaderText = "№ упаковки";
+            grid.Columns["Index"].HeaderText = "№ этикетки";
+            grid.Columns["PackagesCount"].HeaderText = "Кол-во уп.";
+            grid.Columns["PrintDateTime"].HeaderText = "Дата печати";
+            grid.Columns["AddToStorageDateTime"].HeaderText = "Принято на склад";
+            grid.Columns["RemoveFromStorageDateTime"].HeaderText = "Списано со склада";
+
+            foreach (DataGridViewColumn Column in grid.Columns)
+            {
+                Column.ReadOnly = true;
+                //Column.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                Column.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            }
+
+            int DisplayIndex = 0;
+            grid.Columns["Index"].DisplayIndex = DisplayIndex++;
+            grid.Columns["PackNumber"].DisplayIndex = DisplayIndex++;
+            grid.Columns["PackagesCount"].DisplayIndex = DisplayIndex++;
+            grid.Columns["PrintDateTime"].DisplayIndex = DisplayIndex++;
+            grid.Columns["AddToStorageDateTime"].DisplayIndex = DisplayIndex++;
+            grid.Columns["RemoveFromStorageDateTime"].DisplayIndex = DisplayIndex++;
+            grid.Columns["CabFurniturePackageID"].DisplayIndex = DisplayIndex++;
+
+            grid.Columns["CabFurniturePackageID"].Width = 50;
         }
 
         protected override void WndProc(ref Message m)
@@ -2943,23 +3001,11 @@ namespace Infinium
 
         private void cmbxWorkShops_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (cabFurStorage == null)
-                return;
-            int workShopID = -1;
-            if (cmbxWorkShops.SelectedItem != null && ((DataRowView)cmbxWorkShops.SelectedItem).Row["WorkShopID"] != DBNull.Value)
-                workShopID = Convert.ToInt32(((DataRowView)cmbxWorkShops.SelectedItem).Row["WorkShopID"]);
-            cabFurStorage.FilterRacksByWorkShop(workShopID);
-            //cmbxRacks_SelectedIndexChanged(null, null);
+            cmbxRacks_SelectedIndexChanged(null, null);
         }
 
         private void cmbxRacks_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (cabFurStorage == null)
-                return;
-            int rackId = -1;
-            if (cmbxRacks.SelectedItem != null && ((DataRowView)cmbxRacks.SelectedItem).Row["RackID"] != DBNull.Value)
-                rackId = Convert.ToInt32(((DataRowView)cmbxRacks.SelectedItem).Row["RackID"]);
-            cabFurStorage.FilterCellsByRack(rackId);
         }
 
         private void btnAddCell_Click(object sender, EventArgs e)
@@ -3051,6 +3097,73 @@ namespace Infinium
         private void btnRemoveCell_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void cmbxWorkShops_SelectedValueChanged(object sender, EventArgs e)
+        {
+            if (cabFurStorage == null)
+                return;
+            int workShopID = -1;
+            if (cmbxWorkShops.SelectedItem != null && ((DataRowView)cmbxWorkShops.SelectedItem).Row["WorkShopID"] != DBNull.Value)
+                workShopID = Convert.ToInt32(((DataRowView)cmbxWorkShops.SelectedItem).Row["WorkShopID"]);
+            cabFurStorage.FilterRacksByWorkShop(workShopID);
+        }
+
+        private void cmbxRacks_SelectedValueChanged(object sender, EventArgs e)
+        {
+            if (cabFurStorage == null)
+                return;
+            int rackId = -1;
+            if (cmbxRacks.SelectedItem != null && ((DataRowView)cmbxRacks.SelectedItem).Row["RackID"] != DBNull.Value)
+                rackId = Convert.ToInt32(((DataRowView)cmbxRacks.SelectedItem).Row["RackID"]);
+            cabFurStorage.FilterCellsByRack(rackId);
+        }
+
+        private void dgvCells_SelectionChanged(object sender, EventArgs e)
+        {
+            if (storagePackagesManager == null)
+                return;
+            int cellID = 0;
+            if (dgvCells.SelectedRows.Count != 0 && dgvCells.SelectedRows[0].Cells["CellID"].Value != DBNull.Value)
+                cellID = Convert.ToInt32(dgvCells.SelectedRows[0].Cells["CellID"].Value);
+            storagePackagesManager.FilterPackagesLabels(cellID);
+        }
+
+        private void dgvStoragePackagesLabels_SelectionChanged(object sender, EventArgs e)
+        {
+            if (storagePackagesManager == null)
+                return;
+            int cabFurniturePackageID = 0;
+            if (dgvStoragePackagesLabels.SelectedRows.Count != 0 && dgvStoragePackagesLabels.SelectedRows[0].Cells["CabFurniturePackageID"].Value != DBNull.Value)
+                cabFurniturePackageID = Convert.ToInt32(dgvStoragePackagesLabels.SelectedRows[0].Cells["CabFurniturePackageID"].Value);
+            storagePackagesManager.FilterPackagesDetails(cabFurniturePackageID);
+        }
+
+        private void btnBindPackages_Click(object sender, EventArgs e)
+        {
+            PhantomForm PhantomForm = new PhantomForm();
+            PhantomForm.Show();
+
+            BindPackagesToCellForm bindPackagesToCellForm = new BindPackagesToCellForm(this, storagePackagesManager);
+
+            TopForm = bindPackagesToCellForm;
+            bindPackagesToCellForm.ShowDialog();
+
+            PhantomForm.Close();
+
+            PhantomForm.Dispose();
+            bindPackagesToCellForm.Dispose();
+            TopForm = null;
+
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Обновление.\r\nПодождите..."); });
+            T.Start();
+            while (!SplashWindow.bSmallCreated) ;
+            NeedSplash = false;
+
+
+            NeedSplash = true;
+            while (SplashWindow.bSmallCreated)
+                SmallWaitForm.CloseS = true;
         }
     }
 }

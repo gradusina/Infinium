@@ -4296,7 +4296,7 @@ namespace Infinium
             ArrayList MClientGroups = AllProductsStatistics.SelectedMarketingClientGroups;
             DecorCatalogOrder = new Modules.ZOV.DecorCatalogOrder();
             ProducedProducts ProducedProducts = new ProducedProducts(ref DecorCatalogOrder);
-            ProducedProducts.NBRBDailyRates(date, ref EURBYRCurrency);
+            ProducedProducts.GetDateRates(date, ref EURBYRCurrency);
             //ProducedProducts.CreateZOVReport(CalendarFrom.SelectionStart, CalendarTo.SelectionStart, FileName, EURBYRCurrency);
             ProducedProducts.CreateMarketingReport(CalendarFrom.SelectionStart, CalendarTo.SelectionStart, cbSamples.Checked, cbNotSamples.Checked, FileName, EURBYRCurrency, MClients, MClientGroups);
             NeedSplash = true;
@@ -4322,7 +4322,7 @@ namespace Infinium
             ArrayList MClientGroups = AllProductsStatistics.SelectedMarketingClientGroups;
             DecorCatalogOrder = new Modules.ZOV.DecorCatalogOrder();
             ProducedProducts ProducedProducts = new ProducedProducts(ref DecorCatalogOrder);
-            ProducedProducts.NBRBDailyRates(date, ref EURBYRCurrency);
+            ProducedProducts.GetDateRates(date, ref EURBYRCurrency);
             //ProducedProducts.CreateZOVDispReport(CalendarFrom.SelectionStart, CalendarTo.SelectionStart, FileName, EURBYRCurrency);
             ProducedProducts.CreateMarketingDispReport(CalendarFrom.SelectionStart, CalendarTo.SelectionStart, cbSamples.Checked, cbNotSamples.Checked,
                 FileName, EURBYRCurrency, MClients, MClientGroups);

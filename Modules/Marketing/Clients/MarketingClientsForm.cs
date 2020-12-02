@@ -372,7 +372,7 @@ namespace Infinium
                 EURUSDCurrency = 0;
                 EURBYRCurrency = 0;
                 Clients.CBRDailyRates(DateTime.Now, ref EURRUBCurrency, ref USDRUBCurrency);
-                Clients.NBRBDailyRates(DateTime.Now, ref EURBYRCurrency);
+                Clients.GetDateRates(DateTime.Now, ref EURBYRCurrency);
                 if (USDRUBCurrency != 0)
                     EURUSDCurrency = Decimal.Round(EURRUBCurrency / USDRUBCurrency, 4, MidpointRounding.AwayFromZero);
             }
@@ -430,7 +430,7 @@ namespace Infinium
                 EURUSDCurrency = 0;
                 EURBYRCurrency = 0;
                 Clients.CBRDailyRates(DateTime.Now, ref EURRUBCurrency, ref USDRUBCurrency);
-                Clients.NBRBDailyRates(DateTime.Now, ref EURBYRCurrency);
+                Clients.GetDateRates(DateTime.Now, ref EURBYRCurrency);
                 if (USDRUBCurrency != 0)
                     EURUSDCurrency = Decimal.Round(EURRUBCurrency / USDRUBCurrency, 4, MidpointRounding.AwayFromZero);
             }
@@ -488,7 +488,7 @@ namespace Infinium
                 EURUSDCurrency = 0;
                 EURBYRCurrency = 0;
                 Clients.CBRDailyRates(DateTime.Now, ref EURRUBCurrency, ref USDRUBCurrency);
-                Clients.NBRBDailyRates(DateTime.Now, ref EURBYRCurrency);
+                Clients.GetDateRates(DateTime.Now, ref EURBYRCurrency);
                 if (USDRUBCurrency != 0)
                     EURUSDCurrency = Decimal.Round(EURRUBCurrency / USDRUBCurrency, 4, MidpointRounding.AwayFromZero);
             }
@@ -546,7 +546,7 @@ namespace Infinium
                 EURUSDCurrency = 0;
                 EURBYRCurrency = 0;
                 Clients.CBRDailyRates(DateTime.Now, ref EURRUBCurrency, ref USDRUBCurrency);
-                Clients.NBRBDailyRates(DateTime.Now, ref EURBYRCurrency);
+                Clients.GetDateRates(DateTime.Now, ref EURBYRCurrency);
                 if (USDRUBCurrency != 0)
                     EURUSDCurrency = Decimal.Round(EURRUBCurrency / USDRUBCurrency, 4, MidpointRounding.AwayFromZero);
             }
