@@ -2876,6 +2876,7 @@ namespace Infinium.Modules.ZOV.ReportToDBF
 
             try
             {
+                ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
                 myHttpWebRequest = (HttpWebRequest)HttpWebRequest.Create(url);
                 myHttpWebRequest.KeepAlive = false;
                 myHttpWebResponse = (HttpWebResponse)myHttpWebRequest.GetResponse();
@@ -6415,6 +6416,7 @@ namespace Infinium.Modules.ZOV.ReportToDBF
 
             try
             {
+                ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
                 myHttpWebRequest = (HttpWebRequest)HttpWebRequest.Create(url);
                 myHttpWebRequest.KeepAlive = false;
                 myHttpWebResponse = (HttpWebResponse)myHttpWebRequest.GetResponse();

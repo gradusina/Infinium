@@ -510,6 +510,12 @@
       <DependentUpon>BindPackagesToCellForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Modules\CabFurnitureAssignments\CabFurStorage.cs" />
+    <Compile Include="Modules\CabFurnitureAssignments\InputCellBarCodeForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\CabFurnitureAssignments\InputCellBarCodeForm.designer.cs">
+      <DependentUpon>InputCellBarCodeForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Modules\CabFurnitureAssignments\NewCabFurCellForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -2094,6 +2100,9 @@
     <EmbeddedResource Include="Modules\CabFurnitureAssignments\BindPackagesToCellForm.resx">
       <DependentUpon>BindPackagesToCellForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Modules\CabFurnitureAssignments\InputCellBarCodeForm.resx">
+      <DependentUpon>InputCellBarCodeForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Modules\CabFurnitureAssignments\NewCabFurCellForm.resx">
       <DependentUpon>NewCabFurCellForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -2924,6 +2933,8 @@
     <None Include="Images\Backgrounds\BackStandardBlur50.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\print_icon.png" />
+    <None Include="Resources\iconfinder_printer_39263.png" />
     <None Include="Resources\n2.jpg" />
     <None Include="Resources\n2.png" />
     <None Include="Resources\eac.png" />

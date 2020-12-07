@@ -50,6 +50,7 @@ namespace Infinium
         CalculateMaterial calcManager;
         ComplementLabel complementLabel;
         PackageLabel packageLabel;
+        CellLabel cellLabel;
         AssignmentsManager AssignmentsManager;
         ComplementsManager ComplementsManager;
         PackagesManager PackagesManager;
@@ -85,7 +86,10 @@ namespace Infinium
             ToolTip1.SetToolTip(btnEditCell, "Редактировать");
             ToolTip1.SetToolTip(btnEditRack, "Редактировать");
             ToolTip1.SetToolTip(btnEditWorkShop, "Редактировать");
-            ToolTip1.SetToolTip(btnBindPackages, "Привязать к ячейке упаковки");
+            ToolTip1.SetToolTip(btnBindPackages, "Привязать упаковки к ячейке");
+            ToolTip1.SetToolTip(btnPrintCellLabel, "Распечатать этикетку");
+            ToolTip1.SetToolTip(btnQualityControlIn, "Отправить на ОТК");
+            ToolTip1.SetToolTip(btnQualityControlOut, "Принять с ОТК");
 
             Initialize();
 
@@ -248,125 +252,128 @@ namespace Infinium
 
         private void Initialize()
         {
+            DateTime FirstDay = DateTime.Now.AddDays(-100);
+            DateTime Today = DateTime.Now;
 
-            //DateTime FirstDay = DateTime.Now.AddDays(-100);
-            //DateTime Today = DateTime.Now;
+            DateTimePicker1.Value = FirstDay;
 
-            //DateTimePicker1.Value = FirstDay;
+            complementLabel = new ComplementLabel();
+            packageLabel = new PackageLabel();
 
-            //complementLabel = new ComplementLabel();
-            //packageLabel = new PackageLabel();
+            AssignmentsManager = new AssignmentsManager();
+            AssignmentsManager.Initialize();
 
-            //AssignmentsManager = new AssignmentsManager();
-            //AssignmentsManager.Initialize();
-
-            //ComplementsManager = new ComplementsManager();
-            //PackagesManager = new PackagesManager();
-
-
-            //CheckLabel = new Modules.CabFurnitureModule.CheckLabel();
-            //dgvScan.DataSource = CheckLabel.ScanContentBS;
-            //dgvScanDetailsSetting(ref dgvScan);
-
-            //cmbxTechStore.DataSource = AssignmentsManager.TechStoreBS;
-            //cmbxTechStore.DisplayMember = "TechStoreName";
-            //cmbxTechStore.ValueMember = "TechStoreID";
-            //cmbxTechStoreSubGroups.DataSource = AssignmentsManager.TechStoreSubGroupsBS;
-            //cmbxTechStoreSubGroups.DisplayMember = "TechStoreSubGroupName";
-            //cmbxTechStoreSubGroups.ValueMember = "TechStoreSubGroupID";
-            //cmbxTechStoreGroups.DataSource = AssignmentsManager.TechStoreGroupsBS;
-            //cmbxTechStoreGroups.DisplayMember = "TechStoreGroupName";
-            //cmbxTechStoreGroups.ValueMember = "TechStoreGroupID";
-            //cmbxCovers.DataSource = AssignmentsManager.CoversBS;
-            //cmbxCovers.DisplayMember = "CoverName";
-            //cmbxCovers.ValueMember = "CoverID";
-            //cmbxPatina.DataSource = AssignmentsManager.PatinaBS;
-            //cmbxPatina.DisplayMember = "PatinaName";
-            //cmbxPatina.ValueMember = "PatinaID";
-
-            //cmbxInsetColors.DataSource = AssignmentsManager.BasicInsetColorsBS;
-            //cmbxInsetColors.DisplayMember = "InsetColorName";
-            //cmbxInsetColors.ValueMember = "InsetColorID";
-
-            //dgvComplements.DataSource = ComplementsManager.ComplementsBS;
-            //dgvMainOrders.DataSource = ComplementsManager.MainOrdersBS;
-            //dgvComplementLabels.DataSource = ComplementsManager.ComplementLabelsBS;
-            //dgvComplementDetails.DataSource = ComplementsManager.ComplementDetailsBS;
-
-            //dgvPackages.DataSource = PackagesManager.PackagesBS;
-            //dgvPackagesLabels.DataSource = PackagesManager.PackageLabelsBS;
-            //dgvPackagesDetails.DataSource = PackagesManager.PackageDetailsBS;
-
-            //dgvDocuments.DataSource = AssignmentsManager.DocumentsBS;
-            //dgvNewAssignment.DataSource = AssignmentsManager.NewAssignmentDetailsBS;
-            //percentageDataGrid1.DataSource = AssignmentsManager.NewAssignmentDetailsBS;
-            //dgvAllAssignments.DataSource = AssignmentsManager.AllAssignmentsBS;
-
-            //AssignmentsManager.NonAgreementOrders(true, ref NonAgreementCount);
-            //AssignmentsManager.AgreedOrders(true, ref AgreedCount);
-            //AssignmentsManager.OnProductionOrders(true, ref OnProdCount);
-            //AssignmentsManager.InProductionOrders(true, ref InProdCount);
-            //AssignmentsManager.OnStorageOrders(true, ref OnStoreCount);
-            //AssignmentsManager.OnExpeditionOrders(true, ref OnExpCount);
-
-            //NonAgreementDataGrid.DataSource = AssignmentsManager.NonAgreementDetailBS;
-            //AgreedDataGrid.DataSource = AssignmentsManager.AgreedDetailBS;
-            //OnProductionDataGrid.DataSource = AssignmentsManager.OnProductionDetailBS;
-            //InProductionDataGrid.DataSource = AssignmentsManager.InProductionDetailBS;
-            //OnStorageDataGrid.DataSource = AssignmentsManager.OnStorageDetailBS;
-            //OnExpeditionDataGrid.DataSource = AssignmentsManager.OnExpeditionDetailBS;
-
-            //dgvComplementsSetting(ref dgvComplements);
-            //dgvMainOrdersSetting(ref dgvMainOrders);
-            //dgvComplementLabelsSetting(ref dgvComplementLabels);
-            //dgvComplementDetailsSetting(ref dgvComplementDetails);
-
-            //dgvPackagesSetting(ref dgvPackages);
-            //dgvPackagesLabelsSetting(ref dgvPackagesLabels);
-            //dgvPackagesDetailsSetting(ref dgvPackagesDetails);
-
-            //dgvDocumentsSetting(ref dgvDocuments);
-
-            //dgvDetailsSetting(true, ref NonAgreementDataGrid);
-            //dgvDetailsSetting(true, ref AgreedDataGrid);
-            //dgvDetailsSetting(true, ref OnProductionDataGrid);
-            //dgvDetailsSetting(true, ref InProductionDataGrid);
-            //dgvDetailsSetting(true, ref OnStorageDataGrid);
-            //dgvDetailsSetting(true, ref OnExpeditionDataGrid);
-
-            //dgvNewAssignmentSetting(ref dgvNewAssignment);
-            //dgvNewAssignmentSetting(ref percentageDataGrid1);
-            //dgvAllAssignmentsSetting(ref dgvAllAssignments);
-
-            //AssignmentsManager.UpdateNewAssignment(0);
-            //AssignmentsManager.UpdateDocuments();
-            //AssignmentsManager.UpdateAllAssignments();
-            //AssignmentsManager.FilterAllAssignments(true, true, true, true, true);
+            ComplementsManager = new ComplementsManager();
+            PackagesManager = new PackagesManager();
 
 
-            //label11.Text = NonAgreementCount.ToString() + " шт.";
-            //label6.Text = AgreedCount.ToString() + " шт.";
-            //label27.Text = OnProdCount.ToString() + " шт.";
-            //label16.Text = InProdCount.ToString() + " шт.";
-            //label41.Text = OnStoreCount.ToString() + " шт.";
-            //label34.Text = OnExpCount.ToString() + " шт.";
+            CheckLabel = new Modules.CabFurnitureModule.CheckLabel();
+            dgvScan.DataSource = CheckLabel.ScanContentBS;
+            dgvScanDetailsSetting(ref dgvScan);
 
-            //BarcodeLabel.Text = "";
-            //CheckPicture.Visible = false;
+            cmbxTechStore.DataSource = AssignmentsManager.TechStoreBS;
+            cmbxTechStore.DisplayMember = "TechStoreName";
+            cmbxTechStore.ValueMember = "TechStoreID";
+            cmbxTechStoreSubGroups.DataSource = AssignmentsManager.TechStoreSubGroupsBS;
+            cmbxTechStoreSubGroups.DisplayMember = "TechStoreSubGroupName";
+            cmbxTechStoreSubGroups.ValueMember = "TechStoreSubGroupID";
+            cmbxTechStoreGroups.DataSource = AssignmentsManager.TechStoreGroupsBS;
+            cmbxTechStoreGroups.DisplayMember = "TechStoreGroupName";
+            cmbxTechStoreGroups.ValueMember = "TechStoreGroupID";
+            cmbxCovers.DataSource = AssignmentsManager.CoversBS;
+            cmbxCovers.DisplayMember = "CoverName";
+            cmbxCovers.ValueMember = "CoverID";
+            cmbxPatina.DataSource = AssignmentsManager.PatinaBS;
+            cmbxPatina.DisplayMember = "PatinaName";
+            cmbxPatina.ValueMember = "PatinaID";
 
-            //BarcodeLabel.ForeColor = Color.FromArgb(240, 0, 0);
+            cmbxInsetColors.DataSource = AssignmentsManager.BasicInsetColorsBS;
+            cmbxInsetColors.DisplayMember = "InsetColorName";
+            cmbxInsetColors.ValueMember = "InsetColorID";
 
-            //ClearControls();
+            dgvComplements.DataSource = ComplementsManager.ComplementsBS;
+            dgvMainOrders.DataSource = ComplementsManager.MainOrdersBS;
+            dgvComplementLabels.DataSource = ComplementsManager.ComplementLabelsBS;
+            dgvComplementDetails.DataSource = ComplementsManager.ComplementDetailsBS;
 
-            //CheckLabel.Clear();
+            dgvPackages.DataSource = PackagesManager.PackagesBS;
+            dgvPackagesLabels.DataSource = PackagesManager.PackageLabelsBS;
+            dgvPackagesDetails.DataSource = PackagesManager.PackageDetailsBS;
+
+            dgvDocuments.DataSource = AssignmentsManager.DocumentsBS;
+            dgvNewAssignment.DataSource = AssignmentsManager.NewAssignmentDetailsBS;
+            percentageDataGrid1.DataSource = AssignmentsManager.NewAssignmentDetailsBS;
+            dgvAllAssignments.DataSource = AssignmentsManager.AllAssignmentsBS;
+
+            AssignmentsManager.NonAgreementOrders(true, ref NonAgreementCount);
+            AssignmentsManager.AgreedOrders(true, ref AgreedCount);
+            AssignmentsManager.OnProductionOrders(true, ref OnProdCount);
+            AssignmentsManager.InProductionOrders(true, ref InProdCount);
+            AssignmentsManager.OnStorageOrders(true, ref OnStoreCount);
+            AssignmentsManager.OnExpeditionOrders(true, ref OnExpCount);
+
+            NonAgreementDataGrid.DataSource = AssignmentsManager.NonAgreementDetailBS;
+            AgreedDataGrid.DataSource = AssignmentsManager.AgreedDetailBS;
+            OnProductionDataGrid.DataSource = AssignmentsManager.OnProductionDetailBS;
+            InProductionDataGrid.DataSource = AssignmentsManager.InProductionDetailBS;
+            OnStorageDataGrid.DataSource = AssignmentsManager.OnStorageDetailBS;
+            OnExpeditionDataGrid.DataSource = AssignmentsManager.OnExpeditionDetailBS;
+
+            dgvComplementsSetting(ref dgvComplements);
+            dgvMainOrdersSetting(ref dgvMainOrders);
+            dgvComplementLabelsSetting(ref dgvComplementLabels);
+            dgvComplementDetailsSetting(ref dgvComplementDetails);
+
+            dgvPackagesSetting(ref dgvPackages);
+            dgvPackagesLabelsSetting(ref dgvPackagesLabels);
+            dgvPackagesDetailsSetting(ref dgvPackagesDetails);
+
+            dgvDocumentsSetting(ref dgvDocuments);
+
+            dgvDetailsSetting(true, ref NonAgreementDataGrid);
+            dgvDetailsSetting(true, ref AgreedDataGrid);
+            dgvDetailsSetting(true, ref OnProductionDataGrid);
+            dgvDetailsSetting(true, ref InProductionDataGrid);
+            dgvDetailsSetting(true, ref OnStorageDataGrid);
+            dgvDetailsSetting(true, ref OnExpeditionDataGrid);
+
+            dgvNewAssignmentSetting(ref dgvNewAssignment);
+            dgvNewAssignmentSetting(ref percentageDataGrid1);
+            dgvAllAssignmentsSetting(ref dgvAllAssignments);
+
+            AssignmentsManager.UpdateNewAssignment(0);
+            AssignmentsManager.UpdateDocuments();
+            AssignmentsManager.UpdateAllAssignments();
+            AssignmentsManager.FilterAllAssignments(true, true, true, true, true);
 
 
+            label11.Text = NonAgreementCount.ToString() + " шт.";
+            label6.Text = AgreedCount.ToString() + " шт.";
+            label27.Text = OnProdCount.ToString() + " шт.";
+            label16.Text = InProdCount.ToString() + " шт.";
+            label41.Text = OnStoreCount.ToString() + " шт.";
+            label34.Text = OnExpCount.ToString() + " шт.";
+
+            BarcodeLabel.Text = "";
+            CheckPicture.Visible = false;
+
+            BarcodeLabel.ForeColor = Color.FromArgb(240, 0, 0);
+
+            ClearControls();
+
+            CheckLabel.Clear();
+
+
+            cellLabel = new CellLabel();
             cabFurStorage = new CabFurStorage();
             CabStorageSetting();
 
             storagePackagesManager = new StoragePackagesManager();
             dgvStoragePackagesLabels.DataSource = storagePackagesManager.PackageLabelsBS;
             dgvStoragePackagesDetails.DataSource = storagePackagesManager.PackageDetailsBS;
+            dgvCellsSetting(ref dgvCells);
+            dgvStoragePackagesLabelsSetting(ref dgvStoragePackagesLabels);
+            dgvPackagesDetailsSetting(ref dgvStoragePackagesDetails);
         }
 
         private void CabStorageSetting()
@@ -819,22 +826,28 @@ namespace Infinium
 
             if (grid.Columns.Contains("PackagesCount"))
                 grid.Columns["PackagesCount"].Visible = false;
-            if (grid.Columns.Contains("PackagesCount"))
-                grid.Columns["PackagesCount"].Visible = false;
             if (grid.Columns.Contains("TechStoreSubGroupID"))
                 grid.Columns["TechStoreSubGroupID"].Visible = false;
             if (grid.Columns.Contains("CabFurAssignmentDetailID"))
                 grid.Columns["CabFurAssignmentDetailID"].Visible = false;
             if (grid.Columns.Contains("MainOrderID"))
                 grid.Columns["MainOrderID"].Visible = false;
+            if (grid.Columns.Contains("QualityControlInUserID"))
+                grid.Columns["QualityControlInUserID"].Visible = false;
+            if (grid.Columns.Contains("QualityControlOutUserID"))
+                grid.Columns["QualityControlOutUserID"].Visible = false;
 
             grid.Columns["CabFurniturePackageID"].HeaderText = "ID";
             grid.Columns["PackNumber"].HeaderText = "№ упаковки";
-            grid.Columns["Index"].HeaderText = "№ этикетки";
-            grid.Columns["PackagesCount"].HeaderText = "Кол-во уп.";
+            if (grid.Columns.Contains("Index"))
+                grid.Columns["Index"].HeaderText = "№ этикетки";
             grid.Columns["PrintDateTime"].HeaderText = "Дата печати";
             grid.Columns["AddToStorageDateTime"].HeaderText = "Принято на склад";
             grid.Columns["RemoveFromStorageDateTime"].HeaderText = "Списано со склада";
+            grid.Columns["QualityControlInDateTime"].HeaderText = "Отправлено на ОТК";
+            grid.Columns["QualityControlOutDateTime"].HeaderText = "Принято с ОТК";
+            grid.Columns["QualityControl"].HeaderText = "ОТК";
+            grid.Columns["Name"].HeaderText = "Ячейка";
 
             foreach (DataGridViewColumn Column in grid.Columns)
             {
@@ -844,13 +857,17 @@ namespace Infinium
             }
 
             int DisplayIndex = 0;
-            grid.Columns["Index"].DisplayIndex = DisplayIndex++;
+            if (grid.Columns.Contains("Index"))
+                grid.Columns["Index"].DisplayIndex = DisplayIndex++;
             grid.Columns["PackNumber"].DisplayIndex = DisplayIndex++;
-            grid.Columns["PackagesCount"].DisplayIndex = DisplayIndex++;
+            grid.Columns["CabFurniturePackageID"].DisplayIndex = DisplayIndex++;
             grid.Columns["PrintDateTime"].DisplayIndex = DisplayIndex++;
             grid.Columns["AddToStorageDateTime"].DisplayIndex = DisplayIndex++;
             grid.Columns["RemoveFromStorageDateTime"].DisplayIndex = DisplayIndex++;
-            grid.Columns["CabFurniturePackageID"].DisplayIndex = DisplayIndex++;
+            grid.Columns["Name"].DisplayIndex = DisplayIndex++;
+            grid.Columns["QualityControl"].DisplayIndex = DisplayIndex++;
+            grid.Columns["QualityControlInDateTime"].DisplayIndex = DisplayIndex++;
+            grid.Columns["QualityControlOutDateTime"].DisplayIndex = DisplayIndex++;
 
             grid.Columns["CabFurniturePackageID"].Width = 50;
         }
@@ -920,6 +937,74 @@ namespace Infinium
             grid.Columns["CreateDateTime"].DisplayIndex = DisplayIndex++;
         }
 
+        private void dgvCellsSetting(ref PercentageDataGrid grid)
+        {
+            grid.AutoGenerateColumns = false;
+
+            if (grid.Columns.Contains("RackID"))
+                grid.Columns["RackID"].Visible = false;
+
+            grid.Columns["CellID"].HeaderText = "ID";
+            grid.Columns["Name"].HeaderText = "Имя ячейки";
+            grid.MultiSelect = true;
+            grid.Columns["Name"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            grid.Columns["CellID"].Width = 50;
+
+            int DisplayIndex = 0;
+            grid.Columns["CellID"].DisplayIndex = DisplayIndex++;
+            grid.Columns["Name"].DisplayIndex = DisplayIndex++;
+
+        }
+
+        private void dgvStoragePackagesLabelsSetting(ref PercentageDataGrid grid)
+        {
+            grid.AutoGenerateColumns = false;
+
+            if (grid.Columns.Contains("PackagesCount"))
+                grid.Columns["PackagesCount"].Visible = false;
+            if (grid.Columns.Contains("TechStoreSubGroupID"))
+                grid.Columns["TechStoreSubGroupID"].Visible = false;
+            if (grid.Columns.Contains("CabFurAssignmentDetailID"))
+                grid.Columns["CabFurAssignmentDetailID"].Visible = false;
+            if (grid.Columns.Contains("MainOrderID"))
+                grid.Columns["MainOrderID"].Visible = false;
+            if (grid.Columns.Contains("QualityControlInUserID"))
+                grid.Columns["QualityControlInUserID"].Visible = false;
+            if (grid.Columns.Contains("QualityControlOutUserID"))
+                grid.Columns["QualityControlOutUserID"].Visible = false;
+            if (grid.Columns.Contains("CellID"))
+                grid.Columns["CellID"].Visible = false;
+
+            grid.Columns["CabFurniturePackageID"].HeaderText = "ID";
+            grid.Columns["PackNumber"].HeaderText = "№ упаковки";
+            grid.Columns["Index"].HeaderText = "№ этикетки";
+            grid.Columns["AddToStorageDateTime"].HeaderText = "Принято на склад";
+            grid.Columns["RemoveFromStorageDateTime"].HeaderText = "Списано со склада";
+            grid.Columns["QualityControlInDateTime"].HeaderText = "Отправлено на ОТК";
+            grid.Columns["QualityControlOutDateTime"].HeaderText = "Принято с ОТК";
+            grid.Columns["QualityControl"].HeaderText = "ОТК";
+            grid.Columns["Name"].HeaderText = "Ячейка";
+
+            foreach (DataGridViewColumn Column in grid.Columns)
+            {
+                Column.ReadOnly = true;
+                Column.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            }
+
+            int DisplayIndex = 0;
+            grid.Columns["Index"].DisplayIndex = DisplayIndex++;
+            grid.Columns["PackNumber"].DisplayIndex = DisplayIndex++;
+            grid.Columns["CabFurniturePackageID"].DisplayIndex = DisplayIndex++;
+            grid.Columns["AddToStorageDateTime"].DisplayIndex = DisplayIndex++;
+            grid.Columns["RemoveFromStorageDateTime"].DisplayIndex = DisplayIndex++;
+            grid.Columns["Name"].DisplayIndex = DisplayIndex++;
+            grid.Columns["QualityControl"].DisplayIndex = DisplayIndex++;
+            grid.Columns["QualityControlInDateTime"].DisplayIndex = DisplayIndex++;
+            grid.Columns["QualityControlOutDateTime"].DisplayIndex = DisplayIndex++;
+
+            grid.Columns["CabFurniturePackageID"].Width = 50;
+        }
+
         private void dgvScanDetailsSetting(ref PercentageDataGrid grid)
         {
             grid.Columns.Add(AssignmentsManager.CTechStoreNameColumn);
@@ -979,46 +1064,6 @@ namespace Infinium
             grid.Columns["CreateDateTime"].DisplayIndex = DisplayIndex++;
         }
 
-        private void dgvStoragePackagesSetting(ref PercentageDataGrid grid)
-        {
-            grid.AutoGenerateColumns = false;
-
-            if (grid.Columns.Contains("PackagesCount"))
-                grid.Columns["PackagesCount"].Visible = false;
-            if (grid.Columns.Contains("TechStoreSubGroupID"))
-                grid.Columns["TechStoreSubGroupID"].Visible = false;
-            if (grid.Columns.Contains("CabFurAssignmentDetailID"))
-                grid.Columns["CabFurAssignmentDetailID"].Visible = false;
-            if (grid.Columns.Contains("MainOrderID"))
-                grid.Columns["MainOrderID"].Visible = false;
-
-            grid.Columns["CabFurniturePackageID"].HeaderText = "ID";
-            grid.Columns["PackNumber"].HeaderText = "№ упаковки";
-            grid.Columns["Index"].HeaderText = "№ этикетки";
-            grid.Columns["PackagesCount"].HeaderText = "Кол-во уп.";
-            grid.Columns["PrintDateTime"].HeaderText = "Дата печати";
-            grid.Columns["AddToStorageDateTime"].HeaderText = "Принято на склад";
-            grid.Columns["RemoveFromStorageDateTime"].HeaderText = "Списано со склада";
-
-            foreach (DataGridViewColumn Column in grid.Columns)
-            {
-                Column.ReadOnly = true;
-                //Column.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
-                Column.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            }
-
-            int DisplayIndex = 0;
-            grid.Columns["Index"].DisplayIndex = DisplayIndex++;
-            grid.Columns["PackNumber"].DisplayIndex = DisplayIndex++;
-            grid.Columns["PackagesCount"].DisplayIndex = DisplayIndex++;
-            grid.Columns["PrintDateTime"].DisplayIndex = DisplayIndex++;
-            grid.Columns["AddToStorageDateTime"].DisplayIndex = DisplayIndex++;
-            grid.Columns["RemoveFromStorageDateTime"].DisplayIndex = DisplayIndex++;
-            grid.Columns["CabFurniturePackageID"].DisplayIndex = DisplayIndex++;
-
-            grid.Columns["CabFurniturePackageID"].Width = 50;
-        }
-
         protected override void WndProc(ref Message m)
         {
             base.WndProc(ref m);
@@ -1032,9 +1077,8 @@ namespace Infinium
 
         private void kryptonCheckSet3_CheckedButtonChanged(object sender, EventArgs e)
         {
-            //if (AssignmentsManager == null)
-            //    return;
-
+            if (AssignmentsManager == null)
+                return;
 
             Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных.\r\nПодождите..."); });
             T.Start();
@@ -2999,15 +3043,6 @@ namespace Infinium
                 SmallWaitForm.CloseS = true;
         }
 
-        private void cmbxWorkShops_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            cmbxRacks_SelectedIndexChanged(null, null);
-        }
-
-        private void cmbxRacks_SelectedIndexChanged(object sender, EventArgs e)
-        {
-        }
-
         private void btnAddCell_Click(object sender, EventArgs e)
         {
             if (cabFurStorage == null || !cabFurStorage.HasRacks || cabFurStorage.CurrentRackId == -1 || !cabFurStorage.HasWorkShops || cabFurStorage.CurrentWorkShopId == -1)
@@ -3141,10 +3176,66 @@ namespace Infinium
 
         private void btnBindPackages_Click(object sender, EventArgs e)
         {
+            if (dgvCells.SelectedRows.Count == 0)
+                return;
+            kryptonContextMenu6.Show(new Point(Cursor.Position.X - 212, Cursor.Position.Y - 10));
+        }
+
+        private void kryptonContextMenuItem22_Click(object sender, EventArgs e)
+        {
+            if (dgvCells.SelectedRows.Count == 0)
+                return;
+            PhantomForm PhantomForm = new PhantomForm();
+            PhantomForm.Show();
+            int cellId = -1;
+
+            InputCellBarCodeForm inputCellBarCodeForm = new InputCellBarCodeForm(this, storagePackagesManager);
+
+            TopForm = inputCellBarCodeForm;
+            inputCellBarCodeForm.ShowDialog();
+            TopForm = null;
+
+            if (inputCellBarCodeForm.result == 1)
+            {
+                cellId = inputCellBarCodeForm.cellId;
+                inputCellBarCodeForm.Dispose();
+
+                BindPackagesToCellForm bindPackagesToCellForm = new BindPackagesToCellForm(this, storagePackagesManager, cellId);
+
+                TopForm = bindPackagesToCellForm;
+                bindPackagesToCellForm.ShowDialog();
+
+                bindPackagesToCellForm.Dispose();
+                TopForm = null;
+
+                Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Обновление.\r\nПодождите..."); });
+                T.Start();
+                while (!SplashWindow.bSmallCreated) ;
+                NeedSplash = false;
+
+                cabFurStorage.UpdateCells();
+
+                NeedSplash = true;
+                while (SplashWindow.bSmallCreated)
+                    SmallWaitForm.CloseS = true;
+            }
+
+            PhantomForm.Close();
+            PhantomForm.Dispose();
+
+            GC.Collect();
+        }
+
+        private void kryptonContextMenuItem18_Click(object sender, EventArgs e)
+        {
+            if (dgvCells.SelectedRows.Count == 0)
+                return;
+            int cellId = Convert.ToInt32(dgvCells.SelectedRows[0].Cells["CellID"].Value);
+
             PhantomForm PhantomForm = new PhantomForm();
             PhantomForm.Show();
 
-            BindPackagesToCellForm bindPackagesToCellForm = new BindPackagesToCellForm(this, storagePackagesManager);
+            BindPackagesToCellForm bindPackagesToCellForm = new BindPackagesToCellForm(this, storagePackagesManager, cellId);
 
             TopForm = bindPackagesToCellForm;
             bindPackagesToCellForm.ShowDialog();
@@ -3154,16 +3245,210 @@ namespace Infinium
             PhantomForm.Dispose();
             bindPackagesToCellForm.Dispose();
             TopForm = null;
+            GC.Collect();
 
             Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Обновление.\r\nПодождите..."); });
             T.Start();
             while (!SplashWindow.bSmallCreated) ;
             NeedSplash = false;
 
+            cabFurStorage.UpdateCells();
 
             NeedSplash = true;
             while (SplashWindow.bSmallCreated)
                 SmallWaitForm.CloseS = true;
+        }
+
+        private void kryptonContextMenuItem19_Click(object sender, EventArgs e)
+        {
+            if (dgvCells.SelectedRows.Count == 0)
+                return;
+            cellLabel.ClearLabelInfo();
+
+            int[] cellId = new int[dgvCells.SelectedRows.Count];
+            for (int i = 0; i < dgvCells.SelectedRows.Count; i++)
+            {
+                cellId[i] = Convert.ToInt32(dgvCells.SelectedRows[i].Cells["CellID"].Value);
+            }
+
+            List<CellLabelInfo> Labels = cabFurStorage.CreateCellLabels(cellId);
+            if (Labels.Count == 0)
+                return;
+            for (int i = 0; i < Labels.Count; i++)
+            {
+                CellLabelInfo LabelInfo = Labels[i];
+                cellLabel.AddLabelInfo(ref LabelInfo);
+            }
+            PrintDialog.Document = cellLabel.PD;
+
+            if (PrintDialog.ShowDialog() == DialogResult.OK)
+            {
+                cellLabel.Print();
+            }
+        }
+
+        private void btnPrintCellLabel_Click(object sender, EventArgs e)
+        {
+            if (dgvCells.SelectedRows.Count == 0)
+                return;
+            cellLabel.ClearLabelInfo();
+
+            int[] cellId = new int[dgvCells.SelectedRows.Count];
+            for (int i = 0; i < dgvCells.SelectedRows.Count; i++)
+            {
+                cellId[i] = Convert.ToInt32(dgvCells.SelectedRows[i].Cells["CellID"].Value);
+            }
+
+            List<CellLabelInfo> Labels = cabFurStorage.CreateCellLabels(cellId);
+            if (Labels.Count == 0)
+                return;
+            for (int i = 0; i < Labels.Count; i++)
+            {
+                CellLabelInfo LabelInfo = Labels[i];
+                cellLabel.AddLabelInfo(ref LabelInfo);
+            }
+            PrintDialog.Document = cellLabel.PD;
+
+            if (PrintDialog.ShowDialog() == DialogResult.OK)
+            {
+                cellLabel.Print();
+            }
+        }
+
+        private void kryptonContextMenuItem20_Click(object sender, EventArgs e)
+        {
+            if (dgvPackagesLabels.SelectedRows.Count == 0)
+                return;
+            int CabFurAssignmentID = 0;
+            if (dgvPackages.SelectedRows.Count != 0 && dgvPackages.SelectedRows[0].Cells["CabFurAssignmentID"].Value != DBNull.Value)
+                CabFurAssignmentID = Convert.ToInt32(dgvPackages.SelectedRows[0].Cells["CabFurAssignmentID"].Value);
+
+            int[] CabFurniturePackageID = new int[dgvPackagesLabels.SelectedRows.Count];
+            for (int i = 0; i < dgvPackagesLabels.SelectedRows.Count; i++)
+            {
+                CabFurniturePackageID[i] = Convert.ToInt32(dgvPackagesLabels.SelectedRows[i].Cells["CabFurniturePackageID"].Value);
+            }
+
+            if (NeedSplash)
+            {
+                Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
+                T.Start();
+                while (!SplashWindow.bSmallCreated) ;
+                NeedSplash = false;
+
+                PackagesManager.QualityControlIn(CabFurniturePackageID);
+                PackagesManager.FilterPackagesLabels(CabFurAssignmentID);
+
+                NeedSplash = true;
+                while (SplashWindow.bSmallCreated)
+                    SmallWaitForm.CloseS = true;
+            }
+            else
+            {
+                PackagesManager.FilterPackagesLabels(CabFurAssignmentID);
+            }
+        }
+
+        private void kryptonContextMenuItem21_Click(object sender, EventArgs e)
+        {
+            if (dgvPackagesLabels.SelectedRows.Count == 0)
+                return;
+            int CabFurAssignmentID = 0;
+            if (dgvPackages.SelectedRows.Count != 0 && dgvPackages.SelectedRows[0].Cells["CabFurAssignmentID"].Value != DBNull.Value)
+                CabFurAssignmentID = Convert.ToInt32(dgvPackages.SelectedRows[0].Cells["CabFurAssignmentID"].Value);
+
+            int[] CabFurniturePackageID = new int[dgvPackagesLabels.SelectedRows.Count];
+            for (int i = 0; i < dgvPackagesLabels.SelectedRows.Count; i++)
+            {
+                CabFurniturePackageID[i] = Convert.ToInt32(dgvPackagesLabels.SelectedRows[i].Cells["CabFurniturePackageID"].Value);
+            }
+
+            if (NeedSplash)
+            {
+                Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
+                T.Start();
+                while (!SplashWindow.bSmallCreated) ;
+                NeedSplash = false;
+
+                PackagesManager.QualityControlOut(CabFurniturePackageID);
+                PackagesManager.FilterPackagesLabels(CabFurAssignmentID);
+
+                NeedSplash = true;
+                while (SplashWindow.bSmallCreated)
+                    SmallWaitForm.CloseS = true;
+            }
+            else
+            {
+                PackagesManager.FilterPackagesLabels(CabFurAssignmentID);
+            }
+        }
+
+        private void btnQualityControlOut_Click(object sender, EventArgs e)
+        {
+            if (dgvStoragePackagesLabels.SelectedRows.Count == 0)
+                return;
+            int cellId = 0;
+            if (dgvCells.SelectedRows.Count != 0 && dgvCells.SelectedRows[0].Cells["CellID"].Value != DBNull.Value)
+                cellId = Convert.ToInt32(dgvCells.SelectedRows[0].Cells["CellID"].Value);
+
+            int[] CabFurniturePackageID = new int[dgvStoragePackagesLabels.SelectedRows.Count];
+            for (int i = 0; i < dgvStoragePackagesLabels.SelectedRows.Count; i++)
+            {
+                CabFurniturePackageID[i] = Convert.ToInt32(dgvStoragePackagesLabels.SelectedRows[i].Cells["CabFurniturePackageID"].Value);
+            }
+
+            if (NeedSplash)
+            {
+                Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
+                T.Start();
+                while (!SplashWindow.bSmallCreated) ;
+                NeedSplash = false;
+
+                PackagesManager.QualityControlOut(CabFurniturePackageID);
+                storagePackagesManager.FilterPackagesLabels(cellId);
+
+                NeedSplash = true;
+                while (SplashWindow.bSmallCreated)
+                    SmallWaitForm.CloseS = true;
+            }
+            else
+            {
+                storagePackagesManager.FilterPackagesLabels(cellId);
+            }
+        }
+
+        private void btnQualityControlIn_Click(object sender, EventArgs e)
+        {
+            if (dgvStoragePackagesLabels.SelectedRows.Count == 0)
+                return;
+            int cellId = 0;
+            if (dgvCells.SelectedRows.Count != 0 && dgvCells.SelectedRows[0].Cells["CellID"].Value != DBNull.Value)
+                cellId = Convert.ToInt32(dgvCells.SelectedRows[0].Cells["CellID"].Value);
+
+            int[] CabFurniturePackageID = new int[dgvStoragePackagesLabels.SelectedRows.Count];
+            for (int i = 0; i < dgvStoragePackagesLabels.SelectedRows.Count; i++)
+            {
+                CabFurniturePackageID[i] = Convert.ToInt32(dgvStoragePackagesLabels.SelectedRows[i].Cells["CabFurniturePackageID"].Value);
+            }
+
+            if (NeedSplash)
+            {
+                Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
+                T.Start();
+                while (!SplashWindow.bSmallCreated) ;
+                NeedSplash = false;
+
+                PackagesManager.QualityControlIn(CabFurniturePackageID);
+                storagePackagesManager.FilterPackagesLabels(cellId);
+
+                NeedSplash = true;
+                while (SplashWindow.bSmallCreated)
+                    SmallWaitForm.CloseS = true;
+            }
+            else
+            {
+                storagePackagesManager.FilterPackagesLabels(cellId);
+            }
         }
     }
 }

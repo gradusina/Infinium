@@ -2659,6 +2659,7 @@ WHERE dbo.CabFurniturePackages.CabFurAssignmentDetailID = " + CabFurAssignmentDe
 
             return Labels;
         }
+
     }
 
     public class ComplementsManager
@@ -3129,7 +3130,7 @@ INNER JOIN infiniu2_marketingorders.dbo.MainOrders AS M ON C.MainOrderID=M.MainO
             PackageDetailsBS = new BindingSource();
 
 
-            string SelectCommand = @"SELECT TOP 0 CabFurniturePackageID, CabFurAssignmentDetailID, PackNumber, PackagesCount, TechStoreSubGroupID, PrintDateTime, AddToStorageDateTime, RemoveFromStorageDateTime, Cells.Name FROM CabFurniturePackages
+            string SelectCommand = @"SELECT TOP 0 CabFurniturePackageID, CabFurAssignmentDetailID, PackNumber, PackagesCount, TechStoreSubGroupID, PrintDateTime, AddToStorageDateTime, RemoveFromStorageDateTime, QualityControlInDateTime, QualityControlOutDateTime, QualityControl, Cells.Name FROM CabFurniturePackages
                 INNER JOIN Cells ON CabFurniturePackages.CellID=Cells.CellID";
             PackageLabelsDA = new SqlDataAdapter(SelectCommand, ConnectionStrings.StorageConnectionString);
             PackageLabelsDA.Fill(PackageLabelsDT);
@@ -3305,7 +3306,7 @@ INNER JOIN infiniu2_marketingorders.dbo.MainOrders AS M ON C.MainOrderID=M.MainO
             PackageDetailsDA.Fill(PackageDetailsDT);
 
             PackageLabelsDT.Clear();
-            SelectCommand = @"SELECT CabFurniturePackageID, CabFurAssignmentDetailID, PackNumber, PackagesCount, TechStoreSubGroupID, PrintDateTime, AddToStorageDateTime, RemoveFromStorageDateTime, Cells.Name FROM CabFurniturePackages
+            SelectCommand = @"SELECT CabFurniturePackageID, CabFurAssignmentDetailID, PackNumber, PackagesCount, TechStoreSubGroupID, PrintDateTime, AddToStorageDateTime, RemoveFromStorageDateTime, QualityControlInDateTime, QualityControlOutDateTime, QualityControl, Cells.Name FROM CabFurniturePackages
                 LEFT JOIN Cells ON CabFurniturePackages.CellID=Cells.CellID
                 WHERE CabFurAssignmentID=" + CabFurAssignmentID;
             PackageLabelsDA = new SqlDataAdapter(SelectCommand, ConnectionStrings.StorageConnectionString);
@@ -3361,6 +3362,71 @@ INNER JOIN infiniu2_marketingorders.dbo.MainOrders AS M ON C.MainOrderID=M.MainO
             }
         }
 
+        public void QualityControlIn(int[] packageIds)
+        {
+            string filter = string.Empty;
+            foreach (int item in packageIds)
+                filter += item.ToString() + ",";
+            if (filter.Length > 0)
+                filter = "SELECT CabFurniturePackageID, QualityControlInUserID, QualityControlInDateTime FROM CabFurniturePackages " +
+                    "WHERE CabFurniturePackageID IN (" + filter.Substring(0, filter.Length - 1) + ")";
+
+            using (SqlDataAdapter DA = new SqlDataAdapter(filter, ConnectionStrings.StorageConnectionString))
+            {
+                using (new SqlCommandBuilder(DA))
+                {
+                    using (DataTable DT = new DataTable())
+                    {
+                        if (DA.Fill(DT) > 0)
+                        {
+                            DateTime datetime = Security.GetCurrentDate();
+
+                            for (int i = 0; i < DT.Rows.Count; i++)
+                            {
+                                if (DT.Rows[i]["QualityControlInUserID"] == DBNull.Value)
+                                    DT.Rows[i]["QualityControlInUserID"] = Security.CurrentUserID;
+                                if (DT.Rows[i]["QualityControlInDateTime"] == DBNull.Value)
+                                    DT.Rows[i]["QualityControlInDateTime"] = datetime;
+                            }
+                            DA.Update(DT);
+                        }
+                    }
+                }
+            }
+        }
+        public void QualityControlOut(int[] packageIds)
+        {
+            string filter = string.Empty;
+            foreach (int item in packageIds)
+                filter += item.ToString() + ",";
+            if (filter.Length > 0)
+                filter = "SELECT CabFurniturePackageID, QualityControlOutUserID, QualityControlOutDateTime, QualityControl FROM CabFurniturePackages " +
+                    "WHERE CabFurniturePackageID IN (" + filter.Substring(0, filter.Length - 1) + ")";
+
+            using (SqlDataAdapter DA = new SqlDataAdapter(filter, ConnectionStrings.StorageConnectionString))
+            {
+                using (new SqlCommandBuilder(DA))
+                {
+                    using (DataTable DT = new DataTable())
+                    {
+                        if (DA.Fill(DT) > 0)
+                        {
+                            DateTime datetime = Security.GetCurrentDate();
+
+                            for (int i = 0; i < DT.Rows.Count; i++)
+                            {
+                                if (DT.Rows[i]["QualityControlOutUserID"] == DBNull.Value)
+                                    DT.Rows[i]["QualityControlOutUserID"] = Security.CurrentUserID;
+                                if (DT.Rows[i]["QualityControlOutDateTime"] == DBNull.Value)
+                                    DT.Rows[i]["QualityControlOutDateTime"] = datetime;
+                                DT.Rows[i]["QualityControl"] = 1;
+                            }
+                            DA.Update(DT);
+                        }
+                    }
+                }
+            }
+        }
     }
 
     public class CheckLabel
@@ -14119,4 +14185,6 @@ INNER JOIN infiniu2_marketingorders.dbo.MainOrders AS M ON C.MainOrderID=M.MainO
             PD.Print();
         }
     }
+
+
 }

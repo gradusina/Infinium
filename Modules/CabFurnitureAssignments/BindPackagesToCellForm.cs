@@ -14,6 +14,8 @@ namespace Infinium
         const int eClose = 3;
         const int eMainMenu = 4;
 
+        int cellId = -1;
+
         bool bb = true;
         int FormEvent = 0;
 
@@ -22,17 +24,28 @@ namespace Infinium
 
         StoragePackagesManager storagePackagesManager;
 
-        public BindPackagesToCellForm(Form tMainForm, StoragePackagesManager SM)
+        public BindPackagesToCellForm(Form tMainForm, StoragePackagesManager SM, int iCellId)
         {
             MainForm = tMainForm;
             storagePackagesManager = SM;
+            cellId = iCellId;
             InitializeComponent();
-            
+
             Initialize();
         }
 
         private void OKButton_Click(object sender, EventArgs e)
         {
+            if (dgvPackages.Rows.Count == 0 || cellId == -1)
+                return;
+
+            int[] packageID = new int[dgvPackages.Rows.Count];
+
+            for (int i = 0; i < dgvPackages.Rows.Count; i++)
+            {
+                packageID[i] = Convert.ToInt32(dgvPackages.Rows[i].Cells["CabFurniturePackageID"].Value);
+            }
+            storagePackagesManager.BindPackagesToCell(cellId, packageID);
             FormEvent = eClose;
             AnimateTimer.Enabled = true;
         }
@@ -116,44 +129,53 @@ namespace Infinium
 
         private void Initialize()
         {
-
             storagePackagesManager.Clear();
             dgvPackages.DataSource = storagePackagesManager.BindPackageLabelsBS;
-            //dgvPackages.AutoGenerateColumns = false;
 
-            //foreach (DataGridViewColumn Column in dgvPackages.Columns)
-            //{
-            //    Column.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            //}
+            dgvPackages.AutoGenerateColumns = false;
 
-            //if (dgvPackages.Columns.Contains("TechStoreSubGroupName"))
-            //    dgvPackages.Columns["TechStoreSubGroupName"].Visible = false;
-            //if (dgvPackages.Columns.Contains("CreationUserID"))
-            //    dgvPackages.Columns["CreationUserID"].Visible = false;
-            //if (dgvPackages.Columns.Contains("CreationDateTime"))
-            //    dgvPackages.Columns["CreationDateTime"].Visible = false;
-            //if (dgvPackages.Columns.Contains("CabFurnitureCoverID"))
-            //    dgvPackages.Columns["CabFurnitureCoverID"].Visible = false;
-            //if (dgvPackages.Columns.Contains("TechStoreID"))
-            //    dgvPackages.Columns["TechStoreID"].Visible = false;
-            //if (dgvPackages.Columns.Contains("CoverID1"))
-            //    dgvPackages.Columns["CoverID1"].Visible = false;
-            //if (dgvPackages.Columns.Contains("CoverID2"))
-            //    dgvPackages.Columns["CoverID2"].Visible = false;
-            //if (dgvPackages.Columns.Contains("PatinaID1"))
-            //    dgvPackages.Columns["PatinaID1"].Visible = false;
-            //if (dgvPackages.Columns.Contains("PatinaID2"))
-            //    dgvPackages.Columns["PatinaID2"].Visible = false;
-            //if (dgvPackages.Columns.Contains("InsetColorID"))
-            //    dgvPackages.Columns["InsetColorID"].Visible = false;
+            if (dgvPackages.Columns.Contains("PackagesCount"))
+                dgvPackages.Columns["PackagesCount"].Visible = false;
+            if (dgvPackages.Columns.Contains("TechStoreSubGroupID"))
+                dgvPackages.Columns["TechStoreSubGroupID"].Visible = false;
+            if (dgvPackages.Columns.Contains("CabFurAssignmentDetailID"))
+                dgvPackages.Columns["CabFurAssignmentDetailID"].Visible = false;
+            if (dgvPackages.Columns.Contains("MainOrderID"))
+                dgvPackages.Columns["MainOrderID"].Visible = false;
+            if (dgvPackages.Columns.Contains("QualityControlInUserID"))
+                dgvPackages.Columns["QualityControlInUserID"].Visible = false;
+            if (dgvPackages.Columns.Contains("QualityControlOutUserID"))
+                dgvPackages.Columns["QualityControlOutUserID"].Visible = false;
+            if (dgvPackages.Columns.Contains("CellID"))
+                dgvPackages.Columns["CellID"].Visible = false;
+            if (dgvPackages.Columns.Contains("PackNumber"))
+                dgvPackages.Columns["PackNumber"].Visible = false;
 
-            //int DisplayIndex = 0;
-            //dgvPackages.Columns["CoverColumn1"].DisplayIndex = DisplayIndex++;
-            //dgvPackages.Columns["PatinaColumn1"].DisplayIndex = DisplayIndex++;
-            //dgvPackages.Columns["InsetColorColumn"].DisplayIndex = DisplayIndex++;
-            //dgvPackages.Columns["TechStoreNameColumn"].DisplayIndex = DisplayIndex++;
-            //dgvPackages.Columns["CoverColumn2"].DisplayIndex = DisplayIndex++;
-            //dgvPackages.Columns["PatinaColumn2"].DisplayIndex = DisplayIndex++;
+            dgvPackages.Columns["CabFurniturePackageID"].HeaderText = "ID";
+            dgvPackages.Columns["AddToStorageDateTime"].HeaderText = "Принято на склад";
+            dgvPackages.Columns["RemoveFromStorageDateTime"].HeaderText = "Списано со склада";
+            dgvPackages.Columns["Name"].HeaderText = "Ячейка";
+            dgvPackages.Columns["QualityControlInDateTime"].HeaderText = "Отправлено на ОТК";
+            dgvPackages.Columns["QualityControlOutDateTime"].HeaderText = "Принято с ОТК";
+            dgvPackages.Columns["QualityControl"].HeaderText = "ОТК";
+
+            foreach (DataGridViewColumn Column in dgvPackages.Columns)
+            {
+                Column.ReadOnly = true;
+                //Column.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                Column.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            }
+
+            int DisplayIndex = 0;
+            dgvPackages.Columns["CabFurniturePackageID"].DisplayIndex = DisplayIndex++;
+            dgvPackages.Columns["AddToStorageDateTime"].DisplayIndex = DisplayIndex++;
+            dgvPackages.Columns["RemoveFromStorageDateTime"].DisplayIndex = DisplayIndex++;
+            dgvPackages.Columns["Name"].DisplayIndex = DisplayIndex++;
+            dgvPackages.Columns["QualityControl"].DisplayIndex = DisplayIndex++;
+            dgvPackages.Columns["QualityControlInDateTime"].DisplayIndex = DisplayIndex++;
+            dgvPackages.Columns["QualityControlOutDateTime"].DisplayIndex = DisplayIndex++;
+
+            dgvPackages.Columns["CabFurniturePackageID"].Width = 50;
         }
         private void CheckTimer_Tick(object sender, EventArgs e)
         {
@@ -161,87 +183,6 @@ namespace Infinium
             {
                 BarcodeTextBox.Focus();
             }
-        }
-
-        private int GetChar(KeyEventArgs e)
-        {
-            int c = -1;
-
-            if (e.KeyCode == Keys.NumPad1 || e.KeyCode == Keys.NumPad2 || e.KeyCode == Keys.NumPad3 || e.KeyCode == Keys.NumPad4 ||
-                e.KeyCode == Keys.NumPad5 || e.KeyCode == Keys.NumPad6 || e.KeyCode == Keys.NumPad7 || e.KeyCode == Keys.NumPad8 ||
-                e.KeyCode == Keys.NumPad9 || e.KeyCode == Keys.NumPad0 || e.KeyCode == Keys.D0 || e.KeyCode == Keys.D1 || e.KeyCode == Keys.D2 ||
-                e.KeyCode == Keys.D3 || e.KeyCode == Keys.D4 || e.KeyCode == Keys.D5 || e.KeyCode == Keys.D6 || e.KeyCode == Keys.D7 ||
-                e.KeyCode == Keys.D8 || e.KeyCode == Keys.D9 || e.KeyCode == Keys.D0)
-            {
-                switch (e.KeyCode)
-                {
-                    case Keys.NumPad1:
-                        { c = 1; }
-                        break;
-                    case Keys.NumPad2:
-                        { c = 2; }
-                        break;
-                    case Keys.NumPad3:
-                        { c = 3; }
-                        break;
-                    case Keys.NumPad4:
-                        { c = 4; }
-                        break;
-                    case Keys.NumPad5:
-                        { c = 5; }
-                        break;
-                    case Keys.NumPad6:
-                        { c = 6; }
-                        break;
-                    case Keys.NumPad7:
-                        { c = 7; }
-                        break;
-                    case Keys.NumPad8:
-                        { c = 8; }
-                        break;
-                    case Keys.NumPad9:
-                        { c = 9; }
-                        break;
-                    case Keys.NumPad0:
-                        { c = 0; }
-                        break;
-
-
-                    case Keys.D1:
-                        { c = 1; }
-                        break;
-                    case Keys.D2:
-                        { c = 2; }
-                        break;
-                    case Keys.D3:
-                        { c = 3; }
-                        break;
-                    case Keys.D4:
-                        { c = 4; }
-                        break;
-                    case Keys.D5:
-                        { c = 5; }
-                        break;
-                    case Keys.D6:
-                        { c = 6; }
-                        break;
-                    case Keys.D7:
-                        { c = 7; }
-                        break;
-                    case Keys.D8:
-                        { c = 8; }
-                        break;
-                    case Keys.D9:
-                        { c = 9; }
-                        break;
-                    case Keys.D0:
-                        { c = 0; }
-                        break;
-                }
-
-
-            }
-            return c;
         }
 
         private void ClearControls()
@@ -267,73 +208,57 @@ namespace Infinium
                 {
                     BarcodeTextBox.Clear();
                     BarcodeLabel.Text = "Неверный штрихкод";
-                    SetGridColor(false);
-
+                    CheckPicture.Visible = true;
+                    CheckPicture.Image = Properties.Resources.cancel;
+                    BarcodeLabel.ForeColor = Color.FromArgb(240, 0, 0);
                     return;
                 }
 
                 string Prefix = BarcodeTextBox.Text.Substring(0, 3);
 
-                if (Prefix != "022")
+                if (Prefix != "021")
                 {
                     BarcodeTextBox.Clear();
-                    BarcodeLabel.Text = "Неверный штрихкод";
-                    SetGridColor(false);
+                    BarcodeLabel.Text = "Это не штрихкод упаковки";
+                    CheckPicture.Visible = true;
+                    CheckPicture.Image = Properties.Resources.cancel;
+                    BarcodeLabel.ForeColor = Color.FromArgb(240, 0, 0);
+                    return;
+                }
 
+                int CabFurniturePackageID = Convert.ToInt32(BarcodeTextBox.Text.Substring(3, 9));
+
+                if (!storagePackagesManager.IsPackageExist(CabFurniturePackageID))
+                {
+                    CabFurniturePackageID = -1;
+                    BarcodeTextBox.Clear();
+                    BarcodeLabel.Text = "Упаковки не существует";
+                    CheckPicture.Visible = true;
+                    CheckPicture.Image = Properties.Resources.cancel;
+                    BarcodeLabel.ForeColor = Color.FromArgb(240, 0, 0);
                     return;
                 }
 
                 BarcodeLabel.Text = BarcodeTextBox.Text;
                 BarcodeTextBox.Clear();
 
-                //упаковка
-                if (Prefix == "022")
+                if (storagePackagesManager.GetPackagesLabels(CabFurniturePackageID))
                 {
-                    int CabFurniturePackageID = Convert.ToInt32(BarcodeLabel.Text.Substring(3, 9));
+                    CheckPicture.Visible = true;
+                    CheckPicture.Image = Properties.Resources.OK;
+                    BarcodeLabel.ForeColor = Color.FromArgb(82, 169, 24);
+                }
+                else
+                {
+                    CheckPicture.Visible = true;
+                    CheckPicture.Image = Properties.Resources.cancel;
+                    BarcodeLabel.ForeColor = Color.FromArgb(240, 0, 0);
 
-                    if (storagePackagesManager.GetPackagesLabels(CabFurniturePackageID))
-                    {
-                        CheckPicture.Visible = true;
-                        CheckPicture.Image = Properties.Resources.OK;
-                        BarcodeLabel.ForeColor = Color.FromArgb(82, 169, 24);
-
-                        //if (CheckLabel.lInfo.RemoveFromStorage)
-                        //    BarcodeLabel.Text = "Списано со склада ранее";
-                        SetGridColor(true);
-                    }
-                    else
-                    {
-                        CheckPicture.Visible = true;
-                        CheckPicture.Image = Properties.Resources.cancel;
-                        BarcodeLabel.ForeColor = Color.FromArgb(240, 0, 0);
-
-                        BarcodeLabel.Text = "Упаковки не существует";
-                        SetGridColor(false);
-                        ClearControls();
-                    }
+                    BarcodeLabel.Text = "Упаковки не существует";
+                    ClearControls();
                 }
             }
 
-        }
-
-        public void SetGridColor(bool IsAccept)
-        {
-            //if (IsAccept)
-            //{
-            //    dgvScan.StateCommon.Background.Color1 = Color.FromArgb(82, 169, 24);
-            //    dgvScan.StateCommon.Background.Color2 = Color.Transparent;
-            //    dgvScan.StateCommon.Background.ColorStyle = PaletteColorStyle.Solid;
-            //    dgvScan.StateCommon.DataCell.Back.Color1 = Color.FromArgb(82, 169, 24);
-            //    dgvScan.StateCommon.DataCell.Content.Color1 = System.Drawing.Color.White;
-            //}
-            //else
-            //{
-            //    dgvScan.StateCommon.Background.Color1 = Color.Red;
-            //    dgvScan.StateCommon.Background.Color2 = Color.Transparent;
-            //    dgvScan.StateCommon.Background.ColorStyle = PaletteColorStyle.Solid;
-            //    dgvScan.StateCommon.DataCell.Back.Color1 = Color.Red;
-            //    dgvScan.StateCommon.DataCell.Content.Color1 = Color.White;
-            //}
         }
 
         private void BarcodeTextBox_KeyPress(object sender, KeyPressEventArgs e)
@@ -389,6 +314,23 @@ namespace Infinium
                 return;
             dgvPackages.Rows[Index].Selected = true;
             bb = false;
+        }
+
+        private void dgvPackages_RowPrePaint(object sender, DataGridViewRowPrePaintEventArgs e)
+        {
+            if (e.RowIndex < 0)
+                return;
+            PercentageDataGrid grid = (PercentageDataGrid)sender;
+            int CellID = -1;
+            if (grid.Rows[e.RowIndex].Cells["CellID"].Value != DBNull.Value)
+                CellID = Convert.ToInt32(grid.Rows[e.RowIndex].Cells["CellID"].Value);
+
+            if (CellID != -1)
+            {
+                grid.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.Red;
+                grid.Rows[e.RowIndex].DefaultCellStyle.ForeColor = Color.White;
+                grid.Rows[e.RowIndex].DefaultCellStyle.SelectionForeColor = Color.Red;
+            }
         }
     }
 }

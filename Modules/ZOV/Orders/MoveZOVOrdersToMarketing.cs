@@ -237,6 +237,7 @@ namespace Infinium.Modules.ZOV.Orders
 
             try
             {
+                ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
                 myHttpWebRequest = (HttpWebRequest)HttpWebRequest.Create(url);
                 myHttpWebRequest.KeepAlive = false;
                 myHttpWebRequest.AllowAutoRedirect = true;

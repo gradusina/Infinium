@@ -3850,6 +3850,7 @@ namespace Infinium.Modules.ZOV.Complaints
 
             try
             {
+                ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
                 myHttpWebRequest = (HttpWebRequest)HttpWebRequest.Create(url);
                 myHttpWebRequest.KeepAlive = false;
                 myHttpWebResponse = (HttpWebResponse)myHttpWebRequest.GetResponse();

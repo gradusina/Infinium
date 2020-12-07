@@ -34,12 +34,10 @@
             this.kryptonBorderEdge21 = new ComponentFactory.Krypton.Toolkit.KryptonBorderEdge();
             this.kryptonBorderEdge22 = new ComponentFactory.Krypton.Toolkit.KryptonBorderEdge();
             this.kryptonBorderEdge23 = new ComponentFactory.Krypton.Toolkit.KryptonBorderEdge();
-            this.OKButton = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.StandardButtonsPalette = new ComponentFactory.Krypton.Toolkit.KryptonPalette(this.components);
             this.toolTipController1 = new DevExpress.Utils.ToolTipController(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
-            this.ExitButton = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.AnimateTimer = new System.Windows.Forms.Timer(this.components);
             this.panel4 = new System.Windows.Forms.Panel();
             this.dgvPackages = new Infinium.PercentageDataGrid();
@@ -52,6 +50,9 @@
             this.CheckPicture = new System.Windows.Forms.PictureBox();
             this.BarcodeTextBox = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
             this.CheckTimer = new System.Windows.Forms.Timer(this.components);
+            this.ExitButton = new ComponentFactory.Krypton.Toolkit.KryptonButton();
+            this.OKButton = new ComponentFactory.Krypton.Toolkit.KryptonButton();
+            this.label1 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPackages)).BeginInit();
@@ -95,28 +96,6 @@
             this.kryptonBorderEdge23.Size = new System.Drawing.Size(862, 1);
             this.kryptonBorderEdge23.StateCommon.Color1 = System.Drawing.Color.Black;
             this.kryptonBorderEdge23.Text = "kryptonBorderEdge23";
-            // 
-            // OKButton
-            // 
-            this.OKButton.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.OKButton.Location = new System.Drawing.Point(301, 574);
-            this.OKButton.Name = "OKButton";
-            this.OKButton.Palette = this.StandardButtonsPalette;
-            this.OKButton.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Custom;
-            this.OKButton.Size = new System.Drawing.Size(111, 38);
-            this.OKButton.StateCommon.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
-            this.OKButton.StateCommon.Content.Image.ImageH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
-            this.OKButton.StateCommon.Content.Image.ImageV = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Near;
-            this.OKButton.StateCommon.Content.ShortText.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.OKButton.StateCommon.Content.ShortText.TextV = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
-            this.OKButton.StateTracking.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(253)))), ((int)(((byte)(164)))), ((int)(((byte)(61)))));
-            this.OKButton.StateTracking.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
-            this.OKButton.TabIndex = 174;
-            this.OKButton.TabStop = false;
-            this.OKButton.Values.Text = "Сохранить";
-            this.OKButton.Click += new System.EventHandler(this.OKButton_Click);
             // 
             // StandardButtonsPalette
             // 
@@ -188,28 +167,6 @@
             this.label2.TabIndex = 240;
             this.label2.Text = "Привязка упаковок";
             // 
-            // ExitButton
-            // 
-            this.ExitButton.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.ExitButton.Location = new System.Drawing.Point(462, 574);
-            this.ExitButton.Name = "ExitButton";
-            this.ExitButton.Palette = this.StandardButtonsPalette;
-            this.ExitButton.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Custom;
-            this.ExitButton.Size = new System.Drawing.Size(111, 38);
-            this.ExitButton.StateCommon.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
-            this.ExitButton.StateCommon.Content.Image.ImageH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
-            this.ExitButton.StateCommon.Content.Image.ImageV = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Near;
-            this.ExitButton.StateCommon.Content.ShortText.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.ExitButton.StateCommon.Content.ShortText.TextV = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
-            this.ExitButton.StateTracking.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(253)))), ((int)(((byte)(164)))), ((int)(((byte)(61)))));
-            this.ExitButton.StateTracking.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
-            this.ExitButton.TabIndex = 240;
-            this.ExitButton.TabStop = false;
-            this.ExitButton.Values.Text = "Выход";
-            this.ExitButton.Click += new System.EventHandler(this.ExitButton_Click);
-            // 
             // AnimateTimer
             // 
             this.AnimateTimer.Interval = 1;
@@ -224,7 +181,7 @@
             this.panel4.Controls.Add(this.kryptonBorderEdge12);
             this.panel4.Location = new System.Drawing.Point(17, 182);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(830, 372);
+            this.panel4.Size = new System.Drawing.Size(830, 342);
             this.panel4.TabIndex = 434;
             // 
             // dgvPackages
@@ -247,7 +204,7 @@
             this.dgvPackages.RowTemplate.Height = 30;
             this.dgvPackages.SelectedColorStyle = Infinium.PercentageDataGrid.ColorStyle.Blue;
             this.dgvPackages.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvPackages.Size = new System.Drawing.Size(828, 370);
+            this.dgvPackages.Size = new System.Drawing.Size(828, 340);
             this.dgvPackages.StandardStyle = false;
             this.dgvPackages.StateCommon.Background.Color1 = System.Drawing.Color.White;
             this.dgvPackages.StateCommon.Background.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
@@ -280,6 +237,7 @@
             this.dgvPackages.StateSelected.DataCell.Content.Color1 = System.Drawing.Color.White;
             this.dgvPackages.TabIndex = 73;
             this.dgvPackages.UseCustomBackColor = true;
+            this.dgvPackages.RowPrePaint += new System.Windows.Forms.DataGridViewRowPrePaintEventHandler(this.dgvPackages_RowPrePaint);
             // 
             // kryptonBorderEdge9
             // 
@@ -293,7 +251,7 @@
             // kryptonBorderEdge10
             // 
             this.kryptonBorderEdge10.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.kryptonBorderEdge10.Location = new System.Drawing.Point(1, 371);
+            this.kryptonBorderEdge10.Location = new System.Drawing.Point(1, 341);
             this.kryptonBorderEdge10.Name = "kryptonBorderEdge10";
             this.kryptonBorderEdge10.Size = new System.Drawing.Size(828, 1);
             this.kryptonBorderEdge10.StateCommon.Color1 = System.Drawing.Color.Black;
@@ -305,7 +263,7 @@
             this.kryptonBorderEdge11.Location = new System.Drawing.Point(829, 0);
             this.kryptonBorderEdge11.Name = "kryptonBorderEdge11";
             this.kryptonBorderEdge11.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.kryptonBorderEdge11.Size = new System.Drawing.Size(1, 372);
+            this.kryptonBorderEdge11.Size = new System.Drawing.Size(1, 342);
             this.kryptonBorderEdge11.StateCommon.Color1 = System.Drawing.Color.Black;
             this.kryptonBorderEdge11.Text = "kryptonBorderEdge11";
             // 
@@ -316,7 +274,7 @@
             this.kryptonBorderEdge12.Margin = new System.Windows.Forms.Padding(10, 0, 0, 0);
             this.kryptonBorderEdge12.Name = "kryptonBorderEdge12";
             this.kryptonBorderEdge12.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.kryptonBorderEdge12.Size = new System.Drawing.Size(1, 372);
+            this.kryptonBorderEdge12.Size = new System.Drawing.Size(1, 342);
             this.kryptonBorderEdge12.StateCommon.Color1 = System.Drawing.Color.Black;
             this.kryptonBorderEdge12.Text = "kryptonBorderEdge12";
             // 
@@ -382,18 +340,98 @@
             this.CheckTimer.Interval = 2000;
             this.CheckTimer.Tick += new System.EventHandler(this.CheckTimer_Tick);
             // 
+            // ExitButton
+            // 
+            this.ExitButton.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.ExitButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.ExitButton.Location = new System.Drawing.Point(448, 574);
+            this.ExitButton.Name = "ExitButton";
+            this.ExitButton.OverrideDefault.Back.Color1 = System.Drawing.Color.Silver;
+            this.ExitButton.OverrideDefault.Border.Draw = ComponentFactory.Krypton.Toolkit.InheritBool.False;
+            this.ExitButton.OverrideDefault.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.ExitButton.OverrideDefault.Border.Rounding = 0;
+            this.ExitButton.Size = new System.Drawing.Size(102, 34);
+            this.ExitButton.StateCommon.Back.Color1 = System.Drawing.Color.Silver;
+            this.ExitButton.StateCommon.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
+            this.ExitButton.StateCommon.Border.Color1 = System.Drawing.Color.White;
+            this.ExitButton.StateCommon.Border.Draw = ComponentFactory.Krypton.Toolkit.InheritBool.False;
+            this.ExitButton.StateCommon.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.ExitButton.StateCommon.Border.Rounding = 0;
+            this.ExitButton.StateCommon.Content.ShortText.Color1 = System.Drawing.Color.White;
+            this.ExitButton.StateCommon.Content.ShortText.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.ExitButton.StateTracking.Border.Color1 = System.Drawing.Color.White;
+            this.ExitButton.StateTracking.Border.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
+            this.ExitButton.StateTracking.Border.Draw = ComponentFactory.Krypton.Toolkit.InheritBool.True;
+            this.ExitButton.StateTracking.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.ExitButton.StateTracking.Border.Rounding = 0;
+            this.ExitButton.TabIndex = 476;
+            this.ExitButton.Values.Text = "Выход";
+            this.ExitButton.Click += new System.EventHandler(this.ExitButton_Click);
+            // 
+            // OKButton
+            // 
+            this.OKButton.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.OKButton.Location = new System.Drawing.Point(315, 574);
+            this.OKButton.Name = "OKButton";
+            this.OKButton.OverrideDefault.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(184)))), ((int)(((byte)(238)))));
+            this.OKButton.OverrideDefault.Border.Color1 = System.Drawing.Color.White;
+            this.OKButton.OverrideDefault.Border.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
+            this.OKButton.OverrideDefault.Border.Draw = ComponentFactory.Krypton.Toolkit.InheritBool.False;
+            this.OKButton.OverrideDefault.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.OKButton.OverrideDefault.Border.Rounding = 0;
+            this.OKButton.Size = new System.Drawing.Size(102, 34);
+            this.OKButton.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(184)))), ((int)(((byte)(238)))));
+            this.OKButton.StateCommon.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
+            this.OKButton.StateCommon.Border.Draw = ComponentFactory.Krypton.Toolkit.InheritBool.False;
+            this.OKButton.StateCommon.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.OKButton.StateCommon.Border.Rounding = 0;
+            this.OKButton.StateCommon.Content.ShortText.Color1 = System.Drawing.Color.White;
+            this.OKButton.StateCommon.Content.ShortText.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.OKButton.StateTracking.Border.Color1 = System.Drawing.Color.White;
+            this.OKButton.StateTracking.Border.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
+            this.OKButton.StateTracking.Border.Draw = ComponentFactory.Krypton.Toolkit.InheritBool.True;
+            this.OKButton.StateTracking.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.OKButton.StateTracking.Border.Rounding = 0;
+            this.OKButton.TabIndex = 475;
+            this.OKButton.Values.Text = "Привязать";
+            this.OKButton.Click += new System.EventHandler(this.OKButton_Click);
+            // 
+            // label1
+            // 
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.label1.Location = new System.Drawing.Point(14, 527);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(492, 30);
+            this.label1.TabIndex = 481;
+            this.label1.Text = "* красным цветом отмечены уже привязанные упаковки";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // BindPackagesToCellForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(864, 627);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.ExitButton);
+            this.Controls.Add(this.OKButton);
             this.Controls.Add(this.BarcodeLabel);
             this.Controls.Add(this.CheckPicture);
             this.Controls.Add(this.BarcodeTextBox);
             this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.panel4);
-            this.Controls.Add(this.ExitButton);
-            this.Controls.Add(this.OKButton);
             this.Controls.Add(this.kryptonBorderEdge23);
             this.Controls.Add(this.kryptonBorderEdge22);
             this.Controls.Add(this.kryptonBorderEdge21);
@@ -423,11 +461,9 @@
         private ComponentFactory.Krypton.Toolkit.KryptonBorderEdge kryptonBorderEdge21;
         private ComponentFactory.Krypton.Toolkit.KryptonBorderEdge kryptonBorderEdge22;
         private ComponentFactory.Krypton.Toolkit.KryptonBorderEdge kryptonBorderEdge23;
-        private ComponentFactory.Krypton.Toolkit.KryptonButton OKButton;
         private DevExpress.Utils.ToolTipController toolTipController1;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label2;
-        private ComponentFactory.Krypton.Toolkit.KryptonButton ExitButton;
         private ComponentFactory.Krypton.Toolkit.KryptonPalette StandardButtonsPalette;
         private System.Windows.Forms.Timer AnimateTimer;
         private System.Windows.Forms.Panel panel4;
@@ -441,5 +477,8 @@
         private System.Windows.Forms.PictureBox CheckPicture;
         private ComponentFactory.Krypton.Toolkit.KryptonTextBox BarcodeTextBox;
         private System.Windows.Forms.Timer CheckTimer;
+        private ComponentFactory.Krypton.Toolkit.KryptonButton ExitButton;
+        private ComponentFactory.Krypton.Toolkit.KryptonButton OKButton;
+        private System.Windows.Forms.Label label1;
     }
 }

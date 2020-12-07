@@ -7880,6 +7880,7 @@ ORDER BY infiniu2_zovreference.dbo.Clients.ClientName, MainOrders.DocNumber";
 
         //    try
         //    {
+        //ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
         //        myHttpWebRequest = (HttpWebRequest)HttpWebRequest.Create(url);
         //        myHttpWebRequest.KeepAlive = false;
         //        myHttpWebRequest.AllowAutoRedirect = true;

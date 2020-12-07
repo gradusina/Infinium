@@ -36,7 +36,7 @@
             this.StandardButtonsPalette = new ComponentFactory.Krypton.Toolkit.KryptonPalette(this.components);
             this.tbName = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.CancelButton = new ComponentFactory.Krypton.Toolkit.KryptonButton();
+            this.cancelButton = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.OkButton = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.SuspendLayout();
             // 
@@ -141,39 +141,39 @@
             this.label1.TabIndex = 339;
             this.label1.Text = "Цех";
             // 
-            // CancelButton
+            // cancelButton
             // 
-            this.CancelButton.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.CancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.CancelButton.Location = new System.Drawing.Point(177, 128);
-            this.CancelButton.Name = "CancelButton";
-            this.CancelButton.OverrideDefault.Back.Color1 = System.Drawing.Color.Silver;
-            this.CancelButton.OverrideDefault.Border.Draw = ComponentFactory.Krypton.Toolkit.InheritBool.False;
-            this.CancelButton.OverrideDefault.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            this.cancelButton.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.cancelButton.Location = new System.Drawing.Point(177, 128);
+            this.cancelButton.Name = "cancelButton";
+            this.cancelButton.OverrideDefault.Back.Color1 = System.Drawing.Color.Silver;
+            this.cancelButton.OverrideDefault.Border.Draw = ComponentFactory.Krypton.Toolkit.InheritBool.False;
+            this.cancelButton.OverrideDefault.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
-            this.CancelButton.OverrideDefault.Border.Rounding = 0;
-            this.CancelButton.Size = new System.Drawing.Size(102, 34);
-            this.CancelButton.StateCommon.Back.Color1 = System.Drawing.Color.Silver;
-            this.CancelButton.StateCommon.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
-            this.CancelButton.StateCommon.Border.Color1 = System.Drawing.Color.White;
-            this.CancelButton.StateCommon.Border.Draw = ComponentFactory.Krypton.Toolkit.InheritBool.False;
-            this.CancelButton.StateCommon.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            this.cancelButton.OverrideDefault.Border.Rounding = 0;
+            this.cancelButton.Size = new System.Drawing.Size(102, 34);
+            this.cancelButton.StateCommon.Back.Color1 = System.Drawing.Color.Silver;
+            this.cancelButton.StateCommon.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
+            this.cancelButton.StateCommon.Border.Color1 = System.Drawing.Color.White;
+            this.cancelButton.StateCommon.Border.Draw = ComponentFactory.Krypton.Toolkit.InheritBool.False;
+            this.cancelButton.StateCommon.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
-            this.CancelButton.StateCommon.Border.Rounding = 0;
-            this.CancelButton.StateCommon.Content.ShortText.Color1 = System.Drawing.Color.White;
-            this.CancelButton.StateCommon.Content.ShortText.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.CancelButton.StateTracking.Border.Color1 = System.Drawing.Color.White;
-            this.CancelButton.StateTracking.Border.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
-            this.CancelButton.StateTracking.Border.Draw = ComponentFactory.Krypton.Toolkit.InheritBool.True;
-            this.CancelButton.StateTracking.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            this.cancelButton.StateCommon.Border.Rounding = 0;
+            this.cancelButton.StateCommon.Content.ShortText.Color1 = System.Drawing.Color.White;
+            this.cancelButton.StateCommon.Content.ShortText.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.cancelButton.StateTracking.Border.Color1 = System.Drawing.Color.White;
+            this.cancelButton.StateTracking.Border.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
+            this.cancelButton.StateTracking.Border.Draw = ComponentFactory.Krypton.Toolkit.InheritBool.True;
+            this.cancelButton.StateTracking.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
-            this.CancelButton.StateTracking.Border.Rounding = 0;
-            this.CancelButton.TabIndex = 474;
-            this.CancelButton.Values.Text = "Отмена";
-            this.CancelButton.Click += new System.EventHandler(this.CancelButton_Click);
+            this.cancelButton.StateTracking.Border.Rounding = 0;
+            this.cancelButton.TabIndex = 474;
+            this.cancelButton.Values.Text = "Отмена";
+            this.cancelButton.Click += new System.EventHandler(this.CancelButton_Click);
             // 
             // OkButton
             // 
@@ -214,7 +214,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(323, 191);
-            this.Controls.Add(this.CancelButton);
+            this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.OkButton);
             this.Controls.Add(this.tbName);
             this.Controls.Add(this.label1);
@@ -241,7 +241,7 @@
         private ComponentFactory.Krypton.Toolkit.KryptonPalette StandardButtonsPalette;
         private ComponentFactory.Krypton.Toolkit.KryptonTextBox tbName;
         private System.Windows.Forms.Label label1;
-        private ComponentFactory.Krypton.Toolkit.KryptonButton CancelButton;
+        private ComponentFactory.Krypton.Toolkit.KryptonButton cancelButton;
         private ComponentFactory.Krypton.Toolkit.KryptonButton OkButton;
     }
 }

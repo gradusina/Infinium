@@ -2984,6 +2984,7 @@ namespace Infinium
 
             try
             {
+                ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
                 myHttpWebRequest = (HttpWebRequest)HttpWebRequest.Create(url);
                 myHttpWebRequest.KeepAlive = false;
                 myHttpWebRequest.AllowAutoRedirect = true;
@@ -3063,6 +3064,7 @@ namespace Infinium
 
             try
             {
+                ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
                 myHttpWebRequest = (HttpWebRequest)HttpWebRequest.Create(url);
                 myHttpWebRequest.KeepAlive = false;
                 myHttpWebRequest.AllowAutoRedirect = true;
