@@ -3360,6 +3360,44 @@ DecorOrders.DecorConfigID, DecorOrders.FactoryID, DecorOrders.Notes, DecorConfig
 
         public int UpdateWorkAssignments(int FactoryID, DateTime date1, DateTime date2)
         {
+            //double t1 = 0;
+            //double t2 = 0;
+            //string Filter = " AND CAST(CreationDateTime AS date) >= '" + date1.ToString("yyyy-MM-dd") +
+            //    " 00:00' AND CAST(CreationDateTime AS date) <= '" + date2.ToString("yyyy-MM-dd") + " 23:59'";
+            //string MyQueryText = "SELECT * FROM WorkAssignments WHERE FactoryID = " + FactoryID + Filter + " ORDER BY WorkAssignmentID DESC";
+            //System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
+            //sw.Start();
+            
+
+            //using (SqlDataAdapter da = new SqlDataAdapter(MyQueryText, ConnectionStrings.MarketingOrdersConnectionString))
+            //{
+            //    WorkAssignmentsDT.Clear();
+            //    da.Fill(WorkAssignmentsDT);
+            //}
+
+            //sw.Stop();
+            //t1 = sw.Elapsed.TotalMilliseconds;
+
+            //WorkAssignmentsDT.Clear();
+            //sw.Restart();
+
+            //using (SqlConnection conn = new SqlConnection(ConnectionStrings.MarketingOrdersConnectionString))
+            //{
+            //    using (SqlCommand cmd = new SqlCommand(MyQueryText, conn))
+            //    {
+            //        // set CommandType, parameters and SqlDependency here if needed
+            //        conn.Open();
+            //        using (SqlDataReader reader = cmd.ExecuteReader())
+            //        {
+            //            WorkAssignmentsDT.Load(reader);
+            //        }
+            //    }
+            //}
+
+            //sw.Stop();
+            //t2 = sw.Elapsed.TotalMilliseconds;
+
+
             string Filter = " AND CAST(CreationDateTime AS date) >= '" + date1.ToString("yyyy-MM-dd") +
                 " 00:00' AND CAST(CreationDateTime AS date) <= '" + date2.ToString("yyyy-MM-dd") + " 23:59'";
 

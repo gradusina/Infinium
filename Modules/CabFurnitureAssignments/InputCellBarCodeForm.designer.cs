@@ -45,6 +45,7 @@
             this.lbBarcode = new System.Windows.Forms.Label();
             this.btnCancel = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.btnOk = new ComponentFactory.Krypton.Toolkit.KryptonButton();
+            this.kryptonBorderEdge1 = new ComponentFactory.Krypton.Toolkit.KryptonBorderEdge();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.CheckPicture)).BeginInit();
             this.SuspendLayout();
@@ -178,7 +179,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Segoe UI", 14.81F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.label1.Location = new System.Drawing.Point(9, 120);
+            this.label1.Location = new System.Drawing.Point(23, 120);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(172, 60);
             this.label1.TabIndex = 422;
@@ -188,7 +189,7 @@
             // CheckPicture
             // 
             this.CheckPicture.Image = global::Infinium.Properties.Resources.cancel;
-            this.CheckPicture.Location = new System.Drawing.Point(413, 125);
+            this.CheckPicture.Location = new System.Drawing.Point(427, 125);
             this.CheckPicture.Name = "CheckPicture";
             this.CheckPicture.Size = new System.Drawing.Size(48, 48);
             this.CheckPicture.TabIndex = 444;
@@ -197,7 +198,7 @@
             // 
             // tbBarcode
             // 
-            this.tbBarcode.Location = new System.Drawing.Point(187, 127);
+            this.tbBarcode.Location = new System.Drawing.Point(201, 127);
             this.tbBarcode.Name = "tbBarcode";
             this.tbBarcode.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2010Black;
             this.tbBarcode.Size = new System.Drawing.Size(222, 47);
@@ -211,9 +212,9 @@
             // 
             this.lbBarcode.Font = new System.Drawing.Font("Segoe UI", 22F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.lbBarcode.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.lbBarcode.Location = new System.Drawing.Point(187, 176);
+            this.lbBarcode.Location = new System.Drawing.Point(201, 176);
             this.lbBarcode.Name = "lbBarcode";
-            this.lbBarcode.Size = new System.Drawing.Size(303, 42);
+            this.lbBarcode.Size = new System.Drawing.Size(274, 42);
             this.lbBarcode.TabIndex = 445;
             this.lbBarcode.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -221,7 +222,7 @@
             // 
             this.btnCancel.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(261, 226);
+            this.btnCancel.Location = new System.Drawing.Point(261, 243);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.OverrideDefault.Back.Color1 = System.Drawing.Color.Silver;
             this.btnCancel.OverrideDefault.Border.Draw = ComponentFactory.Krypton.Toolkit.InheritBool.False;
@@ -254,7 +255,7 @@
             // btnOk
             // 
             this.btnOk.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.btnOk.Location = new System.Drawing.Point(115, 226);
+            this.btnOk.Location = new System.Drawing.Point(115, 243);
             this.btnOk.Name = "btnOk";
             this.btnOk.OverrideDefault.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(184)))), ((int)(((byte)(238)))));
             this.btnOk.OverrideDefault.Border.Color1 = System.Drawing.Color.White;
@@ -285,11 +286,23 @@
             this.btnOk.Values.Text = "Продолжить";
             this.btnOk.Click += new System.EventHandler(this.btnOk_Click);
             // 
+            // kryptonBorderEdge1
+            // 
+            this.kryptonBorderEdge1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.kryptonBorderEdge1.AutoSize = false;
+            this.kryptonBorderEdge1.Location = new System.Drawing.Point(25, 228);
+            this.kryptonBorderEdge1.Name = "kryptonBorderEdge1";
+            this.kryptonBorderEdge1.Size = new System.Drawing.Size(448, 1);
+            this.kryptonBorderEdge1.StateCommon.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.kryptonBorderEdge1.Text = "kryptonBorderEdge1";
+            // 
             // InputCellBarCodeForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(498, 299);
+            this.Controls.Add(this.kryptonBorderEdge1);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOk);
             this.Controls.Add(this.lbBarcode);
@@ -335,5 +348,6 @@
         private System.Windows.Forms.Label lbBarcode;
         private ComponentFactory.Krypton.Toolkit.KryptonButton btnCancel;
         private ComponentFactory.Krypton.Toolkit.KryptonButton btnOk;
+        private ComponentFactory.Krypton.Toolkit.KryptonBorderEdge kryptonBorderEdge1;
     }
 }

@@ -38,6 +38,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.cancelButton = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.OkButton = new ComponentFactory.Krypton.Toolkit.KryptonButton();
+            this.kryptonBorderEdge1 = new ComponentFactory.Krypton.Toolkit.KryptonBorderEdge();
             this.SuspendLayout();
             // 
             // kryptonBorderEdge20
@@ -145,7 +146,7 @@
             // 
             this.cancelButton.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cancelButton.Location = new System.Drawing.Point(177, 128);
+            this.cancelButton.Location = new System.Drawing.Point(177, 135);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.OverrideDefault.Back.Color1 = System.Drawing.Color.Silver;
             this.cancelButton.OverrideDefault.Border.Draw = ComponentFactory.Krypton.Toolkit.InheritBool.False;
@@ -178,7 +179,7 @@
             // OkButton
             // 
             this.OkButton.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.OkButton.Location = new System.Drawing.Point(44, 128);
+            this.OkButton.Location = new System.Drawing.Point(44, 135);
             this.OkButton.Name = "OkButton";
             this.OkButton.OverrideDefault.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(184)))), ((int)(((byte)(238)))));
             this.OkButton.OverrideDefault.Border.Color1 = System.Drawing.Color.White;
@@ -209,11 +210,23 @@
             this.OkButton.Values.Text = "Сохранить";
             this.OkButton.Click += new System.EventHandler(this.OkButton_Click);
             // 
+            // kryptonBorderEdge1
+            // 
+            this.kryptonBorderEdge1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.kryptonBorderEdge1.AutoSize = false;
+            this.kryptonBorderEdge1.Location = new System.Drawing.Point(12, 121);
+            this.kryptonBorderEdge1.Name = "kryptonBorderEdge1";
+            this.kryptonBorderEdge1.Size = new System.Drawing.Size(299, 1);
+            this.kryptonBorderEdge1.StateCommon.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.kryptonBorderEdge1.Text = "kryptonBorderEdge1";
+            // 
             // NewCabFurWorkShopForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(323, 191);
+            this.Controls.Add(this.kryptonBorderEdge1);
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.OkButton);
             this.Controls.Add(this.tbName);
@@ -243,5 +256,6 @@
         private System.Windows.Forms.Label label1;
         private ComponentFactory.Krypton.Toolkit.KryptonButton cancelButton;
         private ComponentFactory.Krypton.Toolkit.KryptonButton OkButton;
+        private ComponentFactory.Krypton.Toolkit.KryptonBorderEdge kryptonBorderEdge1;
     }
 }

@@ -30,11 +30,11 @@ namespace Infinium
         DayStatus DayStatus;
         DayFactStatus DayFactStatus;
 
-        DateTime Date;
-        string Year, Month;
-        DayPlannerWorkTimeSheet DayPlannerWorkTimeSheet;
-        DataTable DayStartDate;
+        DayPlannerTimesheet DayPlannerWorkTimeSheet;
         InfiniumProjects InfiniumProjects;
+
+        int TimesheetMonth = 1;
+        int TimesheetYear = 1;
 
         bool bC = false;
         int ProfilUserFunctionsContainerCount = 0;
@@ -54,37 +54,37 @@ namespace Infinium
             int yMargin1 = 0;
             if (ProfilUserFunctionsContainerCount1 != 0)
             {
-                this.pnlProfilFunctions1.Size = new System.Drawing.Size(this.pnlProfilFunctions1.Size.Width, panel26.Height);
+                this.pnlProfilFunctions1.Size = new Size(this.pnlProfilFunctions1.Size.Width, panel26.Height);
                 yMargin = 45;
                 yMargin1 = 20;
             }
 
             Label label1 = new Label()
             {
-                Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right))),
+                Anchor = ((AnchorStyles)((AnchorStyles.Top | AnchorStyles.Right))),
                 AutoSize = true,
-                Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel),
-                ForeColor = System.Drawing.Color.Black,
-                Location = new System.Drawing.Point(0, ProfilUserFunctionsContainerCount1 * panel26.Height + yMargin1),
+                Font = new Font("Segoe UI", 16F, FontStyle.Bold, GraphicsUnit.Pixel),
+                ForeColor = Color.Black,
+                Location = new Point(0, ProfilUserFunctionsContainerCount1 * panel26.Height + yMargin1),
                 Name = "ProfilPositionLabel" + ProfilUserFunctionsContainerCount1,
-                Size = new System.Drawing.Size(336, 19),
+                Size = new Size(336, 19),
                 Text = Position,
-                TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+                TextAlign = ContentAlignment.MiddleLeft
             };
             FunctionsContainer = new InfiniumFunctionsContainer()
             {
-                Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top)
-            | System.Windows.Forms.AnchorStyles.Left)
-            | System.Windows.Forms.AnchorStyles.Right))),
+                Anchor = ((AnchorStyles)((((AnchorStyles.Top)
+            | AnchorStyles.Left)
+            | AnchorStyles.Right))),
                 FunctionsDataTable = null,
-                Location = new System.Drawing.Point(0, ProfilUserFunctionsContainerCount1++ * panel26.Height + yMargin),
+                Location = new Point(0, ProfilUserFunctionsContainerCount1++ * panel26.Height + yMargin),
                 Name = "InfiniumFunctionsContainer" + ProfilUserFunctionsContainerCount1,
                 ReadOnly = false,
-                Size = new System.Drawing.Size(771, panel26.Height),
+                Size = new Size(771, panel26.Height),
                 TabIndex = 0,
-                TimePickersFont = new System.Drawing.Font("Segoe UI", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel)
+                TimePickersFont = new Font("Segoe UI", 24F, FontStyle.Regular, GraphicsUnit.Pixel)
             };
-            FunctionsContainer.TimeChanged += new Infinium.InfiniumFunctionsContainer.TimeChangedEventHandler(FunctionsContainer_TimeChanged);
+            FunctionsContainer.TimeChanged += new InfiniumFunctionsContainer.TimeChangedEventHandler(FunctionsContainer_TimeChanged);
             this.pnlProfilFunctions1.Controls.Add(label1);
             this.pnlProfilFunctions1.Controls.Add(FunctionsContainer);
         }
@@ -95,36 +95,36 @@ namespace Infinium
             int yMargin1 = 0;
             if (TPSUserFunctionsContainerCount1 != 0)
             {
-                this.pnlTPSFunctions1.Size = new System.Drawing.Size(this.pnlTPSFunctions1.Size.Width, panel26.Height);
+                this.pnlTPSFunctions1.Size = new Size(this.pnlTPSFunctions1.Size.Width, panel26.Height);
                 yMargin = 45;
                 yMargin1 = 20;
             }
             Label label1 = new Label()
             {
-                Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right))),
+                Anchor = ((AnchorStyles)((AnchorStyles.Top | AnchorStyles.Right))),
                 AutoSize = true,
-                Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel),
-                ForeColor = System.Drawing.Color.Black,
-                Location = new System.Drawing.Point(0, TPSUserFunctionsContainerCount1 * panel26.Height + yMargin1),
+                Font = new Font("Segoe UI", 16F, FontStyle.Bold, GraphicsUnit.Pixel),
+                ForeColor = Color.Black,
+                Location = new Point(0, TPSUserFunctionsContainerCount1 * panel26.Height + yMargin1),
                 Name = "TPSPositionLabel" + TPSUserFunctionsContainerCount1,
-                Size = new System.Drawing.Size(336, 19),
+                Size = new Size(336, 19),
                 Text = Position,
-                TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+                TextAlign = ContentAlignment.MiddleLeft
             };
             FunctionsContainer = new InfiniumFunctionsContainer()
             {
-                Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top)
-            | System.Windows.Forms.AnchorStyles.Left)
-            | System.Windows.Forms.AnchorStyles.Right))),
+                Anchor = ((AnchorStyles)((((AnchorStyles.Top)
+            | AnchorStyles.Left)
+            | AnchorStyles.Right))),
                 FunctionsDataTable = null,
-                Location = new System.Drawing.Point(0, TPSUserFunctionsContainerCount1++ * panel26.Height + yMargin),
+                Location = new Point(0, TPSUserFunctionsContainerCount1++ * panel26.Height + yMargin),
                 Name = "InfiniumFunctionsContainer" + TPSUserFunctionsContainerCount1,
                 ReadOnly = false,
-                Size = new System.Drawing.Size(771, panel26.Height),
+                Size = new Size(771, panel26.Height),
                 TabIndex = 0,
-                TimePickersFont = new System.Drawing.Font("Segoe UI", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel)
+                TimePickersFont = new Font("Segoe UI", 24F, FontStyle.Regular, GraphicsUnit.Pixel)
             };
-            FunctionsContainer.TimeChanged += new Infinium.InfiniumFunctionsContainer.TimeChangedEventHandler(FunctionsContainer_TimeChanged);
+            FunctionsContainer.TimeChanged += new InfiniumFunctionsContainer.TimeChangedEventHandler(FunctionsContainer_TimeChanged);
             this.pnlTPSFunctions1.Controls.Add(label1);
             this.pnlTPSFunctions1.Controls.Add(FunctionsContainer);
         }
@@ -132,10 +132,10 @@ namespace Infinium
         private void AddProfilUserFunctionsContainer(int DepartmentID, int PositionID, string Position)
         {
             if (ProfilUserFunctionsContainerCount != 0)
-                this.panel12.Size = new System.Drawing.Size(this.panel12.Size.Width, this.panel12.Size.Height + 347);
+                this.panel12.Size = new Size(this.panel12.Size.Width, this.panel12.Size.Height + 347);
             UserFunctionsContainer userFunctionsContainer = new UserFunctionsContainer()
             {
-                Location = new System.Drawing.Point(0, ProfilUserFunctionsContainerCount++ * 347),
+                Location = new Point(0, ProfilUserFunctionsContainerCount++ * 347),
                 Name = "ProfilUserFunctionsContainer" + ProfilUserFunctionsContainerCount,
                 FactoryID = 1,
                 DepartmentID = DepartmentID,
@@ -156,10 +156,10 @@ namespace Infinium
         private void AddTPSUserFunctionsContainer(int DepartmentID, int PositionID, string Position)
         {
             if (TPSUserFunctionsContainerCount != 0)
-                this.panel27.Size = new System.Drawing.Size(this.panel27.Size.Width, this.panel27.Size.Height + 347);
+                this.panel27.Size = new Size(this.panel27.Size.Width, this.panel27.Size.Height + 347);
             UserFunctionsContainer userFunctionsContainer = new UserFunctionsContainer()
             {
-                Location = new System.Drawing.Point(0, TPSUserFunctionsContainerCount++ * 347),
+                Location = new Point(0, TPSUserFunctionsContainerCount++ * 347),
                 Name = "TPSUserFunctionsContainer" + TPSUserFunctionsContainerCount,
                 FactoryID = 2,
                 DepartmentID = DepartmentID,
@@ -181,7 +181,7 @@ namespace Infinium
 
             this.MaximumSize = Screen.PrimaryScreen.WorkingArea.Size;
 
-            InfiniumProjects = new Infinium.InfiniumProjects();
+            InfiniumProjects = new InfiniumProjects();
             InfiniumProjects.Fill();
 
             LightWorkDay = new LightWorkDay();
@@ -268,28 +268,13 @@ namespace Infinium
 
             Initialize();
 
-            DayPlannerWorkTimeSheet = new DayPlannerWorkTimeSheet();
-            DayStartDate = DayPlannerWorkTimeSheet.DayStartDate();
-
-            for (int i = 0; i < DayStartDate.Rows.Count; i++)
-            {
-                Date = (DateTime)DayStartDate.Rows[i]["DayStartDateTime"];
-                Year = Date.ToString("yyyy");
-
-                if (YearComboBox.Items.Count == 0 | YearComboBox.Items.IndexOf(Year) == -1)
-                {
-                    YearComboBox.Items.Add(Year);
-                }
-            }
-
-            if (YearComboBox.Items.Count != 0)
-            {
-                YearComboBox.Text = YearComboBox.Items[YearComboBox.Items.Count - 1].ToString();
-            }
+            DayPlannerWorkTimeSheet = new DayPlannerTimesheet();
 
             DeltaTime = Security.GetCurrentDate() - DateTime.Now;
 
             GetProjects();
+
+            CalendarFrom.SelectionStart = DateTime.Today;
 
             while (!SplashForm.bCreated) ;
         }
@@ -508,7 +493,7 @@ namespace Infinium
             int W = 0;
 
             Graphics G = this.CreateGraphics();
-            Font F = new System.Drawing.Font("Segoe UI Semilight", 90, FontStyle.Regular, GraphicsUnit.Pixel);
+            Font F = new Font("Segoe UI Semilight", 90, FontStyle.Regular, GraphicsUnit.Pixel);
 
             W = Convert.ToInt32(G.MeasureString(Text, F).Width);
 
@@ -518,40 +503,6 @@ namespace Infinium
             return W;
         }
 
-
-        private void YearComboBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            //MonthComboBox.Items.Clear();
-            //MonthComboBox.Items.AddRange(new string[] { "Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь" });
-            //ComboBox Month_mass = new ComboBox();
-            //Month_mass.Items.AddRange(new string[] { "Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь" });
-
-            //for (int i = 0; i < DayStartDate.Rows.Count; i++)
-            //{
-            //    Date = (DateTime)DayStartDate.Rows[i]["DayStartDateTime"];
-            //    Year = Date.ToString("yyyy");
-            //    Month = Date.ToString("MMMM");
-
-            //    if (Year == YearComboBox.SelectedItem.ToString() && Month_mass.Items.IndexOf(Month) != -1)
-            //    {
-            //        Month_mass.Items.Remove(Month);
-            //    }
-            //}
-            //for (int i = 0; i < Month_mass.Items.Count; i++)
-            //{
-            //    if (MonthComboBox.Items.IndexOf(Month_mass.Items[i]) != -1)
-            //        MonthComboBox.Items.Remove(Month_mass.Items[i]);
-            //}
-            //Month_mass.Dispose();
-            //MonthComboBox.Text = MonthComboBox.Items[MonthComboBox.Items.Count - 1].ToString();
-        }
-
-        private void ApplyButton_Click(object sender, EventArgs e)
-        {
-            DayPlannerWorkTimeSheet.GetTimeSheet(TimeSheetDataGrid, YearComboBox.SelectedItem.ToString(), MonthComboBox.SelectedItem.ToString());
-            TimeSheetDataGrid.Rows[0].Selected = false;
-        }
-
         private void ExportButton_Click(object sender, EventArgs e)
         {
             Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Создание документа Excel.\r\nПодождите..."); });
@@ -559,8 +510,8 @@ namespace Infinium
 
             while (!SplashWindow.bSmallCreated) ;
 
-            if (TimeSheetDataGrid.ColumnCount != 0)
-                DayPlannerWorkTimeSheet.ExportToExcel(TimeSheetDataGrid);
+            //if (TimeSheetDataGrid.ColumnCount != 0)
+            //    DayPlannerWorkTimeSheet.ExportToExcel(TimeSheetDataGrid);
 
             while (SplashWindow.bSmallCreated)
                 SmallWaitForm.CloseS = true;
@@ -1500,7 +1451,7 @@ namespace Infinium
 
         private void NewsContainer_AttachClicked(object sender, int NewsAttachID)
         {
-            PhantomForm PhantomForm = new Infinium.PhantomForm();
+            PhantomForm PhantomForm = new PhantomForm();
             PhantomForm.Show();
 
             ProjectAttachDownloadForm ProjectAttachDownloadForm = new ProjectAttachDownloadForm(NewsAttachID, ref InfiniumProjects.FM, ref InfiniumProjects);
@@ -1639,10 +1590,10 @@ namespace Infinium
 
         private void NewsContainer_RemoveCommentClicked(object sender, int NewsID, int NewsCommentID)
         {
-            PhantomForm PhantomForm = new Infinium.PhantomForm();
+            PhantomForm PhantomForm = new PhantomForm();
             PhantomForm.Show();
 
-            LightMessageBoxForm LightMessageBoxForm = new Infinium.LightMessageBoxForm(true, "Комментарий будет удален.\nПродолжить?",
+            LightMessageBoxForm LightMessageBoxForm = new LightMessageBoxForm(true, "Комментарий будет удален.\nПродолжить?",
                                                                                     "Удаление комментария");
 
             TopForm = LightMessageBoxForm;
@@ -1685,10 +1636,10 @@ namespace Infinium
 
         private void NewsContainer_RemoveNewsClicked(object sender, int NewsID)
         {
-            PhantomForm PhantomForm = new Infinium.PhantomForm();
+            PhantomForm PhantomForm = new PhantomForm();
             PhantomForm.Show();
 
-            LightMessageBoxForm LightMessageBoxForm = new Infinium.LightMessageBoxForm(true, "Сообщение будет удалено безвозвратно.\nПродолжить?",
+            LightMessageBoxForm LightMessageBoxForm = new LightMessageBoxForm(true, "Сообщение будет удалено безвозвратно.\nПродолжить?",
                                                                                     "Удаление сообщения");
 
             TopForm = LightMessageBoxForm;
@@ -1746,6 +1697,31 @@ namespace Infinium
         {
             LightWorkDay.CancelEndWorkDay(Security.CurrentUserID);
             StatusToControls();
+        }
+
+        private void infiniumTimeLabel1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void CalendarFrom_DateChanged(object sender, DateRangeEventArgs e)
+        {
+            if (e.Start.Month != TimesheetMonth || e.Start.Year != TimesheetYear)
+            {
+                TimesheetMonth = e.Start.Month;
+                TimesheetYear = e.Start.Year;
+
+                DayPlannerWorkTimeSheet.GetAbsJournal(313, TimesheetYear, TimesheetMonth);
+                DayPlannerWorkTimeSheet.GetProdShedule(TimesheetYear, TimesheetMonth);
+                DayPlannerWorkTimeSheet.GetTimesheet(313, TimesheetYear, TimesheetMonth);
+                DayPlannerWorkTimeSheet.GetRate(313);
+                DayPlannerWorkTimeSheet.CalcOverwork(TimesheetYear, TimesheetMonth, e.Start.Date);
+            }
+
+            TimesheetInfo dayInfo = DayPlannerWorkTimeSheet.GetDayInfo(e.Start.Date);
+            lbFactHours.Text = dayInfo.FactHours.ToString();
+            lbPlanHours.Text = dayInfo.PlanHours.ToString();
+            lbOverworkHours.Text = dayInfo.OverworkHours.ToString();
         }
 
         private void kryptonCheckSet3_CheckedButtonChanged(object sender, EventArgs e)

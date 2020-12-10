@@ -1943,6 +1943,9 @@
     <EmbeddedResource Include="CoverWaitForm.resx">
       <DependentUpon>CoverWaitForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="InfiniumControls.resx">
+      <DependentUpon>InfiniumControls.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="InfiniumTipForm.resx">
       <DependentUpon>InfiniumTipForm.cs</DependentUpon>
     </EmbeddedResource>

@@ -3853,10 +3853,13 @@ namespace Infinium
         {
             Create();
             Fill();
+            GetAbsenceTypes();
         }
 
         private void Create()
         {
+            _productionShedule = new DataTable();
+            _dtAbsenceTypes = new DataTable();
             dtTimeSheetNew = new DataTable();
             TimeSheetDataTable = new DataTable();
             userTable = new DataTable();
@@ -3938,37 +3941,37 @@ namespace Infinium
 
                     decimal workHour = 0;
 
-                    string absenceTypeString = string.Empty;
+                    string absenceTypeString = string.Format("{0}/{1})",
+                         GetAbsenceName(absenceTypeId), absenceHour);
 
-
-                    if (absenceTypeId == 1)
-                        absenceTypeString = "А/" + absenceHour;
-                    else if (absenceTypeId == 2)
-                        absenceTypeString = "О/" + absenceHour;
-                    else if (absenceTypeId == 3)
-                        absenceTypeString = "У/" + absenceHour;
-                    else if (absenceTypeId == 4)
-                        absenceTypeString = "Б/" + absenceHour;
-                    else if (absenceTypeId == 5)
-                        absenceTypeString = "ДМ/" + absenceHour;
-                    else if (absenceTypeId == 6)
-                        absenceTypeString = "Д/" + absenceHour;
-                    else if (absenceTypeId == 7)
-                        absenceTypeString = "ОНБ/" + absenceHour;
-                    else if (absenceTypeId == 8)
-                        absenceTypeString = "К/" + absenceHour;
-                    else if (absenceTypeId == 9)
-                        absenceTypeString = "Г/" + absenceHour;
-                    else if (absenceTypeId == 10)
-                        absenceTypeString = "ОТ/" + absenceHour;
-                    else if (absenceTypeId == 11)
-                        absenceTypeString = "МО/" + absenceHour;
-                    else if (absenceTypeId == 12)
-                        absenceTypeString = "П/" + absenceHour;
-                    else if (absenceTypeId == 13)
-                        absenceTypeString = "В/" + absenceHour;
-                    else if (absenceTypeId == 14)
-                        absenceTypeString = "СУ/" + absenceHour;
+                    //if (absenceTypeId == 1)
+                    //    absenceTypeString = "А/" + absenceHour;
+                    //else if (absenceTypeId == 2)
+                    //    absenceTypeString = "О/" + absenceHour;
+                    //else if (absenceTypeId == 3)
+                    //    absenceTypeString = "У/" + absenceHour;
+                    //else if (absenceTypeId == 4)
+                    //    absenceTypeString = "Б/" + absenceHour;
+                    //else if (absenceTypeId == 5)
+                    //    absenceTypeString = "ДМ/" + absenceHour;
+                    //else if (absenceTypeId == 6)
+                    //    absenceTypeString = "Д/" + absenceHour;
+                    //else if (absenceTypeId == 7)
+                    //    absenceTypeString = "ОНБ/" + absenceHour;
+                    //else if (absenceTypeId == 8)
+                    //    absenceTypeString = "К/" + absenceHour;
+                    //else if (absenceTypeId == 9)
+                    //    absenceTypeString = "Г/" + absenceHour;
+                    //else if (absenceTypeId == 10)
+                    //    absenceTypeString = "ОТ/" + absenceHour;
+                    //else if (absenceTypeId == 11)
+                    //    absenceTypeString = "МО/" + absenceHour;
+                    //else if (absenceTypeId == 12)
+                    //    absenceTypeString = "П/" + absenceHour;
+                    //else if (absenceTypeId == 13)
+                    //    absenceTypeString = "В/" + absenceHour;
+                    //else if (absenceTypeId == 14)
+                    //    absenceTypeString = "СУ/" + absenceHour;
 
                     row[date.Day + 1] = absenceTypeString;
                 }
@@ -4012,11 +4015,9 @@ namespace Infinium
 
             if (dtTimeSheet == null)
                 dtTimeSheet = new DataTable();
-            if (_dtAbsences == null)
-                _dtAbsences = new DataTable();
-            _dtAbsences = GetAbsences(yearInt, monthInt);
-
-            DataTable dtProdShedule = GetShedule(yearInt, monthInt);
+            
+            GetAbsences(yearInt, monthInt);
+            GetShedule(yearInt, monthInt);
 
             dtTimeSheetNew.Clear();
             dtTimeSheetNew = DT_TimeSheet_new_by_YM(yearInt, monthInt);
@@ -4072,12 +4073,12 @@ namespace Infinium
                 dtTimeSheet.Rows[i]["Total"] = Math.Round(Total) + " (" + Math.Round(T, 1) + ")";
             }
 
-            if (dtProdShedule.Rows.Count > 0)
+            if (_productionShedule.Rows.Count > 0)
             {
                 DataRow row = dtTimeSheet.NewRow();
 
                 for (int j = 1; j < DateTime.DaysInMonth(yearInt, monthInt) + 1; j++)
-                    row[j + 1] = dtProdShedule.Rows[j - 1]["Hour"];
+                    row[j + 1] = _productionShedule.Rows[j - 1]["Hour"];
 
                 dtTimeSheet.Rows.InsertAt(row, 0);
             }
@@ -4149,39 +4150,14 @@ namespace Infinium
                         absenceTypeString = Decimal.Round(absenceHour, 1, MidpointRounding.AwayFromZero) + " " + Math.Round(timeWork.TotalHours, 1) + "/" + Math.Round(planHour - absenceHour, 1) + "(" + Math.Round(timeSpan.TotalHours, 1) + ")";
                     else
                     {
-                        if (planHour != 0)
+                        
+                        if (planHour != 0) //если рабочий день
                             absenceTypeString = Decimal.Round(absenceHour, 1, MidpointRounding.AwayFromZero).ToString();
-                        else
+                        else //если выходной
                             absenceTypeString = Decimal.Round(0, 1, MidpointRounding.AwayFromZero).ToString();
                     }
-                    if (absenceTypeId == 1)
-                        absenceTypeString = "А (" + absenceTypeString + ")";
-                    else if (absenceTypeId == 2)
-                        absenceTypeString = "О (" + absenceTypeString + ")";
-                    else if (absenceTypeId == 3)
-                        absenceTypeString = "У (" + absenceTypeString + ")";
-                    else if (absenceTypeId == 4)
-                        absenceTypeString = "Б (" + absenceTypeString + ")";
-                    else if (absenceTypeId == 5)
-                        absenceTypeString = "ДМ (" + absenceTypeString + ")";
-                    else if (absenceTypeId == 6)
-                        absenceTypeString = "Д (" + absenceTypeString + ")";
-                    else if (absenceTypeId == 7)
-                        absenceTypeString = "ОНБ (" + absenceTypeString + ")";
-                    else if (absenceTypeId == 8)
-                        absenceTypeString = "К (" + absenceTypeString + ")";
-                    else if (absenceTypeId == 9)
-                        absenceTypeString = "Г (" + absenceTypeString + ")";
-                    else if (absenceTypeId == 10)
-                        absenceTypeString = "ОТ (" + absenceTypeString + ")";
-                    else if (absenceTypeId == 11)
-                        absenceTypeString = "МО (" + absenceTypeString + ")";
-                    else if (absenceTypeId == 12)
-                        absenceTypeString = "П (" + absenceTypeString + ")";
-                    else if (absenceTypeId == 13)
-                        absenceTypeString = "В (" + absenceTypeString + ")";
-                    else if (absenceTypeId == 14)
-                        absenceTypeString = "СУ (" + absenceTypeString + ")";
+                    absenceTypeString = string.Format("{0} ({1})",
+                         GetAbsenceName(absenceTypeId), absenceTypeString);
 
                     row[j + 1] = absenceTypeString;
                 }
@@ -4272,11 +4248,8 @@ namespace Infinium
 
             if (dtTimeSheet == null)
                 dtTimeSheet = new DataTable();
-            if (_dtAbsences == null)
-                _dtAbsences = new DataTable();
-            _dtAbsences = GetAbsences(yearInt, monthInt);
-
-            DataTable dtProdShedule = GetShedule(yearInt, monthInt);
+            GetAbsences(yearInt, monthInt);
+            GetShedule(yearInt, monthInt);
 
             dtTimeSheetNew = DT_TimeSheet_new_by_YM(yearInt, monthInt);
 
@@ -4339,12 +4312,12 @@ namespace Infinium
             //    dtTimeSheet.Rows.InsertAt(dtTimeSheet.NewRow(), ++i);
             //}
 
-            if (dtProdShedule.Rows.Count > 0)
+            if (_productionShedule.Rows.Count > 0)
             {
                 DataRow row = dtTimeSheet.NewRow();
 
                 for (int i = 1; i < DateTime.DaysInMonth(yearInt, monthInt) + 1; i++)
-                    row[i + 1] = dtProdShedule.Rows[i - 1]["Hour"];
+                    row[i + 1] = _productionShedule.Rows[i - 1]["Hour"];
 
                 dtTimeSheet.Rows.InsertAt(row, 0);
             }
@@ -4432,27 +4405,46 @@ namespace Infinium
             Ex.Visible = true;
         }
 
-        public DataTable GetShedule(int year, int month)
+        public void GetShedule(int year, int month)
         {
-            DataTable dt = new DataTable();
             using (SqlDataAdapter da = new SqlDataAdapter(@"SELECT * FROM ProductionShedule WHERE Year=" + year + " AND Month=" + month, ConnectionStrings.LightConnectionString))
             {
-                da.Fill(dt);
+                _productionShedule.Clear();
+                da.Fill(_productionShedule);
             }
-            return dt;
         }
 
-        public DataTable GetAbsences(int year, int month)
+        public void GetAbsences(int year, int month)
         {
-            DataTable dt = new DataTable();
+            if (_dtAbsences == null)
+                _dtAbsences = new DataTable();
             using (SqlDataAdapter da = new SqlDataAdapter(@"SELECT * FROM AbsencesJournal WHERE ((DATEPART(month, DateStart) = " + month + " AND DATEPART(year, DateStart) = " + year + ") OR (DATEPART(month, DateFinish) = " + month + " AND DATEPART(year, DateFinish) = " + year + "))", ConnectionStrings.LightConnectionString))
             {
-                da.Fill(dt);
+                _dtAbsences.Clear();
+                da.Fill(_dtAbsences);
             }
-            return dt;
+        }
+
+        public void GetAbsenceTypes()
+        {
+            using (SqlDataAdapter da = new SqlDataAdapter(@"SELECT * FROM AbsenceTypes", ConnectionStrings.LightConnectionString))
+            {
+                da.Fill(_dtAbsenceTypes);
+            }
+        }
+
+        private string GetAbsenceName(int AbsenceTypeID)
+        {
+            string ShortName = "";
+            DataRow[] rows = _dtAbsenceTypes.Select("AbsenceTypeID=" + AbsenceTypeID);
+            if (rows.Any())
+                ShortName = rows[0]["ShortName"].ToString();
+
+            return ShortName;
         }
 
         private DataTable _dtAbsences;
+        private DataTable _dtAbsenceTypes;
         private DataTable dtTimeSheet;
         private int userTablesCount;
         private DataTable[] userTables;
