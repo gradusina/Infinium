@@ -20,7 +20,6 @@ namespace Infinium
         int FormEvent = 0;
 
         Form MainForm = null;
-        Form TopForm = null;
 
         StoragePackagesManager storagePackagesManager;
 
@@ -129,7 +128,7 @@ namespace Infinium
 
         private void Initialize()
         {
-            storagePackagesManager.Clear();
+            storagePackagesManager.ClearBindTables();
             dgvPackages.DataSource = storagePackagesManager.BindPackageLabelsBS;
 
             dgvPackages.AutoGenerateColumns = false;
@@ -242,7 +241,7 @@ namespace Infinium
                 BarcodeLabel.Text = BarcodeTextBox.Text;
                 BarcodeTextBox.Clear();
 
-                if (storagePackagesManager.GetPackagesLabels(CabFurniturePackageID))
+                if (storagePackagesManager.GetBindPackagesLabels(CabFurniturePackageID))
                 {
                     CheckPicture.Visible = true;
                     CheckPicture.Image = Properties.Resources.OK;

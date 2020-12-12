@@ -1,6 +1,6 @@
 ﻿using ComponentFactory.Krypton.Toolkit;
 
-using Infinium.Modules.CabFurnitureModule;
+using Infinium.Modules.CabFurnitureAssignments;
 
 using System;
 using System.Collections.Generic;
@@ -52,7 +52,7 @@ namespace Infinium
         AssignmentsManager AssignmentsManager;
         ComplementsManager ComplementsManager;
         PackagesManager PackagesManager;
-        Infinium.Modules.CabFurnitureModule.CheckLabel CheckLabel;
+        Infinium.Modules.CabFurnitureAssignments.CheckLabel CheckLabel;
         //RoleTypes RoleType = RoleTypes.OrdinaryRole;
 
         //public enum RoleTypes
@@ -249,7 +249,7 @@ namespace Infinium
             ComplementsManager = new ComplementsManager();
             PackagesManager = new PackagesManager();
 
-            CheckLabel = new Modules.CabFurnitureModule.CheckLabel();
+            CheckLabel = new Modules.CabFurnitureAssignments.CheckLabel();
             dgvScan.DataSource = CheckLabel.ScanContentBS;
             dgvScanDetailsSetting(ref dgvScan);
 

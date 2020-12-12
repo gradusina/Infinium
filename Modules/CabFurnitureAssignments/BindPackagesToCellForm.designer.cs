@@ -35,7 +35,6 @@
             this.kryptonBorderEdge22 = new ComponentFactory.Krypton.Toolkit.KryptonBorderEdge();
             this.kryptonBorderEdge23 = new ComponentFactory.Krypton.Toolkit.KryptonBorderEdge();
             this.StandardButtonsPalette = new ComponentFactory.Krypton.Toolkit.KryptonPalette(this.components);
-            this.toolTipController1 = new DevExpress.Utils.ToolTipController(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
             this.AnimateTimer = new System.Windows.Forms.Timer(this.components);
@@ -136,14 +135,6 @@
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.StandardButtonsPalette.ButtonStyles.ButtonCommon.StateTracking.Border.Rounding = 0;
-            // 
-            // toolTipController1
-            // 
-            this.toolTipController1.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.toolTipController1.Appearance.Options.UseFont = true;
-            this.toolTipController1.Appearance.Options.UseTextOptions = true;
-            this.toolTipController1.AutoPopDelay = 50000;
-            this.toolTipController1.ToolTipStyle = DevExpress.Utils.ToolTipStyle.Windows7;
             // 
             // panel1
             // 
@@ -377,6 +368,7 @@
             // OKButton
             // 
             this.OKButton.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.OKButton.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.OKButton.Location = new System.Drawing.Point(315, 574);
             this.OKButton.Name = "OKButton";
             this.OKButton.OverrideDefault.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(184)))), ((int)(((byte)(238)))));
@@ -461,7 +453,6 @@
         private ComponentFactory.Krypton.Toolkit.KryptonBorderEdge kryptonBorderEdge21;
         private ComponentFactory.Krypton.Toolkit.KryptonBorderEdge kryptonBorderEdge22;
         private ComponentFactory.Krypton.Toolkit.KryptonBorderEdge kryptonBorderEdge23;
-        private DevExpress.Utils.ToolTipController toolTipController1;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label2;
         private ComponentFactory.Krypton.Toolkit.KryptonPalette StandardButtonsPalette;

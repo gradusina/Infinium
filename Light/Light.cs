@@ -9470,6 +9470,8 @@ namespace Infinium
             decimal AllPlanHours = 0; // планово до сегодняшнего дня
             decimal AllWorkHours = 0; // рабочего времени до сегодняшнего дня
             decimal ThatDayPlanHours = 0; // планово сегодня
+            decimal AbsenteeismHours = 0; // прогул и отгул
+            decimal OvertimeHours = 0; // сверхурочные
             for (int i = 0; i < _prodSheduleDataTable.Rows.Count; i++)
             {
                 if (Convert.ToInt32(_prodSheduleDataTable.Rows[i]["Day"]) > DateTime.DaysInMonth(Yearint, Monthint))
@@ -9490,6 +9492,15 @@ namespace Infinium
 
                 int prodSheduleHours = GetHourInProdShedule(date);
 
+                if (absenceTypeId == 12 || absenceTypeId == 13)
+                {
+                    AbsenteeismHours = absenceHour;
+                }
+                if (absenceTypeId == 14)
+                {
+                    OvertimeHours = absenceHour;
+                }
+
                 ThatDayPlanHours = prodSheduleHours;
                 if (date == dateToday) //если это выбранный день
                 {
@@ -9501,13 +9512,17 @@ namespace Infinium
                 TimesheetInfo dayInfo = new TimesheetInfo
                 {
                     Date = date,
+                    OvertimeHours = Convert.ToDecimal(OvertimeHours.ToString("0.####")),
+                    AbsenteeismHours = Convert.ToDecimal(AbsenteeismHours.ToString("0.####")),
                     AbsenceTypeID = absenceTypeId,
                     IsAbsence = isAbsence,
-                    AbsenceType = GetAbsenceType(absenceTypeId),
-                    AbsenceHours = absenceHour,
+                    AbsenceFullName = GetAbsenceFullName(absenceTypeId),
+                    AbsenceShortName = GetAbsenceShortName(absenceTypeId),
+                    AbsenceHours = Convert.ToDecimal(absenceHour.ToString("0.####")),
                     PlanHours = Convert.ToDecimal((ThatDayPlanHours * Rate).ToString("0.####")),
                     FactHours = workHours - breakHours,
-                    OverworkHours = Convert.ToDecimal(((AllWorkHours - AllPlanHours) * Rate).ToString("0.####"))
+                    BreakHours = breakHours,
+                    OverworkHours = Convert.ToDecimal(((AllWorkHours - AllPlanHours - AbsenteeismHours) * Rate).ToString("0.####"))
                 };
 
                 Labels.Add(dayInfo);
@@ -9531,12 +9546,21 @@ namespace Infinium
             }
         }
 
-        private string GetAbsenceType(int id)
+        private string GetAbsenceFullName(int id)
         {
             string name = string.Empty;
             DataRow[] rows = _absTypesTable.Select("AbsenceTypeID = " + id);
             if (rows.Count() > 0)
                 name = rows[0]["Description"].ToString();
+            return name;
+        }
+
+        private string GetAbsenceShortName(int id)
+        {
+            string name = string.Empty;
+            DataRow[] rows = _absTypesTable.Select("AbsenceTypeID = " + id);
+            if (rows.Count() > 0)
+                name = rows[0]["ShortName"].ToString();
             return name;
         }
 
@@ -9579,14 +9603,18 @@ namespace Infinium
     public struct TimesheetInfo
     {
         public DateTime Date;
-        public decimal OverworkHours;
-        public decimal PlanHours;
-        public decimal FactHours;
-        public decimal InTimesheetHours;
-        public bool IsAbsence;
-        public int AbsenceTypeID;
-        public string AbsenceType;
-        public decimal AbsenceHours;
+        public decimal AbsenteeismHours; //прогулы и отгулы
+        public decimal OvertimeHours; //сверхурочные
+        public decimal OverworkHours; //переработка
+        public decimal PlanHours; //планово в этот день
+        public decimal FactHours; //фактически в этот день
+        public decimal BreakHours; //обед в этот день
+        public decimal InTimesheetHours; //в табель
+        public bool IsAbsence; //была неявка
+        public int AbsenceTypeID; //тип неявки
+        public string AbsenceFullName;
+        public string AbsenceShortName;
+        public decimal AbsenceHours; //часы по неявке
     }
 
 

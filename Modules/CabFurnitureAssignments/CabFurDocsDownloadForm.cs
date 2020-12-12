@@ -1,4 +1,4 @@
-﻿using Infinium.Modules.CabFurnitureModule;
+﻿using Infinium.Modules.CabFurnitureAssignments;
 
 using System;
 using System.ComponentModel;

@@ -1711,17 +1711,38 @@ namespace Infinium
                 TimesheetMonth = e.Start.Month;
                 TimesheetYear = e.Start.Year;
 
-                DayPlannerWorkTimeSheet.GetAbsJournal(313, TimesheetYear, TimesheetMonth);
+                //313 - Литвиненко
+                //int userId = 313;
+                int userId = Security.CurrentUserID;
+
+                DayPlannerWorkTimeSheet.GetAbsJournal(userId, TimesheetYear, TimesheetMonth);
                 DayPlannerWorkTimeSheet.GetProdShedule(TimesheetYear, TimesheetMonth);
-                DayPlannerWorkTimeSheet.GetTimesheet(313, TimesheetYear, TimesheetMonth);
-                DayPlannerWorkTimeSheet.GetRate(313);
+                DayPlannerWorkTimeSheet.GetTimesheet(userId, TimesheetYear, TimesheetMonth);
+                DayPlannerWorkTimeSheet.GetRate(userId);
                 DayPlannerWorkTimeSheet.CalcOverwork(TimesheetYear, TimesheetMonth, e.Start.Date);
             }
-
+            
             TimesheetInfo dayInfo = DayPlannerWorkTimeSheet.GetDayInfo(e.Start.Date);
-            lbFactHours.Text = dayInfo.FactHours.ToString();
+            if (dayInfo.IsAbsence)
+            {
+                lbAbsenceHours.Text = string.Format("{0}/({1})", dayInfo.AbsenceShortName, dayInfo.AbsenceHours.ToString());
+            }
+            else
+            {
+                lbAbsenceHours.Text = "-";
+            }
             lbPlanHours.Text = dayInfo.PlanHours.ToString();
             lbOverworkHours.Text = dayInfo.OverworkHours.ToString();
+            if (dayInfo.AbsenceTypeID != 14)
+            {
+                lbFactHours.Text = dayInfo.FactHours.ToString();
+                lbBreakHours.Text = dayInfo.BreakHours.ToString();
+            }
+            else
+            {
+                lbFactHours.Text = dayInfo.AbsenceHours.ToString();
+                lbBreakHours.Text = "-";
+            }
         }
 
         private void kryptonCheckSet3_CheckedButtonChanged(object sender, EventArgs e)

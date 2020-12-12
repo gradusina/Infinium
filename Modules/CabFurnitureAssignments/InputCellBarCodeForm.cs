@@ -13,8 +13,6 @@ namespace Infinium
         const int eClose = 3;
         const int eMainMenu = 4;
 
-        bool getCellId = false;
-        public int result = 2;
         public int cellId = -1;
 
         int FormEvent = 0;
@@ -110,7 +108,6 @@ namespace Infinium
                 lbBarcode.ForeColor = Color.FromArgb(240, 0, 0);
                 return;
             }
-            result = 1;
             FormEvent = eClose;
             AnimateTimer.Enabled = true;
         }
@@ -118,7 +115,6 @@ namespace Infinium
         private void btnCancel_Click(object sender, EventArgs e)
         {
             cellId = -1;
-            result = 2;
             FormEvent = eClose;
             AnimateTimer.Enabled = true;
         }
@@ -168,7 +164,6 @@ namespace Infinium
                 tbBarcode.Clear();
 
                 //привязка к ячейке
-                getCellId = true;
                 CheckPicture.Visible = true;
                 CheckPicture.Image = Properties.Resources.OK;
                 lbBarcode.ForeColor = Color.FromArgb(82, 169, 24);

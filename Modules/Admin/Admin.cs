@@ -3939,9 +3939,7 @@ namespace Infinium
                     int absenceTypeId = Convert.ToInt32(rows[i]["AbsenceTypeID"]);
                     decimal absenceHour = Convert.ToDecimal(rows[i]["Hours"]);
 
-                    decimal workHour = 0;
-
-                    string absenceTypeString = string.Format("{0}/{1})",
+                    string absenceTypeString = string.Format("{0}/({1})",
                          GetAbsenceName(absenceTypeId), absenceHour);
 
                     //if (absenceTypeId == 1)
@@ -4446,8 +4444,6 @@ namespace Infinium
         private DataTable _dtAbsences;
         private DataTable _dtAbsenceTypes;
         private DataTable dtTimeSheet;
-        private int userTablesCount;
-        private DataTable[] userTables;
 
         private int GetPlanHour(DateTime date)
         {

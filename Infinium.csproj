@@ -503,6 +503,12 @@
     </Compile>
     <Compile Include="Modules\Admin\AbsenceJournal.cs" />
     <Compile Include="Modules\Admin\ProductionShedule.cs" />
+    <Compile Include="Modules\CabFurnitureAssignments\CabFurInventoryForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\CabFurnitureAssignments\CabFurInventoryForm.designer.cs">
+      <DependentUpon>CabFurInventoryForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Modules\CabFurnitureAssignments\BindPackagesToCellForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -2099,6 +2105,9 @@
     <EmbeddedResource Include="LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\CabFurnitureAssignments\CabFurInventoryForm.resx">
+      <DependentUpon>CabFurInventoryForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Modules\CabFurnitureAssignments\BindPackagesToCellForm.resx">
       <DependentUpon>BindPackagesToCellForm.cs</DependentUpon>

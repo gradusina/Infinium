@@ -13,7 +13,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace Infinium.Modules.CabFurnitureModule
+namespace Infinium.Modules.CabFurnitureAssignments
 {
     public class CoversManager
     {

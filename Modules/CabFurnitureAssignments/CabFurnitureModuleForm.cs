@@ -1,7 +1,6 @@
 ﻿using ComponentFactory.Krypton.Toolkit;
 
 using Infinium.Modules.CabFurnitureAssignments;
-using Infinium.Modules.CabFurnitureModule;
 
 using System;
 using System.Collections.Generic;
@@ -51,14 +50,14 @@ namespace Infinium
         ComplementLabel complementLabel;
         PackageLabel packageLabel;
         CellLabel cellLabel;
-        AssignmentsManager AssignmentsManager;
-        ComplementsManager ComplementsManager;
-        PackagesManager PackagesManager;
+        AssignmentsManager assignmentsManager;
+        ComplementsManager complementsManager;
+        PackagesManager packagesManager;
         StoragePackagesManager storagePackagesManager;
 
         CabFurStorage cabFurStorage;
 
-        Infinium.Modules.CabFurnitureModule.CheckLabel CheckLabel;
+        Infinium.Modules.CabFurnitureAssignments.CheckLabel CheckLabel;
         //RoleTypes RoleType = RoleTypes.OrdinaryRole;
 
         //public enum RoleTypes
@@ -90,6 +89,7 @@ namespace Infinium
             ToolTip1.SetToolTip(btnPrintCellLabel, "Распечатать этикетку");
             ToolTip1.SetToolTip(btnQualityControlIn, "Отправить на ОТК");
             ToolTip1.SetToolTip(btnQualityControlOut, "Принять с ОТК");
+            ToolTip1.SetToolTip(btnStartInventory, "Инвентаризация");
 
             Initialize();
 
@@ -260,64 +260,64 @@ namespace Infinium
             complementLabel = new ComplementLabel();
             packageLabel = new PackageLabel();
 
-            AssignmentsManager = new AssignmentsManager();
-            AssignmentsManager.Initialize();
+            assignmentsManager = new AssignmentsManager();
+            assignmentsManager.Initialize();
 
-            ComplementsManager = new ComplementsManager();
-            PackagesManager = new PackagesManager();
+            complementsManager = new ComplementsManager();
+            packagesManager = new PackagesManager();
 
 
-            CheckLabel = new Modules.CabFurnitureModule.CheckLabel();
+            CheckLabel = new Modules.CabFurnitureAssignments.CheckLabel();
             dgvScan.DataSource = CheckLabel.ScanContentBS;
             dgvScanDetailsSetting(ref dgvScan);
 
-            cmbxTechStore.DataSource = AssignmentsManager.TechStoreBS;
+            cmbxTechStore.DataSource = assignmentsManager.TechStoreBS;
             cmbxTechStore.DisplayMember = "TechStoreName";
             cmbxTechStore.ValueMember = "TechStoreID";
-            cmbxTechStoreSubGroups.DataSource = AssignmentsManager.TechStoreSubGroupsBS;
+            cmbxTechStoreSubGroups.DataSource = assignmentsManager.TechStoreSubGroupsBS;
             cmbxTechStoreSubGroups.DisplayMember = "TechStoreSubGroupName";
             cmbxTechStoreSubGroups.ValueMember = "TechStoreSubGroupID";
-            cmbxTechStoreGroups.DataSource = AssignmentsManager.TechStoreGroupsBS;
+            cmbxTechStoreGroups.DataSource = assignmentsManager.TechStoreGroupsBS;
             cmbxTechStoreGroups.DisplayMember = "TechStoreGroupName";
             cmbxTechStoreGroups.ValueMember = "TechStoreGroupID";
-            cmbxCovers.DataSource = AssignmentsManager.CoversBS;
+            cmbxCovers.DataSource = assignmentsManager.CoversBS;
             cmbxCovers.DisplayMember = "CoverName";
             cmbxCovers.ValueMember = "CoverID";
-            cmbxPatina.DataSource = AssignmentsManager.PatinaBS;
+            cmbxPatina.DataSource = assignmentsManager.PatinaBS;
             cmbxPatina.DisplayMember = "PatinaName";
             cmbxPatina.ValueMember = "PatinaID";
 
-            cmbxInsetColors.DataSource = AssignmentsManager.BasicInsetColorsBS;
+            cmbxInsetColors.DataSource = assignmentsManager.BasicInsetColorsBS;
             cmbxInsetColors.DisplayMember = "InsetColorName";
             cmbxInsetColors.ValueMember = "InsetColorID";
 
-            dgvComplements.DataSource = ComplementsManager.ComplementsBS;
-            dgvMainOrders.DataSource = ComplementsManager.MainOrdersBS;
-            dgvComplementLabels.DataSource = ComplementsManager.ComplementLabelsBS;
-            dgvComplementDetails.DataSource = ComplementsManager.ComplementDetailsBS;
+            dgvComplements.DataSource = complementsManager.ComplementsBS;
+            dgvMainOrders.DataSource = complementsManager.MainOrdersBS;
+            dgvComplementLabels.DataSource = complementsManager.ComplementLabelsBS;
+            dgvComplementDetails.DataSource = complementsManager.ComplementDetailsBS;
 
-            dgvPackages.DataSource = PackagesManager.PackagesBS;
-            dgvPackagesLabels.DataSource = PackagesManager.PackageLabelsBS;
-            dgvPackagesDetails.DataSource = PackagesManager.PackageDetailsBS;
+            dgvPackages.DataSource = packagesManager.PackagesBS;
+            dgvPackagesLabels.DataSource = packagesManager.PackageLabelsBS;
+            dgvPackagesDetails.DataSource = packagesManager.PackageDetailsBS;
 
-            dgvDocuments.DataSource = AssignmentsManager.DocumentsBS;
-            dgvNewAssignment.DataSource = AssignmentsManager.NewAssignmentDetailsBS;
-            percentageDataGrid1.DataSource = AssignmentsManager.NewAssignmentDetailsBS;
-            dgvAllAssignments.DataSource = AssignmentsManager.AllAssignmentsBS;
+            dgvDocuments.DataSource = assignmentsManager.DocumentsBS;
+            dgvNewAssignment.DataSource = assignmentsManager.NewAssignmentDetailsBS;
+            percentageDataGrid1.DataSource = assignmentsManager.NewAssignmentDetailsBS;
+            dgvAllAssignments.DataSource = assignmentsManager.AllAssignmentsBS;
 
-            AssignmentsManager.NonAgreementOrders(true, ref NonAgreementCount);
-            AssignmentsManager.AgreedOrders(true, ref AgreedCount);
-            AssignmentsManager.OnProductionOrders(true, ref OnProdCount);
-            AssignmentsManager.InProductionOrders(true, ref InProdCount);
-            AssignmentsManager.OnStorageOrders(true, ref OnStoreCount);
-            AssignmentsManager.OnExpeditionOrders(true, ref OnExpCount);
+            assignmentsManager.NonAgreementOrders(true, ref NonAgreementCount);
+            assignmentsManager.AgreedOrders(true, ref AgreedCount);
+            assignmentsManager.OnProductionOrders(true, ref OnProdCount);
+            assignmentsManager.InProductionOrders(true, ref InProdCount);
+            assignmentsManager.OnStorageOrders(true, ref OnStoreCount);
+            assignmentsManager.OnExpeditionOrders(true, ref OnExpCount);
 
-            NonAgreementDataGrid.DataSource = AssignmentsManager.NonAgreementDetailBS;
-            AgreedDataGrid.DataSource = AssignmentsManager.AgreedDetailBS;
-            OnProductionDataGrid.DataSource = AssignmentsManager.OnProductionDetailBS;
-            InProductionDataGrid.DataSource = AssignmentsManager.InProductionDetailBS;
-            OnStorageDataGrid.DataSource = AssignmentsManager.OnStorageDetailBS;
-            OnExpeditionDataGrid.DataSource = AssignmentsManager.OnExpeditionDetailBS;
+            NonAgreementDataGrid.DataSource = assignmentsManager.NonAgreementDetailBS;
+            AgreedDataGrid.DataSource = assignmentsManager.AgreedDetailBS;
+            OnProductionDataGrid.DataSource = assignmentsManager.OnProductionDetailBS;
+            InProductionDataGrid.DataSource = assignmentsManager.InProductionDetailBS;
+            OnStorageDataGrid.DataSource = assignmentsManager.OnStorageDetailBS;
+            OnExpeditionDataGrid.DataSource = assignmentsManager.OnExpeditionDetailBS;
 
             dgvComplementsSetting(ref dgvComplements);
             dgvMainOrdersSetting(ref dgvMainOrders);
@@ -341,10 +341,10 @@ namespace Infinium
             dgvNewAssignmentSetting(ref percentageDataGrid1);
             dgvAllAssignmentsSetting(ref dgvAllAssignments);
 
-            AssignmentsManager.UpdateNewAssignment(0);
-            AssignmentsManager.UpdateDocuments();
-            AssignmentsManager.UpdateAllAssignments();
-            AssignmentsManager.FilterAllAssignments(true, true, true, true, true);
+            assignmentsManager.UpdateNewAssignment(0);
+            assignmentsManager.UpdateDocuments();
+            assignmentsManager.UpdateAllAssignments();
+            assignmentsManager.FilterAllAssignments(true, true, true, true, true);
 
 
             label11.Text = NonAgreementCount.ToString() + " шт.";
@@ -392,8 +392,8 @@ namespace Infinium
         private void dgvDocumentsSetting(ref PercentageDataGrid grid)
         {
             //grid.Columns.Add(AssignmentsManager.CreationUserColumn);
-            grid.Columns.Add(AssignmentsManager.PrintUserColumn);
-            grid.Columns.Add(AssignmentsManager.DocTypesColumn);
+            grid.Columns.Add(assignmentsManager.PrintUserColumn);
+            grid.Columns.Add(assignmentsManager.DocTypesColumn);
             grid.AutoGenerateColumns = false;
 
             foreach (DataGridViewColumn Column in grid.Columns)
@@ -438,13 +438,13 @@ namespace Infinium
         private void dgvDetailsSetting(bool bClient, ref PercentageDataGrid grid)
         {
             if (!grid.Columns.Contains("TechStoreNameColumn"))
-                grid.Columns.Add(AssignmentsManager.TechStoreNameColumn);
+                grid.Columns.Add(assignmentsManager.TechStoreNameColumn);
             if (!grid.Columns.Contains("MeasuresColumn"))
-                grid.Columns.Add(AssignmentsManager.MeasuresColumn);
+                grid.Columns.Add(assignmentsManager.MeasuresColumn);
             if (!grid.Columns.Contains("ColorColumn"))
-                grid.Columns.Add(AssignmentsManager.ColorColumn);
+                grid.Columns.Add(assignmentsManager.ColorColumn);
             if (!grid.Columns.Contains("PatinaColumn"))
-                grid.Columns.Add(AssignmentsManager.PatinaColumn);
+                grid.Columns.Add(assignmentsManager.PatinaColumn);
             grid.AutoGenerateColumns = false;
 
             foreach (DataGridViewColumn Column in grid.Columns)
@@ -482,8 +482,8 @@ namespace Infinium
 
         private void dgvAllAssignmentsSetting(ref PercentageDataGrid grid)
         {
-            grid.Columns.Add(AssignmentsManager.CreationUserColumn);
-            grid.Columns.Add(AssignmentsManager.AgreementUserColumn);
+            grid.Columns.Add(assignmentsManager.CreationUserColumn);
+            grid.Columns.Add(assignmentsManager.AgreementUserColumn);
             grid.AutoGenerateColumns = false;
 
             if (grid.Columns.Contains("CreationUserID"))
@@ -535,14 +535,14 @@ namespace Infinium
 
         private void dgvNewAssignmentSetting(ref PercentageDataGrid grid)
         {
-            grid.Columns.Add(AssignmentsManager.CreationUserColumn);
-            grid.Columns.Add(AssignmentsManager.MeasuresColumn);
-            grid.Columns.Add(AssignmentsManager.TechStoreNameColumn);
-            grid.Columns.Add(AssignmentsManager.ColorColumn);
-            grid.Columns.Add(AssignmentsManager.PatinaColumn);
-            grid.Columns.Add(AssignmentsManager.CoverColumn);
-            grid.Columns.Add(AssignmentsManager.InsetTypeColumn);
-            grid.Columns.Add(AssignmentsManager.InsetColorColumn);
+            grid.Columns.Add(assignmentsManager.CreationUserColumn);
+            grid.Columns.Add(assignmentsManager.MeasuresColumn);
+            grid.Columns.Add(assignmentsManager.TechStoreNameColumn);
+            grid.Columns.Add(assignmentsManager.ColorColumn);
+            grid.Columns.Add(assignmentsManager.PatinaColumn);
+            grid.Columns.Add(assignmentsManager.CoverColumn);
+            grid.Columns.Add(assignmentsManager.InsetTypeColumn);
+            grid.Columns.Add(assignmentsManager.InsetColorColumn);
             grid.AutoGenerateColumns = false;
 
             if (grid.Columns.Contains("CabFurAssignmentDetailID"))
@@ -608,7 +608,7 @@ namespace Infinium
 
         private void dgvComplementsSetting(ref PercentageDataGrid grid)
         {
-            grid.Columns.Add(AssignmentsManager.ClientColumn);
+            grid.Columns.Add(assignmentsManager.ClientColumn);
             grid.AutoGenerateColumns = false;
 
             if (grid.Columns.Contains("ClientID"))
@@ -645,10 +645,10 @@ namespace Infinium
 
         private void dgvMainOrdersSetting(ref PercentageDataGrid grid)
         {
-            grid.Columns.Add(ComplementsManager.ProductionStatusColumn);
-            grid.Columns.Add(ComplementsManager.StorageStatusColumn);
-            grid.Columns.Add(ComplementsManager.ExpeditionStatusColumn);
-            grid.Columns.Add(ComplementsManager.DispatchStatusColumn);
+            grid.Columns.Add(complementsManager.ProductionStatusColumn);
+            grid.Columns.Add(complementsManager.StorageStatusColumn);
+            grid.Columns.Add(complementsManager.ExpeditionStatusColumn);
+            grid.Columns.Add(complementsManager.DispatchStatusColumn);
             grid.AutoGenerateColumns = false;
 
             if (grid.Columns.Contains("TPSProductionStatusID"))
@@ -720,11 +720,11 @@ namespace Infinium
 
         private void dgvComplementDetailsSetting(ref PercentageDataGrid grid)
         {
-            grid.Columns.Add(AssignmentsManager.CTechStoreNameColumn);
-            grid.Columns.Add(AssignmentsManager.TechStoreNameColumn);
-            grid.Columns.Add(AssignmentsManager.CoverColumn);
-            grid.Columns.Add(AssignmentsManager.PatinaColumn);
-            grid.Columns.Add(AssignmentsManager.InsetColorColumn);
+            grid.Columns.Add(assignmentsManager.CTechStoreNameColumn);
+            grid.Columns.Add(assignmentsManager.TechStoreNameColumn);
+            grid.Columns.Add(assignmentsManager.CoverColumn);
+            grid.Columns.Add(assignmentsManager.PatinaColumn);
+            grid.Columns.Add(assignmentsManager.InsetColorColumn);
             grid.AutoGenerateColumns = false;
 
             if (grid.Columns.Contains("TechStoreSubGroupID"))
@@ -874,11 +874,11 @@ namespace Infinium
 
         private void dgvPackagesDetailsSetting(ref PercentageDataGrid grid)
         {
-            grid.Columns.Add(AssignmentsManager.CTechStoreNameColumn);
-            grid.Columns.Add(AssignmentsManager.TechStoreNameColumn);
-            grid.Columns.Add(AssignmentsManager.CoverColumn);
-            grid.Columns.Add(AssignmentsManager.PatinaColumn);
-            grid.Columns.Add(AssignmentsManager.InsetColorColumn);
+            grid.Columns.Add(assignmentsManager.CTechStoreNameColumn);
+            grid.Columns.Add(assignmentsManager.TechStoreNameColumn);
+            grid.Columns.Add(assignmentsManager.CoverColumn);
+            grid.Columns.Add(assignmentsManager.PatinaColumn);
+            grid.Columns.Add(assignmentsManager.InsetColorColumn);
             grid.AutoGenerateColumns = false;
 
             if (grid.Columns.Contains("TechStoreSubGroupID"))
@@ -1007,10 +1007,10 @@ namespace Infinium
 
         private void dgvScanDetailsSetting(ref PercentageDataGrid grid)
         {
-            grid.Columns.Add(AssignmentsManager.CTechStoreNameColumn);
-            grid.Columns.Add(AssignmentsManager.TechStoreNameColumn);
-            grid.Columns.Add(AssignmentsManager.CoverColumn);
-            grid.Columns.Add(AssignmentsManager.PatinaColumn);
+            grid.Columns.Add(assignmentsManager.CTechStoreNameColumn);
+            grid.Columns.Add(assignmentsManager.TechStoreNameColumn);
+            grid.Columns.Add(assignmentsManager.CoverColumn);
+            grid.Columns.Add(assignmentsManager.PatinaColumn);
             grid.AutoGenerateColumns = false;
 
             if (grid.Columns.Contains("TechStoreSubGroupID"))
@@ -1077,7 +1077,7 @@ namespace Infinium
 
         private void kryptonCheckSet3_CheckedButtonChanged(object sender, EventArgs e)
         {
-            if (AssignmentsManager == null)
+            if (assignmentsManager == null)
                 return;
 
             Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных.\r\nПодождите..."); });
@@ -1087,13 +1087,13 @@ namespace Infinium
 
             if (kryptonCheckSet3.CheckedButton == cbtnNewAssignment)
             {
-                AssignmentsManager.NewAssignment = true;
+                assignmentsManager.NewAssignment = true;
                 //pnlNewAssignment.BringToFront();
                 tabControl1.SelectedIndex = 1;
             }
             if (kryptonCheckSet3.CheckedButton == cbtnAllAssignments)
             {
-                AssignmentsManager.NewAssignment = false;
+                assignmentsManager.NewAssignment = false;
                 //pnlAllAssignments.BringToFront();
                 tabControl1.SelectedIndex = 0;
             }
@@ -1110,13 +1110,13 @@ namespace Infinium
                 tabControl1.SelectedIndex = 2;
 
 
-                ComplementsManager.UpdateComplements(date1, date2);
+                complementsManager.UpdateComplements(date1, date2);
             }
             if (kryptonCheckSet3.CheckedButton == cbtnPackages)
             {
                 //pnlOrdersCondition.BringToFront();
                 tabControl1.SelectedIndex = 3;
-                PackagesManager.UpdatePackages(date1, date2);
+                packagesManager.UpdatePackages(date1, date2);
                 //PackagesManager.ClearPackges();
             }
             if (kryptonCheckSet3.CheckedButton == cbtnPackagesScan)
@@ -1149,9 +1149,9 @@ namespace Infinium
             NeedSplash = false;
 
             kryptonCheckSet3.CheckedButton = cbtnNewAssignment;
-            AssignmentsManager.NewAssignment = true;
-            AssignmentsManager.CabFurAssignmentID = 0;
-            AssignmentsManager.UpdateNewAssignment(0);
+            assignmentsManager.NewAssignment = true;
+            assignmentsManager.CabFurAssignmentID = 0;
+            assignmentsManager.UpdateNewAssignment(0);
 
             NeedSplash = true;
             while (SplashWindow.bSmallCreated)
@@ -1160,12 +1160,12 @@ namespace Infinium
 
         private void dgvAllAssignments_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (AssignmentsManager == null)
+            if (assignmentsManager == null)
                 return;
             int CabFurAssignmentID = 0;
             if (dgvAllAssignments.SelectedRows.Count != 0 && dgvAllAssignments.SelectedRows[0].Cells["CabFurAssignmentID"].Value != DBNull.Value)
                 CabFurAssignmentID = Convert.ToInt32(dgvAllAssignments.SelectedRows[0].Cells["CabFurAssignmentID"].Value);
-            AssignmentsManager.CabFurAssignmentID = CabFurAssignmentID;
+            assignmentsManager.CabFurAssignmentID = CabFurAssignmentID;
 
             Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных.\r\nПодождите..."); });
             T.Start();
@@ -1173,8 +1173,8 @@ namespace Infinium
             NeedSplash = false;
 
             kryptonCheckSet3.CheckedButton = cbtnNewAssignment;
-            AssignmentsManager.NewAssignment = false;
-            AssignmentsManager.UpdateNewAssignment(CabFurAssignmentID);
+            assignmentsManager.NewAssignment = false;
+            assignmentsManager.UpdateNewAssignment(CabFurAssignmentID);
             tabControl1.SelectedIndex = 1;
             CheckColumns(ref dgvNewAssignment);
 
@@ -1193,12 +1193,12 @@ namespace Infinium
 
         private void kryptonContextMenuItem3_Click(object sender, EventArgs e)
         {
-            if (AssignmentsManager == null)
+            if (assignmentsManager == null)
                 return;
             int CabFurAssignmentID = 0;
             if (dgvAllAssignments.SelectedRows.Count != 0 && dgvAllAssignments.SelectedRows[0].Cells["CabFurAssignmentID"].Value != DBNull.Value)
                 CabFurAssignmentID = Convert.ToInt32(dgvAllAssignments.SelectedRows[0].Cells["CabFurAssignmentID"].Value);
-            AssignmentsManager.CabFurAssignmentID = CabFurAssignmentID;
+            assignmentsManager.CabFurAssignmentID = CabFurAssignmentID;
 
             Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных.\r\nПодождите..."); });
             T.Start();
@@ -1206,8 +1206,8 @@ namespace Infinium
             NeedSplash = false;
 
             kryptonCheckSet3.CheckedButton = cbtnNewAssignment;
-            AssignmentsManager.NewAssignment = false;
-            AssignmentsManager.UpdateNewAssignment(CabFurAssignmentID);
+            assignmentsManager.NewAssignment = false;
+            assignmentsManager.UpdateNewAssignment(CabFurAssignmentID);
             tabControl1.SelectedIndex = 1;
             CheckColumns(ref dgvNewAssignment);
 
@@ -1227,9 +1227,9 @@ namespace Infinium
             while (!SplashWindow.bSmallCreated) ;
             NeedSplash = false;
 
-            AssignmentsManager.SaveAllAssignments();
-            AssignmentsManager.UpdateAllAssignments();
-            AssignmentsManager.MoveToAssignmentID(CabFurAssignmentID);
+            assignmentsManager.SaveAllAssignments();
+            assignmentsManager.UpdateAllAssignments();
+            assignmentsManager.MoveToAssignmentID(CabFurAssignmentID);
 
             NeedSplash = true;
             while (SplashWindow.bSmallCreated)
@@ -1265,10 +1265,10 @@ namespace Infinium
             while (!SplashWindow.bSmallCreated) ;
             NeedSplash = false;
 
-            AssignmentsManager.AgreeAssignment(CabFurAssignmentID);
-            AssignmentsManager.SaveAllAssignments();
+            assignmentsManager.AgreeAssignment(CabFurAssignmentID);
+            assignmentsManager.SaveAllAssignments();
             FilterAssignments();
-            AssignmentsManager.MoveToAssignmentID(CabFurAssignmentID);
+            assignmentsManager.MoveToAssignmentID(CabFurAssignmentID);
 
             NeedSplash = true;
             while (SplashWindow.bSmallCreated)
@@ -1277,23 +1277,23 @@ namespace Infinium
 
         private void cmbxTechStoreGroups_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (AssignmentsManager == null)
+            if (assignmentsManager == null)
                 return;
             int TechStoreGroupID = 0;
             if (cmbxTechStoreGroups.SelectedItem != null && ((DataRowView)cmbxTechStoreGroups.SelectedItem).Row["TechStoreGroupID"] != DBNull.Value)
                 TechStoreGroupID = Convert.ToInt32(((DataRowView)cmbxTechStoreGroups.SelectedItem).Row["TechStoreGroupID"]);
-            AssignmentsManager.FilterTechStoreSubGroups(TechStoreGroupID);
+            assignmentsManager.FilterTechStoreSubGroups(TechStoreGroupID);
             cmbxTechStoreSubGroups_SelectedIndexChanged(null, null);
         }
 
         private void cmbxTechStoreSubGroups_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (AssignmentsManager == null)
+            if (assignmentsManager == null)
                 return;
             int TechStoreSubGroupID = 0;
             if (cmbxTechStoreSubGroups.SelectedItem != null && ((DataRowView)cmbxTechStoreSubGroups.SelectedItem).Row["TechStoreSubGroupID"] != DBNull.Value)
                 TechStoreSubGroupID = Convert.ToInt32(((DataRowView)cmbxTechStoreSubGroups.SelectedItem).Row["TechStoreSubGroupID"]);
-            AssignmentsManager.FilterTechStore(TechStoreSubGroupID);
+            assignmentsManager.FilterTechStore(TechStoreSubGroupID);
             cmbxTechStore_SelectedIndexChanged(null, null);
         }
 
@@ -1352,13 +1352,13 @@ namespace Infinium
                 InsetColorID = Convert.ToInt32(((DataRowView)cmbxInsetColors.SelectedItem).Row["InsetColorID"]);
             if (tbCount.Text.Length > 0)
                 Count = Convert.ToInt32(tbCount.Text);
-            AssignmentsManager.AddAssignmentDetail(TechStoreID, CoverID, PatinaID, InsetColorID, Count);
+            assignmentsManager.AddAssignmentDetail(TechStoreID, CoverID, PatinaID, InsetColorID, Count);
             CheckColumns(ref dgvNewAssignment);
         }
 
         private void RemoveItemButton_Click(object sender, EventArgs e)
         {
-            AssignmentsManager.RemoveNewAssignmentDetail();
+            assignmentsManager.RemoveNewAssignmentDetail();
             CheckColumns(ref dgvNewAssignment);
         }
 
@@ -1369,30 +1369,30 @@ namespace Infinium
             while (!SplashWindow.bSmallCreated) ;
             NeedSplash = false;
 
-            if (AssignmentsManager.NewAssignment)
+            if (assignmentsManager.NewAssignment)
             {
-                AssignmentsManager.AddAssignment();
-                AssignmentsManager.FillAssignmentID(AssignmentsManager.CabFurAssignmentID);
-                AssignmentsManager.SaveNewAssignment();
-                AssignmentsManager.UpdateNewAssignment(AssignmentsManager.CabFurAssignmentID);
+                assignmentsManager.AddAssignment();
+                assignmentsManager.FillAssignmentID(assignmentsManager.CabFurAssignmentID);
+                assignmentsManager.SaveNewAssignment();
+                assignmentsManager.UpdateNewAssignment(assignmentsManager.CabFurAssignmentID);
             }
             else
             {
-                AssignmentsManager.SaveNewAssignment();
-                AssignmentsManager.SaveAllAssignments();
-                AssignmentsManager.UpdateAllAssignments();
+                assignmentsManager.SaveNewAssignment();
+                assignmentsManager.SaveAllAssignments();
+                assignmentsManager.UpdateAllAssignments();
             }
 
-            AssignmentsManager.UpdateDocuments();
-            AssignmentsManager.UpdateAllAssignments();
+            assignmentsManager.UpdateDocuments();
+            assignmentsManager.UpdateAllAssignments();
 
-            if (AssignmentsManager.NewAssignment)
+            if (assignmentsManager.NewAssignment)
             {
-                AssignmentsManager.MoveToFirstAssignmentID();
+                assignmentsManager.MoveToFirstAssignmentID();
             }
             else
             {
-                AssignmentsManager.MoveToAssignmentID(AssignmentsManager.CabFurAssignmentID);
+                assignmentsManager.MoveToAssignmentID(assignmentsManager.CabFurAssignmentID);
             }
 
             NeedSplash = true;
@@ -1477,7 +1477,7 @@ namespace Infinium
 
             if (calcManager == null)
             {
-                calcManager = new CalculateMaterial(AssignmentsManager);
+                calcManager = new CalculateMaterial(assignmentsManager);
                 calcManager.Initialize();
             }
             calcManager.MainFunction(CabFurAssignmentID, TechStoreName, TechStoreID, CoverID, PatinaID, Length, Height, Width, CoverName, PatinaName, Count);
@@ -1511,9 +1511,9 @@ namespace Infinium
             NeedSplash = false;
 
             kryptonCheckSet3.CheckedButton = cbtnNewAssignment;
-            AssignmentsManager.NewAssignment = true;
-            AssignmentsManager.CabFurAssignmentID = 0;
-            AssignmentsManager.UpdateNewAssignment(0);
+            assignmentsManager.NewAssignment = true;
+            assignmentsManager.CabFurAssignmentID = 0;
+            assignmentsManager.UpdateNewAssignment(0);
 
             NeedSplash = true;
             while (SplashWindow.bSmallCreated)
@@ -1541,10 +1541,10 @@ namespace Infinium
             while (!SplashWindow.bSmallCreated) ;
             NeedSplash = false;
 
-            AssignmentsManager.PrintAssignment(CabFurAssignmentID);
-            AssignmentsManager.SaveDocuments();
+            assignmentsManager.PrintAssignment(CabFurAssignmentID);
+            assignmentsManager.SaveDocuments();
             FilterAssignments();
-            AssignmentsManager.MoveToAssignmentID(CabFurAssignmentID);
+            assignmentsManager.MoveToAssignmentID(CabFurAssignmentID);
 
             NeedSplash = true;
             while (SplashWindow.bSmallCreated)
@@ -1576,7 +1576,7 @@ namespace Infinium
                 PhantomForm PhantomForm = new Infinium.PhantomForm();
                 PhantomForm.Show();
 
-                CabFurDocsDownloadForm TPSProdDocsDownloadForm = new CabFurDocsDownloadForm(CabFurAssignmentID, FileName, ref AssignmentsManager);
+                CabFurDocsDownloadForm TPSProdDocsDownloadForm = new CabFurDocsDownloadForm(CabFurAssignmentID, FileName, ref assignmentsManager);
                 TopForm = TPSProdDocsDownloadForm;
                 TPSProdDocsDownloadForm.ShowDialog();
 
@@ -1602,9 +1602,9 @@ namespace Infinium
                 //while (!SplashWindow.bSmallCreated) ;
                 NeedSplash = false;
 
-                AssignmentsManager.FilterDocuments(CabFurAssignmentID);
+                assignmentsManager.FilterDocuments(CabFurAssignmentID);
 
-                AssignmentsManager.UpdateNewAssignment(CabFurAssignmentID);
+                assignmentsManager.UpdateNewAssignment(CabFurAssignmentID);
                 CheckColumns(ref percentageDataGrid1);
 
                 NeedSplash = true;
@@ -1613,9 +1613,9 @@ namespace Infinium
             }
             else
             {
-                AssignmentsManager.FilterDocuments(CabFurAssignmentID);
+                assignmentsManager.FilterDocuments(CabFurAssignmentID);
 
-                AssignmentsManager.UpdateNewAssignment(CabFurAssignmentID);
+                assignmentsManager.UpdateNewAssignment(CabFurAssignmentID);
                 CheckColumns(ref percentageDataGrid1);
             }
         }
@@ -1634,9 +1634,9 @@ namespace Infinium
                 while (!SplashWindow.bSmallCreated) ;
                 NeedSplash = false;
 
-                AssignmentsManager.UpdateDocuments();
-                AssignmentsManager.UpdateAllAssignments();
-                AssignmentsManager.FilterAllAssignments(bAgreed, bNotAgreed, bPrinted, bNotPrinted, bPartPrinted);
+                assignmentsManager.UpdateDocuments();
+                assignmentsManager.UpdateAllAssignments();
+                assignmentsManager.FilterAllAssignments(bAgreed, bNotAgreed, bPrinted, bNotPrinted, bPartPrinted);
 
                 NeedSplash = true;
                 while (SplashWindow.bSmallCreated)
@@ -1644,9 +1644,9 @@ namespace Infinium
             }
             else
             {
-                AssignmentsManager.UpdateDocuments();
-                AssignmentsManager.UpdateAllAssignments();
-                AssignmentsManager.FilterAllAssignments(bAgreed, bNotAgreed, bPrinted, bNotPrinted, bPartPrinted);
+                assignmentsManager.UpdateDocuments();
+                assignmentsManager.UpdateAllAssignments();
+                assignmentsManager.FilterAllAssignments(bAgreed, bNotAgreed, bPrinted, bNotPrinted, bPartPrinted);
             }
         }
 
@@ -1667,7 +1667,7 @@ namespace Infinium
                 while (!SplashWindow.bSmallCreated) ;
                 NeedSplash = false;
 
-                ComplementsManager.FilterComplements(bPacked, bNotPacked, bPartPacked, bPrinted, bNotPrinted, bPartPrinted);
+                complementsManager.FilterComplements(bPacked, bNotPacked, bPartPacked, bPrinted, bNotPrinted, bPartPrinted);
 
                 NeedSplash = true;
                 while (SplashWindow.bSmallCreated)
@@ -1675,7 +1675,7 @@ namespace Infinium
             }
             else
             {
-                ComplementsManager.FilterComplements(bPacked, bNotPacked, bPartPacked, bPrinted, bNotPrinted, bPartPrinted);
+                complementsManager.FilterComplements(bPacked, bNotPacked, bPartPacked, bPrinted, bNotPrinted, bPartPrinted);
             }
         }
 
@@ -1696,7 +1696,7 @@ namespace Infinium
                 while (!SplashWindow.bSmallCreated) ;
                 NeedSplash = false;
 
-                PackagesManager.FilterPackages(bPacked, bNotPacked, bPartPacked, bPrinted, bNotPrinted, bPartPrinted);
+                packagesManager.FilterPackages(bPacked, bNotPacked, bPartPacked, bPrinted, bNotPrinted, bPartPrinted);
 
                 NeedSplash = true;
                 while (SplashWindow.bSmallCreated)
@@ -1704,7 +1704,7 @@ namespace Infinium
             }
             else
             {
-                PackagesManager.FilterPackages(bPacked, bNotPacked, bPartPacked, bPrinted, bNotPrinted, bPartPrinted);
+                packagesManager.FilterPackages(bPacked, bNotPacked, bPartPacked, bPrinted, bNotPrinted, bPartPrinted);
             }
         }
 
@@ -1759,10 +1759,10 @@ namespace Infinium
             NeedSplash = false;
 
             //write printdate
-            AssignmentsManager.PrintDocument(CabFurDocumentID);
-            AssignmentsManager.SaveDocuments();
+            assignmentsManager.PrintDocument(CabFurDocumentID);
+            assignmentsManager.SaveDocuments();
             FilterAssignments();
-            AssignmentsManager.MoveToAssignmentID(CabFurAssignmentID);
+            assignmentsManager.MoveToAssignmentID(CabFurAssignmentID);
 
             string temppath = string.Empty;
             if (CabFurAssignmentID != -1)
@@ -1771,7 +1771,7 @@ namespace Infinium
                 PhantomForm.Show();
 
                 //open document from ftp
-                CabFurDocsDownloadForm TPSProdDocsDownloadForm = new CabFurDocsDownloadForm(CabFurAssignmentID, FileName, ref AssignmentsManager);
+                CabFurDocsDownloadForm TPSProdDocsDownloadForm = new CabFurDocsDownloadForm(CabFurAssignmentID, FileName, ref assignmentsManager);
                 TopForm = TPSProdDocsDownloadForm;
                 TPSProdDocsDownloadForm.ShowDialog();
 
@@ -1844,7 +1844,7 @@ namespace Infinium
             PhantomForm.Show();
 
             if (CabFurnitureCoversForm == null)
-                CabFurnitureCoversForm = new CabFurnitureCoversForm(this, AssignmentsManager);
+                CabFurnitureCoversForm = new CabFurnitureCoversForm(this, assignmentsManager);
 
             TopForm = CabFurnitureCoversForm;
             CabFurnitureCoversForm.ShowDialog();
@@ -1870,12 +1870,12 @@ namespace Infinium
             OnStoreCount = 0;
             OnExpCount = 0;
 
-            AssignmentsManager.NonAgreementOrders(kryptonCheckBox1.Checked, ref NonAgreementCount);
-            AssignmentsManager.AgreedOrders(kryptonCheckBox1.Checked, ref AgreedCount);
-            AssignmentsManager.OnProductionOrders(kryptonCheckBox1.Checked, ref OnProdCount);
-            AssignmentsManager.InProductionOrders(kryptonCheckBox1.Checked, ref InProdCount);
-            AssignmentsManager.OnStorageOrders(kryptonCheckBox1.Checked, ref OnStoreCount);
-            AssignmentsManager.OnExpeditionOrders(kryptonCheckBox1.Checked, ref OnExpCount);
+            assignmentsManager.NonAgreementOrders(kryptonCheckBox1.Checked, ref NonAgreementCount);
+            assignmentsManager.AgreedOrders(kryptonCheckBox1.Checked, ref AgreedCount);
+            assignmentsManager.OnProductionOrders(kryptonCheckBox1.Checked, ref OnProdCount);
+            assignmentsManager.InProductionOrders(kryptonCheckBox1.Checked, ref InProdCount);
+            assignmentsManager.OnStorageOrders(kryptonCheckBox1.Checked, ref OnStoreCount);
+            assignmentsManager.OnExpeditionOrders(kryptonCheckBox1.Checked, ref OnExpCount);
 
             label11.Text = NonAgreementCount.ToString() + " шт.";
             label6.Text = AgreedCount.ToString() + " шт.";
@@ -1891,12 +1891,12 @@ namespace Infinium
             OnStorageDataGrid.DataSource = null;
             OnExpeditionDataGrid.DataSource = null;
 
-            NonAgreementDataGrid.DataSource = AssignmentsManager.NonAgreementDetailBS;
-            AgreedDataGrid.DataSource = AssignmentsManager.AgreedDetailBS;
-            OnProductionDataGrid.DataSource = AssignmentsManager.OnProductionDetailBS;
-            InProductionDataGrid.DataSource = AssignmentsManager.InProductionDetailBS;
-            OnStorageDataGrid.DataSource = AssignmentsManager.OnStorageDetailBS;
-            OnExpeditionDataGrid.DataSource = AssignmentsManager.OnExpeditionDetailBS;
+            NonAgreementDataGrid.DataSource = assignmentsManager.NonAgreementDetailBS;
+            AgreedDataGrid.DataSource = assignmentsManager.AgreedDetailBS;
+            OnProductionDataGrid.DataSource = assignmentsManager.OnProductionDetailBS;
+            InProductionDataGrid.DataSource = assignmentsManager.InProductionDetailBS;
+            OnStorageDataGrid.DataSource = assignmentsManager.OnStorageDetailBS;
+            OnExpeditionDataGrid.DataSource = assignmentsManager.OnExpeditionDetailBS;
 
             dgvDetailsSetting(kryptonCheckBox1.Checked, ref NonAgreementDataGrid);
             dgvDetailsSetting(kryptonCheckBox1.Checked, ref AgreedDataGrid);
@@ -1912,7 +1912,7 @@ namespace Infinium
 
         private void cmbxTechStore_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (AssignmentsManager == null)
+            if (assignmentsManager == null)
                 return;
             int TechStoreID = 0;
             if (cmbxTechStore.SelectedItem != null && ((DataRowView)cmbxTechStore.SelectedItem).Row["TechStoreID"] != DBNull.Value)
@@ -1923,7 +1923,7 @@ namespace Infinium
 
         private void cmbxCovers_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (AssignmentsManager == null)
+            if (assignmentsManager == null)
                 return;
             int TechStoreID = 0;
             int CoverID = 0;
@@ -1957,10 +1957,10 @@ namespace Infinium
                 NeedSplash = false;
 
                 //write printdate
-                AssignmentsManager.PrintDocument(CabFurDocumentID);
-                AssignmentsManager.SaveDocuments();
+                assignmentsManager.PrintDocument(CabFurDocumentID);
+                assignmentsManager.SaveDocuments();
                 FilterAssignments();
-                AssignmentsManager.MoveToAssignmentID(CabFurAssignmentID);
+                assignmentsManager.MoveToAssignmentID(CabFurAssignmentID);
 
                 NeedSplash = true;
                 while (SplashWindow.bSmallCreated)
@@ -1973,7 +1973,7 @@ namespace Infinium
                     PhantomForm.Show();
 
                     //open document from ftp
-                    CabFurDocsDownloadForm TPSProdDocsDownloadForm = new CabFurDocsDownloadForm(CabFurAssignmentID, FileName, ref AssignmentsManager);
+                    CabFurDocsDownloadForm TPSProdDocsDownloadForm = new CabFurDocsDownloadForm(CabFurAssignmentID, FileName, ref assignmentsManager);
                     TopForm = TPSProdDocsDownloadForm;
                     TPSProdDocsDownloadForm.ShowDialog();
 
@@ -2033,10 +2033,10 @@ namespace Infinium
                 while (!SplashWindow.bSmallCreated) ;
                 NeedSplash = false;
 
-                AssignmentsManager.CreatePackages(CabFurAssignmentID, FactoryID);
-                AssignmentsManager.PrintAssignment(CabFurAssignmentID);
+                assignmentsManager.CreatePackages(CabFurAssignmentID, FactoryID);
+                assignmentsManager.PrintAssignment(CabFurAssignmentID);
                 FilterAssignments();
-                AssignmentsManager.MoveToAssignmentID(CabFurAssignmentID);
+                assignmentsManager.MoveToAssignmentID(CabFurAssignmentID);
 
                 NeedSplash = true;
                 while (SplashWindow.bSmallCreated)
@@ -2061,9 +2061,9 @@ namespace Infinium
             while (!SplashWindow.bSmallCreated) ;
             NeedSplash = false;
 
-            AssignmentsManager.ClearCabFurniturePackages(CabFurAssignmentID);
+            assignmentsManager.ClearCabFurniturePackages(CabFurAssignmentID);
             FilterAssignments();
-            AssignmentsManager.MoveToAssignmentID(CabFurAssignmentID);
+            assignmentsManager.MoveToAssignmentID(CabFurAssignmentID);
 
             NeedSplash = true;
             while (SplashWindow.bSmallCreated)
@@ -2079,7 +2079,7 @@ namespace Infinium
             int CabFurnitureComplementID = 0;
             if (dgvComplementLabels.SelectedRows.Count != 0 && dgvComplementLabels.SelectedRows[0].Cells["CabFurnitureComplementID"].Value != DBNull.Value)
                 CabFurnitureComplementID = Convert.ToInt32(dgvComplementLabels.SelectedRows[0].Cells["CabFurnitureComplementID"].Value);
-            ComplementsManager.FilterComplementDetails(CabFurnitureComplementID);
+            complementsManager.FilterComplementDetails(CabFurnitureComplementID);
         }
 
         private void dgvComplementLabels_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
@@ -2113,7 +2113,7 @@ namespace Infinium
             }
             Array.Sort(CabFurnitureComplementID);
             Array.Sort(Index);
-            List<ComplementLabelInfo> Labels = AssignmentsManager.CreateComplementLabels(CabFurnitureComplementID, Index, ComplementsCount);
+            List<ComplementLabelInfo> Labels = assignmentsManager.CreateComplementLabels(CabFurnitureComplementID, Index, ComplementsCount);
             if (Labels.Count == 0)
                 return;
             for (int i = 0; i < Labels.Count; i++)
@@ -2128,7 +2128,7 @@ namespace Infinium
                 complementLabel.Print();
             }
 
-            ComplementsManager.PrintComplements(CabFurnitureComplementID);
+            complementsManager.PrintComplements(CabFurnitureComplementID);
 
             if (NeedSplash)
             {
@@ -2137,7 +2137,7 @@ namespace Infinium
                 //while (!SplashWindow.bSmallCreated) ;
                 NeedSplash = false;
 
-                ComplementsManager.FilterComplementsLabels(MainOrderID);
+                complementsManager.FilterComplementsLabels(MainOrderID);
 
                 NeedSplash = true;
                 while (SplashWindow.bSmallCreated)
@@ -2145,7 +2145,7 @@ namespace Infinium
             }
             else
             {
-                ComplementsManager.FilterComplementsLabels(MainOrderID);
+                complementsManager.FilterComplementsLabels(MainOrderID);
             }
         }
 
@@ -2166,7 +2166,7 @@ namespace Infinium
                 while (!SplashWindow.bSmallCreated) ;
                 NeedSplash = false;
 
-                ComplementsManager.FilterMainOrders(ClientID, OrderNumber);
+                complementsManager.FilterMainOrders(ClientID, OrderNumber);
                 //ComplementsManager.ClearComplements();
 
                 NeedSplash = true;
@@ -2175,7 +2175,7 @@ namespace Infinium
             }
             else
             {
-                ComplementsManager.FilterMainOrders(ClientID, OrderNumber);
+                complementsManager.FilterMainOrders(ClientID, OrderNumber);
                 //ComplementsManager.ClearComplements();
             }
 
@@ -2224,7 +2224,7 @@ namespace Infinium
                 PackNumber = Convert.ToInt32(dgvPackagesLabels.SelectedRows[0].Cells["PackNumber"].Value);
             if (dgvPackagesLabels.SelectedRows.Count != 0 && dgvPackagesLabels.SelectedRows[0].Cells["TechStoreSubGroupID"].Value != DBNull.Value)
                 TechStoreSubGroupID = Convert.ToInt32(dgvPackagesLabels.SelectedRows[0].Cells["TechStoreSubGroupID"].Value);
-            PackagesManager.FilterPackagesDetails(CabFurniturePackageID);
+            packagesManager.FilterPackagesDetails(CabFurniturePackageID);
         }
 
         private void kryptonContextMenuItem16_Click(object sender, EventArgs e)
@@ -2246,7 +2246,7 @@ namespace Infinium
                 CabFurniturePackageID[i] = Convert.ToInt32(dgvPackagesLabels.SelectedRows[i].Cells["CabFurniturePackageID"].Value);
             }
 
-            List<PackageLabelInfo> Labels = AssignmentsManager.CreatePackageLabels(CabFurniturePackageID, CabFurAssignmentID);
+            List<PackageLabelInfo> Labels = assignmentsManager.CreatePackageLabels(CabFurniturePackageID, CabFurAssignmentID);
             if (Labels.Count == 0)
                 return;
             for (int i = 0; i < Labels.Count; i++)
@@ -2261,7 +2261,7 @@ namespace Infinium
                 packageLabel.Print();
             }
 
-            PackagesManager.PrintComplements(CabFurniturePackageID);
+            packagesManager.PrintComplements(CabFurniturePackageID);
 
             if (NeedSplash)
             {
@@ -2270,7 +2270,7 @@ namespace Infinium
                 //while (!SplashWindow.bSmallCreated) ;
                 NeedSplash = false;
 
-                PackagesManager.FilterPackagesLabels(CabFurAssignmentID);
+                packagesManager.FilterPackagesLabels(CabFurAssignmentID);
 
                 NeedSplash = true;
                 while (SplashWindow.bSmallCreated)
@@ -2278,7 +2278,7 @@ namespace Infinium
             }
             else
             {
-                PackagesManager.FilterPackagesLabels(CabFurAssignmentID);
+                packagesManager.FilterPackagesLabels(CabFurAssignmentID);
             }
         }
 
@@ -2635,13 +2635,13 @@ namespace Infinium
             while (!SplashWindow.bSmallCreated) ;
             NeedSplash = false;
 
-            AssignmentsManager.ClearCabFurnitureComplenents(MainOrderID);
+            assignmentsManager.ClearCabFurnitureComplenents(MainOrderID);
 
 
             DateTime date1 = DateTimePicker1.Value.Date;
             DateTime date2 = DateTimePicker2.Value.Date;
 
-            ComplementsManager.UpdateComplements(date1, date2);
+            complementsManager.UpdateComplements(date1, date2);
 
             NeedSplash = true;
             while (SplashWindow.bSmallCreated)
@@ -2667,15 +2667,15 @@ namespace Infinium
             int CabFurAssignmentID = 0;
             if (dgvAllAssignments.SelectedRows.Count != 0 && dgvAllAssignments.SelectedRows[0].Cells["CabFurAssignmentID"].Value != DBNull.Value)
                 CabFurAssignmentID = Convert.ToInt32(dgvAllAssignments.SelectedRows[0].Cells["CabFurAssignmentID"].Value);
-            if (!AssignmentsManager.IsAssignmentDetailsEmpty(CabFurAssignmentID))
+            if (!assignmentsManager.IsAssignmentDetailsEmpty(CabFurAssignmentID))
             {
                 Infinium.LightMessageBox.Show(ref TopForm, false,
                     "Задание не пустое. Сначала удалите содержимое, затем повторите",
                     "Удаление задания");
                 return;
             }
-            AssignmentsManager.ClearCabFurniturePackages(CabFurAssignmentID);
-            AssignmentsManager.RemoveAssignment();
+            assignmentsManager.ClearCabFurniturePackages(CabFurAssignmentID);
+            assignmentsManager.RemoveAssignment();
             SaveAllAssignments();
         }
 
@@ -2699,13 +2699,13 @@ namespace Infinium
                 T.Start();
                 while (!SplashWindow.bSmallCreated) ;
 
-                ComplementsManager.FilterComplementsLabels(MainOrderID);
+                complementsManager.FilterComplementsLabels(MainOrderID);
 
                 while (SplashWindow.bSmallCreated)
                     SmallWaitForm.CloseS = true;
             }
             else
-                ComplementsManager.FilterComplementsLabels(MainOrderID);
+                complementsManager.FilterComplementsLabels(MainOrderID);
         }
 
         private void dgvPackages_SelectionChanged(object sender, EventArgs e)
@@ -2720,14 +2720,14 @@ namespace Infinium
                 T.Start();
                 while (!SplashWindow.bSmallCreated) ;
 
-                PackagesManager.FilterPackagesLabels(CabFurAssignmentID);
+                packagesManager.FilterPackagesLabels(CabFurAssignmentID);
 
                 while (SplashWindow.bSmallCreated)
                     SmallWaitForm.CloseS = true;
             }
             else
             {
-                PackagesManager.FilterPackagesLabels(CabFurAssignmentID);
+                packagesManager.FilterPackagesLabels(CabFurAssignmentID);
             }
         }
 
@@ -2824,7 +2824,7 @@ namespace Infinium
 
             if (detailsReport == null)
                 detailsReport = new DetailsReport();
-            List<ComplementLabelInfo> Labels = AssignmentsManager.CreateComplementLabels(CabFurnitureComplementID, Index, ComplementsCount);
+            List<ComplementLabelInfo> Labels = assignmentsManager.CreateComplementLabels(CabFurnitureComplementID, Index, ComplementsCount);
             if (Labels.Count == 0)
                 return;
 
@@ -2857,8 +2857,8 @@ namespace Infinium
             DateTime date1 = DateTimePicker1.Value.Date;
             DateTime date2 = DateTimePicker2.Value.Date;
 
-            ComplementsManager.UpdateComplements(date1, date2);
-            PackagesManager.UpdatePackages(date1, date2);
+            complementsManager.UpdateComplements(date1, date2);
+            packagesManager.UpdatePackages(date1, date2);
 
             //AssignmentsManager.ff();
 
@@ -2930,7 +2930,7 @@ namespace Infinium
 
             TopForm = null;
 
-            bool bOk = newCabFurWorkShopForm.bOk;
+            bool bOk = newCabFurWorkShopForm.DialogResult == DialogResult.OK ? true : false;
             string sName = newCabFurWorkShopForm.sName;
 
             newCabFurWorkShopForm.Dispose();
@@ -3020,7 +3020,7 @@ namespace Infinium
 
             TopForm = null;
 
-            bool bOk = newCabFurRackForm.bOk;
+            bool bOk = newCabFurRackForm.DialogResult == DialogResult.OK ? true : false;
             string sName = newCabFurRackForm.newName;
 
             newCabFurRackForm.Dispose();
@@ -3106,7 +3106,7 @@ namespace Infinium
 
             TopForm = null;
 
-            bool bOk = newCabFurCellForm.bOk;
+            bool bOk = newCabFurCellForm.DialogResult == DialogResult.OK ? true : false;
             string sName = newCabFurCellForm.sName;
 
             newCabFurCellForm.Dispose();
@@ -3158,10 +3158,10 @@ namespace Infinium
         {
             if (storagePackagesManager == null)
                 return;
-            int cellID = 0;
+            int cellId = 0;
             if (dgvCells.SelectedRows.Count != 0 && dgvCells.SelectedRows[0].Cells["CellID"].Value != DBNull.Value)
-                cellID = Convert.ToInt32(dgvCells.SelectedRows[0].Cells["CellID"].Value);
-            storagePackagesManager.FilterPackagesLabels(cellID);
+                cellId = Convert.ToInt32(dgvCells.SelectedRows[0].Cells["CellID"].Value);
+            storagePackagesManager.GetPackagesLabels(cellId);
         }
 
         private void dgvStoragePackagesLabels_SelectionChanged(object sender, EventArgs e)
@@ -3195,7 +3195,7 @@ namespace Infinium
             inputCellBarCodeForm.ShowDialog();
             TopForm = null;
 
-            if (inputCellBarCodeForm.result == 1)
+            if (inputCellBarCodeForm.DialogResult == DialogResult.OK)
             {
                 cellId = inputCellBarCodeForm.cellId;
                 inputCellBarCodeForm.Dispose();
@@ -3336,8 +3336,8 @@ namespace Infinium
                 while (!SplashWindow.bSmallCreated) ;
                 NeedSplash = false;
 
-                PackagesManager.QualityControlIn(CabFurniturePackageID);
-                PackagesManager.FilterPackagesLabels(CabFurAssignmentID);
+                packagesManager.QualityControlIn(CabFurniturePackageID);
+                packagesManager.FilterPackagesLabels(CabFurAssignmentID);
 
                 NeedSplash = true;
                 while (SplashWindow.bSmallCreated)
@@ -3345,7 +3345,7 @@ namespace Infinium
             }
             else
             {
-                PackagesManager.FilterPackagesLabels(CabFurAssignmentID);
+                packagesManager.FilterPackagesLabels(CabFurAssignmentID);
             }
         }
 
@@ -3370,8 +3370,8 @@ namespace Infinium
                 while (!SplashWindow.bSmallCreated) ;
                 NeedSplash = false;
 
-                PackagesManager.QualityControlOut(CabFurniturePackageID);
-                PackagesManager.FilterPackagesLabels(CabFurAssignmentID);
+                packagesManager.QualityControlOut(CabFurniturePackageID);
+                packagesManager.FilterPackagesLabels(CabFurAssignmentID);
 
                 NeedSplash = true;
                 while (SplashWindow.bSmallCreated)
@@ -3379,7 +3379,7 @@ namespace Infinium
             }
             else
             {
-                PackagesManager.FilterPackagesLabels(CabFurAssignmentID);
+                packagesManager.FilterPackagesLabels(CabFurAssignmentID);
             }
         }
 
@@ -3404,8 +3404,8 @@ namespace Infinium
                 while (!SplashWindow.bSmallCreated) ;
                 NeedSplash = false;
 
-                PackagesManager.QualityControlOut(CabFurniturePackageID);
-                storagePackagesManager.FilterPackagesLabels(cellId);
+                packagesManager.QualityControlOut(CabFurniturePackageID);
+                storagePackagesManager.GetPackagesLabels(cellId);
 
                 NeedSplash = true;
                 while (SplashWindow.bSmallCreated)
@@ -3413,7 +3413,7 @@ namespace Infinium
             }
             else
             {
-                storagePackagesManager.FilterPackagesLabels(cellId);
+                storagePackagesManager.GetPackagesLabels(cellId);
             }
         }
 
@@ -3438,8 +3438,8 @@ namespace Infinium
                 while (!SplashWindow.bSmallCreated) ;
                 NeedSplash = false;
 
-                PackagesManager.QualityControlIn(CabFurniturePackageID);
-                storagePackagesManager.FilterPackagesLabels(cellId);
+                packagesManager.QualityControlIn(CabFurniturePackageID);
+                storagePackagesManager.GetPackagesLabels(cellId);
 
                 NeedSplash = true;
                 while (SplashWindow.bSmallCreated)
@@ -3447,8 +3447,41 @@ namespace Infinium
             }
             else
             {
-                storagePackagesManager.FilterPackagesLabels(cellId);
+                storagePackagesManager.GetPackagesLabels(cellId);
             }
+        }
+
+        private void btnStartInventory_Click(object sender, EventArgs e)
+        {
+            if (cabFurStorage == null || !cabFurStorage.HasWorkShops || cabFurStorage.CurrentWorkShopId == -1)
+                return;
+            PhantomForm PhantomForm = new PhantomForm();
+            PhantomForm.Show();
+            int workshopId = cabFurStorage.CurrentWorkShopId;
+
+            CabFurInventoryForm сabFurInventoryForm = new CabFurInventoryForm(this, assignmentsManager, storagePackagesManager, workshopId);
+
+            TopForm = сabFurInventoryForm;
+            сabFurInventoryForm.ShowDialog();
+
+            сabFurInventoryForm.Dispose();
+            TopForm = null;
+
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Обновление.\r\nПодождите..."); });
+            T.Start();
+            while (!SplashWindow.bSmallCreated) ;
+            NeedSplash = false;
+
+            cabFurStorage.UpdateCells();
+
+            NeedSplash = true;
+            while (SplashWindow.bSmallCreated)
+                SmallWaitForm.CloseS = true;
+
+            PhantomForm.Close();
+            PhantomForm.Dispose();
+
+            GC.Collect();
         }
     }
 }
