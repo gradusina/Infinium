@@ -62,7 +62,7 @@ namespace Infinium
             if (rbOtherOrder.Checked)
             {
                 int iMegaOrderID = 0;
-                if (cbOrders.SelectedItem != null || ((DataRowView)cbOrders.SelectedItem).Row["MegaOrderID"] != DBNull.Value)
+                if (cbOrders.SelectedItem != null && ((DataRowView)cbOrders.SelectedItem).Row["MegaOrderID"] != DBNull.Value)
                     iMegaOrderID = Convert.ToInt32(((DataRowView)cbOrders.SelectedItem).Row["MegaOrderID"]);
                 if (rbCopy.Checked)
                     CopyMarketingOrders.CopyMainOrderToExist(ClientID, iMegaOrderID, MainOrderID);
@@ -211,7 +211,7 @@ namespace Infinium
             if (CopyMarketingOrders == null)
                 return;
             int iClientID = 0;
-            if (cbClients.SelectedItem != null || ((DataRowView)cbClients.SelectedItem).Row["ClientID"] != DBNull.Value)
+            if (cbClients.SelectedItem != null && ((DataRowView)cbClients.SelectedItem).Row["ClientID"] != DBNull.Value)
                 iClientID = Convert.ToInt32(((DataRowView)cbClients.SelectedItem).Row["ClientID"]);
             CopyMarketingOrders.GetOrdersDT(iClientID);
         }

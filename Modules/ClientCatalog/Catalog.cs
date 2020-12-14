@@ -4972,8 +4972,7 @@ namespace Infinium
         public void DeleteClientsCatalogImage(int ConfigID, int ProductID)
         {
             string SelectCommand = "DELETE FROM ClientsCatalogImages WHERE ProductType=1 AND ConfigID = " + ConfigID;
-            if (ProductID == 46 || ProductID == 61 || ProductID == 62 || ProductID == 63
-                || ProductID == 73 || ProductID == 74 || ProductID == 75)
+            if (CheckOrdersStatus.IsCabFurniture(ProductID))
                 SelectCommand = "DELETE FROM ClientsCatalogImages WHERE ProductType=2 AND ConfigID = " + ConfigID;
             using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand,
                 ConnectionStrings.CatalogConnectionString))
@@ -5007,8 +5006,7 @@ namespace Infinium
         {
             string SelectCommand = "SELECT * FROM ClientsCatalogImages" +
                 " WHERE ProductType=1 AND ConfigID = " + ConfigID;
-            if (ProductID == 46 || ProductID == 61 || ProductID == 62 || ProductID == 63
-                || ProductID == 73 || ProductID == 74 || ProductID == 75)
+            if (CheckOrdersStatus.IsCabFurniture(ProductID))
                 SelectCommand = "SELECT * FROM ClientsCatalogImages" +
                  " WHERE ProductType=2 AND ConfigID = " + ConfigID;
             using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.CatalogConnectionString))

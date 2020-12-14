@@ -1342,13 +1342,13 @@ namespace Infinium
             int PatinaID = 0;
             int InsetColorID = 0;
             int Count = 0;
-            if (cmbxTechStore.SelectedItem != null || ((DataRowView)cmbxTechStore.SelectedItem).Row["TechStoreID"] != DBNull.Value)
+            if (cmbxTechStore.SelectedItem != null && ((DataRowView)cmbxTechStore.SelectedItem).Row["TechStoreID"] != DBNull.Value)
                 TechStoreID = Convert.ToInt32(((DataRowView)cmbxTechStore.SelectedItem).Row["TechStoreID"]);
-            if (cmbxCovers.SelectedItem != null || ((DataRowView)cmbxCovers.SelectedItem).Row["CoverID"] != DBNull.Value)
+            if (cmbxCovers.SelectedItem != null && ((DataRowView)cmbxCovers.SelectedItem).Row["CoverID"] != DBNull.Value)
                 CoverID = Convert.ToInt32(((DataRowView)cmbxCovers.SelectedItem).Row["CoverID"]);
-            if (cmbxPatina.SelectedItem != null || ((DataRowView)cmbxPatina.SelectedItem).Row["PatinaID"] != DBNull.Value)
+            if (cmbxPatina.SelectedItem != null && ((DataRowView)cmbxPatina.SelectedItem).Row["PatinaID"] != DBNull.Value)
                 PatinaID = Convert.ToInt32(((DataRowView)cmbxPatina.SelectedItem).Row["PatinaID"]);
-            if (cmbxInsetColors.SelectedItem != null || ((DataRowView)cmbxInsetColors.SelectedItem).Row["InsetColorID"] != DBNull.Value)
+            if (cmbxInsetColors.SelectedItem != null && ((DataRowView)cmbxInsetColors.SelectedItem).Row["InsetColorID"] != DBNull.Value)
                 InsetColorID = Convert.ToInt32(((DataRowView)cmbxInsetColors.SelectedItem).Row["InsetColorID"]);
             if (tbCount.Text.Length > 0)
                 Count = Convert.ToInt32(tbCount.Text);
@@ -1927,9 +1927,9 @@ namespace Infinium
                 return;
             int TechStoreID = 0;
             int CoverID = 0;
-            if (cmbxTechStore.SelectedItem != null || ((DataRowView)cmbxTechStore.SelectedItem).Row["TechStoreID"] != DBNull.Value)
+            if (cmbxTechStore.SelectedItem != null && ((DataRowView)cmbxTechStore.SelectedItem).Row["TechStoreID"] != DBNull.Value)
                 TechStoreID = Convert.ToInt32(((DataRowView)cmbxTechStore.SelectedItem).Row["TechStoreID"]);
-            if (cmbxCovers.SelectedItem != null || ((DataRowView)cmbxCovers.SelectedItem).Row["CoverID"] != DBNull.Value)
+            if (cmbxCovers.SelectedItem != null && ((DataRowView)cmbxCovers.SelectedItem).Row["CoverID"] != DBNull.Value)
                 CoverID = Convert.ToInt32(((DataRowView)cmbxCovers.SelectedItem).Row["CoverID"]);
             //AssignmentsManager.FilterPatina(TechStoreID, CoverID);
         }

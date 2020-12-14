@@ -8580,7 +8580,7 @@ namespace Infinium.Modules.Marketing.Expedition
         }
 
         public void CreateReport(ref HSSFWorkbook thssfworkbook, DataTable OrderDT, int[] Dispatches,
-            string DispatchDate, string OrderNumber, string ClientName, int iClientID, int FactoryID)
+            string DispatchDate, string ClientName, int iClientID, int FactoryID)
         {
             string SheetName = "Ведомость Профиль+ТПС";
             ClientID = iClientID;
@@ -9816,7 +9816,6 @@ namespace Infinium.Modules.Marketing.Expedition
                     return;
             }
 
-            int FactoryID = 1;
             int[] OrderNumbers = GetOrderNumbers();
             int[] ProfilOrderNumbers = GetOrderNumbers(1);
             int[] TPSOrderNumbers = GetOrderNumbers(2);
@@ -9832,6 +9831,10 @@ namespace Infinium.Modules.Marketing.Expedition
                     OrderNumber += OrderNumbers[i] + ", ";
                 OrderNumber = OrderNumber.Substring(0, OrderNumber.Length - 2);
             }
+            
+            string FileOrderNumber = OrderNumber;
+            if (OrderNumber.Length > 120) // если длина названия файла превышает 120 символов
+                FileOrderNumber = string.Format("({0}-{1})", OrderNumbers.Min(), OrderNumbers.Max());
             if (ProfilOrderNumbers.Count() > 0)
             {
                 for (int i = 0; i < ProfilOrderNumbers.Count(); i++)
@@ -9867,6 +9870,8 @@ namespace Infinium.Modules.Marketing.Expedition
             si.Subject = "NPOI SDK Example";
             hssfworkbook.SummaryInformation = si;
 
+
+            int FactoryID;
             if (Attach)
             {
                 PackingReport = new PackingReport()
@@ -9889,7 +9894,7 @@ namespace Infinium.Modules.Marketing.Expedition
                             CreateExcel(ref hssfworkbook, TPSMainOrders, 2, "ЗОВ-ТПС", ClientName, TPSOrderNumber);
                         }
 
-                        PackingReport.CreateReport(ref hssfworkbook, OrdersID, Dispatches, Convert.ToDateTime(PrepareDispatchDateTime).ToString("dd.MM.yyyy"), OrderNumber, ClientName, ClientID, 0);
+                        PackingReport.CreateReport(ref hssfworkbook, OrdersID, Dispatches, Convert.ToDateTime(PrepareDispatchDateTime).ToString("dd.MM.yyyy"), ClientName, ClientID, 0);
                     }
                     if (ProfilMainOrders.Count() > 0 && TPSMainOrders.Count() < 1)
                     {
@@ -9897,7 +9902,7 @@ namespace Infinium.Modules.Marketing.Expedition
                         if (Fill(ProfilMainOrders, FactoryID))
                         {
                             CreateExcel(ref hssfworkbook, ProfilMainOrders, 1, "ЗОВ-Профиль", ClientName, ProfilOrderNumber);
-                            PackingReport.CreateReport(ref hssfworkbook, OrdersID, Dispatches, Convert.ToDateTime(PrepareDispatchDateTime).ToString("dd.MM.yyyy"), ProfilOrderNumber, ClientName, ClientID, FactoryID);
+                            PackingReport.CreateReport(ref hssfworkbook, OrdersID, Dispatches, Convert.ToDateTime(PrepareDispatchDateTime).ToString("dd.MM.yyyy"), ClientName, ClientID, FactoryID);
                         }
                     }
                     if (ProfilMainOrders.Count() < 1 && TPSMainOrders.Count() > 0)
@@ -9906,7 +9911,7 @@ namespace Infinium.Modules.Marketing.Expedition
                         if (Fill(TPSMainOrders, FactoryID))
                         {
                             CreateExcel(ref hssfworkbook, TPSMainOrders, 2, "ЗОВ-ТПС", ClientName, TPSOrderNumber);
-                            PackingReport.CreateReport(ref hssfworkbook, OrdersID, Dispatches, Convert.ToDateTime(PrepareDispatchDateTime).ToString("dd.MM.yyyy"), TPSOrderNumber, ClientName, ClientID, FactoryID);
+                            PackingReport.CreateReport(ref hssfworkbook, OrdersID, Dispatches, Convert.ToDateTime(PrepareDispatchDateTime).ToString("dd.MM.yyyy"), ClientName, ClientID, FactoryID);
                         }
                     }
                 }
@@ -9919,7 +9924,7 @@ namespace Infinium.Modules.Marketing.Expedition
                         if (Fill(ProfilMainOrders, FactoryID))
                         {
                             CreateExcel(ref hssfworkbook, ProfilMainOrders, 1, "ЗОВ-Профиль", ClientName, ProfilOrderNumber);
-                            PackingReport.CreateReport(ref hssfworkbook, OrdersID, Dispatches, Convert.ToDateTime(PrepareDispatchDateTime).ToString("dd.MM.yyyy"), ProfilOrderNumber, ClientName, ClientID, FactoryID);
+                            PackingReport.CreateReport(ref hssfworkbook, OrdersID, Dispatches, Convert.ToDateTime(PrepareDispatchDateTime).ToString("dd.MM.yyyy"), ClientName, ClientID, FactoryID);
                         }
                     }
                 }
@@ -9932,14 +9937,14 @@ namespace Infinium.Modules.Marketing.Expedition
                         if (Fill(TPSMainOrders, FactoryID))
                         {
                             CreateExcel(ref hssfworkbook, TPSMainOrders, 2, "ЗОВ-ТПС", ClientName, TPSOrderNumber);
-                            PackingReport.CreateReport(ref hssfworkbook, OrdersID, Dispatches, Convert.ToDateTime(PrepareDispatchDateTime).ToString("dd.MM.yyyy"), TPSOrderNumber, ClientName, ClientID, FactoryID);
+                            PackingReport.CreateReport(ref hssfworkbook, OrdersID, Dispatches, Convert.ToDateTime(PrepareDispatchDateTime).ToString("dd.MM.yyyy"), ClientName, ClientID, FactoryID);
                         }
                     }
                 }
 
                 ClientName = ClientName.Replace('\"', '\'');
 
-                string FileName = ClientName + " № " + OrderNumber + " " + Firm;
+                string FileName = ClientName + " № " + FileOrderNumber + " " + Firm;
                 if (ClientID == 145)
                 {
                     Firm = "(Profil+TPS)";
@@ -10038,7 +10043,7 @@ namespace Infinium.Modules.Marketing.Expedition
 
                 ClientName = ClientName.Replace('\"', '\'');
 
-                string FileName = ClientName + " № " + OrderNumber + " " + Firm;
+                string FileName = ClientName + " № " + FileOrderNumber + " " + Firm;
                 if (ClientID == 145)
                 {
                     Firm = "(Profil+TPS)";
@@ -10158,7 +10163,7 @@ namespace Infinium.Modules.Marketing.Expedition
                             CreateExcel(ref hssfworkbook, TPSMainOrders, 2, "ЗОВ-ТПС", ClientName, TPSOrderNumber);
                         }
 
-                        PackingReport.CreateReport(ref hssfworkbook, OrdersID, Dispatches, Convert.ToDateTime(PrepareDispatchDateTime).ToString("dd.MM.yyyy"), OrderNumber, ClientName, ClientID, 0);
+                        PackingReport.CreateReport(ref hssfworkbook, OrdersID, Dispatches, Convert.ToDateTime(PrepareDispatchDateTime).ToString("dd.MM.yyyy"), ClientName, ClientID, 0);
                     }
                     if (ProfilMainOrders.Count() > 0 && TPSMainOrders.Count() < 1)
                     {
@@ -10166,7 +10171,7 @@ namespace Infinium.Modules.Marketing.Expedition
                         if (Fill(ProfilMainOrders, FactoryID))
                         {
                             CreateExcel(ref hssfworkbook, ProfilMainOrders, 1, "ЗОВ-Профиль", ClientName, ProfilOrderNumber);
-                            PackingReport.CreateReport(ref hssfworkbook, OrdersID, Dispatches, Convert.ToDateTime(PrepareDispatchDateTime).ToString("dd.MM.yyyy"), ProfilOrderNumber, ClientName, ClientID, FactoryID);
+                            PackingReport.CreateReport(ref hssfworkbook, OrdersID, Dispatches, Convert.ToDateTime(PrepareDispatchDateTime).ToString("dd.MM.yyyy"), ClientName, ClientID, FactoryID);
                         }
                     }
                     if (ProfilMainOrders.Count() < 1 && TPSMainOrders.Count() > 0)
@@ -10175,7 +10180,7 @@ namespace Infinium.Modules.Marketing.Expedition
                         if (Fill(TPSMainOrders, FactoryID))
                         {
                             CreateExcel(ref hssfworkbook, TPSMainOrders, 2, "ЗОВ-ТПС", ClientName, TPSOrderNumber);
-                            PackingReport.CreateReport(ref hssfworkbook, OrdersID, Dispatches, Convert.ToDateTime(PrepareDispatchDateTime).ToString("dd.MM.yyyy"), TPSOrderNumber, ClientName, ClientID, FactoryID);
+                            PackingReport.CreateReport(ref hssfworkbook, OrdersID, Dispatches, Convert.ToDateTime(PrepareDispatchDateTime).ToString("dd.MM.yyyy"), ClientName, ClientID, FactoryID);
                         }
                     }
                 }
@@ -10188,7 +10193,7 @@ namespace Infinium.Modules.Marketing.Expedition
                         if (Fill(ProfilMainOrders, FactoryID))
                         {
                             CreateExcel(ref hssfworkbook, ProfilMainOrders, 1, "ЗОВ-Профиль", ClientName, ProfilOrderNumber);
-                            PackingReport.CreateReport(ref hssfworkbook, OrdersID, Dispatches, Convert.ToDateTime(PrepareDispatchDateTime).ToString("dd.MM.yyyy"), ProfilOrderNumber, ClientName, ClientID, FactoryID);
+                            PackingReport.CreateReport(ref hssfworkbook, OrdersID, Dispatches, Convert.ToDateTime(PrepareDispatchDateTime).ToString("dd.MM.yyyy"), ClientName, ClientID, FactoryID);
                         }
                     }
                 }
@@ -10201,7 +10206,7 @@ namespace Infinium.Modules.Marketing.Expedition
                         if (Fill(TPSMainOrders, FactoryID))
                         {
                             CreateExcel(ref hssfworkbook, TPSMainOrders, 2, "ЗОВ-ТПС", ClientName, TPSOrderNumber);
-                            PackingReport.CreateReport(ref hssfworkbook, OrdersID, Dispatches, Convert.ToDateTime(PrepareDispatchDateTime).ToString("dd.MM.yyyy"), TPSOrderNumber, ClientName, ClientID, FactoryID);
+                            PackingReport.CreateReport(ref hssfworkbook, OrdersID, Dispatches, Convert.ToDateTime(PrepareDispatchDateTime).ToString("dd.MM.yyyy"), ClientName, ClientID, FactoryID);
                         }
                     }
                 }

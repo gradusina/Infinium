@@ -2471,6 +2471,16 @@ namespace Infinium
             }
         }
 
+
+        static public bool IsCabFurniture(int ProductID)
+        {
+            //также необходимо добавить новые ProductID корп. мебели в файлы ClientCatalog.cs и MarketingPackages.cs
+            if (ProductID == 46 || ProductID == 63 || ProductID == 61 ||
+                ProductID == 73 || ProductID == 74 || ProductID == 75 || ProductID == 80 || ProductID == 82)
+                return true;
+            return false;
+        }
+
         static private ArrayList GetMegaOrdersInDispatch(ArrayList DispatchIDs)
         {
             string OrdersConnectionString = ConnectionStrings.MarketingOrdersConnectionString;

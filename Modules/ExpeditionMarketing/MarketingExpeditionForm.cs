@@ -2302,30 +2302,38 @@ namespace Infinium
         {
             int DispatchID = Convert.ToInt32(dgvDispatch.SelectedRows[0].Cells["DispatchID"].Value);
             DateTime DispatchDate = Convert.ToDateTime(dgvDispatchDates.SelectedRows[0].Cells["PrepareDispatchDateTime"].Value);
-
-            if (!MarketingDispatchManager.HasPackages(DispatchID))
+            for (int i = 0; i < dgvDispatch.SelectedRows.Count; i++)
             {
-                InfiniumTips.ShowTip(this, 50, 85, "Отгрузка пуста", 1700);
-                return;
+                int id = Convert.ToInt32(dgvDispatch.SelectedRows[i].Cells["DispatchID"].Value);
+
+                if (!MarketingDispatchManager.HasPackages(id))
+                {
+                    LightMessageBox.Show(ref TopForm, false,
+                            "Отгрузка №" + id.ToString() + " пуста",
+                            "Разрешить отгрузку");
+                    return;
+                }
+
+                bool Confirm = false;
+                if (dgvDispatch.SelectedRows[i].Cells["ConfirmDispDateTime"].Value == DBNull.Value)
+                    Confirm = true;
+                if (Confirm && dgvDispatch.SelectedRows[i].Cells["ConfirmExpDateTime"].Value == DBNull.Value)
+                {
+                    LightMessageBox.Show(ref TopForm, false,
+                            "Отгрузка №" + id.ToString() + " не утверждена к экспедиции",
+                            "Разрешить отгрузку");
+                    return;
+                }
+                MarketingDispatchManager.SaveConfirmDispInfo(id, Confirm);
             }
 
-            bool Confirm = false;
-            if (dgvDispatch.SelectedRows[0].Cells["ConfirmDispDateTime"].Value == DBNull.Value)
-                Confirm = true;
-            if (Confirm && dgvDispatch.SelectedRows[0].Cells["ConfirmExpDateTime"].Value == DBNull.Value)
-            {
-                InfiniumTips.ShowTip(this, 50, 85, "Отгрузка не утверждена к экспедиции", 1700);
-                return;
-            }
-
-            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Обновление данных.\r\nПодождите..."); });
             T.Start();
 
             while (!SplashWindow.bSmallCreated) ;
 
             NeedSplash = false;
 
-            MarketingDispatchManager.SaveConfirmDispInfo(DispatchID, Confirm);
             UpdateDispatchDate();
             MarketingDispatchManager.MoveToDispatchDate(DispatchDate);
             MarketingDispatchManager.MoveToDispatch(DispatchID);
@@ -2333,6 +2341,40 @@ namespace Infinium
 
             while (SplashWindow.bSmallCreated)
                 SmallWaitForm.CloseS = true;
+
+            //int DispatchID = Convert.ToInt32(dgvDispatch.SelectedRows[0].Cells["DispatchID"].Value);
+            //DateTime DispatchDate = Convert.ToDateTime(dgvDispatchDates.SelectedRows[0].Cells["PrepareDispatchDateTime"].Value);
+
+            //if (!MarketingDispatchManager.HasPackages(DispatchID))
+            //{
+            //    InfiniumTips.ShowTip(this, 50, 85, "Отгрузка пуста", 1700);
+            //    return;
+            //}
+
+            //bool Confirm = false;
+            //if (dgvDispatch.SelectedRows[0].Cells["ConfirmDispDateTime"].Value == DBNull.Value)
+            //    Confirm = true;
+            //if (Confirm && dgvDispatch.SelectedRows[0].Cells["ConfirmExpDateTime"].Value == DBNull.Value)
+            //{
+            //    InfiniumTips.ShowTip(this, 50, 85, "Отгрузка не утверждена к экспедиции", 1700);
+            //    return;
+            //}
+
+            //Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
+            //T.Start();
+
+            //while (!SplashWindow.bSmallCreated) ;
+
+            //NeedSplash = false;
+
+            //MarketingDispatchManager.SaveConfirmDispInfo(DispatchID, Confirm);
+            //UpdateDispatchDate();
+            //MarketingDispatchManager.MoveToDispatchDate(DispatchDate);
+            //MarketingDispatchManager.MoveToDispatch(DispatchID);
+            //NeedSplash = true;
+
+            //while (SplashWindow.bSmallCreated)
+            //    SmallWaitForm.CloseS = true;
         }
 
         private void ConfirmExpContextMenuItem_Click(object sender, EventArgs e)
@@ -2340,22 +2382,29 @@ namespace Infinium
             int DispatchID = Convert.ToInt32(dgvDispatch.SelectedRows[0].Cells["DispatchID"].Value);
             DateTime DispatchDate = Convert.ToDateTime(dgvDispatchDates.SelectedRows[0].Cells["PrepareDispatchDateTime"].Value);
 
-            if (!MarketingDispatchManager.HasPackages(DispatchID))
+            for (int i = 0; i < dgvDispatch.SelectedRows.Count; i++)
             {
-                InfiniumTips.ShowTip(this, 50, 85, "Отгрузка пуста", 1700);
-                return;
-            }
+                int id = Convert.ToInt32(dgvDispatch.SelectedRows[i].Cells["DispatchID"].Value);
+                if (!MarketingDispatchManager.HasPackages(id))
+                {
+                    LightMessageBox.Show(ref TopForm, false,
+                            "Отгрузка №" + id.ToString() + " пуста",
+                            "Разрешить экспедицию");
+                    return;
+                }
 
-            bool Confirm = false;
-            if (dgvDispatch.SelectedRows[0].Cells["ConfirmExpDateTime"].Value == DBNull.Value)
-                Confirm = true;
+                bool Confirm = false;
+                if (dgvDispatch.SelectedRows[0].Cells["ConfirmExpDateTime"].Value == DBNull.Value)
+                    Confirm = true;
 
-            if (Confirm && !MarketingDispatchManager.IsDispatchCanExp(DispatchID))
-            {
-                Infinium.LightMessageBox.Show(ref TopForm, false,
-                        "Запрещено: не вся продукция принята на склад.",
-                        "Разрешить экспедицию");
-                return;
+                if (Confirm && !MarketingDispatchManager.IsDispatchCanExp(id))
+                {
+                    Infinium.LightMessageBox.Show(ref TopForm, false,
+                            "Запрещено: не вся продукция принята на склад.",
+                            "Разрешить экспедицию");
+                    return;
+                }
+                MarketingDispatchManager.SaveConfirmExpInfo(id, Confirm);
             }
 
             Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
@@ -2365,7 +2414,6 @@ namespace Infinium
 
             NeedSplash = false;
 
-            MarketingDispatchManager.SaveConfirmExpInfo(DispatchID, Confirm);
             UpdateDispatchDate();
             MarketingDispatchManager.MoveToDispatchDate(DispatchDate);
             MarketingDispatchManager.MoveToDispatch(DispatchID);
@@ -2373,6 +2421,40 @@ namespace Infinium
 
             while (SplashWindow.bSmallCreated)
                 SmallWaitForm.CloseS = true;
+
+            //if (!MarketingDispatchManager.HasPackages(DispatchID))
+            //{
+            //    InfiniumTips.ShowTip(this, 50, 85, "Отгрузка пуста", 1700);
+            //    return;
+            //}
+
+            //bool Confirm = false;
+            //if (dgvDispatch.SelectedRows[0].Cells["ConfirmExpDateTime"].Value == DBNull.Value)
+            //    Confirm = true;
+
+            //if (Confirm && !MarketingDispatchManager.IsDispatchCanExp(DispatchID))
+            //{
+            //    Infinium.LightMessageBox.Show(ref TopForm, false,
+            //            "Запрещено: не вся продукция принята на склад.",
+            //            "Разрешить экспедицию");
+            //    return;
+            //}
+
+            //Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
+            //T.Start();
+
+            //while (!SplashWindow.bSmallCreated) ;
+
+            //NeedSplash = false;
+
+            //MarketingDispatchManager.SaveConfirmExpInfo(DispatchID, Confirm);
+            //UpdateDispatchDate();
+            //MarketingDispatchManager.MoveToDispatchDate(DispatchDate);
+            //MarketingDispatchManager.MoveToDispatch(DispatchID);
+            //NeedSplash = true;
+
+            //while (SplashWindow.bSmallCreated)
+            //    SmallWaitForm.CloseS = true;
         }
 
         private void cmiChangeDispatchDate_Click(object sender, EventArgs e)

@@ -596,17 +596,17 @@ WHERE        CAST(CreateDateTime AS date) >= '2019-12-26 00:00' AND CAST(CreateD
         {
             TechStoreGroupsBS = new BindingSource()
             {
-                DataSource = new DataView(TechStoreGroupsDT, "TechStoreGroupID IN (45,52,53,56,57,58,62)", string.Empty, DataViewRowState.CurrentRows),
+                DataSource = new DataView(TechStoreGroupsDT, "TechStoreGroupID IN (45,52,53,56,57,58,62,66)", string.Empty, DataViewRowState.CurrentRows),
                 Sort = "TechStoreGroupName"
             };
             TechStoreSubGroupsBS = new BindingSource()
             {
-                DataSource = new DataView(TechStoreSubGroupsDT, "TechStoreGroupID IN (45,52,53,56,57,58,62)", string.Empty, DataViewRowState.CurrentRows),
+                DataSource = new DataView(TechStoreSubGroupsDT, "TechStoreGroupID IN (45,52,53,56,57,58,62,66)", string.Empty, DataViewRowState.CurrentRows),
                 Sort = "TechStoreSubGroupName"
             };
             TechStoreBS = new BindingSource()
             {
-                DataSource = new DataView(TechStoreDT, "TechStoreGroupID IN (45,52,53,56,57,58,62)", string.Empty, DataViewRowState.CurrentRows),
+                DataSource = new DataView(TechStoreDT, "TechStoreGroupID IN (45,52,53,56,57,58,62,66)", string.Empty, DataViewRowState.CurrentRows),
                 Sort = "TechStoreName"
             };
             CoversBS = new BindingSource()
@@ -7587,7 +7587,9 @@ INNER JOIN infiniu2_marketingorders.dbo.MainOrders AS M ON C.MainOrderID=M.MainO
                     && Convert.ToInt32(row["TechStoreGroupID1"]) != 45
                     && Convert.ToInt32(row["TechStoreGroupID1"]) != 56
                     && Convert.ToInt32(row["TechStoreGroupID1"]) != 57
-                    && Convert.ToInt32(row["TechStoreGroupID1"]) != 58)
+                    && Convert.ToInt32(row["TechStoreGroupID1"]) != 58
+                    && Convert.ToInt32(row["TechStoreGroupID1"]) != 62
+                    && Convert.ToInt32(row["TechStoreGroupID1"]) != 66)
                     continue;
                 if (Convert.ToBoolean(row["IsHalfStuff2"]))
                     continue;

@@ -2138,8 +2138,7 @@ namespace Infinium.Modules.Packages.Marketing
                         for (int j = 0; j < dt1.Rows.Count; j++)
                         {
                             int TechCatalogStoreDetailID = Convert.ToInt32(dt1.Rows[j]["TechCatalogStoreDetailID"]);
-                            if (!CheckStoreDetailConditions(TechCatalogStoreDetailID, CoverID, PatinaID, InsetColorID
-                                ))
+                            if (!CheckStoreDetailConditions(TechCatalogStoreDetailID, CoverID, PatinaID, InsetColorID))
                                 continue;
                             DataRow NewRow = DT.NewRow();
                             NewRow["TechStoreID"] = Convert.ToInt32(dt1.Rows[j]["TechStoreID"]);
@@ -2158,14 +2157,6 @@ namespace Infinium.Modules.Packages.Marketing
                     }
                 }
             }
-        }
-
-        public bool IsCabFurniture(int ProductID)
-        {
-            if (ProductID == 46 || ProductID == 63 || ProductID == 61 ||
-                ProductID == 73 || ProductID == 74 || ProductID == 75)
-                return true;
-            return false;
         }
 
         private DataTable GetCabFurPackages(int DecorID)
@@ -2425,7 +2416,8 @@ WHERE dbo.TechCatalogOperationsDetail.TechCatalogOperationsGroupID IN
                                     NewRow["Count"] = Row["Count"];
                                     DT.Rows.Add(NewRow);
 
-                                    if (IsCabFurniture(Convert.ToInt32(Row["ProductID"])))
+                                    //при добавлении новой корпусной мебели также переделать CatalogForm
+                                    if (CheckOrdersStatus.IsCabFurniture(Convert.ToInt32(Row["ProductID"])))
                                     {
                                         int ComplementsCount = 0;
 

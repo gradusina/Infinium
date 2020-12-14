@@ -2212,7 +2212,7 @@
             this.kryptonSplitContainer4.Panel2.StateCommon.Color1 = System.Drawing.Color.Transparent;
             this.kryptonSplitContainer4.SeparatorStyle = ComponentFactory.Krypton.Toolkit.SeparatorStyle.HighProfile;
             this.kryptonSplitContainer4.Size = new System.Drawing.Size(1010, 734);
-            this.kryptonSplitContainer4.SplitterDistance = 292;
+            this.kryptonSplitContainer4.SplitterDistance = 290;
             this.kryptonSplitContainer4.SplitterWidth = 6;
             this.kryptonSplitContainer4.StateCommon.Back.Color1 = System.Drawing.Color.Transparent;
             this.kryptonSplitContainer4.StateCommon.Back.Color2 = System.Drawing.Color.Transparent;
@@ -2232,7 +2232,7 @@
             this.panel13.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel13.Location = new System.Drawing.Point(0, 0);
             this.panel13.Name = "panel13";
-            this.panel13.Size = new System.Drawing.Size(1010, 292);
+            this.panel13.Size = new System.Drawing.Size(1010, 290);
             this.panel13.TabIndex = 59;
             // 
             // dgvDispatch
@@ -2257,7 +2257,7 @@
             this.dgvDispatch.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.dgvDispatch.SelectedColorStyle = Infinium.PercentageDataGrid.ColorStyle.Green;
             this.dgvDispatch.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvDispatch.Size = new System.Drawing.Size(1008, 290);
+            this.dgvDispatch.Size = new System.Drawing.Size(1008, 288);
             this.dgvDispatch.StandardStyle = false;
             this.dgvDispatch.StateCommon.Background.Color1 = System.Drawing.Color.White;
             this.dgvDispatch.StateCommon.Background.Color2 = System.Drawing.Color.Transparent;
@@ -2309,7 +2309,7 @@
             this.panel14.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel14.Location = new System.Drawing.Point(0, 0);
             this.panel14.Name = "panel14";
-            this.panel14.Size = new System.Drawing.Size(1010, 436);
+            this.panel14.Size = new System.Drawing.Size(1010, 438);
             this.panel14.TabIndex = 58;
             // 
             // dgvMainOrders
@@ -2334,7 +2334,7 @@
             this.dgvMainOrders.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.dgvMainOrders.SelectedColorStyle = Infinium.PercentageDataGrid.ColorStyle.Green;
             this.dgvMainOrders.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvMainOrders.Size = new System.Drawing.Size(1008, 434);
+            this.dgvMainOrders.Size = new System.Drawing.Size(1008, 436);
             this.dgvMainOrders.StandardStyle = false;
             this.dgvMainOrders.StateCommon.Background.Color1 = System.Drawing.Color.White;
             this.dgvMainOrders.StateCommon.Background.Color2 = System.Drawing.Color.Transparent;
@@ -2630,8 +2630,8 @@
             this.Controls.Add(this.pnlExpedition);
             this.Controls.Add(this.pnlDispatchMenu);
             this.Controls.Add(this.NavigatePanel);
-            this.Controls.Add(this.pnlDispatch);
             this.Controls.Add(this.popupControlContainer1);
+            this.Controls.Add(this.pnlDispatch);
             this.Controls.Add(this.barDockControlLeft);
             this.Controls.Add(this.barDockControlRight);
             this.Controls.Add(this.barDockControlBottom);

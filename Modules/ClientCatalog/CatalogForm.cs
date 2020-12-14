@@ -1638,6 +1638,8 @@ namespace Infinium
                 kryptonContextMenuItem24.Enabled = false;
                 kryptonContextMenuItem25.Enabled = false;
                 kryptonContextMenuItem26.Enabled = false;
+                kryptonContextMenuItem28.Enabled = false;
+                kryptonContextMenuItem29.Enabled = false;
                 if (ProductID == 46) // патриция 1.x
                 {
                     kryptonContextMenuItem21.Enabled = true;
@@ -1661,6 +1663,14 @@ namespace Infinium
                 if (ProductID == 75) // патриция 3.x
                 {
                     kryptonContextMenuItem26.Enabled = true;
+                }
+                if (ProductID == 80) // ПАТРИЦИЯ-4.0 (С)
+                {
+                    kryptonContextMenuItem28.Enabled = true;
+                }
+                if (ProductID == 82) // КРИСМАР
+                {
+                    kryptonContextMenuItem29.Enabled = true;
                 }
             }
         }
@@ -1741,6 +1751,8 @@ namespace Infinium
                 kryptonContextMenuItem24.Enabled = false;
                 kryptonContextMenuItem25.Enabled = false;
                 kryptonContextMenuItem26.Enabled = false;
+                kryptonContextMenuItem28.Enabled = false;
+                kryptonContextMenuItem29.Enabled = false;
                 if (ProductID == 46) // патриция 1.x
                 {
                     kryptonContextMenuItem21.Enabled = true;
@@ -1764,6 +1776,14 @@ namespace Infinium
                 if (ProductID == 75) // патриция 3.x
                 {
                     kryptonContextMenuItem26.Enabled = true;
+                }
+                if (ProductID == 80) // ПАТРИЦИЯ-4.0 (С)
+                {
+                    kryptonContextMenuItem28.Enabled = true;
+                }
+                if (ProductID == 82) // КРИСМАР
+                {
+                    kryptonContextMenuItem29.Enabled = true;
                 }
             }
         }
@@ -1783,6 +1803,8 @@ namespace Infinium
                 kryptonContextMenuItem24.Enabled = false;
                 kryptonContextMenuItem25.Enabled = false;
                 kryptonContextMenuItem26.Enabled = false;
+                kryptonContextMenuItem28.Enabled = false;
+                kryptonContextMenuItem29.Enabled = false;
                 if (ProductID == 46) // патриция 1.x
                 {
                     kryptonContextMenuItem21.Enabled = true;
@@ -1806,6 +1828,14 @@ namespace Infinium
                 if (ProductID == 75) // патриция 3.x
                 {
                     kryptonContextMenuItem26.Enabled = true;
+                }
+                if (ProductID == 80) // ПАТРИЦИЯ-4.0 (С)
+                {
+                    kryptonContextMenuItem28.Enabled = true;
+                }
+                if (ProductID == 82) // КРИСМАР
+                {
+                    kryptonContextMenuItem29.Enabled = true;
                 }
             }
         }
