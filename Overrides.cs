@@ -3723,6 +3723,20 @@ namespace Infinium
             GC.Collect();
         }
 
+        public static void CreateSmallSplash(string Message)
+        {
+            SmallWaitForm SmallWaitForm = new SmallWaitForm(Message);
+
+            bSmallCreated = true;
+
+            SmallWaitForm.ShowDialog();
+
+            SmallWaitForm.Dispose();
+            bSmallCreated = false;
+            SmallWaitForm = null;
+            GC.Collect();
+        }
+
         public static void CreateSmallSplash(ref Form TopForm, string Message)
         {
             SmallWaitForm SmallWaitForm = new SmallWaitForm(Message);

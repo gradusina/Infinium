@@ -2945,6 +2945,7 @@
     <None Include="Images\Backgrounds\BackStandardBlur50.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\list-numbered-close.png" />
     <None Include="Resources\print_icon.png" />
     <None Include="Resources\iconfinder_printer_39263.png" />
     <None Include="Resources\n2.jpg" />

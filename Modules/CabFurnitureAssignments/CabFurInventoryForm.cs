@@ -2,6 +2,7 @@
 
 using System;
 using System.Drawing;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace Infinium
@@ -122,9 +123,17 @@ namespace Infinium
         private void Initialize()
         {
             dgvStoragePackagesLabels.DataSource = storagePackagesManager.InvPackageLabelsBS;
+            dgvExcessPackagesLabels.DataSource = storagePackagesManager.ExcessInvPackageLabelsBS;
+            dgvMissPackagesLabels.DataSource = storagePackagesManager.MissInvPackageLabelsBS;
             dgvStoragePackagesDetails.DataSource = storagePackagesManager.InvPackageDetailsBS;
+            dgvExcessPackagesDetails.DataSource = storagePackagesManager.ExcessInvPackageDetailsBS;
+            dgvMissPackagesDetails.DataSource = storagePackagesManager.MissInvPackageDetailsBS;
             dgvStoragePackagesLabelsSetting(ref dgvStoragePackagesLabels);
+            dgvStoragePackagesLabelsSetting(ref dgvExcessPackagesLabels);
+            dgvStoragePackagesLabelsSetting(ref dgvMissPackagesLabels);
             dgvPackagesDetailsSetting(ref dgvStoragePackagesDetails);
+            dgvPackagesDetailsSetting(ref dgvExcessPackagesDetails);
+            dgvPackagesDetailsSetting(ref dgvMissPackagesDetails);
             storagePackagesManager.ClearInvTables();
         }
 
@@ -289,8 +298,17 @@ namespace Infinium
                 }
 
                 int CabFurniturePackageID = Convert.ToInt32(BarcodeTextBox.Text.Substring(3, 9));
-
-                if (!storagePackagesManager.IsPackageExist(CabFurniturePackageID))
+                if (storagePackagesManager.IsPackageScan(CabFurniturePackageID))
+                {
+                    CabFurniturePackageID = -1;
+                    BarcodeTextBox.Clear();
+                    BarcodeLabel.Text = "Уже отсканировано";
+                    CheckPicture.Visible = true;
+                    CheckPicture.Image = Properties.Resources.cancel;
+                    BarcodeLabel.ForeColor = Color.FromArgb(240, 0, 0);
+                    return;
+                }
+                    if (!storagePackagesManager.IsPackageExist(CabFurniturePackageID))
                 {
                     CabFurniturePackageID = -1;
                     BarcodeTextBox.Clear();
@@ -363,7 +381,6 @@ namespace Infinium
             if (dgvStoragePackagesLabels.Rows.Count == 0)
                 return;
 
-            bb = false;
             int Index = dgvStoragePackagesLabels.CurrentRow.Index;
             dgvStoragePackagesLabels.Rows.RemoveAt(Index);
             Index--;
@@ -374,7 +391,6 @@ namespace Infinium
             if (dgvStoragePackagesLabels.Rows.Count == 0)
                 return;
             dgvStoragePackagesLabels.Rows[Index].Selected = true;
-            bb = false;
         }
 
         private void dgvStoragePackagesLabels_RowPrePaint(object sender, DataGridViewRowPrePaintEventArgs e)
@@ -412,12 +428,58 @@ namespace Infinium
 
         private void btnStopScan_Click(object sender, EventArgs e)
         {
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash("Обновление.\r\nПодождите..."); });
+            T.Start();
+            while (!SplashWindow.bSmallCreated) ;
+
             tabControl1.SelectedIndex = 1;
+            storagePackagesManager.GetExcessInvPackagesLabels(workshopId);
+            storagePackagesManager.GetMissInvPackagesLabels(workshopId);
+
+            while (SplashWindow.bSmallCreated)
+                SmallWaitForm.CloseS = true;
         }
 
         private void btnBackToScan_Click(object sender, EventArgs e)
         {
             tabControl1.SelectedIndex = 0;
+        }
+
+        private void dgvExcessPackagesLabels_SelectionChanged(object sender, EventArgs e)
+        {
+            if (storagePackagesManager == null)
+                return;
+            int cabFurniturePackageID = 0;
+            if (dgvExcessPackagesLabels.SelectedRows.Count != 0 && dgvExcessPackagesLabels.SelectedRows[0].Cells["CabFurniturePackageID"].Value != DBNull.Value)
+                cabFurniturePackageID = Convert.ToInt32(dgvExcessPackagesLabels.SelectedRows[0].Cells["CabFurniturePackageID"].Value);
+            storagePackagesManager.FilterInvPackagesDetails(cabFurniturePackageID);
+        }
+
+        private void dgvMissPackagesLabels_SelectionChanged(object sender, EventArgs e)
+        {
+            if (storagePackagesManager == null)
+                return;
+            int cabFurniturePackageID = 0;
+            if (dgvMissPackagesLabels.SelectedRows.Count != 0 && dgvMissPackagesLabels.SelectedRows[0].Cells["CabFurniturePackageID"].Value != DBNull.Value)
+                cabFurniturePackageID = Convert.ToInt32(dgvMissPackagesLabels.SelectedRows[0].Cells["CabFurniturePackageID"].Value);
+            storagePackagesManager.FilterMissInvPackagesDetails(cabFurniturePackageID);
+        }
+
+        private void kryptonButton1_Click(object sender, EventArgs e)
+        {
+            if (dgvExcessPackagesLabels.Rows.Count == 0)
+                return;
+
+            int Index = dgvExcessPackagesLabels.CurrentRow.Index;
+            dgvExcessPackagesLabels.Rows.RemoveAt(Index);
+            Index--;
+
+            if (Index == -1)
+                Index = 0;
+
+            if (dgvExcessPackagesLabels.Rows.Count == 0)
+                return;
+            dgvExcessPackagesLabels.Rows[Index].Selected = true;
         }
     }
 }

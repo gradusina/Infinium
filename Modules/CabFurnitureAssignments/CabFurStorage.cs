@@ -572,7 +572,7 @@ namespace Infinium.Modules.CabFurnitureAssignments
     {
         DataTable PackageLabelsDT = null;
         DataTable BindPackageLabelsDT = null;
-        DataTable ExcessInvPackageLabelsDT = null;
+        //DataTable ExcessInvPackageLabelsDT = null;
         DataTable MissInvPackageLabelsDT = null;
         DataTable InvPackageLabelsDT = null;
         public BindingSource PackageLabelsBS = null;
@@ -588,7 +588,7 @@ namespace Infinium.Modules.CabFurnitureAssignments
         public BindingSource PackageDetailsBS = null;
         SqlDataAdapter PackageDetailsDA;
 
-        DataTable ExcessInvPackageDetailsDT = null;
+        //DataTable ExcessInvPackageDetailsDT = null;
         public BindingSource ExcessInvPackageDetailsBS = null;
 
         DataTable MissInvPackageDetailsDT = null;
@@ -602,11 +602,11 @@ namespace Infinium.Modules.CabFurnitureAssignments
         {
             PackageLabelsDT = new DataTable();
             BindPackageLabelsDT = new DataTable();
-            ExcessInvPackageLabelsDT = new DataTable();
+            //ExcessInvPackageLabelsDT = new DataTable();
             MissInvPackageLabelsDT = new DataTable();
             InvPackageLabelsDT = new DataTable();
             PackageDetailsDT = new DataTable();
-            ExcessInvPackageDetailsDT = new DataTable();
+            //ExcessInvPackageDetailsDT = new DataTable();
             MissInvPackageDetailsDT = new DataTable();
             InvPackageDetailsDT = new DataTable();
 
@@ -617,7 +617,7 @@ namespace Infinium.Modules.CabFurnitureAssignments
             InvPackageLabelsBS = new BindingSource();
             PackageDetailsBS = new BindingSource();
             ExcessInvPackageDetailsBS = new BindingSource();
-            InvPackageDetailsBS = new BindingSource();
+            MissInvPackageDetailsBS = new BindingSource();
             InvPackageDetailsBS = new BindingSource();
 
             string SelectCommand = @"SELECT TOP 0 CabFurniturePackageID, PackNumber, AddToStorageDateTime, RemoveFromStorageDateTime, QualityControlInDateTime, QualityControlOutDateTime, QualityControl, Cells.Name FROM CabFurniturePackages 
@@ -636,7 +636,7 @@ namespace Infinium.Modules.CabFurnitureAssignments
                 INNER JOIN Racks ON Cells.RackID=Racks.RackID 
                 INNER JOIN Workshops ON Racks.WorkshopID=Workshops.WorkshopID";
             InvPackageLabelsDA = new SqlDataAdapter(SelectCommand, ConnectionStrings.StorageConnectionString);
-            InvPackageLabelsDA.Fill(ExcessInvPackageLabelsDT);
+            //InvPackageLabelsDA.Fill(ExcessInvPackageLabelsDT);
             InvPackageLabelsDA.Fill(MissInvPackageLabelsDT);
             InvPackageLabelsDA.Fill(InvPackageLabelsDT);
 
@@ -650,19 +650,19 @@ namespace Infinium.Modules.CabFurnitureAssignments
                 CabFurniturePackageDetails.* FROM CabFurniturePackageDetails 
                 INNER JOIN CabFurniturePackages AS C ON CabFurniturePackageDetails.CabFurniturePackageID=C.CabFurniturePackageID";
             InvPackageDetailsDA = new SqlDataAdapter(SelectCommand, ConnectionStrings.StorageConnectionString);
-            InvPackageDetailsDA.Fill(ExcessInvPackageDetailsDT);
+            //InvPackageDetailsDA.Fill(ExcessInvPackageDetailsDT);
             InvPackageDetailsDA.Fill(MissInvPackageDetailsDT);
             InvPackageDetailsDA.Fill(InvPackageDetailsDT);
 
             PackageLabelsBS.DataSource = PackageLabelsDT;
             BindPackageLabelsBS.DataSource = BindPackageLabelsDT;
-            ExcessInvPackageLabelsBS.DataSource = ExcessInvPackageLabelsDT;
-            MissInvPackageLabelsBS.DataSource = InvPackageLabelsDT;
-            InvPackageLabelsBS.DataSource = InvPackageLabelsDT;
+            ExcessInvPackageLabelsBS.DataSource = new DataView(InvPackageLabelsDT);
+            MissInvPackageLabelsBS.DataSource = MissInvPackageLabelsDT;
+            InvPackageLabelsBS.DataSource = new DataView(InvPackageLabelsDT);
             PackageDetailsBS.DataSource = PackageDetailsDT;
-            ExcessInvPackageDetailsBS.DataSource = ExcessInvPackageDetailsDT;
+            ExcessInvPackageDetailsBS.DataSource = new DataView(InvPackageDetailsDT);
             MissInvPackageDetailsBS.DataSource = MissInvPackageDetailsDT;
-            InvPackageDetailsBS.DataSource = InvPackageDetailsDT;
+            InvPackageDetailsBS.DataSource = new DataView(InvPackageDetailsDT);
         }
 
         public void GetPackagesLabels(int CellID)
@@ -706,6 +706,46 @@ namespace Infinium.Modules.CabFurnitureAssignments
             return BindPackageLabelsDT.Rows.Count > 0;
         }
 
+        public void GetExcessInvPackagesLabels(int workshopID)
+        {
+            ExcessInvPackageLabelsBS.Filter = "WorkShopID IS NULL OR WorkShopID<>" + workshopID;
+        }
+
+        public bool GetMissInvPackagesLabels(int workshopID)
+        {
+            MissInvPackageLabelsDT.Clear();
+            MissInvPackageDetailsDT.Clear();
+            string[] results = new string[InvPackageLabelsDT.Rows.Count];
+            for (int i = 0; i < InvPackageLabelsDT.Rows.Count; i++)
+                results[i] = InvPackageLabelsDT.Rows[i]["CabFurniturePackageID"].ToString();
+            if (results.Count() == 0)
+                return false;
+
+            string filter = string.Empty;
+            foreach (string item in results)
+                filter += item + ",";
+            if (filter.Length > 0)
+                filter = " NOT IN (" + filter.Substring(0, filter.Length - 1) + ") AND Workshops.WorkShopID=" + workshopID;
+
+            string SelectCommand = @"SELECT C.PackNumber, C.TechStoreSubGroupID, C.TechStoreID AS CTechStoreID, C.CoverID, C.PatinaID, C.InsetColorID,
+                CabFurniturePackageDetails.* FROM CabFurniturePackageDetails 
+                INNER JOIN CabFurniturePackages AS C ON CabFurniturePackageDetails.CabFurniturePackageID=C.CabFurniturePackageID
+                LEFT JOIN Cells ON C.CellID=Cells.CellID 
+                LEFT JOIN Racks ON Cells.RackID=Racks.RackID 
+                LEFT JOIN Workshops ON Racks.WorkshopID=Workshops.WorkshopID WHERE CabFurniturePackageDetails.CabFurniturePackageID" + filter;
+            InvPackageDetailsDA = new SqlDataAdapter(SelectCommand, ConnectionStrings.StorageConnectionString);
+            InvPackageDetailsDA.Fill(MissInvPackageDetailsDT);
+
+            SelectCommand = @"SELECT CabFurniturePackageID, PackNumber, AddToStorageDateTime, RemoveFromStorageDateTime, QualityControlInDateTime, QualityControlOutDateTime, QualityControl, CabFurniturePackages.CellID, Cells.Name as CellName, Racks.Name as RackName, Workshops.Name as WorkshopName, Workshops.WorkshopID FROM CabFurniturePackages 
+                LEFT JOIN Cells ON CabFurniturePackages.CellID=Cells.CellID 
+                LEFT JOIN Racks ON Cells.RackID=Racks.RackID 
+                LEFT JOIN Workshops ON Racks.WorkshopID=Workshops.WorkshopID WHERE CabFurniturePackages.CabFurniturePackageID" + filter;
+            InvPackageLabelsDA = new SqlDataAdapter(SelectCommand, ConnectionStrings.StorageConnectionString);
+            InvPackageLabelsDA.Fill(MissInvPackageLabelsDT);
+
+            return MissInvPackageLabelsDT.Rows.Count > 0;
+        }
+
         public bool GetInvPackagesLabels(int CabFurniturePackageID)
         {
             string SelectCommand = @"SELECT C.PackNumber, C.TechStoreSubGroupID, C.TechStoreID AS CTechStoreID, C.CoverID, C.PatinaID, C.InsetColorID,
@@ -735,12 +775,6 @@ namespace Infinium.Modules.CabFurnitureAssignments
             PackageDetailsBS.MoveFirst();
         }
 
-        public void FilterExcessInvPackagesDetails(int CabFurniturePackageID)
-        {
-            ExcessInvPackageDetailsBS.Filter = "CabFurniturePackageID =" + CabFurniturePackageID;
-            ExcessInvPackageDetailsBS.MoveFirst();
-        }
-
         public void FilterMissInvPackagesDetails(int CabFurniturePackageID)
         {
             MissInvPackageDetailsBS.Filter = "CabFurniturePackageID =" + CabFurniturePackageID;
@@ -755,10 +789,18 @@ namespace Infinium.Modules.CabFurnitureAssignments
 
         public void ClearInvTables()
         {
+            //ExcessInvPackageLabelsDT.Clear();
+            MissInvPackageLabelsDT.Clear();
             InvPackageLabelsDT.Clear();
-            InvPackageLabelsDT.Clear();
-            InvPackageLabelsDT.Clear();
+            //ExcessInvPackageDetailsDT.Clear();
+            MissInvPackageDetailsDT.Clear();
             InvPackageDetailsDT.Clear();
+        }
+
+        public bool IsPackageScan(int CabFurniturePackageID)
+        {
+            DataRow[] rows = InvPackageLabelsDT.Select("CabFurniturePackageID=" + CabFurniturePackageID);
+            return rows.Count() > 0;
         }
 
         public bool IsCellExist(int cellId)

@@ -295,6 +295,7 @@
             this.CheckPicture = new System.Windows.Forms.PictureBox();
             this.BarcodeTextBox = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
             this.tabPage7 = new System.Windows.Forms.TabPage();
+            this.btnStartInventory = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.btnQualityControlOut = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.btnQualityControlIn = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.btnPrintCellLabel = new ComponentFactory.Krypton.Toolkit.KryptonButton();
@@ -346,7 +347,6 @@
             this.kryptonContextMenu7 = new ComponentFactory.Krypton.Toolkit.KryptonContextMenu();
             this.kryptonContextMenuItems14 = new ComponentFactory.Krypton.Toolkit.KryptonContextMenuItems();
             this.kryptonContextMenuItem19 = new ComponentFactory.Krypton.Toolkit.KryptonContextMenuItem();
-            this.btnStartInventory = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.NavigatePanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.cmbxPatina)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cmbxCovers)).BeginInit();
@@ -4693,6 +4693,24 @@
             this.tabPage7.Text = "tabPage7";
             this.tabPage7.UseVisualStyleBackColor = true;
             // 
+            // btnStartInventory
+            // 
+            this.btnStartInventory.Location = new System.Drawing.Point(218, 38);
+            this.btnStartInventory.Name = "btnStartInventory";
+            this.btnStartInventory.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2010Black;
+            this.btnStartInventory.Size = new System.Drawing.Size(30, 30);
+            this.btnStartInventory.StateCommon.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.btnStartInventory.StateCommon.Content.Image.ImageH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
+            this.btnStartInventory.StateCommon.Content.Image.ImageV = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
+            this.btnStartInventory.TabIndex = 476;
+            this.btnStartInventory.TabStop = false;
+            this.btnStartInventory.Tag = "25";
+            this.btnStartInventory.Values.Image = global::Infinium.Properties.Resources.list_numbered_close;
+            this.btnStartInventory.Values.Text = "";
+            this.btnStartInventory.Click += new System.EventHandler(this.btnStartInventory_Click);
+            // 
             // btnQualityControlOut
             // 
             this.btnQualityControlOut.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -5057,7 +5075,7 @@
             // 
             // btnRemoveWorkShop
             // 
-            this.btnRemoveWorkShop.Location = new System.Drawing.Point(291, 38);
+            this.btnRemoveWorkShop.Location = new System.Drawing.Point(326, 38);
             this.btnRemoveWorkShop.Name = "btnRemoveWorkShop";
             this.btnRemoveWorkShop.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2010Black;
             this.btnRemoveWorkShop.Size = new System.Drawing.Size(30, 30);
@@ -5075,7 +5093,7 @@
             // 
             // btnEditWorkShop
             // 
-            this.btnEditWorkShop.Location = new System.Drawing.Point(255, 38);
+            this.btnEditWorkShop.Location = new System.Drawing.Point(290, 38);
             this.btnEditWorkShop.Name = "btnEditWorkShop";
             this.btnEditWorkShop.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2010Black;
             this.btnEditWorkShop.Size = new System.Drawing.Size(30, 30);
@@ -5093,7 +5111,7 @@
             // 
             // btnAddWorkShop
             // 
-            this.btnAddWorkShop.Location = new System.Drawing.Point(219, 38);
+            this.btnAddWorkShop.Location = new System.Drawing.Point(254, 38);
             this.btnAddWorkShop.Name = "btnAddWorkShop";
             this.btnAddWorkShop.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2010Black;
             this.btnAddWorkShop.Size = new System.Drawing.Size(30, 30);
@@ -5387,24 +5405,6 @@
             // 
             this.kryptonContextMenuItem19.Text = "Распечатать";
             this.kryptonContextMenuItem19.Click += new System.EventHandler(this.kryptonContextMenuItem19_Click);
-            // 
-            // btnStartInventory
-            // 
-            this.btnStartInventory.Location = new System.Drawing.Point(327, 38);
-            this.btnStartInventory.Name = "btnStartInventory";
-            this.btnStartInventory.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2010Black;
-            this.btnStartInventory.Size = new System.Drawing.Size(30, 30);
-            this.btnStartInventory.StateCommon.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
-            this.btnStartInventory.StateCommon.Content.Image.ImageH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
-            this.btnStartInventory.StateCommon.Content.Image.ImageV = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
-            this.btnStartInventory.TabIndex = 476;
-            this.btnStartInventory.TabStop = false;
-            this.btnStartInventory.Tag = "25";
-            this.btnStartInventory.Values.Image = global::Infinium.Properties.Resources.CheckDocOK;
-            this.btnStartInventory.Values.Text = "";
-            this.btnStartInventory.Click += new System.EventHandler(this.btnStartInventory_Click);
             // 
             // CabFurnitureModuleForm
             // 
