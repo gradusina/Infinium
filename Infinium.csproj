@@ -1039,7 +1039,7 @@
     <Compile Include="Modules\CabFurnitureAssignments\CabFurDocsDownloadForm.designer.cs">
       <DependentUpon>CabFurDocsDownloadForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Modules\CabFurnitureAssignments\CabFurnitureModule.cs" />
+    <Compile Include="Modules\CabFurnitureAssignments\CabFurnitureAssignments.cs" />
     <Compile Include="Modules\CabFurnitureAssignments\CabFurnitureModuleForm.cs">
       <SubType>Form</SubType>
     </Compile>

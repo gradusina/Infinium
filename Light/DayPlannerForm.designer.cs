@@ -68,12 +68,10 @@
             this.kryptonBorderEdge6 = new ComponentFactory.Krypton.Toolkit.KryptonBorderEdge();
             this.DayStatusHelpLabel = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
-            this.infiniumClock1 = new Infinium.InfiniumClock();
             this.NotAllocHelpLabel = new System.Windows.Forms.Label();
             this.CurrentTimeLabel = new System.Windows.Forms.Label();
             this.NotAllocLabel = new System.Windows.Forms.Label();
             this.WorkDayStatusLabel = new System.Windows.Forms.Label();
-            this.infiniumWorkDayClock = new Infinium.InfiniumDayTimeClock();
             this.CurrentDateLabel = new System.Windows.Forms.Label();
             this.CommentsLabelTPS = new System.Windows.Forms.Label();
             this.WorkDayPanel = new System.Windows.Forms.Panel();
@@ -87,16 +85,12 @@
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.panel14 = new System.Windows.Forms.Panel();
             this.label19 = new System.Windows.Forms.Label();
-            this.DayLengthLabel = new Infinium.InfiniumTimeLabel();
             this.panel16 = new System.Windows.Forms.Panel();
             this.label22 = new System.Windows.Forms.Label();
-            this.DayStartLabel = new Infinium.InfiniumTimeLabel();
             this.panel18 = new System.Windows.Forms.Panel();
             this.label24 = new System.Windows.Forms.Label();
-            this.DayEndLabel = new Infinium.InfiniumTimeLabel();
             this.panel20 = new System.Windows.Forms.Panel();
             this.label26 = new System.Windows.Forms.Label();
-            this.StatusLabel = new Infinium.InfiniumTimeLabel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.btnCancelEnd = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.kryptonBorderEdge5 = new ComponentFactory.Krypton.Toolkit.KryptonBorderEdge();
@@ -106,15 +100,73 @@
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.panel15 = new System.Windows.Forms.Panel();
             this.label3 = new System.Windows.Forms.Label();
-            this.BreakStartLabel = new Infinium.InfiniumTimeLabel();
             this.panel17 = new System.Windows.Forms.Panel();
             this.label5 = new System.Windows.Forms.Label();
-            this.BreakEndLabel = new Infinium.InfiniumTimeLabel();
             this.panel19 = new System.Windows.Forms.Panel();
             this.panel21 = new System.Windows.Forms.Panel();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.kryptonBorderEdge2 = new ComponentFactory.Krypton.Toolkit.KryptonBorderEdge();
             this.kryptonSplitContainer2 = new ComponentFactory.Krypton.Toolkit.KryptonSplitContainer();
+            this.MyFunctionsPanel = new System.Windows.Forms.Panel();
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.cbtnProfilFunctions = new ComponentFactory.Krypton.Toolkit.KryptonCheckButton();
+            this.cbtnTPSFunctions = new ComponentFactory.Krypton.Toolkit.KryptonCheckButton();
+            this.pnlProfilFunctions = new System.Windows.Forms.Panel();
+            this.panel12 = new System.Windows.Forms.Panel();
+            this.pnlTPSFunctions = new System.Windows.Forms.Panel();
+            this.panel27 = new System.Windows.Forms.Panel();
+            this.TimeSheetPanel = new System.Windows.Forms.Panel();
+            this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
+            this.panel34 = new System.Windows.Forms.Panel();
+            this.label28 = new System.Windows.Forms.Label();
+            this.panel5 = new System.Windows.Forms.Panel();
+            this.label13 = new System.Windows.Forms.Label();
+            this.panel28 = new System.Windows.Forms.Panel();
+            this.lbInTimeshhet = new System.Windows.Forms.Label();
+            this.panel33 = new System.Windows.Forms.Panel();
+            this.label29 = new System.Windows.Forms.Label();
+            this.panel35 = new System.Windows.Forms.Panel();
+            this.label30 = new System.Windows.Forms.Label();
+            this.label31 = new System.Windows.Forms.Label();
+            this.CalendarFrom = new ComponentFactory.Krypton.Toolkit.KryptonMonthCalendar();
+            this.DayTimer = new System.Windows.Forms.Timer(this.components);
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.label23 = new System.Windows.Forms.Label();
+            this.MoreNewsLabel = new System.Windows.Forms.Label();
+            this.AddNewsPicture = new System.Windows.Forms.PictureBox();
+            this.ProjectsPanel = new System.Windows.Forms.Panel();
+            this.UpdatePanel = new System.Windows.Forms.Panel();
+            this.kryptonBorderEdge11 = new ComponentFactory.Krypton.Toolkit.KryptonBorderEdge();
+            this.panel29 = new System.Windows.Forms.Panel();
+            this.ProjectsSplitContainer = new ComponentFactory.Krypton.Toolkit.KryptonSplitContainer();
+            this.kryptonBorderEdge12 = new ComponentFactory.Krypton.Toolkit.KryptonBorderEdge();
+            this.kryptonBorderEdge13 = new ComponentFactory.Krypton.Toolkit.KryptonBorderEdge();
+            this.label25 = new System.Windows.Forms.Label();
+            this.ProjectsUpdatePanel = new System.Windows.Forms.Panel();
+            this.ProjectCaptionLabel = new System.Windows.Forms.Label();
+            this.AuthorLabel = new System.Windows.Forms.Label();
+            this.AuthorPhotoBox = new System.Windows.Forms.PictureBox();
+            this.NoNewsLabel = new System.Windows.Forms.Label();
+            this.NoNewsPicture = new System.Windows.Forms.PictureBox();
+            this.AddNewsLabel = new System.Windows.Forms.Label();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.kryptonCheckSet2 = new ComponentFactory.Krypton.Toolkit.KryptonCheckSet(this.components);
+            this.kryptonCheckSet3 = new ComponentFactory.Krypton.Toolkit.KryptonCheckSet(this.components);
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.label11 = new System.Windows.Forms.Label();
+            this.lbRate = new Infinium.InfiniumTimeLabel();
+            this.lbAbsenceHours = new Infinium.InfiniumTimeLabel();
+            this.lbOverworkHours = new Infinium.InfiniumTimeLabel();
+            this.infiniumTimeLabel6 = new Infinium.InfiniumTimeLabel();
+            this.lbPlanHours = new Infinium.InfiniumTimeLabel();
+            this.lbBreakHours = new Infinium.InfiniumTimeLabel();
+            this.lbFactHours = new Infinium.InfiniumTimeLabel();
+            this.DayLengthLabel = new Infinium.InfiniumTimeLabel();
+            this.DayStartLabel = new Infinium.InfiniumTimeLabel();
+            this.DayEndLabel = new Infinium.InfiniumTimeLabel();
+            this.StatusLabel = new Infinium.InfiniumTimeLabel();
+            this.BreakStartLabel = new Infinium.InfiniumTimeLabel();
+            this.BreakEndLabel = new Infinium.InfiniumTimeLabel();
             this.lightPanel1 = new Infinium.LightPanel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.panel6 = new System.Windows.Forms.Panel();
@@ -155,61 +207,12 @@
             this.label9 = new System.Windows.Forms.Label();
             this.ChangeDayEndLabel = new Infinium.InfiniumTimeLabel();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
-            this.MyFunctionsPanel = new System.Windows.Forms.Panel();
-            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-            this.cbtnProfilFunctions = new ComponentFactory.Krypton.Toolkit.KryptonCheckButton();
-            this.cbtnTPSFunctions = new ComponentFactory.Krypton.Toolkit.KryptonCheckButton();
-            this.pnlProfilFunctions = new System.Windows.Forms.Panel();
-            this.panel12 = new System.Windows.Forms.Panel();
-            this.pnlTPSFunctions = new System.Windows.Forms.Panel();
-            this.panel27 = new System.Windows.Forms.Panel();
-            this.TimeSheetPanel = new System.Windows.Forms.Panel();
-            this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
-            this.panel34 = new System.Windows.Forms.Panel();
-            this.lbAbsenceHours = new Infinium.InfiniumTimeLabel();
-            this.label28 = new System.Windows.Forms.Label();
-            this.panel5 = new System.Windows.Forms.Panel();
-            this.lbOverworkHours = new Infinium.InfiniumTimeLabel();
-            this.label13 = new System.Windows.Forms.Label();
-            this.panel28 = new System.Windows.Forms.Panel();
-            this.infiniumTimeLabel6 = new Infinium.InfiniumTimeLabel();
-            this.lbInTimeshhet = new System.Windows.Forms.Label();
-            this.panel33 = new System.Windows.Forms.Panel();
-            this.lbPlanHours = new Infinium.InfiniumTimeLabel();
-            this.label29 = new System.Windows.Forms.Label();
-            this.panel35 = new System.Windows.Forms.Panel();
-            this.lbBreakHours = new Infinium.InfiniumTimeLabel();
-            this.label30 = new System.Windows.Forms.Label();
-            this.lbFactHours = new Infinium.InfiniumTimeLabel();
-            this.label31 = new System.Windows.Forms.Label();
-            this.CalendarFrom = new ComponentFactory.Krypton.Toolkit.KryptonMonthCalendar();
-            this.DayTimer = new System.Windows.Forms.Timer(this.components);
-            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.label23 = new System.Windows.Forms.Label();
-            this.MoreNewsLabel = new System.Windows.Forms.Label();
-            this.AddNewsPicture = new System.Windows.Forms.PictureBox();
-            this.ProjectsPanel = new System.Windows.Forms.Panel();
-            this.UpdatePanel = new System.Windows.Forms.Panel();
-            this.kryptonBorderEdge11 = new ComponentFactory.Krypton.Toolkit.KryptonBorderEdge();
-            this.panel29 = new System.Windows.Forms.Panel();
-            this.ProjectsSplitContainer = new ComponentFactory.Krypton.Toolkit.KryptonSplitContainer();
-            this.kryptonBorderEdge12 = new ComponentFactory.Krypton.Toolkit.KryptonBorderEdge();
             this.infiniumProjectsList1 = new Infinium.InfiniumProjectsList();
             this.ProjectMembersList = new Infinium.InfiniumProjectsMembersList();
-            this.kryptonBorderEdge13 = new ComponentFactory.Krypton.Toolkit.KryptonBorderEdge();
-            this.label25 = new System.Windows.Forms.Label();
-            this.ProjectsUpdatePanel = new System.Windows.Forms.Panel();
-            this.ProjectCaptionLabel = new System.Windows.Forms.Label();
-            this.AuthorLabel = new System.Windows.Forms.Label();
             this.infiniumProjectsDescriptionBox1 = new Infinium.InfiniumProjectsDescriptionBox();
-            this.AuthorPhotoBox = new System.Windows.Forms.PictureBox();
-            this.NoNewsLabel = new System.Windows.Forms.Label();
-            this.NoNewsPicture = new System.Windows.Forms.PictureBox();
             this.NewsContainer = new Infinium.InfiniumProjectNewsContainer();
-            this.AddNewsLabel = new System.Windows.Forms.Label();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.kryptonCheckSet2 = new ComponentFactory.Krypton.Toolkit.KryptonCheckSet(this.components);
-            this.kryptonCheckSet3 = new ComponentFactory.Krypton.Toolkit.KryptonCheckSet(this.components);
+            this.infiniumClock1 = new Infinium.InfiniumClock();
+            this.infiniumWorkDayClock = new Infinium.InfiniumDayTimeClock();
             this.NavigatePanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonPanel1)).BeginInit();
             this.kryptonPanel1.SuspendLayout();
@@ -248,25 +251,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.kryptonSplitContainer2.Panel2)).BeginInit();
             this.kryptonSplitContainer2.Panel2.SuspendLayout();
             this.kryptonSplitContainer2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.lightPanel1)).BeginInit();
-            this.lightPanel1.SuspendLayout();
-            this.tableLayoutPanel1.SuspendLayout();
-            this.panel6.SuspendLayout();
-            this.panel13.SuspendLayout();
-            this.panel7.SuspendLayout();
-            this.panel11.SuspendLayout();
-            this.panel8.SuspendLayout();
-            this.panel10.SuspendLayout();
-            this.panel9.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.panel4)).BeginInit();
-            this.panel4.SuspendLayout();
-            this.tableLayoutPanel4.SuspendLayout();
-            this.panel22.SuspendLayout();
-            this.panel23.SuspendLayout();
-            this.panel24.SuspendLayout();
-            this.panel25.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             this.MyFunctionsPanel.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
             this.pnlProfilFunctions.SuspendLayout();
@@ -293,6 +277,26 @@
             ((System.ComponentModel.ISupportInitialize)(this.NoNewsPicture)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonCheckSet2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonCheckSet3)).BeginInit();
+            this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.lightPanel1)).BeginInit();
+            this.lightPanel1.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
+            this.panel6.SuspendLayout();
+            this.panel13.SuspendLayout();
+            this.panel7.SuspendLayout();
+            this.panel11.SuspendLayout();
+            this.panel8.SuspendLayout();
+            this.panel10.SuspendLayout();
+            this.panel9.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panel4)).BeginInit();
+            this.panel4.SuspendLayout();
+            this.tableLayoutPanel4.SuspendLayout();
+            this.panel22.SuspendLayout();
+            this.panel23.SuspendLayout();
+            this.panel24.SuspendLayout();
+            this.panel25.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             this.SuspendLayout();
             // 
             // AnimateTimer
@@ -909,18 +913,6 @@
             this.label10.Text = "Распределите отработанное рабочее время\r\nпо обязанностям";
             this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // infiniumClock1
-            // 
-            this.infiniumClock1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.infiniumClock1.Image = ((System.Drawing.Image)(resources.GetObject("infiniumClock1.Image")));
-            this.infiniumClock1.Location = new System.Drawing.Point(855, 22);
-            this.infiniumClock1.MarginLines = 0;
-            this.infiniumClock1.Name = "infiniumClock1";
-            this.infiniumClock1.Size = new System.Drawing.Size(150, 150);
-            this.infiniumClock1.TabIndex = 0;
-            this.infiniumClock1.Text = "infiniumClock1";
-            this.toolTip1.SetToolTip(this.infiniumClock1, "Текущее время");
-            // 
             // NotAllocHelpLabel
             // 
             this.NotAllocHelpLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -971,17 +963,6 @@
             this.WorkDayStatusLabel.Text = "Рабочий день не начат";
             this.WorkDayStatusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.WorkDayStatusLabel.Click += new System.EventHandler(this.WorkDayStatusLabel_Click);
-            // 
-            // infiniumWorkDayClock
-            // 
-            this.infiniumWorkDayClock.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.infiniumWorkDayClock.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.infiniumWorkDayClock.Location = new System.Drawing.Point(1046, 29);
-            this.infiniumWorkDayClock.Name = "infiniumWorkDayClock";
-            this.infiniumWorkDayClock.Size = new System.Drawing.Size(144, 144);
-            this.infiniumWorkDayClock.TabIndex = 4;
-            this.infiniumWorkDayClock.Text = "infiniumDayTimeClock1";
-            this.toolTip1.SetToolTip(this.infiniumWorkDayClock, "Отработанное время");
             // 
             // CurrentDateLabel
             // 
@@ -1220,19 +1201,6 @@
             this.label19.TabIndex = 308;
             this.label19.Text = "Рабочий день:";
             // 
-            // DayLengthLabel
-            // 
-            this.DayLengthLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.DayLengthLabel.Font = new System.Drawing.Font("Segoe UI", 28F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.DayLengthLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(18)))), ((int)(((byte)(164)))), ((int)(((byte)(217)))));
-            this.DayLengthLabel.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(184)))), ((int)(((byte)(238)))));
-            this.DayLengthLabel.Location = new System.Drawing.Point(139, -2);
-            this.DayLengthLabel.Name = "DayLengthLabel";
-            this.DayLengthLabel.Size = new System.Drawing.Size(238, 43);
-            this.DayLengthLabel.TabIndex = 306;
-            this.DayLengthLabel.Text = "4 : 49";
-            // 
             // panel16
             // 
             this.panel16.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -1254,19 +1222,6 @@
             this.label22.Size = new System.Drawing.Size(122, 28);
             this.label22.TabIndex = 308;
             this.label22.Text = "Начало дня:";
-            // 
-            // DayStartLabel
-            // 
-            this.DayStartLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.DayStartLabel.Font = new System.Drawing.Font("Segoe UI", 28F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.DayStartLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(18)))), ((int)(((byte)(164)))), ((int)(((byte)(217)))));
-            this.DayStartLabel.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(184)))), ((int)(((byte)(238)))));
-            this.DayStartLabel.Location = new System.Drawing.Point(123, -2);
-            this.DayStartLabel.Name = "DayStartLabel";
-            this.DayStartLabel.Size = new System.Drawing.Size(254, 43);
-            this.DayStartLabel.TabIndex = 307;
-            this.DayStartLabel.Text = "4 : 49";
             // 
             // panel18
             // 
@@ -1290,19 +1245,6 @@
             this.label24.TabIndex = 308;
             this.label24.Text = "Завершение дня:";
             // 
-            // DayEndLabel
-            // 
-            this.DayEndLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.DayEndLabel.Font = new System.Drawing.Font("Segoe UI", 28F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.DayEndLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(18)))), ((int)(((byte)(164)))), ((int)(((byte)(217)))));
-            this.DayEndLabel.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(184)))), ((int)(((byte)(238)))));
-            this.DayEndLabel.Location = new System.Drawing.Point(169, -2);
-            this.DayEndLabel.Name = "DayEndLabel";
-            this.DayEndLabel.Size = new System.Drawing.Size(208, 43);
-            this.DayEndLabel.TabIndex = 308;
-            this.DayEndLabel.Text = "4 : 49";
-            // 
             // panel20
             // 
             this.panel20.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -1324,19 +1266,6 @@
             this.label26.Size = new System.Drawing.Size(73, 28);
             this.label26.TabIndex = 308;
             this.label26.Text = "Статус:";
-            // 
-            // StatusLabel
-            // 
-            this.StatusLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.StatusLabel.Font = new System.Drawing.Font("Segoe UI", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.StatusLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(18)))), ((int)(((byte)(164)))), ((int)(((byte)(217)))));
-            this.StatusLabel.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(184)))), ((int)(((byte)(238)))));
-            this.StatusLabel.Location = new System.Drawing.Point(67, -2);
-            this.StatusLabel.Name = "StatusLabel";
-            this.StatusLabel.Size = new System.Drawing.Size(310, 43);
-            this.StatusLabel.TabIndex = 311;
-            this.StatusLabel.Text = "Рабочий день продолжается";
             // 
             // pictureBox1
             // 
@@ -1500,19 +1429,6 @@
             this.label3.TabIndex = 308;
             this.label3.Text = "Обед начался:";
             // 
-            // BreakStartLabel
-            // 
-            this.BreakStartLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.BreakStartLabel.Font = new System.Drawing.Font("Segoe UI", 28F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.BreakStartLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(18)))), ((int)(((byte)(164)))), ((int)(((byte)(217)))));
-            this.BreakStartLabel.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(184)))), ((int)(((byte)(238)))));
-            this.BreakStartLabel.Location = new System.Drawing.Point(145, -2);
-            this.BreakStartLabel.Name = "BreakStartLabel";
-            this.BreakStartLabel.Size = new System.Drawing.Size(233, 43);
-            this.BreakStartLabel.TabIndex = 309;
-            this.BreakStartLabel.Text = "4 : 49";
-            // 
             // panel17
             // 
             this.panel17.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -1534,19 +1450,6 @@
             this.label5.Size = new System.Drawing.Size(175, 28);
             this.label5.TabIndex = 308;
             this.label5.Text = "Обед закончился:";
-            // 
-            // BreakEndLabel
-            // 
-            this.BreakEndLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.BreakEndLabel.Font = new System.Drawing.Font("Segoe UI", 28F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.BreakEndLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(18)))), ((int)(((byte)(164)))), ((int)(((byte)(217)))));
-            this.BreakEndLabel.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(184)))), ((int)(((byte)(238)))));
-            this.BreakEndLabel.Location = new System.Drawing.Point(123, -2);
-            this.BreakEndLabel.Name = "BreakEndLabel";
-            this.BreakEndLabel.Size = new System.Drawing.Size(255, 43);
-            this.BreakEndLabel.TabIndex = 310;
-            this.BreakEndLabel.Text = "4 : 49";
             // 
             // panel19
             // 
@@ -1616,6 +1519,701 @@
             this.kryptonSplitContainer2.StateCommon.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
             this.kryptonSplitContainer2.StateCommon.Separator.Back.Color1 = System.Drawing.Color.Transparent;
             this.kryptonSplitContainer2.TabIndex = 310;
+            // 
+            // MyFunctionsPanel
+            // 
+            this.MyFunctionsPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.MyFunctionsPanel.Controls.Add(this.flowLayoutPanel1);
+            this.MyFunctionsPanel.Controls.Add(this.pnlProfilFunctions);
+            this.MyFunctionsPanel.Controls.Add(this.pnlTPSFunctions);
+            this.MyFunctionsPanel.Location = new System.Drawing.Point(0, 112);
+            this.MyFunctionsPanel.Name = "MyFunctionsPanel";
+            this.MyFunctionsPanel.Size = new System.Drawing.Size(1270, 627);
+            this.MyFunctionsPanel.TabIndex = 42;
+            // 
+            // flowLayoutPanel1
+            // 
+            this.flowLayoutPanel1.Controls.Add(this.cbtnProfilFunctions);
+            this.flowLayoutPanel1.Controls.Add(this.cbtnTPSFunctions);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(2, 3);
+            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(485, 43);
+            this.flowLayoutPanel1.TabIndex = 441;
+            // 
+            // cbtnProfilFunctions
+            // 
+            this.cbtnProfilFunctions.Checked = true;
+            this.cbtnProfilFunctions.Location = new System.Drawing.Point(3, 3);
+            this.cbtnProfilFunctions.Name = "cbtnProfilFunctions";
+            this.cbtnProfilFunctions.Palette = this.PanelSelectPalette;
+            this.cbtnProfilFunctions.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Custom;
+            this.cbtnProfilFunctions.Size = new System.Drawing.Size(199, 34);
+            this.cbtnProfilFunctions.StateTracking.Back.Color1 = System.Drawing.Color.LimeGreen;
+            this.cbtnProfilFunctions.TabIndex = 439;
+            this.cbtnProfilFunctions.Values.Text = "ЗОВ-Профиль";
+            // 
+            // cbtnTPSFunctions
+            // 
+            this.cbtnTPSFunctions.Location = new System.Drawing.Point(208, 3);
+            this.cbtnTPSFunctions.Name = "cbtnTPSFunctions";
+            this.cbtnTPSFunctions.Palette = this.PanelSelectPalette;
+            this.cbtnTPSFunctions.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Custom;
+            this.cbtnTPSFunctions.Size = new System.Drawing.Size(199, 34);
+            this.cbtnTPSFunctions.StateTracking.Back.Color1 = System.Drawing.Color.LimeGreen;
+            this.cbtnTPSFunctions.TabIndex = 440;
+            this.cbtnTPSFunctions.Values.Text = "ЗОВ-ТПС";
+            // 
+            // pnlProfilFunctions
+            // 
+            this.pnlProfilFunctions.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pnlProfilFunctions.AutoScroll = true;
+            this.pnlProfilFunctions.Controls.Add(this.panel12);
+            this.pnlProfilFunctions.Location = new System.Drawing.Point(0, 48);
+            this.pnlProfilFunctions.MinimumSize = new System.Drawing.Size(390, 454);
+            this.pnlProfilFunctions.Name = "pnlProfilFunctions";
+            this.pnlProfilFunctions.Size = new System.Drawing.Size(1270, 579);
+            this.pnlProfilFunctions.TabIndex = 437;
+            // 
+            // panel12
+            // 
+            this.panel12.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel12.Location = new System.Drawing.Point(0, 0);
+            this.panel12.MinimumSize = new System.Drawing.Size(650, 350);
+            this.panel12.Name = "panel12";
+            this.panel12.Size = new System.Drawing.Size(1267, 350);
+            this.panel12.TabIndex = 297;
+            // 
+            // pnlTPSFunctions
+            // 
+            this.pnlTPSFunctions.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pnlTPSFunctions.AutoScroll = true;
+            this.pnlTPSFunctions.Controls.Add(this.panel27);
+            this.pnlTPSFunctions.Location = new System.Drawing.Point(0, 48);
+            this.pnlTPSFunctions.MinimumSize = new System.Drawing.Size(390, 454);
+            this.pnlTPSFunctions.Name = "pnlTPSFunctions";
+            this.pnlTPSFunctions.Size = new System.Drawing.Size(1270, 579);
+            this.pnlTPSFunctions.TabIndex = 438;
+            // 
+            // panel27
+            // 
+            this.panel27.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel27.Location = new System.Drawing.Point(0, 0);
+            this.panel27.MinimumSize = new System.Drawing.Size(650, 350);
+            this.panel27.Name = "panel27";
+            this.panel27.Size = new System.Drawing.Size(1267, 350);
+            this.panel27.TabIndex = 297;
+            // 
+            // TimeSheetPanel
+            // 
+            this.TimeSheetPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.TimeSheetPanel.Controls.Add(this.tableLayoutPanel5);
+            this.TimeSheetPanel.Controls.Add(this.CalendarFrom);
+            this.TimeSheetPanel.Location = new System.Drawing.Point(0, 112);
+            this.TimeSheetPanel.Name = "TimeSheetPanel";
+            this.TimeSheetPanel.Size = new System.Drawing.Size(1270, 627);
+            this.TimeSheetPanel.TabIndex = 43;
+            // 
+            // tableLayoutPanel5
+            // 
+            this.tableLayoutPanel5.ColumnCount = 1;
+            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel5.Controls.Add(this.panel1, 0, 5);
+            this.tableLayoutPanel5.Controls.Add(this.panel34, 0, 0);
+            this.tableLayoutPanel5.Controls.Add(this.panel5, 0, 1);
+            this.tableLayoutPanel5.Controls.Add(this.panel28, 0, 4);
+            this.tableLayoutPanel5.Controls.Add(this.panel33, 0, 2);
+            this.tableLayoutPanel5.Controls.Add(this.panel35, 0, 3);
+            this.tableLayoutPanel5.Location = new System.Drawing.Point(265, 15);
+            this.tableLayoutPanel5.Name = "tableLayoutPanel5";
+            this.tableLayoutPanel5.RowCount = 6;
+            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 15.3872F));
+            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 15.38412F));
+            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 15.38412F));
+            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 23.07711F));
+            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 15.38412F));
+            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 15.38331F));
+            this.tableLayoutPanel5.Size = new System.Drawing.Size(387, 303);
+            this.tableLayoutPanel5.TabIndex = 335;
+            // 
+            // panel34
+            // 
+            this.panel34.Controls.Add(this.lbAbsenceHours);
+            this.panel34.Controls.Add(this.label28);
+            this.panel34.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel34.Location = new System.Drawing.Point(3, 3);
+            this.panel34.Name = "panel34";
+            this.panel34.Size = new System.Drawing.Size(381, 40);
+            this.panel34.TabIndex = 328;
+            // 
+            // label28
+            // 
+            this.label28.AutoSize = true;
+            this.label28.Font = new System.Drawing.Font("Segoe UI", 19.69F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.label28.ForeColor = System.Drawing.Color.Black;
+            this.label28.Location = new System.Drawing.Point(1, 4);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(81, 28);
+            this.label28.TabIndex = 308;
+            this.label28.Text = "Неявка:";
+            // 
+            // panel5
+            // 
+            this.panel5.Controls.Add(this.lbOverworkHours);
+            this.panel5.Controls.Add(this.label13);
+            this.panel5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel5.Location = new System.Drawing.Point(3, 49);
+            this.panel5.Name = "panel5";
+            this.panel5.Size = new System.Drawing.Size(381, 40);
+            this.panel5.TabIndex = 322;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Font = new System.Drawing.Font("Segoe UI", 19.69F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.label13.ForeColor = System.Drawing.Color.Black;
+            this.label13.Location = new System.Drawing.Point(1, 4);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(136, 28);
+            this.label13.TabIndex = 308;
+            this.label13.Text = "Переработка:";
+            // 
+            // panel28
+            // 
+            this.panel28.Controls.Add(this.infiniumTimeLabel6);
+            this.panel28.Controls.Add(this.lbInTimeshhet);
+            this.panel28.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel28.Location = new System.Drawing.Point(3, 210);
+            this.panel28.Name = "panel28";
+            this.panel28.Size = new System.Drawing.Size(381, 40);
+            this.panel28.TabIndex = 327;
+            // 
+            // lbInTimeshhet
+            // 
+            this.lbInTimeshhet.AutoSize = true;
+            this.lbInTimeshhet.Font = new System.Drawing.Font("Segoe UI", 19.69F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.lbInTimeshhet.ForeColor = System.Drawing.Color.Black;
+            this.lbInTimeshhet.Location = new System.Drawing.Point(1, 4);
+            this.lbInTimeshhet.Name = "lbInTimeshhet";
+            this.lbInTimeshhet.Size = new System.Drawing.Size(93, 28);
+            this.lbInTimeshhet.TabIndex = 308;
+            this.lbInTimeshhet.Text = "В табель:";
+            // 
+            // panel33
+            // 
+            this.panel33.Controls.Add(this.lbPlanHours);
+            this.panel33.Controls.Add(this.label29);
+            this.panel33.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel33.Location = new System.Drawing.Point(3, 95);
+            this.panel33.Name = "panel33";
+            this.panel33.Size = new System.Drawing.Size(381, 40);
+            this.panel33.TabIndex = 323;
+            // 
+            // label29
+            // 
+            this.label29.AutoSize = true;
+            this.label29.Font = new System.Drawing.Font("Segoe UI", 19.69F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.label29.ForeColor = System.Drawing.Color.Black;
+            this.label29.Location = new System.Drawing.Point(1, 4);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(98, 28);
+            this.label29.TabIndex = 308;
+            this.label29.Text = "Планово:";
+            // 
+            // panel35
+            // 
+            this.panel35.Controls.Add(this.lbBreakHours);
+            this.panel35.Controls.Add(this.label30);
+            this.panel35.Controls.Add(this.lbFactHours);
+            this.panel35.Controls.Add(this.label31);
+            this.panel35.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel35.Location = new System.Drawing.Point(3, 141);
+            this.panel35.Name = "panel35";
+            this.panel35.Size = new System.Drawing.Size(381, 63);
+            this.panel35.TabIndex = 324;
+            // 
+            // label30
+            // 
+            this.label30.AutoSize = true;
+            this.label30.Font = new System.Drawing.Font("Segoe UI", 19.69F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.label30.ForeColor = System.Drawing.Color.Black;
+            this.label30.Location = new System.Drawing.Point(63, 36);
+            this.label30.Name = "label30";
+            this.label30.Size = new System.Drawing.Size(61, 28);
+            this.label30.TabIndex = 318;
+            this.label30.Text = "обед:";
+            // 
+            // label31
+            // 
+            this.label31.AutoSize = true;
+            this.label31.Font = new System.Drawing.Font("Segoe UI", 19.69F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.label31.ForeColor = System.Drawing.Color.Black;
+            this.label31.Location = new System.Drawing.Point(1, 4);
+            this.label31.Name = "label31";
+            this.label31.Size = new System.Drawing.Size(123, 28);
+            this.label31.TabIndex = 308;
+            this.label31.Text = "Фактически:";
+            // 
+            // CalendarFrom
+            // 
+            this.CalendarFrom.Location = new System.Drawing.Point(13, 16);
+            this.CalendarFrom.MaxSelectionCount = 1;
+            this.CalendarFrom.Name = "CalendarFrom";
+            this.CalendarFrom.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2010Black;
+            this.CalendarFrom.SelectionEnd = new System.DateTime(2020, 12, 9, 0, 0, 0, 0);
+            this.CalendarFrom.SelectionStart = new System.DateTime(2020, 12, 9, 0, 0, 0, 0);
+            this.CalendarFrom.Size = new System.Drawing.Size(230, 184);
+            this.CalendarFrom.StateCommon.Day.Content.ShortText.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.CalendarFrom.StateCommon.DayOfWeek.Content.ShortText.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.CalendarFrom.StateCommon.Header.Content.ShortText.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.CalendarFrom.TabIndex = 334;
+            this.CalendarFrom.DateChanged += new System.Windows.Forms.DateRangeEventHandler(this.CalendarFrom_DateChanged);
+            // 
+            // DayTimer
+            // 
+            this.DayTimer.Enabled = true;
+            this.DayTimer.Interval = 500;
+            this.DayTimer.Tick += new System.EventHandler(this.DayTimer_Tick);
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.label23.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.label23.ForeColor = System.Drawing.Color.DarkGray;
+            this.label23.Location = new System.Drawing.Point(160, 3);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(141, 20);
+            this.label23.TabIndex = 303;
+            this.label23.Text = "Участники проекта";
+            this.toolTip1.SetToolTip(this.label23, "Приостановить проект");
+            // 
+            // MoreNewsLabel
+            // 
+            this.MoreNewsLabel.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.MoreNewsLabel.AutoSize = true;
+            this.MoreNewsLabel.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.MoreNewsLabel.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.MoreNewsLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(205)))), ((int)(((byte)(252)))));
+            this.MoreNewsLabel.Location = new System.Drawing.Point(437, 583);
+            this.MoreNewsLabel.Name = "MoreNewsLabel";
+            this.MoreNewsLabel.Size = new System.Drawing.Size(37, 20);
+            this.MoreNewsLabel.TabIndex = 331;
+            this.MoreNewsLabel.Text = "Еще";
+            this.toolTip1.SetToolTip(this.MoreNewsLabel, "Нажмите для загрузки более ранних новостей");
+            this.MoreNewsLabel.Visible = false;
+            // 
+            // AddNewsPicture
+            // 
+            this.AddNewsPicture.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.AddNewsPicture.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.AddNewsPicture.Image = ((System.Drawing.Image)(resources.GetObject("AddNewsPicture.Image")));
+            this.AddNewsPicture.Location = new System.Drawing.Point(741, 138);
+            this.AddNewsPicture.Name = "AddNewsPicture";
+            this.AddNewsPicture.Size = new System.Drawing.Size(33, 33);
+            this.AddNewsPicture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.AddNewsPicture.TabIndex = 330;
+            this.AddNewsPicture.TabStop = false;
+            this.toolTip1.SetToolTip(this.AddNewsPicture, "Добавить сообщение");
+            this.AddNewsPicture.Click += new System.EventHandler(this.AddNewsPicture_Click);
+            // 
+            // ProjectsPanel
+            // 
+            this.ProjectsPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.ProjectsPanel.Controls.Add(this.UpdatePanel);
+            this.ProjectsPanel.Location = new System.Drawing.Point(0, 112);
+            this.ProjectsPanel.Name = "ProjectsPanel";
+            this.ProjectsPanel.Size = new System.Drawing.Size(1270, 627);
+            this.ProjectsPanel.TabIndex = 46;
+            // 
+            // UpdatePanel
+            // 
+            this.UpdatePanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.UpdatePanel.Controls.Add(this.kryptonBorderEdge11);
+            this.UpdatePanel.Controls.Add(this.panel29);
+            this.UpdatePanel.Controls.Add(this.ProjectsUpdatePanel);
+            this.UpdatePanel.Location = new System.Drawing.Point(12, 10);
+            this.UpdatePanel.Name = "UpdatePanel";
+            this.UpdatePanel.Size = new System.Drawing.Size(1251, 609);
+            this.UpdatePanel.TabIndex = 314;
+            this.UpdatePanel.Tag = "5";
+            // 
+            // kryptonBorderEdge11
+            // 
+            this.kryptonBorderEdge11.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.kryptonBorderEdge11.AutoSize = false;
+            this.kryptonBorderEdge11.Location = new System.Drawing.Point(311, 179);
+            this.kryptonBorderEdge11.Name = "kryptonBorderEdge11";
+            this.kryptonBorderEdge11.Size = new System.Drawing.Size(940, 1);
+            this.kryptonBorderEdge11.StateCommon.Color1 = System.Drawing.Color.Gainsboro;
+            this.kryptonBorderEdge11.Text = "kryptonBorderEdge11";
+            // 
+            // panel29
+            // 
+            this.panel29.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.panel29.Controls.Add(this.ProjectsSplitContainer);
+            this.panel29.Controls.Add(this.kryptonBorderEdge13);
+            this.panel29.Controls.Add(this.label25);
+            this.panel29.Location = new System.Drawing.Point(-1, 1);
+            this.panel29.Name = "panel29";
+            this.panel29.Size = new System.Drawing.Size(303, 609);
+            this.panel29.TabIndex = 297;
+            // 
+            // ProjectsSplitContainer
+            // 
+            this.ProjectsSplitContainer.Cursor = System.Windows.Forms.Cursors.Default;
+            this.ProjectsSplitContainer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ProjectsSplitContainer.Location = new System.Drawing.Point(0, 0);
+            this.ProjectsSplitContainer.Name = "ProjectsSplitContainer";
+            this.ProjectsSplitContainer.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // ProjectsSplitContainer.Panel1
+            // 
+            this.ProjectsSplitContainer.Panel1.Controls.Add(this.kryptonBorderEdge12);
+            this.ProjectsSplitContainer.Panel1.Controls.Add(this.infiniumProjectsList1);
+            this.ProjectsSplitContainer.Panel1.StateCommon.Color1 = System.Drawing.Color.Transparent;
+            // 
+            // ProjectsSplitContainer.Panel2
+            // 
+            this.ProjectsSplitContainer.Panel2.Controls.Add(this.label23);
+            this.ProjectsSplitContainer.Panel2.Controls.Add(this.ProjectMembersList);
+            this.ProjectsSplitContainer.Panel2.StateCommon.Color1 = System.Drawing.Color.Transparent;
+            this.ProjectsSplitContainer.Size = new System.Drawing.Size(302, 609);
+            this.ProjectsSplitContainer.SplitterDistance = 291;
+            this.ProjectsSplitContainer.SplitterWidth = 0;
+            this.ProjectsSplitContainer.StateCommon.Back.Color1 = System.Drawing.Color.Transparent;
+            this.ProjectsSplitContainer.TabIndex = 297;
+            // 
+            // kryptonBorderEdge12
+            // 
+            this.kryptonBorderEdge12.AutoSize = false;
+            this.kryptonBorderEdge12.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.kryptonBorderEdge12.Location = new System.Drawing.Point(0, 290);
+            this.kryptonBorderEdge12.Name = "kryptonBorderEdge12";
+            this.kryptonBorderEdge12.Size = new System.Drawing.Size(302, 1);
+            this.kryptonBorderEdge12.StateCommon.Color1 = System.Drawing.Color.Gainsboro;
+            this.kryptonBorderEdge12.Text = "kryptonBorderEdge12";
+            // 
+            // kryptonBorderEdge13
+            // 
+            this.kryptonBorderEdge13.Dock = System.Windows.Forms.DockStyle.Right;
+            this.kryptonBorderEdge13.Location = new System.Drawing.Point(302, 0);
+            this.kryptonBorderEdge13.Name = "kryptonBorderEdge13";
+            this.kryptonBorderEdge13.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.kryptonBorderEdge13.Size = new System.Drawing.Size(1, 609);
+            this.kryptonBorderEdge13.StateCommon.Color1 = System.Drawing.Color.Gainsboro;
+            this.kryptonBorderEdge13.Text = "kryptonBorderEdge13";
+            // 
+            // label25
+            // 
+            this.label25.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.label25.AutoSize = true;
+            this.label25.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.label25.ForeColor = System.Drawing.Color.Silver;
+            this.label25.Location = new System.Drawing.Point(77, 284);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(148, 40);
+            this.label25.TabIndex = 3;
+            this.label25.Text = "Нет проектов\r\nв данной категории";
+            this.label25.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // ProjectsUpdatePanel
+            // 
+            this.ProjectsUpdatePanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.ProjectsUpdatePanel.Controls.Add(this.MoreNewsLabel);
+            this.ProjectsUpdatePanel.Controls.Add(this.AddNewsPicture);
+            this.ProjectsUpdatePanel.Controls.Add(this.ProjectCaptionLabel);
+            this.ProjectsUpdatePanel.Controls.Add(this.AuthorLabel);
+            this.ProjectsUpdatePanel.Controls.Add(this.infiniumProjectsDescriptionBox1);
+            this.ProjectsUpdatePanel.Controls.Add(this.AuthorPhotoBox);
+            this.ProjectsUpdatePanel.Controls.Add(this.NoNewsLabel);
+            this.ProjectsUpdatePanel.Controls.Add(this.NoNewsPicture);
+            this.ProjectsUpdatePanel.Controls.Add(this.NewsContainer);
+            this.ProjectsUpdatePanel.Controls.Add(this.AddNewsLabel);
+            this.ProjectsUpdatePanel.Location = new System.Drawing.Point(301, 0);
+            this.ProjectsUpdatePanel.Name = "ProjectsUpdatePanel";
+            this.ProjectsUpdatePanel.Size = new System.Drawing.Size(950, 607);
+            this.ProjectsUpdatePanel.TabIndex = 314;
+            // 
+            // ProjectCaptionLabel
+            // 
+            this.ProjectCaptionLabel.AutoSize = true;
+            this.ProjectCaptionLabel.Font = new System.Drawing.Font("Segoe UI", 21F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.ProjectCaptionLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(184)))), ((int)(((byte)(238)))));
+            this.ProjectCaptionLabel.Location = new System.Drawing.Point(150, 0);
+            this.ProjectCaptionLabel.Name = "ProjectCaptionLabel";
+            this.ProjectCaptionLabel.Size = new System.Drawing.Size(0, 30);
+            this.ProjectCaptionLabel.TabIndex = 299;
+            // 
+            // AuthorLabel
+            // 
+            this.AuthorLabel.AutoSize = true;
+            this.AuthorLabel.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.AuthorLabel.ForeColor = System.Drawing.Color.Silver;
+            this.AuthorLabel.Location = new System.Drawing.Point(151, 28);
+            this.AuthorLabel.Name = "AuthorLabel";
+            this.AuthorLabel.Size = new System.Drawing.Size(0, 21);
+            this.AuthorLabel.TabIndex = 300;
+            // 
+            // AuthorPhotoBox
+            // 
+            this.AuthorPhotoBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.AuthorPhotoBox.Location = new System.Drawing.Point(16, 3);
+            this.AuthorPhotoBox.Name = "AuthorPhotoBox";
+            this.AuthorPhotoBox.Size = new System.Drawing.Size(125, 116);
+            this.AuthorPhotoBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.AuthorPhotoBox.TabIndex = 298;
+            this.AuthorPhotoBox.TabStop = false;
+            // 
+            // NoNewsLabel
+            // 
+            this.NoNewsLabel.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.NoNewsLabel.AutoSize = true;
+            this.NoNewsLabel.Font = new System.Drawing.Font("Segoe UI", 17F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.NoNewsLabel.ForeColor = System.Drawing.Color.Silver;
+            this.NoNewsLabel.Location = new System.Drawing.Point(265, 460);
+            this.NoNewsLabel.Name = "NoNewsLabel";
+            this.NoNewsLabel.Size = new System.Drawing.Size(381, 46);
+            this.NoNewsLabel.TabIndex = 309;
+            this.NoNewsLabel.Text = "В проекте нет сообщений.\r\nДобавьте сообщение для обсуждения проекта";
+            this.NoNewsLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // NoNewsPicture
+            // 
+            this.NoNewsPicture.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.NoNewsPicture.Image = ((System.Drawing.Image)(resources.GetObject("NoNewsPicture.Image")));
+            this.NoNewsPicture.Location = new System.Drawing.Point(408, 352);
+            this.NoNewsPicture.Name = "NoNewsPicture";
+            this.NoNewsPicture.Size = new System.Drawing.Size(93, 93);
+            this.NoNewsPicture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.NoNewsPicture.TabIndex = 311;
+            this.NoNewsPicture.TabStop = false;
+            // 
+            // AddNewsLabel
+            // 
+            this.AddNewsLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.AddNewsLabel.AutoSize = true;
+            this.AddNewsLabel.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.AddNewsLabel.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.AddNewsLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(205)))), ((int)(((byte)(252)))));
+            this.AddNewsLabel.Location = new System.Drawing.Point(777, 143);
+            this.AddNewsLabel.Name = "AddNewsLabel";
+            this.AddNewsLabel.Size = new System.Drawing.Size(160, 20);
+            this.AddNewsLabel.TabIndex = 308;
+            this.AddNewsLabel.Text = "Добавить сообщение";
+            this.AddNewsLabel.Click += new System.EventHandler(this.AddNewsLabel_Click);
+            // 
+            // timer1
+            // 
+            this.timer1.Enabled = true;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
+            // kryptonCheckSet2
+            // 
+            this.kryptonCheckSet2.CheckButtons.Add(this.cbtnProfilFunctions);
+            this.kryptonCheckSet2.CheckButtons.Add(this.cbtnTPSFunctions);
+            this.kryptonCheckSet2.CheckedButton = this.cbtnProfilFunctions;
+            this.kryptonCheckSet2.CheckedButtonChanged += new System.EventHandler(this.kryptonCheckSet2_CheckedButtonChanged);
+            // 
+            // kryptonCheckSet3
+            // 
+            this.kryptonCheckSet3.CheckButtons.Add(this.cbtnProfilFunctions1);
+            this.kryptonCheckSet3.CheckButtons.Add(this.cbtnTPSFunctions1);
+            this.kryptonCheckSet3.CheckedButton = this.cbtnProfilFunctions1;
+            this.kryptonCheckSet3.CheckedButtonChanged += new System.EventHandler(this.kryptonCheckSet3_CheckedButtonChanged);
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.lbRate);
+            this.panel1.Controls.Add(this.label11);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Location = new System.Drawing.Point(3, 256);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(381, 44);
+            this.panel1.TabIndex = 329;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Segoe UI", 19.69F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.label11.ForeColor = System.Drawing.Color.Black;
+            this.label11.Location = new System.Drawing.Point(1, 4);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(77, 28);
+            this.label11.TabIndex = 308;
+            this.label11.Text = "Ставка:";
+            // 
+            // lbRate
+            // 
+            this.lbRate.Font = new System.Drawing.Font("Segoe UI", 23F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.lbRate.ForeColor = System.Drawing.Color.ForestGreen;
+            this.lbRate.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(184)))), ((int)(((byte)(238)))));
+            this.lbRate.Location = new System.Drawing.Point(88, 4);
+            this.lbRate.Name = "lbRate";
+            this.lbRate.Size = new System.Drawing.Size(289, 26);
+            this.lbRate.TabIndex = 316;
+            this.lbRate.Text = "0";
+            // 
+            // lbAbsenceHours
+            // 
+            this.lbAbsenceHours.Font = new System.Drawing.Font("Segoe UI", 23F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.lbAbsenceHours.ForeColor = System.Drawing.Color.ForestGreen;
+            this.lbAbsenceHours.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(184)))), ((int)(((byte)(238)))));
+            this.lbAbsenceHours.Location = new System.Drawing.Point(143, 5);
+            this.lbAbsenceHours.Name = "lbAbsenceHours";
+            this.lbAbsenceHours.Size = new System.Drawing.Size(234, 26);
+            this.lbAbsenceHours.TabIndex = 318;
+            this.lbAbsenceHours.Text = "4 : 49";
+            // 
+            // lbOverworkHours
+            // 
+            this.lbOverworkHours.Font = new System.Drawing.Font("Segoe UI", 23F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.lbOverworkHours.ForeColor = System.Drawing.Color.ForestGreen;
+            this.lbOverworkHours.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(184)))), ((int)(((byte)(238)))));
+            this.lbOverworkHours.Location = new System.Drawing.Point(143, 4);
+            this.lbOverworkHours.Name = "lbOverworkHours";
+            this.lbOverworkHours.Size = new System.Drawing.Size(234, 26);
+            this.lbOverworkHours.TabIndex = 318;
+            this.lbOverworkHours.Text = "4 : 49";
+            // 
+            // infiniumTimeLabel6
+            // 
+            this.infiniumTimeLabel6.Font = new System.Drawing.Font("Segoe UI", 23F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.infiniumTimeLabel6.ForeColor = System.Drawing.Color.ForestGreen;
+            this.infiniumTimeLabel6.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(184)))), ((int)(((byte)(238)))));
+            this.infiniumTimeLabel6.Location = new System.Drawing.Point(88, 4);
+            this.infiniumTimeLabel6.Name = "infiniumTimeLabel6";
+            this.infiniumTimeLabel6.Size = new System.Drawing.Size(289, 26);
+            this.infiniumTimeLabel6.TabIndex = 316;
+            this.infiniumTimeLabel6.Text = "0";
+            // 
+            // lbPlanHours
+            // 
+            this.lbPlanHours.Font = new System.Drawing.Font("Segoe UI", 23F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.lbPlanHours.ForeColor = System.Drawing.Color.ForestGreen;
+            this.lbPlanHours.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(184)))), ((int)(((byte)(238)))));
+            this.lbPlanHours.Location = new System.Drawing.Point(105, 4);
+            this.lbPlanHours.Name = "lbPlanHours";
+            this.lbPlanHours.Size = new System.Drawing.Size(272, 26);
+            this.lbPlanHours.TabIndex = 318;
+            this.lbPlanHours.Text = "4 : 49";
+            // 
+            // lbBreakHours
+            // 
+            this.lbBreakHours.Font = new System.Drawing.Font("Segoe UI", 23F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.lbBreakHours.ForeColor = System.Drawing.Color.ForestGreen;
+            this.lbBreakHours.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(184)))), ((int)(((byte)(238)))));
+            this.lbBreakHours.Location = new System.Drawing.Point(130, 36);
+            this.lbBreakHours.Name = "lbBreakHours";
+            this.lbBreakHours.Size = new System.Drawing.Size(248, 26);
+            this.lbBreakHours.TabIndex = 319;
+            this.lbBreakHours.Text = "4 : 49";
+            // 
+            // lbFactHours
+            // 
+            this.lbFactHours.Font = new System.Drawing.Font("Segoe UI", 23F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.lbFactHours.ForeColor = System.Drawing.Color.ForestGreen;
+            this.lbFactHours.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(184)))), ((int)(((byte)(238)))));
+            this.lbFactHours.Location = new System.Drawing.Point(130, 4);
+            this.lbFactHours.Name = "lbFactHours";
+            this.lbFactHours.Size = new System.Drawing.Size(247, 26);
+            this.lbFactHours.TabIndex = 317;
+            this.lbFactHours.Text = "4 : 49";
+            // 
+            // DayLengthLabel
+            // 
+            this.DayLengthLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.DayLengthLabel.Font = new System.Drawing.Font("Segoe UI", 28F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.DayLengthLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(18)))), ((int)(((byte)(164)))), ((int)(((byte)(217)))));
+            this.DayLengthLabel.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(184)))), ((int)(((byte)(238)))));
+            this.DayLengthLabel.Location = new System.Drawing.Point(139, -2);
+            this.DayLengthLabel.Name = "DayLengthLabel";
+            this.DayLengthLabel.Size = new System.Drawing.Size(238, 43);
+            this.DayLengthLabel.TabIndex = 306;
+            this.DayLengthLabel.Text = "4 : 49";
+            // 
+            // DayStartLabel
+            // 
+            this.DayStartLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.DayStartLabel.Font = new System.Drawing.Font("Segoe UI", 28F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.DayStartLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(18)))), ((int)(((byte)(164)))), ((int)(((byte)(217)))));
+            this.DayStartLabel.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(184)))), ((int)(((byte)(238)))));
+            this.DayStartLabel.Location = new System.Drawing.Point(123, -2);
+            this.DayStartLabel.Name = "DayStartLabel";
+            this.DayStartLabel.Size = new System.Drawing.Size(254, 43);
+            this.DayStartLabel.TabIndex = 307;
+            this.DayStartLabel.Text = "4 : 49";
+            // 
+            // DayEndLabel
+            // 
+            this.DayEndLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.DayEndLabel.Font = new System.Drawing.Font("Segoe UI", 28F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.DayEndLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(18)))), ((int)(((byte)(164)))), ((int)(((byte)(217)))));
+            this.DayEndLabel.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(184)))), ((int)(((byte)(238)))));
+            this.DayEndLabel.Location = new System.Drawing.Point(169, -2);
+            this.DayEndLabel.Name = "DayEndLabel";
+            this.DayEndLabel.Size = new System.Drawing.Size(208, 43);
+            this.DayEndLabel.TabIndex = 308;
+            this.DayEndLabel.Text = "4 : 49";
+            // 
+            // StatusLabel
+            // 
+            this.StatusLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.StatusLabel.Font = new System.Drawing.Font("Segoe UI", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.StatusLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(18)))), ((int)(((byte)(164)))), ((int)(((byte)(217)))));
+            this.StatusLabel.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(184)))), ((int)(((byte)(238)))));
+            this.StatusLabel.Location = new System.Drawing.Point(67, -2);
+            this.StatusLabel.Name = "StatusLabel";
+            this.StatusLabel.Size = new System.Drawing.Size(310, 43);
+            this.StatusLabel.TabIndex = 311;
+            this.StatusLabel.Text = "Рабочий день продолжается";
+            // 
+            // BreakStartLabel
+            // 
+            this.BreakStartLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.BreakStartLabel.Font = new System.Drawing.Font("Segoe UI", 28F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.BreakStartLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(18)))), ((int)(((byte)(164)))), ((int)(((byte)(217)))));
+            this.BreakStartLabel.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(184)))), ((int)(((byte)(238)))));
+            this.BreakStartLabel.Location = new System.Drawing.Point(145, -2);
+            this.BreakStartLabel.Name = "BreakStartLabel";
+            this.BreakStartLabel.Size = new System.Drawing.Size(233, 43);
+            this.BreakStartLabel.TabIndex = 309;
+            this.BreakStartLabel.Text = "4 : 49";
+            // 
+            // BreakEndLabel
+            // 
+            this.BreakEndLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.BreakEndLabel.Font = new System.Drawing.Font("Segoe UI", 28F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.BreakEndLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(18)))), ((int)(((byte)(164)))), ((int)(((byte)(217)))));
+            this.BreakEndLabel.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(184)))), ((int)(((byte)(238)))));
+            this.BreakEndLabel.Location = new System.Drawing.Point(123, -2);
+            this.BreakEndLabel.Name = "BreakEndLabel";
+            this.BreakEndLabel.Size = new System.Drawing.Size(255, 43);
+            this.BreakEndLabel.TabIndex = 310;
+            this.BreakEndLabel.Text = "4 : 49";
             // 
             // lightPanel1
             // 
@@ -2124,459 +2722,6 @@
             this.pictureBox3.TabIndex = 318;
             this.pictureBox3.TabStop = false;
             // 
-            // MyFunctionsPanel
-            // 
-            this.MyFunctionsPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.MyFunctionsPanel.Controls.Add(this.flowLayoutPanel1);
-            this.MyFunctionsPanel.Controls.Add(this.pnlProfilFunctions);
-            this.MyFunctionsPanel.Controls.Add(this.pnlTPSFunctions);
-            this.MyFunctionsPanel.Location = new System.Drawing.Point(0, 112);
-            this.MyFunctionsPanel.Name = "MyFunctionsPanel";
-            this.MyFunctionsPanel.Size = new System.Drawing.Size(1270, 627);
-            this.MyFunctionsPanel.TabIndex = 42;
-            // 
-            // flowLayoutPanel1
-            // 
-            this.flowLayoutPanel1.Controls.Add(this.cbtnProfilFunctions);
-            this.flowLayoutPanel1.Controls.Add(this.cbtnTPSFunctions);
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(2, 3);
-            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(485, 43);
-            this.flowLayoutPanel1.TabIndex = 441;
-            // 
-            // cbtnProfilFunctions
-            // 
-            this.cbtnProfilFunctions.Checked = true;
-            this.cbtnProfilFunctions.Location = new System.Drawing.Point(3, 3);
-            this.cbtnProfilFunctions.Name = "cbtnProfilFunctions";
-            this.cbtnProfilFunctions.Palette = this.PanelSelectPalette;
-            this.cbtnProfilFunctions.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Custom;
-            this.cbtnProfilFunctions.Size = new System.Drawing.Size(199, 34);
-            this.cbtnProfilFunctions.StateTracking.Back.Color1 = System.Drawing.Color.LimeGreen;
-            this.cbtnProfilFunctions.TabIndex = 439;
-            this.cbtnProfilFunctions.Values.Text = "ЗОВ-Профиль";
-            // 
-            // cbtnTPSFunctions
-            // 
-            this.cbtnTPSFunctions.Location = new System.Drawing.Point(208, 3);
-            this.cbtnTPSFunctions.Name = "cbtnTPSFunctions";
-            this.cbtnTPSFunctions.Palette = this.PanelSelectPalette;
-            this.cbtnTPSFunctions.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Custom;
-            this.cbtnTPSFunctions.Size = new System.Drawing.Size(199, 34);
-            this.cbtnTPSFunctions.StateTracking.Back.Color1 = System.Drawing.Color.LimeGreen;
-            this.cbtnTPSFunctions.TabIndex = 440;
-            this.cbtnTPSFunctions.Values.Text = "ЗОВ-ТПС";
-            // 
-            // pnlProfilFunctions
-            // 
-            this.pnlProfilFunctions.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.pnlProfilFunctions.AutoScroll = true;
-            this.pnlProfilFunctions.Controls.Add(this.panel12);
-            this.pnlProfilFunctions.Location = new System.Drawing.Point(0, 48);
-            this.pnlProfilFunctions.MinimumSize = new System.Drawing.Size(390, 454);
-            this.pnlProfilFunctions.Name = "pnlProfilFunctions";
-            this.pnlProfilFunctions.Size = new System.Drawing.Size(1270, 579);
-            this.pnlProfilFunctions.TabIndex = 437;
-            // 
-            // panel12
-            // 
-            this.panel12.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel12.Location = new System.Drawing.Point(0, 0);
-            this.panel12.MinimumSize = new System.Drawing.Size(650, 350);
-            this.panel12.Name = "panel12";
-            this.panel12.Size = new System.Drawing.Size(1267, 350);
-            this.panel12.TabIndex = 297;
-            // 
-            // pnlTPSFunctions
-            // 
-            this.pnlTPSFunctions.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.pnlTPSFunctions.AutoScroll = true;
-            this.pnlTPSFunctions.Controls.Add(this.panel27);
-            this.pnlTPSFunctions.Location = new System.Drawing.Point(0, 48);
-            this.pnlTPSFunctions.MinimumSize = new System.Drawing.Size(390, 454);
-            this.pnlTPSFunctions.Name = "pnlTPSFunctions";
-            this.pnlTPSFunctions.Size = new System.Drawing.Size(1270, 579);
-            this.pnlTPSFunctions.TabIndex = 438;
-            // 
-            // panel27
-            // 
-            this.panel27.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel27.Location = new System.Drawing.Point(0, 0);
-            this.panel27.MinimumSize = new System.Drawing.Size(650, 350);
-            this.panel27.Name = "panel27";
-            this.panel27.Size = new System.Drawing.Size(1267, 350);
-            this.panel27.TabIndex = 297;
-            // 
-            // TimeSheetPanel
-            // 
-            this.TimeSheetPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.TimeSheetPanel.Controls.Add(this.tableLayoutPanel5);
-            this.TimeSheetPanel.Controls.Add(this.CalendarFrom);
-            this.TimeSheetPanel.Location = new System.Drawing.Point(0, 112);
-            this.TimeSheetPanel.Name = "TimeSheetPanel";
-            this.TimeSheetPanel.Size = new System.Drawing.Size(1270, 627);
-            this.TimeSheetPanel.TabIndex = 43;
-            // 
-            // tableLayoutPanel5
-            // 
-            this.tableLayoutPanel5.ColumnCount = 1;
-            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel5.Controls.Add(this.panel34, 0, 0);
-            this.tableLayoutPanel5.Controls.Add(this.panel5, 0, 1);
-            this.tableLayoutPanel5.Controls.Add(this.panel28, 0, 4);
-            this.tableLayoutPanel5.Controls.Add(this.panel33, 0, 2);
-            this.tableLayoutPanel5.Controls.Add(this.panel35, 0, 3);
-            this.tableLayoutPanel5.Location = new System.Drawing.Point(265, 15);
-            this.tableLayoutPanel5.Name = "tableLayoutPanel5";
-            this.tableLayoutPanel5.RowCount = 5;
-            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 18.1846F));
-            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 18.18096F));
-            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 18.18096F));
-            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 27.27253F));
-            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 18.18096F));
-            this.tableLayoutPanel5.Size = new System.Drawing.Size(387, 303);
-            this.tableLayoutPanel5.TabIndex = 335;
-            // 
-            // panel34
-            // 
-            this.panel34.Controls.Add(this.lbAbsenceHours);
-            this.panel34.Controls.Add(this.label28);
-            this.panel34.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel34.Location = new System.Drawing.Point(3, 3);
-            this.panel34.Name = "panel34";
-            this.panel34.Size = new System.Drawing.Size(381, 49);
-            this.panel34.TabIndex = 328;
-            // 
-            // lbAbsenceHours
-            // 
-            this.lbAbsenceHours.Font = new System.Drawing.Font("Segoe UI", 23F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.lbAbsenceHours.ForeColor = System.Drawing.Color.ForestGreen;
-            this.lbAbsenceHours.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(184)))), ((int)(((byte)(238)))));
-            this.lbAbsenceHours.Location = new System.Drawing.Point(143, 5);
-            this.lbAbsenceHours.Name = "lbAbsenceHours";
-            this.lbAbsenceHours.Size = new System.Drawing.Size(234, 26);
-            this.lbAbsenceHours.TabIndex = 318;
-            this.lbAbsenceHours.Text = "4 : 49";
-            // 
-            // label28
-            // 
-            this.label28.AutoSize = true;
-            this.label28.Font = new System.Drawing.Font("Segoe UI", 19.69F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.label28.ForeColor = System.Drawing.Color.Black;
-            this.label28.Location = new System.Drawing.Point(1, 4);
-            this.label28.Name = "label28";
-            this.label28.Size = new System.Drawing.Size(81, 28);
-            this.label28.TabIndex = 308;
-            this.label28.Text = "Неявка:";
-            // 
-            // panel5
-            // 
-            this.panel5.Controls.Add(this.lbOverworkHours);
-            this.panel5.Controls.Add(this.label13);
-            this.panel5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel5.Location = new System.Drawing.Point(3, 58);
-            this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(381, 49);
-            this.panel5.TabIndex = 322;
-            // 
-            // lbOverworkHours
-            // 
-            this.lbOverworkHours.Font = new System.Drawing.Font("Segoe UI", 23F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.lbOverworkHours.ForeColor = System.Drawing.Color.ForestGreen;
-            this.lbOverworkHours.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(184)))), ((int)(((byte)(238)))));
-            this.lbOverworkHours.Location = new System.Drawing.Point(143, 4);
-            this.lbOverworkHours.Name = "lbOverworkHours";
-            this.lbOverworkHours.Size = new System.Drawing.Size(234, 26);
-            this.lbOverworkHours.TabIndex = 318;
-            this.lbOverworkHours.Text = "4 : 49";
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Font = new System.Drawing.Font("Segoe UI", 19.69F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.label13.ForeColor = System.Drawing.Color.Black;
-            this.label13.Location = new System.Drawing.Point(1, 4);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(136, 28);
-            this.label13.TabIndex = 308;
-            this.label13.Text = "Переработка:";
-            // 
-            // panel28
-            // 
-            this.panel28.Controls.Add(this.infiniumTimeLabel6);
-            this.panel28.Controls.Add(this.lbInTimeshhet);
-            this.panel28.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel28.Location = new System.Drawing.Point(3, 250);
-            this.panel28.Name = "panel28";
-            this.panel28.Size = new System.Drawing.Size(381, 50);
-            this.panel28.TabIndex = 327;
-            // 
-            // infiniumTimeLabel6
-            // 
-            this.infiniumTimeLabel6.Font = new System.Drawing.Font("Segoe UI", 23F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.infiniumTimeLabel6.ForeColor = System.Drawing.Color.ForestGreen;
-            this.infiniumTimeLabel6.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(184)))), ((int)(((byte)(238)))));
-            this.infiniumTimeLabel6.Location = new System.Drawing.Point(88, 4);
-            this.infiniumTimeLabel6.Name = "infiniumTimeLabel6";
-            this.infiniumTimeLabel6.Size = new System.Drawing.Size(289, 26);
-            this.infiniumTimeLabel6.TabIndex = 316;
-            this.infiniumTimeLabel6.Text = "0";
-            // 
-            // lbInTimeshhet
-            // 
-            this.lbInTimeshhet.AutoSize = true;
-            this.lbInTimeshhet.Font = new System.Drawing.Font("Segoe UI", 19.69F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.lbInTimeshhet.ForeColor = System.Drawing.Color.Black;
-            this.lbInTimeshhet.Location = new System.Drawing.Point(1, 4);
-            this.lbInTimeshhet.Name = "lbInTimeshhet";
-            this.lbInTimeshhet.Size = new System.Drawing.Size(93, 28);
-            this.lbInTimeshhet.TabIndex = 308;
-            this.lbInTimeshhet.Text = "В табель:";
-            // 
-            // panel33
-            // 
-            this.panel33.Controls.Add(this.lbPlanHours);
-            this.panel33.Controls.Add(this.label29);
-            this.panel33.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel33.Location = new System.Drawing.Point(3, 113);
-            this.panel33.Name = "panel33";
-            this.panel33.Size = new System.Drawing.Size(381, 49);
-            this.panel33.TabIndex = 323;
-            // 
-            // lbPlanHours
-            // 
-            this.lbPlanHours.Font = new System.Drawing.Font("Segoe UI", 23F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.lbPlanHours.ForeColor = System.Drawing.Color.ForestGreen;
-            this.lbPlanHours.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(184)))), ((int)(((byte)(238)))));
-            this.lbPlanHours.Location = new System.Drawing.Point(105, 4);
-            this.lbPlanHours.Name = "lbPlanHours";
-            this.lbPlanHours.Size = new System.Drawing.Size(272, 26);
-            this.lbPlanHours.TabIndex = 318;
-            this.lbPlanHours.Text = "4 : 49";
-            // 
-            // label29
-            // 
-            this.label29.AutoSize = true;
-            this.label29.Font = new System.Drawing.Font("Segoe UI", 19.69F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.label29.ForeColor = System.Drawing.Color.Black;
-            this.label29.Location = new System.Drawing.Point(1, 4);
-            this.label29.Name = "label29";
-            this.label29.Size = new System.Drawing.Size(98, 28);
-            this.label29.TabIndex = 308;
-            this.label29.Text = "Планово:";
-            // 
-            // panel35
-            // 
-            this.panel35.Controls.Add(this.lbBreakHours);
-            this.panel35.Controls.Add(this.label30);
-            this.panel35.Controls.Add(this.lbFactHours);
-            this.panel35.Controls.Add(this.label31);
-            this.panel35.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel35.Location = new System.Drawing.Point(3, 168);
-            this.panel35.Name = "panel35";
-            this.panel35.Size = new System.Drawing.Size(381, 76);
-            this.panel35.TabIndex = 324;
-            // 
-            // lbBreakHours
-            // 
-            this.lbBreakHours.Font = new System.Drawing.Font("Segoe UI", 23F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.lbBreakHours.ForeColor = System.Drawing.Color.ForestGreen;
-            this.lbBreakHours.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(184)))), ((int)(((byte)(238)))));
-            this.lbBreakHours.Location = new System.Drawing.Point(130, 36);
-            this.lbBreakHours.Name = "lbBreakHours";
-            this.lbBreakHours.Size = new System.Drawing.Size(248, 26);
-            this.lbBreakHours.TabIndex = 319;
-            this.lbBreakHours.Text = "4 : 49";
-            // 
-            // label30
-            // 
-            this.label30.AutoSize = true;
-            this.label30.Font = new System.Drawing.Font("Segoe UI", 19.69F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.label30.ForeColor = System.Drawing.Color.Black;
-            this.label30.Location = new System.Drawing.Point(63, 36);
-            this.label30.Name = "label30";
-            this.label30.Size = new System.Drawing.Size(61, 28);
-            this.label30.TabIndex = 318;
-            this.label30.Text = "обед:";
-            // 
-            // lbFactHours
-            // 
-            this.lbFactHours.Font = new System.Drawing.Font("Segoe UI", 23F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.lbFactHours.ForeColor = System.Drawing.Color.ForestGreen;
-            this.lbFactHours.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(184)))), ((int)(((byte)(238)))));
-            this.lbFactHours.Location = new System.Drawing.Point(130, 4);
-            this.lbFactHours.Name = "lbFactHours";
-            this.lbFactHours.Size = new System.Drawing.Size(247, 26);
-            this.lbFactHours.TabIndex = 317;
-            this.lbFactHours.Text = "4 : 49";
-            // 
-            // label31
-            // 
-            this.label31.AutoSize = true;
-            this.label31.Font = new System.Drawing.Font("Segoe UI", 19.69F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.label31.ForeColor = System.Drawing.Color.Black;
-            this.label31.Location = new System.Drawing.Point(1, 4);
-            this.label31.Name = "label31";
-            this.label31.Size = new System.Drawing.Size(123, 28);
-            this.label31.TabIndex = 308;
-            this.label31.Text = "Фактически:";
-            // 
-            // CalendarFrom
-            // 
-            this.CalendarFrom.Location = new System.Drawing.Point(13, 16);
-            this.CalendarFrom.MaxSelectionCount = 1;
-            this.CalendarFrom.Name = "CalendarFrom";
-            this.CalendarFrom.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2010Black;
-            this.CalendarFrom.SelectionEnd = new System.DateTime(2020, 12, 9, 0, 0, 0, 0);
-            this.CalendarFrom.SelectionStart = new System.DateTime(2020, 12, 9, 0, 0, 0, 0);
-            this.CalendarFrom.Size = new System.Drawing.Size(230, 184);
-            this.CalendarFrom.StateCommon.Day.Content.ShortText.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.CalendarFrom.StateCommon.DayOfWeek.Content.ShortText.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.CalendarFrom.StateCommon.Header.Content.ShortText.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.CalendarFrom.TabIndex = 334;
-            this.CalendarFrom.DateChanged += new System.Windows.Forms.DateRangeEventHandler(this.CalendarFrom_DateChanged);
-            // 
-            // DayTimer
-            // 
-            this.DayTimer.Enabled = true;
-            this.DayTimer.Interval = 500;
-            this.DayTimer.Tick += new System.EventHandler(this.DayTimer_Tick);
-            // 
-            // label23
-            // 
-            this.label23.AutoSize = true;
-            this.label23.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.label23.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.label23.ForeColor = System.Drawing.Color.DarkGray;
-            this.label23.Location = new System.Drawing.Point(160, 3);
-            this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(141, 20);
-            this.label23.TabIndex = 303;
-            this.label23.Text = "Участники проекта";
-            this.toolTip1.SetToolTip(this.label23, "Приостановить проект");
-            // 
-            // MoreNewsLabel
-            // 
-            this.MoreNewsLabel.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.MoreNewsLabel.AutoSize = true;
-            this.MoreNewsLabel.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.MoreNewsLabel.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.MoreNewsLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(205)))), ((int)(((byte)(252)))));
-            this.MoreNewsLabel.Location = new System.Drawing.Point(437, 583);
-            this.MoreNewsLabel.Name = "MoreNewsLabel";
-            this.MoreNewsLabel.Size = new System.Drawing.Size(37, 20);
-            this.MoreNewsLabel.TabIndex = 331;
-            this.MoreNewsLabel.Text = "Еще";
-            this.toolTip1.SetToolTip(this.MoreNewsLabel, "Нажмите для загрузки более ранних новостей");
-            this.MoreNewsLabel.Visible = false;
-            // 
-            // AddNewsPicture
-            // 
-            this.AddNewsPicture.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.AddNewsPicture.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.AddNewsPicture.Image = ((System.Drawing.Image)(resources.GetObject("AddNewsPicture.Image")));
-            this.AddNewsPicture.Location = new System.Drawing.Point(741, 138);
-            this.AddNewsPicture.Name = "AddNewsPicture";
-            this.AddNewsPicture.Size = new System.Drawing.Size(33, 33);
-            this.AddNewsPicture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.AddNewsPicture.TabIndex = 330;
-            this.AddNewsPicture.TabStop = false;
-            this.toolTip1.SetToolTip(this.AddNewsPicture, "Добавить сообщение");
-            this.AddNewsPicture.Click += new System.EventHandler(this.AddNewsPicture_Click);
-            // 
-            // ProjectsPanel
-            // 
-            this.ProjectsPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.ProjectsPanel.Controls.Add(this.UpdatePanel);
-            this.ProjectsPanel.Location = new System.Drawing.Point(0, 112);
-            this.ProjectsPanel.Name = "ProjectsPanel";
-            this.ProjectsPanel.Size = new System.Drawing.Size(1270, 627);
-            this.ProjectsPanel.TabIndex = 46;
-            // 
-            // UpdatePanel
-            // 
-            this.UpdatePanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.UpdatePanel.Controls.Add(this.kryptonBorderEdge11);
-            this.UpdatePanel.Controls.Add(this.panel29);
-            this.UpdatePanel.Controls.Add(this.ProjectsUpdatePanel);
-            this.UpdatePanel.Location = new System.Drawing.Point(12, 10);
-            this.UpdatePanel.Name = "UpdatePanel";
-            this.UpdatePanel.Size = new System.Drawing.Size(1251, 609);
-            this.UpdatePanel.TabIndex = 314;
-            this.UpdatePanel.Tag = "5";
-            // 
-            // kryptonBorderEdge11
-            // 
-            this.kryptonBorderEdge11.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.kryptonBorderEdge11.AutoSize = false;
-            this.kryptonBorderEdge11.Location = new System.Drawing.Point(311, 179);
-            this.kryptonBorderEdge11.Name = "kryptonBorderEdge11";
-            this.kryptonBorderEdge11.Size = new System.Drawing.Size(940, 1);
-            this.kryptonBorderEdge11.StateCommon.Color1 = System.Drawing.Color.Gainsboro;
-            this.kryptonBorderEdge11.Text = "kryptonBorderEdge11";
-            // 
-            // panel29
-            // 
-            this.panel29.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.panel29.Controls.Add(this.ProjectsSplitContainer);
-            this.panel29.Controls.Add(this.kryptonBorderEdge13);
-            this.panel29.Controls.Add(this.label25);
-            this.panel29.Location = new System.Drawing.Point(-1, 1);
-            this.panel29.Name = "panel29";
-            this.panel29.Size = new System.Drawing.Size(303, 609);
-            this.panel29.TabIndex = 297;
-            // 
-            // ProjectsSplitContainer
-            // 
-            this.ProjectsSplitContainer.Cursor = System.Windows.Forms.Cursors.Default;
-            this.ProjectsSplitContainer.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ProjectsSplitContainer.Location = new System.Drawing.Point(0, 0);
-            this.ProjectsSplitContainer.Name = "ProjectsSplitContainer";
-            this.ProjectsSplitContainer.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            // 
-            // ProjectsSplitContainer.Panel1
-            // 
-            this.ProjectsSplitContainer.Panel1.Controls.Add(this.kryptonBorderEdge12);
-            this.ProjectsSplitContainer.Panel1.Controls.Add(this.infiniumProjectsList1);
-            this.ProjectsSplitContainer.Panel1.StateCommon.Color1 = System.Drawing.Color.Transparent;
-            // 
-            // ProjectsSplitContainer.Panel2
-            // 
-            this.ProjectsSplitContainer.Panel2.Controls.Add(this.label23);
-            this.ProjectsSplitContainer.Panel2.Controls.Add(this.ProjectMembersList);
-            this.ProjectsSplitContainer.Panel2.StateCommon.Color1 = System.Drawing.Color.Transparent;
-            this.ProjectsSplitContainer.Size = new System.Drawing.Size(302, 609);
-            this.ProjectsSplitContainer.SplitterDistance = 291;
-            this.ProjectsSplitContainer.SplitterWidth = 0;
-            this.ProjectsSplitContainer.StateCommon.Back.Color1 = System.Drawing.Color.Transparent;
-            this.ProjectsSplitContainer.TabIndex = 297;
-            // 
-            // kryptonBorderEdge12
-            // 
-            this.kryptonBorderEdge12.AutoSize = false;
-            this.kryptonBorderEdge12.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.kryptonBorderEdge12.Location = new System.Drawing.Point(0, 290);
-            this.kryptonBorderEdge12.Name = "kryptonBorderEdge12";
-            this.kryptonBorderEdge12.Size = new System.Drawing.Size(302, 1);
-            this.kryptonBorderEdge12.StateCommon.Color1 = System.Drawing.Color.Gainsboro;
-            this.kryptonBorderEdge12.Text = "kryptonBorderEdge12";
-            // 
             // infiniumProjectsList1
             // 
             this.infiniumProjectsList1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -2642,69 +2787,6 @@
             this.ProjectMembersList.VerticalScrollBar.VerticalScrollTrackingThumbButtonColor = System.Drawing.Color.Gray;
             this.ProjectMembersList.VerticalScrollBar.Visible = false;
             // 
-            // kryptonBorderEdge13
-            // 
-            this.kryptonBorderEdge13.Dock = System.Windows.Forms.DockStyle.Right;
-            this.kryptonBorderEdge13.Location = new System.Drawing.Point(302, 0);
-            this.kryptonBorderEdge13.Name = "kryptonBorderEdge13";
-            this.kryptonBorderEdge13.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.kryptonBorderEdge13.Size = new System.Drawing.Size(1, 609);
-            this.kryptonBorderEdge13.StateCommon.Color1 = System.Drawing.Color.Gainsboro;
-            this.kryptonBorderEdge13.Text = "kryptonBorderEdge13";
-            // 
-            // label25
-            // 
-            this.label25.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.label25.AutoSize = true;
-            this.label25.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.label25.ForeColor = System.Drawing.Color.Silver;
-            this.label25.Location = new System.Drawing.Point(77, 284);
-            this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(148, 40);
-            this.label25.TabIndex = 3;
-            this.label25.Text = "Нет проектов\r\nв данной категории";
-            this.label25.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // ProjectsUpdatePanel
-            // 
-            this.ProjectsUpdatePanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.ProjectsUpdatePanel.Controls.Add(this.MoreNewsLabel);
-            this.ProjectsUpdatePanel.Controls.Add(this.AddNewsPicture);
-            this.ProjectsUpdatePanel.Controls.Add(this.ProjectCaptionLabel);
-            this.ProjectsUpdatePanel.Controls.Add(this.AuthorLabel);
-            this.ProjectsUpdatePanel.Controls.Add(this.infiniumProjectsDescriptionBox1);
-            this.ProjectsUpdatePanel.Controls.Add(this.AuthorPhotoBox);
-            this.ProjectsUpdatePanel.Controls.Add(this.NoNewsLabel);
-            this.ProjectsUpdatePanel.Controls.Add(this.NoNewsPicture);
-            this.ProjectsUpdatePanel.Controls.Add(this.NewsContainer);
-            this.ProjectsUpdatePanel.Controls.Add(this.AddNewsLabel);
-            this.ProjectsUpdatePanel.Location = new System.Drawing.Point(301, 0);
-            this.ProjectsUpdatePanel.Name = "ProjectsUpdatePanel";
-            this.ProjectsUpdatePanel.Size = new System.Drawing.Size(950, 607);
-            this.ProjectsUpdatePanel.TabIndex = 314;
-            // 
-            // ProjectCaptionLabel
-            // 
-            this.ProjectCaptionLabel.AutoSize = true;
-            this.ProjectCaptionLabel.Font = new System.Drawing.Font("Segoe UI", 21F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.ProjectCaptionLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(184)))), ((int)(((byte)(238)))));
-            this.ProjectCaptionLabel.Location = new System.Drawing.Point(150, 0);
-            this.ProjectCaptionLabel.Name = "ProjectCaptionLabel";
-            this.ProjectCaptionLabel.Size = new System.Drawing.Size(0, 30);
-            this.ProjectCaptionLabel.TabIndex = 299;
-            // 
-            // AuthorLabel
-            // 
-            this.AuthorLabel.AutoSize = true;
-            this.AuthorLabel.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.AuthorLabel.ForeColor = System.Drawing.Color.Silver;
-            this.AuthorLabel.Location = new System.Drawing.Point(151, 28);
-            this.AuthorLabel.Name = "AuthorLabel";
-            this.AuthorLabel.Size = new System.Drawing.Size(0, 21);
-            this.AuthorLabel.TabIndex = 300;
-            // 
             // infiniumProjectsDescriptionBox1
             // 
             this.infiniumProjectsDescriptionBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -2737,40 +2819,6 @@
             this.infiniumProjectsDescriptionBox1.VerticalScrollBar.VerticalScrollCommonThumbButtonColor = System.Drawing.Color.DarkGray;
             this.infiniumProjectsDescriptionBox1.VerticalScrollBar.VerticalScrollTrackingShaftBackColor = System.Drawing.Color.PowderBlue;
             this.infiniumProjectsDescriptionBox1.VerticalScrollBar.VerticalScrollTrackingThumbButtonColor = System.Drawing.Color.Gray;
-            // 
-            // AuthorPhotoBox
-            // 
-            this.AuthorPhotoBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.AuthorPhotoBox.Location = new System.Drawing.Point(16, 3);
-            this.AuthorPhotoBox.Name = "AuthorPhotoBox";
-            this.AuthorPhotoBox.Size = new System.Drawing.Size(125, 116);
-            this.AuthorPhotoBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.AuthorPhotoBox.TabIndex = 298;
-            this.AuthorPhotoBox.TabStop = false;
-            // 
-            // NoNewsLabel
-            // 
-            this.NoNewsLabel.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.NoNewsLabel.AutoSize = true;
-            this.NoNewsLabel.Font = new System.Drawing.Font("Segoe UI", 17F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.NoNewsLabel.ForeColor = System.Drawing.Color.Silver;
-            this.NoNewsLabel.Location = new System.Drawing.Point(265, 460);
-            this.NoNewsLabel.Name = "NoNewsLabel";
-            this.NoNewsLabel.Size = new System.Drawing.Size(381, 46);
-            this.NoNewsLabel.TabIndex = 309;
-            this.NoNewsLabel.Text = "В проекте нет сообщений.\r\nДобавьте сообщение для обсуждения проекта";
-            this.NoNewsLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // NoNewsPicture
-            // 
-            this.NoNewsPicture.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.NoNewsPicture.Image = ((System.Drawing.Image)(resources.GetObject("NoNewsPicture.Image")));
-            this.NoNewsPicture.Location = new System.Drawing.Point(408, 352);
-            this.NoNewsPicture.Name = "NoNewsPicture";
-            this.NoNewsPicture.Size = new System.Drawing.Size(93, 93);
-            this.NoNewsPicture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.NoNewsPicture.TabIndex = 311;
-            this.NoNewsPicture.TabStop = false;
             // 
             // NewsContainer
             // 
@@ -2815,38 +2863,28 @@
             this.NewsContainer.NoNeedMoreNews += new System.EventHandler(this.NewsContainer_NoNeedMoreNews);
             this.NewsContainer.AttachClicked += new Infinium.InfiniumProjectNewsContainer.AttachClickedEventHandler(this.NewsContainer_AttachClicked);
             // 
-            // AddNewsLabel
+            // infiniumClock1
             // 
-            this.AddNewsLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.AddNewsLabel.AutoSize = true;
-            this.AddNewsLabel.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.AddNewsLabel.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.AddNewsLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(205)))), ((int)(((byte)(252)))));
-            this.AddNewsLabel.Location = new System.Drawing.Point(777, 143);
-            this.AddNewsLabel.Name = "AddNewsLabel";
-            this.AddNewsLabel.Size = new System.Drawing.Size(160, 20);
-            this.AddNewsLabel.TabIndex = 308;
-            this.AddNewsLabel.Text = "Добавить сообщение";
-            this.AddNewsLabel.Click += new System.EventHandler(this.AddNewsLabel_Click);
+            this.infiniumClock1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.infiniumClock1.Image = ((System.Drawing.Image)(resources.GetObject("infiniumClock1.Image")));
+            this.infiniumClock1.Location = new System.Drawing.Point(855, 22);
+            this.infiniumClock1.MarginLines = 0;
+            this.infiniumClock1.Name = "infiniumClock1";
+            this.infiniumClock1.Size = new System.Drawing.Size(150, 150);
+            this.infiniumClock1.TabIndex = 0;
+            this.infiniumClock1.Text = "infiniumClock1";
+            this.toolTip1.SetToolTip(this.infiniumClock1, "Текущее время");
             // 
-            // timer1
+            // infiniumWorkDayClock
             // 
-            this.timer1.Enabled = true;
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
-            // 
-            // kryptonCheckSet2
-            // 
-            this.kryptonCheckSet2.CheckButtons.Add(this.cbtnProfilFunctions);
-            this.kryptonCheckSet2.CheckButtons.Add(this.cbtnTPSFunctions);
-            this.kryptonCheckSet2.CheckedButton = this.cbtnProfilFunctions;
-            this.kryptonCheckSet2.CheckedButtonChanged += new System.EventHandler(this.kryptonCheckSet2_CheckedButtonChanged);
-            // 
-            // kryptonCheckSet3
-            // 
-            this.kryptonCheckSet3.CheckButtons.Add(this.cbtnProfilFunctions1);
-            this.kryptonCheckSet3.CheckButtons.Add(this.cbtnTPSFunctions1);
-            this.kryptonCheckSet3.CheckedButton = this.cbtnProfilFunctions1;
-            this.kryptonCheckSet3.CheckedButtonChanged += new System.EventHandler(this.kryptonCheckSet3_CheckedButtonChanged);
+            this.infiniumWorkDayClock.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.infiniumWorkDayClock.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.infiniumWorkDayClock.Location = new System.Drawing.Point(1046, 29);
+            this.infiniumWorkDayClock.Name = "infiniumWorkDayClock";
+            this.infiniumWorkDayClock.Size = new System.Drawing.Size(144, 144);
+            this.infiniumWorkDayClock.TabIndex = 4;
+            this.infiniumWorkDayClock.Text = "infiniumDayTimeClock1";
+            this.toolTip1.SetToolTip(this.infiniumWorkDayClock, "Отработанное время");
             // 
             // DayPlannerForm
             // 
@@ -2854,8 +2892,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1270, 740);
-            this.Controls.Add(this.WorkDayPanel);
             this.Controls.Add(this.TimeSheetPanel);
+            this.Controls.Add(this.WorkDayPanel);
             this.Controls.Add(this.NavigatePanel);
             this.Controls.Add(this.kryptonPanel1);
             this.Controls.Add(this.MyFunctionsPanel);
@@ -2920,37 +2958,6 @@
             this.kryptonSplitContainer2.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.kryptonSplitContainer2)).EndInit();
             this.kryptonSplitContainer2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.lightPanel1)).EndInit();
-            this.lightPanel1.ResumeLayout(false);
-            this.tableLayoutPanel1.ResumeLayout(false);
-            this.panel6.ResumeLayout(false);
-            this.panel6.PerformLayout();
-            this.panel13.ResumeLayout(false);
-            this.panel13.PerformLayout();
-            this.panel7.ResumeLayout(false);
-            this.panel7.PerformLayout();
-            this.panel11.ResumeLayout(false);
-            this.panel11.PerformLayout();
-            this.panel8.ResumeLayout(false);
-            this.panel8.PerformLayout();
-            this.panel10.ResumeLayout(false);
-            this.panel10.PerformLayout();
-            this.panel9.ResumeLayout(false);
-            this.panel9.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.panel4)).EndInit();
-            this.panel4.ResumeLayout(false);
-            this.panel4.PerformLayout();
-            this.tableLayoutPanel4.ResumeLayout(false);
-            this.panel22.ResumeLayout(false);
-            this.panel22.PerformLayout();
-            this.panel23.ResumeLayout(false);
-            this.panel23.PerformLayout();
-            this.panel24.ResumeLayout(false);
-            this.panel24.PerformLayout();
-            this.panel25.ResumeLayout(false);
-            this.panel25.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             this.MyFunctionsPanel.ResumeLayout(false);
             this.flowLayoutPanel1.ResumeLayout(false);
             this.pnlProfilFunctions.ResumeLayout(false);
@@ -2985,6 +2992,39 @@
             ((System.ComponentModel.ISupportInitialize)(this.NoNewsPicture)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonCheckSet2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonCheckSet3)).EndInit();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.lightPanel1)).EndInit();
+            this.lightPanel1.ResumeLayout(false);
+            this.tableLayoutPanel1.ResumeLayout(false);
+            this.panel6.ResumeLayout(false);
+            this.panel6.PerformLayout();
+            this.panel13.ResumeLayout(false);
+            this.panel13.PerformLayout();
+            this.panel7.ResumeLayout(false);
+            this.panel7.PerformLayout();
+            this.panel11.ResumeLayout(false);
+            this.panel11.PerformLayout();
+            this.panel8.ResumeLayout(false);
+            this.panel8.PerformLayout();
+            this.panel10.ResumeLayout(false);
+            this.panel10.PerformLayout();
+            this.panel9.ResumeLayout(false);
+            this.panel9.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panel4)).EndInit();
+            this.panel4.ResumeLayout(false);
+            this.panel4.PerformLayout();
+            this.tableLayoutPanel4.ResumeLayout(false);
+            this.panel22.ResumeLayout(false);
+            this.panel22.PerformLayout();
+            this.panel23.ResumeLayout(false);
+            this.panel23.PerformLayout();
+            this.panel24.ResumeLayout(false);
+            this.panel24.PerformLayout();
+            this.panel25.ResumeLayout(false);
+            this.panel25.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -3171,5 +3211,8 @@
         private System.Windows.Forms.Label label28;
         private InfiniumTimeLabel lbBreakHours;
         private System.Windows.Forms.Label label30;
+        private System.Windows.Forms.Panel panel1;
+        private InfiniumTimeLabel lbRate;
+        private System.Windows.Forms.Label label11;
     }
 }

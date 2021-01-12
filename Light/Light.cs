@@ -9270,6 +9270,7 @@ namespace Infinium
     public class DayPlannerTimesheet
     {
         decimal Rate = 0;
+        string StrRate = "";
 
         public DataTable _timesheetDataTable;
         private DataTable _absJournalDataTable;
@@ -9490,7 +9491,7 @@ namespace Infinium
                 decimal breakHours = workdayTuple.Item3;
                 AllWorkHours += workHours - breakHours;
 
-                int prodSheduleHours = GetHourInProdShedule(date);
+                decimal prodSheduleHours = GetHourInProdShedule(date) * Rate;
 
                 if (absenceTypeId == 12 || absenceTypeId == 13)
                 {
@@ -9502,7 +9503,7 @@ namespace Infinium
                 }
 
                 ThatDayPlanHours = prodSheduleHours;
-                if (date == dateToday) //если это выбранный день
+                if (date == DateTime.Today) //если это выбранный день
                 {
                     //break;
                 }
@@ -9518,8 +9519,9 @@ namespace Infinium
                     IsAbsence = isAbsence,
                     AbsenceFullName = GetAbsenceFullName(absenceTypeId),
                     AbsenceShortName = GetAbsenceShortName(absenceTypeId),
+                    StrRate = StrRate,
                     AbsenceHours = Convert.ToDecimal(absenceHour.ToString("0.####")),
-                    PlanHours = Convert.ToDecimal((ThatDayPlanHours * Rate).ToString("0.####")),
+                    PlanHours = Convert.ToDecimal((ThatDayPlanHours).ToString("0.####")),
                     FactHours = workHours - breakHours,
                     BreakHours = breakHours,
                     OverworkHours = Convert.ToDecimal(((AllWorkHours - AllPlanHours - AbsenteeismHours) * Rate).ToString("0.####"))
@@ -9582,11 +9584,22 @@ namespace Infinium
             {
                 using (DataTable dt = new DataTable())
                 {
-                    if (da.Fill(dt) > 0)
+                    Rate = 0;
+                    if (da.Fill(dt) == 1)
+                    {
                         Rate = Convert.ToDecimal(dt.Rows[0]["Rate"]);
+                        StrRate = Rate.ToString();
+
+                    }
+                    if (da.Fill(dt) == 2)
+                    {
+                        Rate = Convert.ToDecimal(dt.Rows[0]["Rate"]) + Convert.ToDecimal(dt.Rows[1]["Rate"]);
+                        StrRate = dt.Rows[0]["Rate"].ToString() + "+" + dt.Rows[1]["Rate"].ToString();
+                    }
                 }
             }
         }
+
         public void ClearReport()
         {
             if (Ex != null)
@@ -9614,6 +9627,7 @@ namespace Infinium
         public int AbsenceTypeID; //тип неявки
         public string AbsenceFullName;
         public string AbsenceShortName;
+        public string StrRate;
         public decimal AbsenceHours; //часы по неявке
     }
 

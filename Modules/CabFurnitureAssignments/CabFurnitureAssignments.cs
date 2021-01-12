@@ -106,7 +106,6 @@ namespace Infinium.Modules.CabFurnitureAssignments
                     CoversBS.Position = Pos;
         }
 
-
         public void DeleteCovers(int[] CabFurnitureCoverID)
         {
             DataRow[] rows = CoversDT.Select("CabFurnitureCoverID IN (" + string.Join(",", CabFurnitureCoverID) + ")");
@@ -142,6 +141,203 @@ namespace Infinium.Modules.CabFurnitureAssignments
         }
 
     }
+
+
+    public class CabFurStorageToExcel
+    {
+        int pos01 = 0;
+
+        HSSFWorkbook hssfworkbook;
+
+        HSSFFont fConfirm;
+        HSSFFont fHeader;
+        HSSFFont fColumnName;
+        HSSFFont fMainContent;
+        HSSFFont fTotalInfo;
+
+        HSSFCellStyle csConfirm;
+        HSSFCellStyle csHeader;
+        HSSFCellStyle csColumnName;
+        HSSFCellStyle csMainContent;
+        HSSFCellStyle csTotalInfo;
+
+        public CabFurStorageToExcel()
+        {
+            hssfworkbook = new HSSFWorkbook();
+            CreateFonts();
+            CreateCellStyles();
+        }
+
+        private void CreateFonts()
+        {
+            fConfirm = hssfworkbook.CreateFont();
+            fConfirm.FontHeightInPoints = 12;
+            fConfirm.FontName = "Calibri";
+
+            fHeader = hssfworkbook.CreateFont();
+            fHeader.FontHeightInPoints = 12;
+            fHeader.Boldweight = 12 * 256;
+            fHeader.FontName = "Calibri";
+
+            fColumnName = hssfworkbook.CreateFont();
+            fColumnName.FontHeightInPoints = 12;
+            fColumnName.Boldweight = 12 * 256;
+            fColumnName.FontName = "Calibri";
+
+            fMainContent = hssfworkbook.CreateFont();
+            fMainContent.FontHeightInPoints = 11;
+            fMainContent.Boldweight = 11 * 256;
+            fMainContent.IsItalic = true;
+            fMainContent.FontName = "Calibri";
+
+            fTotalInfo = hssfworkbook.CreateFont();
+            fTotalInfo.FontHeightInPoints = 11;
+            fTotalInfo.Boldweight = 11 * 256;
+            fTotalInfo.FontName = "Calibri";
+        }
+
+        private void CreateCellStyles()
+        {
+            csConfirm = hssfworkbook.CreateCellStyle();
+            csConfirm.SetFont(fConfirm);
+
+            csHeader = hssfworkbook.CreateCellStyle();
+            csHeader.SetFont(fHeader);
+
+            csColumnName = hssfworkbook.CreateCellStyle();
+            csColumnName.BorderBottom = HSSFCellStyle.BORDER_THIN;
+            csColumnName.BottomBorderColor = HSSFColor.BLACK.index;
+            csColumnName.BorderLeft = HSSFCellStyle.BORDER_THIN;
+            csColumnName.LeftBorderColor = HSSFColor.BLACK.index;
+            csColumnName.BorderRight = HSSFCellStyle.BORDER_THIN;
+            csColumnName.RightBorderColor = HSSFColor.BLACK.index;
+            csColumnName.BorderTop = HSSFCellStyle.BORDER_THIN;
+            csColumnName.TopBorderColor = HSSFColor.BLACK.index;
+            csColumnName.Alignment = HSSFCellStyle.ALIGN_CENTER;
+            csColumnName.VerticalAlignment = HSSFCellStyle.VERTICAL_CENTER;
+            csColumnName.WrapText = true;
+            csColumnName.SetFont(fColumnName);
+
+            csMainContent = hssfworkbook.CreateCellStyle();
+            csMainContent.BorderBottom = HSSFCellStyle.BORDER_THIN;
+            csMainContent.BottomBorderColor = HSSFColor.BLACK.index;
+            csMainContent.BorderLeft = HSSFCellStyle.BORDER_THIN;
+            csMainContent.LeftBorderColor = HSSFColor.BLACK.index;
+            csMainContent.BorderRight = HSSFCellStyle.BORDER_THIN;
+            csMainContent.RightBorderColor = HSSFColor.BLACK.index;
+            csMainContent.BorderTop = HSSFCellStyle.BORDER_THIN;
+            csMainContent.TopBorderColor = HSSFColor.BLACK.index;
+            csMainContent.VerticalAlignment = HSSFCellStyle.ALIGN_RIGHT;
+            csMainContent.SetFont(fMainContent);
+
+            csTotalInfo = hssfworkbook.CreateCellStyle();
+            csTotalInfo.BorderBottom = HSSFCellStyle.BORDER_THIN;
+            csTotalInfo.BottomBorderColor = HSSFColor.BLACK.index;
+            csTotalInfo.BorderLeft = HSSFCellStyle.BORDER_THIN;
+            csTotalInfo.LeftBorderColor = HSSFColor.BLACK.index;
+            csTotalInfo.BorderRight = HSSFCellStyle.BORDER_THIN;
+            csTotalInfo.RightBorderColor = HSSFColor.BLACK.index;
+            csTotalInfo.BorderTop = HSSFCellStyle.BORDER_THIN;
+            csTotalInfo.TopBorderColor = HSSFColor.BLACK.index;
+            csTotalInfo.Alignment = HSSFCellStyle.ALIGN_LEFT;
+            csTotalInfo.SetFont(fTotalInfo);
+        }
+
+        public void ClearReport()
+        {
+            hssfworkbook = new HSSFWorkbook();
+            CreateFonts();
+            CreateCellStyles();
+        }
+
+        public void Form01(DataTable table1)
+        {
+            HSSFSheet sheet01 = hssfworkbook.CreateSheet(table1.TableName);
+            sheet01.PrintSetup.PaperSize = (short)PaperSizeType.A4;
+            sheet01.SetMargin(HSSFSheet.LeftMargin, (double).12);
+            sheet01.SetMargin(HSSFSheet.RightMargin, (double).07);
+            sheet01.SetMargin(HSSFSheet.TopMargin, (double).20);
+            sheet01.SetMargin(HSSFSheet.BottomMargin, (double).20);
+            pos01 = 0;
+
+            HSSFCell Cell1 = null;
+            int DisplayIndex = 0;
+            {
+                for (int i = 0; i < table1.Columns.Count; i++)
+                {
+                    if (table1.Columns[i].ColumnName == "TechStoreID")
+                        continue;
+                    sheet01.SetColumnWidth(i, 15 * 256);
+                    string ColName = table1.Columns[i].ToString();
+                    
+                    Cell1 = sheet01.CreateRow(pos01).CreateCell(DisplayIndex++);
+                    Cell1.SetCellValue(ColName);
+                    Cell1.CellStyle = csColumnName;
+                    if (ColName == "TechStore")
+                    {
+                        sheet01.SetColumnWidth(i, 40 * 256);
+                        Cell1.SetCellValue("Продукция");
+                    }
+                }
+
+                pos01++;
+
+                //Содержимое таблицы
+                for (int x = 0; x < table1.Rows.Count; x++)
+                {
+                    DisplayIndex = 0;
+
+                    for (int y = 0; y < table1.Columns.Count; y++)
+                    {
+                        if (table1.Columns[y].ColumnName == "TechStoreID")
+                            continue;
+                        Type t = table1.Rows[x][y].GetType();
+
+                        if (t.Name == "Int32")
+                        {
+                            Cell1 = sheet01.CreateRow(pos01).CreateCell(y);
+                            Cell1.SetCellValue(Convert.ToInt32(table1.Rows[x][y]));
+                            Cell1.CellStyle = csMainContent;
+                            continue;
+                        }
+
+                        if (t.Name == "String" || t.Name == "DBNull")
+                        {
+                            Cell1 = sheet01.CreateRow(pos01).CreateCell(y);
+                            Cell1.SetCellValue(table1.Rows[x][y].ToString());
+                            Cell1.CellStyle = csTotalInfo;
+                            continue;
+                        }
+                    }
+
+                    pos01++;
+                }
+            }
+
+            pos01++;
+            pos01++;
+        }
+
+        public void SaveFile(string FileName, bool bOpenFile)
+        {
+            string tempFolder = System.Environment.GetEnvironmentVariable("TEMP");
+            FileInfo file = new FileInfo(tempFolder + @"\" + FileName + ".xls");
+            int j = 1;
+            while (file.Exists == true)
+            {
+                file = new FileInfo(tempFolder + @"\" + FileName + "(" + j++ + ").xls");
+            }
+
+            FileStream NewFile = new FileStream(file.FullName, FileMode.Create);
+            hssfworkbook.Write(NewFile);
+            NewFile.Close();
+            ClearReport();
+
+            if (bOpenFile)
+                System.Diagnostics.Process.Start(file.FullName);
+        }
+    }
+
 
 
     public class AssignmentsManager
@@ -181,6 +377,8 @@ namespace Infinium.Modules.CabFurnitureAssignments
         DataTable InProductionDetailDT;
         DataTable OnStorageDetailDT;
         DataTable OnExpeditionDetailDT;
+
+        public DataSet TotalProductsCoversDs;
 
         public BindingSource BasicInsetColorsBS;
         public BindingSource BasicCoversBS1;
@@ -234,6 +432,186 @@ namespace Infinium.Modules.CabFurnitureAssignments
             get { return NewAssignmentDetailsDT; }
         }
 
+        public bool GetStorage()
+        {
+            TotalProductsCoversDs = new DataSet();
+
+            DataTable UniqueProductsDt = new DataTable();
+            DataTable UniqueGroupsDt = new DataTable();
+            DataTable AllPackagesDt = new DataTable();
+            DataSet TotalProductsDs = new DataSet();
+            DataSet TempTotalProductsCoversDs = new DataSet();
+            DataTable TotalProductsDt = new DataTable();
+            TotalProductsDt.Columns.Add(new DataColumn("TechStoreGroup", Type.GetType("System.String")));
+            TotalProductsDt.Columns.Add(new DataColumn("TechStore", Type.GetType("System.String")));
+            TotalProductsDt.Columns.Add(new DataColumn("Cover", Type.GetType("System.String")));
+            TotalProductsDt.Columns.Add(new DataColumn("Patina", Type.GetType("System.String")));
+            TotalProductsDt.Columns.Add(new DataColumn("Count", Type.GetType("System.Int32")));
+            TotalProductsDt.Columns.Add(new DataColumn("TechStoreGroupID", Type.GetType("System.Int32")));
+            TotalProductsDt.Columns.Add(new DataColumn("TechStoreID", Type.GetType("System.Int32")));
+            TotalProductsDt.Columns.Add(new DataColumn("CoverID", Type.GetType("System.Int32")));
+            TotalProductsDt.Columns.Add(new DataColumn("PatinaID", Type.GetType("System.Int32")));
+
+            string SelectCommand = @"SELECT TG.TechStoreGroupID, CabFurnitureAssignmentDetails.TechStoreID, CabFurnitureAssignmentDetails.CoverID, CabFurnitureAssignmentDetails.PatinaID FROM CabFurnitureAssignmentDetails INNER JOIN
+                infiniu2_catalog.dbo.TechStore AS T ON CabFurnitureAssignmentDetails.TechStoreID = T.TechStoreID INNER JOIN
+                infiniu2_catalog.dbo.TechStoreSubGroups AS TS ON T.TechStoreSubGroupID = TS.TechStoreSubGroupID INNER JOIN
+                infiniu2_catalog.dbo.TechStoreGroups AS TG ON TS.TechStoreGroupID = TG.TechStoreGroupID
+                WHERE CabFurAssignmentDetailID IN
+                (SELECT CabFurAssignmentDetailID FROM CabFurniturePackages WHERE CellID<>-1)
+                GROUP BY TG.TechStoreGroupID, CabFurnitureAssignmentDetails.TechStoreID, CabFurnitureAssignmentDetails.CoverID, CabFurnitureAssignmentDetails.PatinaID
+                ORDER BY TG.TechStoreGroupID, CabFurnitureAssignmentDetails.TechStoreID, CabFurnitureAssignmentDetails.CoverID, CabFurnitureAssignmentDetails.PatinaID";
+            using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.StorageConnectionString))
+            {
+                DA.Fill(UniqueProductsDt);
+            }
+
+            using (DataView DV = new DataView(UniqueProductsDt))
+            {
+                UniqueGroupsDt = DV.ToTable(true, new string[] { "TechStoreGroupID" });
+            }
+            for (int i = 0; i < UniqueGroupsDt.Rows.Count; i++)
+            {
+                int TechStoreGroupId = Convert.ToInt32(UniqueGroupsDt.Rows[i]["TechStoreGroupID"]);
+                string TechStoreGroup = GetTechStoreGroupName(TechStoreGroupId);
+                TechStoreGroup = TechStoreGroup.Replace("Корпусная мебель ", "");
+                DataTable dt = new DataTable();
+                dt = TotalProductsDt.Clone();
+                dt.TableName = TechStoreGroup;
+                TotalProductsDs.Tables.Add(dt);
+            }
+
+            for (int i = 0; i < UniqueProductsDt.Rows.Count; i++)
+            {
+                int TechStoreGroupId = Convert.ToInt32(UniqueProductsDt.Rows[i]["TechStoreGroupID"]);
+                string TechStoreGroup = GetTechStoreGroupName(TechStoreGroupId);
+                TechStoreGroup = TechStoreGroup.Replace("Корпусная мебель ", "");
+                int TechStoreId = Convert.ToInt32(UniqueProductsDt.Rows[i]["TechStoreID"]);
+                int CoverId = Convert.ToInt32(UniqueProductsDt.Rows[i]["CoverID"]);
+                int PatinaId = Convert.ToInt32(UniqueProductsDt.Rows[i]["PatinaID"]);
+
+                SelectCommand = @"SELECT CabFurniturePackageID, PackNumber, PackagesCount FROM CabFurniturePackages WHERE CellID<>-1 AND CabFurAssignmentDetailID IN
+                (SELECT CabFurAssignmentDetailID FROM CabFurnitureAssignmentDetails WHERE 
+                TechStoreID = " + TechStoreId + @" AND CoverID = " + CoverId + @" AND PatinaID = " + PatinaId + ")";
+                using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.StorageConnectionString))
+                {
+                    AllPackagesDt.Clear();
+                    if (DA.Fill(AllPackagesDt) > 0)
+                    {
+                        int PackagesCount = -1;
+
+                        if (AllPackagesDt.Rows[0]["PackagesCount"] == DBNull.Value)
+                            continue;
+                        PackagesCount = Convert.ToInt32(AllPackagesDt.Rows[0]["PackagesCount"]);
+                        int Count = 0;
+                        int MaxCount = 0;
+                        bool b = true;
+
+                        for (int j = 1; j < PackagesCount; j++)
+                        {
+                            int PackNumber = j;
+                            using (DataView DV = new DataView(AllPackagesDt))
+                            {
+                                DV.RowFilter = "PackNumber=" + PackNumber;
+                                if (MaxCount == 0)
+                                    MaxCount = DV.ToTable().Rows.Count;
+                                Count = DV.ToTable().Rows.Count;
+                                if (Count == 0)
+                                    b = false;
+                                if (Count < MaxCount)
+                                    MaxCount = Count;
+                            }
+                        }
+                        if (b)
+                        {
+                            DataRow NewRow = TotalProductsDs.Tables[TechStoreGroup].NewRow();
+                            NewRow["TechStoreGroup"] = TechStoreGroup;
+                            NewRow["TechStore"] = GetTechStoreName(TechStoreId);
+                            NewRow["Cover"] = GetCoverName(CoverId);
+                            NewRow["Patina"] = GetPatinaName(PatinaId);
+                            NewRow["Count"] = MaxCount;
+                            NewRow["TechStoreGroupID"] = TechStoreGroupId;
+                            NewRow["TechStoreID"] = TechStoreId;
+                            NewRow["CoverID"] = CoverId;
+                            NewRow["PatinaID"] = PatinaId;
+                            TotalProductsDs.Tables[TechStoreGroup].Rows.Add(NewRow);
+                        }
+                    }
+                }
+            }
+
+            for (int i = 0; i < TotalProductsDs.Tables.Count; i++)
+            {
+                DataTable dt = new DataTable();
+                DataTable newDt = new DataTable();
+                using (DataView DV = new DataView(TotalProductsDs.Tables[i]))
+                {
+                    dt = DV.ToTable(true, new string[] { "CoverID", "PatinaID" });
+                }
+                for (int j = 0; j < dt.Rows.Count; j++)
+                {
+                    string Cover = GetCoverName(Convert.ToInt32(dt.Rows[j]["CoverID"]));
+                    string Patina = GetPatinaName(Convert.ToInt32(dt.Rows[j]["PatinaID"]));
+                    string ColName = Cover;
+                    if (Convert.ToInt32(dt.Rows[j]["PatinaID"]) != -1)
+                        ColName = Cover + " " + Patina;
+                    newDt.Columns.Add(new DataColumn(ColName, Type.GetType("System.Int32")));
+                }
+                newDt.Columns.Add(new DataColumn("TechStore", Type.GetType("System.String")));
+                newDt.Columns.Add(new DataColumn("TechStoreID", Type.GetType("System.Int32")));
+                newDt.TableName = TotalProductsDs.Tables[i].TableName;
+                TempTotalProductsCoversDs.Tables.Add(newDt);
+
+                for (int j = 0; j < dt.Rows.Count; j++)
+                {
+                    int CoverId = Convert.ToInt32(dt.Rows[j]["CoverID"]);
+                    int PatinaId = Convert.ToInt32(dt.Rows[j]["PatinaID"]);
+
+                    string Cover = GetCoverName(Convert.ToInt32(dt.Rows[j]["CoverID"]));
+                    string Patina = GetPatinaName(Convert.ToInt32(dt.Rows[j]["PatinaID"]));
+                    string ColName = Cover;
+                    if (Convert.ToInt32(dt.Rows[j]["PatinaID"]) != -1)
+                        ColName = Cover + " " + Patina;
+
+                    DataRow[] tRows = TotalProductsDs.Tables[i].Select("CoverID=" + CoverId + " AND PatinaID=" + PatinaId);
+                    if (tRows.Any())
+                    {
+                        for (int x = 0; x < tRows.Count(); x++)
+                        {
+                            string TechStore = tRows[x]["TechStore"].ToString();
+                            int TechStoreId = Convert.ToInt32(tRows[x]["TechStoreID"]);
+
+                            DataRow[] rows = TempTotalProductsCoversDs.Tables[i].Select("TechStoreID=" + TechStoreId);
+                            if (rows.Count() == 0)
+                            {
+                                DataRow NewRow = TempTotalProductsCoversDs.Tables[i].NewRow();
+                                NewRow[ColName] = tRows[x]["Count"];
+                                NewRow["TechStore"] = TechStore;
+                                NewRow["TechStoreID"] = TechStoreId;
+                                TempTotalProductsCoversDs.Tables[i].Rows.Add(NewRow);
+                            }
+                            else
+                            {
+                                rows[0][ColName] = tRows[x]["Count"];
+                            }
+                        }
+                    }
+                }
+            }
+            bool b = false;
+            for (int i = 0; i < TempTotalProductsCoversDs.Tables.Count; i++)
+            {
+                if (TempTotalProductsCoversDs.Tables[i].Rows.Count)
+                    b = true;
+                using (DataView DV = new DataView(TempTotalProductsCoversDs.Tables[i].Copy()))
+                {
+                    DV.Sort = "TechStore";
+                    DataTable dt = DV.ToTable();
+                    TotalProductsCoversDs.Tables.Add(dt);
+                }
+            }
+            return b;
+        }
+
         public void ff()
         {
             DataTable dt = new DataTable();
@@ -273,6 +651,37 @@ WHERE        CAST(CreateDateTime AS date) >= '2019-12-26 00:00' AND CAST(CreateD
             }
         }
 
+        public void fffff()
+        {
+            DataTable dt = new DataTable();
+            DataTable dt1 = new DataTable();
+
+            string SelectCommand = @"SELECT        CabFurAssignmentDetailID, MAX(PackNumber) AS maxvalue
+                               FROM            CabFurniturePackages
+                               GROUP BY CabFurAssignmentDetailID";
+            SqlDataAdapter da = new SqlDataAdapter(SelectCommand, ConnectionStrings.StorageConnectionString);
+            da.Fill(dt);
+
+            SelectCommand = @"SELECT   CabFurniturePackageID, CabFurAssignmentDetailID, PackagesCount1
+                               FROM            CabFurniturePackages where CabFurniturePackageID>20501";
+            SqlDataAdapter da1 = new SqlDataAdapter(SelectCommand, ConnectionStrings.StorageConnectionString);
+            SqlCommandBuilder cb = new SqlCommandBuilder(da1);
+            da1.Fill(dt1);
+
+            
+
+            for (int i = 0; i < dt1.Rows.Count; i++)
+            {
+                int CabFurAssignmentDetailID = Convert.ToInt32(dt1.Rows[i]["CabFurAssignmentDetailID"]);
+                DataRow[] rows = dt.Select("CabFurAssignmentDetailID=" + CabFurAssignmentDetailID);
+                if (rows.Any())
+                {
+                    dt1.Rows[i]["PackagesCount1"] = rows[0]["maxvalue"];
+                }
+            }
+            da1.Update(dt1);
+        }
+
         public AssignmentsManager()
         {
 
@@ -288,6 +697,7 @@ WHERE        CAST(CreateDateTime AS date) >= '2019-12-26 00:00' AND CAST(CreateD
         private void Create()
         {
             FM = new FileManager();
+            TotalProductsCoversDs = new DataSet();
 
             ComplementLabelDataDT = new DataTable();
             ComplementLabelDataDT.Columns.Add(new DataColumn("Notes", Type.GetType("System.String")));
@@ -1888,6 +2298,16 @@ WHERE        CAST(CreateDateTime AS date) >= '2019-12-26 00:00' AND CAST(CreateD
             return string.Empty;
         }
 
+        public string GetTechStoreGroupName(int TechStoreGroupID)
+        {
+            DataRow[] rows = TechStoreGroupsDT.Select("TechStoreGroupID = " + TechStoreGroupID);
+            if (rows.Count() > 0)
+            {
+                return rows[0]["TechStoreGroupName"].ToString();
+            }
+            return string.Empty;
+        }
+
         public string StoreName(int TechStoreID)
         {
             DataRow[] rows = TechStoreDT.Select("TechStoreID = " + TechStoreID);
@@ -2022,6 +2442,7 @@ WHERE        CAST(CreateDateTime AS date) >= '2019-12-26 00:00' AND CAST(CreateD
                 DA.Fill(CabFurnitureAssignmentDetailsDT);
             }
             int AllPackagesCount = 0;
+            DateTime CreateDateTime = Security.GetCurrentDate();
             for (int i = 0; i < CabFurnitureAssignmentDetailsDT.Rows.Count; i++)
             {
                 int TechStoreID = Convert.ToInt32(CabFurnitureAssignmentDetailsDT.Rows[i]["TechStoreID"]);
@@ -2031,8 +2452,7 @@ WHERE        CAST(CreateDateTime AS date) >= '2019-12-26 00:00' AND CAST(CreateD
                 int Count = Convert.ToInt32(CabFurnitureAssignmentDetailsDT.Rows[i]["Count"]);
                 int TechStoreSubGroupID = Convert.ToInt32(CabFurnitureAssignmentDetailsDT.Rows[i]["TechStoreSubGroupID"]);
                 int CabFurAssignmentDetailID = Convert.ToInt32(CabFurnitureAssignmentDetailsDT.Rows[i]["CabFurAssignmentDetailID"]);
-                DateTime CreateDateTime = Security.GetCurrentDate();
-
+                
                 using (SqlDataAdapter DA = new SqlDataAdapter("SELECT TOP 1 * FROM CabFurniturePackages ORDER BY CabFurniturePackageID DESC",
                     ConnectionStrings.StorageConnectionString))
                 {
@@ -2067,7 +2487,7 @@ WHERE        CAST(CreateDateTime AS date) >= '2019-12-26 00:00' AND CAST(CreateD
                                         NewRow["PatinaID"] = PatinaID;
                                         NewRow["InsetColorID"] = InsetColorID;
                                         NewRow["FactoryID"] = FactoryID;
-                                        NewRow["PackagesCount"] = 1;
+                                        NewRow["PackagesCount"] = dt.Rows.Count;
                                         NewRow["CreateDateTime"] = CreateDateTime;
                                         NewRow["CreateUserID"] = Security.CurrentUserID;
                                         DT.Rows.Add(NewRow);

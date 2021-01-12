@@ -1712,8 +1712,8 @@ namespace Infinium
                 TimesheetYear = e.Start.Year;
 
                 //313 - Литвиненко
-                //int userId = 313;
-                int userId = Security.CurrentUserID;
+                int userId = 313;
+                //int userId = Security.CurrentUserID;
 
                 DayPlannerWorkTimeSheet.GetAbsJournal(userId, TimesheetYear, TimesheetMonth);
                 DayPlannerWorkTimeSheet.GetProdShedule(TimesheetYear, TimesheetMonth);
@@ -1732,6 +1732,7 @@ namespace Infinium
                 lbAbsenceHours.Text = "-";
             }
             lbPlanHours.Text = dayInfo.PlanHours.ToString();
+            lbRate.Text = dayInfo.StrRate.ToString();
             lbOverworkHours.Text = dayInfo.OverworkHours.ToString();
             if (dayInfo.AbsenceTypeID != 14)
             {

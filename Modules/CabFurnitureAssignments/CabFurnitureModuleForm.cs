@@ -56,7 +56,7 @@ namespace Infinium
         StoragePackagesManager storagePackagesManager;
 
         CabFurStorage cabFurStorage;
-
+        CabFurStorageToExcel cabFurStorageToExcel;
         Infinium.Modules.CabFurnitureAssignments.CheckLabel CheckLabel;
         //RoleTypes RoleType = RoleTypes.OrdinaryRole;
 
@@ -252,6 +252,11 @@ namespace Infinium
 
         private void Initialize()
         {
+            cabFurStorage = new CabFurStorage();
+
+            storagePackagesManager = new StoragePackagesManager();
+            cabFurStorageToExcel = new CabFurStorageToExcel();
+
             DateTime FirstDay = DateTime.Now.AddDays(-100);
             DateTime Today = DateTime.Now;
 
@@ -261,7 +266,8 @@ namespace Infinium
             packageLabel = new PackageLabel();
 
             assignmentsManager = new AssignmentsManager();
-            assignmentsManager.Initialize();
+
+            assignmentsManager.Initialize();            
 
             complementsManager = new ComplementsManager();
             packagesManager = new PackagesManager();
@@ -365,10 +371,8 @@ namespace Infinium
 
 
             cellLabel = new CellLabel();
-            cabFurStorage = new CabFurStorage();
             CabStorageSetting();
 
-            storagePackagesManager = new StoragePackagesManager();
             dgvStoragePackagesLabels.DataSource = storagePackagesManager.PackageLabelsBS;
             dgvStoragePackagesDetails.DataSource = storagePackagesManager.PackageDetailsBS;
             dgvCellsSetting(ref dgvCells);
@@ -3482,6 +3486,27 @@ namespace Infinium
             PhantomForm.Dispose();
 
             GC.Collect();
+        }
+
+        private void btnExportStorageToExcel_Click(object sender, EventArgs e)
+        {
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
+            T.Start();
+            while (!SplashWindow.bSmallCreated) ;
+            NeedSplash = false;
+
+            if (assignmentsManager.GetStorage())
+            {
+                for (int i = 0; i < assignmentsManager.TotalProductsCoversDs.Tables.Count; i++)
+                {
+                    cabFurStorageToExcel.Form01(assignmentsManager.TotalProductsCoversDs.Tables[i]);
+                }
+                cabFurStorageToExcel.SaveFile("Склад корп мебели", true);
+            }
+
+            NeedSplash = true;
+            while (SplashWindow.bSmallCreated)
+                SmallWaitForm.CloseS = true;
         }
     }
 }

@@ -5425,14 +5425,8 @@ namespace Infinium.Modules.Marketing.Expedition
                         {
                             if (Confirm)
                             {
-                                if (DT.Rows[0]["ConfirmExpDateTime"] != DBNull.Value)
-                                {
-                                    if (DT.Rows[0]["ConfirmExpDateTime"] != DBNull.Value)
-                                    {
-                                        DT.Rows[0]["ConfirmDispDateTime"] = Security.GetCurrentDate();
-                                        DT.Rows[0]["ConfirmDispUserID"] = Security.CurrentUserID;
-                                    }
-                                }
+                                DT.Rows[0]["ConfirmDispDateTime"] = Security.GetCurrentDate();
+                                DT.Rows[0]["ConfirmDispUserID"] = Security.CurrentUserID;
                             }
                             else
                             {

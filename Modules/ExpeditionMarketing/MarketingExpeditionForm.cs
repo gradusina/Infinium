@@ -2394,7 +2394,7 @@ namespace Infinium
                 }
 
                 bool Confirm = false;
-                if (dgvDispatch.SelectedRows[0].Cells["ConfirmExpDateTime"].Value == DBNull.Value)
+                if (dgvDispatch.SelectedRows[i].Cells["ConfirmExpDateTime"].Value == DBNull.Value)
                     Confirm = true;
 
                 if (Confirm && !MarketingDispatchManager.IsDispatchCanExp(id))
