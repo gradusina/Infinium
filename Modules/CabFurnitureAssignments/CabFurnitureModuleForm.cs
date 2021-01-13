@@ -3333,6 +3333,12 @@ namespace Infinium
                 CabFurniturePackageID[i] = Convert.ToInt32(dgvPackagesLabels.SelectedRows[i].Cells["CabFurniturePackageID"].Value);
             }
 
+            bool OKCancel = Infinium.LightMessageBox.Show(ref TopForm, true,
+                    "Вы собираетесь отправить упаковки на ОТК. Они будут отвязаны от ячейки Продолжить?",
+                    "ОТК");
+            if (!OKCancel)
+                return;
+
             if (NeedSplash)
             {
                 Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
@@ -3434,6 +3440,12 @@ namespace Infinium
             {
                 CabFurniturePackageID[i] = Convert.ToInt32(dgvStoragePackagesLabels.SelectedRows[i].Cells["CabFurniturePackageID"].Value);
             }
+            
+            bool OKCancel = Infinium.LightMessageBox.Show(ref TopForm, true,
+                    "Вы собираетесь отправить упаковки на ОТК. Они будут отвязаны от ячейки. Продолжить?",
+                    "ОТК");
+            if (!OKCancel)
+                return;
 
             if (NeedSplash)
             {
@@ -3503,6 +3515,8 @@ namespace Infinium
                 }
                 cabFurStorageToExcel.SaveFile("Склад корп мебели", true);
             }
+            else
+                InfiniumTips.ShowTip(this, 50, 85, "Данные не найдены", 2000);
 
             NeedSplash = true;
             while (SplashWindow.bSmallCreated)

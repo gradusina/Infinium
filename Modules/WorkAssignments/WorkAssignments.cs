@@ -500,7 +500,7 @@ InsetTypeID, InsetColorID, TechnoProfileID, TechnoColorID, TechnoInsetTypeID, Te
             AllBatchFrontsDT.Clear();
 
             if (FilterType == 1)
-                FilterString = " AND FrontsOrders.FrontID IN (1975,1976,1977,1978,15760, 3737, 30501,30502,30503,30504,30505,30506,16269,30364,30366,30367,28945,3727,3728,3729,3730,3731,3732,3733,3734,3735,3736,3737,3739,3740,3741,3742,3743,3744,3745,3746,3747,3748,15108,27914)";
+                FilterString = " AND FrontsOrders.FrontID IN (1975,1976,1977,1978,15760, 3737, 30501,30502,30503,30504,30505,30506,16269,30364,30366,30367,28945,3727,3728,3729,3730,3731,3732,3733,3734,3735,3736,3737,3739,3740,3741,3742,3743,3744,3745,3746,3747,3748,15108,27914,29597)";
             if (FilterType == 2)
                 FilterString = " AND (FrontsOrders.FrontID=" + Convert.ToInt32(Fronts.KansasPat) + " OR FrontsOrders.FrontID=" + Convert.ToInt32(Fronts.Kansas) +
                     " OR FrontsOrders.FrontID=" + Convert.ToInt32(Fronts.Sofia) + " OR FrontsOrders.FrontID=" + Convert.ToInt32(Fronts.Lorenzo) +
@@ -638,7 +638,7 @@ Height, Width, Count, FrontConfigID, FrontsOrders.Square, FrontsOrders.FactoryID
             BatchFrontsDT.Clear();
 
             if (FilterType == 1)
-                FilterString = " AND FrontsOrders.FrontID IN (1975,1976,1977,1978,15760, 3737, 30501,30502,30503,30504,30505,30506,16269,30364,30366,30367,28945,3727,3728,3729,3730,3731,3732,3733,3734,3735,3736,3737,3739,3740,3741,3742,3743,3744,3745,3746,3747,3748,15108,27914)";
+                FilterString = " AND FrontsOrders.FrontID IN (1975,1976,1977,1978,15760, 3737, 30501,30502,30503,30504,30505,30506,16269,30364,30366,30367,28945,3727,3728,3729,3730,3731,3732,3733,3734,3735,3736,3737,3739,3740,3741,3742,3743,3744,3745,3746,3747,3748,15108,27914,29597)";
             if (FilterType == 2)
                 FilterString = " AND (FrontsOrders.FrontID=" + Convert.ToInt32(Fronts.KansasPat) +
                     " OR FrontsOrders.FrontID=" + Convert.ToInt32(Fronts.Kansas) +
@@ -3616,7 +3616,7 @@ DecorOrders.DecorConfigID, DecorOrders.FactoryID, DecorOrders.Notes, DecorConfig
         {
             int Count = 0;
             int PrintingStatus = 0;
-            int[] FrontsID = new int[28];
+            int[] FrontsID = new int[29];
             FrontsID[0] = Convert.ToInt32(Fronts.Antalia);
             FrontsID[1] = Convert.ToInt32(Fronts.Venecia);
             FrontsID[2] = Convert.ToInt32(Fronts.Leon);
@@ -3834,7 +3834,7 @@ DecorOrders.DecorConfigID, DecorOrders.FactoryID, DecorOrders.Notes, DecorConfig
         {
             int Count = 0;
             int PrintingStatus = 0;
-            int[] FrontsID = new int[13];
+            int[] FrontsID = new int[14];
             FrontsID[0] = Convert.ToInt32(Fronts.KansasPat);
             FrontsID[1] = Convert.ToInt32(Fronts.Turin1);
             FrontsID[2] = Convert.ToInt32(Fronts.Turin3);
@@ -3920,7 +3920,7 @@ DecorOrders.DecorConfigID, DecorOrders.FactoryID, DecorOrders.Notes, DecorConfig
                 INNER JOIN MegaOrders ON MainOrders.MegaOrderID = MegaOrders.MegaOrderID
                 INNER JOIN BatchDetails ON FrontsOrders.MainOrderID = BatchDetails.MainOrderID AND BatchDetails.FactoryID = 1
                 INNER JOIN Batch ON BatchDetails.BatchID = Batch.BatchID AND Batch.ProfilWorkAssignmentID = " + WorkAssignmentID +
-                @" WHERE FrontsOrders.FactoryID=1 AND FrontID IN (1975,1976,1977,1978,15760, 3737, 30501,30502,30503,30504,30505,30506,16269,30364,30366,30367,28945,3727,3728,3729,3730,3731,3732,3733,3734,3735,3736,3737,3739,3740,3741,3742,3743,3744,3745,3746,3747,3748,15108,27914)";
+                @" WHERE FrontsOrders.FactoryID=1 AND FrontID IN (1975,1976,1977,1978,15760, 3737, 30501,30502,30503,30504,30505,30506,16269,30364,30366,30367,28945,3727,3728,3729,3730,3731,3732,3733,3734,3735,3736,3737,3739,3740,3741,3742,3743,3744,3745,3746,3747,3748,15108,29597,27914)";
 
             using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand,
                 ConnectionStrings.MarketingOrdersConnectionString))
@@ -10782,12 +10782,10 @@ DecorOrders.DecorConfigID, DecorOrders.FactoryID, DecorOrders.Notes, DecorConfig
                 Calibri11CS, CalibriBold11CS, CalibriBold11F, TableHeaderCS, TableHeaderDecCS,
                 WorkAssignmentID, BatchName);
 
-            //string FileName = "№" + WorkAssignmentID + " " + BatchName;
-            //string tempFolder = System.Environment.GetEnvironmentVariable("TEMP");
-
-
             string FileName = WorkAssignmentID + " " + BatchName + "  Угол 45";
             string tempFolder = @"\\192.168.1.6\Public\USERS_2016\_ДЕЙСТВУЮЩИЕ\ПРОИЗВОДСТВО\ПРОФИЛЬ\инфиниум\";
+            //string tempFolder = System.Environment.GetEnvironmentVariable("TEMP");
+
             string CurrentMonthName = DateTime.Now.ToString("MMMM");
             tempFolder = Path.Combine(tempFolder, CurrentMonthName);
             if (!(Directory.Exists(tempFolder)))
@@ -24322,11 +24320,10 @@ DecorOrders.DecorConfigID, DecorOrders.FactoryID, DecorOrders.Notes, DecorConfig
             GetMainOrdersSummary(ref hssfworkbook,
                CalibriBold15CS, Calibri11CS, CalibriBold11CS, CalibriBold11F, TableHeaderCS, TableHeaderDecCS, WorkAssignmentID, BatchName, false, false, false);
 
-            //string FileName = "№" + WorkAssignmentID + " " + BatchName;
-            //string tempFolder = System.Environment.GetEnvironmentVariable("TEMP");
-
             string FileName = WorkAssignmentID + " " + BatchName + "  Угол 90";
             string tempFolder = @"\\192.168.1.6\Public\USERS_2016\_ДЕЙСТВУЮЩИЕ\ПРОИЗВОДСТВО\ПРОФИЛЬ\инфиниум\";
+            //string tempFolder = System.Environment.GetEnvironmentVariable("TEMP");
+
             string CurrentMonthName = DateTime.Now.ToString("MMMM");
             tempFolder = Path.Combine(tempFolder, CurrentMonthName);
             if (!(Directory.Exists(tempFolder)))
@@ -24585,13 +24582,13 @@ DecorOrders.DecorConfigID, DecorOrders.FactoryID, DecorOrders.Notes, DecorConfig
                CalibriBold15CS, Calibri11CS, CalibriBold11CS, CalibriBold11F, TableHeaderCS, TableHeaderDecCS, WorkAssignmentID, BatchName, true, false, false);
 
             //string FileName = "№" + WorkAssignmentID + " " + BatchName;
-            //string tempFolder = System.Environment.GetEnvironmentVariable("TEMP");
             //string tempFolder = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
 
 
             string FileName = WorkAssignmentID + " " + BatchName + "  ПР-1 и ПР-2";
-            //string tempFolder = @"\\192.168.1.6\Public\Профиль\Infinium\Задания\";
             string tempFolder = @"\\192.168.1.6\Public\USERS_2016\_ДЕЙСТВУЮЩИЕ\ПРОИЗВОДСТВО\ПРОФИЛЬ\инфиниум\";
+            //string tempFolder = System.Environment.GetEnvironmentVariable("TEMP");
+
             string CurrentMonthName = DateTime.Now.ToString("MMMM");
             tempFolder = Path.Combine(tempFolder, CurrentMonthName);
             if (!(Directory.Exists(tempFolder)))
@@ -24850,14 +24847,10 @@ DecorOrders.DecorConfigID, DecorOrders.FactoryID, DecorOrders.Notes, DecorConfig
             GetMainOrdersSummary(ref hssfworkbook,
                CalibriBold15CS, Calibri11CS, CalibriBold11CS, CalibriBold11F, TableHeaderCS, TableHeaderDecCS, WorkAssignmentID, BatchName, false, true, false);
 
-            //string FileName = "№" + WorkAssignmentID + " " + BatchName;
+            string FileName = WorkAssignmentID + " " + BatchName + "  ПР-3";
+            string tempFolder = @"\\192.168.1.6\Public\USERS_2016\_ДЕЙСТВУЮЩИЕ\ПРОИЗВОДСТВО\ПРОФИЛЬ\инфиниум\";
             //string tempFolder = System.Environment.GetEnvironmentVariable("TEMP");
 
-            //string tempFolder = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
-
-            string FileName = WorkAssignmentID + " " + BatchName + "  ПР-3";
-            //string tempFolder = @"\\192.168.1.6\Public\Профиль\Infinium\Задания\";
-            string tempFolder = @"\\192.168.1.6\Public\USERS_2016\_ДЕЙСТВУЮЩИЕ\ПРОИЗВОДСТВО\ПРОФИЛЬ\инфиниум\";
             string CurrentMonthName = DateTime.Now.ToString("MMMM");
             tempFolder = Path.Combine(tempFolder, CurrentMonthName);
             if (!(Directory.Exists(tempFolder)))
@@ -25127,13 +25120,13 @@ DecorOrders.DecorConfigID, DecorOrders.FactoryID, DecorOrders.Notes, DecorConfig
                CalibriBold15CS, Calibri11CS, CalibriBold11CS, CalibriBold11F, TableHeaderCS, TableHeaderDecCS, WorkAssignmentID, BatchName, false, false, true);
 
             //string FileName = "№" + WorkAssignmentID + " " + BatchName;
-            //string tempFolder = System.Environment.GetEnvironmentVariable("TEMP");
 
             //string tempFolder = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
 
             string FileName = WorkAssignmentID + " " + BatchName + "  ПРУ-8";
-            //string tempFolder = @"\\192.168.1.6\Public\Профиль\Infinium\Задания\";
             string tempFolder = @"\\192.168.1.6\Public\USERS_2016\_ДЕЙСТВУЮЩИЕ\ПРОИЗВОДСТВО\ПРОФИЛЬ\инфиниум\";
+            //string tempFolder = System.Environment.GetEnvironmentVariable("TEMP");
+
             string CurrentMonthName = DateTime.Now.ToString("MMMM");
             tempFolder = Path.Combine(tempFolder, CurrentMonthName); if (!(Directory.Exists(tempFolder)))
             {
@@ -37789,12 +37782,10 @@ DecorOrders.DecorConfigID, DecorOrders.FactoryID, DecorOrders.Notes, DecorConfig
             GetMainOrdersSummary(ref hssfworkbook,
                CalibriBold15CS, Calibri11CS, CalibriBold11CS, CalibriBold11F, TableHeaderCS, TableHeaderDecCS, WorkAssignmentID, BatchName, false, false, false);
 
-            //string FileName = "№" + WorkAssignmentID + " " + BatchName;
-            //string tempFolder = System.Environment.GetEnvironmentVariable("TEMP");
-            //string tempFolder = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
-
             string FileName = WorkAssignmentID + " " + BatchName + "  Угол 90";
             string tempFolder = @"\\192.168.1.6\Public\USERS_2016\_ДЕЙСТВУЮЩИЕ\ПРОИЗВОДСТВО\ПРОФИЛЬ\инфиниум\";
+            //string tempFolder = System.Environment.GetEnvironmentVariable("TEMP");
+
             string CurrentMonthName = DateTime.Now.ToString("MMMM");
             tempFolder = Path.Combine(tempFolder, CurrentMonthName);
             if (!(Directory.Exists(tempFolder)))
@@ -43154,13 +43145,10 @@ DecorOrders.DecorConfigID, DecorOrders.FactoryID, DecorOrders.Notes, DecorConfig
 
             GridsDecorAssemblyByMainOrderToExcel(ref hssfworkbook, Calibri11CS, CalibriBold11CS, CalibriBold11F, TableHeaderCS, TableHeaderDecCS, WorkAssignmentID, BatchName);
 
-            //string FileName = "№" + WorkAssignmentID + " " + BatchName;
+            string FileName = WorkAssignmentID + " " + BatchName;
+            string tempFolder = @"\\192.168.1.6\Public\USERS_2016\_ДЕЙСТВУЮЩИЕ\ПРОИЗВОДСТВО\ТПС\инфиниум\";
             //string tempFolder = System.Environment.GetEnvironmentVariable("TEMP");
 
-            //string tempFolder = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
-            string FileName = "№" + WorkAssignmentID + " " + BatchName;
-            //string tempFolder = @"\\192.168.1.6\Public\ТПС\Infinium\Задания\";
-            string tempFolder = @"\\192.168.1.6\Public\USERS_2016\_ДЕЙСТВУЮЩИЕ\ПРОИЗВОДСТВО\ТПС\инфиниум\";
             string CurrentMonthName = DateTime.Now.ToString("MMMM");
             tempFolder = Path.Combine(tempFolder, CurrentMonthName);
             if (!(Directory.Exists(tempFolder)))
@@ -48999,11 +48987,10 @@ DecorOrders.DecorConfigID, DecorOrders.FactoryID, DecorOrders.Notes, DecorConfig
             DeyingByMainOrderToExcel(ref hssfworkbook,
                         Calibri11CS, CalibriBold11CS, CalibriBold11F, TableHeaderCS, TableHeaderDecCS, WorkAssignmentID, BatchName);
 
-            //string FileName = "№" + WorkAssignmentID + " " + BatchName;
+            string FileName = WorkAssignmentID + " " + BatchName;
+            string tempFolder = @"\\192.168.1.6\Public\USERS_2016\_ДЕЙСТВУЮЩИЕ\ПРОИЗВОДСТВО\ТПС\инфиниум\";
             //string tempFolder = System.Environment.GetEnvironmentVariable("TEMP");
 
-            string FileName = "№" + WorkAssignmentID + " " + BatchName;
-            string tempFolder = @"\\192.168.1.6\Public\USERS_2016\_ДЕЙСТВУЮЩИЕ\ПРОИЗВОДСТВО\ТПС\инфиниум\";
             string CurrentMonthName = DateTime.Now.ToString("MMMM");
             tempFolder = Path.Combine(tempFolder, CurrentMonthName);
             if (!(Directory.Exists(tempFolder)))
@@ -58149,12 +58136,12 @@ DecorOrders.DecorConfigID, DecorOrders.FactoryID, DecorOrders.Notes, DecorConfig
 
             SelectCommand = @"SELECT FrontsOrdersID, MainOrderID, FrontID, PatinaID, InsetTypeID,
                 ColorID, InsetColorID, Height, Width, Count, FrontConfigID, Notes FROM FrontsOrders
-                WHERE Width<>-1 AND FrontID IN (30501,30502,30503,30504,30505,30506,16269,30364,30366,30367,28945,15760, 3737, 3727,3728,3729,3730,3731,3732,3733,3734,3735,3736,3737,3739,3740,3741,3742,3743,3744,3745,3746,3747,3748,15108,27914)" +
+                WHERE Width<>-1 AND FrontID IN (30501,30502,30503,30504,30505,30506,16269,30364,30366,30367,28945,15760, 3737, 3727,3728,3729,3730,3731,3732,3733,3734,3735,3736,3737,3739,3740,3741,3742,3743,3744,3745,3746,3747,3748,15108,29597,27914)" +
                 " AND MainOrderID IN (SELECT MainOrderID FROM BatchDetails WHERE BatchID IN (SELECT BatchID FROM Batch WHERE ProfilWorkAssignmentID=" + WorkAssignmentID + "))";
             if (FactoryID == 2)
                 SelectCommand = @"SELECT FrontsOrdersID, MainOrderID, FrontID, PatinaID, InsetTypeID,
                     ColorID, InsetColorID, Height, Width, Count, FrontConfigID, Notes FROM FrontsOrders
-                    WHERE Width<>-1 AND FrontID IN (30501,30502,30503,30504,30505,30506,16269,30364,30366,30367,28945,15760, 3737, 3727,3728,3729,3730,3731,3732,3733,3734,3735,3736,3737,3739,3740,3741,3742,3743,3744,3745,3746,3747,3748,15108,27914)" +
+                    WHERE Width<>-1 AND FrontID IN (30501,30502,30503,30504,30505,30506,16269,30364,30366,30367,28945,15760, 3737, 3727,3728,3729,3730,3731,3732,3733,3734,3735,3736,3737,3739,3740,3741,3742,3743,3744,3745,3746,3747,3748,15108,29597,27914)" +
                     " AND MainOrderID IN (SELECT MainOrderID FROM BatchDetails WHERE BatchID IN (SELECT BatchID FROM Batch WHERE TPSWorkAssignmentID=" + WorkAssignmentID + "))";
             using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.ZOVOrdersConnectionString))
             {
@@ -59316,13 +59303,11 @@ DecorOrders.DecorConfigID, DecorOrders.FactoryID, DecorOrders.Notes, DecorConfig
             DeyingByMainOrderToExcel(ref hssfworkbook,
                         Calibri11CS, CalibriBold11CS, CalibriBold11F, TableHeaderCS, TableHeaderDecCS, WorkAssignmentID, BatchName);
 
-            //string FileName = "№" + WorkAssignmentID + " " + BatchName;
+            string FileName = WorkAssignmentID + " " + BatchName;
+            string tempFolder = @"\\192.168.1.6\Public\USERS_2016\_ДЕЙСТВУЮЩИЕ\ПРОИЗВОДСТВО\ТПС\инфиниум\";
             //string tempFolder = System.Environment.GetEnvironmentVariable("TEMP");
 
             //string tempFolder = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
-            string FileName = "№" + WorkAssignmentID + " " + BatchName;
-            //string tempFolder = @"\\192.168.1.6\Public\ТПС\Infinium\Задания\";
-            string tempFolder = @"\\192.168.1.6\Public\USERS_2016\_ДЕЙСТВУЮЩИЕ\ПРОИЗВОДСТВО\ТПС\инфиниум\";
             string CurrentMonthName = DateTime.Now.ToString("MMMM");
             tempFolder = Path.Combine(tempFolder, CurrentMonthName);
             if (!(Directory.Exists(tempFolder)))
@@ -64789,12 +64774,9 @@ DecorOrders.DecorConfigID, DecorOrders.FactoryID, DecorOrders.Notes, DecorConfig
             DeyingByMainOrderToExcel(ref hssfworkbook,
                         Calibri11CS, CalibriBold11CS, CalibriBold11F, TableHeaderCS, TableHeaderDecCS, WorkAssignmentID, BatchName);
 
-            //string FileName = "№" + WorkAssignmentID + " " + BatchName;
-            //string tempFolder = System.Environment.GetEnvironmentVariable("TEMP");
-
-
             string FileName = WorkAssignmentID + " " + BatchName + "  Угол 45";
             string tempFolder = @"\\192.168.1.6\Public\USERS_2016\_ДЕЙСТВУЮЩИЕ\ПРОИЗВОДСТВО\ПРОФИЛЬ\инфиниум\";
+            //string tempFolder = System.Environment.GetEnvironmentVariable("TEMP");
 
             string CurrentMonthName = DateTime.Now.ToString("MMMM");
             tempFolder = Path.Combine(tempFolder, CurrentMonthName);
@@ -69862,13 +69844,10 @@ DecorOrders.DecorConfigID, DecorOrders.FactoryID, DecorOrders.Notes, DecorConfig
             AssemblyByMainOrderToExcel(ref hssfworkbook,
                 Calibri11CS, CalibriBold11CS, CalibriBold11F, TableHeaderCS, TableHeaderDecCS, WorkAssignmentID, BatchName);
 
-            //string FileName = "№" + WorkAssignmentID + " " + BatchName;
+            string FileName = WorkAssignmentID + " " + BatchName;
+            string tempFolder = @"\\192.168.1.6\Public\USERS_2016\_ДЕЙСТВУЮЩИЕ\ПРОИЗВОДСТВО\ТПС\инфиниум\";
             //string tempFolder = System.Environment.GetEnvironmentVariable("TEMP");
 
-            //string tempFolder = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
-            string FileName = "№" + WorkAssignmentID + " " + BatchName;
-            //string tempFolder = @"\\192.168.1.6\Public\ТПС\Infinium\Задания\";
-            string tempFolder = @"\\192.168.1.6\Public\USERS_2016\_ДЕЙСТВУЮЩИЕ\ПРОИЗВОДСТВО\ТПС\инфиниум\";
             string CurrentMonthName = DateTime.Now.ToString("MMMM");
             tempFolder = Path.Combine(tempFolder, CurrentMonthName);
             if (!(Directory.Exists(tempFolder)))

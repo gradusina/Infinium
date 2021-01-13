@@ -597,11 +597,11 @@ namespace Infinium.Modules.CabFurnitureAssignments
                     }
                 }
             }
-            bool b = false;
+            bool bb = false;
             for (int i = 0; i < TempTotalProductsCoversDs.Tables.Count; i++)
             {
-                if (TempTotalProductsCoversDs.Tables[i].Rows.Count)
-                    b = true;
+                if (TempTotalProductsCoversDs.Tables[i].Rows.Count > 0)
+                    bb = true;
                 using (DataView DV = new DataView(TempTotalProductsCoversDs.Tables[i].Copy()))
                 {
                     DV.Sort = "TechStore";
@@ -609,7 +609,7 @@ namespace Infinium.Modules.CabFurnitureAssignments
                     TotalProductsCoversDs.Tables.Add(dt);
                 }
             }
-            return b;
+            return bb;
         }
 
         public void ff()
@@ -3788,7 +3788,7 @@ INNER JOIN infiniu2_marketingorders.dbo.MainOrders AS M ON C.MainOrderID=M.MainO
             foreach (int item in packageIds)
                 filter += item.ToString() + ",";
             if (filter.Length > 0)
-                filter = "SELECT CabFurniturePackageID, QualityControlInUserID, QualityControlInDateTime FROM CabFurniturePackages " +
+                filter = "SELECT CabFurniturePackageID, CellID, QualityControlInUserID, QualityControlInDateTime FROM CabFurniturePackages " +
                     "WHERE CabFurniturePackageID IN (" + filter.Substring(0, filter.Length - 1) + ")";
 
             using (SqlDataAdapter DA = new SqlDataAdapter(filter, ConnectionStrings.StorageConnectionString))
@@ -3807,6 +3807,7 @@ INNER JOIN infiniu2_marketingorders.dbo.MainOrders AS M ON C.MainOrderID=M.MainO
                                     DT.Rows[i]["QualityControlInUserID"] = Security.CurrentUserID;
                                 if (DT.Rows[i]["QualityControlInDateTime"] == DBNull.Value)
                                     DT.Rows[i]["QualityControlInDateTime"] = datetime;
+                                DT.Rows[i]["CellID"] = -1;
                             }
                             DA.Update(DT);
                         }

@@ -635,7 +635,7 @@ namespace Infinium.Modules.Marketing.Clients
         private string SendNotifyToEmail(string ClientEmail, string Name, string Phone, string Email, string Skype)
         {
             string result = "Уведомление на почту клиента отправлено";
-            string AccountPassword = "3699PassWord1477";
+            string AccountPassword = "3699PassWord14772588";
             string SenderEmail = "infiniumdevelopers@gmail.com";
 
 
@@ -902,7 +902,7 @@ namespace Infinium.Modules.Marketing.Clients
 
         public void Send(string ClientEmail, string Login)
         {
-            string AccountPassword = "3699PassWord1477";
+            string AccountPassword = "3699PassWord14772588";
             string SenderEmail = "infiniumdevelopers@gmail.com";
 
 

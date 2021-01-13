@@ -873,5 +873,39 @@ namespace Infinium.Modules.CabFurnitureAssignments
             }
         }
 
+        /// <summary>
+        /// отвязать упаковки от ячейки
+        /// </summary>
+        /// <param name="cellID"></param>
+        /// <param name="packageIds"></param>
+        public void UnbindPackagesToCell(int cellID, int[] packageIds)
+        {
+            string filter = string.Empty;
+            foreach (int item in packageIds)
+                filter += item.ToString() + ",";
+            if (filter.Length > 0)
+                filter = "SELECT CabFurniturePackageID, CellID, BindToCellUserID, BindToCellDateTime FROM CabFurniturePackages " +
+                    "WHERE CabFurniturePackageID IN (" + filter.Substring(0, filter.Length - 1) + ")";
+
+            using (SqlDataAdapter DA = new SqlDataAdapter(filter, ConnectionStrings.StorageConnectionString))
+            {
+                using (new SqlCommandBuilder(DA))
+                {
+                    using (DataTable DT = new DataTable())
+                    {
+                        if (DA.Fill(DT) > 0)
+                        {
+                            DateTime dateTime = Security.GetCurrentDate();
+
+                            for (int i = 0; i < DT.Rows.Count; i++)
+                            {
+                                DT.Rows[i]["CellID"] = -1;
+                            }
+                            DA.Update(DT);
+                        }
+                    }
+                }
+            }
+        }
     }
 }
