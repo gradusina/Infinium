@@ -3522,5 +3522,42 @@ namespace Infinium
             while (SplashWindow.bSmallCreated)
                 SmallWaitForm.CloseS = true;
         }
+
+        private void dgvComplements_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (e.Button == System.Windows.Forms.MouseButtons.Right && e.RowIndex != -1)
+            {
+                kryptonContextMenu8.Show(new Point(Cursor.Position.X - 212, Cursor.Position.Y - 10));
+            }
+        }
+
+        private void kryptonContextMenuItem23_Click(object sender, EventArgs e)
+        {
+            if (dgvComplements.SelectedRows.Count == 0)
+                return;
+
+            int ClientID = 0;
+            int OrderNumber = 0;
+            if (dgvComplements.SelectedRows.Count != 0 && dgvComplements.SelectedRows[0].Cells["ClientID"].Value != DBNull.Value)
+                ClientID = Convert.ToInt32(dgvComplements.SelectedRows[0].Cells["ClientID"].Value);
+            if (dgvComplements.SelectedRows.Count != 0 && dgvComplements.SelectedRows[0].Cells["OrderNumber"].Value != DBNull.Value)
+                OrderNumber = Convert.ToInt32(dgvComplements.SelectedRows[0].Cells["OrderNumber"].Value);
+
+            Thread T = new Thread(delegate () { SplashWindow.CreateSplash(); });
+            T.Start();
+
+            while (!SplashForm.bCreated) ;
+
+            CabFurDispatchForm cabFurDispatchForm = new CabFurDispatchForm(this, assignmentsManager, ClientID, OrderNumber);
+
+            TopForm = cabFurDispatchForm;
+
+            cabFurDispatchForm.ShowDialog();
+
+            cabFurDispatchForm.Close();
+            cabFurDispatchForm.Dispose();
+
+            TopForm = null;
+        }
     }
 }
