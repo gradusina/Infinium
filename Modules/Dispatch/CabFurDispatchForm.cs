@@ -21,17 +21,36 @@ namespace Infinium
         bool CanAction = true;
 
         int ClientID = 1;
+        int DispatchID = 1;
         int OrderNumber = 1;
 
-        Form TopForm;
         Form MainForm;
-        public Modules.Dispatch.ZOVDispatchCheckLabel CheckLabel;
+
         DispatchPackagesManager dispatchPackagesManager;
         AssignmentsManager assignmentsManager;
 
         [DllImport("user32.dll")]
         static extern IntPtr GetActiveWindow();
 
+        public CabFurDispatchForm(Form tMainForm, int iDispatchID)
+        {
+            InitializeComponent();
+
+            DispatchID = iDispatchID;
+
+            MainForm = tMainForm;
+
+            assignmentsManager = new AssignmentsManager();
+
+            assignmentsManager.Initialize();
+
+            Initialize();
+            dispatchPackagesManager.GetPackagesLabels(DispatchID);
+
+            this.MaximumSize = Screen.PrimaryScreen.WorkingArea.Size;
+
+            while (!SplashForm.bCreated) ;
+        }
         public CabFurDispatchForm(Form tMainForm, AssignmentsManager tAssignmentsManager, int iClientID, int iOrderNumber)
         {
             InitializeComponent();
@@ -42,6 +61,7 @@ namespace Infinium
             MainForm = tMainForm;
             assignmentsManager = tAssignmentsManager;
             Initialize();
+            dispatchPackagesManager.GetPackagesLabels(ClientID, OrderNumber);
 
             this.MaximumSize = Screen.PrimaryScreen.WorkingArea.Size;
 
@@ -168,7 +188,6 @@ namespace Infinium
             dgvPackagesDetailsSetting(ref dgvStoragePackagesDetails);
             dgvPackagesDetailsSetting(ref dgvScanedStoragePackagesDetails);
             dispatchPackagesManager.Clear();
-            dispatchPackagesManager.GetPackagesLabels(ClientID, OrderNumber);
         }
 
         private void dgvPackagesLabelsSetting(ref PercentageDataGrid grid)
@@ -223,6 +242,14 @@ namespace Infinium
             grid.Columns.Add(assignmentsManager.InsetColorColumn);
             grid.AutoGenerateColumns = false;
 
+            if (grid.Columns.Contains("RackName"))
+                grid.Columns["RackName"].Visible = false;
+            if (grid.Columns.Contains("CellName"))
+                grid.Columns["CellName"].Visible = false;
+            if (grid.Columns.Contains("CabFurnitureComplementID"))
+                grid.Columns["CabFurnitureComplementID"].Visible = false;
+            if (grid.Columns.Contains("CabFurnitureComplenentDetailID"))
+                grid.Columns["CabFurnitureComplenentDetailID"].Visible = false;
             if (grid.Columns.Contains("TechStoreSubGroupID"))
                 grid.Columns["TechStoreSubGroupID"].Visible = false;
             if (grid.Columns.Contains("CTechStoreID"))
@@ -404,104 +431,6 @@ namespace Infinium
 
         private void OKInvButton_Click(object sender, EventArgs e)
         {
-            if (!CanAction)
-                return;
-            CheckLabel.GetNotScanedPackages();
-
-            int AllPackagesInDispatchCount = CheckLabel.AllPackagesInDispatchCount();
-            int AllScanedPackagesCount = CheckLabel.ScanedPackagesCount + CheckLabel.WrongPackagesCount;
-            int NotScanedPackagesCount = CheckLabel.NotScanedPackagesCount;
-            int WrongPackagesCount = CheckLabel.WrongPackagesCount;
-            label11.Text = AllScanedPackagesCount + " шт.";
-            label15.Text = AllPackagesInDispatchCount + " шт.";
-            if (NotScanedPackagesCount > 0)
-            {
-                cbtnNotScanedPackages.Visible = true;
-                panel11.Visible = true;
-            }
-            else
-            {
-                cbtnNotScanedPackages.Visible = false;
-                panel11.Visible = false;
-            }
-            if (WrongPackagesCount > 0)
-            {
-                cbtnWrongPackages.Visible = true;
-                panel11.Visible = true;
-                panel9.Visible = true;
-                label13.Text = WrongPackagesCount + " шт.";
-            }
-            else
-            {
-                cbtnWrongPackages.Visible = false;
-                panel11.Visible = false;
-                panel9.Visible = false;
-            }
-
-            panel5.BringToFront();
-        }
-
-        private void kryptonButton1_Click(object sender, EventArgs e)
-        {
-            if (!CanAction)
-                return;
-            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Сохранение данных.\r\nПодождите..."); });
-            T.Start();
-
-            while (!SplashWindow.bSmallCreated) ;
-
-            CheckLabel.DispatchPackages();
-            CheckLabel.DispatchTrays();
-
-            while (SplashWindow.bSmallCreated)
-                SmallWaitForm.CloseS = true;
-        }
-
-        private void dgvCheckPackages_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
-        {
-            //PercentageDataGrid grid = (PercentageDataGrid)sender;
-            //bool bNeedPaint = CheckLabel.IsCorrectPackage(Convert.ToInt32(grid.Rows[e.RowIndex].Cells["PackageID"].Value));
-
-            //if (bNeedPaint)
-            //{
-            //    int rowHeaderWidth = grid.RowHeadersVisible ? grid.RowHeadersWidth : 0;
-            //    Rectangle rowBounds = new Rectangle(rowHeaderWidth, e.RowBounds.Top,
-            //        grid.Columns.GetColumnsWidth(DataGridViewElementStates.Visible) - dgvScanPackages.HorizontalScrollingOffset + 1, e.RowBounds.Height);
-
-            //    grid.Rows[e.RowIndex].DefaultCellStyle.BackColor = Security.GridsBackColor;
-            //    grid.Rows[e.RowIndex].DefaultCellStyle.ForeColor = Color.Black;
-            //    grid.Rows[e.RowIndex].DefaultCellStyle.SelectionBackColor = Color.FromArgb(121, 177, 229);
-            //    grid.Rows[e.RowIndex].DefaultCellStyle.SelectionForeColor = Color.White;
-            //}
-            //else
-            //{
-            //    int rowHeaderWidth = grid.RowHeadersVisible ? grid.RowHeadersWidth : 0;
-            //    Rectangle rowBounds = new Rectangle(rowHeaderWidth, e.RowBounds.Top,
-            //        grid.Columns.GetColumnsWidth(DataGridViewElementStates.Visible) - dgvScanPackages.HorizontalScrollingOffset + 1, e.RowBounds.Height);
-
-            //    grid.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.Red;
-            //    grid.Rows[e.RowIndex].DefaultCellStyle.ForeColor = Color.White;
-            //    grid.Rows[e.RowIndex].DefaultCellStyle.SelectionBackColor = Color.FromArgb(253, 164, 61);
-            //    grid.Rows[e.RowIndex].DefaultCellStyle.SelectionForeColor = Color.White;
-            //}
-        }
-
-        private void kryptonCheckSet1_CheckedButtonChanged(object sender, EventArgs e)
-        {
-            if (CheckLabel == null)
-                return;
-            if (kryptonCheckSet1.CheckedButton == cbtnScanedPackages)
-            {
-                panel7.BringToFront();
-            }
-            if (kryptonCheckSet1.CheckedButton == cbtnNotScanedPackages)
-            {
-                panel6.BringToFront();
-            }
-            if (kryptonCheckSet1.CheckedButton == cbtnWrongPackages)
-            {
-                panel11.BringToFront();
-            }
         }
 
         private void dgvPackagesLabels_SelectionChanged(object sender, EventArgs e)

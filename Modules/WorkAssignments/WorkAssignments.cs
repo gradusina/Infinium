@@ -504,7 +504,8 @@ InsetTypeID, InsetColorID, TechnoProfileID, TechnoColorID, TechnoInsetTypeID, Te
             if (FilterType == 2)
                 FilterString = " AND (FrontsOrders.FrontID=" + Convert.ToInt32(Fronts.KansasPat) + " OR FrontsOrders.FrontID=" + Convert.ToInt32(Fronts.Kansas) +
                     " OR FrontsOrders.FrontID=" + Convert.ToInt32(Fronts.Sofia) + " OR FrontsOrders.FrontID=" + Convert.ToInt32(Fronts.Lorenzo) +
-                    " OR FrontsOrders.FrontID=" + Convert.ToInt32(Fronts.Elegant) + " OR FrontsOrders.FrontID=" + Convert.ToInt32(Fronts.Patricia1) +
+                    " OR FrontsOrders.FrontID=" + Convert.ToInt32(Fronts.Elegant) + " OR FrontsOrders.FrontID=" + Convert.ToInt32(Fronts.ElegantPat) + 
+                    " OR FrontsOrders.FrontID=" + Convert.ToInt32(Fronts.Patricia1) +
                     " OR FrontsOrders.FrontID=" + Convert.ToInt32(Fronts.Turin1) + " OR FrontsOrders.FrontID=" + Convert.ToInt32(Fronts.Turin1_1) +
                     " OR FrontsOrders.FrontID=" + Convert.ToInt32(Fronts.Dakota) + " OR FrontsOrders.FrontID=" + Convert.ToInt32(Fronts.DakotaPat) + " OR FrontsOrders.FrontID=" + Convert.ToInt32(Fronts.Turin3) + " OR FrontsOrders.FrontID=" + Convert.ToInt32(Fronts.LeonTPS) +
                     " OR FrontsOrders.FrontID=" + Convert.ToInt32(Fronts.Infiniti) + " OR FrontsOrders.FrontID=" + Convert.ToInt32(Fronts.InfinitiPat) + ")";
@@ -643,7 +644,8 @@ Height, Width, Count, FrontConfigID, FrontsOrders.Square, FrontsOrders.FactoryID
                 FilterString = " AND (FrontsOrders.FrontID=" + Convert.ToInt32(Fronts.KansasPat) +
                     " OR FrontsOrders.FrontID=" + Convert.ToInt32(Fronts.Kansas) +
                     " OR FrontsOrders.FrontID=" + Convert.ToInt32(Fronts.Sofia) + " OR FrontsOrders.FrontID=" + Convert.ToInt32(Fronts.Lorenzo) +
-                    " OR FrontsOrders.FrontID=" + Convert.ToInt32(Fronts.Elegant) + " OR FrontsOrders.FrontID=" + Convert.ToInt32(Fronts.Patricia1) +
+                    " OR FrontsOrders.FrontID=" + Convert.ToInt32(Fronts.Elegant) + " OR FrontsOrders.FrontID=" + Convert.ToInt32(Fronts.ElegantPat) + 
+                    " OR FrontsOrders.FrontID=" + Convert.ToInt32(Fronts.Patricia1) +
                     " OR FrontsOrders.FrontID=" + Convert.ToInt32(Fronts.Turin1) + " OR FrontsOrders.FrontID=" + Convert.ToInt32(Fronts.Turin1_1) +
                     " OR FrontsOrders.FrontID=" + Convert.ToInt32(Fronts.Dakota) + " OR FrontsOrders.FrontID=" + Convert.ToInt32(Fronts.DakotaPat) + " OR FrontsOrders.FrontID=" + Convert.ToInt32(Fronts.Turin3) + " OR FrontsOrders.FrontID=" + Convert.ToInt32(Fronts.LeonTPS) +
                     " OR FrontsOrders.FrontID=" + Convert.ToInt32(Fronts.Infiniti) + " OR FrontsOrders.FrontID=" + Convert.ToInt32(Fronts.InfinitiPat) + ")";
@@ -3834,7 +3836,7 @@ DecorOrders.DecorConfigID, DecorOrders.FactoryID, DecorOrders.Notes, DecorConfig
         {
             int Count = 0;
             int PrintingStatus = 0;
-            int[] FrontsID = new int[14];
+            int[] FrontsID = new int[15];
             FrontsID[0] = Convert.ToInt32(Fronts.KansasPat);
             FrontsID[1] = Convert.ToInt32(Fronts.Turin1);
             FrontsID[2] = Convert.ToInt32(Fronts.Turin3);
@@ -3848,7 +3850,8 @@ DecorOrders.DecorConfigID, DecorOrders.FactoryID, DecorOrders.Notes, DecorConfig
             FrontsID[10] = Convert.ToInt32(Fronts.Kansas);
             FrontsID[11] = Convert.ToInt32(Fronts.Infiniti);
             FrontsID[12] = Convert.ToInt32(Fronts.Elegant);
-            FrontsID[13] = Convert.ToInt32(Fronts.Patricia1);
+            FrontsID[13] = Convert.ToInt32(Fronts.ElegantPat);
+            FrontsID[14] = Convert.ToInt32(Fronts.Patricia1);
             string SelectCommand = @"SELECT * FROM AssignmentsInWork WHERE WorkAssignmentID=" + WorkAssignmentID;
             DataTable DT1 = new DataTable();
             DataTable DT2 = new DataTable();
@@ -4120,7 +4123,8 @@ DecorOrders.DecorConfigID, DecorOrders.FactoryID, DecorOrders.Notes, DecorConfig
         GrandVg = 40575,
 
         Lorenzo = 15450,
-        Elegant = 30005,
+        Elegant = 30006,
+        ElegantPat = 30005,
         Patricia1 = 30379,
         Kansas = 3760,
         KansasPat = 3577,
@@ -4317,7 +4321,7 @@ DecorOrders.DecorConfigID, DecorOrders.FactoryID, DecorOrders.Notes, DecorConfig
         Patricia1GridInsetHeight = 134,
         KansasGridInsetHeight = 128,
         SofiaGridInsetHeight = 127,
-        DakotaGridInsetHeight = 113,
+        DakotaGridInsetHeight = 115,
         Turin1GridInsetHeight = 127,
         Turin3GridInsetHeight = 127,
         LeonGridInsetHeight = 111,
@@ -4358,7 +4362,7 @@ DecorOrders.DecorConfigID, DecorOrders.FactoryID, DecorOrders.Notes, DecorConfig
         Patricia1GridInsetWidth = 134,
         KansasGridInsetWidth = 128,
         SofiaGridInsetWidth = 127,
-        DakotaGridInsetWidth = 113,
+        DakotaGridInsetWidth = 115,
         Turin1GridInsetWidth = 127,
         Turin3GridInsetWidth = 127,
         LeonGridInsetWidth = 111,
@@ -48500,6 +48504,11 @@ DecorOrders.DecorConfigID, DecorOrders.FactoryID, DecorOrders.Notes, DecorConfig
             ProfileNamesDT.Clear();
             for (int i = 0; i < FrontsID.Count; i++)
             {
+                if (Convert.ToInt32(Convert.ToInt32(FrontsID[i])) == Convert.ToInt32(Fronts.ElegantPat))
+                {
+                    GetProfileNames(ref ProfileNamesDT, WorkAssignmentID, FactoryID, Fronts.ElegantPat);
+                    GetFrontsOrders(ref ElegantOrdersDT, WorkAssignmentID, FactoryID, Fronts.ElegantPat);
+                }
                 if (Convert.ToInt32(Convert.ToInt32(FrontsID[i])) == Convert.ToInt32(Fronts.Elegant))
                 {
                     GetProfileNames(ref ProfileNamesDT, WorkAssignmentID, FactoryID, Fronts.Elegant);
@@ -64775,7 +64784,7 @@ DecorOrders.DecorConfigID, DecorOrders.FactoryID, DecorOrders.Notes, DecorConfig
                         Calibri11CS, CalibriBold11CS, CalibriBold11F, TableHeaderCS, TableHeaderDecCS, WorkAssignmentID, BatchName);
 
             string FileName = WorkAssignmentID + " " + BatchName + "  Угол 45";
-            string tempFolder = @"\\192.168.1.6\Public\USERS_2016\_ДЕЙСТВУЮЩИЕ\ПРОИЗВОДСТВО\ПРОФИЛЬ\инфиниум\";
+            string tempFolder = @"\\192.168.1.6\Public\USERS_2016\_ДЕЙСТВУЮЩИЕ\ПРОИЗВОДСТВО\ТПС\инфиниум\";
             //string tempFolder = System.Environment.GetEnvironmentVariable("TEMP");
 
             string CurrentMonthName = DateTime.Now.ToString("MMMM");

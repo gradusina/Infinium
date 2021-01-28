@@ -424,7 +424,7 @@ namespace Infinium.Modules.DyeingAssignments
             if (GroupType == 0)
             {
                 SelectCommand = @"SELECT  FrontsOrdersID, MainOrderID, FrontID, ColorID, PatinaID, InsetTypeID, InsetColorID, TechnoProfileID, TechnoColorID, TechnoInsetTypeID, TechnoInsetColorID, Height, Width, Count, FrontConfigID, FactoryID, Square, IsNonStandard, Notes FROM FrontsOrders
-                WHERE FrontsOrders.Width<>-1 AND FrontsOrders.MainOrderID IN (" + string.Join(",", MainOrders) + ") AND FrontsOrders.FactoryID = 2" + OrdersFactoryFilter;
+                WHERE FrontsOrders.Width<>-1 AND FrontsOrders.MainOrderID IN (" + string.Join(",", MainOrders) + ")" + OrdersFactoryFilter;
 
                 using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.ZOVOrdersConnectionString))
                 {
@@ -675,7 +675,7 @@ namespace Infinium.Modules.DyeingAssignments
             SelectCommand = @"SELECT FrontsOrders.*, infiniu2_catalog.dbo.FrontsConfig.PatinaID FROM FrontsOrders
                 INNER JOIN infiniu2_catalog.dbo.FrontsConfig ON FrontsOrders.FrontConfigID=infiniu2_catalog.dbo.FrontsConfig.FrontConfigID
                 WHERE FrontsOrders.MainOrderID IN (SELECT MainOrderID FROM infiniu2_storage.dbo.DyeingAssignmentDetails WHERE DyeingAssignmentID = " + DyeingAssignmentID +
-                ") AND FrontsOrders.MainOrderID IN (" + string.Join(",", MainOrders) + ") AND FrontsOrders.FactoryID = 2";
+                ") AND FrontsOrders.MainOrderID IN (" + string.Join(",", MainOrders) + ")";
 
             TempBatchFrontsDT.Clear();
 
@@ -1222,7 +1222,7 @@ namespace Infinium.Modules.DyeingAssignments
         int iTechCatalogOperationsGroupID = 0;
         int iGroupType = 0;
         int iWorkAssignmentID = 0;
-        int iFactoryID = 2;
+        int iFactoryID = 1;
 
         DataTable BatchesDT = null;
         DataTable BatchMainOrdersDT = null;
@@ -1938,9 +1938,9 @@ namespace Infinium.Modules.DyeingAssignments
             {
                 case 0:
                     SelectCommand = @"SELECT ClientName, CONVERT(varchar(20), MainOrders.DocNumber) AS OrderNumber, MainOrders.MainOrderID, MainOrders.FrontsSquare, MainOrders.Notes, Batch.BatchID FROM MainOrders
-                INNER JOIN BatchDetails ON MainOrders.MainOrderID = BatchDetails.MainOrderID AND BatchDetails.FactoryID = 2" +
+                INNER JOIN BatchDetails ON MainOrders.MainOrderID = BatchDetails.MainOrderID" +
                         @" INNER JOIN Batch ON BatchDetails.BatchID = Batch.BatchID" +
-                        @" INNER JOIN infiniu2_zovreference.dbo.Clients AS Client ON MainOrders.ClientID = Client.ClientID AND (MainOrders.FactoryID = 0 OR MainOrders.FactoryID = 2)" +
+                        @" INNER JOIN infiniu2_zovreference.dbo.Clients AS Client ON MainOrders.ClientID = Client.ClientID " +
                         @" WHERE MainOrders.MainOrderID IN (SELECT MainOrderID FROM infiniu2_storage.dbo.DyeingAssignmentDetails WHERE DyeingAssignmentID=" + DyeingAssignmentID + ")" +
                         @" ORDER BY ClientName, OrderNumber, MainOrders.MainOrderID";
                     using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.ZOVOrdersConnectionString))
@@ -1959,9 +1959,9 @@ namespace Infinium.Modules.DyeingAssignments
                 case 1:
                     SelectCommand = @"SELECT ClientName, CONVERT(varchar(20), MegaOrders.OrderNumber) AS OrderNumber, MainOrders.MainOrderID, MainOrders.FrontsSquare, MainOrders.Notes, Batch.BatchID FROM MainOrders
                 INNER JOIN MegaOrders ON MainOrders.MegaOrderID = MegaOrders.MegaOrderID
-                INNER JOIN BatchDetails ON MainOrders.MainOrderID = BatchDetails.MainOrderID AND BatchDetails.FactoryID =2" +
+                INNER JOIN BatchDetails ON MainOrders.MainOrderID = BatchDetails.MainOrderID" +
                         @" INNER JOIN Batch ON BatchDetails.BatchID = Batch.BatchID" +
-                        @" INNER JOIN infiniu2_marketingreference.dbo.Clients AS Client ON MegaOrders.ClientID = Client.ClientID AND (MainOrders.FactoryID = 0 OR MainOrders.FactoryID = 2)" +
+                        @" INNER JOIN infiniu2_marketingreference.dbo.Clients AS Client ON MegaOrders.ClientID = Client.ClientID" +
                         @" WHERE MainOrders.MainOrderID IN (SELECT MainOrderID FROM infiniu2_storage.dbo.DyeingAssignmentDetails WHERE DyeingAssignmentID=" + DyeingAssignmentID + ")" +
                         @" ORDER BY ClientName, OrderNumber, MainOrders.MainOrderID";
                     using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.MarketingOrdersConnectionString))
@@ -1979,9 +1979,9 @@ namespace Infinium.Modules.DyeingAssignments
                 case 2:
                     SelectCommand = @"SELECT ClientName, CONVERT(varchar(20), MegaOrders.OrderNumber) AS OrderNumber, MainOrders.MainOrderID, MainOrders.FrontsSquare, MainOrders.Notes, Batch.BatchID FROM MainOrders
                 INNER JOIN MegaOrders ON MainOrders.MegaOrderID = MegaOrders.MegaOrderID
-                INNER JOIN BatchDetails ON MainOrders.MainOrderID = BatchDetails.MainOrderID AND BatchDetails.FactoryID =2 " +
+                INNER JOIN BatchDetails ON MainOrders.MainOrderID = BatchDetails.MainOrderID " +
                         @" INNER JOIN Batch ON BatchDetails.BatchID = Batch.BatchID" +
-                        @" INNER JOIN infiniu2_marketingreference.dbo.Clients AS Client ON MegaOrders.ClientID = Client.ClientID AND (MainOrders.FactoryID = 0 OR MainOrders.FactoryID = 2)" +
+                        @" INNER JOIN infiniu2_marketingreference.dbo.Clients AS Client ON MegaOrders.ClientID = Client.ClientID" +
                         @" WHERE MainOrders.MainOrderID IN (SELECT MainOrderID FROM infiniu2_storage.dbo.DyeingAssignmentDetails WHERE DyeingAssignmentID=" + DyeingAssignmentID + ")" +
                         @" ORDER BY ClientName, OrderNumber, MainOrders.MainOrderID";
                     using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.MarketingOrdersConnectionString))
@@ -1998,9 +1998,9 @@ namespace Infinium.Modules.DyeingAssignments
                     break;
                 case 3:
                     SelectCommand = @"SELECT ClientName, CONVERT(varchar(20), MainOrders.DocNumber) AS OrderNumber, MainOrders.MainOrderID, MainOrders.FrontsSquare, MainOrders.Notes, Batch.BatchID FROM MainOrders
-                INNER JOIN BatchDetails ON MainOrders.MainOrderID = BatchDetails.MainOrderID AND BatchDetails.FactoryID =2 " +
+                INNER JOIN BatchDetails ON MainOrders.MainOrderID = BatchDetails.MainOrderID  " +
                         @" INNER JOIN Batch ON BatchDetails.BatchID = Batch.BatchID" +
-                        @" INNER JOIN infiniu2_zovreference.dbo.Clients AS Client ON MainOrders.ClientID = Client.ClientID AND (MainOrders.FactoryID = 0 OR MainOrders.FactoryID = 2)" +
+                        @" INNER JOIN infiniu2_zovreference.dbo.Clients AS Client ON MainOrders.ClientID = Client.ClientID " +
                         @" WHERE MainOrders.MainOrderID IN (SELECT MainOrderID FROM infiniu2_storage.dbo.DyeingAssignmentDetails WHERE DyeingAssignmentID=" + DyeingAssignmentID + ")" +
                         @" ORDER BY ClientName, OrderNumber, MainOrders.MainOrderID";
                     using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.ZOVOrdersConnectionString))
@@ -2017,9 +2017,9 @@ namespace Infinium.Modules.DyeingAssignments
                     }
                     SelectCommand = @"SELECT ClientName, CONVERT(varchar(20), MegaOrders.OrderNumber) AS OrderNumber, MainOrders.MainOrderID, MainOrders.FrontsSquare, MainOrders.Notes, Batch.BatchID FROM MainOrders
                 INNER JOIN MegaOrders ON MainOrders.MegaOrderID = MegaOrders.MegaOrderID
-                INNER JOIN BatchDetails ON MainOrders.MainOrderID = BatchDetails.MainOrderID AND BatchDetails.FactoryID =2 " +
+                INNER JOIN BatchDetails ON MainOrders.MainOrderID = BatchDetails.MainOrderID " +
                         @" INNER JOIN Batch ON BatchDetails.BatchID = Batch.BatchID" +
-                        @" INNER JOIN infiniu2_marketingreference.dbo.Clients AS Client ON MegaOrders.ClientID = Client.ClientID AND (MainOrders.FactoryID = 0 OR MainOrders.FactoryID = 2)" +
+                        @" INNER JOIN infiniu2_marketingreference.dbo.Clients AS Client ON MegaOrders.ClientID = Client.ClientID " +
                         @" WHERE MainOrders.MainOrderID IN (SELECT MainOrderID FROM infiniu2_storage.dbo.DyeingAssignmentDetails WHERE DyeingAssignmentID=" + DyeingAssignmentID + ")" +
                         @" ORDER BY ClientName, OrderNumber, MainOrders.MainOrderID";
                     using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.MarketingOrdersConnectionString))
@@ -2036,9 +2036,9 @@ namespace Infinium.Modules.DyeingAssignments
                     break;
                 case 4:
                     SelectCommand = @"SELECT ClientName, CONVERT(varchar(20), MainOrders.DocNumber) AS OrderNumber, MainOrders.MainOrderID, MainOrders.FrontsSquare, MainOrders.Notes, Batch.BatchID FROM MainOrders
-                INNER JOIN BatchDetails ON MainOrders.MainOrderID = BatchDetails.MainOrderID AND BatchDetails.FactoryID = 2" +
+                INNER JOIN BatchDetails ON MainOrders.MainOrderID = BatchDetails.MainOrderID " +
                         @" INNER JOIN Batch ON BatchDetails.BatchID = Batch.BatchID" +
-                        @" INNER JOIN infiniu2_zovreference.dbo.Clients AS Client ON MainOrders.ClientID = Client.ClientID AND (MainOrders.FactoryID = 0 OR MainOrders.FactoryID = 2)" +
+                        @" INNER JOIN infiniu2_zovreference.dbo.Clients AS Client ON MainOrders.ClientID = Client.ClientID " +
                         @" WHERE MainOrders.MainOrderID IN (SELECT MainOrderID FROM infiniu2_storage.dbo.DyeingAssignmentDetails WHERE DyeingAssignmentID=" + DyeingAssignmentID + ")" +
                         @" ORDER BY ClientName, OrderNumber, MainOrders.MainOrderID";
                     using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.ZOVOrdersConnectionString))
@@ -2062,19 +2062,15 @@ namespace Infinium.Modules.DyeingAssignments
 
         public void UpdateBatchMainOrders(int WorkAssignmentID, int FactoryID)
         {
-            string FactoryFilter = string.Empty;
             string SelectCommand = string.Empty;
             string WorkAssignment = "Batch.ProfilWorkAssignmentID=";
             DataTable DT = new DataTable();
             if (FactoryID == 2)
                 WorkAssignment = "Batch.TPSWorkAssignmentID=";
-            if (FactoryID != 0)
-                FactoryFilter = " AND (MainOrders.FactoryID = 0 OR MainOrders.FactoryID = " + FactoryID + ")";
             SelectCommand = @"SELECT ClientName, CONVERT(varchar(20), MegaOrders.OrderNumber) AS OrderNumber, MainOrders.MainOrderID, MainOrders.FrontsSquare, MainOrders.Notes, Batch.BatchID FROM MainOrders
                 INNER JOIN MegaOrders ON MainOrders.MegaOrderID = MegaOrders.MegaOrderID
-                INNER JOIN BatchDetails ON MainOrders.MainOrderID = BatchDetails.MainOrderID AND BatchDetails.FactoryID = " + FactoryID +
-                @" INNER JOIN Batch ON BatchDetails.BatchID = Batch.BatchID AND " + WorkAssignment + WorkAssignmentID +
-                @" INNER JOIN infiniu2_marketingreference.dbo.Clients AS Client ON MegaOrders.ClientID = Client.ClientID " + FactoryFilter +
+                INNER JOIN BatchDetails ON MainOrders.MainOrderID = BatchDetails.MainOrderID INNER JOIN Batch ON BatchDetails.BatchID = Batch.BatchID AND " + WorkAssignment + WorkAssignmentID +
+                @" INNER JOIN infiniu2_marketingreference.dbo.Clients AS Client ON MegaOrders.ClientID = Client.ClientID " + 
                 @" ORDER BY ClientName, OrderNumber, MainOrders.MainOrderID";
             using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.MarketingOrdersConnectionString))
             {
@@ -2089,9 +2085,8 @@ namespace Infinium.Modules.DyeingAssignments
                 BatchMainOrdersDT.Rows.Add(NewRow);
             }
             SelectCommand = @"SELECT ClientName, CONVERT(varchar(20), MainOrders.DocNumber) AS OrderNumber, MainOrders.MainOrderID, MainOrders.FrontsSquare, MainOrders.Notes, Batch.BatchID FROM MainOrders
-                INNER JOIN BatchDetails ON MainOrders.MainOrderID = BatchDetails.MainOrderID AND BatchDetails.FactoryID = " + FactoryID +
-                @" INNER JOIN Batch ON BatchDetails.BatchID = Batch.BatchID AND " + WorkAssignment + WorkAssignmentID +
-                @" INNER JOIN infiniu2_zovreference.dbo.Clients AS Client ON MainOrders.ClientID = Client.ClientID " + FactoryFilter +
+                INNER JOIN BatchDetails ON MainOrders.MainOrderID = BatchDetails.MainOrderID INNER JOIN Batch ON BatchDetails.BatchID = Batch.BatchID AND " + WorkAssignment + WorkAssignmentID +
+                @" INNER JOIN infiniu2_zovreference.dbo.Clients AS Client ON MainOrders.ClientID = Client.ClientID " + 
                 @" ORDER BY ClientName, OrderNumber, MainOrders.MainOrderID";
             using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.ZOVOrdersConnectionString))
             {
@@ -2187,7 +2182,7 @@ namespace Infinium.Modules.DyeingAssignments
         public int UpdateWorkAssignments(int FactoryID)
         {
             int MaxWorkAssignmentID = 0;
-            using (SqlDataAdapter DA = new SqlDataAdapter("SELECT * FROM WorkAssignments WHERE FactoryID = " + FactoryID + " ORDER BY WorkAssignmentID DESC",
+            using (SqlDataAdapter DA = new SqlDataAdapter("SELECT * FROM WorkAssignments ORDER BY WorkAssignmentID DESC",
                 ConnectionStrings.MarketingOrdersConnectionString))
             {
                 WorkAssignmentsDT.Clear();

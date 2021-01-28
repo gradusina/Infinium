@@ -38,108 +38,49 @@
             this.kryptonBorderEdge3 = new ComponentFactory.Krypton.Toolkit.KryptonBorderEdge();
             this.CheckTimer = new System.Windows.Forms.Timer(this.components);
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.OKInvButton = new ComponentFactory.Krypton.Toolkit.KryptonButton();
+            this.btnDisp = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.StandardButtonsPalette = new ComponentFactory.Krypton.Toolkit.KryptonPalette(this.components);
             this.panel3 = new System.Windows.Forms.Panel();
+            this.label3 = new System.Windows.Forms.Label();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.panel12 = new System.Windows.Forms.Panel();
+            this.dgvScanedStoragePackagesDetails = new Infinium.PercentageDataGrid();
             this.panel13 = new System.Windows.Forms.Panel();
-            this.AssignmentNumberLabel = new System.Windows.Forms.Label();
-            this.label32 = new System.Windows.Forms.Label();
-            this.kryptonBorderEdge42 = new ComponentFactory.Krypton.Toolkit.KryptonBorderEdge();
-            this.RemoveFromStorageDateLabel = new System.Windows.Forms.Label();
-            this.label29 = new System.Windows.Forms.Label();
-            this.CreateDateLabel = new System.Windows.Forms.Label();
-            this.label20 = new System.Windows.Forms.Label();
-            this.kryptonBorderEdge43 = new ComponentFactory.Krypton.Toolkit.KryptonBorderEdge();
-            this.kryptonBorderEdge44 = new ComponentFactory.Krypton.Toolkit.KryptonBorderEdge();
-            this.label21 = new System.Windows.Forms.Label();
             this.lbCellName = new System.Windows.Forms.Label();
-            this.kryptonBorderEdge45 = new ComponentFactory.Krypton.Toolkit.KryptonBorderEdge();
+            this.label20 = new System.Windows.Forms.Label();
             this.kryptonBorderEdge46 = new ComponentFactory.Krypton.Toolkit.KryptonBorderEdge();
             this.kryptonBorderEdge1 = new ComponentFactory.Krypton.Toolkit.KryptonBorderEdge();
-            this.AddToStorageDateLabel = new System.Windows.Forms.Label();
             this.lbRackName = new System.Windows.Forms.Label();
             this.lbScaned = new System.Windows.Forms.Label();
-            this.label25 = new System.Windows.Forms.Label();
             this.label26 = new System.Windows.Forms.Label();
             this.label28 = new System.Windows.Forms.Label();
             this.kryptonBorderEdge2 = new ComponentFactory.Krypton.Toolkit.KryptonBorderEdge();
             this.kryptonBorderEdge4 = new ComponentFactory.Krypton.Toolkit.KryptonBorderEdge();
             this.kryptonBorderEdge5 = new ComponentFactory.Krypton.Toolkit.KryptonBorderEdge();
             this.kryptonBorderEdge6 = new ComponentFactory.Krypton.Toolkit.KryptonBorderEdge();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.panel12 = new System.Windows.Forms.Panel();
-            this.dgvScanedStoragePackagesDetails = new Infinium.PercentageDataGrid();
             this.BarcodeLabel = new System.Windows.Forms.Label();
             this.CheckPicture = new System.Windows.Forms.PictureBox();
             this.BarcodeTextBox = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label2 = new System.Windows.Forms.Label();
             this.panel27 = new System.Windows.Forms.Panel();
             this.dgvStoragePackagesLabels = new Infinium.PercentageDataGrid();
+            this.label47 = new System.Windows.Forms.Label();
             this.panel23 = new System.Windows.Forms.Panel();
             this.dgvStoragePackagesDetails = new Infinium.PercentageDataGrid();
-            this.panel5 = new System.Windows.Forms.Panel();
-            this.panel7 = new System.Windows.Forms.Panel();
-            this.dgvScanPackages = new Infinium.PercentageDataGrid();
-            this.kryptonBorderEdge17 = new ComponentFactory.Krypton.Toolkit.KryptonBorderEdge();
-            this.kryptonBorderEdge22 = new ComponentFactory.Krypton.Toolkit.KryptonBorderEdge();
-            this.kryptonBorderEdge23 = new ComponentFactory.Krypton.Toolkit.KryptonBorderEdge();
-            this.kryptonBorderEdge24 = new ComponentFactory.Krypton.Toolkit.KryptonBorderEdge();
-            this.panel11 = new System.Windows.Forms.Panel();
-            this.dgvWrongPackages = new Infinium.PercentageDataGrid();
-            this.kryptonBorderEdge14 = new ComponentFactory.Krypton.Toolkit.KryptonBorderEdge();
-            this.kryptonBorderEdge15 = new ComponentFactory.Krypton.Toolkit.KryptonBorderEdge();
-            this.kryptonBorderEdge16 = new ComponentFactory.Krypton.Toolkit.KryptonBorderEdge();
-            this.kryptonBorderEdge25 = new ComponentFactory.Krypton.Toolkit.KryptonBorderEdge();
-            this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
-            this.cbtnScanedPackages = new ComponentFactory.Krypton.Toolkit.KryptonCheckButton();
             this.PanelSelectPalette = new ComponentFactory.Krypton.Toolkit.KryptonPalette(this.components);
-            this.cbtnNotScanedPackages = new ComponentFactory.Krypton.Toolkit.KryptonCheckButton();
-            this.cbtnWrongPackages = new ComponentFactory.Krypton.Toolkit.KryptonCheckButton();
-            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-            this.panel8 = new System.Windows.Forms.Panel();
-            this.label10 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
-            this.panel9 = new System.Windows.Forms.Panel();
-            this.label12 = new System.Windows.Forms.Label();
-            this.label13 = new System.Windows.Forms.Label();
-            this.panel10 = new System.Windows.Forms.Panel();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label14 = new System.Windows.Forms.Label();
-            this.label15 = new System.Windows.Forms.Label();
-            this.kryptonButton1 = new ComponentFactory.Krypton.Toolkit.KryptonButton();
-            this.panel6 = new System.Windows.Forms.Panel();
-            this.dgvNotScanPackages = new Infinium.PercentageDataGrid();
-            this.kryptonBorderEdge9 = new ComponentFactory.Krypton.Toolkit.KryptonBorderEdge();
-            this.kryptonBorderEdge10 = new ComponentFactory.Krypton.Toolkit.KryptonBorderEdge();
-            this.kryptonBorderEdge11 = new ComponentFactory.Krypton.Toolkit.KryptonBorderEdge();
-            this.kryptonBorderEdge12 = new ComponentFactory.Krypton.Toolkit.KryptonBorderEdge();
-            this.kryptonCheckSet1 = new ComponentFactory.Krypton.Toolkit.KryptonCheckSet(this.components);
             this.NavigatePanel.SuspendLayout();
             this.panel3.SuspendLayout();
-            this.panel13.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel12.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvScanedStoragePackagesDetails)).BeginInit();
+            this.panel13.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.CheckPicture)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel27.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvStoragePackagesLabels)).BeginInit();
             this.panel23.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvStoragePackagesDetails)).BeginInit();
-            this.panel5.SuspendLayout();
-            this.panel7.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvScanPackages)).BeginInit();
-            this.panel11.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvWrongPackages)).BeginInit();
-            this.flowLayoutPanel2.SuspendLayout();
-            this.flowLayoutPanel1.SuspendLayout();
-            this.panel8.SuspendLayout();
-            this.panel9.SuspendLayout();
-            this.panel10.SuspendLayout();
-            this.panel6.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvNotScanPackages)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonCheckSet1)).BeginInit();
             this.SuspendLayout();
             // 
             // AnimateTimer
@@ -248,6 +189,7 @@
             // 
             // CheckTimer
             // 
+            this.CheckTimer.Enabled = true;
             this.CheckTimer.Interval = 2000;
             this.CheckTimer.Tick += new System.EventHandler(this.CheckTimer_Tick);
             // 
@@ -256,26 +198,26 @@
             this.timer1.Enabled = true;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
-            // OKInvButton
+            // btnDisp
             // 
-            this.OKInvButton.Location = new System.Drawing.Point(1124, 11);
-            this.OKInvButton.Name = "OKInvButton";
-            this.OKInvButton.Palette = this.StandardButtonsPalette;
-            this.OKInvButton.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Custom;
-            this.OKInvButton.Size = new System.Drawing.Size(130, 40);
-            this.OKInvButton.StateCommon.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            this.btnDisp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnDisp.Location = new System.Drawing.Point(1124, 16);
+            this.btnDisp.Name = "btnDisp";
+            this.btnDisp.Palette = this.StandardButtonsPalette;
+            this.btnDisp.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Custom;
+            this.btnDisp.Size = new System.Drawing.Size(130, 40);
+            this.btnDisp.StateCommon.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
-            this.OKInvButton.StateCommon.Content.Image.ImageH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
-            this.OKInvButton.StateCommon.Content.Image.ImageV = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Near;
-            this.OKInvButton.StateCommon.Content.ShortText.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.OKInvButton.StateCommon.Content.ShortText.TextV = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
-            this.OKInvButton.StateTracking.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(253)))), ((int)(((byte)(164)))), ((int)(((byte)(61)))));
-            this.OKInvButton.StateTracking.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
-            this.OKInvButton.TabIndex = 44;
-            this.OKInvButton.TabStop = false;
-            this.OKInvButton.Values.Text = "Сверить";
-            this.OKInvButton.Click += new System.EventHandler(this.OKInvButton_Click);
+            this.btnDisp.StateCommon.Content.Image.ImageH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
+            this.btnDisp.StateCommon.Content.Image.ImageV = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Near;
+            this.btnDisp.StateCommon.Content.ShortText.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.btnDisp.StateCommon.Content.ShortText.TextV = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
+            this.btnDisp.StateTracking.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(253)))), ((int)(((byte)(164)))), ((int)(((byte)(61)))));
+            this.btnDisp.StateTracking.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
+            this.btnDisp.TabIndex = 44;
+            this.btnDisp.TabStop = false;
+            this.btnDisp.Values.Text = "Отгрузить";
             // 
             // StandardButtonsPalette
             // 
@@ -319,9 +261,9 @@
             // 
             // panel3
             // 
-            this.panel3.Controls.Add(this.panel13);
+            this.panel3.Controls.Add(this.label3);
             this.panel3.Controls.Add(this.panel2);
-            this.panel3.Controls.Add(this.OKInvButton);
+            this.panel3.Controls.Add(this.btnDisp);
             this.panel3.Controls.Add(this.BarcodeLabel);
             this.panel3.Controls.Add(this.CheckPicture);
             this.panel3.Controls.Add(this.BarcodeTextBox);
@@ -332,295 +274,25 @@
             this.panel3.Size = new System.Drawing.Size(1270, 686);
             this.panel3.TabIndex = 321;
             // 
-            // panel13
+            // label3
             // 
-            this.panel13.BackColor = System.Drawing.Color.Transparent;
-            this.panel13.Controls.Add(this.AssignmentNumberLabel);
-            this.panel13.Controls.Add(this.label32);
-            this.panel13.Controls.Add(this.kryptonBorderEdge42);
-            this.panel13.Controls.Add(this.RemoveFromStorageDateLabel);
-            this.panel13.Controls.Add(this.label29);
-            this.panel13.Controls.Add(this.CreateDateLabel);
-            this.panel13.Controls.Add(this.label20);
-            this.panel13.Controls.Add(this.kryptonBorderEdge43);
-            this.panel13.Controls.Add(this.kryptonBorderEdge44);
-            this.panel13.Controls.Add(this.label21);
-            this.panel13.Controls.Add(this.lbCellName);
-            this.panel13.Controls.Add(this.kryptonBorderEdge45);
-            this.panel13.Controls.Add(this.kryptonBorderEdge46);
-            this.panel13.Controls.Add(this.kryptonBorderEdge1);
-            this.panel13.Controls.Add(this.AddToStorageDateLabel);
-            this.panel13.Controls.Add(this.lbRackName);
-            this.panel13.Controls.Add(this.lbScaned);
-            this.panel13.Controls.Add(this.label25);
-            this.panel13.Controls.Add(this.label26);
-            this.panel13.Controls.Add(this.label28);
-            this.panel13.Controls.Add(this.kryptonBorderEdge2);
-            this.panel13.Controls.Add(this.kryptonBorderEdge4);
-            this.panel13.Controls.Add(this.kryptonBorderEdge5);
-            this.panel13.Controls.Add(this.kryptonBorderEdge6);
-            this.panel13.Location = new System.Drawing.Point(391, 8);
-            this.panel13.Margin = new System.Windows.Forms.Padding(3, 3, 10, 3);
-            this.panel13.Name = "panel13";
-            this.panel13.Size = new System.Drawing.Size(542, 109);
-            this.panel13.TabIndex = 340;
-            // 
-            // AssignmentNumberLabel
-            // 
-            this.AssignmentNumberLabel.AutoSize = true;
-            this.AssignmentNumberLabel.Font = new System.Drawing.Font("Segoe UI", 19.69F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
-            this.AssignmentNumberLabel.ForeColor = System.Drawing.Color.Black;
-            this.AssignmentNumberLabel.Location = new System.Drawing.Point(468, 110);
-            this.AssignmentNumberLabel.Name = "AssignmentNumberLabel";
-            this.AssignmentNumberLabel.Size = new System.Drawing.Size(36, 28);
-            this.AssignmentNumberLabel.TabIndex = 40;
-            this.AssignmentNumberLabel.Text = "11";
-            // 
-            // label32
-            // 
-            this.label32.AutoSize = true;
-            this.label32.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
-            this.label32.ForeColor = System.Drawing.Color.Black;
-            this.label32.Location = new System.Drawing.Point(311, 116);
-            this.label32.Name = "label32";
-            this.label32.Size = new System.Drawing.Size(102, 21);
-            this.label32.TabIndex = 39;
-            this.label32.Text = "№ задания:";
-            // 
-            // kryptonBorderEdge42
-            // 
-            this.kryptonBorderEdge42.Location = new System.Drawing.Point(293, 157);
-            this.kryptonBorderEdge42.Name = "kryptonBorderEdge42";
-            this.kryptonBorderEdge42.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.kryptonBorderEdge42.Size = new System.Drawing.Size(1, 37);
-            this.kryptonBorderEdge42.StateCommon.Color1 = System.Drawing.Color.Gray;
-            this.kryptonBorderEdge42.Text = "kryptonBorderEdge42";
-            // 
-            // RemoveFromStorageDateLabel
-            // 
-            this.RemoveFromStorageDateLabel.AutoSize = true;
-            this.RemoveFromStorageDateLabel.Font = new System.Drawing.Font("Segoe UI", 19.69F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
-            this.RemoveFromStorageDateLabel.ForeColor = System.Drawing.Color.Black;
-            this.RemoveFromStorageDateLabel.Location = new System.Drawing.Point(468, 161);
-            this.RemoveFromStorageDateLabel.Name = "RemoveFromStorageDateLabel";
-            this.RemoveFromStorageDateLabel.Size = new System.Drawing.Size(118, 28);
-            this.RemoveFromStorageDateLabel.TabIndex = 36;
-            this.RemoveFromStorageDateLabel.Text = "10.12.2012";
-            // 
-            // label29
-            // 
-            this.label29.AutoSize = true;
-            this.label29.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
-            this.label29.ForeColor = System.Drawing.Color.Black;
-            this.label29.Location = new System.Drawing.Point(311, 165);
-            this.label29.Name = "label29";
-            this.label29.Size = new System.Drawing.Size(162, 21);
-            this.label29.TabIndex = 35;
-            this.label29.Text = "Списано со склада:";
-            // 
-            // CreateDateLabel
-            // 
-            this.CreateDateLabel.AutoSize = true;
-            this.CreateDateLabel.Font = new System.Drawing.Font("Segoe UI", 19.69F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
-            this.CreateDateLabel.ForeColor = System.Drawing.Color.Black;
-            this.CreateDateLabel.Location = new System.Drawing.Point(165, 112);
-            this.CreateDateLabel.Name = "CreateDateLabel";
-            this.CreateDateLabel.Size = new System.Drawing.Size(118, 28);
-            this.CreateDateLabel.TabIndex = 25;
-            this.CreateDateLabel.Text = "14.11.2012";
-            // 
-            // label20
-            // 
-            this.label20.AutoSize = true;
-            this.label20.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
-            this.label20.ForeColor = System.Drawing.Color.Black;
-            this.label20.Location = new System.Drawing.Point(14, 116);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(129, 21);
-            this.label20.TabIndex = 24;
-            this.label20.Text = "Дата создания:";
-            // 
-            // kryptonBorderEdge43
-            // 
-            this.kryptonBorderEdge43.Location = new System.Drawing.Point(293, 107);
-            this.kryptonBorderEdge43.Name = "kryptonBorderEdge43";
-            this.kryptonBorderEdge43.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.kryptonBorderEdge43.Size = new System.Drawing.Size(1, 37);
-            this.kryptonBorderEdge43.StateCommon.Color1 = System.Drawing.Color.Gray;
-            this.kryptonBorderEdge43.Text = "kryptonBorderEdge43";
-            // 
-            // kryptonBorderEdge44
-            // 
-            this.kryptonBorderEdge44.Location = new System.Drawing.Point(293, 57);
-            this.kryptonBorderEdge44.Name = "kryptonBorderEdge44";
-            this.kryptonBorderEdge44.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.kryptonBorderEdge44.Size = new System.Drawing.Size(1, 37);
-            this.kryptonBorderEdge44.StateCommon.Color1 = System.Drawing.Color.Gray;
-            this.kryptonBorderEdge44.Text = "kryptonBorderEdge44";
-            // 
-            // label21
-            // 
-            this.label21.AutoSize = true;
-            this.label21.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
-            this.label21.ForeColor = System.Drawing.Color.Black;
-            this.label21.Location = new System.Drawing.Point(311, 68);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(71, 21);
-            this.label21.TabIndex = 19;
-            this.label21.Text = "Ячейка:";
-            // 
-            // lbCellName
-            // 
-            this.lbCellName.AutoSize = true;
-            this.lbCellName.Font = new System.Drawing.Font("Segoe UI", 19.69F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
-            this.lbCellName.ForeColor = System.Drawing.Color.Black;
-            this.lbCellName.Location = new System.Drawing.Point(468, 62);
-            this.lbCellName.Name = "lbCellName";
-            this.lbCellName.Size = new System.Drawing.Size(21, 28);
-            this.lbCellName.TabIndex = 18;
-            this.lbCellName.Text = "?";
-            // 
-            // kryptonBorderEdge45
-            // 
-            this.kryptonBorderEdge45.AutoSize = false;
-            this.kryptonBorderEdge45.Location = new System.Drawing.Point(18, 150);
-            this.kryptonBorderEdge45.Name = "kryptonBorderEdge45";
-            this.kryptonBorderEdge45.Size = new System.Drawing.Size(795, 1);
-            this.kryptonBorderEdge45.StateCommon.Color1 = System.Drawing.Color.Gray;
-            this.kryptonBorderEdge45.Text = "kryptonBorderEdge45";
-            // 
-            // kryptonBorderEdge46
-            // 
-            this.kryptonBorderEdge46.AutoSize = false;
-            this.kryptonBorderEdge46.Location = new System.Drawing.Point(18, 100);
-            this.kryptonBorderEdge46.Name = "kryptonBorderEdge46";
-            this.kryptonBorderEdge46.Size = new System.Drawing.Size(506, 1);
-            this.kryptonBorderEdge46.StateCommon.Color1 = System.Drawing.Color.Gray;
-            this.kryptonBorderEdge46.Text = "kryptonBorderEdge46";
-            // 
-            // kryptonBorderEdge1
-            // 
-            this.kryptonBorderEdge1.AutoSize = false;
-            this.kryptonBorderEdge1.Location = new System.Drawing.Point(18, 50);
-            this.kryptonBorderEdge1.Name = "kryptonBorderEdge1";
-            this.kryptonBorderEdge1.Size = new System.Drawing.Size(506, 1);
-            this.kryptonBorderEdge1.StateCommon.Color1 = System.Drawing.Color.Gray;
-            this.kryptonBorderEdge1.StateCommon.Color2 = System.Drawing.Color.Transparent;
-            this.kryptonBorderEdge1.Text = "kryptonBorderEdge1";
-            // 
-            // AddToStorageDateLabel
-            // 
-            this.AddToStorageDateLabel.AutoSize = true;
-            this.AddToStorageDateLabel.Font = new System.Drawing.Font("Segoe UI", 19.69F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
-            this.AddToStorageDateLabel.ForeColor = System.Drawing.Color.Black;
-            this.AddToStorageDateLabel.Location = new System.Drawing.Point(165, 161);
-            this.AddToStorageDateLabel.Name = "AddToStorageDateLabel";
-            this.AddToStorageDateLabel.Size = new System.Drawing.Size(118, 28);
-            this.AddToStorageDateLabel.TabIndex = 10;
-            this.AddToStorageDateLabel.Text = "10.12.2012";
-            // 
-            // lbRackName
-            // 
-            this.lbRackName.AutoSize = true;
-            this.lbRackName.Font = new System.Drawing.Font("Segoe UI", 19.69F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
-            this.lbRackName.ForeColor = System.Drawing.Color.Black;
-            this.lbRackName.Location = new System.Drawing.Point(165, 62);
-            this.lbRackName.Name = "lbRackName";
-            this.lbRackName.Size = new System.Drawing.Size(21, 28);
-            this.lbRackName.TabIndex = 9;
-            this.lbRackName.Text = "?";
-            // 
-            // lbScaned
-            // 
-            this.lbScaned.AutoSize = true;
-            this.lbScaned.Font = new System.Drawing.Font("Segoe UI", 19.69F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
-            this.lbScaned.ForeColor = System.Drawing.Color.Black;
-            this.lbScaned.Location = new System.Drawing.Point(165, 10);
-            this.lbScaned.Name = "lbScaned";
-            this.lbScaned.Size = new System.Drawing.Size(45, 28);
-            this.lbScaned.TabIndex = 8;
-            this.lbScaned.Text = "0/0";
-            // 
-            // label25
-            // 
-            this.label25.AutoSize = true;
-            this.label25.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
-            this.label25.ForeColor = System.Drawing.Color.Black;
-            this.label25.Location = new System.Drawing.Point(14, 165);
-            this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(155, 21);
-            this.label25.TabIndex = 7;
-            this.label25.Text = "Принято на склад:";
-            // 
-            // label26
-            // 
-            this.label26.AutoSize = true;
-            this.label26.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
-            this.label26.ForeColor = System.Drawing.Color.Black;
-            this.label26.Location = new System.Drawing.Point(14, 68);
-            this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(84, 21);
-            this.label26.TabIndex = 6;
-            this.label26.Text = "Стеллаж:";
-            // 
-            // label28
-            // 
-            this.label28.AutoSize = true;
-            this.label28.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
-            this.label28.ForeColor = System.Drawing.Color.Black;
-            this.label28.Location = new System.Drawing.Point(14, 18);
-            this.label28.Name = "label28";
-            this.label28.Size = new System.Drawing.Size(137, 21);
-            this.label28.TabIndex = 5;
-            this.label28.Text = "Отсканировано:";
-            // 
-            // kryptonBorderEdge2
-            // 
-            this.kryptonBorderEdge2.Dock = System.Windows.Forms.DockStyle.Right;
-            this.kryptonBorderEdge2.Location = new System.Drawing.Point(541, 1);
-            this.kryptonBorderEdge2.Name = "kryptonBorderEdge2";
-            this.kryptonBorderEdge2.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.kryptonBorderEdge2.Size = new System.Drawing.Size(1, 107);
-            this.kryptonBorderEdge2.StateCommon.Color1 = System.Drawing.Color.Black;
-            this.kryptonBorderEdge2.Text = "kryptonBorderEdge2";
-            // 
-            // kryptonBorderEdge4
-            // 
-            this.kryptonBorderEdge4.Dock = System.Windows.Forms.DockStyle.Left;
-            this.kryptonBorderEdge4.Location = new System.Drawing.Point(0, 1);
-            this.kryptonBorderEdge4.Name = "kryptonBorderEdge4";
-            this.kryptonBorderEdge4.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.kryptonBorderEdge4.Size = new System.Drawing.Size(1, 107);
-            this.kryptonBorderEdge4.StateCommon.Color1 = System.Drawing.Color.Black;
-            this.kryptonBorderEdge4.Text = "kryptonBorderEdge4";
-            // 
-            // kryptonBorderEdge5
-            // 
-            this.kryptonBorderEdge5.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.kryptonBorderEdge5.Location = new System.Drawing.Point(0, 108);
-            this.kryptonBorderEdge5.Name = "kryptonBorderEdge5";
-            this.kryptonBorderEdge5.Size = new System.Drawing.Size(542, 1);
-            this.kryptonBorderEdge5.StateCommon.Color1 = System.Drawing.Color.Black;
-            this.kryptonBorderEdge5.Text = "kryptonBorderEdge5";
-            // 
-            // kryptonBorderEdge6
-            // 
-            this.kryptonBorderEdge6.Dock = System.Windows.Forms.DockStyle.Top;
-            this.kryptonBorderEdge6.Location = new System.Drawing.Point(0, 0);
-            this.kryptonBorderEdge6.Name = "kryptonBorderEdge6";
-            this.kryptonBorderEdge6.Size = new System.Drawing.Size(542, 1);
-            this.kryptonBorderEdge6.StateCommon.Color1 = System.Drawing.Color.Black;
-            this.kryptonBorderEdge6.Text = "kryptonBorderEdge6";
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Segoe UI", 17F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.label3.Location = new System.Drawing.Point(12, 342);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(198, 23);
+            this.label3.TabIndex = 422;
+            this.label3.Text = "Еще не отсканировано";
             // 
             // panel2
             // 
-            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel2.Controls.Add(this.panel12);
-            this.panel2.Location = new System.Drawing.Point(16, 127);
+            this.panel2.Controls.Add(this.panel13);
+            this.panel2.Location = new System.Drawing.Point(16, 71);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1238, 209);
+            this.panel2.Size = new System.Drawing.Size(1238, 258);
             this.panel2.TabIndex = 338;
             // 
             // panel12
@@ -632,7 +304,7 @@
             this.panel12.Controls.Add(this.dgvScanedStoragePackagesDetails);
             this.panel12.Location = new System.Drawing.Point(294, 0);
             this.panel12.Name = "panel12";
-            this.panel12.Size = new System.Drawing.Size(944, 209);
+            this.panel12.Size = new System.Drawing.Size(944, 258);
             this.panel12.TabIndex = 42;
             // 
             // dgvScanedStoragePackagesDetails
@@ -655,7 +327,7 @@
             this.dgvScanedStoragePackagesDetails.RowTemplate.Height = 30;
             this.dgvScanedStoragePackagesDetails.SelectedColorStyle = Infinium.PercentageDataGrid.ColorStyle.Blue;
             this.dgvScanedStoragePackagesDetails.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvScanedStoragePackagesDetails.Size = new System.Drawing.Size(942, 207);
+            this.dgvScanedStoragePackagesDetails.Size = new System.Drawing.Size(942, 256);
             this.dgvScanedStoragePackagesDetails.StandardStyle = false;
             this.dgvScanedStoragePackagesDetails.StateCommon.Background.Color1 = System.Drawing.Color.White;
             this.dgvScanedStoragePackagesDetails.StateCommon.Background.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
@@ -689,11 +361,155 @@
             this.dgvScanedStoragePackagesDetails.TabIndex = 74;
             this.dgvScanedStoragePackagesDetails.UseCustomBackColor = true;
             // 
+            // panel13
+            // 
+            this.panel13.BackColor = System.Drawing.Color.Transparent;
+            this.panel13.Controls.Add(this.lbCellName);
+            this.panel13.Controls.Add(this.label20);
+            this.panel13.Controls.Add(this.kryptonBorderEdge46);
+            this.panel13.Controls.Add(this.kryptonBorderEdge1);
+            this.panel13.Controls.Add(this.lbRackName);
+            this.panel13.Controls.Add(this.lbScaned);
+            this.panel13.Controls.Add(this.label26);
+            this.panel13.Controls.Add(this.label28);
+            this.panel13.Controls.Add(this.kryptonBorderEdge2);
+            this.panel13.Controls.Add(this.kryptonBorderEdge4);
+            this.panel13.Controls.Add(this.kryptonBorderEdge5);
+            this.panel13.Controls.Add(this.kryptonBorderEdge6);
+            this.panel13.Location = new System.Drawing.Point(0, 0);
+            this.panel13.Margin = new System.Windows.Forms.Padding(3, 3, 10, 3);
+            this.panel13.Name = "panel13";
+            this.panel13.Size = new System.Drawing.Size(289, 157);
+            this.panel13.TabIndex = 340;
+            // 
+            // lbCellName
+            // 
+            this.lbCellName.AutoSize = true;
+            this.lbCellName.Font = new System.Drawing.Font("Segoe UI", 19.69F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.lbCellName.ForeColor = System.Drawing.Color.Black;
+            this.lbCellName.Location = new System.Drawing.Point(251, 112);
+            this.lbCellName.Name = "lbCellName";
+            this.lbCellName.Size = new System.Drawing.Size(21, 28);
+            this.lbCellName.TabIndex = 25;
+            this.lbCellName.Text = "?";
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.label20.ForeColor = System.Drawing.Color.Black;
+            this.label20.Location = new System.Drawing.Point(14, 116);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(71, 21);
+            this.label20.TabIndex = 24;
+            this.label20.Text = "Ячейка:";
+            // 
+            // kryptonBorderEdge46
+            // 
+            this.kryptonBorderEdge46.AutoSize = false;
+            this.kryptonBorderEdge46.Location = new System.Drawing.Point(18, 100);
+            this.kryptonBorderEdge46.Name = "kryptonBorderEdge46";
+            this.kryptonBorderEdge46.Size = new System.Drawing.Size(253, 1);
+            this.kryptonBorderEdge46.StateCommon.Color1 = System.Drawing.Color.Gray;
+            this.kryptonBorderEdge46.Text = "kryptonBorderEdge46";
+            // 
+            // kryptonBorderEdge1
+            // 
+            this.kryptonBorderEdge1.AutoSize = false;
+            this.kryptonBorderEdge1.Location = new System.Drawing.Point(18, 50);
+            this.kryptonBorderEdge1.Name = "kryptonBorderEdge1";
+            this.kryptonBorderEdge1.Size = new System.Drawing.Size(253, 1);
+            this.kryptonBorderEdge1.StateCommon.Color1 = System.Drawing.Color.Gray;
+            this.kryptonBorderEdge1.StateCommon.Color2 = System.Drawing.Color.Transparent;
+            this.kryptonBorderEdge1.Text = "kryptonBorderEdge1";
+            // 
+            // lbRackName
+            // 
+            this.lbRackName.AutoSize = true;
+            this.lbRackName.Font = new System.Drawing.Font("Segoe UI", 19.69F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.lbRackName.ForeColor = System.Drawing.Color.Black;
+            this.lbRackName.Location = new System.Drawing.Point(251, 62);
+            this.lbRackName.Name = "lbRackName";
+            this.lbRackName.Size = new System.Drawing.Size(21, 28);
+            this.lbRackName.TabIndex = 9;
+            this.lbRackName.Text = "?";
+            // 
+            // lbScaned
+            // 
+            this.lbScaned.AutoSize = true;
+            this.lbScaned.Font = new System.Drawing.Font("Segoe UI", 19.69F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.lbScaned.ForeColor = System.Drawing.Color.Black;
+            this.lbScaned.Location = new System.Drawing.Point(227, 11);
+            this.lbScaned.Name = "lbScaned";
+            this.lbScaned.Size = new System.Drawing.Size(45, 28);
+            this.lbScaned.TabIndex = 8;
+            this.lbScaned.Text = "0/0";
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.label26.ForeColor = System.Drawing.Color.Black;
+            this.label26.Location = new System.Drawing.Point(14, 68);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(84, 21);
+            this.label26.TabIndex = 6;
+            this.label26.Text = "Стеллаж:";
+            // 
+            // label28
+            // 
+            this.label28.AutoSize = true;
+            this.label28.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.label28.ForeColor = System.Drawing.Color.Black;
+            this.label28.Location = new System.Drawing.Point(14, 18);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(137, 21);
+            this.label28.TabIndex = 5;
+            this.label28.Text = "Отсканировано:";
+            // 
+            // kryptonBorderEdge2
+            // 
+            this.kryptonBorderEdge2.Dock = System.Windows.Forms.DockStyle.Right;
+            this.kryptonBorderEdge2.Location = new System.Drawing.Point(288, 1);
+            this.kryptonBorderEdge2.Name = "kryptonBorderEdge2";
+            this.kryptonBorderEdge2.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.kryptonBorderEdge2.Size = new System.Drawing.Size(1, 155);
+            this.kryptonBorderEdge2.StateCommon.Color1 = System.Drawing.Color.Black;
+            this.kryptonBorderEdge2.Text = "kryptonBorderEdge2";
+            // 
+            // kryptonBorderEdge4
+            // 
+            this.kryptonBorderEdge4.Dock = System.Windows.Forms.DockStyle.Left;
+            this.kryptonBorderEdge4.Location = new System.Drawing.Point(0, 1);
+            this.kryptonBorderEdge4.Name = "kryptonBorderEdge4";
+            this.kryptonBorderEdge4.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.kryptonBorderEdge4.Size = new System.Drawing.Size(1, 155);
+            this.kryptonBorderEdge4.StateCommon.Color1 = System.Drawing.Color.Black;
+            this.kryptonBorderEdge4.Text = "kryptonBorderEdge4";
+            // 
+            // kryptonBorderEdge5
+            // 
+            this.kryptonBorderEdge5.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.kryptonBorderEdge5.Location = new System.Drawing.Point(0, 156);
+            this.kryptonBorderEdge5.Name = "kryptonBorderEdge5";
+            this.kryptonBorderEdge5.Size = new System.Drawing.Size(289, 1);
+            this.kryptonBorderEdge5.StateCommon.Color1 = System.Drawing.Color.Black;
+            this.kryptonBorderEdge5.Text = "kryptonBorderEdge5";
+            // 
+            // kryptonBorderEdge6
+            // 
+            this.kryptonBorderEdge6.Dock = System.Windows.Forms.DockStyle.Top;
+            this.kryptonBorderEdge6.Location = new System.Drawing.Point(0, 0);
+            this.kryptonBorderEdge6.Name = "kryptonBorderEdge6";
+            this.kryptonBorderEdge6.Size = new System.Drawing.Size(289, 1);
+            this.kryptonBorderEdge6.StateCommon.Color1 = System.Drawing.Color.Black;
+            this.kryptonBorderEdge6.Text = "kryptonBorderEdge6";
+            // 
             // BarcodeLabel
             // 
             this.BarcodeLabel.Font = new System.Drawing.Font("Segoe UI", 19F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.BarcodeLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.BarcodeLabel.Location = new System.Drawing.Point(11, 66);
+            this.BarcodeLabel.Location = new System.Drawing.Point(311, 16);
             this.BarcodeLabel.Name = "BarcodeLabel";
             this.BarcodeLabel.Size = new System.Drawing.Size(374, 45);
             this.BarcodeLabel.TabIndex = 329;
@@ -724,14 +540,28 @@
             // 
             // panel1
             // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.panel27);
+            this.panel1.Controls.Add(this.label47);
             this.panel1.Controls.Add(this.panel23);
-            this.panel1.Location = new System.Drawing.Point(16, 363);
+            this.panel1.Location = new System.Drawing.Point(16, 368);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1238, 307);
+            this.panel1.Size = new System.Drawing.Size(1238, 302);
             this.panel1.TabIndex = 322;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.label2.Location = new System.Drawing.Point(290, 2);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(103, 20);
+            this.label2.TabIndex = 422;
+            this.label2.Text = "Содержимое:";
             // 
             // panel27
             // 
@@ -739,9 +569,9 @@
             | System.Windows.Forms.AnchorStyles.Left)));
             this.panel27.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel27.Controls.Add(this.dgvStoragePackagesLabels);
-            this.panel27.Location = new System.Drawing.Point(0, 0);
+            this.panel27.Location = new System.Drawing.Point(0, 27);
             this.panel27.Name = "panel27";
-            this.panel27.Size = new System.Drawing.Size(288, 307);
+            this.panel27.Size = new System.Drawing.Size(288, 273);
             this.panel27.TabIndex = 321;
             // 
             // dgvStoragePackagesLabels
@@ -764,7 +594,7 @@
             this.dgvStoragePackagesLabels.RowTemplate.Height = 30;
             this.dgvStoragePackagesLabels.SelectedColorStyle = Infinium.PercentageDataGrid.ColorStyle.Blue;
             this.dgvStoragePackagesLabels.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvStoragePackagesLabels.Size = new System.Drawing.Size(286, 305);
+            this.dgvStoragePackagesLabels.Size = new System.Drawing.Size(286, 271);
             this.dgvStoragePackagesLabels.StandardStyle = false;
             this.dgvStoragePackagesLabels.StateCommon.Background.Color1 = System.Drawing.Color.White;
             this.dgvStoragePackagesLabels.StateCommon.Background.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
@@ -799,6 +629,16 @@
             this.dgvStoragePackagesLabels.UseCustomBackColor = true;
             this.dgvStoragePackagesLabels.SelectionChanged += new System.EventHandler(this.dgvPackagesLabels_SelectionChanged);
             // 
+            // label47
+            // 
+            this.label47.AutoSize = true;
+            this.label47.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.label47.Location = new System.Drawing.Point(3, 2);
+            this.label47.Name = "label47";
+            this.label47.Size = new System.Drawing.Size(78, 20);
+            this.label47.TabIndex = 421;
+            this.label47.Text = "Упаковки:";
+            // 
             // panel23
             // 
             this.panel23.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -806,9 +646,9 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel23.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel23.Controls.Add(this.dgvStoragePackagesDetails);
-            this.panel23.Location = new System.Drawing.Point(294, 0);
+            this.panel23.Location = new System.Drawing.Point(294, 27);
             this.panel23.Name = "panel23";
-            this.panel23.Size = new System.Drawing.Size(944, 307);
+            this.panel23.Size = new System.Drawing.Size(942, 273);
             this.panel23.TabIndex = 42;
             // 
             // dgvStoragePackagesDetails
@@ -831,7 +671,7 @@
             this.dgvStoragePackagesDetails.RowTemplate.Height = 30;
             this.dgvStoragePackagesDetails.SelectedColorStyle = Infinium.PercentageDataGrid.ColorStyle.Blue;
             this.dgvStoragePackagesDetails.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvStoragePackagesDetails.Size = new System.Drawing.Size(942, 305);
+            this.dgvStoragePackagesDetails.Size = new System.Drawing.Size(940, 271);
             this.dgvStoragePackagesDetails.StandardStyle = false;
             this.dgvStoragePackagesDetails.StateCommon.Background.Color1 = System.Drawing.Color.White;
             this.dgvStoragePackagesDetails.StateCommon.Background.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
@@ -864,286 +704,6 @@
             this.dgvStoragePackagesDetails.StateSelected.DataCell.Content.Color1 = System.Drawing.Color.White;
             this.dgvStoragePackagesDetails.TabIndex = 74;
             this.dgvStoragePackagesDetails.UseCustomBackColor = true;
-            // 
-            // panel5
-            // 
-            this.panel5.Controls.Add(this.panel7);
-            this.panel5.Controls.Add(this.panel11);
-            this.panel5.Controls.Add(this.flowLayoutPanel2);
-            this.panel5.Controls.Add(this.flowLayoutPanel1);
-            this.panel5.Controls.Add(this.kryptonButton1);
-            this.panel5.Controls.Add(this.panel6);
-            this.panel5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel5.Location = new System.Drawing.Point(0, 54);
-            this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(1270, 686);
-            this.panel5.TabIndex = 322;
-            // 
-            // panel7
-            // 
-            this.panel7.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel7.BackColor = System.Drawing.Color.Transparent;
-            this.panel7.Controls.Add(this.dgvScanPackages);
-            this.panel7.Controls.Add(this.kryptonBorderEdge17);
-            this.panel7.Controls.Add(this.kryptonBorderEdge22);
-            this.panel7.Controls.Add(this.kryptonBorderEdge23);
-            this.panel7.Controls.Add(this.kryptonBorderEdge24);
-            this.panel7.Location = new System.Drawing.Point(13, 98);
-            this.panel7.Margin = new System.Windows.Forms.Padding(4);
-            this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(1244, 575);
-            this.panel7.TabIndex = 316;
-            // 
-            // dgvScanPackages
-            // 
-            this.dgvScanPackages.AllowUserToAddRows = false;
-            this.dgvScanPackages.AllowUserToDeleteRows = false;
-            this.dgvScanPackages.AllowUserToResizeColumns = false;
-            this.dgvScanPackages.AllowUserToResizeRows = false;
-            this.dgvScanPackages.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dgvScanPackages.BackText = "Нет данных";
-            this.dgvScanPackages.ColumnHeadersHeight = 40;
-            this.dgvScanPackages.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            this.dgvScanPackages.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvScanPackages.HideOuterBorders = true;
-            this.dgvScanPackages.Location = new System.Drawing.Point(1, 1);
-            this.dgvScanPackages.Margin = new System.Windows.Forms.Padding(4);
-            this.dgvScanPackages.MultiSelect = false;
-            this.dgvScanPackages.Name = "dgvScanPackages";
-            this.dgvScanPackages.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2010Black;
-            this.dgvScanPackages.PercentLineWidth = 0;
-            this.dgvScanPackages.ReadOnly = true;
-            this.dgvScanPackages.RowHeadersVisible = false;
-            this.dgvScanPackages.RowTemplate.Height = 30;
-            this.dgvScanPackages.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvScanPackages.SelectedColorStyle = Infinium.PercentageDataGrid.ColorStyle.Green;
-            this.dgvScanPackages.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvScanPackages.Size = new System.Drawing.Size(1242, 573);
-            this.dgvScanPackages.StandardStyle = true;
-            this.dgvScanPackages.StateCommon.Background.Color1 = System.Drawing.Color.White;
-            this.dgvScanPackages.StateCommon.Background.Color2 = System.Drawing.Color.Transparent;
-            this.dgvScanPackages.StateCommon.Background.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
-            this.dgvScanPackages.StateCommon.BackStyle = ComponentFactory.Krypton.Toolkit.PaletteBackStyle.GridBackgroundList;
-            this.dgvScanPackages.StateCommon.DataCell.Back.Color1 = System.Drawing.Color.White;
-            this.dgvScanPackages.StateCommon.DataCell.Back.Color2 = System.Drawing.Color.Transparent;
-            this.dgvScanPackages.StateCommon.DataCell.Border.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(210)))), ((int)(((byte)(210)))), ((int)(((byte)(210)))));
-            this.dgvScanPackages.StateCommon.DataCell.Border.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
-            this.dgvScanPackages.StateCommon.DataCell.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
-            this.dgvScanPackages.StateCommon.DataCell.Content.Color1 = System.Drawing.Color.Black;
-            this.dgvScanPackages.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.dgvScanPackages.StateCommon.HeaderColumn.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
-            this.dgvScanPackages.StateCommon.HeaderColumn.Back.Color2 = System.Drawing.Color.Transparent;
-            this.dgvScanPackages.StateCommon.HeaderColumn.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
-            this.dgvScanPackages.StateCommon.HeaderColumn.Border.Color1 = System.Drawing.Color.Black;
-            this.dgvScanPackages.StateCommon.HeaderColumn.Border.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
-            this.dgvScanPackages.StateCommon.HeaderColumn.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
-            this.dgvScanPackages.StateCommon.HeaderColumn.Border.Width = 1;
-            this.dgvScanPackages.StateCommon.HeaderColumn.Content.Color1 = System.Drawing.Color.White;
-            this.dgvScanPackages.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
-            this.dgvScanPackages.StateSelected.DataCell.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(158)))), ((int)(((byte)(0)))));
-            this.dgvScanPackages.StateSelected.DataCell.Back.Color2 = System.Drawing.Color.Transparent;
-            this.dgvScanPackages.StateSelected.DataCell.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
-            this.dgvScanPackages.StateSelected.DataCell.Content.Color1 = System.Drawing.Color.White;
-            this.dgvScanPackages.StateSelected.HeaderRow.Border.Color1 = System.Drawing.Color.White;
-            this.dgvScanPackages.StateSelected.HeaderRow.Border.Color2 = System.Drawing.Color.White;
-            this.dgvScanPackages.StateSelected.HeaderRow.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
-            this.dgvScanPackages.TabIndex = 57;
-            this.dgvScanPackages.UseCustomBackColor = true;
-            this.dgvScanPackages.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dgvCheckPackages_RowPostPaint);
-            // 
-            // kryptonBorderEdge17
-            // 
-            this.kryptonBorderEdge17.Dock = System.Windows.Forms.DockStyle.Right;
-            this.kryptonBorderEdge17.Location = new System.Drawing.Point(1243, 1);
-            this.kryptonBorderEdge17.Margin = new System.Windows.Forms.Padding(4);
-            this.kryptonBorderEdge17.Name = "kryptonBorderEdge17";
-            this.kryptonBorderEdge17.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.kryptonBorderEdge17.Size = new System.Drawing.Size(1, 573);
-            this.kryptonBorderEdge17.StateCommon.Color1 = System.Drawing.Color.Black;
-            this.kryptonBorderEdge17.Text = "kryptonBorderEdge17";
-            // 
-            // kryptonBorderEdge22
-            // 
-            this.kryptonBorderEdge22.Dock = System.Windows.Forms.DockStyle.Left;
-            this.kryptonBorderEdge22.Location = new System.Drawing.Point(0, 1);
-            this.kryptonBorderEdge22.Margin = new System.Windows.Forms.Padding(4);
-            this.kryptonBorderEdge22.Name = "kryptonBorderEdge22";
-            this.kryptonBorderEdge22.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.kryptonBorderEdge22.Size = new System.Drawing.Size(1, 573);
-            this.kryptonBorderEdge22.StateCommon.Color1 = System.Drawing.Color.Black;
-            this.kryptonBorderEdge22.Text = "kryptonBorderEdge22";
-            // 
-            // kryptonBorderEdge23
-            // 
-            this.kryptonBorderEdge23.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.kryptonBorderEdge23.Location = new System.Drawing.Point(0, 574);
-            this.kryptonBorderEdge23.Margin = new System.Windows.Forms.Padding(4);
-            this.kryptonBorderEdge23.Name = "kryptonBorderEdge23";
-            this.kryptonBorderEdge23.Size = new System.Drawing.Size(1244, 1);
-            this.kryptonBorderEdge23.StateCommon.Color1 = System.Drawing.Color.Black;
-            this.kryptonBorderEdge23.Text = "kryptonBorderEdge23";
-            // 
-            // kryptonBorderEdge24
-            // 
-            this.kryptonBorderEdge24.Dock = System.Windows.Forms.DockStyle.Top;
-            this.kryptonBorderEdge24.Location = new System.Drawing.Point(0, 0);
-            this.kryptonBorderEdge24.Margin = new System.Windows.Forms.Padding(4);
-            this.kryptonBorderEdge24.Name = "kryptonBorderEdge24";
-            this.kryptonBorderEdge24.Size = new System.Drawing.Size(1244, 1);
-            this.kryptonBorderEdge24.StateCommon.Color1 = System.Drawing.Color.Black;
-            this.kryptonBorderEdge24.Text = "kryptonBorderEdge24";
-            // 
-            // panel11
-            // 
-            this.panel11.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel11.BackColor = System.Drawing.Color.Transparent;
-            this.panel11.Controls.Add(this.dgvWrongPackages);
-            this.panel11.Controls.Add(this.kryptonBorderEdge14);
-            this.panel11.Controls.Add(this.kryptonBorderEdge15);
-            this.panel11.Controls.Add(this.kryptonBorderEdge16);
-            this.panel11.Controls.Add(this.kryptonBorderEdge25);
-            this.panel11.Location = new System.Drawing.Point(13, 98);
-            this.panel11.Margin = new System.Windows.Forms.Padding(4);
-            this.panel11.Name = "panel11";
-            this.panel11.Size = new System.Drawing.Size(1244, 575);
-            this.panel11.TabIndex = 510;
-            // 
-            // dgvWrongPackages
-            // 
-            this.dgvWrongPackages.AllowUserToAddRows = false;
-            this.dgvWrongPackages.AllowUserToDeleteRows = false;
-            this.dgvWrongPackages.AllowUserToResizeColumns = false;
-            this.dgvWrongPackages.AllowUserToResizeRows = false;
-            this.dgvWrongPackages.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dgvWrongPackages.BackText = "Нет данных";
-            this.dgvWrongPackages.ColumnHeadersHeight = 40;
-            this.dgvWrongPackages.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            this.dgvWrongPackages.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvWrongPackages.HideOuterBorders = true;
-            this.dgvWrongPackages.Location = new System.Drawing.Point(1, 1);
-            this.dgvWrongPackages.Margin = new System.Windows.Forms.Padding(4);
-            this.dgvWrongPackages.MultiSelect = false;
-            this.dgvWrongPackages.Name = "dgvWrongPackages";
-            this.dgvWrongPackages.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2010Black;
-            this.dgvWrongPackages.PercentLineWidth = 0;
-            this.dgvWrongPackages.ReadOnly = true;
-            this.dgvWrongPackages.RowHeadersVisible = false;
-            this.dgvWrongPackages.RowTemplate.Height = 30;
-            this.dgvWrongPackages.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvWrongPackages.SelectedColorStyle = Infinium.PercentageDataGrid.ColorStyle.Green;
-            this.dgvWrongPackages.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvWrongPackages.Size = new System.Drawing.Size(1242, 573);
-            this.dgvWrongPackages.StandardStyle = true;
-            this.dgvWrongPackages.StateCommon.Background.Color1 = System.Drawing.Color.White;
-            this.dgvWrongPackages.StateCommon.Background.Color2 = System.Drawing.Color.Transparent;
-            this.dgvWrongPackages.StateCommon.Background.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
-            this.dgvWrongPackages.StateCommon.BackStyle = ComponentFactory.Krypton.Toolkit.PaletteBackStyle.GridBackgroundList;
-            this.dgvWrongPackages.StateCommon.DataCell.Back.Color1 = System.Drawing.Color.White;
-            this.dgvWrongPackages.StateCommon.DataCell.Back.Color2 = System.Drawing.Color.Transparent;
-            this.dgvWrongPackages.StateCommon.DataCell.Border.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(210)))), ((int)(((byte)(210)))), ((int)(((byte)(210)))));
-            this.dgvWrongPackages.StateCommon.DataCell.Border.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
-            this.dgvWrongPackages.StateCommon.DataCell.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
-            this.dgvWrongPackages.StateCommon.DataCell.Content.Color1 = System.Drawing.Color.Black;
-            this.dgvWrongPackages.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.dgvWrongPackages.StateCommon.HeaderColumn.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
-            this.dgvWrongPackages.StateCommon.HeaderColumn.Back.Color2 = System.Drawing.Color.Transparent;
-            this.dgvWrongPackages.StateCommon.HeaderColumn.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
-            this.dgvWrongPackages.StateCommon.HeaderColumn.Border.Color1 = System.Drawing.Color.Black;
-            this.dgvWrongPackages.StateCommon.HeaderColumn.Border.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
-            this.dgvWrongPackages.StateCommon.HeaderColumn.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
-            this.dgvWrongPackages.StateCommon.HeaderColumn.Border.Width = 1;
-            this.dgvWrongPackages.StateCommon.HeaderColumn.Content.Color1 = System.Drawing.Color.White;
-            this.dgvWrongPackages.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
-            this.dgvWrongPackages.StateSelected.DataCell.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(158)))), ((int)(((byte)(0)))));
-            this.dgvWrongPackages.StateSelected.DataCell.Back.Color2 = System.Drawing.Color.Transparent;
-            this.dgvWrongPackages.StateSelected.DataCell.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
-            this.dgvWrongPackages.StateSelected.DataCell.Content.Color1 = System.Drawing.Color.White;
-            this.dgvWrongPackages.StateSelected.HeaderRow.Border.Color1 = System.Drawing.Color.White;
-            this.dgvWrongPackages.StateSelected.HeaderRow.Border.Color2 = System.Drawing.Color.White;
-            this.dgvWrongPackages.StateSelected.HeaderRow.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
-            this.dgvWrongPackages.TabIndex = 57;
-            this.dgvWrongPackages.UseCustomBackColor = true;
-            // 
-            // kryptonBorderEdge14
-            // 
-            this.kryptonBorderEdge14.Dock = System.Windows.Forms.DockStyle.Right;
-            this.kryptonBorderEdge14.Location = new System.Drawing.Point(1243, 1);
-            this.kryptonBorderEdge14.Margin = new System.Windows.Forms.Padding(4);
-            this.kryptonBorderEdge14.Name = "kryptonBorderEdge14";
-            this.kryptonBorderEdge14.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.kryptonBorderEdge14.Size = new System.Drawing.Size(1, 573);
-            this.kryptonBorderEdge14.StateCommon.Color1 = System.Drawing.Color.Black;
-            this.kryptonBorderEdge14.Text = "kryptonBorderEdge14";
-            // 
-            // kryptonBorderEdge15
-            // 
-            this.kryptonBorderEdge15.Dock = System.Windows.Forms.DockStyle.Left;
-            this.kryptonBorderEdge15.Location = new System.Drawing.Point(0, 1);
-            this.kryptonBorderEdge15.Margin = new System.Windows.Forms.Padding(4);
-            this.kryptonBorderEdge15.Name = "kryptonBorderEdge15";
-            this.kryptonBorderEdge15.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.kryptonBorderEdge15.Size = new System.Drawing.Size(1, 573);
-            this.kryptonBorderEdge15.StateCommon.Color1 = System.Drawing.Color.Black;
-            this.kryptonBorderEdge15.Text = "kryptonBorderEdge15";
-            // 
-            // kryptonBorderEdge16
-            // 
-            this.kryptonBorderEdge16.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.kryptonBorderEdge16.Location = new System.Drawing.Point(0, 574);
-            this.kryptonBorderEdge16.Margin = new System.Windows.Forms.Padding(4);
-            this.kryptonBorderEdge16.Name = "kryptonBorderEdge16";
-            this.kryptonBorderEdge16.Size = new System.Drawing.Size(1244, 1);
-            this.kryptonBorderEdge16.StateCommon.Color1 = System.Drawing.Color.Black;
-            this.kryptonBorderEdge16.Text = "kryptonBorderEdge16";
-            // 
-            // kryptonBorderEdge25
-            // 
-            this.kryptonBorderEdge25.Dock = System.Windows.Forms.DockStyle.Top;
-            this.kryptonBorderEdge25.Location = new System.Drawing.Point(0, 0);
-            this.kryptonBorderEdge25.Margin = new System.Windows.Forms.Padding(4);
-            this.kryptonBorderEdge25.Name = "kryptonBorderEdge25";
-            this.kryptonBorderEdge25.Size = new System.Drawing.Size(1244, 1);
-            this.kryptonBorderEdge25.StateCommon.Color1 = System.Drawing.Color.Black;
-            this.kryptonBorderEdge25.Text = "kryptonBorderEdge25";
-            // 
-            // flowLayoutPanel2
-            // 
-            this.flowLayoutPanel2.BackColor = System.Drawing.Color.Transparent;
-            this.flowLayoutPanel2.Controls.Add(this.cbtnScanedPackages);
-            this.flowLayoutPanel2.Controls.Add(this.cbtnNotScanedPackages);
-            this.flowLayoutPanel2.Controls.Add(this.cbtnWrongPackages);
-            this.flowLayoutPanel2.Location = new System.Drawing.Point(13, 58);
-            this.flowLayoutPanel2.Name = "flowLayoutPanel2";
-            this.flowLayoutPanel2.Size = new System.Drawing.Size(604, 39);
-            this.flowLayoutPanel2.TabIndex = 508;
-            // 
-            // cbtnScanedPackages
-            // 
-            this.cbtnScanedPackages.Checked = true;
-            this.cbtnScanedPackages.Location = new System.Drawing.Point(3, 3);
-            this.cbtnScanedPackages.Name = "cbtnScanedPackages";
-            this.cbtnScanedPackages.Palette = this.PanelSelectPalette;
-            this.cbtnScanedPackages.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Custom;
-            this.cbtnScanedPackages.Size = new System.Drawing.Size(197, 34);
-            this.cbtnScanedPackages.StateTracking.Back.Color1 = System.Drawing.Color.LimeGreen;
-            this.cbtnScanedPackages.TabIndex = 0;
-            this.cbtnScanedPackages.Values.Text = "Отсканированные";
             // 
             // PanelSelectPalette
             // 
@@ -1211,314 +771,6 @@
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.PanelSelectPalette.ButtonStyles.ButtonCommon.StateTracking.Border.Rounding = 0;
             // 
-            // cbtnNotScanedPackages
-            // 
-            this.cbtnNotScanedPackages.Location = new System.Drawing.Point(206, 3);
-            this.cbtnNotScanedPackages.Name = "cbtnNotScanedPackages";
-            this.cbtnNotScanedPackages.Palette = this.PanelSelectPalette;
-            this.cbtnNotScanedPackages.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Custom;
-            this.cbtnNotScanedPackages.Size = new System.Drawing.Size(226, 34);
-            this.cbtnNotScanedPackages.StateTracking.Back.Color1 = System.Drawing.Color.LimeGreen;
-            this.cbtnNotScanedPackages.TabIndex = 2;
-            this.cbtnNotScanedPackages.Values.Text = "НЕ сканировались";
-            // 
-            // cbtnWrongPackages
-            // 
-            this.cbtnWrongPackages.Location = new System.Drawing.Point(438, 3);
-            this.cbtnWrongPackages.Name = "cbtnWrongPackages";
-            this.cbtnWrongPackages.Palette = this.PanelSelectPalette;
-            this.cbtnWrongPackages.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Custom;
-            this.cbtnWrongPackages.Size = new System.Drawing.Size(134, 34);
-            this.cbtnWrongPackages.StateTracking.Back.Color1 = System.Drawing.Color.LimeGreen;
-            this.cbtnWrongPackages.TabIndex = 3;
-            this.cbtnWrongPackages.Values.Text = "Лишние";
-            // 
-            // flowLayoutPanel1
-            // 
-            this.flowLayoutPanel1.Controls.Add(this.panel8);
-            this.flowLayoutPanel1.Controls.Add(this.panel9);
-            this.flowLayoutPanel1.Controls.Add(this.panel10);
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(12, 1);
-            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(1245, 53);
-            this.flowLayoutPanel1.TabIndex = 326;
-            // 
-            // panel8
-            // 
-            this.panel8.Controls.Add(this.label10);
-            this.panel8.Controls.Add(this.label11);
-            this.panel8.Location = new System.Drawing.Point(3, 3);
-            this.panel8.Name = "panel8";
-            this.panel8.Size = new System.Drawing.Size(401, 39);
-            this.panel8.TabIndex = 328;
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Font = new System.Drawing.Font("Segoe UI", 22F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
-            this.label10.ForeColor = System.Drawing.Color.Black;
-            this.label10.Location = new System.Drawing.Point(3, 2);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(293, 30);
-            this.label10.TabIndex = 320;
-            this.label10.Text = "Отсканировано упаковок:";
-            this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Font = new System.Drawing.Font("Segoe UI", 22F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
-            this.label11.ForeColor = System.Drawing.Color.Red;
-            this.label11.Location = new System.Drawing.Point(296, 2);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(92, 30);
-            this.label11.TabIndex = 321;
-            this.label11.Text = "200 шт.";
-            this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // panel9
-            // 
-            this.panel9.Controls.Add(this.label12);
-            this.panel9.Controls.Add(this.label13);
-            this.panel9.Location = new System.Drawing.Point(410, 3);
-            this.panel9.Name = "panel9";
-            this.panel9.Size = new System.Drawing.Size(336, 39);
-            this.panel9.TabIndex = 329;
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Font = new System.Drawing.Font("Segoe UI", 22F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
-            this.label12.ForeColor = System.Drawing.Color.Black;
-            this.label12.Location = new System.Drawing.Point(3, 2);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(214, 30);
-            this.label12.TabIndex = 320;
-            this.label12.Text = "Лишние упаковки:";
-            this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Font = new System.Drawing.Font("Segoe UI", 22F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
-            this.label13.ForeColor = System.Drawing.Color.Red;
-            this.label13.Location = new System.Drawing.Point(223, 2);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(92, 30);
-            this.label13.TabIndex = 321;
-            this.label13.Text = "200 шт.";
-            this.label13.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // panel10
-            // 
-            this.panel10.Controls.Add(this.label5);
-            this.panel10.Controls.Add(this.label4);
-            this.panel10.Controls.Add(this.label14);
-            this.panel10.Controls.Add(this.label15);
-            this.panel10.Location = new System.Drawing.Point(752, 3);
-            this.panel10.Name = "panel10";
-            this.panel10.Size = new System.Drawing.Size(406, 39);
-            this.panel10.TabIndex = 330;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Segoe UI", 22F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
-            this.label5.ForeColor = System.Drawing.Color.Black;
-            this.label5.Location = new System.Drawing.Point(77, -36);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(293, 30);
-            this.label5.TabIndex = 320;
-            this.label5.Text = "Отсканировано упаковок:";
-            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Segoe UI", 22F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
-            this.label4.ForeColor = System.Drawing.Color.Red;
-            this.label4.Location = new System.Drawing.Point(377, -36);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(286, 30);
-            this.label4.TabIndex = 321;
-            this.label4.Text = "Отсканировано упаковок";
-            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Font = new System.Drawing.Font("Segoe UI", 22F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
-            this.label14.ForeColor = System.Drawing.Color.Black;
-            this.label14.Location = new System.Drawing.Point(3, 2);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(302, 30);
-            this.label14.TabIndex = 320;
-            this.label14.Text = "Всего упаковок в отгрузке:";
-            this.label14.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.Font = new System.Drawing.Font("Segoe UI", 22F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
-            this.label15.ForeColor = System.Drawing.Color.Red;
-            this.label15.Location = new System.Drawing.Point(311, 2);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(92, 30);
-            this.label15.TabIndex = 321;
-            this.label15.Text = "200 шт.";
-            this.label15.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // kryptonButton1
-            // 
-            this.kryptonButton1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.kryptonButton1.Location = new System.Drawing.Point(1127, 57);
-            this.kryptonButton1.Name = "kryptonButton1";
-            this.kryptonButton1.Palette = this.StandardButtonsPalette;
-            this.kryptonButton1.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Custom;
-            this.kryptonButton1.Size = new System.Drawing.Size(130, 40);
-            this.kryptonButton1.StateCommon.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
-            this.kryptonButton1.StateCommon.Content.Image.ImageH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
-            this.kryptonButton1.StateCommon.Content.Image.ImageV = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Near;
-            this.kryptonButton1.StateCommon.Content.ShortText.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.kryptonButton1.StateCommon.Content.ShortText.TextV = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
-            this.kryptonButton1.StateTracking.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(253)))), ((int)(((byte)(164)))), ((int)(((byte)(61)))));
-            this.kryptonButton1.StateTracking.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
-            this.kryptonButton1.TabIndex = 44;
-            this.kryptonButton1.TabStop = false;
-            this.kryptonButton1.Values.Text = "Отгрузить";
-            this.kryptonButton1.Click += new System.EventHandler(this.kryptonButton1_Click);
-            // 
-            // panel6
-            // 
-            this.panel6.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel6.BackColor = System.Drawing.Color.Transparent;
-            this.panel6.Controls.Add(this.dgvNotScanPackages);
-            this.panel6.Controls.Add(this.kryptonBorderEdge9);
-            this.panel6.Controls.Add(this.kryptonBorderEdge10);
-            this.panel6.Controls.Add(this.kryptonBorderEdge11);
-            this.panel6.Controls.Add(this.kryptonBorderEdge12);
-            this.panel6.Location = new System.Drawing.Point(13, 98);
-            this.panel6.Margin = new System.Windows.Forms.Padding(4);
-            this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(1244, 575);
-            this.panel6.TabIndex = 509;
-            // 
-            // dgvNotScanPackages
-            // 
-            this.dgvNotScanPackages.AllowUserToAddRows = false;
-            this.dgvNotScanPackages.AllowUserToDeleteRows = false;
-            this.dgvNotScanPackages.AllowUserToResizeColumns = false;
-            this.dgvNotScanPackages.AllowUserToResizeRows = false;
-            this.dgvNotScanPackages.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dgvNotScanPackages.BackText = "Нет данных";
-            this.dgvNotScanPackages.ColumnHeadersHeight = 40;
-            this.dgvNotScanPackages.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            this.dgvNotScanPackages.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvNotScanPackages.HideOuterBorders = true;
-            this.dgvNotScanPackages.Location = new System.Drawing.Point(1, 1);
-            this.dgvNotScanPackages.Margin = new System.Windows.Forms.Padding(4);
-            this.dgvNotScanPackages.MultiSelect = false;
-            this.dgvNotScanPackages.Name = "dgvNotScanPackages";
-            this.dgvNotScanPackages.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2010Black;
-            this.dgvNotScanPackages.PercentLineWidth = 0;
-            this.dgvNotScanPackages.ReadOnly = true;
-            this.dgvNotScanPackages.RowHeadersVisible = false;
-            this.dgvNotScanPackages.RowTemplate.Height = 30;
-            this.dgvNotScanPackages.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvNotScanPackages.SelectedColorStyle = Infinium.PercentageDataGrid.ColorStyle.Green;
-            this.dgvNotScanPackages.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvNotScanPackages.Size = new System.Drawing.Size(1242, 573);
-            this.dgvNotScanPackages.StandardStyle = true;
-            this.dgvNotScanPackages.StateCommon.Background.Color1 = System.Drawing.Color.White;
-            this.dgvNotScanPackages.StateCommon.Background.Color2 = System.Drawing.Color.Transparent;
-            this.dgvNotScanPackages.StateCommon.Background.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
-            this.dgvNotScanPackages.StateCommon.BackStyle = ComponentFactory.Krypton.Toolkit.PaletteBackStyle.GridBackgroundList;
-            this.dgvNotScanPackages.StateCommon.DataCell.Back.Color1 = System.Drawing.Color.White;
-            this.dgvNotScanPackages.StateCommon.DataCell.Back.Color2 = System.Drawing.Color.Transparent;
-            this.dgvNotScanPackages.StateCommon.DataCell.Border.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(210)))), ((int)(((byte)(210)))), ((int)(((byte)(210)))));
-            this.dgvNotScanPackages.StateCommon.DataCell.Border.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
-            this.dgvNotScanPackages.StateCommon.DataCell.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
-            this.dgvNotScanPackages.StateCommon.DataCell.Content.Color1 = System.Drawing.Color.Black;
-            this.dgvNotScanPackages.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.dgvNotScanPackages.StateCommon.HeaderColumn.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
-            this.dgvNotScanPackages.StateCommon.HeaderColumn.Back.Color2 = System.Drawing.Color.Transparent;
-            this.dgvNotScanPackages.StateCommon.HeaderColumn.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
-            this.dgvNotScanPackages.StateCommon.HeaderColumn.Border.Color1 = System.Drawing.Color.Black;
-            this.dgvNotScanPackages.StateCommon.HeaderColumn.Border.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
-            this.dgvNotScanPackages.StateCommon.HeaderColumn.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
-            this.dgvNotScanPackages.StateCommon.HeaderColumn.Border.Width = 1;
-            this.dgvNotScanPackages.StateCommon.HeaderColumn.Content.Color1 = System.Drawing.Color.White;
-            this.dgvNotScanPackages.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
-            this.dgvNotScanPackages.StateSelected.DataCell.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(158)))), ((int)(((byte)(0)))));
-            this.dgvNotScanPackages.StateSelected.DataCell.Back.Color2 = System.Drawing.Color.Transparent;
-            this.dgvNotScanPackages.StateSelected.DataCell.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
-            this.dgvNotScanPackages.StateSelected.DataCell.Content.Color1 = System.Drawing.Color.White;
-            this.dgvNotScanPackages.StateSelected.HeaderRow.Border.Color1 = System.Drawing.Color.White;
-            this.dgvNotScanPackages.StateSelected.HeaderRow.Border.Color2 = System.Drawing.Color.White;
-            this.dgvNotScanPackages.StateSelected.HeaderRow.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
-            this.dgvNotScanPackages.TabIndex = 57;
-            this.dgvNotScanPackages.UseCustomBackColor = true;
-            // 
-            // kryptonBorderEdge9
-            // 
-            this.kryptonBorderEdge9.Dock = System.Windows.Forms.DockStyle.Right;
-            this.kryptonBorderEdge9.Location = new System.Drawing.Point(1243, 1);
-            this.kryptonBorderEdge9.Margin = new System.Windows.Forms.Padding(4);
-            this.kryptonBorderEdge9.Name = "kryptonBorderEdge9";
-            this.kryptonBorderEdge9.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.kryptonBorderEdge9.Size = new System.Drawing.Size(1, 573);
-            this.kryptonBorderEdge9.StateCommon.Color1 = System.Drawing.Color.Black;
-            this.kryptonBorderEdge9.Text = "kryptonBorderEdge9";
-            // 
-            // kryptonBorderEdge10
-            // 
-            this.kryptonBorderEdge10.Dock = System.Windows.Forms.DockStyle.Left;
-            this.kryptonBorderEdge10.Location = new System.Drawing.Point(0, 1);
-            this.kryptonBorderEdge10.Margin = new System.Windows.Forms.Padding(4);
-            this.kryptonBorderEdge10.Name = "kryptonBorderEdge10";
-            this.kryptonBorderEdge10.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.kryptonBorderEdge10.Size = new System.Drawing.Size(1, 573);
-            this.kryptonBorderEdge10.StateCommon.Color1 = System.Drawing.Color.Black;
-            this.kryptonBorderEdge10.Text = "kryptonBorderEdge10";
-            // 
-            // kryptonBorderEdge11
-            // 
-            this.kryptonBorderEdge11.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.kryptonBorderEdge11.Location = new System.Drawing.Point(0, 574);
-            this.kryptonBorderEdge11.Margin = new System.Windows.Forms.Padding(4);
-            this.kryptonBorderEdge11.Name = "kryptonBorderEdge11";
-            this.kryptonBorderEdge11.Size = new System.Drawing.Size(1244, 1);
-            this.kryptonBorderEdge11.StateCommon.Color1 = System.Drawing.Color.Black;
-            this.kryptonBorderEdge11.Text = "kryptonBorderEdge11";
-            // 
-            // kryptonBorderEdge12
-            // 
-            this.kryptonBorderEdge12.Dock = System.Windows.Forms.DockStyle.Top;
-            this.kryptonBorderEdge12.Location = new System.Drawing.Point(0, 0);
-            this.kryptonBorderEdge12.Margin = new System.Windows.Forms.Padding(4);
-            this.kryptonBorderEdge12.Name = "kryptonBorderEdge12";
-            this.kryptonBorderEdge12.Size = new System.Drawing.Size(1244, 1);
-            this.kryptonBorderEdge12.StateCommon.Color1 = System.Drawing.Color.Black;
-            this.kryptonBorderEdge12.Text = "kryptonBorderEdge12";
-            // 
-            // kryptonCheckSet1
-            // 
-            this.kryptonCheckSet1.CheckButtons.Add(this.cbtnScanedPackages);
-            this.kryptonCheckSet1.CheckButtons.Add(this.cbtnNotScanedPackages);
-            this.kryptonCheckSet1.CheckButtons.Add(this.cbtnWrongPackages);
-            this.kryptonCheckSet1.CheckedButton = this.cbtnScanedPackages;
-            this.kryptonCheckSet1.CheckedButtonChanged += new System.EventHandler(this.kryptonCheckSet1_CheckedButtonChanged);
-            // 
             // CabFurDispatchForm
             // 
             this.AccessibleName = "false";
@@ -1526,7 +778,6 @@
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1270, 740);
             this.Controls.Add(this.panel3);
-            this.Controls.Add(this.panel5);
             this.Controls.Add(this.NavigatePanel);
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -1545,36 +796,18 @@
             this.NavigatePanel.PerformLayout();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
-            this.panel13.ResumeLayout(false);
-            this.panel13.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel12.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvScanedStoragePackagesDetails)).EndInit();
+            this.panel13.ResumeLayout(false);
+            this.panel13.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.CheckPicture)).EndInit();
             this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.panel27.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvStoragePackagesLabels)).EndInit();
             this.panel23.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvStoragePackagesDetails)).EndInit();
-            this.panel5.ResumeLayout(false);
-            this.panel7.ResumeLayout(false);
-            this.panel7.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvScanPackages)).EndInit();
-            this.panel11.ResumeLayout(false);
-            this.panel11.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvWrongPackages)).EndInit();
-            this.flowLayoutPanel2.ResumeLayout(false);
-            this.flowLayoutPanel1.ResumeLayout(false);
-            this.panel8.ResumeLayout(false);
-            this.panel8.PerformLayout();
-            this.panel9.ResumeLayout(false);
-            this.panel9.PerformLayout();
-            this.panel10.ResumeLayout(false);
-            this.panel10.PerformLayout();
-            this.panel6.ResumeLayout(false);
-            this.panel6.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvNotScanPackages)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonCheckSet1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1590,46 +823,9 @@
         private ComponentFactory.Krypton.Toolkit.KryptonPalette NavigateMenuButtonsPalette;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Panel panel3;
-        private ComponentFactory.Krypton.Toolkit.KryptonButton OKInvButton;
-        private System.Windows.Forms.Panel panel5;
-        private ComponentFactory.Krypton.Toolkit.KryptonButton kryptonButton1;
-        private System.Windows.Forms.Panel panel7;
-        private PercentageDataGrid dgvScanPackages;
-        private ComponentFactory.Krypton.Toolkit.KryptonBorderEdge kryptonBorderEdge17;
-        private ComponentFactory.Krypton.Toolkit.KryptonBorderEdge kryptonBorderEdge22;
-        private ComponentFactory.Krypton.Toolkit.KryptonBorderEdge kryptonBorderEdge23;
-        private ComponentFactory.Krypton.Toolkit.KryptonBorderEdge kryptonBorderEdge24;
+        private ComponentFactory.Krypton.Toolkit.KryptonButton btnDisp;
         private ComponentFactory.Krypton.Toolkit.KryptonPalette StandardButtonsPalette;
-        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
-        private System.Windows.Forms.Panel panel8;
-        private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.Panel panel9;
-        private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.Panel panel10;
-        private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.Label label15;
-        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel2;
-        private ComponentFactory.Krypton.Toolkit.KryptonCheckButton cbtnScanedPackages;
         private ComponentFactory.Krypton.Toolkit.KryptonPalette PanelSelectPalette;
-        private ComponentFactory.Krypton.Toolkit.KryptonCheckButton cbtnNotScanedPackages;
-        private ComponentFactory.Krypton.Toolkit.KryptonCheckButton cbtnWrongPackages;
-        private System.Windows.Forms.Panel panel6;
-        private PercentageDataGrid dgvNotScanPackages;
-        private ComponentFactory.Krypton.Toolkit.KryptonBorderEdge kryptonBorderEdge9;
-        private ComponentFactory.Krypton.Toolkit.KryptonBorderEdge kryptonBorderEdge10;
-        private ComponentFactory.Krypton.Toolkit.KryptonBorderEdge kryptonBorderEdge11;
-        private ComponentFactory.Krypton.Toolkit.KryptonBorderEdge kryptonBorderEdge12;
-        private ComponentFactory.Krypton.Toolkit.KryptonCheckSet kryptonCheckSet1;
-        private System.Windows.Forms.Panel panel11;
-        private PercentageDataGrid dgvWrongPackages;
-        private ComponentFactory.Krypton.Toolkit.KryptonBorderEdge kryptonBorderEdge14;
-        private ComponentFactory.Krypton.Toolkit.KryptonBorderEdge kryptonBorderEdge15;
-        private ComponentFactory.Krypton.Toolkit.KryptonBorderEdge kryptonBorderEdge16;
-        private ComponentFactory.Krypton.Toolkit.KryptonBorderEdge kryptonBorderEdge25;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panel27;
         private PercentageDataGrid dgvStoragePackagesLabels;
@@ -1642,29 +838,20 @@
         private System.Windows.Forms.Panel panel12;
         private PercentageDataGrid dgvScanedStoragePackagesDetails;
         private System.Windows.Forms.Panel panel13;
-        private System.Windows.Forms.Label AssignmentNumberLabel;
-        private System.Windows.Forms.Label label32;
-        private ComponentFactory.Krypton.Toolkit.KryptonBorderEdge kryptonBorderEdge42;
-        private System.Windows.Forms.Label RemoveFromStorageDateLabel;
-        private System.Windows.Forms.Label label29;
-        private System.Windows.Forms.Label CreateDateLabel;
         private System.Windows.Forms.Label label20;
-        private ComponentFactory.Krypton.Toolkit.KryptonBorderEdge kryptonBorderEdge43;
-        private ComponentFactory.Krypton.Toolkit.KryptonBorderEdge kryptonBorderEdge44;
-        private System.Windows.Forms.Label label21;
         private System.Windows.Forms.Label lbCellName;
-        private ComponentFactory.Krypton.Toolkit.KryptonBorderEdge kryptonBorderEdge45;
         private ComponentFactory.Krypton.Toolkit.KryptonBorderEdge kryptonBorderEdge46;
         private ComponentFactory.Krypton.Toolkit.KryptonBorderEdge kryptonBorderEdge1;
-        private System.Windows.Forms.Label AddToStorageDateLabel;
         private System.Windows.Forms.Label lbRackName;
         private System.Windows.Forms.Label lbScaned;
-        private System.Windows.Forms.Label label25;
         private System.Windows.Forms.Label label26;
         private System.Windows.Forms.Label label28;
         private ComponentFactory.Krypton.Toolkit.KryptonBorderEdge kryptonBorderEdge2;
         private ComponentFactory.Krypton.Toolkit.KryptonBorderEdge kryptonBorderEdge4;
         private ComponentFactory.Krypton.Toolkit.KryptonBorderEdge kryptonBorderEdge5;
         private ComponentFactory.Krypton.Toolkit.KryptonBorderEdge kryptonBorderEdge6;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label47;
+        private System.Windows.Forms.Label label3;
     }
 }

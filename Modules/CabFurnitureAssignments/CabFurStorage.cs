@@ -984,6 +984,36 @@ namespace Infinium.Modules.CabFurnitureAssignments
             PackageDetailsDT.Clear();
         }
 
+        public bool GetPackagesLabels(int DispatchID)
+        {
+            string SelectCommand = @"SELECT C.PackNumber, C.TechStoreSubGroupID, C.TechStoreID AS CTechStoreID, C.CoverID, C.PatinaID, C.InsetColorID,
+                CabFurnitureComplementDetails.* FROM CabFurnitureComplementDetails 
+                INNER JOIN CabFurnitureComplements AS C ON CabFurnitureComplementDetails.CabFurnitureComplementID=C.CabFurnitureComplementID
+                WHERE MainOrderID IN (SELECT MainOrderID FROM infiniu2_marketingorders.dbo.Packages WHERE DispatchID=" + DispatchID + ")";
+            PackageDetailsDA = new SqlDataAdapter(SelectCommand, ConnectionStrings.StorageConnectionString);
+            PackageDetailsDA.Fill(PackageDetailsDT);
+
+            PackageLabelsDT.Clear();
+            DataTable dt = PackageLabelsDT.Clone();
+            SelectCommand = @"SELECT CabFurnitureComplementID, TechCatalogOperationsDetailID, TechStoreSubGroupID, TechStoreID, CoverID, PatinaID, InsetColorID, PackNumber, MainOrderID, Notes FROM CabFurnitureComplements WHERE MainOrderID IN (SELECT MainOrderID FROM infiniu2_marketingorders.dbo.Packages WHERE DispatchID=" + DispatchID + ")";
+            PackageLabelsDA = new SqlDataAdapter(SelectCommand, ConnectionStrings.StorageConnectionString);
+            PackageLabelsDA.Fill(dt);
+
+
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                dt.Rows[i]["Scan"] = 0;
+                dt.Rows[i]["Index"] = i + 1;
+            }
+
+            foreach (DataRow dr in dt.Rows)
+                PackageLabelsDT.Rows.Add(dr.ItemArray);
+            dt.Dispose();
+            iAllPackages = PackageLabelsDT.Rows.Count;
+
+            return PackageLabelsDT.Rows.Count > 0;
+        }
+
         public bool GetPackagesLabels(int ClientID, int OrderNumber)
         {
             string SelectCommand = @"SELECT C.PackNumber, C.TechStoreSubGroupID, C.TechStoreID AS CTechStoreID, C.CoverID, C.PatinaID, C.InsetColorID,

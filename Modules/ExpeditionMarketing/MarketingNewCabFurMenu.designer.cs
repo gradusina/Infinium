@@ -1,6 +1,6 @@
 ﻿namespace Infinium
 {
-    partial class MarketingNewDispatchMenu
+    partial class MarketingNewCabFurMenu
     {
         /// <summary>
         /// Required designer variable.
@@ -42,11 +42,8 @@
             this.label3 = new System.Windows.Forms.Label();
             this.mcDispatchDate = new ComponentFactory.Krypton.Toolkit.KryptonMonthCalendar();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.cbClients = new ComponentFactory.Krypton.Toolkit.KryptonComboBox();
-            this.label1 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.cbClients)).BeginInit();
             this.SuspendLayout();
             // 
             // kryptonBorderEdge20
@@ -55,7 +52,7 @@
             this.kryptonBorderEdge20.Location = new System.Drawing.Point(418, 0);
             this.kryptonBorderEdge20.Name = "kryptonBorderEdge20";
             this.kryptonBorderEdge20.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.kryptonBorderEdge20.Size = new System.Drawing.Size(1, 369);
+            this.kryptonBorderEdge20.Size = new System.Drawing.Size(1, 331);
             this.kryptonBorderEdge20.StateCommon.Color1 = System.Drawing.Color.Black;
             this.kryptonBorderEdge20.Text = "kryptonBorderEdge20";
             // 
@@ -65,14 +62,14 @@
             this.kryptonBorderEdge21.Location = new System.Drawing.Point(0, 0);
             this.kryptonBorderEdge21.Name = "kryptonBorderEdge21";
             this.kryptonBorderEdge21.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.kryptonBorderEdge21.Size = new System.Drawing.Size(1, 369);
+            this.kryptonBorderEdge21.Size = new System.Drawing.Size(1, 331);
             this.kryptonBorderEdge21.StateCommon.Color1 = System.Drawing.Color.Black;
             this.kryptonBorderEdge21.Text = "kryptonBorderEdge21";
             // 
             // kryptonBorderEdge22
             // 
             this.kryptonBorderEdge22.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.kryptonBorderEdge22.Location = new System.Drawing.Point(1, 368);
+            this.kryptonBorderEdge22.Location = new System.Drawing.Point(1, 330);
             this.kryptonBorderEdge22.Name = "kryptonBorderEdge22";
             this.kryptonBorderEdge22.Size = new System.Drawing.Size(417, 1);
             this.kryptonBorderEdge22.StateCommon.Color1 = System.Drawing.Color.Black;
@@ -90,7 +87,8 @@
             // btnPressOK
             // 
             this.btnPressOK.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.btnPressOK.Location = new System.Drawing.Point(40, 317);
+            this.btnPressOK.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.btnPressOK.Location = new System.Drawing.Point(40, 279);
             this.btnPressOK.Name = "btnPressOK";
             this.btnPressOK.Palette = this.StandardButtonsPalette;
             this.btnPressOK.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Custom;
@@ -174,7 +172,8 @@
             // btnPressCancel
             // 
             this.btnPressCancel.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.btnPressCancel.Location = new System.Drawing.Point(248, 317);
+            this.btnPressCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.btnPressCancel.Location = new System.Drawing.Point(248, 279);
             this.btnPressCancel.Name = "btnPressCancel";
             this.btnPressCancel.Palette = this.StandardButtonsPalette;
             this.btnPressCancel.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Custom;
@@ -225,44 +224,17 @@
             // 
             this.panel2.Controls.Add(this.mcDispatchDate);
             this.panel2.Controls.Add(this.label3);
-            this.panel2.Location = new System.Drawing.Point(26, 104);
+            this.panel2.Location = new System.Drawing.Point(26, 63);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(366, 192);
+            this.panel2.Size = new System.Drawing.Size(366, 202);
             this.panel2.TabIndex = 451;
             // 
-            // cbClients
-            // 
-            this.cbClients.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-            this.cbClients.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.cbClients.DropDownWidth = 200;
-            this.cbClients.Location = new System.Drawing.Point(135, 61);
-            this.cbClients.Name = "cbClients";
-            this.cbClients.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2010Black;
-            this.cbClients.Size = new System.Drawing.Size(259, 25);
-            this.cbClients.StateCommon.ComboBox.Content.Color1 = System.Drawing.Color.Black;
-            this.cbClients.StateCommon.ComboBox.Content.Font = new System.Drawing.Font("Segoe UI", 14.81F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.cbClients.StateCommon.Item.Content.ShortText.Color1 = System.Drawing.Color.Black;
-            this.cbClients.StateCommon.Item.Content.ShortText.Font = new System.Drawing.Font("Segoe UI", 14.81F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.cbClients.TabIndex = 434;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 14.81F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.label1.Location = new System.Drawing.Point(24, 61);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(58, 20);
-            this.label1.TabIndex = 440;
-            this.label1.Text = "Клиент";
-            // 
-            // MarketingNewDispatchMenu
+            // MarketingNewCabFurMenu
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(419, 369);
+            this.ClientSize = new System.Drawing.Size(419, 331);
             this.Controls.Add(this.panel2);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.cbClients);
             this.Controls.Add(this.btnPressCancel);
             this.Controls.Add(this.btnPressOK);
             this.Controls.Add(this.kryptonBorderEdge23);
@@ -271,7 +243,7 @@
             this.Controls.Add(this.kryptonBorderEdge20);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Name = "MarketingNewDispatchMenu";
+            this.Name = "MarketingNewCabFurMenu";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
@@ -280,7 +252,6 @@
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.cbClients)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -301,7 +272,5 @@
         private System.Windows.Forms.Label label3;
         private ComponentFactory.Krypton.Toolkit.KryptonMonthCalendar mcDispatchDate;
         private System.Windows.Forms.Panel panel2;
-        private ComponentFactory.Krypton.Toolkit.KryptonComboBox cbClients;
-        private System.Windows.Forms.Label label1;
     }
 }

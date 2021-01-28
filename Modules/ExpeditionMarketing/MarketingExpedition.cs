@@ -4328,7 +4328,7 @@ namespace Infinium.Modules.Marketing.Expedition
             }
         }
 
-        public void MoveMainOrdersToAnotherDispatch(int[] MainOrders, int DispatchID)
+        public int MoveMainOrdersToAnotherDispatch(int[] MainOrders, int DispatchID)
         {
             DataTable TempDT = new DataTable();
             int NewDispatchID = 0;
@@ -4377,11 +4377,1127 @@ namespace Infinium.Modules.Marketing.Expedition
                     }
                 }
             }
+            return NewDispatchID;
         }
 
     }
 
 
+
+    public class CabFurDispatch
+    {
+        //DataTable PaidDispatchesDT;
+        DataTable AllDispatchDecorWeightDT;
+        DataTable AllMainOrdersDecorWeightDT;
+        DataTable AllMegaBatchNumbersDT;
+        DataTable DispatchDT;
+        DataTable DispatchDatesDT;
+        DataTable DispatchContentDT;
+
+        BindingSource DispatchBS;
+        BindingSource DispatchDatesBS;
+        BindingSource DispatchContentBS;
+
+        int[] CabFurIds;
+
+        public CabFurDispatch()
+        {
+
+        }
+
+        public void Initialize()
+        {
+            Create();
+            Fill();
+            Binding();
+        }
+
+        private void Create()
+        {
+            CabFurIds = new int[8];
+            CabFurIds[0] = 46;
+            CabFurIds[1] = 63;
+            CabFurIds[2] = 61;
+            CabFurIds[3] = 73;
+            CabFurIds[4] = 74;
+            CabFurIds[5] = 75;
+            CabFurIds[6] = 80;
+            CabFurIds[7] = 82;
+
+            AllDispatchDecorWeightDT = new DataTable();
+            AllMainOrdersDecorWeightDT = new DataTable();
+            AllMegaBatchNumbersDT = new DataTable();
+            DispatchContentDT = new DataTable();
+            DispatchDT = new DataTable();
+            DispatchDT.Columns.Add(new DataColumn(("DispPackagesCount"), System.Type.GetType("System.String")));
+            DispatchDT.Columns.Add(new DataColumn(("Weight"), System.Type.GetType("System.Decimal")));
+            DispatchDT.Columns.Add(new DataColumn(("DispatchStatus"), System.Type.GetType("System.String")));
+            DispatchDT.Columns.Add(new DataColumn(("RealDispDateTime"), System.Type.GetType("System.DateTime")));
+            DispatchDatesDT = new DataTable();
+            DispatchDatesDT.Columns.Add(new DataColumn(("WeekNumber"), System.Type.GetType("System.String")));
+
+            DispatchBS = new BindingSource();
+            DispatchDatesBS = new BindingSource();
+            DispatchContentBS = new BindingSource();
+        }
+
+        private void Fill()
+        {
+            string SelectCommand = @"SELECT TOP 0 Dispatch.*, Clients.ClientName FROM Dispatch
+                LEFT JOIN infiniu2_marketingreference.dbo.Clients AS Clients ON Dispatch.ClientID = Clients.ClientID";
+            using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.MarketingOrdersConnectionString))
+            {
+                DA.Fill(DispatchDT);
+            }
+            SelectCommand = "SELECT TOP 0 PrepareDateTime, DateName FROM CabFurDispatch ORDER BY PrepareDateTime";
+            using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.MarketingOrdersConnectionString))
+            {
+                DA.Fill(DispatchDatesDT);
+            }
+            //SelectCommand = "SELECT TOP 0 MegaOrderID, MegaOrders.ClientID, OrderNumber FROM MegaOrders" +
+            //    " INNER JOIN infiniu2_marketingreference.dbo.Clients ON MegaOrders.ClientID=infiniu2_marketingreference.dbo.Clients.ClientID";
+            //using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.MarketingOrdersConnectionString))
+            //{
+            //    DA.Fill(DispatchContentDT);
+            //}
+
+            SelectCommand = "SELECT TOP 0 MainOrders.MegaOrderID, MegaOrders.ClientID, MegaOrders.OrderNumber, MainOrders.FactoryID, MainOrders.MainOrderID, MainOrders.ProfilPackAllocStatusID, MainOrders.TPSPackAllocStatusID FROM MainOrders" +
+                " INNER JOIN MegaOrders ON MainOrders.MegaOrderID=MegaOrders.MegaOrderID";
+            using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.MarketingOrdersConnectionString))
+            {
+                DA.Fill(DispatchContentDT);
+            }
+            DispatchContentDT.Columns.Add(new DataColumn("MegaBatchID", Type.GetType("System.Int32")));
+            DispatchContentDT.Columns.Add(new DataColumn("Weight", Type.GetType("System.Decimal")));
+            DispatchContentDT.Columns.Add(new DataColumn("Square", Type.GetType("System.Decimal")));
+            DispatchContentDT.Columns.Add(new DataColumn("AllPackCount", Type.GetType("System.Int32")));
+            DispatchContentDT.Columns.Add(new DataColumn("PackPercentage", Type.GetType("System.Decimal")));
+            DispatchContentDT.Columns.Add(new DataColumn("StorePercentage", Type.GetType("System.Decimal")));
+            DispatchContentDT.Columns.Add(new DataColumn("ExpPercentage", Type.GetType("System.Decimal")));
+            DispatchContentDT.Columns.Add(new DataColumn("DispPercentage", Type.GetType("System.Decimal")));
+        }
+
+        public void GetMainOrdersSquareAndWeight()
+        {
+            string filter = string.Empty;
+
+            foreach (int item in CabFurIds)
+                filter += item.ToString() + ",";
+            if (filter.Length > 0)
+                filter = "WHERE ProductID IN (" + filter.Substring(0, filter.Length - 1) + ")";
+
+            string SelectCommand = @"SELECT Packages.DispatchID, DecorOrders.MainOrderID, (DecorOrders.Weight*PackageDetails.Count/DecorOrders.Count) AS Weight
+                    FROM PackageDetails INNER JOIN DecorOrders ON PackageDetails.OrderID = DecorOrders.DecorOrderID AND DecorOrders.MainOrderID IN (SELECT MainOrderID FROM DecorOrders " + filter + @" )
+                    INNER JOIN  Packages ON PackageDetails.PackageID = Packages.PackageID AND Packages.ProductType = 1 
+                    AND Packages.DispatchID NOT IN (SELECT DispatchID FROM CabFurDispatch)";
+            using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.MarketingOrdersConnectionString))
+            {
+                AllMainOrdersDecorWeightDT.Clear();
+                DA.Fill(AllMainOrdersDecorWeightDT);
+            }
+
+            SelectCommand = @"SELECT Packages.DispatchID, (DecorOrders.Weight*PackageDetails.Count/DecorOrders.Count) AS Weight
+                    FROM PackageDetails INNER JOIN DecorOrders ON PackageDetails.OrderID = DecorOrders.DecorOrderID AND DecorOrders.MainOrderID IN (SELECT MainOrderID FROM DecorOrders " + filter + @" )
+                    INNER JOIN  Packages ON PackageDetails.PackageID = Packages.PackageID AND Packages.ProductType = 1 
+                    AND Packages.DispatchID NOT IN (SELECT DispatchID FROM CabFurDispatch)";
+            using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.MarketingOrdersConnectionString))
+            {
+                AllDispatchDecorWeightDT.Clear();
+                DA.Fill(AllDispatchDecorWeightDT);
+            }
+        }
+        
+        public void GetMainOrdersSquareAndWeight(DateTime PrepareDispatchDateTime)
+        {
+            string SelectCommand = @"SELECT Packages.DispatchID, DecorOrders.MainOrderID, (DecorOrders.Weight*PackageDetails.Count/DecorOrders.Count) AS Weight
+                    FROM PackageDetails INNER JOIN DecorOrders ON PackageDetails.OrderID = DecorOrders.DecorOrderID
+                    INNER JOIN  Packages ON PackageDetails.PackageID = Packages.PackageID AND Packages.ProductType = 1 
+                    AND Packages.DispatchID IN (SELECT DispatchID FROM CabFurDispatch WHERE CAST(PrepareDateTime AS Date) = 
+                    '" + PrepareDispatchDateTime.ToString("yyyy-MM-dd") + "')";
+            using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.MarketingOrdersConnectionString))
+            {
+                AllMainOrdersDecorWeightDT.Clear();
+                DA.Fill(AllMainOrdersDecorWeightDT);
+            }
+
+            SelectCommand = @"SELECT Packages.DispatchID, (DecorOrders.Weight*PackageDetails.Count/DecorOrders.Count) AS Weight
+                    FROM PackageDetails INNER JOIN DecorOrders ON PackageDetails.OrderID = DecorOrders.DecorOrderID
+                    INNER JOIN  Packages ON PackageDetails.PackageID = Packages.PackageID AND Packages.ProductType = 1 
+                    AND Packages.DispatchID IN (SELECT DispatchID FROM CabFurDispatch WHERE CAST(PrepareDateTime AS Date) = 
+                    '" + PrepareDispatchDateTime.ToString("yyyy-MM-dd") + "')";
+            using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.MarketingOrdersConnectionString))
+            {
+                AllDispatchDecorWeightDT.Clear();
+                DA.Fill(AllDispatchDecorWeightDT);
+            }
+        }
+
+        private decimal GetWeight(int DispatchID, int MainOrderID)
+        {
+            decimal Weight = 0;
+            DataRow[] rows = AllMainOrdersDecorWeightDT.Select("DispatchID=" + DispatchID + " AND MainOrderID=" + MainOrderID);
+            //if (rows.Count() > 0 && rows[0]["Weight"] != DBNull.Value)
+            //{
+            //    Weight += Convert.ToDecimal(rows[0]["Weight"]);
+            //}
+            foreach (DataRow item in rows)
+            {
+                Weight += Convert.ToDecimal(item["Weight"]);
+            }
+            Weight = Decimal.Round(Weight, 2, MidpointRounding.AwayFromZero);
+
+            return Weight;
+        }
+
+        private decimal GetWeight(int DispatchID)
+        {
+            decimal Weight = 0;
+            DataRow[] rows = rows = AllDispatchDecorWeightDT.Select("DispatchID=" + DispatchID);
+            foreach (DataRow item in rows)
+            {
+                Weight += Convert.ToDecimal(item["Weight"]);
+            }
+            //if (rows.Count() > 0 && rows[0]["Weight"] != DBNull.Value)
+            //{
+            //    Weight += Convert.ToDecimal(rows[0]["Weight"]);
+            //}
+            Weight = Decimal.Round(Weight, 2, MidpointRounding.AwayFromZero);
+
+            return Weight;
+        }
+
+        public void GetMegaBatchNumbers(DateTime PrepareDispatchDateTime)
+        {
+            string SelectCommand = @"SELECT Batch.MegaBatchID, BatchDetails.MainOrderID FROM BatchDetails 
+                INNER JOIN Batch ON BatchDetails.BatchID = Batch.BatchID 
+                WHERE BatchDetails.MainOrderID IN (SELECT MainOrderID FROM Packages WHERE Packages.DispatchID IN 
+                (SELECT DispatchID FROM Dispatch WHERE CAST(PrepareDispatchDateTime AS Date) = '" + PrepareDispatchDateTime.ToString("yyyy-MM-dd") + "'))";
+            using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.MarketingOrdersConnectionString))
+            {
+                AllMegaBatchNumbersDT.Clear();
+                DA.Fill(AllMegaBatchNumbersDT);
+            }
+        }
+
+        private int GetMegaBatchID(int MainOrderID)
+        {
+            int MegaBatchID = 0;
+            DataRow[] rows = AllMegaBatchNumbersDT.Select("MainOrderID=" + MainOrderID);
+            if (rows.Count() > 0)
+                MegaBatchID = Convert.ToInt32(rows[0]["MegaBatchID"]);
+
+            return MegaBatchID;
+        }
+
+        public void FillPercColumns(int DispatchID)
+        {
+            DataTable DT = new DataTable();
+
+            int PackedCount = 0;
+            int StoreCount = 0;
+            int DispCount = 0;
+            int ExpCount = 0;
+            int AllCount = 0;
+
+            decimal PackPercentage = 0;
+            decimal StorePercentage = 0;
+            decimal ExpPercentage = 0;
+            decimal DispPercentage = 0;
+
+            decimal PackProgressVal = 0;
+            decimal StoreProgressVal = 0;
+            decimal ExpProgressVal = 0;
+            decimal DispProgressVal = 0;
+
+            decimal d1 = 0;
+            decimal d2 = 0;
+            decimal d3 = 0;
+            decimal d4 = 0;
+
+            for (int i = 0; i < DispatchContentDT.Rows.Count; i++)
+            {
+                int FactoryID = Convert.ToInt32(DispatchContentDT.Rows[i]["FactoryID"]);
+                int MainOrderID = Convert.ToInt32(DispatchContentDT.Rows[i]["MainOrderID"]);
+                int ProfilPackAllocStatusID = Convert.ToInt32(DispatchContentDT.Rows[i]["ProfilPackAllocStatusID"]);
+                int TPSPackAllocStatusID = Convert.ToInt32(DispatchContentDT.Rows[i]["TPSPackAllocStatusID"]);
+
+                PackedCount = 0;
+                StoreCount = 0;
+                DispCount = 0;
+                ExpCount = 0;
+                AllCount = 0;
+
+                PackPercentage = 0;
+                StorePercentage = 0;
+                ExpPercentage = 0;
+                DispPercentage = 0;
+
+                PackProgressVal = 0;
+                StoreProgressVal = 0;
+                ExpProgressVal = 0;
+                DispProgressVal = 0;
+
+                d1 = 0;
+                d2 = 0;
+                d3 = 0;
+                d4 = 0;
+
+                using (SqlDataAdapter DA = new SqlDataAdapter(@"SELECT PackageID, PackageStatusID, FactoryID, DispatchID FROM Packages
+                    WHERE MainOrderID=" + MainOrderID + " AND DispatchID=" + DispatchID, ConnectionStrings.MarketingOrdersConnectionString))
+                {
+                    DT.Clear();
+                    DA.Fill(DT);
+                }
+                foreach (DataRow item in DT.Rows)
+                {
+                    if (Convert.ToInt32(item["PackageStatusID"]) == 1)
+                        PackedCount++;
+                    if (Convert.ToInt32(item["PackageStatusID"]) == 2)
+                        StoreCount++;
+                    if (Convert.ToInt32(item["PackageStatusID"]) == 4)
+                        ExpCount++;
+                    if (Convert.ToInt32(item["PackageStatusID"]) == 3)
+                        DispCount++;
+                    AllCount++;
+                }
+
+                if (AllCount == 0 && DispCount > 0)
+                    MessageBox.Show("Внутрення ошибка Infininum (деление на ноль). Сообщите администратору");
+
+                if ((FactoryID != 2 && ProfilPackAllocStatusID != 2) || (FactoryID != 1 && TPSPackAllocStatusID != 2))
+                {
+                    PackedCount = 0;
+                    StoreCount = 0;
+                    DispCount = 0;
+                    ExpCount = 0;
+                }
+
+                PackProgressVal = 0;
+                StoreProgressVal = 0;
+                ExpProgressVal = 0;
+                DispProgressVal = 0;
+
+                if (AllCount > 0)
+                    PackProgressVal = Convert.ToDecimal(Convert.ToDecimal(PackedCount) / Convert.ToDecimal(AllCount));
+
+                if (AllCount > 0)
+                    StoreProgressVal = Convert.ToDecimal(Convert.ToDecimal(StoreCount) / Convert.ToDecimal(AllCount));
+
+                if (AllCount > 0)
+                    ExpProgressVal = Convert.ToDecimal(Convert.ToDecimal(ExpCount) / Convert.ToDecimal(AllCount));
+
+                if (AllCount > 0)
+                    DispProgressVal = Convert.ToDecimal(Convert.ToDecimal(DispCount) / Convert.ToDecimal(AllCount));
+
+                d1 = PackProgressVal * 100;
+                d2 = StoreProgressVal * 100;
+                d4 = ExpProgressVal * 100;
+                d3 = DispProgressVal * 100;
+
+                //PackPercentage = Convert.ToInt32(Math.Truncate(d1));
+                //StorePercentage = Convert.ToInt32(Math.Truncate(d2));
+                //ExpPercentage = Convert.ToInt32(Math.Truncate(d4));
+                //DispPercentage = Convert.ToInt32(Math.Truncate(d3));
+
+                PackPercentage = Decimal.Round(d1, 1, MidpointRounding.AwayFromZero);
+                StorePercentage = Decimal.Round(d2, 1, MidpointRounding.AwayFromZero);
+                ExpPercentage = Decimal.Round(d4, 1, MidpointRounding.AwayFromZero);
+                DispPercentage = Decimal.Round(d3, 1, MidpointRounding.AwayFromZero);
+
+                //DispatchContentDT.Rows[i]["Square"] = GetSquare(DispatchID, MainOrderID);
+                DispatchContentDT.Rows[i]["Weight"] = GetWeight(DispatchID, MainOrderID);
+                //DispatchContentDT.Rows[i]["MegaBatchID"] = GetMegaBatchID(MainOrderID);
+                DispatchContentDT.Rows[i]["AllPackCount"] = AllCount;
+                DispatchContentDT.Rows[i]["PackPercentage"] = PackPercentage;
+                DispatchContentDT.Rows[i]["StorePercentage"] = StorePercentage;
+                DispatchContentDT.Rows[i]["ExpPercentage"] = ExpPercentage;
+                DispatchContentDT.Rows[i]["DispPercentage"] = DispPercentage;
+            }
+            DT.Dispose();
+        }
+
+        private void Binding()
+        {
+            DispatchBS.DataSource = DispatchDT;
+            DispatchDatesBS.DataSource = DispatchDatesDT;
+            DispatchContentBS.DataSource = DispatchContentDT;
+        }
+
+        public int CurrentDispatchID
+        {
+            get
+            {
+                if (DispatchBS.Count == 0 || ((DataRowView)DispatchBS.Current).Row["DispatchID"] == DBNull.Value)
+                    return -1;
+                else
+                    return Convert.ToInt32(((DataRowView)DispatchBS.Current).Row["DispatchID"]);
+            }
+        }
+
+        public object CurrentDispatchDate
+        {
+            get
+            {
+                if (DispatchDatesBS.Count == 0 || ((DataRowView)DispatchDatesBS.Current).Row["PrepareDateTime"] == DBNull.Value)
+                    return DBNull.Value;
+                else
+                    return ((DataRowView)DispatchDatesBS.Current).Row["PrepareDateTime"];
+            }
+        }
+
+        public bool HasDispatchDates
+        {
+            get
+            {
+                return DispatchDatesBS.Count > 0;
+            }
+        }
+
+        public bool HasDispatch
+        {
+            get
+            {
+                return DispatchBS.Count > 0;
+            }
+        }
+
+        public bool HasPackages(int DispatchID)
+        {
+            string SelectCommand = @"SELECT PackageID, PackageStatusID FROM Packages WHERE DispatchID = " + DispatchID;
+            using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.MarketingOrdersConnectionString))
+            {
+                using (DataTable DT = new DataTable())
+                {
+                    return (DA.Fill(DT) > 0);
+                }
+            }
+        }
+
+        public BindingSource DispatchList
+        {
+            get { return DispatchBS; }
+        }
+
+        public BindingSource DispatchDatesList
+        {
+            get { return DispatchDatesBS; }
+        }
+
+        public BindingSource DispatchContentList
+        {
+            get { return DispatchContentBS; }
+        }
+
+        public void GetRealDispDateTime(int DispatchID, ref object RealDispDateTime, ref object DispUserID)
+        {
+            string SelectCommand = @"SELECT MAX(DispatchDateTime) AS DispatchDateTime, DispUserID
+                FROM Packages WHERE DispatchID = " + DispatchID + " GROUP BY DispUserID";
+            using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.MarketingOrdersConnectionString))
+            {
+                using (DataTable DT = new DataTable())
+                {
+                    if (DA.Fill(DT) > 0)
+                    {
+                        if (DT.Rows[0]["DispatchDateTime"] != DBNull.Value)
+                            RealDispDateTime = DT.Rows[0]["DispatchDateTime"];
+                        if (DT.Rows[0]["DispUserID"] != DBNull.Value)
+                            DispUserID = DT.Rows[0]["DispUserID"];
+                    }
+                }
+            }
+        }
+
+        public object GetRealDispDateTime(int DispatchID)
+        {
+            object RealDispDateTime = DBNull.Value;
+            string SelectCommand = @"SELECT MAX(DispatchDateTime) AS DispatchDateTime
+                FROM Packages WHERE DispatchID = " + DispatchID;
+            using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.MarketingOrdersConnectionString))
+            {
+                using (DataTable DT = new DataTable())
+                {
+                    if (DA.Fill(DT) > 0)
+                    {
+                        if (DT.Rows[0]["DispatchDateTime"] != DBNull.Value)
+                            RealDispDateTime = DT.Rows[0]["DispatchDateTime"];
+                    }
+                }
+            }
+            return RealDispDateTime;
+        }
+
+        private void GetDispPackagesInfo(int DispatchID, ref int DispPackagesCount, ref int PackagesCount)
+        {
+            string SelectCommand = @"SELECT PackageID, PackageStatusID FROM Packages WHERE DispatchID = " + DispatchID;
+            using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.MarketingOrdersConnectionString))
+            {
+                using (DataTable DT = new DataTable())
+                {
+                    if (DA.Fill(DT) > 0)
+                    {
+                        DispPackagesCount = DT.Select("PackageStatusID = 3").Count();
+                        PackagesCount = DT.Rows.Count;
+                    }
+                }
+            }
+        }
+
+        public bool IsDispatchCanExp(int DispatchID)
+        {
+            string SelectCommand = @"SELECT PackageID, PackageStatusID FROM Packages WHERE DispatchID = " + DispatchID;
+            using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.MarketingOrdersConnectionString))
+            {
+                using (DataTable DT = new DataTable())
+                {
+                    if (DA.Fill(DT) > 0)
+                    {
+                        int StorePackagesCount = DT.Select("PackageStatusID = 2").Count();
+                        int AllPackagesCoutnt = DT.Rows.Count;
+                        return AllPackagesCoutnt == StorePackagesCount;
+                    }
+                    else
+                        return false;
+                }
+            }
+        }
+
+        private void FillDispPackagesInfo()
+        {
+            bool IsDispConfirm = false;
+            bool IsExpConfirm = false;
+            int DispPackagesCount = 0;
+            int PackagesCount = 0;
+            string Status = string.Empty;
+            object RealDispDateTime = DBNull.Value;
+
+            for (int i = 0; i < DispatchDT.Rows.Count; i++)
+            {
+                DispPackagesCount = 0;
+                PackagesCount = 0;
+                if (DispatchDT.Rows[i]["ConfirmExpDateTime"] != DBNull.Value)
+                    IsExpConfirm = true;
+                else
+                    IsExpConfirm = false;
+                if (DispatchDT.Rows[i]["ConfirmDispDateTime"] != DBNull.Value)
+                    IsDispConfirm = true;
+                else
+                    IsDispConfirm = false;
+                GetDispPackagesInfo(Convert.ToInt32(DispatchDT.Rows[i]["DispatchID"]), ref DispPackagesCount, ref PackagesCount);
+                if (PackagesCount > 0)
+                {
+                    if (IsExpConfirm)
+                    {
+                        Status = "Утверждена к эксп-ции";
+                        if (IsDispConfirm)
+                        {
+                            Status = "Утверждена к отгрузке";
+                            if (DispPackagesCount > 0 && PackagesCount == DispPackagesCount)
+                                Status = "Отгружена";
+                        }
+                    }
+                    else
+                        Status = "Ожидает утверждения к эксп-ции";
+
+                }
+                else
+                {
+                    Status = "Отгрузка пуста";
+                }
+
+                if (PackagesCount == DispPackagesCount)
+                {
+                    RealDispDateTime = GetRealDispDateTime(Convert.ToInt32(DispatchDT.Rows[i]["DispatchID"]));
+                    DispatchDT.Rows[i]["RealDispDateTime"] = RealDispDateTime;
+                }
+                DispatchDT.Rows[i]["DispatchStatus"] = Status;
+                DispatchDT.Rows[i]["DispPackagesCount"] = DispPackagesCount + " / " + PackagesCount;
+                DispatchDT.Rows[i]["Weight"] = GetWeight(Convert.ToInt32(DispatchDT.Rows[i]["DispatchID"]));
+            }
+        }
+
+        private int GetWeekNumber(DateTime dtPassed)
+        {
+            System.Globalization.CultureInfo ciCurr = System.Globalization.CultureInfo.CurrentCulture;
+            int weekNum = ciCurr.Calendar.GetWeekOfYear(dtPassed, System.Globalization.CalendarWeekRule.FirstDay, DayOfWeek.Monday);
+            return weekNum;
+        }
+
+        private void FillWeekNumber()
+        {
+            for (int i = 0; i < DispatchDatesDT.Rows.Count; i++)
+            {
+                if (DispatchDatesDT.Rows[i]["PrepareDateTime"] != DBNull.Value)
+                    DispatchDatesDT.Rows[i]["WeekNumber"] = GetWeekNumber(Convert.ToDateTime(DispatchDatesDT.Rows[i]["PrepareDateTime"])) + " к.н.";
+            }
+        }
+
+        public void RemoveOrder()
+        {
+            if (DispatchBS.Current != null)
+            {
+                DispatchBS.RemoveCurrent();
+            }
+        }
+
+        public void ClearDispatch()
+        {
+            DispatchDT.Clear();
+        }
+
+        public void ClearDispatchDates()
+        {
+            DispatchDatesDT.Clear();
+        }
+
+        public void ClearDispatchContent()
+        {
+            DispatchContentDT.Clear();
+        }
+
+        public void CreateCabFurDispatches()
+        {
+            string filter = string.Empty;
+
+            foreach (int item in CabFurIds)
+                filter += item.ToString() + ",";
+            if (filter.Length > 0)
+                filter = "WHERE ProductID IN (" + filter.Substring(0, filter.Length - 1) + ")";
+
+            DataTable table = new DataTable();
+            string SelectCommand = "SELECT TOP 0 * FROM CabFurDispatch";
+            using (SqlDataAdapter sda = new SqlDataAdapter(SelectCommand, ConnectionStrings.MarketingOrdersConnectionString))
+            {
+                using (SqlCommandBuilder CB = new SqlCommandBuilder(sda))
+                {
+                    sda.Fill(table);
+                    SelectCommand = @"SELECT * FROM Dispatch
+                WHERE DispatchID IN (SELECT DispatchID FROM Packages WHERE MainOrderID IN (SELECT MainOrderID FROM DecorOrders " + filter + " ))";
+                    using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.MarketingOrdersConnectionString))
+                    {
+                        using (DataTable DT = new DataTable())
+                        {
+                            DA.Fill(DT);
+                            for (int i = 0; i < DT.Rows.Count; i++)
+                            {
+                                DataRow NewRow = table.NewRow();
+                                NewRow["CreationDateTime"] = Convert.ToDateTime(DT.Rows[i]["CreationDateTime"]);
+                                NewRow["PrepareDateTime"] = Convert.ToDateTime(DT.Rows[i]["PrepareDispatchDateTime"]);
+                                NewRow["DispatchID"] = Convert.ToInt32(DT.Rows[i]["DispatchID"]);
+                                table.Rows.Add(NewRow);
+                            }
+                        }
+                    }
+                    sda.Update(table);
+                }
+            }
+        }
+
+        public void ChangeDispatchDate(int DispatchID, object PrepareDateTime)
+        {
+            string SelectCommand = @"SELECT CabFurDispatchID, DispatchID, CreationDateTime, PrepareDateTime, DateName FROM CabFurDispatch WHERE DispatchID=" + DispatchID;
+            using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.MarketingOrdersConnectionString))
+            {
+                using (SqlCommandBuilder CB = new SqlCommandBuilder(DA))
+                {
+                    using (DataTable DT = new DataTable())
+                    {
+                        if (DA.Fill(DT) > 0)
+                        {
+                            if (PrepareDateTime != null)
+                            {
+                                DT.Rows[0]["PrepareDateTime"] = Convert.ToDateTime(PrepareDateTime);
+                            }
+                            DA.Update(DT);
+                        }
+                        else {
+
+                            DataRow NewRow = DT.NewRow();
+                            NewRow["PrepareDateTime"] = Convert.ToDateTime(PrepareDateTime);
+                            NewRow["CreationDateTime"] = Security.GetCurrentDate();
+                            NewRow["DispatchID"] = DispatchID;
+                            DT.Rows.Add(NewRow);
+                            DA.Update(DT);
+                        }
+                    }
+                }
+            }
+        }
+
+        public void SetDispatchDate(int DispatchID, DateTime DispatchDate)
+        {
+            string SqlCommandText = @"SELECT MegaOrderID, ProfilDispatchDate, TPSDispatchDate, FactoryID FROM MegaOrders
+                WHERE MegaOrderID IN (SELECT MegaOrderID FROM MainOrders
+                WHERE MainOrderID IN (SELECT MainOrderID FROM Packages WHERE (DispatchID = " + DispatchID + ")))";
+
+            using (SqlDataAdapter DA = new SqlDataAdapter(SqlCommandText, ConnectionStrings.MarketingOrdersConnectionString))
+            {
+                using (SqlCommandBuilder CB = new SqlCommandBuilder(DA))
+                {
+                    using (DataTable DT = new DataTable())
+                    {
+                        if (DA.Fill(DT) > 0)
+                        {
+
+                            for (int i = 0; i < DT.Rows.Count; i++)
+                            {
+                                int FactoryID = Convert.ToInt32(DT.Rows[i]["FactoryID"]);
+                                if (FactoryID == 1)
+                                {
+                                    DT.Rows[i]["ProfilDispatchDate"] = DispatchDate;
+                                }
+                                if (FactoryID == 2)
+                                {
+                                    DT.Rows[i]["TPSDispatchDate"] = DispatchDate;
+                                }
+                                if (FactoryID == 0)
+                                {
+                                    DT.Rows[i]["ProfilDispatchDate"] = DispatchDate;
+                                    DT.Rows[i]["TPSDispatchDate"] = DispatchDate;
+                                }
+
+                                DA.Update(DT);
+                            }
+                        }
+                    }
+                }
+            }
+            SqlCommandText = @"SELECT MegaOrderID, ProfilDispatchDate, TPSDispatchDate, FactoryID FROM NewMegaOrders
+                WHERE MegaOrderID IN (SELECT MegaOrderID FROM MainOrders
+                WHERE MainOrderID IN (SELECT MainOrderID FROM Packages WHERE (DispatchID = " + DispatchID + ")))";
+
+            using (SqlDataAdapter DA = new SqlDataAdapter(SqlCommandText, ConnectionStrings.MarketingOrdersConnectionString))
+            {
+                using (SqlCommandBuilder CB = new SqlCommandBuilder(DA))
+                {
+                    using (DataTable DT = new DataTable())
+                    {
+                        if (DA.Fill(DT) > 0)
+                        {
+
+                            for (int i = 0; i < DT.Rows.Count; i++)
+                            {
+                                int FactoryID = Convert.ToInt32(DT.Rows[i]["FactoryID"]);
+                                if (FactoryID == 1)
+                                {
+                                    DT.Rows[i]["ProfilDispatchDate"] = DispatchDate;
+                                }
+                                if (FactoryID == 2)
+                                {
+                                    DT.Rows[i]["TPSDispatchDate"] = DispatchDate;
+                                }
+                                if (FactoryID == 0)
+                                {
+                                    DT.Rows[i]["ProfilDispatchDate"] = DispatchDate;
+                                    DT.Rows[i]["TPSDispatchDate"] = DispatchDate;
+                                }
+
+                                DA.Update(DT);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        public void SaveConfirmExpInfo(int DispatchID, bool Confirm)
+        {
+            string SelectCommand = "SELECT DispatchID, ConfirmExpUserID, ConfirmExpDateTime FROM Dispatch WHERE DispatchID=" + DispatchID;
+            using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.MarketingOrdersConnectionString))
+            {
+                using (SqlCommandBuilder CB = new SqlCommandBuilder(DA))
+                {
+                    using (DataTable DT = new DataTable())
+                    {
+                        if (DA.Fill(DT) > 0)
+                        {
+                            if (Confirm)
+                            {
+                                DT.Rows[0]["ConfirmExpDateTime"] = Security.GetCurrentDate();
+                                DT.Rows[0]["ConfirmExpUserID"] = Security.CurrentUserID;
+                            }
+                            else
+                            {
+                                DT.Rows[0]["ConfirmExpDateTime"] = DBNull.Value;
+                                DT.Rows[0]["ConfirmExpUserID"] = DBNull.Value;
+                            }
+                            DA.Update(DT);
+                        }
+                    }
+                }
+            }
+        }
+
+        public void SaveConfirmDispInfo(int DispatchID, bool Confirm)
+        {
+            string SelectCommand = "SELECT DispatchID, ConfirmDispUserID, ConfirmExpDateTime, ConfirmDispDateTime FROM Dispatch WHERE DispatchID=" + DispatchID;
+            using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.MarketingOrdersConnectionString))
+            {
+                using (SqlCommandBuilder CB = new SqlCommandBuilder(DA))
+                {
+                    using (DataTable DT = new DataTable())
+                    {
+                        if (DA.Fill(DT) > 0)
+                        {
+                            if (Confirm)
+                            {
+                                DT.Rows[0]["ConfirmDispDateTime"] = Security.GetCurrentDate();
+                                DT.Rows[0]["ConfirmDispUserID"] = Security.CurrentUserID;
+                            }
+                            else
+                            {
+                                DT.Rows[0]["ConfirmDispDateTime"] = DBNull.Value;
+                                DT.Rows[0]["ConfirmDispUserID"] = DBNull.Value;
+                            }
+                            DA.Update(DT);
+                        }
+                    }
+                }
+            }
+        }
+
+        public void UpdateDispatchDates(DateTime Date)
+        {
+            string SelectCommand = "SELECT DISTINCT PrepareDateTime, DateName FROM CabFurDispatch" +
+                " WHERE DATEPART(month, PrepareDateTime) = DATEPART(month, '" + Date.ToString("yyyy-MM-dd") +
+                "') AND DATEPART(year, PrepareDateTime) = DATEPART(year, '" + Date.ToString("yyyy-MM-dd") + "')" +
+                " ORDER BY PrepareDateTime DESC";
+            using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.MarketingOrdersConnectionString))
+            {
+                DA.Fill(DispatchDatesDT);
+            }
+
+            DataTable dt = DispatchDatesDT.Clone();
+            SelectCommand = "SELECT PrepareDateTime, DateName FROM CabFurDispatch" +
+                " WHERE CabFurDispatchID = 0";
+            using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.MarketingOrdersConnectionString))
+            {
+                DA.Fill(dt);
+            }
+
+            foreach (DataRow dr in dt.Rows)
+                DispatchDatesDT.Rows.Add(dr.ItemArray);
+            dt.Dispose();
+
+            FillWeekNumber();
+        }
+
+        public bool IsCabFur(int DispatchID)
+        {
+            string filter = string.Empty;
+
+            foreach (int item in CabFurIds)
+                filter += item.ToString() + ",";
+            if (filter.Length > 0)
+                filter = "WHERE ProductID IN (" + filter.Substring(0, filter.Length - 1) + ")";
+
+            string SelectCommand = @"SELECT DispatchID FROM Packages WHERE MainOrderID IN (SELECT MainOrderID FROM DecorOrders " + filter + " ) AND DispatchID=" + DispatchID;
+            using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.MarketingOrdersConnectionString))
+            {
+                using (DataTable DT = new DataTable())
+                {
+                    if (DA.Fill(DT) > 0)
+                        return true;
+                }
+            }
+            return false;
+        }
+
+        public void FilterDispatchByDate(int CabFurDispatchID)
+        {
+            string filter = string.Empty;
+
+            foreach (int item in CabFurIds)
+                filter += item.ToString() + ",";
+            if (filter.Length > 0)
+                filter = "WHERE ProductID IN (" + filter.Substring(0, filter.Length - 1) + ")";
+
+            string SelectCommand = @"SELECT Dispatch.*, Clients.ClientName FROM Dispatch
+                LEFT JOIN infiniu2_marketingreference.dbo.Clients AS Clients ON Dispatch.ClientID = Clients.ClientID
+                WHERE DispatchID NOT IN (SELECT DispatchID FROM CabFurDispatch)
+                AND DispatchID IN (SELECT DispatchID FROM Packages WHERE MainOrderID IN (SELECT MainOrderID FROM DecorOrders " + filter + " ))";
+            using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.MarketingOrdersConnectionString))
+            {
+                DA.Fill(DispatchDT);
+                for (int i = 0; i < DispatchDT.Rows.Count; i++)
+                    DispatchDT.Rows[i]["Weight"] = GetWeight(Convert.ToInt32(DispatchDT.Rows[i]["DispatchID"]));
+            }
+            FillDispPackagesInfo();
+        }
+
+        public void FilterDispatchByDate(DateTime Date)
+        {
+            string SelectCommand = @"SELECT Dispatch.*, Clients.ClientName FROM Dispatch
+                INNER JOIN CabFurDispatch ON Dispatch.DispatchID = CabFurDispatch.DispatchID
+                LEFT JOIN infiniu2_marketingreference.dbo.Clients AS Clients ON Dispatch.ClientID = Clients.ClientID
+                WHERE CAST(CabFurDispatch.PrepareDateTime AS DATE) = '" + Date.ToString("yyyy-MM-dd") + "'";
+            using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.MarketingOrdersConnectionString))
+            {
+                DA.Fill(DispatchDT);
+                for (int i = 0; i < DispatchDT.Rows.Count; i++)
+                    DispatchDT.Rows[i]["Weight"] = GetWeight(Convert.ToInt32(DispatchDT.Rows[i]["DispatchID"]));
+            }
+            FillDispPackagesInfo();
+        }
+
+        public void FilterDispatchContent(int DispatchID)
+        {
+            string SelectCommand = "SELECT MainOrders.MegaOrderID, MegaOrders.ClientID, MegaOrders.OrderNumber, MainOrders.FactoryID, MainOrders.MainOrderID, MainOrders.ProfilPackAllocStatusID, MainOrders.TPSPackAllocStatusID FROM MainOrders" +
+                " INNER JOIN MegaOrders ON MainOrders.MegaOrderID=MegaOrders.MegaOrderID" +
+                " WHERE MainOrderID IN (SELECT MainOrderID FROM Packages WHERE DispatchID = " + DispatchID + ")";
+            using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.MarketingOrdersConnectionString))
+            {
+                DA.Fill(DispatchContentDT);
+            }
+        }
+
+        public int[] GetMainOrdersInDispatch(int DispatchID)
+        {
+            ArrayList MainOrders = new ArrayList();
+
+            using (SqlDataAdapter DA = new SqlDataAdapter("SELECT DISTINCT MainOrderID FROM Packages" +
+                " WHERE DispatchID =" + DispatchID, ConnectionStrings.MarketingOrdersConnectionString))
+            {
+                using (DataTable DT = new DataTable())
+                {
+                    DA.Fill(DT);
+
+
+                    for (int i = 0; i < DT.Rows.Count; i++)
+                        MainOrders.Add(Convert.ToInt32(DT.Rows[i]["MainOrderID"]));
+                }
+            }
+
+            return MainOrders.OfType<Int32>().ToArray();
+        }
+
+        public int[] GetMainOrders(int[] Dispatches)
+        {
+            ArrayList MainOrders = new ArrayList();
+
+            using (SqlDataAdapter DA = new SqlDataAdapter("SELECT DISTINCT MainOrderID FROM Packages" +
+                " WHERE DispatchID IN (" + string.Join(",", Dispatches) + ")", ConnectionStrings.MarketingOrdersConnectionString))
+            {
+                using (DataTable DT = new DataTable())
+                {
+                    DA.Fill(DT);
+
+
+                    for (int i = 0; i < DT.Rows.Count; i++)
+                        MainOrders.Add(Convert.ToInt32(DT.Rows[i]["MainOrderID"]));
+                }
+            }
+
+            return MainOrders.OfType<Int32>().ToArray();
+        }
+
+        public DataTable GetMegaOrdersInDispatch(int DispatchID)
+        {
+            DataTable dt = new DataTable();
+            using (SqlDataAdapter DA = new SqlDataAdapter(@"SELECT FactoryID, MegaOrderID, OrderNumber, DiscountPaymentConditionID,
+                ProfilDiscountOrderSum, TPSDiscountOrderSum, ProfilDiscountDirector, TPSDiscountDirector,
+                Rate, ConfirmDateTime, CurrencyTypeID FROM MegaOrders WHERE MegaOrderID IN (SELECT MegaOrderID FROM MainOrders
+                WHERE MainOrderID IN (SELECT MainOrderID FROM Packages WHERE DispatchID=" + DispatchID + "))", ConnectionStrings.MarketingOrdersConnectionString))
+            {
+                DA.Fill(dt);
+            }
+            return dt;
+        }
+
+        public DataTable GetMegaOrders(int[] Dispatches)
+        {
+            DataTable dt = new DataTable();
+            using (SqlDataAdapter DA = new SqlDataAdapter(@"SELECT MegaOrderID, OrderNumber, DiscountPaymentConditionID,
+                ProfilDiscountOrderSum, TPSDiscountOrderSum, ProfilDiscountDirector, TPSDiscountDirector,
+                Rate, ConfirmDateTime, CurrencyTypeID FROM MegaOrders WHERE MegaOrderID IN (SELECT MegaOrderID FROM MainOrders
+                WHERE MainOrderID IN (SELECT MainOrderID FROM Packages WHERE DispatchID IN (" + string.Join(",", Dispatches) + ")))", ConnectionStrings.MarketingOrdersConnectionString))
+            {
+                DA.Fill(dt);
+            }
+            return dt;
+        }
+
+        private decimal GetDiscountPaymentCondition(int DiscountPaymentConditionID)
+        {
+            decimal Discount = 0;
+            using (DataTable DT = new DataTable())
+            {
+                using (SqlDataAdapter DA = new SqlDataAdapter("SELECT * FROM DiscountPaymentConditions WHERE DiscountPaymentConditionID=" + DiscountPaymentConditionID,
+                    ConnectionStrings.MarketingReferenceConnectionString))
+                {
+                    DA.Fill(DT);
+                    if (DT.Rows.Count > 0)
+                    {
+                        Discount = Convert.ToInt32(DT.Rows[0]["Discount"]);
+                    }
+                }
+            }
+            return Discount;
+        }
+
+        public decimal GetDiscountFactoring(int DiscountFactoringID)
+        {
+            decimal Discount = 0;
+            using (DataTable DT = new DataTable())
+            {
+                using (SqlDataAdapter DA = new SqlDataAdapter("SELECT * FROM DiscountFactoring WHERE DiscountFactoringID=" + DiscountFactoringID,
+                    ConnectionStrings.MarketingReferenceConnectionString))
+                {
+                    DA.Fill(DT);
+                    if (DT.Rows.Count > 0)
+                    {
+                        Discount = Convert.ToInt32(DT.Rows[0]["Discount"]);
+                    }
+                }
+            }
+            return (6 - Discount);
+        }
+
+        public MegaOrderInfo GetMegaOrders(int MegaOrderID)
+        {
+            DataTable dt = new DataTable();
+            MegaOrderInfo m = new MegaOrderInfo();
+            using (SqlDataAdapter DA = new SqlDataAdapter(@"SELECT MegaOrderID, OrderNumber, DiscountPaymentConditionID, DiscountFactoringID,
+                ProfilDiscountOrderSum, TPSDiscountOrderSum, ProfilDiscountDirector, TPSDiscountDirector, ProfilTotalDiscount, TPSTotalDiscount,
+                Rate, ConfirmDateTime, CurrencyTypeID FROM MegaOrders WHERE MegaOrderID=" + MegaOrderID, ConnectionStrings.MarketingOrdersConnectionString))
+            {
+                if (DA.Fill(dt) > 0)
+                {
+                    m.DiscountPaymentConditionID = Convert.ToInt32(dt.Rows[0]["DiscountPaymentConditionID"]);
+                    m.DiscountFactoringID = Convert.ToInt32(dt.Rows[0]["DiscountFactoringID"]);
+                    m.ProfilDiscountOrderSum = Convert.ToDecimal(dt.Rows[0]["ProfilDiscountOrderSum"]);
+                    m.TPSDiscountOrderSum = Convert.ToDecimal(dt.Rows[0]["TPSDiscountOrderSum"]);
+                    m.ProfilDiscountDirector = Convert.ToDecimal(dt.Rows[0]["ProfilDiscountDirector"]);
+                    m.TPSDiscountDirector = Convert.ToDecimal(dt.Rows[0]["TPSDiscountDirector"]);
+                    m.ProfilTotalDiscount = Convert.ToDecimal(dt.Rows[0]["ProfilTotalDiscount"]);
+                    m.TPSTotalDiscount = Convert.ToDecimal(dt.Rows[0]["TPSTotalDiscount"]);
+                    m.OriginalRate = Convert.ToDecimal(dt.Rows[0]["Rate"]);
+                    m.PaymentRate = Convert.ToDecimal(dt.Rows[0]["Rate"]);
+                    m.ConfirmDateTime = dt.Rows[0]["ConfirmDateTime"];
+                    int DiscountPaymentConditionID = Convert.ToInt32(dt.Rows[0]["DiscountPaymentConditionID"]);
+                    int DiscountFactoringID = Convert.ToInt32(dt.Rows[0]["DiscountFactoringID"]);
+
+                    m.DiscountPaymentCondition = GetDiscountPaymentCondition(DiscountPaymentConditionID);
+                    if (DiscountPaymentConditionID == 4)
+                    {
+                        m.DiscountPaymentCondition = GetDiscountFactoring(DiscountFactoringID);
+                    }
+                }
+            }
+            return m;
+        }
+
+        public bool IsPackageInDispatch(int PackageID, ref int DispatchID)
+        {
+            string SelectCommand = @"SELECT * FROM Packages WHERE PackageID = " + PackageID;
+            using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.MarketingOrdersConnectionString))
+            {
+                using (DataTable DT = new DataTable())
+                {
+                    if (DA.Fill(DT) > 0)
+                    {
+                        if (DT.Rows[0]["DispatchID"] != DBNull.Value)
+                        {
+                            DispatchID = Convert.ToInt32(DT.Rows[0]["DispatchID"]);
+                            return true;
+                        }
+                        return false;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+            }
+        }
+
+        public object GetPrepareDateTime(int DispatchID)
+        {
+            object PrepareDateTime = DBNull.Value;
+            string SelectCommand = @"SELECT PrepareDateTime
+                FROM Dispatch WHERE DispatchID = " + DispatchID;
+            using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.MarketingOrdersConnectionString))
+            {
+                using (DataTable DT = new DataTable())
+                {
+                    if (DA.Fill(DT) > 0)
+                    {
+                        if (DT.Rows[0]["PrepareDateTime"] != DBNull.Value)
+                            PrepareDateTime = DT.Rows[0]["PrepareDateTime"];
+                    }
+                }
+            }
+            return PrepareDateTime;
+        }
+
+        public void MoveToDispatchDate(DateTime DispatchDate)
+        {
+            DispatchDatesBS.Position = DispatchDatesBS.Find("PrepareDateTime", DispatchDate);
+        }
+
+        public void MoveToDispatch(int DispatchID)
+        {
+            DispatchBS.Position = DispatchBS.Find("DispatchID", DispatchID);
+        }
+
+        public bool IsDispatchBindToPermit(int DispatchID)
+        {
+            string SelectCommand = @"SELECT * FROM PermitDetails WHERE DispatchID = " + DispatchID;
+            using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.LightConnectionString))
+            {
+                using (DataTable DT = new DataTable())
+                {
+                    if (DA.Fill(DT) > 0)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+            }
+        }
+
+        public bool HasOrders(int[] Dispatches, bool IsSample)
+        {
+            bool hasFronts = false;
+            bool hasDecor = false;
+            string SelectCommand = @"SELECT PackageDetails.* FROM PackageDetails 
+                    INNER JOIN FrontsOrders ON PackageDetails.OrderID = FrontsOrders.FrontsOrdersID
+                    WHERE FrontsOrders.IsSample=1 AND PackageID IN (SELECT PackageID FROM Packages WHERE ProductType = 0 AND Packages.DispatchID IN (" + string.Join(",", Dispatches) + "))";
+            if (!IsSample)
+                SelectCommand = @"SELECT PackageDetails.* FROM PackageDetails 
+                    INNER JOIN FrontsOrders ON PackageDetails.OrderID = FrontsOrders.FrontsOrdersID
+                    WHERE FrontsOrders.IsSample=0 AND PackageID IN (SELECT PackageID FROM Packages WHERE ProductType = 0 AND Packages.DispatchID IN (" + string.Join(",", Dispatches) + "))";
+            using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand,
+                ConnectionStrings.MarketingOrdersConnectionString))
+            {
+                using (DataTable DT = new DataTable())
+                {
+                    hasFronts = DA.Fill(DT) > 0 ? true : false;
+                }
+            }
+
+            SelectCommand = SelectCommand = @"SELECT PackageDetails.* FROM PackageDetails 
+                    INNER JOIN DecorOrders ON PackageDetails.OrderID = DecorOrders.DecorOrderID
+                    WHERE DecorOrders.IsSample=1 AND PackageID IN (SELECT PackageID FROM Packages WHERE ProductType = 1 AND Packages.DispatchID IN (" + string.Join(",", Dispatches) + "))";
+            if (!IsSample)
+                SelectCommand = SelectCommand = @"SELECT PackageDetails.* FROM PackageDetails 
+                    INNER JOIN DecorOrders ON PackageDetails.OrderID = DecorOrders.DecorOrderID
+                    WHERE DecorOrders.IsSample=0 AND PackageID IN (SELECT PackageID FROM Packages WHERE ProductType = 1 AND Packages.DispatchID IN (" + string.Join(",", Dispatches) + "))";
+            using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand,
+                ConnectionStrings.MarketingOrdersConnectionString))
+            {
+                using (DataTable DT = new DataTable())
+                {
+                    hasDecor = DA.Fill(DT) > 0 ? true : false;
+                }
+            }
+            if (!hasFronts && !hasDecor)
+                return false;
+            return true;
+        }
+    }
 
 
     public class MarketingDispatch
@@ -5636,6 +6752,30 @@ namespace Infinium.Modules.Marketing.Expedition
             return m;
         }
 
+        public bool IsCabFurInDispatch(int CabFurDispatchID, ref int DispatchID)
+        {
+            string SelectCommand = @"SELECT CabFurDispatchID, DispatchID FROM CabFurDispatch WHERE CabFurDispatchID = " + CabFurDispatchID;
+            using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.MarketingOrdersConnectionString))
+            {
+                using (DataTable DT = new DataTable())
+                {
+                    if (DA.Fill(DT) > 0)
+                    {
+                        if (DT.Rows[0]["DispatchID"] != DBNull.Value)
+                        {
+                            DispatchID = Convert.ToInt32(DT.Rows[0]["DispatchID"]);
+                            return true;
+                        }
+                        return false;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+            }
+        }
+
         public bool IsPackageInDispatch(int PackageID, ref int DispatchID)
         {
             string SelectCommand = @"SELECT * FROM Packages WHERE PackageID = " + PackageID;
@@ -5822,9 +6962,19 @@ namespace Infinium.Modules.Marketing.Expedition
         BindingSource PackagesBS;
         BindingSource FrontsOrdersBS;
         BindingSource DecorOrdersBS;
+        int[] CabFurIds;
 
         public NewMarketingDispatch()
         {
+            CabFurIds = new int[8];
+            CabFurIds[0] = 46;
+            CabFurIds[1] = 63;
+            CabFurIds[2] = 61;
+            CabFurIds[3] = 73;
+            CabFurIds[4] = 74;
+            CabFurIds[5] = 75;
+            CabFurIds[6] = 80;
+            CabFurIds[7] = 82;
 
         }
 
@@ -7755,6 +8905,27 @@ namespace Infinium.Modules.Marketing.Expedition
             MainOrdersBS.Position = MainOrdersBS.Find("MainOrderID", MainOrderID);
         }
 
+        public bool IsCabFur(int DispatchID)
+        {
+            string filter = string.Empty;
+
+            foreach (int item in CabFurIds)
+                filter += item.ToString() + ",";
+            if (filter.Length > 0)
+                filter = "WHERE ProductID IN (" + filter.Substring(0, filter.Length - 1) + ")";
+
+            string SelectCommand = @"SELECT DispatchID FROM Packages WHERE MainOrderID IN (SELECT MainOrderID FROM DecorOrders " + filter + " ) AND DispatchID=" + DispatchID;
+            using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.MarketingOrdersConnectionString))
+            {
+                using (DataTable DT = new DataTable())
+                {
+                    if (DA.Fill(DT) > 0)
+                        return true;
+                }
+            }
+            return false;
+        }
+
         public void AddDispatch(object PrepareDispatchDateTime)
         {
             string SelectCommand = "SELECT TOP 0 * FROM Dispatch";
@@ -7770,6 +8941,30 @@ namespace Infinium.Modules.Marketing.Expedition
                         if (PrepareDispatchDateTime != null)
                             NewRow["PrepareDispatchDateTime"] = Convert.ToDateTime(PrepareDispatchDateTime);
                         NewRow["ClientID"] = ClientID;
+                        DT.Rows.Add(NewRow);
+                        DA.Update(DT);
+                    }
+                }
+            }
+        }
+
+        public void AddCabFurDispatch(object PrepareDispatchDateTime, int DispatchID)
+        {
+            string SelectCommand = "SELECT TOP 0 * FROM CabFurDispatch";
+            using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.MarketingOrdersConnectionString))
+            {
+                using (SqlCommandBuilder CB = new SqlCommandBuilder(DA))
+                {
+                    using (DataTable DT = new DataTable())
+                    {
+                        DA.Fill(DT);
+                        DataRow NewRow = DT.NewRow();
+                        NewRow["CreationDateTime"] = Security.GetCurrentDate();
+                        if (PrepareDispatchDateTime != null)
+                        {
+                            NewRow["PrepareDateTime"] = Convert.ToDateTime(PrepareDispatchDateTime);
+                        }
+                        NewRow["DispatchID"] = DispatchID;
                         DT.Rows.Add(NewRow);
                         DA.Update(DT);
                     }
@@ -7817,9 +9012,11 @@ namespace Infinium.Modules.Marketing.Expedition
         private DataTable ClientsDataTable = null;
         private DataTable FrontsResultDataTable = null;
         private DataTable DecorResultDataTable = null;
+        private DataTable CabFurResultDataTable = null;
 
         private DataTable FrontsOrdersDataTable = null;
         private DataTable DecorOrdersDataTable = null;
+        private DataTable CabFurOrdersDataTable = null;
 
         public DataTable FrontsDataTable = null;
         public DataTable PatinaDataTable = null;
@@ -7831,11 +9028,106 @@ namespace Infinium.Modules.Marketing.Expedition
         private DataTable DecorDataTable = null;
         private DataTable DecorParametersDataTable = null;
 
+        private DataTable CoversDT = null;
+        private DataTable TempCoversDT = null;
+        private DataTable TechStoreDT = null;
+
+
         public PackingReport()
         {
             Create();
             CreateFrontsDataTable();
             CreateDecorDataTable();
+            CreateCabFurDataTable();
+        }
+
+        public bool FilterCabFurOrders(int[] Dispatches)
+        {
+            string SelectCommand = @"SELECT C.PackNumber, C.TechStoreSubGroupID, C.TechCatalogOperationsDetailID, C.TechStoreID AS CTechStoreID, C.CoverID, C.PatinaID, C.InsetColorID, C.MainOrderID, CabFurnitureComplementDetails.* FROM CabFurnitureComplementDetails 
+                INNER JOIN CabFurnitureComplements AS C ON CabFurnitureComplementDetails.CabFurnitureComplementID=C.CabFurnitureComplementID
+                WHERE MainOrderID IN (SELECT MainOrderID FROM infiniu2_marketingorders.dbo.Packages WHERE DispatchID IN (" + string.Join(",", Dispatches) + ")) ORDER BY C.MainOrderID, C.CabFurnitureComplementID, C.PackNumber";
+            using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.StorageConnectionString))
+            {
+                CabFurOrdersDataTable.Clear();
+                DA.Fill(CabFurOrdersDataTable);
+            }
+            return CabFurOrdersDataTable.Rows.Count > 0;
+        }
+
+        public int IsPackageMatch(int TechCatalogOperationsDetailID, int TechStoreID, int CoverID, int PatinaID, int InsetColorID)
+        {
+            int CellID = -1;
+
+            using (SqlDataAdapter DA = new SqlDataAdapter("SELECT * FROM CabFurniturePackages" +
+                " WHERE TechCatalogOperationsDetailID=" + TechCatalogOperationsDetailID +
+                " AND TechStoreID=" + TechStoreID +
+                " AND CoverID=" + CoverID +
+                " AND PatinaID=" + PatinaID +
+                " AND InsetColorID=" + InsetColorID + " ORDER BY AddToStorageDateTime",
+                ConnectionStrings.StorageConnectionString))
+            {
+                using (DataTable DT = new DataTable())
+                {
+                    if (DA.Fill(DT) > 0)
+                    {
+                        if (DT.Rows[0]["CellID"] != DBNull.Value)
+                            CellID = Convert.ToInt32(DT.Rows[0]["CellID"]);
+                    }
+                }
+            }
+
+            return CellID;
+        }
+
+        private void GetCoversDT()
+        {
+            TempCoversDT = new DataTable();
+            TempCoversDT.Columns.Add(new DataColumn("CoverID", Type.GetType("System.Int64")));
+
+            CoversDT = new DataTable();
+            CoversDT.Columns.Add(new DataColumn("CoverID", Type.GetType("System.Int64")));
+            CoversDT.Columns.Add(new DataColumn("CoverName", Type.GetType("System.String")));
+
+            DataRow EmptyRow = CoversDT.NewRow();
+            EmptyRow["CoverID"] = -1;
+            EmptyRow["CoverName"] = "-";
+            CoversDT.Rows.Add(EmptyRow);
+
+            using (SqlDataAdapter DA = new SqlDataAdapter("SELECT TechStoreID, TechStoreName FROM TechStore" +
+                " WHERE TechStoreSubGroupID IN (SELECT TechStoreSubGroupID FROM TechStoreSubGroups WHERE TechStoreGroupID = 11)" +
+                " ORDER BY TechStoreName",
+                ConnectionStrings.CatalogConnectionString))
+            {
+                using (DataTable DT = new DataTable())
+                {
+                    DA.Fill(DT);
+
+                    for (int i = 0; i < DT.Rows.Count; i++)
+                    {
+                        DataRow NewRow = CoversDT.NewRow();
+                        NewRow["CoverID"] = Convert.ToInt64(DT.Rows[i]["TechStoreID"]);
+                        NewRow["CoverName"] = DT.Rows[i]["TechStoreName"].ToString();
+                        CoversDT.Rows.Add(NewRow);
+                    }
+                }
+            }
+
+            using (SqlDataAdapter DA = new SqlDataAdapter("SELECT * FROM InsetColors", ConnectionStrings.CatalogConnectionString))
+            {
+                using (DataTable DT = new DataTable())
+                {
+                    DA.Fill(DT);
+
+                    for (int i = 0; i < DT.Rows.Count; i++)
+                    {
+                        DataRow NewRow = CoversDT.NewRow();
+                        NewRow["CoverID"] = Convert.ToInt64(DT.Rows[i]["InsetColorID"]);
+                        NewRow["CoverName"] = DT.Rows[i]["InsetColorName"].ToString();
+                        CoversDT.Rows.Add(NewRow);
+                    }
+                }
+            }
+
         }
 
         private void GetColorsDT()
@@ -7926,9 +9218,11 @@ namespace Infinium.Modules.Marketing.Expedition
             InsetColorsDataTable = new DataTable();
             FrontsOrdersDataTable = new DataTable();
             DecorOrdersDataTable = new DataTable();
+            CabFurOrdersDataTable = new DataTable();
 
             FrontsResultDataTable = new DataTable();
             DecorResultDataTable = new DataTable();
+            TechStoreDT = new DataTable();
 
             ClientsDataTable = new DataTable();
             using (SqlDataAdapter DA = new SqlDataAdapter("SELECT * FROM Clients", ConnectionStrings.MarketingReferenceConnectionString))
@@ -7942,7 +9236,7 @@ namespace Infinium.Modules.Marketing.Expedition
             {
                 DA.Fill(FrontsDataTable);
             }
-
+            GetCoversDT();
             GetColorsDT();
             GetInsetColorsDT();
             using (SqlDataAdapter DA = new SqlDataAdapter("SELECT * FROM Patina",
@@ -7989,6 +9283,12 @@ namespace Infinium.Modules.Marketing.Expedition
             {
                 DA.Fill(DecorParametersDataTable);
             }
+            SelectCommand = @"SELECT TS.TechStoreID, TS.CoverID, TS.PatinaID, TSG.TechStoreGroupID, TS.TechStoreSubGroupID, TSG.TechStoreSubGroupName, TS.TechStoreName, TS.MeasureID, TS.Notes FROM TechStore TS
+                INNER JOIN TechStoreSubGroups TSG ON TS.TechStoreSubGroupID=TSG.TechStoreSubGroupID ORDER BY TechStoreName";
+            using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.CatalogConnectionString))
+            {
+                DA.Fill(TechStoreDT);
+            }
         }
 
         private void CreateFrontsDataTable()
@@ -8024,6 +9324,29 @@ namespace Infinium.Modules.Marketing.Expedition
             DecorResultDataTable.Columns.Add(new DataColumn(("AccountingName"), System.Type.GetType("System.String")));
             DecorResultDataTable.Columns.Add(new DataColumn(("ConfirmDateTime"), System.Type.GetType("System.String")));
             DecorResultDataTable.Columns.Add(new DataColumn(("PackageStatusID"), System.Type.GetType("System.Int32")));
+        }
+
+        private void CreateCabFurDataTable()
+        {
+            CabFurResultDataTable = new DataTable();
+            
+            CabFurResultDataTable.Columns.Add(new DataColumn(("PackNumber"), System.Type.GetType("System.Int32")));
+            CabFurResultDataTable.Columns.Add(new DataColumn(("CTechStoreName"), Type.GetType("System.String")));
+            CabFurResultDataTable.Columns.Add(new DataColumn(("Cover"), Type.GetType("System.String")));
+            CabFurResultDataTable.Columns.Add(new DataColumn(("Patina"), Type.GetType("System.String")));
+            CabFurResultDataTable.Columns.Add(new DataColumn(("InsetColor"), Type.GetType("System.String")));
+            CabFurResultDataTable.Columns.Add(new DataColumn(("Notes"), System.Type.GetType("System.String")));
+            CabFurResultDataTable.Columns.Add(new DataColumn(("TechStoreName"), Type.GetType("System.String")));
+            CabFurResultDataTable.Columns.Add(new DataColumn(("Length"), Type.GetType("System.Int32")));
+            CabFurResultDataTable.Columns.Add(new DataColumn(("Height"), Type.GetType("System.Int32")));
+            CabFurResultDataTable.Columns.Add(new DataColumn(("Width"), Type.GetType("System.Int32")));
+            CabFurResultDataTable.Columns.Add(new DataColumn(("Count"), Type.GetType("System.Int32")));
+            DataColumn cellColumn = new DataColumn(("CellID"), Type.GetType("System.Int32"));
+            cellColumn.DefaultValue = -1;
+            CabFurResultDataTable.Columns.Add(cellColumn);
+            CabFurResultDataTable.Columns.Add(new DataColumn(("CabFurnitureComplementID"), Type.GetType("System.Int32")));
+            CabFurResultDataTable.Columns.Add(new DataColumn(("CTechStoreID"), Type.GetType("System.Int32")));
+            CabFurResultDataTable.Columns.Add(new DataColumn(("MainOrderID"), Type.GetType("System.Int32")));
         }
 
         public bool IsMegaComplaint(int MegaOrderID)
@@ -8069,10 +9392,12 @@ namespace Infinium.Modules.Marketing.Expedition
         {
             return FrontID == 15003;
         }
+
         public bool IsImpost(int TechnoProfileID)
         {
             return TechnoProfileID == -1;
         }
+
         public string GetFrontName(int FrontID)
         {
             string FrontName = "";
@@ -8102,6 +9427,7 @@ namespace Infinium.Modules.Marketing.Expedition
             }
             return FrontName;
         }
+
         public string GetColorName(int ColorID)
         {
             string ColorName = string.Empty;
@@ -8175,6 +9501,26 @@ namespace Infinium.Modules.Marketing.Expedition
             //    return Rows[0]["OldName"].ToString();
             //else
             return Rows[0]["Name"].ToString();
+        }
+
+        public string GetCoverName(int CoverID)
+        {
+            DataRow[] rows = CoversDT.Select("CoverID = " + CoverID);
+            if (rows.Count() > 0)
+            {
+                return rows[0]["CoverName"].ToString();
+            }
+            return string.Empty;
+        }
+
+        public string GetTechStoreName(int TechStoreID)
+        {
+            DataRow[] rows = TechStoreDT.Select("TechStoreID = " + TechStoreID);
+            if (rows.Count() > 0)
+            {
+                return rows[0]["TechStoreName"].ToString();
+            }
+            return string.Empty;
         }
 
         public bool HasParameter(int ProductID, string Parameter)
@@ -8346,6 +9692,84 @@ namespace Infinium.Modules.Marketing.Expedition
             }
 
             return DecorOrdersDataTable.Rows.Count > 0;
+        }
+
+        private bool FillCabFur()
+        {
+
+            CabFurResultDataTable.Clear();
+
+            if (CabFurOrdersDataTable.Rows.Count == 0)
+                return false;
+
+            int CabFurnitureComplementID = Convert.ToInt32(CabFurOrdersDataTable.Rows[0]["CabFurnitureComplementID"]);
+            int CellID = IsPackageMatch(Convert.ToInt32(CabFurOrdersDataTable.Rows[0]["TechCatalogOperationsDetailID"]),
+                Convert.ToInt32(CabFurOrdersDataTable.Rows[0]["TechStoreID"]),
+                Convert.ToInt32(CabFurOrdersDataTable.Rows[0]["CoverID"]),
+                Convert.ToInt32(CabFurOrdersDataTable.Rows[0]["PatinaID"]),
+                Convert.ToInt32(CabFurOrdersDataTable.Rows[0]["InsetColorID"]));
+            {
+                DataRow NewRow = CabFurResultDataTable.NewRow();
+
+                NewRow["TechStoreName"] = GetTechStoreName(Convert.ToInt32(CabFurOrdersDataTable.Rows[0]["TechStoreID"]));
+                NewRow["CTechStoreName"] = GetTechStoreName(Convert.ToInt32(CabFurOrdersDataTable.Rows[0]["CTechStoreID"]));
+
+                NewRow["Length"] = CabFurOrdersDataTable.Rows[0]["Length"];
+                NewRow["Width"] = CabFurOrdersDataTable.Rows[0]["Width"];
+                NewRow["Height"] = CabFurOrdersDataTable.Rows[0]["Height"];
+
+                NewRow["Cover"] = GetCoverName(Convert.ToInt32(CabFurOrdersDataTable.Rows[0]["CoverID"]));
+                NewRow["Patina"] = GetPatinaName(Convert.ToInt32(CabFurOrdersDataTable.Rows[0]["PatinaID"]));
+                NewRow["InsetColor"] = GetInsetColorName(Convert.ToInt32(CabFurOrdersDataTable.Rows[0]["InsetColorID"]));
+
+                NewRow["Count"] = CabFurOrdersDataTable.Rows[0]["Count"];
+                NewRow["Notes"] = CabFurOrdersDataTable.Rows[0]["Notes"];
+                NewRow["PackNumber"] = CabFurOrdersDataTable.Rows[0]["PackNumber"];
+                NewRow["CellID"] = CellID;
+                NewRow["CabFurnitureComplementID"] = CabFurnitureComplementID;
+                NewRow["MainOrderID"] = CabFurOrdersDataTable.Rows[0]["MainOrderID"];
+                NewRow["CTechStoreID"] = CabFurOrdersDataTable.Rows[0]["CTechStoreID"];
+
+                CabFurResultDataTable.Rows.Add(NewRow);
+            }
+
+            for (int i = 1; i < CabFurOrdersDataTable.Rows.Count; i++)
+            {
+                if (Convert.ToInt32(CabFurOrdersDataTable.Rows[i]["CabFurnitureComplementID"]) != CabFurnitureComplementID)
+                {
+                    CabFurnitureComplementID = Convert.ToInt32(CabFurOrdersDataTable.Rows[i]["CabFurnitureComplementID"]);
+                    CellID = IsPackageMatch(Convert.ToInt32(CabFurOrdersDataTable.Rows[i]["TechCatalogOperationsDetailID"]),
+                        Convert.ToInt32(CabFurOrdersDataTable.Rows[i]["TechStoreID"]),
+                        Convert.ToInt32(CabFurOrdersDataTable.Rows[i]["CoverID"]),
+                        Convert.ToInt32(CabFurOrdersDataTable.Rows[i]["PatinaID"]),
+                        Convert.ToInt32(CabFurOrdersDataTable.Rows[i]["InsetColorID"]));
+                }
+
+                DataRow NewRow = CabFurResultDataTable.NewRow();
+
+                NewRow["TechStoreName"] = GetTechStoreName(Convert.ToInt32(CabFurOrdersDataTable.Rows[i]["TechStoreID"]));
+                NewRow["CTechStoreName"] = GetTechStoreName(Convert.ToInt32(CabFurOrdersDataTable.Rows[i]["CTechStoreID"]));
+
+                NewRow["Length"] = CabFurOrdersDataTable.Rows[i]["Length"];
+                NewRow["Width"] = CabFurOrdersDataTable.Rows[i]["Width"];
+                NewRow["Height"] = CabFurOrdersDataTable.Rows[i]["Height"];
+
+                NewRow["Cover"] = GetCoverName(Convert.ToInt32(CabFurOrdersDataTable.Rows[i]["CoverID"]));
+                NewRow["Patina"] = GetPatinaName(Convert.ToInt32(CabFurOrdersDataTable.Rows[i]["PatinaID"]));
+                NewRow["InsetColor"] = GetInsetColorName(Convert.ToInt32(CabFurOrdersDataTable.Rows[i]["InsetColorID"]));
+
+                NewRow["Count"] = CabFurOrdersDataTable.Rows[i]["Count"];
+                NewRow["Notes"] = CabFurOrdersDataTable.Rows[i]["Notes"];
+                NewRow["PackNumber"] = CabFurOrdersDataTable.Rows[i]["PackNumber"];
+                NewRow["CellID"] = CellID;
+                NewRow["CabFurnitureComplementID"] = CabFurnitureComplementID;
+                NewRow["MainOrderID"] = CabFurOrdersDataTable.Rows[i]["MainOrderID"];
+                NewRow["CTechStoreID"] = CabFurOrdersDataTable.Rows[i]["CTechStoreID"];
+
+                CabFurResultDataTable.Rows.Add(NewRow);
+            }
+
+            return CabFurResultDataTable.Rows.Count > 0;
         }
 
         private bool FilterFrontsOrders(int[] Dispatches, int MainOrderID, int FactoryID)
@@ -8573,7 +9997,53 @@ namespace Infinium.Modules.Marketing.Expedition
             return value.Trim();
         }
 
-        public void CreateReport(ref HSSFWorkbook thssfworkbook, DataTable OrderDT, int[] Dispatches,
+        public void CreateReport(ref HSSFWorkbook thssfworkbook, WorkbookFontsAndStyles workbookFontsAndStyles, DataTable OrderDT, int[] Dispatches,
+            string DispatchDate, string ClientName, int iClientID, int FactoryID)
+        {
+            string SheetName = "Ведомость Профиль+ТПС";
+            ClientID = iClientID;
+            if (FactoryID == 1)
+                SheetName = "Ведомость Профиль";
+            if (FactoryID == 2)
+                SheetName = "Ведомость ТПС";
+
+            HSSFSheet sheet1 = thssfworkbook.CreateSheet(SheetName);
+            sheet1.PrintSetup.PaperSize = (short)PaperSizeType.A4;
+            
+            sheet1.SetMargin(HSSFSheet.LeftMargin, (double).12);
+            sheet1.SetMargin(HSSFSheet.RightMargin, (double).07);
+            sheet1.SetMargin(HSSFSheet.TopMargin, (double).20);
+            sheet1.SetMargin(HSSFSheet.BottomMargin, (double).20);
+
+            int RowIndex = 3;
+
+            HSSFCell Cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(2), 0, "Серым цветом отмечены отсутствующие упаковки");
+
+            DataTable DT = new DataTable();
+
+            using (DataView DV = new DataView(OrderDT))
+            {
+                DT = DV.ToTable(true, new string[] { "MainOrderID" });
+            }
+
+            int[] MainOrderIDs = new int[DT.Rows.Count];
+
+            for (int i = 0; i < DT.Rows.Count; i++)
+                MainOrderIDs[i] = Convert.ToInt32(DT.Rows[i]["MainOrderID"]);
+            DT.Dispose();
+
+            if (HasFronts(MainOrderIDs, FactoryID))
+            {
+                CreateFrontsExcel(ref thssfworkbook, ref sheet1, workbookFontsAndStyles, OrderDT, Dispatches, DispatchDate, ClientName, ref RowIndex, FactoryID);
+            }
+
+            if (HasDecor(MainOrderIDs, FactoryID))
+            {
+                CreateDecorExcel(ref thssfworkbook, ref sheet1, workbookFontsAndStyles, OrderDT, Dispatches, DispatchDate, ClientName, RowIndex, FactoryID);
+            }
+        }
+
+        public void CreateCabFurReport(ref HSSFWorkbook thssfworkbook, WorkbookFontsAndStyles workbookFontsAndStyles, DataTable OrderDT, int[] Dispatches,
             string DispatchDate, string ClientName, int iClientID, int FactoryID)
         {
             string SheetName = "Ведомость Профиль+ТПС";
@@ -8608,19 +10078,10 @@ namespace Infinium.Modules.Marketing.Expedition
                 MainOrderIDs[i] = Convert.ToInt32(DT.Rows[i]["MainOrderID"]);
             DT.Dispose();
 
-            if (HasFronts(MainOrderIDs, FactoryID))
-            {
-                CreateFrontsExcel(ref thssfworkbook, ref sheet1, OrderDT, Dispatches, DispatchDate, ClientName, ref RowIndex, FactoryID);
-            }
-
-            if (HasDecor(MainOrderIDs, FactoryID))
-            {
-                CreateDecorExcel(ref thssfworkbook, ref sheet1, OrderDT, Dispatches, DispatchDate, ClientName, RowIndex, FactoryID);
-            }
+            CreateCabFurExcel(ref thssfworkbook, ref sheet1, workbookFontsAndStyles, OrderDT, Dispatches, DispatchDate, ClientName, RowIndex, FactoryID);
         }
 
-        private void CreateFrontsExcel(ref HSSFWorkbook hssfworkbook, ref HSSFSheet sheet1, DataTable OrdersDT, int[] Dispatches,
-            string DispatchDate, string ClientName, ref int RowIndex, int FactoryID)
+        private void CreateFrontsExcel(ref HSSFWorkbook hssfworkbook, ref HSSFSheet sheet1, WorkbookFontsAndStyles workbookFontsAndStyles, DataTable OrdersDT, int[] Dispatches, string DispatchDate, string ClientName, ref int RowIndex, int FactoryID)
         {
             int PackCount = 0;
 
@@ -8650,124 +10111,11 @@ namespace Infinium.Modules.Marketing.Expedition
             //    sheet1.SetColumnWidth(4, 15 * 256);
             //    sheet1.SetColumnWidth(5, 18 * 256);
             //}
-            #region
-            HSSFFont MainFont = hssfworkbook.CreateFont();
-            MainFont.FontHeightInPoints = 12;
-            MainFont.Boldweight = HSSFFont.BOLDWEIGHT_BOLD;
-            MainFont.FontName = "Calibri";
-
-            HSSFCellStyle MainStyle = hssfworkbook.CreateCellStyle();
-            MainStyle.SetFont(MainFont);
-
-            HSSFFont HeaderFont = hssfworkbook.CreateFont();
-            HeaderFont.Boldweight = 8 * 256;
-            HeaderFont.FontName = "Calibri";
-
-            HSSFCellStyle HeaderStyle = hssfworkbook.CreateCellStyle();
-            HeaderStyle.BorderBottom = HSSFCellStyle.BORDER_THIN;
-            HeaderStyle.BottomBorderColor = HSSFColor.BLACK.index;
-            HeaderStyle.BorderLeft = HSSFCellStyle.BORDER_THIN;
-            HeaderStyle.LeftBorderColor = HSSFColor.BLACK.index;
-            HeaderStyle.BorderRight = HSSFCellStyle.BORDER_THIN;
-            HeaderStyle.RightBorderColor = HSSFColor.BLACK.index;
-            HeaderStyle.BorderTop = HSSFCellStyle.BORDER_THIN;
-            HeaderStyle.TopBorderColor = HSSFColor.BLACK.index;
-            HeaderStyle.SetFont(HeaderFont);
-
-            HSSFFont PackNumberFont = hssfworkbook.CreateFont();
-            PackNumberFont.Boldweight = 8 * 256;
-
-            PackNumberFont.FontName = "Calibri";
-            HSSFCellStyle PackNumberStyle = hssfworkbook.CreateCellStyle();
-            PackNumberStyle.BorderBottom = HSSFCellStyle.BORDER_THIN;
-            PackNumberStyle.BottomBorderColor = HSSFColor.BLACK.index;
-            PackNumberStyle.BorderLeft = HSSFCellStyle.BORDER_THIN;
-            PackNumberStyle.LeftBorderColor = HSSFColor.BLACK.index;
-            PackNumberStyle.BorderRight = HSSFCellStyle.BORDER_THIN;
-            PackNumberStyle.RightBorderColor = HSSFColor.BLACK.index;
-            PackNumberStyle.BorderTop = HSSFCellStyle.BORDER_THIN;
-            PackNumberStyle.TopBorderColor = HSSFColor.BLACK.index;
-            PackNumberStyle.Alignment = HSSFCellStyle.ALIGN_CENTER;
-            PackNumberStyle.VerticalAlignment = HSSFCellStyle.VERTICAL_CENTER;
-            PackNumberStyle.SetFont(PackNumberFont);
-
-            HSSFFont SimpleFont = hssfworkbook.CreateFont();
-            SimpleFont.FontHeightInPoints = 8;
-            SimpleFont.FontName = "Calibri";
-
-            HSSFFont ComplaintFont = hssfworkbook.CreateFont();
-            ComplaintFont.Boldweight = 8 * 256;
-            ComplaintFont.FontName = "Calibri";
-            ComplaintFont.IsItalic = true;
-
-            HSSFCellStyle ComplaintCellStyle = hssfworkbook.CreateCellStyle();
-            ComplaintCellStyle.BorderBottom = HSSFCellStyle.BORDER_THIN;
-            ComplaintCellStyle.BottomBorderColor = HSSFColor.BLACK.index;
-            ComplaintCellStyle.BorderLeft = HSSFCellStyle.BORDER_THIN;
-            ComplaintCellStyle.LeftBorderColor = HSSFColor.BLACK.index;
-            ComplaintCellStyle.BorderRight = HSSFCellStyle.BORDER_THIN;
-            ComplaintCellStyle.RightBorderColor = HSSFColor.BLACK.index;
-            ComplaintCellStyle.BorderTop = HSSFCellStyle.BORDER_THIN;
-            ComplaintCellStyle.TopBorderColor = HSSFColor.BLACK.index;
-            ComplaintCellStyle.SetFont(ComplaintFont);
-
-            HSSFCellStyle GreyComplaintCellStyle = hssfworkbook.CreateCellStyle();
-            GreyComplaintCellStyle.BorderBottom = HSSFCellStyle.BORDER_THIN;
-            GreyComplaintCellStyle.BottomBorderColor = HSSFColor.BLACK.index;
-            GreyComplaintCellStyle.BorderLeft = HSSFCellStyle.BORDER_THIN;
-            GreyComplaintCellStyle.LeftBorderColor = HSSFColor.BLACK.index;
-            GreyComplaintCellStyle.BorderRight = HSSFCellStyle.BORDER_THIN;
-            GreyComplaintCellStyle.RightBorderColor = HSSFColor.BLACK.index;
-            GreyComplaintCellStyle.BorderTop = HSSFCellStyle.BORDER_THIN;
-            GreyComplaintCellStyle.TopBorderColor = HSSFColor.BLACK.index;
-            GreyComplaintCellStyle.FillForegroundColor = NPOI.HSSF.Util.HSSFColor.GREY_25_PERCENT.index;
-            GreyComplaintCellStyle.FillPattern = HSSFCellStyle.SOLID_FOREGROUND;
-            GreyComplaintCellStyle.FillBackgroundColor = NPOI.HSSF.Util.HSSFColor.YELLOW.index;
-            GreyComplaintCellStyle.SetFont(ComplaintFont);
-
-            HSSFCellStyle SimpleCellStyle = hssfworkbook.CreateCellStyle();
-            SimpleCellStyle.BorderBottom = HSSFCellStyle.BORDER_THIN;
-            SimpleCellStyle.BottomBorderColor = HSSFColor.BLACK.index;
-            SimpleCellStyle.BorderLeft = HSSFCellStyle.BORDER_THIN;
-            SimpleCellStyle.LeftBorderColor = HSSFColor.BLACK.index;
-            SimpleCellStyle.BorderRight = HSSFCellStyle.BORDER_THIN;
-            SimpleCellStyle.RightBorderColor = HSSFColor.BLACK.index;
-            SimpleCellStyle.BorderTop = HSSFCellStyle.BORDER_THIN;
-            SimpleCellStyle.TopBorderColor = HSSFColor.BLACK.index;
-            SimpleCellStyle.SetFont(SimpleFont);
-
-            HSSFCellStyle GreyCellStyle = hssfworkbook.CreateCellStyle();
-            GreyCellStyle.BorderBottom = HSSFCellStyle.BORDER_THIN;
-            GreyCellStyle.BottomBorderColor = HSSFColor.BLACK.index;
-            GreyCellStyle.BorderLeft = HSSFCellStyle.BORDER_THIN;
-            GreyCellStyle.LeftBorderColor = HSSFColor.BLACK.index;
-            GreyCellStyle.BorderRight = HSSFCellStyle.BORDER_THIN;
-            GreyCellStyle.RightBorderColor = HSSFColor.BLACK.index;
-            GreyCellStyle.BorderTop = HSSFCellStyle.BORDER_THIN;
-            GreyCellStyle.TopBorderColor = HSSFColor.BLACK.index;
-            GreyCellStyle.FillForegroundColor = NPOI.HSSF.Util.HSSFColor.GREY_25_PERCENT.index;
-            GreyCellStyle.FillPattern = HSSFCellStyle.SOLID_FOREGROUND;
-            GreyCellStyle.FillBackgroundColor = NPOI.HSSF.Util.HSSFColor.YELLOW.index;
-            GreyCellStyle.SetFont(SimpleFont);
-
-            HSSFFont TotalFont = hssfworkbook.CreateFont();
-            TotalFont.FontHeightInPoints = 12;
-            TotalFont.FontName = "Calibri";
-
-            HSSFCellStyle TotalStyle = hssfworkbook.CreateCellStyle();
-            TotalStyle.BorderTop = HSSFCellStyle.BORDER_MEDIUM;
-            TotalStyle.TopBorderColor = HSSFColor.BLACK.index;
-            TotalStyle.SetFont(TotalFont);
-
-            HSSFCellStyle TempStyle = hssfworkbook.CreateCellStyle();
-            TempStyle.SetFont(TotalFont);
-
-            #endregion
 
             HSSFCell ConfirmCell = HSSFCellUtil.CreateCell(sheet1.CreateRow(0), 6, "Утверждаю...............");
-            ConfirmCell.CellStyle = TempStyle;
+            ConfirmCell.CellStyle = workbookFontsAndStyles.TempStyle;
             HSSFCell CreateDateCell = HSSFCellUtil.CreateCell(sheet1.CreateRow(0), 0, "Дата и время создания документа: " + Security.GetCurrentDate().ToString("dd.MM.yyyy HH:mm"));
-            CreateDateCell.CellStyle = TempStyle;
+            CreateDateCell.CellStyle = workbookFontsAndStyles.TempStyle;
 
             for (int i = 0; i < OrdersDT.Rows.Count; i++)
             {
@@ -8790,45 +10138,45 @@ namespace Infinium.Modules.Marketing.Expedition
 
                 HSSFCell ClientCell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex++), 0, "Клиент: " +
                     ClientName + " № " + Convert.ToInt32(OrdersDT.Rows[i]["OrderNumber"]) + " - " + Convert.ToInt32(OrdersDT.Rows[i]["MainOrderID"]));
-                ClientCell.CellStyle = MainStyle;
+                ClientCell.CellStyle = workbookFontsAndStyles.MainStyle;
 
                 if (DispatchDate.Length > 0)
                 {
                     HSSFCell cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex++), 0, "Дата отгрузки: " + DispatchDate);
-                    cell.CellStyle = MainStyle;
+                    cell.CellStyle = workbookFontsAndStyles.MainStyle;
                 }
 
                 if (MainOrderNote.Length > 0)
                 {
                     HSSFCell cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex++), 0, "Примечание: " + MainOrderNote);
-                    cell.CellStyle = MainStyle;
+                    cell.CellStyle = workbookFontsAndStyles.MainStyle;
                 }
 
                 DisplayIndex = 0;
                 HSSFCell cell1 = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), DisplayIndex++, "№");
-                cell1.CellStyle = HeaderStyle;
+                cell1.CellStyle = workbookFontsAndStyles.HeaderStyle;
                 HSSFCell cell2 = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), DisplayIndex++, "Фасад");
-                cell2.CellStyle = HeaderStyle;
+                cell2.CellStyle = workbookFontsAndStyles.HeaderStyle;
                 HSSFCell cell4 = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), DisplayIndex++, "Цвет профиля");
-                cell4.CellStyle = HeaderStyle;
+                cell4.CellStyle = workbookFontsAndStyles.HeaderStyle;
                 HSSFCell cell5 = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), DisplayIndex++, "Тип наполнителя");
-                cell5.CellStyle = HeaderStyle;
+                cell5.CellStyle = workbookFontsAndStyles.HeaderStyle;
                 HSSFCell cell6 = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), DisplayIndex++, "Цвет наполнителя");
-                cell6.CellStyle = HeaderStyle;
+                cell6.CellStyle = workbookFontsAndStyles.HeaderStyle;
                 HSSFCell cell7 = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), DisplayIndex++, "Техно вставка");
-                cell7.CellStyle = HeaderStyle;
+                cell7.CellStyle = workbookFontsAndStyles.HeaderStyle;
                 HSSFCell cell8 = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), DisplayIndex++, "Выс.");
-                cell8.CellStyle = HeaderStyle;
+                cell8.CellStyle = workbookFontsAndStyles.HeaderStyle;
                 HSSFCell cell9 = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), DisplayIndex++, "Шир.");
-                cell9.CellStyle = HeaderStyle;
+                cell9.CellStyle = workbookFontsAndStyles.HeaderStyle;
                 HSSFCell cell10 = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), DisplayIndex++, "Кол.");
-                cell10.CellStyle = HeaderStyle;
+                cell10.CellStyle = workbookFontsAndStyles.HeaderStyle;
                 HSSFCell cell12 = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), DisplayIndex++, "Прим.");
-                cell12.CellStyle = HeaderStyle;
+                cell12.CellStyle = workbookFontsAndStyles.HeaderStyle;
                 cell1 = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), DisplayIndex++, "Бухг. наим.");
-                cell1.CellStyle = HeaderStyle;
+                cell1.CellStyle = workbookFontsAndStyles.HeaderStyle;
                 cell1 = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), DisplayIndex++, "Согласовано");
-                cell1.CellStyle = HeaderStyle;
+                cell1.CellStyle = workbookFontsAndStyles.HeaderStyle;
 
                 //вывод заказов фасадов
                 for (int index = 0; index < PackageFrontsSequence.Rows.Count; index++)
@@ -8857,7 +10205,7 @@ namespace Infinium.Modules.Marketing.Expedition
                                     HSSFCell cell = sheet1.CreateRow(RowIndex + 1).CreateCell(y);
                                     cell.SetCellValue(Convert.ToInt32(FRows[x][y]));
 
-                                    cell.CellStyle = PackNumberStyle;
+                                    cell.CellStyle = workbookFontsAndStyles.PackNumberStyle;
                                     sheet1.AddMergedRegion(new NPOI.HSSF.Util.Region(TopIndex, 0, BottomIndex, 0));
                                     continue;
                                 }
@@ -8877,11 +10225,11 @@ namespace Infinium.Modules.Marketing.Expedition
                                     cellStyle.RightBorderColor = HSSFColor.BLACK.index;
                                     cellStyle.BorderTop = HSSFCellStyle.BORDER_THIN;
                                     cellStyle.TopBorderColor = HSSFColor.BLACK.index;
-                                    cellStyle.SetFont(SimpleFont);
+                                    cellStyle.SetFont(workbookFontsAndStyles.SimpleFont);
                                     if (IsComplaint)
-                                        cell.CellStyle = GreyComplaintCellStyle;
+                                        cell.CellStyle = workbookFontsAndStyles.GreyComplaintCellStyle;
                                     else
-                                        cell.CellStyle = GreyCellStyle;
+                                        cell.CellStyle = workbookFontsAndStyles.GreyCellStyle;
                                     continue;
                                 }
                                 if (t.Name == "Int32")
@@ -8889,9 +10237,9 @@ namespace Infinium.Modules.Marketing.Expedition
                                     HSSFCell cell = sheet1.CreateRow(RowIndex + 1).CreateCell(y);
                                     cell.SetCellValue(Convert.ToInt32(FRows[x][y]));
                                     if (IsComplaint)
-                                        cell.CellStyle = GreyComplaintCellStyle;
+                                        cell.CellStyle = workbookFontsAndStyles.GreyComplaintCellStyle;
                                     else
-                                        cell.CellStyle = GreyCellStyle;
+                                        cell.CellStyle = workbookFontsAndStyles.GreyCellStyle;
                                     continue;
                                 }
 
@@ -8900,9 +10248,9 @@ namespace Infinium.Modules.Marketing.Expedition
                                     HSSFCell cell = sheet1.CreateRow(RowIndex + 1).CreateCell(y);
                                     cell.SetCellValue(FRows[x][y].ToString());
                                     if (IsComplaint)
-                                        cell.CellStyle = GreyComplaintCellStyle;
+                                        cell.CellStyle = workbookFontsAndStyles.GreyComplaintCellStyle;
                                     else
-                                        cell.CellStyle = GreyCellStyle;
+                                        cell.CellStyle = workbookFontsAndStyles.GreyCellStyle;
                                     continue;
                                 }
                             }
@@ -8916,7 +10264,7 @@ namespace Infinium.Modules.Marketing.Expedition
                                     HSSFCell cell = sheet1.CreateRow(RowIndex + 1).CreateCell(y);
                                     cell.SetCellValue(Convert.ToInt32(FRows[x][y]));
 
-                                    cell.CellStyle = PackNumberStyle;
+                                    cell.CellStyle = workbookFontsAndStyles.PackNumberStyle;
                                     sheet1.AddMergedRegion(new NPOI.HSSF.Util.Region(TopIndex, 0, BottomIndex, 0));
                                     continue;
                                 }
@@ -8936,11 +10284,11 @@ namespace Infinium.Modules.Marketing.Expedition
                                     cellStyle.RightBorderColor = HSSFColor.BLACK.index;
                                     cellStyle.BorderTop = HSSFCellStyle.BORDER_THIN;
                                     cellStyle.TopBorderColor = HSSFColor.BLACK.index;
-                                    cellStyle.SetFont(SimpleFont);
+                                    cellStyle.SetFont(workbookFontsAndStyles.SimpleFont);
                                     if (IsComplaint)
-                                        cell.CellStyle = ComplaintCellStyle;
+                                        cell.CellStyle = workbookFontsAndStyles.ComplaintCellStyle;
                                     else
-                                        cell.CellStyle = SimpleCellStyle;
+                                        cell.CellStyle = workbookFontsAndStyles.SimpleCellStyle;
                                     continue;
                                 }
                                 if (t.Name == "Int32")
@@ -8948,9 +10296,9 @@ namespace Infinium.Modules.Marketing.Expedition
                                     HSSFCell cell = sheet1.CreateRow(RowIndex + 1).CreateCell(y);
                                     cell.SetCellValue(Convert.ToInt32(FRows[x][y]));
                                     if (IsComplaint)
-                                        cell.CellStyle = ComplaintCellStyle;
+                                        cell.CellStyle = workbookFontsAndStyles.ComplaintCellStyle;
                                     else
-                                        cell.CellStyle = SimpleCellStyle;
+                                        cell.CellStyle = workbookFontsAndStyles.SimpleCellStyle;
                                     continue;
                                 }
 
@@ -8959,9 +10307,9 @@ namespace Infinium.Modules.Marketing.Expedition
                                     HSSFCell cell = sheet1.CreateRow(RowIndex + 1).CreateCell(y);
                                     cell.SetCellValue(FRows[x][y].ToString());
                                     if (IsComplaint)
-                                        cell.CellStyle = ComplaintCellStyle;
+                                        cell.CellStyle = workbookFontsAndStyles.ComplaintCellStyle;
                                     else
-                                        cell.CellStyle = SimpleCellStyle;
+                                        cell.CellStyle = workbookFontsAndStyles.SimpleCellStyle;
                                     continue;
                                 }
                             }
@@ -8979,7 +10327,7 @@ namespace Infinium.Modules.Marketing.Expedition
                     HSSFCellStyle cellStyle = hssfworkbook.CreateCellStyle();
                     cellStyle.DataFormat = HSSFDataFormat.GetBuiltinFormat("0.00");
                     cellStyle.TopBorderColor = HSSFColor.BLACK.index;
-                    cellStyle.SetFont(PackNumberFont);
+                    cellStyle.SetFont(workbookFontsAndStyles.PackNumberFont);
                     cell.CellStyle = cellStyle;
                 }
 
@@ -9002,30 +10350,21 @@ namespace Infinium.Modules.Marketing.Expedition
             TotalFrontsSquare = Decimal.Round(TotalFrontsSquare, 2, MidpointRounding.AwayFromZero);
 
             HSSFCell cell13 = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 0, "Итого: ");
-            cell13.CellStyle = TotalStyle;
+            cell13.CellStyle = workbookFontsAndStyles.TotalStyle;
             HSSFCell cell14 = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 2, "Упаковок: " + PackCount);
-            cell14.CellStyle = TotalStyle;
+            cell14.CellStyle = workbookFontsAndStyles.TotalStyle;
             HSSFCell cell15 = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 4, "Фасадов: " + FrontsCount);
-            cell15.CellStyle = TotalStyle;
+            cell15.CellStyle = workbookFontsAndStyles.TotalStyle;
             HSSFCell cell16 = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 6, "Квадратура: " + TotalFrontsSquare + " м.кв.");
-            cell16.CellStyle = TotalStyle;
+            cell16.CellStyle = workbookFontsAndStyles.TotalStyle;
         }
 
-        private void CreateDecorExcel(ref HSSFWorkbook hssfworkbook, ref HSSFSheet sheet1, DataTable OrdersDT, int[] Dispatches,
-            string DispatchDate, string ClientName, int RowIndex, int FactoryID)
+        private void CreateDecorExcel(ref HSSFWorkbook hssfworkbook, ref HSSFSheet sheet1, WorkbookFontsAndStyles workbookFontsAndStyles, DataTable OrdersDT, int[] Dispatches, string DispatchDate, string ClientName, int RowIndex, int FactoryID)
         {
-            HSSFFont TotalFont = hssfworkbook.CreateFont();
-            TotalFont.FontHeightInPoints = 12;
-            TotalFont.FontName = "Calibri";
-
-            HSSFCellStyle TempStyle = hssfworkbook.CreateCellStyle();
-
-            TempStyle.SetFont(TotalFont);
-
             if (RowIndex < 1)
             {
                 HSSFCell CreateDateCell = HSSFCellUtil.CreateCell(sheet1.CreateRow(0), 0, "Дата и время создания документа: " + Security.GetCurrentDate().ToString("dd.MM.yyyy HH:mm"));
-                CreateDateCell.CellStyle = TempStyle;
+                CreateDateCell.CellStyle = workbookFontsAndStyles.TempStyle;
             }
 
             RowIndex++;
@@ -9037,113 +10376,6 @@ namespace Infinium.Modules.Marketing.Expedition
             string MainOrderNote = string.Empty;
 
             bool IsDecor = false;
-
-            #region
-
-            HSSFFont MainFont = hssfworkbook.CreateFont();
-            MainFont.FontHeightInPoints = 12;
-            MainFont.Boldweight = HSSFFont.BOLDWEIGHT_BOLD;
-            MainFont.FontName = "Calibri";
-
-            HSSFCellStyle MainStyle = hssfworkbook.CreateCellStyle();
-            MainStyle.SetFont(MainFont);
-
-            HSSFFont HeaderFont = hssfworkbook.CreateFont();
-            HeaderFont.Boldweight = 8 * 256;
-            HeaderFont.FontName = "Calibri";
-
-            HSSFCellStyle HeaderStyle = hssfworkbook.CreateCellStyle();
-            HeaderStyle.BorderBottom = HSSFCellStyle.BORDER_THIN;
-            HeaderStyle.BottomBorderColor = HSSFColor.BLACK.index;
-            HeaderStyle.BorderLeft = HSSFCellStyle.BORDER_THIN;
-            HeaderStyle.LeftBorderColor = HSSFColor.BLACK.index;
-            HeaderStyle.BorderRight = HSSFCellStyle.BORDER_THIN;
-            HeaderStyle.RightBorderColor = HSSFColor.BLACK.index;
-            HeaderStyle.BorderTop = HSSFCellStyle.BORDER_THIN;
-            HeaderStyle.TopBorderColor = HSSFColor.BLACK.index;
-            HeaderStyle.SetFont(HeaderFont);
-
-            HSSFFont ComplaintFont = hssfworkbook.CreateFont();
-            ComplaintFont.Boldweight = 8 * 256;
-            ComplaintFont.FontName = "Calibri";
-            ComplaintFont.IsItalic = true;
-
-            HSSFCellStyle ComplaintCellStyle = hssfworkbook.CreateCellStyle();
-            ComplaintCellStyle.BorderBottom = HSSFCellStyle.BORDER_THIN;
-            ComplaintCellStyle.BottomBorderColor = HSSFColor.BLACK.index;
-            ComplaintCellStyle.BorderLeft = HSSFCellStyle.BORDER_THIN;
-            ComplaintCellStyle.LeftBorderColor = HSSFColor.BLACK.index;
-            ComplaintCellStyle.BorderRight = HSSFCellStyle.BORDER_THIN;
-            ComplaintCellStyle.RightBorderColor = HSSFColor.BLACK.index;
-            ComplaintCellStyle.BorderTop = HSSFCellStyle.BORDER_THIN;
-            ComplaintCellStyle.TopBorderColor = HSSFColor.BLACK.index;
-            ComplaintCellStyle.SetFont(ComplaintFont);
-
-            HSSFCellStyle GreyComplaintCellStyle = hssfworkbook.CreateCellStyle();
-            GreyComplaintCellStyle.BorderBottom = HSSFCellStyle.BORDER_THIN;
-            GreyComplaintCellStyle.BottomBorderColor = HSSFColor.BLACK.index;
-            GreyComplaintCellStyle.BorderLeft = HSSFCellStyle.BORDER_THIN;
-            GreyComplaintCellStyle.LeftBorderColor = HSSFColor.BLACK.index;
-            GreyComplaintCellStyle.BorderRight = HSSFCellStyle.BORDER_THIN;
-            GreyComplaintCellStyle.RightBorderColor = HSSFColor.BLACK.index;
-            GreyComplaintCellStyle.BorderTop = HSSFCellStyle.BORDER_THIN;
-            GreyComplaintCellStyle.TopBorderColor = HSSFColor.BLACK.index;
-            GreyComplaintCellStyle.FillForegroundColor = NPOI.HSSF.Util.HSSFColor.GREY_25_PERCENT.index;
-            GreyComplaintCellStyle.FillPattern = HSSFCellStyle.SOLID_FOREGROUND;
-            GreyComplaintCellStyle.FillBackgroundColor = NPOI.HSSF.Util.HSSFColor.YELLOW.index;
-            GreyComplaintCellStyle.SetFont(ComplaintFont);
-
-            HSSFFont PackNumberFont = hssfworkbook.CreateFont();
-            PackNumberFont.Boldweight = 8 * 256;
-
-            PackNumberFont.FontName = "Calibri";
-            HSSFCellStyle PackNumberStyle = hssfworkbook.CreateCellStyle();
-            PackNumberStyle.BorderBottom = HSSFCellStyle.BORDER_THIN;
-            PackNumberStyle.BottomBorderColor = HSSFColor.BLACK.index;
-            PackNumberStyle.BorderLeft = HSSFCellStyle.BORDER_THIN;
-            PackNumberStyle.LeftBorderColor = HSSFColor.BLACK.index;
-            PackNumberStyle.BorderRight = HSSFCellStyle.BORDER_THIN;
-            PackNumberStyle.RightBorderColor = HSSFColor.BLACK.index;
-            PackNumberStyle.BorderTop = HSSFCellStyle.BORDER_THIN;
-            PackNumberStyle.TopBorderColor = HSSFColor.BLACK.index;
-            PackNumberStyle.Alignment = HSSFCellStyle.ALIGN_CENTER;
-            PackNumberStyle.VerticalAlignment = HSSFCellStyle.VERTICAL_CENTER;
-            PackNumberStyle.SetFont(PackNumberFont);
-
-            HSSFFont SimpleFont = hssfworkbook.CreateFont();
-            SimpleFont.FontHeightInPoints = 8;
-            SimpleFont.FontName = "Calibri";
-
-            HSSFCellStyle SimpleCellStyle = hssfworkbook.CreateCellStyle();
-            SimpleCellStyle.BorderBottom = HSSFCellStyle.BORDER_THIN;
-            SimpleCellStyle.BottomBorderColor = HSSFColor.BLACK.index;
-            SimpleCellStyle.BorderLeft = HSSFCellStyle.BORDER_THIN;
-            SimpleCellStyle.LeftBorderColor = HSSFColor.BLACK.index;
-            SimpleCellStyle.BorderRight = HSSFCellStyle.BORDER_THIN;
-            SimpleCellStyle.RightBorderColor = HSSFColor.BLACK.index;
-            SimpleCellStyle.BorderTop = HSSFCellStyle.BORDER_THIN;
-            SimpleCellStyle.TopBorderColor = HSSFColor.BLACK.index;
-            SimpleCellStyle.SetFont(SimpleFont);
-
-            HSSFCellStyle GreyCellStyle = hssfworkbook.CreateCellStyle();
-            GreyCellStyle.BorderBottom = HSSFCellStyle.BORDER_THIN;
-            GreyCellStyle.BottomBorderColor = HSSFColor.BLACK.index;
-            GreyCellStyle.BorderLeft = HSSFCellStyle.BORDER_THIN;
-            GreyCellStyle.LeftBorderColor = HSSFColor.BLACK.index;
-            GreyCellStyle.BorderRight = HSSFCellStyle.BORDER_THIN;
-            GreyCellStyle.RightBorderColor = HSSFColor.BLACK.index;
-            GreyCellStyle.BorderTop = HSSFCellStyle.BORDER_THIN;
-            GreyCellStyle.TopBorderColor = HSSFColor.BLACK.index;
-            GreyCellStyle.FillForegroundColor = NPOI.HSSF.Util.HSSFColor.GREY_25_PERCENT.index;
-            GreyCellStyle.FillPattern = HSSFCellStyle.SOLID_FOREGROUND;
-            GreyCellStyle.FillBackgroundColor = NPOI.HSSF.Util.HSSFColor.YELLOW.index;
-            GreyCellStyle.SetFont(SimpleFont);
-
-            HSSFCellStyle TotalStyle = hssfworkbook.CreateCellStyle();
-            TotalStyle.BorderTop = HSSFCellStyle.BORDER_MEDIUM;
-            TotalStyle.TopBorderColor = HSSFColor.BLACK.index;
-            TotalStyle.SetFont(TotalFont);
-            #endregion
 
             for (int i = 0; i < OrdersDT.Rows.Count; i++)
             {
@@ -9163,38 +10395,38 @@ namespace Infinium.Modules.Marketing.Expedition
 
                 HSSFCell ClientCell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex++), 0,
                     "Клиент: " + ClientName + " № " + Convert.ToInt32(OrdersDT.Rows[i]["OrderNumber"]) + " - " + Convert.ToInt32(OrdersDT.Rows[i]["MainOrderID"]));
-                ClientCell.CellStyle = MainStyle;
+                ClientCell.CellStyle = workbookFontsAndStyles.MainStyle;
 
                 if (DispatchDate.Length > 0)
                 {
                     HSSFCell cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex++), 0, "Дата отгрузки: " + DispatchDate);
-                    cell.CellStyle = MainStyle;
+                    cell.CellStyle = workbookFontsAndStyles.MainStyle;
                 }
 
                 if (MainOrderNote.Length > 0)
                 {
                     HSSFCell cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex++), 0, "Примечание: " + MainOrderNote);
-                    cell.CellStyle = MainStyle;
+                    cell.CellStyle = workbookFontsAndStyles.MainStyle;
                 }
                 int DisplayIndex = 0;
                 HSSFCell cell1 = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), DisplayIndex++, "№");
-                cell1.CellStyle = HeaderStyle;
+                cell1.CellStyle = workbookFontsAndStyles.HeaderStyle;
                 HSSFCell cell2 = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), DisplayIndex++, "Название");
-                cell2.CellStyle = HeaderStyle;
+                cell2.CellStyle = workbookFontsAndStyles.HeaderStyle;
                 HSSFCell cell4 = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), DisplayIndex++, "Цвет");
-                cell4.CellStyle = HeaderStyle;
+                cell4.CellStyle = workbookFontsAndStyles.HeaderStyle;
                 HSSFCell cell5 = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), DisplayIndex++, "Длина\\Высота");
-                cell5.CellStyle = HeaderStyle;
+                cell5.CellStyle = workbookFontsAndStyles.HeaderStyle;
                 HSSFCell cell6 = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), DisplayIndex++, "Ширина");
-                cell6.CellStyle = HeaderStyle;
+                cell6.CellStyle = workbookFontsAndStyles.HeaderStyle;
                 HSSFCell cell7 = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), DisplayIndex++, "Кол.");
-                cell7.CellStyle = HeaderStyle;
+                cell7.CellStyle = workbookFontsAndStyles.HeaderStyle;
                 HSSFCell cell8 = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), DisplayIndex++, "Прим.");
-                cell8.CellStyle = HeaderStyle;
+                cell8.CellStyle = workbookFontsAndStyles.HeaderStyle;
                 cell1 = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), DisplayIndex++, "Бухг. наим.");
-                cell1.CellStyle = HeaderStyle;
+                cell1.CellStyle = workbookFontsAndStyles.HeaderStyle;
                 cell1 = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), DisplayIndex++, "Согласовано");
-                cell1.CellStyle = HeaderStyle;
+                cell1.CellStyle = workbookFontsAndStyles.HeaderStyle;
 
                 for (int index = 0; index < PackageDecorSequence.Rows.Count; index++)
                 {
@@ -9231,7 +10463,7 @@ namespace Infinium.Modules.Marketing.Expedition
                                     HSSFCell cell = sheet1.CreateRow(RowIndex + 1).CreateCell(ColumnIndex);
                                     cell.SetCellValue(Convert.ToInt32(DRows[x][y]));
 
-                                    cell.CellStyle = PackNumberStyle;
+                                    cell.CellStyle = workbookFontsAndStyles.PackNumberStyle;
                                     sheet1.AddMergedRegion(new NPOI.HSSF.Util.Region(TopIndex, 0, BottomIndex, 0));
                                     continue;
                                 }
@@ -9255,11 +10487,11 @@ namespace Infinium.Modules.Marketing.Expedition
                                     cellStyle.RightBorderColor = HSSFColor.BLACK.index;
                                     cellStyle.BorderTop = HSSFCellStyle.BORDER_THIN;
                                     cellStyle.TopBorderColor = HSSFColor.BLACK.index;
-                                    cellStyle.SetFont(SimpleFont);
+                                    cellStyle.SetFont(workbookFontsAndStyles.SimpleFont);
                                     if (IsComplaint)
-                                        cell.CellStyle = GreyComplaintCellStyle;
+                                        cell.CellStyle = workbookFontsAndStyles.GreyComplaintCellStyle;
                                     else
-                                        cell.CellStyle = GreyCellStyle;
+                                        cell.CellStyle = workbookFontsAndStyles.GreyCellStyle;
                                     continue;
                                 }
                                 if (t.Name == "Int32")
@@ -9272,9 +10504,9 @@ namespace Infinium.Modules.Marketing.Expedition
                                         cell.SetCellValue(Convert.ToInt32(DRows[x][y]));
 
                                     if (IsComplaint)
-                                        cell.CellStyle = GreyComplaintCellStyle;
+                                        cell.CellStyle = workbookFontsAndStyles.GreyComplaintCellStyle;
                                     else
-                                        cell.CellStyle = GreyCellStyle;
+                                        cell.CellStyle = workbookFontsAndStyles.GreyCellStyle;
 
                                     continue;
                                 }
@@ -9284,9 +10516,9 @@ namespace Infinium.Modules.Marketing.Expedition
                                     HSSFCell cell = sheet1.CreateRow(RowIndex + 1).CreateCell(ColumnIndex);
                                     cell.SetCellValue(DRows[x][y].ToString());
                                     if (IsComplaint)
-                                        cell.CellStyle = GreyComplaintCellStyle;
+                                        cell.CellStyle = workbookFontsAndStyles.GreyComplaintCellStyle;
                                     else
-                                        cell.CellStyle = GreyCellStyle;
+                                        cell.CellStyle = workbookFontsAndStyles.GreyCellStyle;
                                     continue;
                                 }
                             }
@@ -9299,7 +10531,7 @@ namespace Infinium.Modules.Marketing.Expedition
                                     HSSFCell cell = sheet1.CreateRow(RowIndex + 1).CreateCell(ColumnIndex);
                                     cell.SetCellValue(Convert.ToInt32(DRows[x][y]));
 
-                                    cell.CellStyle = PackNumberStyle;
+                                    cell.CellStyle = workbookFontsAndStyles.PackNumberStyle;
                                     sheet1.AddMergedRegion(new NPOI.HSSF.Util.Region(TopIndex, 0, BottomIndex, 0));
                                     continue;
                                 }
@@ -9323,11 +10555,11 @@ namespace Infinium.Modules.Marketing.Expedition
                                     cellStyle.RightBorderColor = HSSFColor.BLACK.index;
                                     cellStyle.BorderTop = HSSFCellStyle.BORDER_THIN;
                                     cellStyle.TopBorderColor = HSSFColor.BLACK.index;
-                                    cellStyle.SetFont(SimpleFont);
+                                    cellStyle.SetFont(workbookFontsAndStyles.SimpleFont);
                                     if (IsComplaint)
-                                        cell.CellStyle = ComplaintCellStyle;
+                                        cell.CellStyle = workbookFontsAndStyles.ComplaintCellStyle;
                                     else
-                                        cell.CellStyle = SimpleCellStyle;
+                                        cell.CellStyle = workbookFontsAndStyles.SimpleCellStyle;
 
                                     continue;
                                 }
@@ -9341,9 +10573,9 @@ namespace Infinium.Modules.Marketing.Expedition
                                         cell.SetCellValue(Convert.ToInt32(DRows[x][y]));
 
                                     if (IsComplaint)
-                                        cell.CellStyle = ComplaintCellStyle;
+                                        cell.CellStyle = workbookFontsAndStyles.ComplaintCellStyle;
                                     else
-                                        cell.CellStyle = SimpleCellStyle;
+                                        cell.CellStyle = workbookFontsAndStyles.SimpleCellStyle;
 
                                     continue;
                                 }
@@ -9353,9 +10585,9 @@ namespace Infinium.Modules.Marketing.Expedition
                                     HSSFCell cell = sheet1.CreateRow(RowIndex + 1).CreateCell(ColumnIndex);
                                     cell.SetCellValue(DRows[x][y].ToString());
                                     if (IsComplaint)
-                                        cell.CellStyle = ComplaintCellStyle;
+                                        cell.CellStyle = workbookFontsAndStyles.ComplaintCellStyle;
                                     else
-                                        cell.CellStyle = SimpleCellStyle;
+                                        cell.CellStyle = workbookFontsAndStyles.SimpleCellStyle;
                                     continue;
                                 }
                             }
@@ -9383,9 +10615,323 @@ namespace Infinium.Modules.Marketing.Expedition
             }
 
             HSSFCell cell9 = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 0, "Итого: ");
-            cell9.CellStyle = TotalStyle;
+            cell9.CellStyle = workbookFontsAndStyles.TotalStyle;
             HSSFCell cell10 = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 2, "Упаковок: " + PackCount);
-            cell10.CellStyle = TotalStyle;
+            cell10.CellStyle = workbookFontsAndStyles.TotalStyle;
+        }
+
+        private void CreateCabFurExcel(ref HSSFWorkbook hssfworkbook, ref HSSFSheet sheet1, WorkbookFontsAndStyles workbookFontsAndStyles, DataTable OrdersDT, int[] Dispatches, string DispatchDate, string ClientName, int RowIndex, int FactoryID)
+        {
+            if (RowIndex < 1)
+            {
+                HSSFCell CreateDateCell = HSSFCellUtil.CreateCell(sheet1.CreateRow(0), 0, "Дата и время создания документа: " + Security.GetCurrentDate().ToString("dd.MM.yyyy HH:mm"));
+                CreateDateCell.CellStyle = workbookFontsAndStyles.TempStyle;
+            }
+
+            RowIndex++;
+            RowIndex++;
+            RowIndex++;
+
+            int PackCount = 0;
+
+            string MainOrderNote = string.Empty;
+
+            bool IsDecor = false;
+
+            for (int i = 0; i < OrdersDT.Rows.Count; i++)
+            {
+                FilterCabFurOrders(Dispatches);
+
+                IsDecor = FillCabFur();
+
+                if (CabFurResultDataTable.Rows.Count == 0)
+                    continue;
+
+                bool IsComplaint = IsMegaComplaint(Convert.ToInt32(OrdersDT.Rows[i]["MegaOrderID"]));
+                MainOrderNote = GetMainOrderNotes(Convert.ToInt32(OrdersDT.Rows[i]["MainOrderID"]));
+
+                DataTable PackageCabFurSequence = new DataTable();
+
+                using (DataView DV = new DataView(CabFurOrdersDataTable))
+                {
+                    DV.RowFilter = "PackNumber is not null";
+                    DV.Sort = "CTechStoreID, CabFurnitureComplementID, PackNumber ASC";
+
+                    PackageCabFurSequence = DV.ToTable(true, new string[] { "CTechStoreID", "CabFurnitureComplementID", "PackNumber" });
+                }
+
+                PackCount = PackageCabFurSequence.Rows.Count;
+
+                int BottomRow = CabFurResultDataTable.Rows.Count + RowIndex + 4;
+
+                HSSFCell ClientCell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex++), 0,
+                    "Клиент: " + ClientName + " № " + Convert.ToInt32(OrdersDT.Rows[i]["OrderNumber"]) + " - " + Convert.ToInt32(OrdersDT.Rows[i]["MainOrderID"]));
+                ClientCell.CellStyle = workbookFontsAndStyles.MainStyle;
+
+                if (DispatchDate.Length > 0)
+                {
+                    HSSFCell cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex++), 0, "Дата отгрузки: " + DispatchDate);
+                    cell.CellStyle = workbookFontsAndStyles.MainStyle;
+                }
+
+                if (MainOrderNote.Length > 0)
+                {
+                    HSSFCell cell = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex++), 0, "Примечание: " + MainOrderNote);
+                    cell.CellStyle = workbookFontsAndStyles.MainStyle;
+                }
+                int DisplayIndex = 0;
+
+                int TechStoreID = 0;
+                //cell1 = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), DisplayIndex++, "№");
+                //cell1.CellStyle = workbookFontsAndStyles.HeaderStyle;
+                //cell1 = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), DisplayIndex++, "Наименование");
+                //cell1.CellStyle = workbookFontsAndStyles.HeaderStyle;
+                //cell1 = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), DisplayIndex++, "Облицовка");
+                //cell1.CellStyle = workbookFontsAndStyles.HeaderStyle;
+                //cell1 = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), DisplayIndex++, "Патина");
+                //cell1.CellStyle = workbookFontsAndStyles.HeaderStyle;
+                //cell1 = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), DisplayIndex++, "Цвет вставки");
+                //cell1.CellStyle = workbookFontsAndStyles.HeaderStyle;
+                //cell1 = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), DisplayIndex++, "Прим.");
+                //cell1.CellStyle = workbookFontsAndStyles.HeaderStyle;
+                //cell1 = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), DisplayIndex++, "Наименование");
+                //cell1.CellStyle = workbookFontsAndStyles.HeaderStyle;
+                //cell1 = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), DisplayIndex++, "Длина");
+                //cell1.CellStyle = workbookFontsAndStyles.HeaderStyle;
+                //cell1 = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), DisplayIndex++, "Высота");
+                //cell1.CellStyle = workbookFontsAndStyles.HeaderStyle;
+                //cell1 = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), DisplayIndex++, "Ширина");
+                //cell1.CellStyle = workbookFontsAndStyles.HeaderStyle;
+                //cell1 = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), DisplayIndex++, "Кол.");
+                //cell1.CellStyle = workbookFontsAndStyles.HeaderStyle;
+                //cell1 = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), DisplayIndex++, "Ячейка");
+                //cell1.CellStyle = workbookFontsAndStyles.HeaderStyle;
+
+                for (int index = 0; index < PackageCabFurSequence.Rows.Count; index++)
+                {
+                    int CabFurnitureComplementID = Convert.ToInt32(PackageCabFurSequence.Rows[index]["CabFurnitureComplementID"]);
+                    
+                    int MainOrderID = Convert.ToInt32(OrdersDT.Rows[i]["MainOrderID"]);
+                    int PackNumber = Convert.ToInt32(PackageCabFurSequence.Rows[index]["PackNumber"]);
+
+                    if (Convert.ToInt32(PackageCabFurSequence.Rows[index]["CTechStoreID"]) != TechStoreID)
+                    {
+                        TechStoreID = Convert.ToInt32(PackageCabFurSequence.Rows[index]["CTechStoreID"]);
+                        RowIndex++;
+                        RowIndex++;
+
+                        HSSFCell cell1 = sheet1.CreateRow(RowIndex++).CreateCell(0);
+                        cell1.SetCellValue(GetTechStoreName(Convert.ToInt32(PackageCabFurSequence.Rows[index]["CTechStoreID"])));
+                        cell1.CellStyle = workbookFontsAndStyles.MainStyle;
+                        DisplayIndex = 0;
+                        cell1 = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), DisplayIndex++, "№");
+                        cell1.CellStyle = workbookFontsAndStyles.HeaderStyle;
+                        cell1 = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), DisplayIndex++, "Наименование");
+                        cell1.CellStyle = workbookFontsAndStyles.HeaderStyle;
+                        cell1 = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), DisplayIndex++, "Облицовка");
+                        cell1.CellStyle = workbookFontsAndStyles.HeaderStyle;
+                        cell1 = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), DisplayIndex++, "Патина");
+                        cell1.CellStyle = workbookFontsAndStyles.HeaderStyle;
+                        cell1 = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), DisplayIndex++, "Цвет вставки");
+                        cell1.CellStyle = workbookFontsAndStyles.HeaderStyle;
+                        cell1 = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), DisplayIndex++, "Прим.");
+                        cell1.CellStyle = workbookFontsAndStyles.HeaderStyle;
+                        cell1 = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), DisplayIndex++, "Наименование");
+                        cell1.CellStyle = workbookFontsAndStyles.HeaderStyle;
+                        cell1 = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), DisplayIndex++, "Длина");
+                        cell1.CellStyle = workbookFontsAndStyles.HeaderStyle;
+                        cell1 = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), DisplayIndex++, "Высота");
+                        cell1.CellStyle = workbookFontsAndStyles.HeaderStyle;
+                        cell1 = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), DisplayIndex++, "Ширина");
+                        cell1.CellStyle = workbookFontsAndStyles.HeaderStyle;
+                        cell1 = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), DisplayIndex++, "Кол.");
+                        cell1.CellStyle = workbookFontsAndStyles.HeaderStyle;
+                        cell1 = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), DisplayIndex++, "Ячейка");
+                        cell1.CellStyle = workbookFontsAndStyles.HeaderStyle;
+                    }
+
+                    DataRow[] DRows = CabFurResultDataTable.Select("CTechStoreID=" + TechStoreID + " AND PackNumber = " + PackNumber + " AND MainOrderID=" + MainOrderID);
+                    if (DRows.Count() == 0)
+                        continue;
+
+                    int TopIndex = RowIndex + 1;
+                    int BottomIndex = DRows.Count() + TopIndex - 1;
+
+                    for (int x = 0; x < DRows.Count(); x++)
+                    {
+                        for (int y = 0; y < CabFurResultDataTable.Columns.Count; y++)
+                        {
+                            int ColumnIndex = y;
+
+                            //if (y == 0 || y == 1)
+                            //{
+                            //    ColumnIndex = y;
+                            //}
+                            //else
+                            //{
+                            //    ColumnIndex = y + 1;
+                            //}
+
+                            Type t = CabFurResultDataTable.Rows[x][y].GetType();
+
+                            if (DRows[x]["CellID"].ToString() == "-1")
+                            {
+                                //sheet1.CreateRow(RowIndex + 1).CreateCell(2).CellStyle = GreyCellStyle;
+
+                                if (CabFurResultDataTable.Columns[y].ColumnName == "PackNumber")
+                                {
+                                    HSSFCell cell = sheet1.CreateRow(RowIndex + 1).CreateCell(ColumnIndex);
+                                    cell.SetCellValue(Convert.ToInt32(DRows[x][y]));
+
+                                    cell.CellStyle = workbookFontsAndStyles.PackNumberStyle;
+                                    sheet1.AddMergedRegion(new NPOI.HSSF.Util.Region(TopIndex, 0, BottomIndex, 0));
+                                    continue;
+                                }
+
+                                if (t.Name == "Decimal")
+                                {
+                                    HSSFCell cell = sheet1.CreateRow(RowIndex + 1).CreateCell(ColumnIndex);
+
+                                    if (DRows[x][y] == DBNull.Value)
+                                        cell.SetCellValue(DRows[x][y].ToString());
+                                    else
+                                        cell.SetCellValue(Convert.ToDouble(DRows[x][y]));
+
+                                    HSSFCellStyle cellStyle = hssfworkbook.CreateCellStyle();
+                                    cellStyle.DataFormat = HSSFDataFormat.GetBuiltinFormat("0.00");
+                                    cellStyle.BorderBottom = HSSFCellStyle.BORDER_THIN;
+                                    cellStyle.BottomBorderColor = HSSFColor.BLACK.index;
+                                    cellStyle.BorderLeft = HSSFCellStyle.BORDER_THIN;
+                                    cellStyle.LeftBorderColor = HSSFColor.BLACK.index;
+                                    cellStyle.BorderRight = HSSFCellStyle.BORDER_THIN;
+                                    cellStyle.RightBorderColor = HSSFColor.BLACK.index;
+                                    cellStyle.BorderTop = HSSFCellStyle.BORDER_THIN;
+                                    cellStyle.TopBorderColor = HSSFColor.BLACK.index;
+                                    cellStyle.SetFont(workbookFontsAndStyles.SimpleFont);
+                                    if (IsComplaint)
+                                        cell.CellStyle = workbookFontsAndStyles.GreyComplaintCellStyle;
+                                    else
+                                        cell.CellStyle = workbookFontsAndStyles.GreyCellStyle;
+                                    continue;
+                                }
+                                if (t.Name == "Int32")
+                                {
+                                    HSSFCell cell = sheet1.CreateRow(RowIndex + 1).CreateCell(ColumnIndex);
+
+                                    if (DRows[x][y] == DBNull.Value)
+                                        cell.SetCellValue(DRows[x][y].ToString());
+                                    else
+                                        cell.SetCellValue(Convert.ToInt32(DRows[x][y]));
+
+                                    if (IsComplaint)
+                                        cell.CellStyle = workbookFontsAndStyles.GreyComplaintCellStyle;
+                                    else
+                                        cell.CellStyle = workbookFontsAndStyles.GreyCellStyle;
+
+                                    continue;
+                                }
+
+                                if (t.Name == "String" || t.Name == "DBNull")
+                                {
+                                    HSSFCell cell = sheet1.CreateRow(RowIndex + 1).CreateCell(ColumnIndex);
+                                    cell.SetCellValue(DRows[x][y].ToString());
+                                    if (IsComplaint)
+                                        cell.CellStyle = workbookFontsAndStyles.GreyComplaintCellStyle;
+                                    else
+                                        cell.CellStyle = workbookFontsAndStyles.GreyCellStyle;
+                                    continue;
+                                }
+                            }
+                            else
+                            {
+                                //sheet1.CreateRow(RowIndex + 1).CreateCell(2).CellStyle = SimpleCellStyle;
+
+                                if (DecorResultDataTable.Columns[y].ColumnName == "PackNumber")
+                                {
+                                    HSSFCell cell = sheet1.CreateRow(RowIndex + 1).CreateCell(ColumnIndex);
+                                    cell.SetCellValue(Convert.ToInt32(DRows[x][y]));
+
+                                    cell.CellStyle = workbookFontsAndStyles.PackNumberStyle;
+                                    sheet1.AddMergedRegion(new NPOI.HSSF.Util.Region(TopIndex, 0, BottomIndex, 0));
+                                    continue;
+                                }
+
+                                if (t.Name == "Decimal")
+                                {
+                                    HSSFCell cell = sheet1.CreateRow(RowIndex + 1).CreateCell(ColumnIndex);
+
+                                    if (DRows[x][y] == DBNull.Value)
+                                        cell.SetCellValue(DRows[x][y].ToString());
+                                    else
+                                        cell.SetCellValue(Convert.ToDouble(DRows[x][y]));
+
+                                    HSSFCellStyle cellStyle = hssfworkbook.CreateCellStyle();
+                                    cellStyle.DataFormat = HSSFDataFormat.GetBuiltinFormat("0.00");
+                                    cellStyle.BorderBottom = HSSFCellStyle.BORDER_THIN;
+                                    cellStyle.BottomBorderColor = HSSFColor.BLACK.index;
+                                    cellStyle.BorderLeft = HSSFCellStyle.BORDER_THIN;
+                                    cellStyle.LeftBorderColor = HSSFColor.BLACK.index;
+                                    cellStyle.BorderRight = HSSFCellStyle.BORDER_THIN;
+                                    cellStyle.RightBorderColor = HSSFColor.BLACK.index;
+                                    cellStyle.BorderTop = HSSFCellStyle.BORDER_THIN;
+                                    cellStyle.TopBorderColor = HSSFColor.BLACK.index;
+                                    cellStyle.SetFont(workbookFontsAndStyles.SimpleFont);
+                                    if (IsComplaint)
+                                        cell.CellStyle = workbookFontsAndStyles.ComplaintCellStyle;
+                                    else
+                                        cell.CellStyle = workbookFontsAndStyles.SimpleCellStyle;
+
+                                    continue;
+                                }
+                                if (t.Name == "Int32")
+                                {
+                                    HSSFCell cell = sheet1.CreateRow(RowIndex + 1).CreateCell(ColumnIndex);
+
+                                    if (DRows[x][y] == DBNull.Value)
+                                        cell.SetCellValue(DRows[x][y].ToString());
+                                    else
+                                        cell.SetCellValue(Convert.ToInt32(DRows[x][y]));
+
+                                    if (IsComplaint)
+                                        cell.CellStyle = workbookFontsAndStyles.ComplaintCellStyle;
+                                    else
+                                        cell.CellStyle = workbookFontsAndStyles.SimpleCellStyle;
+
+                                    continue;
+                                }
+
+                                if (t.Name == "String" || t.Name == "DBNull")
+                                {
+                                    HSSFCell cell = sheet1.CreateRow(RowIndex + 1).CreateCell(ColumnIndex);
+                                    cell.SetCellValue(DRows[x][y].ToString());
+                                    if (IsComplaint)
+                                        cell.CellStyle = workbookFontsAndStyles.ComplaintCellStyle;
+                                    else
+                                        cell.CellStyle = workbookFontsAndStyles.SimpleCellStyle;
+                                    continue;
+                                }
+                            }
+                        }
+                        RowIndex++;
+                    }
+                }
+                RowIndex++;
+                RowIndex++;
+            }
+
+            for (int y = 0; y < CabFurResultDataTable.Columns.Count; y++)
+            {
+                HSSFCell cell = sheet1.CreateRow(RowIndex).CreateCell(y);
+                HSSFCellStyle cellStyle = hssfworkbook.CreateCellStyle();
+                cellStyle.BorderTop = HSSFCellStyle.BORDER_MEDIUM;
+                cellStyle.TopBorderColor = HSSFColor.BLACK.index;
+                cell.CellStyle = cellStyle;
+            }
+
+            HSSFCell cell9 = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 0, "Итого: ");
+            cell9.CellStyle = workbookFontsAndStyles.TotalStyle;
+            HSSFCell cell10 = HSSFCellUtil.CreateCell(sheet1.CreateRow(RowIndex), 2, "Упаковок: " + PackCount);
+            cell10.CellStyle = workbookFontsAndStyles.TotalStyle;
         }
     }
 
@@ -9825,7 +11371,7 @@ namespace Infinium.Modules.Marketing.Expedition
                     OrderNumber += OrderNumbers[i] + ", ";
                 OrderNumber = OrderNumber.Substring(0, OrderNumber.Length - 2);
             }
-            
+
             string FileOrderNumber = OrderNumber;
             if (OrderNumber.Length > 120) // если длина названия файла превышает 120 символов
                 FileOrderNumber = string.Format("({0}-{1})", OrderNumbers.Min(), OrderNumbers.Max());
@@ -9864,6 +11410,121 @@ namespace Infinium.Modules.Marketing.Expedition
             si.Subject = "NPOI SDK Example";
             hssfworkbook.SummaryInformation = si;
 
+            WorkbookFontsAndStyles excelFonts = new WorkbookFontsAndStyles();
+
+            #region
+            excelFonts.MainFont = hssfworkbook.CreateFont();
+            excelFonts.MainFont.FontHeightInPoints = 12;
+            excelFonts.MainFont.Boldweight = HSSFFont.BOLDWEIGHT_BOLD;
+            excelFonts.MainFont.FontName = "Calibri";
+
+            excelFonts.MainStyle = hssfworkbook.CreateCellStyle();
+            excelFonts.MainStyle.SetFont(excelFonts.MainFont);
+
+            excelFonts.HeaderFont = hssfworkbook.CreateFont();
+            excelFonts.HeaderFont.Boldweight = 8 * 256;
+            excelFonts.HeaderFont.FontName = "Calibri";
+
+            excelFonts.HeaderStyle = hssfworkbook.CreateCellStyle();
+            excelFonts.HeaderStyle.BorderBottom = HSSFCellStyle.BORDER_THIN;
+            excelFonts.HeaderStyle.BottomBorderColor = HSSFColor.BLACK.index;
+            excelFonts.HeaderStyle.BorderLeft = HSSFCellStyle.BORDER_THIN;
+            excelFonts.HeaderStyle.LeftBorderColor = HSSFColor.BLACK.index;
+            excelFonts.HeaderStyle.BorderRight = HSSFCellStyle.BORDER_THIN;
+            excelFonts.HeaderStyle.RightBorderColor = HSSFColor.BLACK.index;
+            excelFonts.HeaderStyle.BorderTop = HSSFCellStyle.BORDER_THIN;
+            excelFonts.HeaderStyle.TopBorderColor = HSSFColor.BLACK.index;
+            excelFonts.HeaderStyle.SetFont(excelFonts.HeaderFont);
+
+            excelFonts.PackNumberFont = hssfworkbook.CreateFont();
+            excelFonts.PackNumberFont.Boldweight = 8 * 256;
+            excelFonts.PackNumberFont.FontName = "Calibri";
+
+            excelFonts.PackNumberStyle = hssfworkbook.CreateCellStyle();
+            excelFonts.PackNumberStyle.BorderBottom = HSSFCellStyle.BORDER_THIN;
+            excelFonts.PackNumberStyle.BottomBorderColor = HSSFColor.BLACK.index;
+            excelFonts.PackNumberStyle.BorderLeft = HSSFCellStyle.BORDER_THIN;
+            excelFonts.PackNumberStyle.LeftBorderColor = HSSFColor.BLACK.index;
+            excelFonts.PackNumberStyle.BorderRight = HSSFCellStyle.BORDER_THIN;
+            excelFonts.PackNumberStyle.RightBorderColor = HSSFColor.BLACK.index;
+            excelFonts.PackNumberStyle.BorderTop = HSSFCellStyle.BORDER_THIN;
+            excelFonts.PackNumberStyle.TopBorderColor = HSSFColor.BLACK.index;
+            excelFonts.PackNumberStyle.Alignment = HSSFCellStyle.ALIGN_CENTER;
+            excelFonts.PackNumberStyle.VerticalAlignment = HSSFCellStyle.VERTICAL_CENTER;
+            excelFonts.PackNumberStyle.SetFont(excelFonts.PackNumberFont);
+
+            excelFonts.SimpleFont = hssfworkbook.CreateFont();
+            excelFonts.SimpleFont.FontHeightInPoints = 8;
+            excelFonts.SimpleFont.FontName = "Calibri";
+
+            excelFonts.ComplaintFont = hssfworkbook.CreateFont();
+            excelFonts.ComplaintFont.Boldweight = 8 * 256;
+            excelFonts.ComplaintFont.FontName = "Calibri";
+            excelFonts.ComplaintFont.IsItalic = true;
+
+            excelFonts.ComplaintCellStyle = hssfworkbook.CreateCellStyle();
+            excelFonts.ComplaintCellStyle.BorderBottom = HSSFCellStyle.BORDER_THIN;
+            excelFonts.ComplaintCellStyle.BottomBorderColor = HSSFColor.BLACK.index;
+            excelFonts.ComplaintCellStyle.BorderLeft = HSSFCellStyle.BORDER_THIN;
+            excelFonts.ComplaintCellStyle.LeftBorderColor = HSSFColor.BLACK.index;
+            excelFonts.ComplaintCellStyle.BorderRight = HSSFCellStyle.BORDER_THIN;
+            excelFonts.ComplaintCellStyle.RightBorderColor = HSSFColor.BLACK.index;
+            excelFonts.ComplaintCellStyle.BorderTop = HSSFCellStyle.BORDER_THIN;
+            excelFonts.ComplaintCellStyle.TopBorderColor = HSSFColor.BLACK.index;
+            excelFonts.ComplaintCellStyle.SetFont(excelFonts.ComplaintFont);
+
+            excelFonts.GreyComplaintCellStyle = hssfworkbook.CreateCellStyle();
+            excelFonts.GreyComplaintCellStyle.BorderBottom = HSSFCellStyle.BORDER_THIN;
+            excelFonts.GreyComplaintCellStyle.BottomBorderColor = HSSFColor.BLACK.index;
+            excelFonts.GreyComplaintCellStyle.BorderLeft = HSSFCellStyle.BORDER_THIN;
+            excelFonts.GreyComplaintCellStyle.LeftBorderColor = HSSFColor.BLACK.index;
+            excelFonts.GreyComplaintCellStyle.BorderRight = HSSFCellStyle.BORDER_THIN;
+            excelFonts.GreyComplaintCellStyle.RightBorderColor = HSSFColor.BLACK.index;
+            excelFonts.GreyComplaintCellStyle.BorderTop = HSSFCellStyle.BORDER_THIN;
+            excelFonts.GreyComplaintCellStyle.TopBorderColor = HSSFColor.BLACK.index;
+            excelFonts.GreyComplaintCellStyle.FillForegroundColor = NPOI.HSSF.Util.HSSFColor.GREY_25_PERCENT.index;
+            excelFonts.GreyComplaintCellStyle.FillPattern = HSSFCellStyle.SOLID_FOREGROUND;
+            excelFonts.GreyComplaintCellStyle.FillBackgroundColor = NPOI.HSSF.Util.HSSFColor.YELLOW.index;
+            excelFonts.GreyComplaintCellStyle.SetFont(excelFonts.ComplaintFont);
+
+            excelFonts.SimpleCellStyle = hssfworkbook.CreateCellStyle();
+            excelFonts.SimpleCellStyle.BorderBottom = HSSFCellStyle.BORDER_THIN;
+            excelFonts.SimpleCellStyle.BottomBorderColor = HSSFColor.BLACK.index;
+            excelFonts.SimpleCellStyle.BorderLeft = HSSFCellStyle.BORDER_THIN;
+            excelFonts.SimpleCellStyle.LeftBorderColor = HSSFColor.BLACK.index;
+            excelFonts.SimpleCellStyle.BorderRight = HSSFCellStyle.BORDER_THIN;
+            excelFonts.SimpleCellStyle.RightBorderColor = HSSFColor.BLACK.index;
+            excelFonts.SimpleCellStyle.BorderTop = HSSFCellStyle.BORDER_THIN;
+            excelFonts.SimpleCellStyle.TopBorderColor = HSSFColor.BLACK.index;
+            excelFonts.SimpleCellStyle.SetFont(excelFonts.SimpleFont);
+
+            excelFonts.GreyCellStyle = hssfworkbook.CreateCellStyle();
+            excelFonts.GreyCellStyle.BorderBottom = HSSFCellStyle.BORDER_THIN;
+            excelFonts.GreyCellStyle.BottomBorderColor = HSSFColor.BLACK.index;
+            excelFonts.GreyCellStyle.BorderLeft = HSSFCellStyle.BORDER_THIN;
+            excelFonts.GreyCellStyle.LeftBorderColor = HSSFColor.BLACK.index;
+            excelFonts.GreyCellStyle.BorderRight = HSSFCellStyle.BORDER_THIN;
+            excelFonts.GreyCellStyle.RightBorderColor = HSSFColor.BLACK.index;
+            excelFonts.GreyCellStyle.BorderTop = HSSFCellStyle.BORDER_THIN;
+            excelFonts.GreyCellStyle.TopBorderColor = HSSFColor.BLACK.index;
+            excelFonts.GreyCellStyle.FillForegroundColor = NPOI.HSSF.Util.HSSFColor.GREY_25_PERCENT.index;
+            excelFonts.GreyCellStyle.FillPattern = HSSFCellStyle.SOLID_FOREGROUND;
+            excelFonts.GreyCellStyle.FillBackgroundColor = NPOI.HSSF.Util.HSSFColor.YELLOW.index;
+            excelFonts.GreyCellStyle.SetFont(excelFonts.SimpleFont);
+
+            excelFonts.TotalFont = hssfworkbook.CreateFont();
+            excelFonts.TotalFont.FontHeightInPoints = 12;
+            excelFonts.TotalFont.FontName = "Calibri";
+
+            excelFonts.TotalStyle = hssfworkbook.CreateCellStyle();
+            excelFonts.TotalStyle.BorderTop = HSSFCellStyle.BORDER_MEDIUM;
+            excelFonts.TotalStyle.TopBorderColor = HSSFColor.BLACK.index;
+            excelFonts.TotalStyle.SetFont(excelFonts.TotalFont);
+
+            excelFonts.TempStyle = hssfworkbook.CreateCellStyle();
+            excelFonts.TempStyle.SetFont(excelFonts.TotalFont);
+
+            #endregion
 
             int FactoryID;
             if (Attach)
@@ -9888,7 +11549,7 @@ namespace Infinium.Modules.Marketing.Expedition
                             CreateExcel(ref hssfworkbook, TPSMainOrders, 2, "ЗОВ-ТПС", ClientName, TPSOrderNumber);
                         }
 
-                        PackingReport.CreateReport(ref hssfworkbook, OrdersID, Dispatches, Convert.ToDateTime(PrepareDispatchDateTime).ToString("dd.MM.yyyy"), ClientName, ClientID, 0);
+                        PackingReport.CreateReport(ref hssfworkbook, excelFonts, OrdersID, Dispatches, Convert.ToDateTime(PrepareDispatchDateTime).ToString("dd.MM.yyyy"), ClientName, ClientID, 0);
                     }
                     if (ProfilMainOrders.Count() > 0 && TPSMainOrders.Count() < 1)
                     {
@@ -9896,7 +11557,7 @@ namespace Infinium.Modules.Marketing.Expedition
                         if (Fill(ProfilMainOrders, FactoryID))
                         {
                             CreateExcel(ref hssfworkbook, ProfilMainOrders, 1, "ЗОВ-Профиль", ClientName, ProfilOrderNumber);
-                            PackingReport.CreateReport(ref hssfworkbook, OrdersID, Dispatches, Convert.ToDateTime(PrepareDispatchDateTime).ToString("dd.MM.yyyy"), ClientName, ClientID, FactoryID);
+                            PackingReport.CreateReport(ref hssfworkbook, excelFonts, OrdersID, Dispatches, Convert.ToDateTime(PrepareDispatchDateTime).ToString("dd.MM.yyyy"), ClientName, ClientID, FactoryID);
                         }
                     }
                     if (ProfilMainOrders.Count() < 1 && TPSMainOrders.Count() > 0)
@@ -9905,7 +11566,7 @@ namespace Infinium.Modules.Marketing.Expedition
                         if (Fill(TPSMainOrders, FactoryID))
                         {
                             CreateExcel(ref hssfworkbook, TPSMainOrders, 2, "ЗОВ-ТПС", ClientName, TPSOrderNumber);
-                            PackingReport.CreateReport(ref hssfworkbook, OrdersID, Dispatches, Convert.ToDateTime(PrepareDispatchDateTime).ToString("dd.MM.yyyy"), ClientName, ClientID, FactoryID);
+                            PackingReport.CreateReport(ref hssfworkbook, excelFonts, OrdersID, Dispatches, Convert.ToDateTime(PrepareDispatchDateTime).ToString("dd.MM.yyyy"), ClientName, ClientID, FactoryID);
                         }
                     }
                 }
@@ -9918,7 +11579,7 @@ namespace Infinium.Modules.Marketing.Expedition
                         if (Fill(ProfilMainOrders, FactoryID))
                         {
                             CreateExcel(ref hssfworkbook, ProfilMainOrders, 1, "ЗОВ-Профиль", ClientName, ProfilOrderNumber);
-                            PackingReport.CreateReport(ref hssfworkbook, OrdersID, Dispatches, Convert.ToDateTime(PrepareDispatchDateTime).ToString("dd.MM.yyyy"), ClientName, ClientID, FactoryID);
+                            PackingReport.CreateReport(ref hssfworkbook, excelFonts, OrdersID, Dispatches, Convert.ToDateTime(PrepareDispatchDateTime).ToString("dd.MM.yyyy"), ClientName, ClientID, FactoryID);
                         }
                     }
                 }
@@ -9931,7 +11592,7 @@ namespace Infinium.Modules.Marketing.Expedition
                         if (Fill(TPSMainOrders, FactoryID))
                         {
                             CreateExcel(ref hssfworkbook, TPSMainOrders, 2, "ЗОВ-ТПС", ClientName, TPSOrderNumber);
-                            PackingReport.CreateReport(ref hssfworkbook, OrdersID, Dispatches, Convert.ToDateTime(PrepareDispatchDateTime).ToString("dd.MM.yyyy"), ClientName, ClientID, FactoryID);
+                            PackingReport.CreateReport(ref hssfworkbook, excelFonts, OrdersID, Dispatches, Convert.ToDateTime(PrepareDispatchDateTime).ToString("dd.MM.yyyy"), ClientName, ClientID, FactoryID);
                         }
                     }
                 }
@@ -9963,7 +11624,7 @@ namespace Infinium.Modules.Marketing.Expedition
 
                 if (ClientID == 145)
                 {
-                    Send(file.FullName, "horuz9@list.ru");
+                    //Send(file.FullName, "horuz9@list.ru");
                     //Send(file.FullName, "zovvozvrat@mail.ru");
                     //Send(file.FullName, "romanchukgrad@gmail.com");
                     //Send(file.FullName, "nsq@tut.by");
@@ -10045,7 +11706,7 @@ namespace Infinium.Modules.Marketing.Expedition
                         Firm = "(Profil)";
                     if (!bNeedProfilList && bNeedTPSList)
                         Firm = "(TPS)";
-                    FileName = "Dispatch " + Convert.ToDateTime(PrepareDispatchDateTime).ToString("dd.MM.yyyy") + " " + Firm;
+                    FileName = "Furniture " + Convert.ToDateTime(PrepareDispatchDateTime).ToString("dd.MM.yyyy") + " " + Firm;
                 }
 
                 string tempFolder = System.Environment.GetEnvironmentVariable("TEMP");
@@ -10063,7 +11724,408 @@ namespace Infinium.Modules.Marketing.Expedition
 
                 if (ClientID == 145)
                 {
-                    Send(file.FullName, "horuz9@list.ru");
+                    //Send(file.FullName, "horuz9@list.ru");
+                    //Send(file.FullName, "zovvozvrat@mail.ru");
+                    //Send(file.FullName, "romanchukgrad@gmail.com");
+                    //Send(file.FullName, "nsq@tut.by");
+                }
+                if (NeedOpen)
+                    System.Diagnostics.Process.Start(file.FullName);
+            }
+        }
+
+        public void CreateCabFurReport(bool bNeedProfilList, bool bNeedTPSList, bool Attach, bool ColorFullName, bool NeedOpen, ref string PackagesReportName)
+        {
+            DataTable OrdersID = GetOrdersID();
+
+            int[] ProfilMainOrders = GetMainOrders(1);
+            int[] TPSMainOrders = GetMainOrders(2);
+
+            if (bNeedProfilList && bNeedTPSList)
+            {
+                if (ProfilMainOrders.Count() == 0 && TPSMainOrders.Count() == 0)
+                    return;
+            }
+            if (bNeedProfilList && !bNeedTPSList)
+            {
+                if (ProfilMainOrders.Count() == 0)
+                    return;
+            }
+            if (!bNeedProfilList && bNeedTPSList)
+            {
+                if (TPSMainOrders.Count() == 0)
+                    return;
+            }
+
+            int[] OrderNumbers = GetOrderNumbers();
+            int[] ProfilOrderNumbers = GetOrderNumbers(1);
+            int[] TPSOrderNumbers = GetOrderNumbers(2);
+
+            string ClientName = GetClientName(ClientID);
+            string OrderNumber = string.Empty;
+            string ProfilOrderNumber = string.Empty;
+            string TPSOrderNumber = string.Empty;
+
+            if (OrderNumbers.Count() > 0)
+            {
+                for (int i = 0; i < OrderNumbers.Count(); i++)
+                    OrderNumber += OrderNumbers[i] + ", ";
+                OrderNumber = OrderNumber.Substring(0, OrderNumber.Length - 2);
+            }
+
+            string FileOrderNumber = OrderNumber;
+            if (OrderNumber.Length > 120) // если длина названия файла превышает 120 символов
+                FileOrderNumber = string.Format("({0}-{1})", OrderNumbers.Min(), OrderNumbers.Max());
+            if (ProfilOrderNumbers.Count() > 0)
+            {
+                for (int i = 0; i < ProfilOrderNumbers.Count(); i++)
+                    ProfilOrderNumber += ProfilOrderNumbers[i] + ", ";
+                ProfilOrderNumber = ProfilOrderNumber.Substring(0, ProfilOrderNumber.Length - 2);
+            }
+            if (TPSOrderNumbers.Count() > 0)
+            {
+                for (int i = 0; i < TPSOrderNumbers.Count(); i++)
+                    TPSOrderNumber += TPSOrderNumbers[i] + ", ";
+                TPSOrderNumber = TPSOrderNumber.Substring(0, TPSOrderNumber.Length - 2);
+            }
+
+            string Firm = "ЗОВ-Профиль+ЗОВ-ТПС";
+
+            ClientName = ClientName.Replace('/', '-');
+
+            if (ProfilMainOrders.Count() == 0 && TPSMainOrders.Count() == 0)
+            {
+                MessageBox.Show("Выбранный заказ пуст");
+                return;
+            }
+
+            HSSFWorkbook hssfworkbook = new HSSFWorkbook();
+
+            ////create a entry of DocumentSummaryInformation
+            DocumentSummaryInformation dsi = PropertySetFactory.CreateDocumentSummaryInformation();
+            dsi.Company = "NPOI Team";
+            hssfworkbook.DocumentSummaryInformation = dsi;
+
+            ////create a entry of SummaryInformation
+            SummaryInformation si = PropertySetFactory.CreateSummaryInformation();
+            si.Subject = "NPOI SDK Example";
+            hssfworkbook.SummaryInformation = si;
+
+            WorkbookFontsAndStyles excelFonts = new WorkbookFontsAndStyles();
+
+            #region
+            excelFonts.MainFont = hssfworkbook.CreateFont();
+            excelFonts.MainFont.FontHeightInPoints = 12;
+            excelFonts.MainFont.Boldweight = HSSFFont.BOLDWEIGHT_BOLD;
+            excelFonts.MainFont.FontName = "Calibri";
+
+            excelFonts.MainStyle = hssfworkbook.CreateCellStyle();
+            excelFonts.MainStyle.SetFont(excelFonts.MainFont);
+
+            excelFonts.HeaderFont = hssfworkbook.CreateFont();
+            excelFonts.HeaderFont.Boldweight = 8 * 256;
+            excelFonts.HeaderFont.FontName = "Calibri";
+
+            excelFonts.HeaderStyle = hssfworkbook.CreateCellStyle();
+            excelFonts.HeaderStyle.BorderBottom = HSSFCellStyle.BORDER_THIN;
+            excelFonts.HeaderStyle.BottomBorderColor = HSSFColor.BLACK.index;
+            excelFonts.HeaderStyle.BorderLeft = HSSFCellStyle.BORDER_THIN;
+            excelFonts.HeaderStyle.LeftBorderColor = HSSFColor.BLACK.index;
+            excelFonts.HeaderStyle.BorderRight = HSSFCellStyle.BORDER_THIN;
+            excelFonts.HeaderStyle.RightBorderColor = HSSFColor.BLACK.index;
+            excelFonts.HeaderStyle.BorderTop = HSSFCellStyle.BORDER_THIN;
+            excelFonts.HeaderStyle.TopBorderColor = HSSFColor.BLACK.index;
+            excelFonts.HeaderStyle.SetFont(excelFonts.HeaderFont);
+
+            excelFonts.PackNumberFont = hssfworkbook.CreateFont();
+            excelFonts.PackNumberFont.Boldweight = 8 * 256;
+            excelFonts.PackNumberFont.FontName = "Calibri";
+
+            excelFonts.PackNumberStyle = hssfworkbook.CreateCellStyle();
+            excelFonts.PackNumberStyle.BorderBottom = HSSFCellStyle.BORDER_THIN;
+            excelFonts.PackNumberStyle.BottomBorderColor = HSSFColor.BLACK.index;
+            excelFonts.PackNumberStyle.BorderLeft = HSSFCellStyle.BORDER_THIN;
+            excelFonts.PackNumberStyle.LeftBorderColor = HSSFColor.BLACK.index;
+            excelFonts.PackNumberStyle.BorderRight = HSSFCellStyle.BORDER_THIN;
+            excelFonts.PackNumberStyle.RightBorderColor = HSSFColor.BLACK.index;
+            excelFonts.PackNumberStyle.BorderTop = HSSFCellStyle.BORDER_THIN;
+            excelFonts.PackNumberStyle.TopBorderColor = HSSFColor.BLACK.index;
+            excelFonts.PackNumberStyle.Alignment = HSSFCellStyle.ALIGN_CENTER;
+            excelFonts.PackNumberStyle.VerticalAlignment = HSSFCellStyle.VERTICAL_CENTER;
+            excelFonts.PackNumberStyle.SetFont(excelFonts.PackNumberFont);
+
+            excelFonts.SimpleFont = hssfworkbook.CreateFont();
+            excelFonts.SimpleFont.FontHeightInPoints = 8;
+            excelFonts.SimpleFont.FontName = "Calibri";
+            
+            excelFonts.ComplaintFont = hssfworkbook.CreateFont();
+            excelFonts.ComplaintFont.Boldweight = 8 * 256;
+            excelFonts.ComplaintFont.FontName = "Calibri";
+            excelFonts.ComplaintFont.IsItalic = true;
+            
+            excelFonts.ComplaintCellStyle = hssfworkbook.CreateCellStyle();
+            excelFonts.ComplaintCellStyle.BorderBottom = HSSFCellStyle.BORDER_THIN;
+            excelFonts.ComplaintCellStyle.BottomBorderColor = HSSFColor.BLACK.index;
+            excelFonts.ComplaintCellStyle.BorderLeft = HSSFCellStyle.BORDER_THIN;
+            excelFonts.ComplaintCellStyle.LeftBorderColor = HSSFColor.BLACK.index;
+            excelFonts.ComplaintCellStyle.BorderRight = HSSFCellStyle.BORDER_THIN;
+            excelFonts.ComplaintCellStyle.RightBorderColor = HSSFColor.BLACK.index;
+            excelFonts.ComplaintCellStyle.BorderTop = HSSFCellStyle.BORDER_THIN;
+            excelFonts.ComplaintCellStyle.TopBorderColor = HSSFColor.BLACK.index;
+            excelFonts.ComplaintCellStyle.SetFont(excelFonts.ComplaintFont);
+            
+            excelFonts.GreyComplaintCellStyle = hssfworkbook.CreateCellStyle();
+            excelFonts.GreyComplaintCellStyle.BorderBottom = HSSFCellStyle.BORDER_THIN;
+            excelFonts.GreyComplaintCellStyle.BottomBorderColor = HSSFColor.BLACK.index;
+            excelFonts.GreyComplaintCellStyle.BorderLeft = HSSFCellStyle.BORDER_THIN;
+            excelFonts.GreyComplaintCellStyle.LeftBorderColor = HSSFColor.BLACK.index;
+            excelFonts.GreyComplaintCellStyle.BorderRight = HSSFCellStyle.BORDER_THIN;
+            excelFonts.GreyComplaintCellStyle.RightBorderColor = HSSFColor.BLACK.index;
+            excelFonts.GreyComplaintCellStyle.BorderTop = HSSFCellStyle.BORDER_THIN;
+            excelFonts.GreyComplaintCellStyle.TopBorderColor = HSSFColor.BLACK.index;
+            excelFonts.GreyComplaintCellStyle.FillForegroundColor = NPOI.HSSF.Util.HSSFColor.GREY_25_PERCENT.index;
+            excelFonts.GreyComplaintCellStyle.FillPattern = HSSFCellStyle.SOLID_FOREGROUND;
+            excelFonts.GreyComplaintCellStyle.FillBackgroundColor = NPOI.HSSF.Util.HSSFColor.YELLOW.index;
+            excelFonts.GreyComplaintCellStyle.SetFont(excelFonts.ComplaintFont);
+            
+            excelFonts.SimpleCellStyle = hssfworkbook.CreateCellStyle();
+            excelFonts.SimpleCellStyle.BorderBottom = HSSFCellStyle.BORDER_THIN;
+            excelFonts.SimpleCellStyle.BottomBorderColor = HSSFColor.BLACK.index;
+            excelFonts.SimpleCellStyle.BorderLeft = HSSFCellStyle.BORDER_THIN;
+            excelFonts.SimpleCellStyle.LeftBorderColor = HSSFColor.BLACK.index;
+            excelFonts.SimpleCellStyle.BorderRight = HSSFCellStyle.BORDER_THIN;
+            excelFonts.SimpleCellStyle.RightBorderColor = HSSFColor.BLACK.index;
+            excelFonts.SimpleCellStyle.BorderTop = HSSFCellStyle.BORDER_THIN;
+            excelFonts.SimpleCellStyle.TopBorderColor = HSSFColor.BLACK.index;
+            excelFonts.SimpleCellStyle.SetFont(excelFonts.SimpleFont);
+            
+            excelFonts.GreyCellStyle = hssfworkbook.CreateCellStyle();
+            excelFonts.GreyCellStyle.BorderBottom = HSSFCellStyle.BORDER_THIN;
+            excelFonts.GreyCellStyle.BottomBorderColor = HSSFColor.BLACK.index;
+            excelFonts.GreyCellStyle.BorderLeft = HSSFCellStyle.BORDER_THIN;
+            excelFonts.GreyCellStyle.LeftBorderColor = HSSFColor.BLACK.index;
+            excelFonts.GreyCellStyle.BorderRight = HSSFCellStyle.BORDER_THIN;
+            excelFonts.GreyCellStyle.RightBorderColor = HSSFColor.BLACK.index;
+            excelFonts.GreyCellStyle.BorderTop = HSSFCellStyle.BORDER_THIN;
+            excelFonts.GreyCellStyle.TopBorderColor = HSSFColor.BLACK.index;
+            excelFonts.GreyCellStyle.FillForegroundColor = NPOI.HSSF.Util.HSSFColor.GREY_25_PERCENT.index;
+            excelFonts.GreyCellStyle.FillPattern = HSSFCellStyle.SOLID_FOREGROUND;
+            excelFonts.GreyCellStyle.FillBackgroundColor = NPOI.HSSF.Util.HSSFColor.YELLOW.index;
+            excelFonts.GreyCellStyle.SetFont(excelFonts.SimpleFont);
+            
+            excelFonts.TotalFont = hssfworkbook.CreateFont();
+            excelFonts.TotalFont.FontHeightInPoints = 12;
+            excelFonts.TotalFont.FontName = "Calibri";
+
+            excelFonts.TotalStyle = hssfworkbook.CreateCellStyle();
+            excelFonts.TotalStyle.BorderTop = HSSFCellStyle.BORDER_MEDIUM;
+            excelFonts.TotalStyle.TopBorderColor = HSSFColor.BLACK.index;
+            excelFonts.TotalStyle.SetFont(excelFonts.TotalFont);
+
+            excelFonts.TempStyle = hssfworkbook.CreateCellStyle();
+            excelFonts.TempStyle.SetFont(excelFonts.TotalFont);
+
+            #endregion
+
+            int FactoryID;
+            if (Attach)
+            {
+                PackingReport = new PackingReport()
+                {
+                    ColorFullName = ColorFullName
+                };
+                if (bNeedProfilList && bNeedTPSList)
+                {
+                    if (ProfilMainOrders.Count() > 0 && TPSMainOrders.Count() > 0)
+                    {
+                        FactoryID = 1;
+                        if (Fill(ProfilMainOrders, FactoryID))
+                        {
+                            CreateExcel(ref hssfworkbook, ProfilMainOrders, 1, "ЗОВ-Профиль", ClientName, ProfilOrderNumber);
+                        }
+
+                        FactoryID = 2;
+                        if (Fill(TPSMainOrders, FactoryID))
+                        {
+                            CreateExcel(ref hssfworkbook, TPSMainOrders, 2, "ЗОВ-ТПС", ClientName, TPSOrderNumber);
+                        }
+
+                        PackingReport.CreateCabFurReport(ref hssfworkbook, excelFonts, OrdersID, Dispatches, Convert.ToDateTime(PrepareDispatchDateTime).ToString("dd.MM.yyyy"), ClientName, ClientID, 0);
+                    }
+                    if (ProfilMainOrders.Count() > 0 && TPSMainOrders.Count() < 1)
+                    {
+                        FactoryID = 1;
+                        if (Fill(ProfilMainOrders, FactoryID))
+                        {
+                            CreateExcel(ref hssfworkbook, ProfilMainOrders, 1, "ЗОВ-Профиль", ClientName, ProfilOrderNumber);
+                            PackingReport.CreateCabFurReport(ref hssfworkbook, excelFonts, OrdersID, Dispatches, Convert.ToDateTime(PrepareDispatchDateTime).ToString("dd.MM.yyyy"), ClientName, ClientID, FactoryID);
+                        }
+                    }
+                    if (ProfilMainOrders.Count() < 1 && TPSMainOrders.Count() > 0)
+                    {
+                        FactoryID = 2;
+                        if (Fill(TPSMainOrders, FactoryID))
+                        {
+                            CreateExcel(ref hssfworkbook, TPSMainOrders, 2, "ЗОВ-ТПС", ClientName, TPSOrderNumber);
+                            PackingReport.CreateCabFurReport(ref hssfworkbook, excelFonts, OrdersID, Dispatches, Convert.ToDateTime(PrepareDispatchDateTime).ToString("dd.MM.yyyy"), ClientName, ClientID, FactoryID);
+                        }
+                    }
+                }
+
+                if (bNeedProfilList && !bNeedTPSList)
+                {
+                    if (ProfilMainOrders.Count() > 0)
+                    {
+                        FactoryID = 1;
+                        if (Fill(ProfilMainOrders, FactoryID))
+                        {
+                            CreateExcel(ref hssfworkbook, ProfilMainOrders, 1, "ЗОВ-Профиль", ClientName, ProfilOrderNumber);
+                            PackingReport.CreateCabFurReport(ref hssfworkbook, excelFonts, OrdersID, Dispatches, Convert.ToDateTime(PrepareDispatchDateTime).ToString("dd.MM.yyyy"), ClientName, ClientID, FactoryID);
+                        }
+                    }
+                }
+
+                if (!bNeedProfilList && bNeedTPSList)
+                {
+                    if (TPSMainOrders.Count() > 0)
+                    {
+                        FactoryID = 2;
+                        if (Fill(TPSMainOrders, FactoryID))
+                        {
+                            CreateExcel(ref hssfworkbook, TPSMainOrders, 2, "ЗОВ-ТПС", ClientName, TPSOrderNumber);
+                            PackingReport.CreateCabFurReport(ref hssfworkbook, excelFonts, OrdersID, Dispatches, Convert.ToDateTime(PrepareDispatchDateTime).ToString("dd.MM.yyyy"), ClientName, ClientID, FactoryID);
+                        }
+                    }
+                }
+
+                ClientName = ClientName.Replace('\"', '\'');
+
+                string FileName = ClientName + " № " + FileOrderNumber + " " + Firm;
+                if (ClientID == 145)
+                {
+                    Firm = "(Profil+TPS)";
+                    if (bNeedProfilList && !bNeedTPSList)
+                        Firm = "(Profil)";
+                    if (!bNeedProfilList && bNeedTPSList)
+                        Firm = "(TPS)";
+                    FileName = "Dispatch " + Convert.ToDateTime(PrepareDispatchDateTime).ToString("dd.MM.yyyy") + " " + Firm;
+                }
+                string tempFolder = System.Environment.GetEnvironmentVariable("TEMP");
+                FileInfo file = new FileInfo(tempFolder + @"\" + FileName + ".xls");
+                int j = 1;
+                while (file.Exists == true)
+                {
+                    file = new FileInfo(tempFolder + @"\" + FileName + "(" + j++ + ").xls");
+                }
+
+                PackagesReportName = file.FullName;
+                FileStream NewFile = new FileStream(file.FullName, FileMode.Create);
+                hssfworkbook.Write(NewFile);
+                NewFile.Close();
+
+                if (ClientID == 145)
+                {
+                    //Send(file.FullName, "horuz9@list.ru");
+                    //Send(file.FullName, "zovvozvrat@mail.ru");
+                    //Send(file.FullName, "romanchukgrad@gmail.com");
+                    //Send(file.FullName, "nsq@tut.by");
+                }
+                if (NeedOpen)
+                    System.Diagnostics.Process.Start(file.FullName);
+            }
+
+
+            else
+            {
+                if (bNeedProfilList && bNeedTPSList)
+                {
+                    if (ProfilMainOrders.Count() > 0 && TPSMainOrders.Count() > 0)
+                    {
+                        FactoryID = 1;
+                        if (Fill(ProfilMainOrders, FactoryID))
+                        {
+                            CreateExcel(ref hssfworkbook, ProfilMainOrders, 1, "Профиль", ClientName, ProfilOrderNumber);
+                        }
+
+                        FactoryID = 2;
+                        if (Fill(TPSMainOrders, FactoryID))
+                        {
+                            CreateExcel(ref hssfworkbook, TPSMainOrders, 2, "ТПС", ClientName, TPSOrderNumber);
+                        }
+                    }
+                    if (ProfilMainOrders.Count() > 0 && TPSMainOrders.Count() < 1)
+                    {
+                        FactoryID = 1;
+                        if (Fill(ProfilMainOrders, FactoryID))
+                        {
+                            CreateExcel(ref hssfworkbook, ProfilMainOrders, 1, "Профиль", ClientName, ProfilOrderNumber);
+                        }
+                    }
+                    if (ProfilMainOrders.Count() < 1 && TPSMainOrders.Count() > 0)
+                    {
+                        FactoryID = 2;
+                        if (Fill(TPSMainOrders, FactoryID))
+                        {
+                            CreateExcel(ref hssfworkbook, TPSMainOrders, 2, "ТПС", ClientName, TPSOrderNumber);
+                        }
+                    }
+                }
+
+                if (bNeedProfilList && !bNeedTPSList)
+                {
+                    if (ProfilMainOrders.Count() > 0)
+                    {
+                        FactoryID = 1;
+                        Firm = "Профиль";
+                        if (Fill(ProfilMainOrders, FactoryID))
+                        {
+                            CreateExcel(ref hssfworkbook, ProfilMainOrders, 1, "Профиль", ClientName, ProfilOrderNumber);
+                        }
+                    }
+                }
+
+                if (!bNeedProfilList && bNeedTPSList)
+                {
+                    if (TPSMainOrders.Count() > 0)
+                    {
+                        FactoryID = 2;
+                        Firm = "ТПС";
+                        if (Fill(TPSMainOrders, FactoryID))
+                        {
+                            CreateExcel(ref hssfworkbook, TPSMainOrders, 2, "ТПС", ClientName, TPSOrderNumber);
+                        }
+                    }
+                }
+
+                ClientName = ClientName.Replace('\"', '\'');
+
+                string FileName = ClientName + " № " + FileOrderNumber + " " + Firm;
+                if (ClientID == 145)
+                {
+                    Firm = "(Profil+TPS)";
+                    if (bNeedProfilList && !bNeedTPSList)
+                        Firm = "(Profil)";
+                    if (!bNeedProfilList && bNeedTPSList)
+                        Firm = "(TPS)";
+                    FileName = "Furniture " + Convert.ToDateTime(PrepareDispatchDateTime).ToString("dd.MM.yyyy") + " " + Firm;
+                }
+
+                string tempFolder = System.Environment.GetEnvironmentVariable("TEMP");
+                FileInfo file = new FileInfo(tempFolder + @"\" + FileName + ".xls");
+                int j = 1;
+                while (file.Exists == true)
+                {
+                    file = new FileInfo(tempFolder + @"\" + FileName + "(" + j++ + ").xls");
+                }
+
+                PackagesReportName = file.FullName;
+                FileStream NewFile = new FileStream(file.FullName, FileMode.Create);
+                hssfworkbook.Write(NewFile);
+                NewFile.Close();
+
+                if (ClientID == 145)
+                {
+                    //Send(file.FullName, "horuz9@list.ru");
                     //Send(file.FullName, "zovvozvrat@mail.ru");
                     //Send(file.FullName, "romanchukgrad@gmail.com");
                     //Send(file.FullName, "nsq@tut.by");
@@ -10125,7 +12187,122 @@ namespace Infinium.Modules.Marketing.Expedition
                 TPSOrderNumber = TPSOrderNumber.Substring(0, TPSOrderNumber.Length - 2);
             }
 
-            //string Firm = "ЗОВ-Профиль+ЗОВ-ТПС";
+
+            WorkbookFontsAndStyles excelFonts = new WorkbookFontsAndStyles();
+
+            #region
+            excelFonts.MainFont = hssfworkbook.CreateFont();
+            excelFonts.MainFont.FontHeightInPoints = 12;
+            excelFonts.MainFont.Boldweight = HSSFFont.BOLDWEIGHT_BOLD;
+            excelFonts.MainFont.FontName = "Calibri";
+
+            excelFonts.MainStyle = hssfworkbook.CreateCellStyle();
+            excelFonts.MainStyle.SetFont(excelFonts.MainFont);
+
+            excelFonts.HeaderFont = hssfworkbook.CreateFont();
+            excelFonts.HeaderFont.Boldweight = 8 * 256;
+            excelFonts.HeaderFont.FontName = "Calibri";
+
+            excelFonts.HeaderStyle = hssfworkbook.CreateCellStyle();
+            excelFonts.HeaderStyle.BorderBottom = HSSFCellStyle.BORDER_THIN;
+            excelFonts.HeaderStyle.BottomBorderColor = HSSFColor.BLACK.index;
+            excelFonts.HeaderStyle.BorderLeft = HSSFCellStyle.BORDER_THIN;
+            excelFonts.HeaderStyle.LeftBorderColor = HSSFColor.BLACK.index;
+            excelFonts.HeaderStyle.BorderRight = HSSFCellStyle.BORDER_THIN;
+            excelFonts.HeaderStyle.RightBorderColor = HSSFColor.BLACK.index;
+            excelFonts.HeaderStyle.BorderTop = HSSFCellStyle.BORDER_THIN;
+            excelFonts.HeaderStyle.TopBorderColor = HSSFColor.BLACK.index;
+            excelFonts.HeaderStyle.SetFont(excelFonts.HeaderFont);
+
+            excelFonts.PackNumberFont = hssfworkbook.CreateFont();
+            excelFonts.PackNumberFont.Boldweight = 8 * 256;
+            excelFonts.PackNumberFont.FontName = "Calibri";
+
+            excelFonts.PackNumberStyle = hssfworkbook.CreateCellStyle();
+            excelFonts.PackNumberStyle.BorderBottom = HSSFCellStyle.BORDER_THIN;
+            excelFonts.PackNumberStyle.BottomBorderColor = HSSFColor.BLACK.index;
+            excelFonts.PackNumberStyle.BorderLeft = HSSFCellStyle.BORDER_THIN;
+            excelFonts.PackNumberStyle.LeftBorderColor = HSSFColor.BLACK.index;
+            excelFonts.PackNumberStyle.BorderRight = HSSFCellStyle.BORDER_THIN;
+            excelFonts.PackNumberStyle.RightBorderColor = HSSFColor.BLACK.index;
+            excelFonts.PackNumberStyle.BorderTop = HSSFCellStyle.BORDER_THIN;
+            excelFonts.PackNumberStyle.TopBorderColor = HSSFColor.BLACK.index;
+            excelFonts.PackNumberStyle.Alignment = HSSFCellStyle.ALIGN_CENTER;
+            excelFonts.PackNumberStyle.VerticalAlignment = HSSFCellStyle.VERTICAL_CENTER;
+            excelFonts.PackNumberStyle.SetFont(excelFonts.PackNumberFont);
+
+            excelFonts.SimpleFont = hssfworkbook.CreateFont();
+            excelFonts.SimpleFont.FontHeightInPoints = 8;
+            excelFonts.SimpleFont.FontName = "Calibri";
+
+            excelFonts.ComplaintFont = hssfworkbook.CreateFont();
+            excelFonts.ComplaintFont.Boldweight = 8 * 256;
+            excelFonts.ComplaintFont.FontName = "Calibri";
+            excelFonts.ComplaintFont.IsItalic = true;
+
+            excelFonts.ComplaintCellStyle = hssfworkbook.CreateCellStyle();
+            excelFonts.ComplaintCellStyle.BorderBottom = HSSFCellStyle.BORDER_THIN;
+            excelFonts.ComplaintCellStyle.BottomBorderColor = HSSFColor.BLACK.index;
+            excelFonts.ComplaintCellStyle.BorderLeft = HSSFCellStyle.BORDER_THIN;
+            excelFonts.ComplaintCellStyle.LeftBorderColor = HSSFColor.BLACK.index;
+            excelFonts.ComplaintCellStyle.BorderRight = HSSFCellStyle.BORDER_THIN;
+            excelFonts.ComplaintCellStyle.RightBorderColor = HSSFColor.BLACK.index;
+            excelFonts.ComplaintCellStyle.BorderTop = HSSFCellStyle.BORDER_THIN;
+            excelFonts.ComplaintCellStyle.TopBorderColor = HSSFColor.BLACK.index;
+            excelFonts.ComplaintCellStyle.SetFont(excelFonts.ComplaintFont);
+
+            excelFonts.GreyComplaintCellStyle = hssfworkbook.CreateCellStyle();
+            excelFonts.GreyComplaintCellStyle.BorderBottom = HSSFCellStyle.BORDER_THIN;
+            excelFonts.GreyComplaintCellStyle.BottomBorderColor = HSSFColor.BLACK.index;
+            excelFonts.GreyComplaintCellStyle.BorderLeft = HSSFCellStyle.BORDER_THIN;
+            excelFonts.GreyComplaintCellStyle.LeftBorderColor = HSSFColor.BLACK.index;
+            excelFonts.GreyComplaintCellStyle.BorderRight = HSSFCellStyle.BORDER_THIN;
+            excelFonts.GreyComplaintCellStyle.RightBorderColor = HSSFColor.BLACK.index;
+            excelFonts.GreyComplaintCellStyle.BorderTop = HSSFCellStyle.BORDER_THIN;
+            excelFonts.GreyComplaintCellStyle.TopBorderColor = HSSFColor.BLACK.index;
+            excelFonts.GreyComplaintCellStyle.FillForegroundColor = NPOI.HSSF.Util.HSSFColor.GREY_25_PERCENT.index;
+            excelFonts.GreyComplaintCellStyle.FillPattern = HSSFCellStyle.SOLID_FOREGROUND;
+            excelFonts.GreyComplaintCellStyle.FillBackgroundColor = NPOI.HSSF.Util.HSSFColor.YELLOW.index;
+            excelFonts.GreyComplaintCellStyle.SetFont(excelFonts.ComplaintFont);
+
+            excelFonts.SimpleCellStyle = hssfworkbook.CreateCellStyle();
+            excelFonts.SimpleCellStyle.BorderBottom = HSSFCellStyle.BORDER_THIN;
+            excelFonts.SimpleCellStyle.BottomBorderColor = HSSFColor.BLACK.index;
+            excelFonts.SimpleCellStyle.BorderLeft = HSSFCellStyle.BORDER_THIN;
+            excelFonts.SimpleCellStyle.LeftBorderColor = HSSFColor.BLACK.index;
+            excelFonts.SimpleCellStyle.BorderRight = HSSFCellStyle.BORDER_THIN;
+            excelFonts.SimpleCellStyle.RightBorderColor = HSSFColor.BLACK.index;
+            excelFonts.SimpleCellStyle.BorderTop = HSSFCellStyle.BORDER_THIN;
+            excelFonts.SimpleCellStyle.TopBorderColor = HSSFColor.BLACK.index;
+            excelFonts.SimpleCellStyle.SetFont(excelFonts.SimpleFont);
+
+            excelFonts.GreyCellStyle = hssfworkbook.CreateCellStyle();
+            excelFonts.GreyCellStyle.BorderBottom = HSSFCellStyle.BORDER_THIN;
+            excelFonts.GreyCellStyle.BottomBorderColor = HSSFColor.BLACK.index;
+            excelFonts.GreyCellStyle.BorderLeft = HSSFCellStyle.BORDER_THIN;
+            excelFonts.GreyCellStyle.LeftBorderColor = HSSFColor.BLACK.index;
+            excelFonts.GreyCellStyle.BorderRight = HSSFCellStyle.BORDER_THIN;
+            excelFonts.GreyCellStyle.RightBorderColor = HSSFColor.BLACK.index;
+            excelFonts.GreyCellStyle.BorderTop = HSSFCellStyle.BORDER_THIN;
+            excelFonts.GreyCellStyle.TopBorderColor = HSSFColor.BLACK.index;
+            excelFonts.GreyCellStyle.FillForegroundColor = NPOI.HSSF.Util.HSSFColor.GREY_25_PERCENT.index;
+            excelFonts.GreyCellStyle.FillPattern = HSSFCellStyle.SOLID_FOREGROUND;
+            excelFonts.GreyCellStyle.FillBackgroundColor = NPOI.HSSF.Util.HSSFColor.YELLOW.index;
+            excelFonts.GreyCellStyle.SetFont(excelFonts.SimpleFont);
+
+            excelFonts.TotalFont = hssfworkbook.CreateFont();
+            excelFonts.TotalFont.FontHeightInPoints = 12;
+            excelFonts.TotalFont.FontName = "Calibri";
+
+            excelFonts.TotalStyle = hssfworkbook.CreateCellStyle();
+            excelFonts.TotalStyle.BorderTop = HSSFCellStyle.BORDER_MEDIUM;
+            excelFonts.TotalStyle.TopBorderColor = HSSFColor.BLACK.index;
+            excelFonts.TotalStyle.SetFont(excelFonts.TotalFont);
+
+            excelFonts.TempStyle = hssfworkbook.CreateCellStyle();
+            excelFonts.TempStyle.SetFont(excelFonts.TotalFont);
+
+            #endregion
 
             ClientName = ClientName.Replace('/', '-');
 
@@ -10157,7 +12334,7 @@ namespace Infinium.Modules.Marketing.Expedition
                             CreateExcel(ref hssfworkbook, TPSMainOrders, 2, "ЗОВ-ТПС", ClientName, TPSOrderNumber);
                         }
 
-                        PackingReport.CreateReport(ref hssfworkbook, OrdersID, Dispatches, Convert.ToDateTime(PrepareDispatchDateTime).ToString("dd.MM.yyyy"), ClientName, ClientID, 0);
+                        PackingReport.CreateReport(ref hssfworkbook, excelFonts, OrdersID, Dispatches, Convert.ToDateTime(PrepareDispatchDateTime).ToString("dd.MM.yyyy"), ClientName, ClientID, 0);
                     }
                     if (ProfilMainOrders.Count() > 0 && TPSMainOrders.Count() < 1)
                     {
@@ -10165,7 +12342,7 @@ namespace Infinium.Modules.Marketing.Expedition
                         if (Fill(ProfilMainOrders, FactoryID))
                         {
                             CreateExcel(ref hssfworkbook, ProfilMainOrders, 1, "ЗОВ-Профиль", ClientName, ProfilOrderNumber);
-                            PackingReport.CreateReport(ref hssfworkbook, OrdersID, Dispatches, Convert.ToDateTime(PrepareDispatchDateTime).ToString("dd.MM.yyyy"), ClientName, ClientID, FactoryID);
+                            PackingReport.CreateReport(ref hssfworkbook, excelFonts, OrdersID, Dispatches, Convert.ToDateTime(PrepareDispatchDateTime).ToString("dd.MM.yyyy"), ClientName, ClientID, FactoryID);
                         }
                     }
                     if (ProfilMainOrders.Count() < 1 && TPSMainOrders.Count() > 0)
@@ -10174,7 +12351,7 @@ namespace Infinium.Modules.Marketing.Expedition
                         if (Fill(TPSMainOrders, FactoryID))
                         {
                             CreateExcel(ref hssfworkbook, TPSMainOrders, 2, "ЗОВ-ТПС", ClientName, TPSOrderNumber);
-                            PackingReport.CreateReport(ref hssfworkbook, OrdersID, Dispatches, Convert.ToDateTime(PrepareDispatchDateTime).ToString("dd.MM.yyyy"), ClientName, ClientID, FactoryID);
+                            PackingReport.CreateReport(ref hssfworkbook, excelFonts, OrdersID, Dispatches, Convert.ToDateTime(PrepareDispatchDateTime).ToString("dd.MM.yyyy"), ClientName, ClientID, FactoryID);
                         }
                     }
                 }
@@ -10187,7 +12364,7 @@ namespace Infinium.Modules.Marketing.Expedition
                         if (Fill(ProfilMainOrders, FactoryID))
                         {
                             CreateExcel(ref hssfworkbook, ProfilMainOrders, 1, "ЗОВ-Профиль", ClientName, ProfilOrderNumber);
-                            PackingReport.CreateReport(ref hssfworkbook, OrdersID, Dispatches, Convert.ToDateTime(PrepareDispatchDateTime).ToString("dd.MM.yyyy"), ClientName, ClientID, FactoryID);
+                            PackingReport.CreateReport(ref hssfworkbook, excelFonts, OrdersID, Dispatches, Convert.ToDateTime(PrepareDispatchDateTime).ToString("dd.MM.yyyy"), ClientName, ClientID, FactoryID);
                         }
                     }
                 }
@@ -10200,7 +12377,7 @@ namespace Infinium.Modules.Marketing.Expedition
                         if (Fill(TPSMainOrders, FactoryID))
                         {
                             CreateExcel(ref hssfworkbook, TPSMainOrders, 2, "ЗОВ-ТПС", ClientName, TPSOrderNumber);
-                            PackingReport.CreateReport(ref hssfworkbook, OrdersID, Dispatches, Convert.ToDateTime(PrepareDispatchDateTime).ToString("dd.MM.yyyy"), ClientName, ClientID, FactoryID);
+                            PackingReport.CreateReport(ref hssfworkbook, excelFonts, OrdersID, Dispatches, Convert.ToDateTime(PrepareDispatchDateTime).ToString("dd.MM.yyyy"), ClientName, ClientID, FactoryID);
                         }
                     }
                 }
@@ -10824,6 +13001,25 @@ namespace Infinium.Modules.Marketing.Expedition
         }
     }
 
+
+    public class WorkbookFontsAndStyles
+    {
+        public HSSFFont MainFont;
+        public HSSFCellStyle MainStyle;
+        public HSSFFont HeaderFont;
+        public HSSFCellStyle HeaderStyle;
+        public HSSFFont ComplaintFont;
+        public HSSFCellStyle ComplaintCellStyle;
+        public HSSFCellStyle GreyComplaintCellStyle;
+        public HSSFFont PackNumberFont;
+        public HSSFCellStyle PackNumberStyle;
+        public HSSFFont SimpleFont;
+        public HSSFCellStyle SimpleCellStyle;
+        public HSSFCellStyle GreyCellStyle;
+        public HSSFCellStyle TotalStyle;
+        public HSSFFont TotalFont;
+        public HSSFCellStyle TempStyle;
+    }
 
     public class NotReadyPackagesCount
     {

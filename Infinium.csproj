@@ -773,6 +773,12 @@
     <Compile Include="Modules\ExpeditionMarketing\InputNewDecorCountForm.designer.cs">
       <DependentUpon>InputNewDecorCountForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Modules\ExpeditionMarketing\MarketingNewCabFurMenu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\ExpeditionMarketing\MarketingNewCabFurMenu.designer.cs">
+      <DependentUpon>MarketingNewCabFurMenu.cs</DependentUpon>
+    </Compile>
     <Compile Include="Modules\ExpeditionMarketing\ReaddressMarketingDispatchMenu.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -2244,6 +2250,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Modules\ExpeditionMarketing\InputNewDecorCountForm.resx">
       <DependentUpon>InputNewDecorCountForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\ExpeditionMarketing\MarketingNewCabFurMenu.resx">
+      <DependentUpon>MarketingNewCabFurMenu.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Modules\ExpeditionMarketing\ReaddressMarketingDispatchMenu.resx">
       <DependentUpon>ReaddressMarketingDispatchMenu.cs</DependentUpon>

@@ -73,6 +73,7 @@ namespace Infinium
 
         DecorCatalogOrder DecorCatalogOrder;
         DispatchReport DispatchReport;
+        CabFurDispatch CabFurDispatchManager;
         MarketingDispatch MarketingDispatchManager;
         DBFReport DBFReport;
         Infinium.Modules.Marketing.Dispatch.DetailsReport DetailsReport;
@@ -241,6 +242,7 @@ namespace Infinium
             RolePermissionsDataTable = RolesAndPermissionsManager.GetPermissions(Security.CurrentUserID);
             MoveFromPermits = true;
             Initialize();
+            pnlExpedition.BringToFront();
 
             while (!SplashForm.bCreated) ;
         }
@@ -423,6 +425,10 @@ namespace Infinium
             cbxMonths.ValueMember = "MonthID";
             cbxMonths.DisplayMember = "MonthName";
 
+            cbxCabFurMonths.DataSource = MonthsDT.DefaultView;
+            cbxCabFurMonths.ValueMember = "MonthID";
+            cbxCabFurMonths.DisplayMember = "MonthName";
+
             DateTime LastDay = new System.DateTime(DateTime.Now.Year + 1, 12, 31);
             System.Collections.ArrayList Years = new System.Collections.ArrayList();
             for (int i = 2013; i <= LastDay.Year; i++)
@@ -437,20 +443,33 @@ namespace Infinium
             cbxYears.ValueMember = "YearID";
             cbxYears.DisplayMember = "YearName";
 
+            cbxCabFurYears.DataSource = YearsDT.DefaultView;
+            cbxCabFurYears.ValueMember = "YearID";
+            cbxCabFurYears.DisplayMember = "YearName";
+
             cbxMonths.SelectedValue = DateTime.Now.Month;
             cbxYears.SelectedValue = DateTime.Now.Year;
+
+            cbxCabFurMonths.SelectedValue = DateTime.Now.Month;
+            cbxCabFurYears.SelectedValue = DateTime.Now.Year;
 
             DBFReport = new DBFReport(ref DecorCatalogOrder);
             OrdersCalculate = new OrdersCalculate();
             DetailsReport = new Modules.Marketing.Dispatch.DetailsReport(ref DecorCatalogOrder, ref OrdersCalculate.FrontsCalculate);
             MarketingDispatchManager = new MarketingDispatch();
-
+            CabFurDispatchManager = new CabFurDispatch();
             iDBFReport = new InvoiceReportToDBF(ref DecorCatalogOrder, ref OrdersCalculate.FrontsCalculate);
 
             MarketingDispatchManager.Initialize();
+            CabFurDispatchManager.Initialize();
+
             dgvDispatchSetting();
             dgvDispatchDatesSetting();
+            dgvCabFurSetting();
+            dgvCabFurDatesSetting();
             dgvMegaOrdersSetting();
+            dgvCabFurMegaOrdersSetting();
+            kryptonCheckSet1_CheckedButtonChanged(null, null);
         }
 
         private void MegaOrdersDataGrid_SelectionChanged(object sender, EventArgs e)
@@ -1139,6 +1158,7 @@ namespace Infinium
         private void MarketingExpeditionForm_Load(object sender, EventArgs e)
         {
             UpdateDispatchDate();
+            UpdateCabFurDispatchDate();
             MenuPanel.BringToFront();
             if (MoveFromPermits)
             {
@@ -1178,12 +1198,118 @@ namespace Infinium
                 flowLayoutPanel3.Visible = false;
                 pnlExpedition.BringToFront();
             }
+            if (kryptonCheckSet1.CheckedButton == cbtnCabFur)
+            {
+                flowLayoutPanel3.Visible = false;
+                pnlCabFur.BringToFront();
+            }
             if (kryptonCheckSet1.CheckedButton == cbtnDispatch)
             {
                 flowLayoutPanel3.Visible = true;
                 pnlDispatch.BringToFront();
             }
             MenuPanel.BringToFront();
+        }
+
+        private void dgvCabFurSetting()
+        {
+            dgvCabFur.DataSource = CabFurDispatchManager.DispatchList;
+
+            foreach (DataGridViewColumn Column in dgvCabFur.Columns)
+            {
+                Column.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            }
+
+            dgvCabFur.AutoGenerateColumns = false;
+
+            //dgvDispatch.Columns["DispatchID"].Visible = false;
+            dgvCabFur.Columns["ClientID"].Visible = false;
+            dgvCabFur.Columns["NewClientID"].Visible = false;
+            dgvCabFur.Columns["ConfirmExpUserID"].Visible = false;
+            dgvCabFur.Columns["ConfirmDispUserID"].Visible = false;
+            dgvCabFur.Columns["PrepareDispatchDateTime"].Visible = false;
+
+            if (dgvCabFur.Columns.Contains("InMutualSettlement"))
+                dgvCabFur.Columns["InMutualSettlement"].Visible = false;
+            if (dgvCabFur.Columns.Contains("ProfilMutualSettlementID"))
+                dgvCabFur.Columns["ProfilMutualSettlementID"].Visible = false;
+            if (dgvCabFur.Columns.Contains("TPSMutualSettlementID"))
+                dgvCabFur.Columns["TPSMutualSettlementID"].Visible = false;
+
+            dgvCabFur.Columns["CreationDateTime"].DefaultCellStyle.Format = "dd.MM.yyyy HH:mm";
+            dgvCabFur.Columns["ConfirmDispDateTime"].DefaultCellStyle.Format = "dd.MM.yyyy HH:mm";
+            dgvCabFur.Columns["RealDispDateTime"].DefaultCellStyle.Format = "dd.MM.yyyy HH:mm";
+            
+            dgvCabFur.Columns["ClientName"].HeaderText = "Клиент";
+            dgvCabFur.Columns["Weight"].HeaderText = "Вес, кг";
+            dgvCabFur.Columns["CreationDateTime"].HeaderText = "Дата\r\nсоздания";
+            dgvCabFur.Columns["DispPackagesCount"].HeaderText = "Кол-во\r\nупаковок";
+            dgvCabFur.Columns["DispatchStatus"].HeaderText = "Статус";
+            dgvCabFur.Columns["ConfirmExpDateTime"].HeaderText = "Эксп-ция\r\nутверждена";
+            dgvCabFur.Columns["ConfirmDispDateTime"].HeaderText = "Отгрузка\r\nутверждена";
+            dgvCabFur.Columns["RealDispDateTime"].HeaderText = "Дата отгрузки";
+            dgvCabFur.Columns["DispatchID"].HeaderText = "№ отгр.";
+            
+            dgvCabFur.Columns["InMutualSettlement"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            dgvCabFur.Columns["InMutualSettlement"].Width = 80;
+            dgvCabFur.Columns["DispatchID"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            dgvCabFur.Columns["DispatchID"].Width = 80;
+            dgvCabFur.Columns["Weight"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            dgvCabFur.Columns["Weight"].Width = 80;
+            dgvCabFur.Columns["ClientName"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            dgvCabFur.Columns["ClientName"].MinimumWidth = 200;
+            dgvCabFur.Columns["RealDispDateTime"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            dgvCabFur.Columns["RealDispDateTime"].Width = 130;
+            dgvCabFur.Columns["CreationDateTime"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            dgvCabFur.Columns["CreationDateTime"].Width = 130;
+            dgvCabFur.Columns["DispPackagesCount"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            dgvCabFur.Columns["DispPackagesCount"].Width = 90;
+            dgvCabFur.Columns["DispatchStatus"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            dgvCabFur.Columns["DispatchStatus"].Width = 200;
+            dgvCabFur.Columns["ConfirmExpDateTime"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            dgvCabFur.Columns["ConfirmExpDateTime"].Width = 130;
+            dgvCabFur.Columns["ConfirmDispDateTime"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            dgvCabFur.Columns["ConfirmDispDateTime"].Width = 130;
+
+            int DisplayIndex = 0;
+            dgvCabFur.Columns["ClientName"].DisplayIndex = DisplayIndex++;
+            dgvCabFur.Columns["CreationDateTime"].DisplayIndex = DisplayIndex++;
+            dgvCabFur.Columns["DispPackagesCount"].DisplayIndex = DisplayIndex++;
+            dgvCabFur.Columns["Weight"].DisplayIndex = DisplayIndex++;
+            dgvCabFur.Columns["DispatchStatus"].DisplayIndex = DisplayIndex++;
+            dgvCabFur.Columns["ConfirmExpDateTime"].DisplayIndex = DisplayIndex++;
+            dgvCabFur.Columns["ConfirmDispDateTime"].DisplayIndex = DisplayIndex++;
+            dgvCabFur.Columns["RealDispDateTime"].DisplayIndex = DisplayIndex++;
+            dgvCabFur.Columns["DispatchID"].DisplayIndex = DisplayIndex++;
+            
+            dgvCabFur.Columns["DispPackagesCount"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+        }
+
+        private void dgvCabFurDatesSetting()
+        {
+            dgvCabFurDates.DataSource = CabFurDispatchManager.DispatchDatesList;
+
+            dgvCabFurDates.AutoGenerateColumns = false;
+
+            if (dgvCabFurDates.Columns.Contains("PrepareDateTime"))
+            {
+                dgvCabFurDates.Columns["PrepareDateTime"].DefaultCellStyle.Format = "dd MMMM dddd";
+                dgvCabFurDates.Columns["PrepareDateTime"].MinimumWidth = 150;
+                dgvCabFurDates.Columns["PrepareDateTime"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                dgvCabFurDates.Columns["PrepareDateTime"].DisplayIndex = 0;
+            }
+            if (dgvCabFurDates.Columns.Contains("WeekNumber"))
+            {
+                dgvCabFurDates.Columns["WeekNumber"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+                dgvCabFurDates.Columns["WeekNumber"].Width = 70;
+                dgvCabFurDates.Columns["WeekNumber"].DisplayIndex = 1;
+            }
+            if (dgvCabFurDates.Columns.Contains("DateName"))
+            {
+                dgvCabFurDates.Columns["DateName"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+                dgvCabFurDates.Columns["DateName"].Width = 100;
+                dgvCabFurDates.Columns["DateName"].DisplayIndex = 2;
+            }
         }
 
         private void dgvDispatchSetting()
@@ -1271,21 +1397,87 @@ namespace Infinium
         {
             dgvDispatchDates.DataSource = MarketingDispatchManager.DispatchDatesList;
 
-            dgvDispatch.AutoGenerateColumns = false;
+            dgvDispatchDates.AutoGenerateColumns = false;
 
-            if (dgvDispatch.Columns.Contains("PrepareDispatchDateTime"))
+            if (dgvDispatchDates.Columns.Contains("PrepareDispatchDateTime"))
             {
                 dgvDispatchDates.Columns["PrepareDispatchDateTime"].DefaultCellStyle.Format = "dd MMMM dddd";
                 dgvDispatchDates.Columns["PrepareDispatchDateTime"].MinimumWidth = 150;
                 dgvDispatchDates.Columns["PrepareDispatchDateTime"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                 dgvDispatchDates.Columns["PrepareDispatchDateTime"].DisplayIndex = 0;
             }
-            if (dgvDispatch.Columns.Contains("WeekNumber"))
+            if (dgvDispatchDates.Columns.Contains("WeekNumber"))
             {
                 dgvDispatchDates.Columns["WeekNumber"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
                 dgvDispatchDates.Columns["WeekNumber"].Width = 70;
                 dgvDispatchDates.Columns["WeekNumber"].DisplayIndex = 1;
             }
+        }
+
+        private void dgvCabFurMegaOrdersSetting()
+        {
+            dgvCabFurMainOrders.DataSource = CabFurDispatchManager.DispatchContentList;
+
+            foreach (DataGridViewColumn Column in dgvCabFurMainOrders.Columns)
+            {
+                Column.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            }
+
+            dgvCabFurMainOrders.AutoGenerateColumns = false;
+
+            if (dgvCabFurMainOrders.Columns.Contains("ClientID"))
+                dgvCabFurMainOrders.Columns["ClientID"].Visible = false;
+            if (dgvCabFurMainOrders.Columns.Contains("FactoryID"))
+                dgvCabFurMainOrders.Columns["FactoryID"].Visible = false;
+            if (dgvCabFurMainOrders.Columns.Contains("ProfilPackAllocStatusID"))
+                dgvCabFurMainOrders.Columns["ProfilPackAllocStatusID"].Visible = false;
+            if (dgvCabFurMainOrders.Columns.Contains("TPSPackAllocStatusID"))
+                dgvCabFurMainOrders.Columns["TPSPackAllocStatusID"].Visible = false;
+            if (dgvCabFurMainOrders.Columns.Contains("MegaOrderID"))
+            {
+                dgvCabFurMainOrders.Columns["MegaOrderID"].Visible = false;
+            }
+            if (dgvCabFurMainOrders.Columns.Contains("OrderNumber"))
+            {
+                dgvCabFurMainOrders.Columns["OrderNumber"].HeaderText = "№ заказа";
+                dgvCabFurMainOrders.Columns["OrderNumber"].Width = 100;
+                dgvCabFurMainOrders.Columns["OrderNumber"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+                dgvCabFurMainOrders.Columns["OrderNumber"].DisplayIndex = 1;
+            }
+            if (dgvCabFurMainOrders.Columns.Contains("MainOrderID"))
+            {
+                dgvCabFurMainOrders.Columns["MainOrderID"].HeaderText = "№ подзаказа";
+                dgvCabFurMainOrders.Columns["MainOrderID"].Width = 100;
+                dgvCabFurMainOrders.Columns["MainOrderID"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+                dgvCabFurMainOrders.Columns["MainOrderID"].DisplayIndex = 2;
+            }
+            dgvCabFurMainOrders.Columns["MegaBatchID"].HeaderText = "Группа партий";
+            dgvCabFurMainOrders.Columns["Square"].HeaderText = "Квадратура";
+            dgvCabFurMainOrders.Columns["Weight"].HeaderText = "Вес";
+            dgvCabFurMainOrders.Columns["AllPackCount"].HeaderText = "  Кол-во\r\nупаковок";
+            dgvCabFurMainOrders.Columns["PackPercentage"].HeaderText = "Упаковано, %";
+            dgvCabFurMainOrders.Columns["StorePercentage"].HeaderText = "Склад, %";
+            dgvCabFurMainOrders.Columns["ExpPercentage"].HeaderText = "Экспедиция, %";
+            dgvCabFurMainOrders.Columns["DispPercentage"].HeaderText = "Отгружено, %";
+            
+            dgvCabFurMainOrders.Columns["MegaBatchID"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            dgvCabFurMainOrders.Columns["MegaBatchID"].Width = 125;
+            dgvCabFurMainOrders.Columns["AllPackCount"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            dgvCabFurMainOrders.Columns["AllPackCount"].Width = 85;
+            dgvCabFurMainOrders.Columns["Weight"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            dgvCabFurMainOrders.Columns["Weight"].Width = 105;
+            dgvCabFurMainOrders.Columns["Square"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            dgvCabFurMainOrders.Columns["Square"].Width = 105;
+            
+            dgvCabFurMainOrders.Columns["PackPercentage"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dgvCabFurMainOrders.AddPercentageColumn("PackPercentage");
+            dgvCabFurMainOrders.Columns["StorePercentage"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dgvCabFurMainOrders.AddPercentageColumn("StorePercentage");
+            dgvCabFurMainOrders.Columns["ExpPercentage"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dgvCabFurMainOrders.AddPercentageColumn("ExpPercentage");
+            dgvCabFurMainOrders.Columns["DispPercentage"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dgvCabFurMainOrders.AddPercentageColumn("DispPercentage");
+
         }
 
         private void dgvMegaOrdersSetting()
@@ -1477,11 +1669,79 @@ namespace Infinium
             }
         }
 
+        private void dgvCabFurDates_SelectionChanged(object sender, EventArgs e)
+        {
+            if (CabFurDispatchManager == null)
+                return;
+            CabFurDispatchManager.ClearDispatch();
+            if (dgvCabFurDates.SelectedRows.Count == 0)
+            {
+                return;
+            }
+            object Date = CabFurDispatchManager.CurrentDispatchDate;
+
+            if (Date != DBNull.Value)
+            {
+                if (NeedSplash)
+                {
+                    Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
+                    T.Start();
+
+                    while (!SplashWindow.bSmallCreated) ;
+                    NeedSplash = false;
+                    //CabFurDispatchManager.GetMegaBatchNumbers(Convert.ToDateTime(Date));
+                    CabFurDispatchManager.GetMainOrdersSquareAndWeight(Convert.ToDateTime(Date));
+                    CabFurDispatchManager.FilterDispatchByDate(Convert.ToDateTime(Date));
+
+                    NeedSplash = true;
+                    while (SplashWindow.bSmallCreated)
+                        SmallWaitForm.CloseS = true;
+                }
+                else
+                {
+                    //CabFurDispatchManager.GetMegaBatchNumbers(Convert.ToDateTime(Date));
+                    CabFurDispatchManager.GetMainOrdersSquareAndWeight(Convert.ToDateTime(Date));
+                    CabFurDispatchManager.FilterDispatchByDate(Convert.ToDateTime(Date));
+                }
+            }
+            else
+            {
+                if (NeedSplash)
+                {
+                    Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
+                    T.Start();
+
+                    while (!SplashWindow.bSmallCreated) ;
+                    NeedSplash = false;
+                    //CabFurDispatchManager.GetMegaBatchNumbers(Convert.ToDateTime(Date));
+                    CabFurDispatchManager.GetMainOrdersSquareAndWeight();
+                    CabFurDispatchManager.FilterDispatchByDate(-1);
+
+                    NeedSplash = true;
+                    while (SplashWindow.bSmallCreated)
+                        SmallWaitForm.CloseS = true;
+                }
+                else
+                {
+                    //CabFurDispatchManager.GetMegaBatchNumbers(Convert.ToDateTime(Date));
+                    CabFurDispatchManager.GetMainOrdersSquareAndWeight();
+                    CabFurDispatchManager.FilterDispatchByDate(-1);
+                }
+            }
+        }
+
         private void UpdateDispatchDate()
         {
             DateTime FilterDate = new DateTime(Convert.ToInt32(cbxYears.SelectedValue), Convert.ToInt32(cbxMonths.SelectedValue), 1);
             MarketingDispatchManager.ClearDispatchDates();
             MarketingDispatchManager.UpdateDispatchDates(FilterDate);
+        }
+
+        private void UpdateCabFurDispatchDate()
+        {
+            DateTime FilterDate = new DateTime(Convert.ToInt32(cbxCabFurYears.SelectedValue), Convert.ToInt32(cbxCabFurMonths.SelectedValue), 1);
+            CabFurDispatchManager.ClearDispatchDates();
+            CabFurDispatchManager.UpdateDispatchDates(FilterDate);
         }
 
         private void cbxMonths_SelectionChangeCommitted(object sender, EventArgs e)
@@ -1492,6 +1752,16 @@ namespace Infinium
         private void cbxYears_SelectionChangeCommitted(object sender, EventArgs e)
         {
             UpdateDispatchDate();
+        }
+
+        private void cbxCabFurMonths_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            UpdateCabFurDispatchDate();
+        }
+
+        private void cbxCabFurYears_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            UpdateCabFurDispatchDate();
         }
 
         private void dgvDispatch_SelectionChanged(object sender, EventArgs e)
@@ -1528,8 +1798,8 @@ namespace Infinium
                     {
                         btnConfirmDispatch.Visible = false;
                         ConfirmDispatchContextMenuItem.Visible = false;
-                        btnConfirmExpedition.Text = "Разрешить эксп-цию";
-                        ConfirmExpContextMenuItem.Text = "Разрешить эксп-цию";
+                        btnConfirmExpedition.Text = "Разрешить\r\nэксп-цию";
+                        ConfirmExpContextMenuItem.Text = "Разрешить\r\nэксп-цию";
                     }
                     else
                     {
@@ -1538,11 +1808,11 @@ namespace Infinium
                             btnConfirmDispatch.Visible = true;
                             ConfirmDispatchContextMenuItem.Visible = true;
                         }
-                        btnConfirmExpedition.Text = "Запретить эксп-цию";
-                        ConfirmExpContextMenuItem.Text = "Запретить эксп-цию";
+                        btnConfirmExpedition.Text = "Запретить\r\nэксп-цию";
+                        ConfirmExpContextMenuItem.Text = "Запретить\r\nэксп-цию";
                     }
-                    btnConfirmDispatch.Text = "Разрешить отгрузку";
-                    ConfirmDispatchContextMenuItem.Text = "Разрешить отгрузку";
+                    btnConfirmDispatch.Text = "Разрешить\r\nотгрузку";
+                    ConfirmDispatchContextMenuItem.Text = "Разрешить\r\nотгрузку";
                 }
                 else
                 {
@@ -1555,16 +1825,16 @@ namespace Infinium
                     ConfirmExpContextMenuItem.Visible = false;
                     if (dgvDispatch.SelectedRows[0].Cells["ConfirmExpDateTime"].Value == DBNull.Value)
                     {
-                        btnConfirmExpedition.Text = "Разрешить эксп-цию";
-                        ConfirmExpContextMenuItem.Text = "Разрешить эксп-цию";
+                        btnConfirmExpedition.Text = "Разрешить\r\nэксп-цию";
+                        ConfirmExpContextMenuItem.Text = "Разрешить\r\nэксп-цию";
                     }
                     else
                     {
-                        btnConfirmExpedition.Text = "Запретить эксп-цию";
-                        ConfirmExpContextMenuItem.Text = "Запретить эксп-цию";
+                        btnConfirmExpedition.Text = "Запретить\r\nэксп-цию";
+                        ConfirmExpContextMenuItem.Text = "Запретить\r\nэксп-цию";
                     }
-                    btnConfirmDispatch.Text = "Запретить отгрузку";
-                    ConfirmDispatchContextMenuItem.Text = "Запретить отгрузку";
+                    btnConfirmDispatch.Text = "Запретить\r\nотгрузку";
+                    ConfirmDispatchContextMenuItem.Text = "Запретить\r\nотгрузку";
                 }
             }
 
@@ -1605,6 +1875,56 @@ namespace Infinium
                 cmiChangeDispatchDate.Visible = false;
                 btnEditDispatch.Visible = false;
             }
+        }
+
+        private void dgvCabFur_SelectionChanged(object sender, EventArgs e)
+        {
+            if (CabFurDispatchManager == null)
+                return;
+            CabFurDispatchManager.ClearDispatchContent();
+            if (dgvCabFur.SelectedRows.Count == 0)
+            {
+                return;
+            }
+            int DispatchID = Convert.ToInt32(dgvCabFur.SelectedRows[0].Cells["DispatchID"].Value);
+
+            if (NeedSplash)
+            {
+                Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
+                T.Start();
+
+                while (!SplashWindow.bSmallCreated) ;
+                NeedSplash = false;
+                CabFurDispatchManager.FilterDispatchContent(DispatchID);
+                CabFurDispatchManager.FillPercColumns(DispatchID);
+                NeedSplash = true;
+                while (SplashWindow.bSmallCreated)
+                    SmallWaitForm.CloseS = true;
+            }
+            else
+            {
+                CabFurDispatchManager.FilterDispatchContent(DispatchID);
+                CabFurDispatchManager.FillPercColumns(DispatchID);
+            }
+            //if (dgvDispatch.SelectedRows.Count > 0 && dgvDispatch.SelectedRows[0].Cells["DispatchStatus"].Value.ToString() == "Отгружена")
+            //{
+            //    btnConfirmDispatch.Visible = false;
+            //    ConfirmDispatchContextMenuItem.Visible = false;
+            //}
+            //if (RoleType == RoleTypes.AdminRole || RoleType == RoleTypes.LogisticsRole)
+            //{
+            //    btnChangeDispatchDate.Visible = true;
+            //    cmiChangeDispatchDate.Visible = true;
+            //    btnEditDispatch.Visible = true;
+            //}
+            //if (dgvDispatch.SelectedRows.Count > 0 && dgvDispatch.SelectedRows[0].Cells["DispatchStatus"].Value.ToString() == "Отгружена")
+            //{
+            //    btnConfirmDispatch.Visible = false;
+            //    ConfirmDispatchContextMenuItem.Visible = false;
+            //    btnChangeDispatchDate.Visible = false;
+            //    cmiChangeDispatchDate.Visible = false;
+            //    btnEditDispatch.Visible = false;
+            //}
         }
 
         private void dgvMegaOrders_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -2341,40 +2661,6 @@ namespace Infinium
 
             while (SplashWindow.bSmallCreated)
                 SmallWaitForm.CloseS = true;
-
-            //int DispatchID = Convert.ToInt32(dgvDispatch.SelectedRows[0].Cells["DispatchID"].Value);
-            //DateTime DispatchDate = Convert.ToDateTime(dgvDispatchDates.SelectedRows[0].Cells["PrepareDispatchDateTime"].Value);
-
-            //if (!MarketingDispatchManager.HasPackages(DispatchID))
-            //{
-            //    InfiniumTips.ShowTip(this, 50, 85, "Отгрузка пуста", 1700);
-            //    return;
-            //}
-
-            //bool Confirm = false;
-            //if (dgvDispatch.SelectedRows[0].Cells["ConfirmDispDateTime"].Value == DBNull.Value)
-            //    Confirm = true;
-            //if (Confirm && dgvDispatch.SelectedRows[0].Cells["ConfirmExpDateTime"].Value == DBNull.Value)
-            //{
-            //    InfiniumTips.ShowTip(this, 50, 85, "Отгрузка не утверждена к экспедиции", 1700);
-            //    return;
-            //}
-
-            //Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
-            //T.Start();
-
-            //while (!SplashWindow.bSmallCreated) ;
-
-            //NeedSplash = false;
-
-            //MarketingDispatchManager.SaveConfirmDispInfo(DispatchID, Confirm);
-            //UpdateDispatchDate();
-            //MarketingDispatchManager.MoveToDispatchDate(DispatchDate);
-            //MarketingDispatchManager.MoveToDispatch(DispatchID);
-            //NeedSplash = true;
-
-            //while (SplashWindow.bSmallCreated)
-            //    SmallWaitForm.CloseS = true;
         }
 
         private void ConfirmExpContextMenuItem_Click(object sender, EventArgs e)
@@ -2421,40 +2707,48 @@ namespace Infinium
 
             while (SplashWindow.bSmallCreated)
                 SmallWaitForm.CloseS = true;
+        }
 
-            //if (!MarketingDispatchManager.HasPackages(DispatchID))
-            //{
-            //    InfiniumTips.ShowTip(this, 50, 85, "Отгрузка пуста", 1700);
-            //    return;
-            //}
+        private void ChangeCabFurDate_Click(object sender, EventArgs e)
+        {
+            if (dgvCabFur.Rows.Count == 0)
+                return;
 
-            //bool Confirm = false;
-            //if (dgvDispatch.SelectedRows[0].Cells["ConfirmExpDateTime"].Value == DBNull.Value)
-            //    Confirm = true;
+            int DispatchID = Convert.ToInt32(dgvCabFur.SelectedRows[0].Cells["DispatchID"].Value);
+            object DispatchDate = null;
 
-            //if (Confirm && !MarketingDispatchManager.IsDispatchCanExp(DispatchID))
-            //{
-            //    Infinium.LightMessageBox.Show(ref TopForm, false,
-            //            "Запрещено: не вся продукция принята на склад.",
-            //            "Разрешить экспедицию");
-            //    return;
-            //}
+            PhantomForm PhantomForm = new Infinium.PhantomForm();
+            PhantomForm.Show();
 
-            //Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
-            //T.Start();
+            MarketingNewCabFurMenu marketingNewCabFurMenu = new MarketingNewCabFurMenu(this);
+            TopForm = marketingNewCabFurMenu;
+            marketingNewCabFurMenu.ShowDialog();
 
-            //while (!SplashWindow.bSmallCreated) ;
+            bool bOk = marketingNewCabFurMenu.DialogResult == DialogResult.OK ? true : false;
+            DispatchDate = marketingNewCabFurMenu.DispatchDate;
 
-            //NeedSplash = false;
+            PhantomForm.Close();
+            PhantomForm.Dispose();
+            marketingNewCabFurMenu.Dispose();
+            TopForm = null;
 
-            //MarketingDispatchManager.SaveConfirmExpInfo(DispatchID, Confirm);
-            //UpdateDispatchDate();
-            //MarketingDispatchManager.MoveToDispatchDate(DispatchDate);
-            //MarketingDispatchManager.MoveToDispatch(DispatchID);
-            //NeedSplash = true;
+            if (bOk && DispatchDate != null)
+            {
+                Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
+                T.Start();
 
-            //while (SplashWindow.bSmallCreated)
-            //    SmallWaitForm.CloseS = true;
+                while (!SplashWindow.bSmallCreated) ;
+
+                NeedSplash = false;
+                CabFurDispatchManager.ChangeDispatchDate(DispatchID, DispatchDate);
+                UpdateCabFurDispatchDate();
+                CabFurDispatchManager.MoveToDispatchDate(Convert.ToDateTime(DispatchDate));
+                CabFurDispatchManager.MoveToDispatch(DispatchID);
+                NeedSplash = true;
+
+                while (SplashWindow.bSmallCreated)
+                    SmallWaitForm.CloseS = true;
+            }
         }
 
         private void cmiChangeDispatchDate_Click(object sender, EventArgs e)
@@ -4223,7 +4517,9 @@ namespace Infinium
                 DispatchID = Convert.ToInt32(dgvDispatch.SelectedRows[0].Cells["DispatchID"].Value);
             if (DispatchID != 0 && MainOrders.Count() > 0)
             {
-                MarketingExpeditionManager.MoveMainOrdersToAnotherDispatch(MainOrders, DispatchID);
+                int NewDispatchID = MarketingExpeditionManager.MoveMainOrdersToAnotherDispatch(MainOrders, DispatchID);
+                if (NewDispatchID != 0 && CabFurDispatchManager.IsCabFur(NewDispatchID))
+                    CabFurDispatchManager.ChangeDispatchDate(NewDispatchID, null);
                 UpdateDispatchDate();
                 MarketingDispatchManager.MoveToDispatchDate(DispatchDate);
                 MarketingDispatchManager.MoveToDispatch(DispatchID);
@@ -4487,6 +4783,229 @@ namespace Infinium
         private void kryptonButton7_Click(object sender, EventArgs e)
         {
             CheckOrdersStatus.SetToNotPack(GetSelectedPackages());
+        }
+
+        private void dgvCabFur_RowPrePaint(object sender, DataGridViewRowPrePaintEventArgs e)
+        {
+
+        }
+
+        private void dgvCabFur_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if ((RoleType != RoleTypes.OrdinaryRole) && e.Button == System.Windows.Forms.MouseButtons.Right)
+            {
+                dgvCabFur.Rows[e.RowIndex].Selected = true;
+                kryptonContextMenu8.Show(new Point(Cursor.Position.X - 212, Cursor.Position.Y - 10));
+            }
+        }
+
+        private void kryptonContextMenuItem18_Click(object sender, EventArgs e)
+        {
+            if (dgvCabFur.SelectedRows.Count == 0)
+                return;
+            int DispatchID = Convert.ToInt32(dgvCabFur.SelectedRows[0].Cells["DispatchID"].Value);
+
+            object PrepareDispatchDateTime = MarketingDispatchManager.GetPrepareDispatchDateTime(DispatchID);
+            if (PrepareDispatchDateTime != DBNull.Value)
+            {
+                Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
+                T.Start();
+
+                while (!SplashWindow.bSmallCreated) ;
+
+                NeedSplash = false;
+
+                cbxYears.SelectedValue = Convert.ToDateTime(PrepareDispatchDateTime).Year;
+                cbxMonths.SelectedValue = Convert.ToDateTime(PrepareDispatchDateTime).Month;
+                UpdateDispatchDate();
+                MarketingDispatchManager.MoveToDispatchDate(Convert.ToDateTime(PrepareDispatchDateTime));
+                MarketingDispatchManager.MoveToDispatch(DispatchID);
+                cbtnDispatch.Checked = true;
+                kryptonCheckSet1_CheckedButtonChanged(null, null);
+
+                NeedSplash = true;
+
+                while (SplashWindow.bSmallCreated)
+                    SmallWaitForm.CloseS = true;
+            }
+            else
+            {
+                Infinium.LightMessageBox.Show(ref TopForm, false,
+                        "Не найдено в отгрузке",
+                        "Поиск отгрузки");
+                return;
+            }
+        }
+
+        /// <summary>
+        /// Отгрузочная ведомость для корпусной мебели
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void kryptonContextMenuItem22_Click(object sender, EventArgs e)
+        {
+            bool NeedProfilList = true;
+            bool NeedTPSList = true;
+            int ClientID = Convert.ToInt32(dgvCabFur.SelectedRows[0].Cells["ClientID"].Value);
+            int DispatchID = Convert.ToInt32(dgvCabFur.SelectedRows[0].Cells["DispatchID"].Value);
+            DateTime DispatchDate = Convert.ToDateTime(dgvCabFurDates.SelectedRows[0].Cells["PrepareDateTime"].Value);
+
+            int[] Dispatches = new int[dgvCabFur.SelectedRows.Count];
+            for (int i = 0; i < dgvCabFur.SelectedRows.Count; i++)
+                Dispatches[i] = Convert.ToInt32(dgvCabFur.SelectedRows[i].Cells["DispatchID"].Value);
+            if (!MarketingDispatchManager.HasPackages(DispatchID))
+            {
+                InfiniumTips.ShowTip(this, 50, 85, "Отгрузка пуста", 1700);
+                return;
+            }
+
+            bool PressOK = false;
+            bool ColorFullName = false;
+            object MachineName = DBNull.Value;
+            object PermitNumber = DBNull.Value;
+            object SealNumber = DBNull.Value;
+
+            PhantomForm PhantomForm = new Infinium.PhantomForm();
+            PhantomForm.Show();
+
+            MarketingDispatchInfoMenu MarketingDispatchInfoMenu = new MarketingDispatchInfoMenu(this);
+            TopForm = MarketingDispatchInfoMenu;
+            MarketingDispatchInfoMenu.ShowDialog();
+
+            PressOK = MarketingDispatchInfoMenu.PressOK;
+            ColorFullName = MarketingDispatchInfoMenu.ColorFullName;
+            MachineName = MarketingDispatchInfoMenu.MachineName;
+            PermitNumber = MarketingDispatchInfoMenu.PermitNumber;
+            SealNumber = MarketingDispatchInfoMenu.SealNumber;
+
+            PhantomForm.Close();
+            PhantomForm.Dispose();
+            MarketingDispatchInfoMenu.Dispose();
+            TopForm = null;
+
+            Thread T1 = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Создание документа Excel.\r\nПодождите..."); });
+            T1.Start();
+
+            while (!SplashWindow.bSmallCreated) ;
+
+            object CreationDateTime = dgvCabFur.SelectedRows[0].Cells["CreationDateTime"].Value;
+            object ConfirmExpDateTime = dgvCabFur.SelectedRows[0].Cells["ConfirmExpDateTime"].Value;
+            object ConfirmDispDateTime = dgvCabFur.SelectedRows[0].Cells["ConfirmDispDateTime"].Value;
+            object PrepareDispDateTime = dgvCabFurDates.SelectedRows[0].Cells["PrepareDateTime"].Value;
+            object ConfirmExpUserID = dgvCabFur.SelectedRows[0].Cells["ConfirmExpUserID"].Value;
+            object ConfirmDispUserID = dgvCabFur.SelectedRows[0].Cells["ConfirmDispUserID"].Value;
+            object RealDispDateTime = DBNull.Value;
+            object DispUserID = DBNull.Value;
+            string PackagesReportName = string.Empty;
+            MarketingDispatchManager.GetRealDispDateTime(DispatchID, ref RealDispDateTime, ref DispUserID);
+
+            DispatchReport.GetDispatchInfo(ref CreationDateTime, ref ConfirmExpDateTime, ref ConfirmDispDateTime, ref RealDispDateTime, ref PrepareDispDateTime,
+                ref ConfirmExpUserID, ref ConfirmDispUserID, ref DispUserID, ref MachineName, ref PermitNumber, ref SealNumber);
+            DispatchReport.CurrentClient = ClientID;
+            DispatchReport.CurrentDispatches = Dispatches;
+            DispatchReport.Initialize();
+            DispatchReport.CreateReport(NeedProfilList, NeedTPSList, false, ColorFullName, true, ref PackagesReportName);
+
+            while (SplashWindow.bSmallCreated)
+                SmallWaitForm.CloseS = true;
+        }
+        /// <summary>
+        /// Приложения к отгрузке для корпусной мебели
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void kryptonContextMenuItem20_Click(object sender, EventArgs e)
+        {
+            bool NeedProfilList = true;
+            bool NeedTPSList = true;
+            int ClientID = Convert.ToInt32(dgvCabFur.SelectedRows[0].Cells["ClientID"].Value);
+            int DispatchID = Convert.ToInt32(dgvCabFur.SelectedRows[0].Cells["DispatchID"].Value);
+            DateTime DispatchDate = Convert.ToDateTime(dgvCabFurDates.SelectedRows[0].Cells["PrepareDateTime"].Value);
+
+            int[] Dispatches = new int[dgvCabFur.SelectedRows.Count];
+            for (int i = 0; i < dgvCabFur.SelectedRows.Count; i++)
+                Dispatches[i] = Convert.ToInt32(dgvCabFur.SelectedRows[i].Cells["DispatchID"].Value);
+            if (!MarketingDispatchManager.HasPackages(DispatchID))
+            {
+                InfiniumTips.ShowTip(this, 50, 85, "Отгрузка пуста", 1700);
+                return;
+            }
+
+            bool PressOK = false;
+            bool ColorFullName = false;
+            object MachineName = DBNull.Value;
+            object PermitNumber = DBNull.Value;
+            object SealNumber = DBNull.Value;
+
+            PhantomForm PhantomForm = new Infinium.PhantomForm();
+            PhantomForm.Show();
+
+            MarketingDispatchInfoMenu MarketingDispatchInfoMenu = new MarketingDispatchInfoMenu(this);
+            TopForm = MarketingDispatchInfoMenu;
+            MarketingDispatchInfoMenu.ShowDialog();
+
+            PressOK = MarketingDispatchInfoMenu.PressOK;
+            ColorFullName = MarketingDispatchInfoMenu.ColorFullName;
+            MachineName = MarketingDispatchInfoMenu.MachineName;
+            PermitNumber = MarketingDispatchInfoMenu.PermitNumber;
+            SealNumber = MarketingDispatchInfoMenu.SealNumber;
+
+            PhantomForm.Close();
+            PhantomForm.Dispose();
+            MarketingDispatchInfoMenu.Dispose();
+            TopForm = null;
+
+            Thread T1 = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Создание документа Excel.\r\nПодождите..."); });
+            T1.Start();
+
+            while (!SplashWindow.bSmallCreated) ;
+
+            object CreationDateTime = dgvCabFur.SelectedRows[0].Cells["CreationDateTime"].Value;
+            object ConfirmExpDateTime = dgvCabFur.SelectedRows[0].Cells["ConfirmExpDateTime"].Value;
+            object ConfirmDispDateTime = dgvCabFur.SelectedRows[0].Cells["ConfirmDispDateTime"].Value;
+            object PrepareDispDateTime = dgvCabFurDates.SelectedRows[0].Cells["PrepareDateTime"].Value;
+            object ConfirmExpUserID = dgvCabFur.SelectedRows[0].Cells["ConfirmExpUserID"].Value;
+            object ConfirmDispUserID = dgvCabFur.SelectedRows[0].Cells["ConfirmDispUserID"].Value;
+            object RealDispDateTime = DBNull.Value;
+            object DispUserID = DBNull.Value;
+            string PackagesReportName = string.Empty;
+            MarketingDispatchManager.GetRealDispDateTime(DispatchID, ref RealDispDateTime, ref DispUserID);
+
+            DispatchReport.GetDispatchInfo(ref CreationDateTime, ref ConfirmExpDateTime, ref ConfirmDispDateTime, ref RealDispDateTime, ref PrepareDispDateTime,
+                ref ConfirmExpUserID, ref ConfirmDispUserID, ref DispUserID, ref MachineName, ref PermitNumber, ref SealNumber);
+            DispatchReport.CurrentClient = ClientID;
+            DispatchReport.CurrentDispatches = Dispatches;
+            DispatchReport.Initialize();
+            DispatchReport.CreateCabFurReport(NeedProfilList, NeedTPSList, true, ColorFullName, true, ref PackagesReportName);
+
+            while (SplashWindow.bSmallCreated)
+                SmallWaitForm.CloseS = true;
+        }
+
+        private void kryptonContextMenuItem21_Click(object sender, EventArgs e)
+        {
+            if (dgvCabFur.SelectedRows.Count == 0)
+                return;
+
+            int DispatchID = 0;
+            if (dgvCabFur.SelectedRows.Count != 0 && dgvCabFur.SelectedRows[0].Cells["DispatchID"].Value != DBNull.Value)
+                DispatchID = Convert.ToInt32(dgvCabFur.SelectedRows[0].Cells["DispatchID"].Value);
+
+            Thread T = new Thread(delegate () { SplashWindow.CreateSplash(); });
+            T.Start();
+
+            while (!SplashForm.bCreated) ;
+
+            CabFurDispatchForm cabFurDispatchForm = new CabFurDispatchForm(this, DispatchID);
+
+            TopForm = cabFurDispatchForm;
+
+            cabFurDispatchForm.ShowDialog();
+
+            cabFurDispatchForm.Close();
+            cabFurDispatchForm.Dispose();
+
+            TopForm = null;
         }
     }
 }

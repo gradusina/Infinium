@@ -908,6 +908,8 @@ namespace Infinium
                 NewDispatch = false;
                 NewDispatchManager.AddDispatch(DispatchDate);
                 NewDispatchManager.CurrentDispatch = NewDispatchManager.MaxDispatchID();
+                if (NewDispatchManager.IsCabFur(NewDispatchManager.CurrentDispatch))
+                    NewDispatchManager.AddCabFurDispatch(DispatchDate, NewDispatchManager.CurrentDispatch);
             }
             NewDispatchManager.SetDispatchDate(Convert.ToDateTime(DispatchDate));
             NewDispatchManager.SavePackages();
