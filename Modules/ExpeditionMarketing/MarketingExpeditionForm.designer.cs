@@ -61,6 +61,8 @@
             this.kryptonContextMenuItem15 = new ComponentFactory.Krypton.Toolkit.KryptonContextMenuItem();
             this.kryptonBorderEdge1 = new ComponentFactory.Krypton.Toolkit.KryptonBorderEdge();
             this.MenuPanel = new System.Windows.Forms.Panel();
+            this.btnShowAllOrders = new ComponentFactory.Krypton.Toolkit.KryptonButton();
+            this.btnShowCabFurAssemble = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.kryptonButton7 = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.kryptonButton6 = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.kryptonButton3 = new ComponentFactory.Krypton.Toolkit.KryptonButton();
@@ -194,20 +196,20 @@
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.kryptonSplitContainer3 = new ComponentFactory.Krypton.Toolkit.KryptonSplitContainer();
             this.panel15 = new System.Windows.Forms.Panel();
-            this.dgvCabFurDates = new Infinium.PercentageDataGrid();
+            this.dgvCabFurAssembleDates = new Infinium.PercentageDataGrid();
             this.panel16 = new System.Windows.Forms.Panel();
             this.cbxCabFurYears = new ComponentFactory.Krypton.Toolkit.KryptonComboBox();
             this.cbxCabFurMonths = new ComponentFactory.Krypton.Toolkit.KryptonComboBox();
             this.kryptonSplitContainer5 = new ComponentFactory.Krypton.Toolkit.KryptonSplitContainer();
             this.panel17 = new System.Windows.Forms.Panel();
-            this.dgvCabFur = new Infinium.PercentageDataGrid();
+            this.dgvCabFurMegaOrders = new Infinium.PercentageDataGrid();
             this.panel18 = new System.Windows.Forms.Panel();
             this.dgvCabFurMainOrders = new Infinium.PercentageDataGrid();
             this.kryptonContextMenu8 = new ComponentFactory.Krypton.Toolkit.KryptonContextMenu();
             this.kryptonContextMenuItems10 = new ComponentFactory.Krypton.Toolkit.KryptonContextMenuItems();
             this.kryptonContextMenuItem17 = new ComponentFactory.Krypton.Toolkit.KryptonContextMenuItem();
             this.kryptonContextMenuItem18 = new ComponentFactory.Krypton.Toolkit.KryptonContextMenuItem();
-            this.kryptonContextMenuItem22 = new ComponentFactory.Krypton.Toolkit.KryptonContextMenuItem();
+            this.kryptonContextMenuItem23 = new ComponentFactory.Krypton.Toolkit.KryptonContextMenuItem();
             this.kryptonContextMenuItem20 = new ComponentFactory.Krypton.Toolkit.KryptonContextMenuItem();
             this.kryptonContextMenuItem21 = new ComponentFactory.Krypton.Toolkit.KryptonContextMenuItem();
             this.NavigatePanel.SuspendLayout();
@@ -292,7 +294,7 @@
             this.kryptonSplitContainer3.Panel2.SuspendLayout();
             this.kryptonSplitContainer3.SuspendLayout();
             this.panel15.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvCabFurDates)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvCabFurAssembleDates)).BeginInit();
             this.panel16.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.cbxCabFurYears)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cbxCabFurMonths)).BeginInit();
@@ -303,7 +305,7 @@
             this.kryptonSplitContainer5.Panel2.SuspendLayout();
             this.kryptonSplitContainer5.SuspendLayout();
             this.panel17.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvCabFur)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvCabFurMegaOrders)).BeginInit();
             this.panel18.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCabFurMainOrders)).BeginInit();
             this.SuspendLayout();
@@ -1006,7 +1008,7 @@
             this.kryptonBorderEdge1.Location = new System.Drawing.Point(0, 0);
             this.kryptonBorderEdge1.Name = "kryptonBorderEdge1";
             this.kryptonBorderEdge1.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.kryptonBorderEdge1.Size = new System.Drawing.Size(1, 617);
+            this.kryptonBorderEdge1.Size = new System.Drawing.Size(1, 667);
             this.kryptonBorderEdge1.StateCommon.Color1 = System.Drawing.Color.White;
             this.kryptonBorderEdge1.Text = "kryptonBorderEdge1";
             // 
@@ -1014,6 +1016,8 @@
             // 
             this.MenuPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.MenuPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
+            this.MenuPanel.Controls.Add(this.btnShowAllOrders);
+            this.MenuPanel.Controls.Add(this.btnShowCabFurAssemble);
             this.MenuPanel.Controls.Add(this.kryptonButton7);
             this.MenuPanel.Controls.Add(this.kryptonButton6);
             this.MenuPanel.Controls.Add(this.kryptonButton3);
@@ -1035,33 +1039,55 @@
             this.MenuPanel.Controls.Add(this.kryptonBorderEdge7);
             this.MenuPanel.Location = new System.Drawing.Point(437, 52);
             this.MenuPanel.Name = "MenuPanel";
-            this.MenuPanel.Size = new System.Drawing.Size(835, 618);
+            this.MenuPanel.Size = new System.Drawing.Size(835, 668);
             this.MenuPanel.TabIndex = 38;
             this.MenuPanel.Visible = false;
             // 
+            // btnShowAllOrders
+            // 
+            this.btnShowAllOrders.Location = new System.Drawing.Point(187, 389);
+            this.btnShowAllOrders.Name = "btnShowAllOrders";
+            this.btnShowAllOrders.Size = new System.Drawing.Size(159, 58);
+            this.btnShowAllOrders.TabIndex = 495;
+            this.btnShowAllOrders.Tag = "1";
+            this.btnShowAllOrders.Values.ExtraText = "Показать всё\r\n";
+            this.btnShowAllOrders.Values.Text = "";
+            this.btnShowAllOrders.Click += new System.EventHandler(this.btnShowAllOrders_Click);
+            // 
+            // btnShowCabFurAssemble
+            // 
+            this.btnShowCabFurAssemble.Location = new System.Drawing.Point(22, 389);
+            this.btnShowCabFurAssemble.Name = "btnShowCabFurAssemble";
+            this.btnShowCabFurAssemble.Size = new System.Drawing.Size(159, 58);
+            this.btnShowCabFurAssemble.TabIndex = 494;
+            this.btnShowCabFurAssemble.Tag = "1";
+            this.btnShowCabFurAssemble.Values.ExtraText = "Показать готовые заказы\r\nкорп. мебели\r\n";
+            this.btnShowCabFurAssemble.Values.Text = "";
+            this.btnShowCabFurAssemble.Click += new System.EventHandler(this.btnShowCabFurAssemble_Click);
+            // 
             // kryptonButton7
             // 
-            this.kryptonButton7.Location = new System.Drawing.Point(26, 462);
+            this.kryptonButton7.Location = new System.Drawing.Point(472, 508);
             this.kryptonButton7.Name = "kryptonButton7";
-            this.kryptonButton7.Size = new System.Drawing.Size(116, 49);
+            this.kryptonButton7.Size = new System.Drawing.Size(116, 25);
             this.kryptonButton7.TabIndex = 450;
             this.kryptonButton7.Values.Text = "Не упаковано";
             this.kryptonButton7.Click += new System.EventHandler(this.kryptonButton7_Click);
             // 
             // kryptonButton6
             // 
-            this.kryptonButton6.Location = new System.Drawing.Point(26, 407);
+            this.kryptonButton6.Location = new System.Drawing.Point(472, 477);
             this.kryptonButton6.Name = "kryptonButton6";
-            this.kryptonButton6.Size = new System.Drawing.Size(116, 49);
+            this.kryptonButton6.Size = new System.Drawing.Size(116, 25);
             this.kryptonButton6.TabIndex = 449;
             this.kryptonButton6.Values.Text = "Упаковано";
             this.kryptonButton6.Click += new System.EventHandler(this.kryptonButton6_Click);
             // 
             // kryptonButton3
             // 
-            this.kryptonButton3.Location = new System.Drawing.Point(290, 407);
+            this.kryptonButton3.Location = new System.Drawing.Point(472, 570);
             this.kryptonButton3.Name = "kryptonButton3";
-            this.kryptonButton3.Size = new System.Drawing.Size(116, 49);
+            this.kryptonButton3.Size = new System.Drawing.Size(116, 25);
             this.kryptonButton3.TabIndex = 444;
             this.kryptonButton3.Values.Text = "Экспедиция";
             this.kryptonButton3.Click += new System.EventHandler(this.kryptonButton3_Click_1);
@@ -1079,9 +1105,9 @@
             // 
             // kryptonButton4
             // 
-            this.kryptonButton4.Location = new System.Drawing.Point(158, 407);
+            this.kryptonButton4.Location = new System.Drawing.Point(472, 539);
             this.kryptonButton4.Name = "kryptonButton4";
-            this.kryptonButton4.Size = new System.Drawing.Size(116, 49);
+            this.kryptonButton4.Size = new System.Drawing.Size(116, 25);
             this.kryptonButton4.TabIndex = 434;
             this.kryptonButton4.Values.Text = "Склад";
             this.kryptonButton4.Click += new System.EventHandler(this.kryptonButton4_Click);
@@ -1511,25 +1537,25 @@
             // 
             // kryptonButton2
             // 
-            this.kryptonButton2.Location = new System.Drawing.Point(26, 527);
+            this.kryptonButton2.Location = new System.Drawing.Point(472, 636);
             this.kryptonButton2.Name = "kryptonButton2";
-            this.kryptonButton2.Size = new System.Drawing.Size(163, 49);
+            this.kryptonButton2.Size = new System.Drawing.Size(116, 25);
             this.kryptonButton2.TabIndex = 397;
             this.kryptonButton2.Values.Text = "Выставить статус";
             this.kryptonButton2.Click += new System.EventHandler(this.kryptonButton2_Click);
             // 
             // kryptonButton1
             // 
-            this.kryptonButton1.Location = new System.Drawing.Point(422, 407);
+            this.kryptonButton1.Location = new System.Drawing.Point(472, 601);
             this.kryptonButton1.Name = "kryptonButton1";
-            this.kryptonButton1.Size = new System.Drawing.Size(116, 49);
+            this.kryptonButton1.Size = new System.Drawing.Size(116, 25);
             this.kryptonButton1.TabIndex = 396;
             this.kryptonButton1.Values.Text = "Отгрузить";
             this.kryptonButton1.Click += new System.EventHandler(this.kryptonButton1_Click_1);
             // 
             // kryptonMonthCalendar1
             // 
-            this.kryptonMonthCalendar1.Location = new System.Drawing.Point(544, 407);
+            this.kryptonMonthCalendar1.Location = new System.Drawing.Point(594, 477);
             this.kryptonMonthCalendar1.Name = "kryptonMonthCalendar1";
             this.kryptonMonthCalendar1.SelectionEnd = new System.DateTime(2020, 6, 12, 0, 0, 0, 0);
             this.kryptonMonthCalendar1.SelectionStart = new System.DateTime(2020, 6, 12, 0, 0, 0, 0);
@@ -1668,7 +1694,7 @@
             this.kryptonBorderEdge8.Location = new System.Drawing.Point(834, 0);
             this.kryptonBorderEdge8.Name = "kryptonBorderEdge8";
             this.kryptonBorderEdge8.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.kryptonBorderEdge8.Size = new System.Drawing.Size(1, 617);
+            this.kryptonBorderEdge8.Size = new System.Drawing.Size(1, 667);
             this.kryptonBorderEdge8.StateCommon.Color1 = System.Drawing.Color.White;
             this.kryptonBorderEdge8.Text = "kryptonBorderEdge8";
             // 
@@ -1687,7 +1713,7 @@
             // 
             this.kryptonBorderEdge7.AutoSize = false;
             this.kryptonBorderEdge7.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.kryptonBorderEdge7.Location = new System.Drawing.Point(0, 617);
+            this.kryptonBorderEdge7.Location = new System.Drawing.Point(0, 667);
             this.kryptonBorderEdge7.Name = "kryptonBorderEdge7";
             this.kryptonBorderEdge7.Size = new System.Drawing.Size(835, 1);
             this.kryptonBorderEdge7.StateCommon.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(104)))), ((int)(((byte)(123)))), ((int)(((byte)(97)))));
@@ -2741,75 +2767,75 @@
             // panel15
             // 
             this.panel15.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel15.Controls.Add(this.dgvCabFurDates);
+            this.panel15.Controls.Add(this.dgvCabFurAssembleDates);
             this.panel15.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel15.Location = new System.Drawing.Point(0, 44);
             this.panel15.Name = "panel15";
             this.panel15.Size = new System.Drawing.Size(302, 586);
             this.panel15.TabIndex = 59;
             // 
-            // dgvCabFurDates
+            // dgvCabFurAssembleDates
             // 
-            this.dgvCabFurDates.AllowUserToAddRows = false;
-            this.dgvCabFurDates.AllowUserToDeleteRows = false;
-            this.dgvCabFurDates.AllowUserToResizeColumns = false;
-            this.dgvCabFurDates.AllowUserToResizeRows = false;
-            this.dgvCabFurDates.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dgvCabFurDates.BackText = "Нет данных";
-            this.dgvCabFurDates.ColumnHeadersHeight = 40;
-            this.dgvCabFurDates.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            this.dgvCabFurDates.ColumnHeadersVisible = false;
-            this.dgvCabFurDates.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvCabFurDates.HideOuterBorders = true;
-            this.dgvCabFurDates.Location = new System.Drawing.Point(0, 0);
-            this.dgvCabFurDates.MultiSelect = false;
-            this.dgvCabFurDates.Name = "dgvCabFurDates";
-            this.dgvCabFurDates.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2010Black;
-            this.dgvCabFurDates.PercentLineWidth = 0;
-            this.dgvCabFurDates.ReadOnly = true;
-            this.dgvCabFurDates.RowHeadersVisible = false;
-            this.dgvCabFurDates.RowTemplate.Height = 30;
-            this.dgvCabFurDates.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvCabFurDates.SelectedColorStyle = Infinium.PercentageDataGrid.ColorStyle.Green;
-            this.dgvCabFurDates.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvCabFurDates.Size = new System.Drawing.Size(300, 584);
-            this.dgvCabFurDates.StandardStyle = false;
-            this.dgvCabFurDates.StateCommon.Background.Color1 = System.Drawing.Color.White;
-            this.dgvCabFurDates.StateCommon.Background.Color2 = System.Drawing.Color.Transparent;
-            this.dgvCabFurDates.StateCommon.Background.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
-            this.dgvCabFurDates.StateCommon.BackStyle = ComponentFactory.Krypton.Toolkit.PaletteBackStyle.GridBackgroundList;
-            this.dgvCabFurDates.StateCommon.DataCell.Back.Color1 = System.Drawing.Color.White;
-            this.dgvCabFurDates.StateCommon.DataCell.Back.Color2 = System.Drawing.Color.Transparent;
-            this.dgvCabFurDates.StateCommon.DataCell.Border.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(210)))), ((int)(((byte)(210)))), ((int)(((byte)(210)))));
-            this.dgvCabFurDates.StateCommon.DataCell.Border.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
-            this.dgvCabFurDates.StateCommon.DataCell.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            this.dgvCabFurAssembleDates.AllowUserToAddRows = false;
+            this.dgvCabFurAssembleDates.AllowUserToDeleteRows = false;
+            this.dgvCabFurAssembleDates.AllowUserToResizeColumns = false;
+            this.dgvCabFurAssembleDates.AllowUserToResizeRows = false;
+            this.dgvCabFurAssembleDates.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvCabFurAssembleDates.BackText = "Нет данных";
+            this.dgvCabFurAssembleDates.ColumnHeadersHeight = 40;
+            this.dgvCabFurAssembleDates.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            this.dgvCabFurAssembleDates.ColumnHeadersVisible = false;
+            this.dgvCabFurAssembleDates.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvCabFurAssembleDates.HideOuterBorders = true;
+            this.dgvCabFurAssembleDates.Location = new System.Drawing.Point(0, 0);
+            this.dgvCabFurAssembleDates.MultiSelect = false;
+            this.dgvCabFurAssembleDates.Name = "dgvCabFurAssembleDates";
+            this.dgvCabFurAssembleDates.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2010Black;
+            this.dgvCabFurAssembleDates.PercentLineWidth = 0;
+            this.dgvCabFurAssembleDates.ReadOnly = true;
+            this.dgvCabFurAssembleDates.RowHeadersVisible = false;
+            this.dgvCabFurAssembleDates.RowTemplate.Height = 30;
+            this.dgvCabFurAssembleDates.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvCabFurAssembleDates.SelectedColorStyle = Infinium.PercentageDataGrid.ColorStyle.Green;
+            this.dgvCabFurAssembleDates.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvCabFurAssembleDates.Size = new System.Drawing.Size(300, 584);
+            this.dgvCabFurAssembleDates.StandardStyle = false;
+            this.dgvCabFurAssembleDates.StateCommon.Background.Color1 = System.Drawing.Color.White;
+            this.dgvCabFurAssembleDates.StateCommon.Background.Color2 = System.Drawing.Color.Transparent;
+            this.dgvCabFurAssembleDates.StateCommon.Background.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
+            this.dgvCabFurAssembleDates.StateCommon.BackStyle = ComponentFactory.Krypton.Toolkit.PaletteBackStyle.GridBackgroundList;
+            this.dgvCabFurAssembleDates.StateCommon.DataCell.Back.Color1 = System.Drawing.Color.White;
+            this.dgvCabFurAssembleDates.StateCommon.DataCell.Back.Color2 = System.Drawing.Color.Transparent;
+            this.dgvCabFurAssembleDates.StateCommon.DataCell.Border.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(210)))), ((int)(((byte)(210)))), ((int)(((byte)(210)))));
+            this.dgvCabFurAssembleDates.StateCommon.DataCell.Border.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
+            this.dgvCabFurAssembleDates.StateCommon.DataCell.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
-            this.dgvCabFurDates.StateCommon.DataCell.Content.Color1 = System.Drawing.Color.Black;
-            this.dgvCabFurDates.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.dgvCabFurDates.StateCommon.HeaderColumn.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
-            this.dgvCabFurDates.StateCommon.HeaderColumn.Back.Color2 = System.Drawing.Color.Transparent;
-            this.dgvCabFurDates.StateCommon.HeaderColumn.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
-            this.dgvCabFurDates.StateCommon.HeaderColumn.Border.Color1 = System.Drawing.Color.Black;
-            this.dgvCabFurDates.StateCommon.HeaderColumn.Border.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
-            this.dgvCabFurDates.StateCommon.HeaderColumn.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            this.dgvCabFurAssembleDates.StateCommon.DataCell.Content.Color1 = System.Drawing.Color.Black;
+            this.dgvCabFurAssembleDates.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.dgvCabFurAssembleDates.StateCommon.HeaderColumn.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
+            this.dgvCabFurAssembleDates.StateCommon.HeaderColumn.Back.Color2 = System.Drawing.Color.Transparent;
+            this.dgvCabFurAssembleDates.StateCommon.HeaderColumn.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
+            this.dgvCabFurAssembleDates.StateCommon.HeaderColumn.Border.Color1 = System.Drawing.Color.Black;
+            this.dgvCabFurAssembleDates.StateCommon.HeaderColumn.Border.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
+            this.dgvCabFurAssembleDates.StateCommon.HeaderColumn.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
-            this.dgvCabFurDates.StateCommon.HeaderColumn.Border.Width = 1;
-            this.dgvCabFurDates.StateCommon.HeaderColumn.Content.Color1 = System.Drawing.Color.White;
-            this.dgvCabFurDates.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
-            this.dgvCabFurDates.StateSelected.DataCell.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(158)))), ((int)(((byte)(0)))));
-            this.dgvCabFurDates.StateSelected.DataCell.Back.Color2 = System.Drawing.Color.Transparent;
-            this.dgvCabFurDates.StateSelected.DataCell.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
-            this.dgvCabFurDates.StateSelected.DataCell.Content.Color1 = System.Drawing.Color.White;
-            this.dgvCabFurDates.StateSelected.HeaderRow.Border.Color1 = System.Drawing.Color.White;
-            this.dgvCabFurDates.StateSelected.HeaderRow.Border.Color2 = System.Drawing.Color.White;
-            this.dgvCabFurDates.StateSelected.HeaderRow.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            this.dgvCabFurAssembleDates.StateCommon.HeaderColumn.Border.Width = 1;
+            this.dgvCabFurAssembleDates.StateCommon.HeaderColumn.Content.Color1 = System.Drawing.Color.White;
+            this.dgvCabFurAssembleDates.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.dgvCabFurAssembleDates.StateSelected.DataCell.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(158)))), ((int)(((byte)(0)))));
+            this.dgvCabFurAssembleDates.StateSelected.DataCell.Back.Color2 = System.Drawing.Color.Transparent;
+            this.dgvCabFurAssembleDates.StateSelected.DataCell.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
+            this.dgvCabFurAssembleDates.StateSelected.DataCell.Content.Color1 = System.Drawing.Color.White;
+            this.dgvCabFurAssembleDates.StateSelected.HeaderRow.Border.Color1 = System.Drawing.Color.White;
+            this.dgvCabFurAssembleDates.StateSelected.HeaderRow.Border.Color2 = System.Drawing.Color.White;
+            this.dgvCabFurAssembleDates.StateSelected.HeaderRow.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
-            this.dgvCabFurDates.TabIndex = 57;
-            this.dgvCabFurDates.UseCustomBackColor = true;
-            this.dgvCabFurDates.SelectionChanged += new System.EventHandler(this.dgvCabFurDates_SelectionChanged);
+            this.dgvCabFurAssembleDates.TabIndex = 57;
+            this.dgvCabFurAssembleDates.UseCustomBackColor = true;
+            this.dgvCabFurAssembleDates.SelectionChanged += new System.EventHandler(this.dgvCabFurDates_SelectionChanged);
             // 
             // panel16
             // 
@@ -2890,78 +2916,78 @@
             // panel17
             // 
             this.panel17.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel17.Controls.Add(this.dgvCabFur);
+            this.panel17.Controls.Add(this.dgvCabFurMegaOrders);
             this.panel17.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel17.Location = new System.Drawing.Point(0, 0);
             this.panel17.Name = "panel17";
             this.panel17.Size = new System.Drawing.Size(957, 246);
             this.panel17.TabIndex = 59;
             // 
-            // dgvCabFur
+            // dgvCabFurMegaOrders
             // 
-            this.dgvCabFur.AllowUserToAddRows = false;
-            this.dgvCabFur.AllowUserToDeleteRows = false;
-            this.dgvCabFur.AllowUserToResizeColumns = false;
-            this.dgvCabFur.AllowUserToResizeRows = false;
-            this.dgvCabFur.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dgvCabFur.BackText = "Нет данных";
-            this.dgvCabFur.ColumnHeadersHeight = 40;
-            this.dgvCabFur.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            this.dgvCabFur.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvCabFur.HideOuterBorders = true;
-            this.dgvCabFur.Location = new System.Drawing.Point(0, 0);
-            this.dgvCabFur.Name = "dgvCabFur";
-            this.dgvCabFur.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2010Black;
-            this.dgvCabFur.PercentLineWidth = 0;
-            this.dgvCabFur.ReadOnly = true;
-            this.dgvCabFur.RowHeadersVisible = false;
-            this.dgvCabFur.RowTemplate.Height = 30;
-            this.dgvCabFur.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvCabFur.SelectedColorStyle = Infinium.PercentageDataGrid.ColorStyle.Green;
-            this.dgvCabFur.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvCabFur.Size = new System.Drawing.Size(955, 244);
-            this.dgvCabFur.StandardStyle = false;
-            this.dgvCabFur.StateCommon.Background.Color1 = System.Drawing.Color.White;
-            this.dgvCabFur.StateCommon.Background.Color2 = System.Drawing.Color.Transparent;
-            this.dgvCabFur.StateCommon.Background.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
-            this.dgvCabFur.StateCommon.BackStyle = ComponentFactory.Krypton.Toolkit.PaletteBackStyle.GridBackgroundList;
-            this.dgvCabFur.StateCommon.DataCell.Back.Color1 = System.Drawing.Color.White;
-            this.dgvCabFur.StateCommon.DataCell.Back.Color2 = System.Drawing.Color.Transparent;
-            this.dgvCabFur.StateCommon.DataCell.Border.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(210)))), ((int)(((byte)(210)))), ((int)(((byte)(210)))));
-            this.dgvCabFur.StateCommon.DataCell.Border.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
-            this.dgvCabFur.StateCommon.DataCell.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            this.dgvCabFurMegaOrders.AllowUserToAddRows = false;
+            this.dgvCabFurMegaOrders.AllowUserToDeleteRows = false;
+            this.dgvCabFurMegaOrders.AllowUserToResizeColumns = false;
+            this.dgvCabFurMegaOrders.AllowUserToResizeRows = false;
+            this.dgvCabFurMegaOrders.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvCabFurMegaOrders.BackText = "Нет данных";
+            this.dgvCabFurMegaOrders.ColumnHeadersHeight = 40;
+            this.dgvCabFurMegaOrders.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            this.dgvCabFurMegaOrders.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvCabFurMegaOrders.HideOuterBorders = true;
+            this.dgvCabFurMegaOrders.Location = new System.Drawing.Point(0, 0);
+            this.dgvCabFurMegaOrders.Name = "dgvCabFurMegaOrders";
+            this.dgvCabFurMegaOrders.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2010Black;
+            this.dgvCabFurMegaOrders.PercentLineWidth = 0;
+            this.dgvCabFurMegaOrders.ReadOnly = true;
+            this.dgvCabFurMegaOrders.RowHeadersVisible = false;
+            this.dgvCabFurMegaOrders.RowTemplate.Height = 30;
+            this.dgvCabFurMegaOrders.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvCabFurMegaOrders.SelectedColorStyle = Infinium.PercentageDataGrid.ColorStyle.Green;
+            this.dgvCabFurMegaOrders.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvCabFurMegaOrders.Size = new System.Drawing.Size(955, 244);
+            this.dgvCabFurMegaOrders.StandardStyle = false;
+            this.dgvCabFurMegaOrders.StateCommon.Background.Color1 = System.Drawing.Color.White;
+            this.dgvCabFurMegaOrders.StateCommon.Background.Color2 = System.Drawing.Color.Transparent;
+            this.dgvCabFurMegaOrders.StateCommon.Background.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
+            this.dgvCabFurMegaOrders.StateCommon.BackStyle = ComponentFactory.Krypton.Toolkit.PaletteBackStyle.GridBackgroundList;
+            this.dgvCabFurMegaOrders.StateCommon.DataCell.Back.Color1 = System.Drawing.Color.White;
+            this.dgvCabFurMegaOrders.StateCommon.DataCell.Back.Color2 = System.Drawing.Color.Transparent;
+            this.dgvCabFurMegaOrders.StateCommon.DataCell.Border.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(210)))), ((int)(((byte)(210)))), ((int)(((byte)(210)))));
+            this.dgvCabFurMegaOrders.StateCommon.DataCell.Border.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
+            this.dgvCabFurMegaOrders.StateCommon.DataCell.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
-            this.dgvCabFur.StateCommon.DataCell.Content.Color1 = System.Drawing.Color.Black;
-            this.dgvCabFur.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.dgvCabFur.StateCommon.HeaderColumn.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
-            this.dgvCabFur.StateCommon.HeaderColumn.Back.Color2 = System.Drawing.Color.Transparent;
-            this.dgvCabFur.StateCommon.HeaderColumn.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
-            this.dgvCabFur.StateCommon.HeaderColumn.Border.Color1 = System.Drawing.Color.Black;
-            this.dgvCabFur.StateCommon.HeaderColumn.Border.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
-            this.dgvCabFur.StateCommon.HeaderColumn.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            this.dgvCabFurMegaOrders.StateCommon.DataCell.Content.Color1 = System.Drawing.Color.Black;
+            this.dgvCabFurMegaOrders.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.dgvCabFurMegaOrders.StateCommon.HeaderColumn.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
+            this.dgvCabFurMegaOrders.StateCommon.HeaderColumn.Back.Color2 = System.Drawing.Color.Transparent;
+            this.dgvCabFurMegaOrders.StateCommon.HeaderColumn.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
+            this.dgvCabFurMegaOrders.StateCommon.HeaderColumn.Border.Color1 = System.Drawing.Color.Black;
+            this.dgvCabFurMegaOrders.StateCommon.HeaderColumn.Border.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
+            this.dgvCabFurMegaOrders.StateCommon.HeaderColumn.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
-            this.dgvCabFur.StateCommon.HeaderColumn.Border.Width = 1;
-            this.dgvCabFur.StateCommon.HeaderColumn.Content.Color1 = System.Drawing.Color.White;
-            this.dgvCabFur.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
-            this.dgvCabFur.StateCommon.HeaderColumn.Content.MultiLine = ComponentFactory.Krypton.Toolkit.InheritBool.True;
-            this.dgvCabFur.StateCommon.HeaderColumn.Content.MultiLineH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
-            this.dgvCabFur.StateCommon.HeaderColumn.Content.TextH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
-            this.dgvCabFur.StateSelected.DataCell.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(158)))), ((int)(((byte)(0)))));
-            this.dgvCabFur.StateSelected.DataCell.Back.Color2 = System.Drawing.Color.Transparent;
-            this.dgvCabFur.StateSelected.DataCell.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
-            this.dgvCabFur.StateSelected.DataCell.Content.Color1 = System.Drawing.Color.White;
-            this.dgvCabFur.StateSelected.HeaderRow.Border.Color1 = System.Drawing.Color.White;
-            this.dgvCabFur.StateSelected.HeaderRow.Border.Color2 = System.Drawing.Color.White;
-            this.dgvCabFur.StateSelected.HeaderRow.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            this.dgvCabFurMegaOrders.StateCommon.HeaderColumn.Border.Width = 1;
+            this.dgvCabFurMegaOrders.StateCommon.HeaderColumn.Content.Color1 = System.Drawing.Color.White;
+            this.dgvCabFurMegaOrders.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.dgvCabFurMegaOrders.StateCommon.HeaderColumn.Content.MultiLine = ComponentFactory.Krypton.Toolkit.InheritBool.True;
+            this.dgvCabFurMegaOrders.StateCommon.HeaderColumn.Content.MultiLineH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
+            this.dgvCabFurMegaOrders.StateCommon.HeaderColumn.Content.TextH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
+            this.dgvCabFurMegaOrders.StateSelected.DataCell.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(158)))), ((int)(((byte)(0)))));
+            this.dgvCabFurMegaOrders.StateSelected.DataCell.Back.Color2 = System.Drawing.Color.Transparent;
+            this.dgvCabFurMegaOrders.StateSelected.DataCell.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
+            this.dgvCabFurMegaOrders.StateSelected.DataCell.Content.Color1 = System.Drawing.Color.White;
+            this.dgvCabFurMegaOrders.StateSelected.HeaderRow.Border.Color1 = System.Drawing.Color.White;
+            this.dgvCabFurMegaOrders.StateSelected.HeaderRow.Border.Color2 = System.Drawing.Color.White;
+            this.dgvCabFurMegaOrders.StateSelected.HeaderRow.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
-            this.dgvCabFur.TabIndex = 57;
-            this.dgvCabFur.UseCustomBackColor = true;
-            this.dgvCabFur.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvCabFur_CellMouseDown);
-            this.dgvCabFur.RowPrePaint += new System.Windows.Forms.DataGridViewRowPrePaintEventHandler(this.dgvCabFur_RowPrePaint);
-            this.dgvCabFur.SelectionChanged += new System.EventHandler(this.dgvCabFur_SelectionChanged);
+            this.dgvCabFurMegaOrders.TabIndex = 57;
+            this.dgvCabFurMegaOrders.UseCustomBackColor = true;
+            this.dgvCabFurMegaOrders.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvCabFur_CellMouseDown);
+            this.dgvCabFurMegaOrders.RowPrePaint += new System.Windows.Forms.DataGridViewRowPrePaintEventHandler(this.dgvCabFur_RowPrePaint);
+            this.dgvCabFurMegaOrders.SelectionChanged += new System.EventHandler(this.dgvCabFur_SelectionChanged);
             // 
             // panel18
             // 
@@ -3046,7 +3072,7 @@
             this.kryptonContextMenuItems10.Items.AddRange(new ComponentFactory.Krypton.Toolkit.KryptonContextMenuItemBase[] {
             this.kryptonContextMenuItem17,
             this.kryptonContextMenuItem18,
-            this.kryptonContextMenuItem22,
+            this.kryptonContextMenuItem23,
             this.kryptonContextMenuItem20,
             this.kryptonContextMenuItem21});
             // 
@@ -3060,14 +3086,14 @@
             this.kryptonContextMenuItem18.Text = "Найти в отгрузке";
             this.kryptonContextMenuItem18.Click += new System.EventHandler(this.kryptonContextMenuItem18_Click);
             // 
-            // kryptonContextMenuItem22
+            // kryptonContextMenuItem23
             // 
-            this.kryptonContextMenuItem22.Text = "Отгрузочная ведомость";
-            this.kryptonContextMenuItem22.Click += new System.EventHandler(this.kryptonContextMenuItem22_Click);
+            this.kryptonContextMenuItem23.Text = "Найти в заказах";
+            this.kryptonContextMenuItem23.Click += new System.EventHandler(this.kryptonContextMenuItem23_Click);
             // 
             // kryptonContextMenuItem20
             // 
-            this.kryptonContextMenuItem20.Text = "Приложение к отгрузке";
+            this.kryptonContextMenuItem20.Text = "Приложение к сборке";
             this.kryptonContextMenuItem20.Click += new System.EventHandler(this.kryptonContextMenuItem20_Click);
             // 
             // kryptonContextMenuItem21
@@ -3081,13 +3107,13 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1270, 740);
+            this.Controls.Add(this.MenuPanel);
             this.Controls.Add(this.pnlCabFur);
             this.Controls.Add(this.pnlExpedition);
             this.Controls.Add(this.pnlDispatch);
             this.Controls.Add(this.pnlDispatchMenu);
             this.Controls.Add(this.NavigatePanel);
             this.Controls.Add(this.popupControlContainer1);
-            this.Controls.Add(this.MenuPanel);
             this.Controls.Add(this.barDockControlLeft);
             this.Controls.Add(this.barDockControlRight);
             this.Controls.Add(this.barDockControlBottom);
@@ -3194,7 +3220,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.kryptonSplitContainer3)).EndInit();
             this.kryptonSplitContainer3.ResumeLayout(false);
             this.panel15.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvCabFurDates)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvCabFurAssembleDates)).EndInit();
             this.panel16.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.cbxCabFurYears)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cbxCabFurMonths)).EndInit();
@@ -3205,7 +3231,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.kryptonSplitContainer5)).EndInit();
             this.kryptonSplitContainer5.ResumeLayout(false);
             this.panel17.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvCabFur)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvCabFurMegaOrders)).EndInit();
             this.panel18.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvCabFurMainOrders)).EndInit();
             this.ResumeLayout(false);
@@ -3378,21 +3404,23 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
         private ComponentFactory.Krypton.Toolkit.KryptonSplitContainer kryptonSplitContainer3;
         private System.Windows.Forms.Panel panel15;
-        private PercentageDataGrid dgvCabFurDates;
+        private PercentageDataGrid dgvCabFurAssembleDates;
         private System.Windows.Forms.Panel panel16;
         private ComponentFactory.Krypton.Toolkit.KryptonComboBox cbxCabFurYears;
         private ComponentFactory.Krypton.Toolkit.KryptonComboBox cbxCabFurMonths;
         private ComponentFactory.Krypton.Toolkit.KryptonSplitContainer kryptonSplitContainer5;
         private System.Windows.Forms.Panel panel17;
-        private PercentageDataGrid dgvCabFur;
+        private PercentageDataGrid dgvCabFurMegaOrders;
         private System.Windows.Forms.Panel panel18;
         private PercentageDataGrid dgvCabFurMainOrders;
         private ComponentFactory.Krypton.Toolkit.KryptonContextMenu kryptonContextMenu8;
         private ComponentFactory.Krypton.Toolkit.KryptonContextMenuItems kryptonContextMenuItems10;
         private ComponentFactory.Krypton.Toolkit.KryptonContextMenuItem kryptonContextMenuItem17;
         private ComponentFactory.Krypton.Toolkit.KryptonContextMenuItem kryptonContextMenuItem18;
-        private ComponentFactory.Krypton.Toolkit.KryptonContextMenuItem kryptonContextMenuItem22;
         private ComponentFactory.Krypton.Toolkit.KryptonContextMenuItem kryptonContextMenuItem20;
         private ComponentFactory.Krypton.Toolkit.KryptonContextMenuItem kryptonContextMenuItem21;
+        private ComponentFactory.Krypton.Toolkit.KryptonContextMenuItem kryptonContextMenuItem23;
+        private ComponentFactory.Krypton.Toolkit.KryptonButton btnShowCabFurAssemble;
+        private ComponentFactory.Krypton.Toolkit.KryptonButton btnShowAllOrders;
     }
 }

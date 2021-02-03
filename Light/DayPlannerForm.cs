@@ -1706,22 +1706,47 @@ namespace Infinium
 
         private void CalendarFrom_DateChanged(object sender, DateRangeEventArgs e)
         {
-            if (e.Start.Month != TimesheetMonth || e.Start.Year != TimesheetYear)
-            {
+            int userId = 313;
+            //int userId = Security.CurrentUserID;
+
                 TimesheetMonth = e.Start.Month;
                 TimesheetYear = e.Start.Year;
-
-                //313 - Литвиненко
-                int userId = 313;
-                //int userId = Security.CurrentUserID;
 
                 DayPlannerWorkTimeSheet.GetAbsJournal(userId, TimesheetYear, TimesheetMonth);
                 DayPlannerWorkTimeSheet.GetProdShedule(TimesheetYear, TimesheetMonth);
                 DayPlannerWorkTimeSheet.GetTimesheet(userId, TimesheetYear, TimesheetMonth);
                 DayPlannerWorkTimeSheet.GetRate(userId);
-                DayPlannerWorkTimeSheet.CalcOverwork(TimesheetYear, TimesheetMonth, e.Start.Date);
+
+            DayStatus dayStatus = LightWorkDay.GetDayStatus(userId, e.Start.Date);
+
+            if (dayStatus.iDayStatus != LightWorkDay.sDayNotStarted)
+            {
+                label32.Text = "День завершен";
+
+                if (dayStatus.bDayStarted)
+                    timeEdit1.EditValue = dayStatus.DayStarted.ToString("HH:mm");
+
+                if (dayStatus.bBreakStarted)
+                    timeEdit2.EditValue = dayStatus.BreakStarted.ToString("HH:mm");
+
+                if (dayStatus.bBreakEnded)
+                    timeEdit3.EditValue = dayStatus.BreakEnded.ToString("HH:mm");
+
+                if (dayStatus.bDayEnded)
+                    timeEdit4.EditValue = dayStatus.DayEnded.ToString("HH:mm");
             }
-            
+            else
+            {
+                label32.Text = "День не начат";
+
+                timeEdit1.EditValue = new System.DateTime(e.Start.Date.Year, e.Start.Date.Month, e.Start.Date.Day, 8, 0, 0, 0);
+                timeEdit2.EditValue = new System.DateTime(e.Start.Date.Year, e.Start.Date.Month, e.Start.Date.Day, 12, 0, 0, 0);
+                timeEdit3.EditValue = new System.DateTime(e.Start.Date.Year, e.Start.Date.Month, e.Start.Date.Day, 13, 0, 0, 0);
+                timeEdit4.EditValue = new System.DateTime(e.Start.Date.Year, e.Start.Date.Month, e.Start.Date.Day, 17, 0, 0, 0);
+            }
+
+            DayPlannerWorkTimeSheet.CalcOverwork(TimesheetYear, TimesheetMonth, e.Start.Date);
+
             TimesheetInfo dayInfo = DayPlannerWorkTimeSheet.GetDayInfo(e.Start.Date);
             if (dayInfo.IsAbsence)
             {
@@ -1759,6 +1784,86 @@ namespace Infinium
                 pnlTPSFunctions1.BringToFront();
                 pnlProfilFunctions1.Visible = false;
                 pnlTPSFunctions1.Visible = true;
+            }
+        }
+
+        private void kryptonButton1_Click(object sender, EventArgs e)
+        {
+            int userId = 313;
+            //int userId = Security.CurrentUserID;
+
+
+            DayStatus dayStatus = LightWorkDay.GetDayStatus(userId, CalendarFrom.SelectionStart);
+
+            dayStatus.DayStarted = Convert.ToDateTime(CalendarFrom.SelectionStart.ToShortDateString() + " " + timeEdit1.Time.ToString("HH:mm:ss.fff"));
+            dayStatus.BreakStarted = Convert.ToDateTime(CalendarFrom.SelectionStart.ToShortDateString() + " " + timeEdit2.Time.ToString("HH:mm:ss.fff"));
+            dayStatus.BreakEnded = Convert.ToDateTime(CalendarFrom.SelectionStart.ToShortDateString() + " " + timeEdit3.Time.ToString("HH:mm:ss.fff"));
+            dayStatus.DayEnded = Convert.ToDateTime(CalendarFrom.SelectionStart.ToShortDateString() + " " + timeEdit4.Time.ToString("HH:mm:ss.fff"));
+
+            dayStatus.iDayStatus = LightWorkDay.sDayEnded;
+
+            LightWorkDay.SaveDay(userId, dayStatus);
+
+            InfiniumTips.ShowTip(this, 50, 85, "Рабочий день сохранен", 1700);
+
+            TimesheetMonth = CalendarFrom.SelectionStart.Month;
+            TimesheetYear = CalendarFrom.SelectionStart.Year;
+
+            DayPlannerWorkTimeSheet.GetAbsJournal(userId, TimesheetYear, TimesheetMonth);
+            DayPlannerWorkTimeSheet.GetProdShedule(TimesheetYear, TimesheetMonth);
+            DayPlannerWorkTimeSheet.GetTimesheet(userId, TimesheetYear, TimesheetMonth);
+            DayPlannerWorkTimeSheet.GetRate(userId);
+
+            dayStatus = LightWorkDay.GetDayStatus(userId, CalendarFrom.SelectionStart);
+            if (dayStatus.iDayStatus != LightWorkDay.sDayNotStarted)
+            {
+                label32.Text = "День завершен";
+
+                if (dayStatus.bDayStarted)
+                    timeEdit1.EditValue = dayStatus.DayStarted.ToString("HH:mm");
+
+                if (dayStatus.bBreakStarted)
+                    timeEdit2.EditValue = dayStatus.BreakStarted.ToString("HH:mm");
+
+                if (dayStatus.bBreakEnded)
+                    timeEdit3.EditValue = dayStatus.BreakEnded.ToString("HH:mm");
+
+                if (dayStatus.bDayEnded)
+                    timeEdit4.EditValue = dayStatus.DayEnded.ToString("HH:mm");
+            }
+            else
+            {
+                label32.Text = "День не начат";
+
+                timeEdit1.EditValue = new System.DateTime(CalendarFrom.SelectionStart.Year, CalendarFrom.SelectionStart.Month, CalendarFrom.SelectionStart.Day, 8, 0, 0, 0);
+                timeEdit2.EditValue = new System.DateTime(CalendarFrom.SelectionStart.Year, CalendarFrom.SelectionStart.Month, CalendarFrom.SelectionStart.Day, 12, 0, 0, 0);
+                timeEdit3.EditValue = new System.DateTime(CalendarFrom.SelectionStart.Year, CalendarFrom.SelectionStart.Month, CalendarFrom.SelectionStart.Day, 13, 0, 0, 0);
+                timeEdit4.EditValue = new System.DateTime(CalendarFrom.SelectionStart.Year, CalendarFrom.SelectionStart.Month, CalendarFrom.SelectionStart.Day, 17, 0, 0, 0);
+            }
+
+            DayPlannerWorkTimeSheet.CalcOverwork(TimesheetYear, TimesheetMonth, CalendarFrom.SelectionStart);
+
+            TimesheetInfo dayInfo = DayPlannerWorkTimeSheet.GetDayInfo(CalendarFrom.SelectionStart);
+            if (dayInfo.IsAbsence)
+            {
+                lbAbsenceHours.Text = string.Format("{0}/({1})", dayInfo.AbsenceShortName, dayInfo.AbsenceHours.ToString());
+            }
+            else
+            {
+                lbAbsenceHours.Text = "-";
+            }
+            lbPlanHours.Text = dayInfo.PlanHours.ToString();
+            lbRate.Text = dayInfo.StrRate.ToString();
+            lbOverworkHours.Text = dayInfo.OverworkHours.ToString();
+            if (dayInfo.AbsenceTypeID != 14)
+            {
+                lbFactHours.Text = dayInfo.FactHours.ToString();
+                lbBreakHours.Text = dayInfo.BreakHours.ToString();
+            }
+            else
+            {
+                lbFactHours.Text = dayInfo.AbsenceHours.ToString();
+                lbBreakHours.Text = "-";
             }
         }
     }

@@ -6157,10 +6157,18 @@ namespace Infinium
     public struct DayStatus
     {
         public int iDayStatus;
+        public int iWorkDayID;
+        public decimal dTimesheetHours;
+
         public DateTime DayStarted;
         public DateTime BreakStarted;
         public DateTime BreakEnded;
         public DateTime DayEnded;
+        public bool bDayStarted;
+        public bool bBreakStarted;
+        public bool bBreakEnded;
+        public bool bDayEnded;
+
         public bool bBreak;
         public bool bOverdued;
     }
@@ -6200,6 +6208,7 @@ namespace Infinium
         public int sDayContinued = 3;
         public int sDayEnded = 4;
         public int sDayNotSaved = 5;
+        public int sDaySaved = 6;
 
         private int CurrentWorkDayID;
 
@@ -6867,6 +6876,106 @@ namespace Infinium
             }
 
             return DS;
+        }
+
+        public DayStatus GetDayStatus(int UserID, DateTime date)
+        {
+            DayStatus DS = new DayStatus();
+
+            using (SqlDataAdapter DA = new SqlDataAdapter("SELECT TOP 1 * FROM WorkDays WHERE UserID = " + UserID + " AND CAST(DayStartDateTime AS DATE) = '" + date.ToString("yyyy-MM-dd") + "'", ConnectionStrings.LightConnectionString))
+            {
+                using (DataTable DT = new DataTable())
+                {
+                    if (DA.Fill(DT) > 0)
+                    {
+                        DS.bDayStarted = false;
+                        DS.bBreakStarted = false;
+                        DS.bBreakEnded = false;
+                        DS.bDayEnded = false;
+
+                        if (DT.Rows[0]["DayStartDateTime"] != DBNull.Value)
+                        {
+                            DS.iDayStatus = sDayStarted;
+                            DS.bDayStarted = true;
+                            DS.DayStarted = Convert.ToDateTime(DT.Rows[0]["DayStartDateTime"]);
+                        }
+
+                        if (DT.Rows[0]["DayBreakStartDateTime"] != DBNull.Value)
+                        {
+                            DS.iDayStatus = sBreakStarted;
+                            DS.bBreakStarted = true;
+                            DS.BreakStarted = Convert.ToDateTime(DT.Rows[0]["DayBreakStartDateTime"]);
+                        }
+
+                        if (DT.Rows[0]["DayBreakEndDateTime"] != DBNull.Value)
+                        {
+                            DS.iDayStatus = sDayContinued;
+                            DS.bBreakEnded = true;
+                            DS.BreakEnded = Convert.ToDateTime(DT.Rows[0]["DayBreakEndDateTime"]);
+                        }
+
+                        if (DT.Rows[0]["DayEndDateTime"] != DBNull.Value)
+                        {
+                            DS.iDayStatus = sDayEnded;
+                            DS.bDayEnded = true;
+                            DS.DayEnded = Convert.ToDateTime(DT.Rows[0]["DayEndDateTime"]);
+                        }
+
+                        DS.dTimesheetHours = Convert.ToDecimal(DT.Rows[0]["TimesheetHours"]);
+                        DS.iWorkDayID = Convert.ToInt32(DT.Rows[0]["WorkDayID"]);
+                    }
+                    else
+                    {
+                        DS.iDayStatus = sDayNotStarted;
+                        DS.iWorkDayID = -1;
+                    }
+                }
+            }
+            return DS;
+        }
+
+        public void SaveDay(int UserID, DayStatus dayStatus)
+        {
+            using (SqlDataAdapter DA = new SqlDataAdapter("SELECT * FROM WorkDays WHERE WorkDayID = " + dayStatus.iWorkDayID, ConnectionStrings.LightConnectionString))
+            {
+                using (SqlCommandBuilder CB = new SqlCommandBuilder(DA))
+                {
+                    using (DataTable DT = new DataTable())
+                    {
+                        if (DA.Fill(DT) > 0)
+                        {
+                            DT.Rows[0]["DayStartDateTime"] = dayStatus.DayStarted;
+                            DT.Rows[0]["DayStartFactDateTime"] = dayStatus.DayStarted;
+
+                            DT.Rows[0]["DayBreakStartDateTime"] = dayStatus.BreakStarted;
+                            DT.Rows[0]["DayBreakStartFactDateTime"] = dayStatus.BreakStarted;
+
+                            DT.Rows[0]["DayBreakEndDateTime"] = dayStatus.BreakEnded;
+                            DT.Rows[0]["DayBreakEndFactDateTime"] = dayStatus.BreakEnded;
+
+                            DT.Rows[0]["DayEndDateTime"] = dayStatus.DayEnded;
+                            DT.Rows[0]["DayEndFactDateTime"] = dayStatus.DayEnded;
+                        }
+                        else
+                        {
+                            DataRow NewRow = DT.NewRow();
+                            NewRow["Saved"] = true;
+                            NewRow["UserID"] = UserID;
+                            NewRow["DayStartDateTime"] = dayStatus.DayStarted;
+                            NewRow["DayStartFactDateTime"] = dayStatus.DayStarted;
+                            NewRow["DayBreakStartDateTime"] = dayStatus.BreakStarted;
+                            NewRow["DayBreakStartFactDateTime"] = dayStatus.BreakStarted;
+                            NewRow["DayBreakEndDateTime"] = dayStatus.BreakEnded;
+                            NewRow["DayBreakEndFactDateTime"] = dayStatus.BreakEnded;
+                            NewRow["DayEndDateTime"] = dayStatus.DayEnded;
+                            NewRow["DayEndFactDateTime"] = dayStatus.DayEnded;
+                            DT.Rows.Add(NewRow);
+                        }
+
+                        DA.Update(DT);
+                    }
+                }
+            }
         }
 
         public DayFactStatus GetStatusFactTime(ref InfiniumTimeLabel ChangeDayStartLabel, ref InfiniumTimeLabel ChangeBreakStartLabel, ref InfiniumTimeLabel ChangeBreakEndLabel, ref InfiniumTimeLabel ChangeDayEndLabel)

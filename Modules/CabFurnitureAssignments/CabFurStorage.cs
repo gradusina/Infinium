@@ -1040,18 +1040,18 @@ namespace Infinium.Modules.CabFurnitureAssignments
             PackageDetailsDT.Clear();
         }
 
-        public bool GetPackagesLabels(int DispatchID)
+        public bool GetPackagesLabels(int MegaOrderID)
         {
             string SelectCommand = @"SELECT C.PackNumber, C.TechStoreSubGroupID, C.TechStoreID AS CTechStoreID, C.CoverID, C.PatinaID, C.InsetColorID,
                 CabFurnitureComplementDetails.* FROM CabFurnitureComplementDetails 
                 INNER JOIN CabFurnitureComplements AS C ON CabFurnitureComplementDetails.CabFurnitureComplementID=C.CabFurnitureComplementID
-                WHERE MainOrderID IN (SELECT MainOrderID FROM infiniu2_marketingorders.dbo.Packages WHERE DispatchID=" + DispatchID + ")";
+                WHERE MainOrderID IN (SELECT MainOrderID FROM infiniu2_marketingorders.dbo.MainOrders WHERE MegaOrderID=" + MegaOrderID + ")";
             PackageDetailsDA = new SqlDataAdapter(SelectCommand, ConnectionStrings.StorageConnectionString);
             PackageDetailsDA.Fill(PackageDetailsDT);
 
             PackageLabelsDT.Clear();
             DataTable dt = PackageLabelsDT.Clone();
-            SelectCommand = @"SELECT CabFurnitureComplementID, TechCatalogOperationsDetailID, TechStoreSubGroupID, TechStoreID, CoverID, PatinaID, InsetColorID, PackNumber, MainOrderID, Notes FROM CabFurnitureComplements WHERE MainOrderID IN (SELECT MainOrderID FROM infiniu2_marketingorders.dbo.Packages WHERE DispatchID=" + DispatchID + ")";
+            SelectCommand = @"SELECT CabFurnitureComplementID, TechCatalogOperationsDetailID, TechStoreSubGroupID, TechStoreID, CoverID, PatinaID, InsetColorID, PackNumber, MainOrderID, Notes FROM CabFurnitureComplements WHERE MainOrderID IN (SELECT MainOrderID FROM infiniu2_marketingorders.dbo.MainOrders WHERE MegaOrderID=" + MegaOrderID + ")";
             PackageLabelsDA = new SqlDataAdapter(SelectCommand, ConnectionStrings.StorageConnectionString);
             PackageLabelsDA.Fill(dt);
 
@@ -1255,21 +1255,19 @@ namespace Infinium.Modules.CabFurnitureAssignments
 
     public class CabFurAssemble
     {
-        DataTable AllDispatchDecorWeightDT;
+        DataTable AllMegaOrdersDecorWeightDT;
         DataTable AllMainOrdersDecorWeightDT;
-        DataTable DispatchDT;
-        DataTable DispatchDatesDT;
-        DataTable DispatchContentDT;
+        DataTable MegaOrdersDT;
+        DataTable AssembleDatesDT;
+        DataTable MainOrdersDT;
 
         DataTable CabFurOrdersDataTable;
         DataTable AllCabFurniturePackages;
         DataTable CabFurniturePackages;
 
-        BindingSource DispatchBS;
-        BindingSource DispatchDatesBS;
-        BindingSource DispatchContentBS;
-
-        int[] CabFurIds;
+        BindingSource MegaOrdersBS;
+        BindingSource AssembleDatesBS;
+        BindingSource MainOrdersBS;
 
         public CabFurAssemble()
         {
@@ -1293,44 +1291,33 @@ namespace Infinium.Modules.CabFurnitureAssignments
             CabFurniturePackages.Columns.Add(new DataColumn(("CellID"), System.Type.GetType("System.Int32")));
             CabFurniturePackages.Columns.Add(new DataColumn(("CellName"), System.Type.GetType("System.String")));
 
-            CabFurIds = new int[8];
-            CabFurIds[0] = 46;
-            CabFurIds[1] = 63;
-            CabFurIds[2] = 61;
-            CabFurIds[3] = 73;
-            CabFurIds[4] = 74;
-            CabFurIds[5] = 75;
-            CabFurIds[6] = 80;
-            CabFurIds[7] = 82;
-
-            AllDispatchDecorWeightDT = new DataTable();
+            AllMegaOrdersDecorWeightDT = new DataTable();
             AllMainOrdersDecorWeightDT = new DataTable();
-            DispatchContentDT = new DataTable();
-            DispatchDT = new DataTable();
-            DispatchDT.Columns.Add(new DataColumn(("DispPackagesCount"), System.Type.GetType("System.String")));
-            DispatchDT.Columns.Add(new DataColumn(("Weight"), System.Type.GetType("System.Decimal")));
-            DispatchDT.Columns.Add(new DataColumn(("DispatchStatus"), System.Type.GetType("System.String")));
-            DispatchDT.Columns.Add(new DataColumn(("RealDispDateTime"), System.Type.GetType("System.DateTime")));
-            DispatchDatesDT = new DataTable();
-            DispatchDatesDT.Columns.Add(new DataColumn(("WeekNumber"), System.Type.GetType("System.String")));
+            MainOrdersDT = new DataTable();
+            MegaOrdersDT = new DataTable();
+            MegaOrdersDT.Columns.Add(new DataColumn(("PackagesCount"), System.Type.GetType("System.String")));
+            MegaOrdersDT.Columns.Add(new DataColumn(("Weight"), System.Type.GetType("System.Decimal")));
+            MegaOrdersDT.Columns.Add(new DataColumn(("Status"), System.Type.GetType("System.String")));
+            AssembleDatesDT = new DataTable();
+            AssembleDatesDT.Columns.Add(new DataColumn(("WeekNumber"), System.Type.GetType("System.String")));
 
-            DispatchBS = new BindingSource();
-            DispatchDatesBS = new BindingSource();
-            DispatchContentBS = new BindingSource();
+            MegaOrdersBS = new BindingSource();
+            AssembleDatesBS = new BindingSource();
+            MainOrdersBS = new BindingSource();
         }
 
         private void Fill()
         {
-            string SelectCommand = @"SELECT TOP 0 Dispatch.*, Clients.ClientName FROM Dispatch
-                LEFT JOIN infiniu2_marketingreference.dbo.Clients AS Clients ON Dispatch.ClientID = Clients.ClientID";
+            string SelectCommand = @"SELECT TOP 0 MegaOrders.MegaOrderID, MegaOrders.ClientID, MegaOrders.OrderDate, MegaOrders.OrderNumber, Clients.ClientName FROM MegaOrders
+                LEFT JOIN infiniu2_marketingreference.dbo.Clients AS Clients ON MegaOrders.ClientID = Clients.ClientID";
             using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.MarketingOrdersConnectionString))
             {
-                DA.Fill(DispatchDT);
+                DA.Fill(MegaOrdersDT);
             }
             SelectCommand = "SELECT TOP 0 PrepareDateTime, DateName FROM CabFurDispatch ORDER BY PrepareDateTime";
             using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.MarketingOrdersConnectionString))
             {
-                DA.Fill(DispatchDatesDT);
+                DA.Fill(AssembleDatesDT);
             }
             SelectCommand = "SELECT CabFurniturePackages.*, Cells.Name FROM CabFurniturePackages" +
                 " INNER JOIN Cells ON CabFurniturePackages.CellID=Cells.CellID" +
@@ -1340,76 +1327,79 @@ namespace Infinium.Modules.CabFurnitureAssignments
                 DA.Fill(AllCabFurniturePackages);
             }
 
-            SelectCommand = "SELECT TOP 0 MainOrders.MegaOrderID, MegaOrders.ClientID, MegaOrders.OrderNumber, MainOrders.FactoryID, MainOrders.MainOrderID, MainOrders.ProfilPackAllocStatusID, MainOrders.TPSPackAllocStatusID FROM MainOrders" +
-                " INNER JOIN MegaOrders ON MainOrders.MegaOrderID=MegaOrders.MegaOrderID";
+            SelectCommand = "SELECT TOP 0 MainOrders.MegaOrderID, MegaOrders.ClientID, MegaOrders.OrderNumber, MainOrders.FactoryID, MainOrders.MainOrderID FROM MainOrders INNER JOIN MegaOrders ON MainOrders.MegaOrderID=MegaOrders.MegaOrderID";
             using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.MarketingOrdersConnectionString))
             {
-                DA.Fill(DispatchContentDT);
+                DA.Fill(MainOrdersDT);
             }
-            DispatchContentDT.Columns.Add(new DataColumn("Weight", Type.GetType("System.Decimal")));
-            DispatchContentDT.Columns.Add(new DataColumn("AllPackCount", Type.GetType("System.Int32")));
-            DispatchContentDT.Columns.Add(new DataColumn("PackPercentage", Type.GetType("System.Decimal")));
+            MainOrdersDT.Columns.Add(new DataColumn("Weight", Type.GetType("System.Decimal")));
+            MainOrdersDT.Columns.Add(new DataColumn("AllPackCount", Type.GetType("System.Int32")));
+            MainOrdersDT.Columns.Add(new DataColumn("PackPercentage", Type.GetType("System.Decimal")));
         }
 
         public void GetMainOrdersSquareAndWeight()
         {
             string filter = string.Empty;
 
-            foreach (int item in CabFurIds)
+            foreach (int item in Security.CabFurIds)
                 filter += item.ToString() + ",";
             if (filter.Length > 0)
                 filter = "WHERE ProductID IN (" + filter.Substring(0, filter.Length - 1) + ")";
 
-            string SelectCommand = @"SELECT Packages.DispatchID, DecorOrders.MainOrderID, (DecorOrders.Weight*PackageDetails.Count/DecorOrders.Count) AS Weight
+            string SelectCommand = @"SELECT MainOrders.MegaOrderID, DecorOrders.MainOrderID, (DecorOrders.Weight*PackageDetails.Count/DecorOrders.Count) AS Weight
                     FROM PackageDetails INNER JOIN DecorOrders ON PackageDetails.OrderID = DecorOrders.DecorOrderID AND DecorOrders.MainOrderID IN (SELECT MainOrderID FROM DecorOrders " + filter + @" )
-                    INNER JOIN  Packages ON PackageDetails.PackageID = Packages.PackageID AND Packages.ProductType = 1 
-                    AND Packages.DispatchID NOT IN (SELECT DispatchID FROM CabFurDispatch)";
+                    INNER JOIN  Packages ON PackageDetails.PackageID = Packages.PackageID AND Packages.ProductType = 1  
+                    INNER JOIN  MainOrders ON Packages.MainOrderID = MainOrders.MainOrderID 
+                    AND MainOrders.MegaOrderID NOT IN (SELECT MegaOrderID FROM CabFurDispatch)";
             using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.MarketingOrdersConnectionString))
             {
                 AllMainOrdersDecorWeightDT.Clear();
                 DA.Fill(AllMainOrdersDecorWeightDT);
             }
 
-            SelectCommand = @"SELECT Packages.DispatchID, (DecorOrders.Weight*PackageDetails.Count/DecorOrders.Count) AS Weight
+            SelectCommand = @"SELECT MainOrders.MegaOrderID, (DecorOrders.Weight*PackageDetails.Count/DecorOrders.Count) AS Weight
                     FROM PackageDetails INNER JOIN DecorOrders ON PackageDetails.OrderID = DecorOrders.DecorOrderID AND DecorOrders.MainOrderID IN (SELECT MainOrderID FROM DecorOrders " + filter + @" )
-                    INNER JOIN  Packages ON PackageDetails.PackageID = Packages.PackageID AND Packages.ProductType = 1 
-                    AND Packages.DispatchID NOT IN (SELECT DispatchID FROM CabFurDispatch)";
+                    INNER JOIN  Packages ON PackageDetails.PackageID = Packages.PackageID AND Packages.ProductType = 1  
+                    INNER JOIN  MainOrders ON Packages.MainOrderID = MainOrders.MainOrderID 
+                    AND MainOrders.MegaOrderID NOT IN (SELECT MegaOrderID FROM CabFurDispatch)";
             using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.MarketingOrdersConnectionString))
             {
-                AllDispatchDecorWeightDT.Clear();
-                DA.Fill(AllDispatchDecorWeightDT);
+                AllMegaOrdersDecorWeightDT.Clear();
+                DA.Fill(AllMegaOrdersDecorWeightDT);
             }
         }
 
-        public void GetMainOrdersSquareAndWeight(DateTime PrepareDispatchDateTime)
+        public void GetMainOrdersSquareAndWeight(DateTime PrepareDateTime)
         {
-            string SelectCommand = @"SELECT Packages.DispatchID, DecorOrders.MainOrderID, (DecorOrders.Weight*PackageDetails.Count/DecorOrders.Count) AS Weight
+            string SelectCommand = @"SELECT MainOrders.MegaOrderID, DecorOrders.MainOrderID, (DecorOrders.Weight*PackageDetails.Count/DecorOrders.Count) AS Weight
                     FROM PackageDetails INNER JOIN DecorOrders ON PackageDetails.OrderID = DecorOrders.DecorOrderID
                     INNER JOIN  Packages ON PackageDetails.PackageID = Packages.PackageID AND Packages.ProductType = 1 
-                    AND Packages.DispatchID IN (SELECT DispatchID FROM CabFurDispatch WHERE CAST(PrepareDateTime AS Date) = 
-                    '" + PrepareDispatchDateTime.ToString("yyyy-MM-dd") + "')";
+                    INNER JOIN  MainOrders ON Packages.MainOrderID = MainOrders.MainOrderID 
+                    AND MainOrders.MegaOrderID IN (SELECT MegaOrderID FROM CabFurDispatch WHERE CAST(PrepareDateTime AS Date) = 
+                    '" + PrepareDateTime.ToString("yyyy-MM-dd") + "')";
             using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.MarketingOrdersConnectionString))
             {
                 AllMainOrdersDecorWeightDT.Clear();
                 DA.Fill(AllMainOrdersDecorWeightDT);
             }
 
-            SelectCommand = @"SELECT Packages.DispatchID, (DecorOrders.Weight*PackageDetails.Count/DecorOrders.Count) AS Weight
+            SelectCommand = @"SELECT MainOrders.MegaOrderID, (DecorOrders.Weight*PackageDetails.Count/DecorOrders.Count) AS Weight
                     FROM PackageDetails INNER JOIN DecorOrders ON PackageDetails.OrderID = DecorOrders.DecorOrderID
                     INNER JOIN  Packages ON PackageDetails.PackageID = Packages.PackageID AND Packages.ProductType = 1 
-                    AND Packages.DispatchID IN (SELECT DispatchID FROM CabFurDispatch WHERE CAST(PrepareDateTime AS Date) = 
-                    '" + PrepareDispatchDateTime.ToString("yyyy-MM-dd") + "')";
+                    INNER JOIN  MainOrders ON Packages.MainOrderID = MainOrders.MainOrderID 
+                    AND MainOrders.MegaOrderID IN (SELECT MegaOrderID FROM CabFurDispatch WHERE CAST(PrepareDateTime AS Date) = 
+                    '" + PrepareDateTime.ToString("yyyy-MM-dd") + "')";
             using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.MarketingOrdersConnectionString))
             {
-                AllDispatchDecorWeightDT.Clear();
-                DA.Fill(AllDispatchDecorWeightDT);
+                AllMegaOrdersDecorWeightDT.Clear();
+                DA.Fill(AllMegaOrdersDecorWeightDT);
             }
         }
 
-        private decimal GetWeight(int DispatchID, int MainOrderID)
+        private decimal GetWeight(int MegaOrderID, int MainOrderID)
         {
             decimal Weight = 0;
-            DataRow[] rows = AllMainOrdersDecorWeightDT.Select("DispatchID=" + DispatchID + " AND MainOrderID=" + MainOrderID);
+            DataRow[] rows = AllMainOrdersDecorWeightDT.Select("MegaOrderID=" + MegaOrderID + " AND MainOrderID=" + MainOrderID);
             //if (rows.Count() > 0 && rows[0]["Weight"] != DBNull.Value)
             //{
             //    Weight += Convert.ToDecimal(rows[0]["Weight"]);
@@ -1423,10 +1413,10 @@ namespace Infinium.Modules.CabFurnitureAssignments
             return Weight;
         }
 
-        private decimal GetWeight(int DispatchID)
+        private decimal GetWeight(int MegaOrderID)
         {
             decimal Weight = 0;
-            DataRow[] rows = rows = AllDispatchDecorWeightDT.Select("DispatchID=" + DispatchID);
+            DataRow[] rows = rows = AllMegaOrdersDecorWeightDT.Select("MegaOrderID=" + MegaOrderID);
             foreach (DataRow item in rows)
             {
                 Weight += Convert.ToDecimal(item["Weight"]);
@@ -1440,12 +1430,59 @@ namespace Infinium.Modules.CabFurnitureAssignments
             return Weight;
         }
 
-        public bool FilterCabFurOrders(int[] Dispatches)
+        public void CreateCabFur()
+        {
+            string filter = string.Empty;
+
+            foreach (int item in Security.CabFurIds)
+                filter += item.ToString() + ",";
+            if (filter.Length > 0)
+                filter = "WHERE ProductID IN (" + filter.Substring(0, filter.Length - 1) + ")";
+
+            DataTable table = new DataTable();
+            string SelectCommand = "SELECT TOP 0 * FROM CabFurDispatch";
+            using (SqlDataAdapter sda = new SqlDataAdapter(SelectCommand, ConnectionStrings.MarketingOrdersConnectionString))
+            {
+                using (SqlCommandBuilder CB = new SqlCommandBuilder(sda))
+                {
+                    sda.Fill(table);
+                    SelectCommand = @"SELECT MegaOrderID, ClientID, ProfilDispatchDate, TPSDispatchDate FROM MegaOrders
+                WHERE MegaOrderID IN (SELECT MegaOrderID FROM MainOrders WHERE MainOrderID IN (SELECT MainOrderID FROM DecorOrders " + filter + " ))";
+                    using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.MarketingOrdersConnectionString))
+                    {
+                        using (DataTable DT = new DataTable())
+                        {
+                            DA.Fill(DT);
+                            DateTime dateTime = Security.GetCurrentDate();
+
+                            for (int i = 0; i < DT.Rows.Count; i++)
+                            {
+                                if (DT.Rows[i]["ProfilDispatchDate"] == DBNull.Value && DT.Rows[i]["TPSDispatchDate"] == DBNull.Value)
+                                    continue;
+                                
+                                DataRow NewRow = table.NewRow();
+                                NewRow["CreationDateTime"] = dateTime;
+                                if (DT.Rows[i]["ProfilDispatchDate"] != DBNull.Value)
+                                    NewRow["PrepareDateTime"] = Convert.ToDateTime(DT.Rows[i]["ProfilDispatchDate"]);
+                                else
+                                    NewRow["PrepareDateTime"] = Convert.ToDateTime(DT.Rows[i]["TPSDispatchDate"]);
+                                NewRow["MegaOrderID"] = Convert.ToInt32(DT.Rows[i]["MegaOrderID"]);
+                                NewRow["ClientID"] = Convert.ToInt32(DT.Rows[i]["ClientID"]);
+                                table.Rows.Add(NewRow);
+                            }
+                        }
+                    }
+                    sda.Update(table);
+                }
+            }
+        }
+
+        public bool FilterCabFurOrders(int[] MegaOrders)
         {
             CabFurniturePackages.Clear();
             string SelectCommand = @"SELECT C.PackNumber, C.TechStoreSubGroupID, C.TechCatalogOperationsDetailID, C.TechStoreID AS CTechStoreID, C.CoverID, C.PatinaID, C.InsetColorID, C.MainOrderID, CabFurnitureComplementDetails.* FROM CabFurnitureComplementDetails 
                 INNER JOIN CabFurnitureComplements AS C ON CabFurnitureComplementDetails.CabFurnitureComplementID=C.CabFurnitureComplementID
-                WHERE MainOrderID IN (SELECT MainOrderID FROM infiniu2_marketingorders.dbo.Packages WHERE DispatchID IN (" + string.Join(",", Dispatches) + ")) ORDER BY C.MainOrderID, CTechStoreID, C.CoverID, C.PatinaID, C.InsetColorID, C.CabFurnitureComplementID, C.PackNumber";
+                WHERE MainOrderID IN (SELECT MainOrderID FROM infiniu2_marketingorders.dbo.MainOrders WHERE MegaOrderID IN (" + string.Join(",", MegaOrders) + ")) ORDER BY C.MainOrderID, CTechStoreID, C.CoverID, C.PatinaID, C.InsetColorID, C.CabFurnitureComplementID, C.PackNumber";
             using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.StorageConnectionString))
             {
                 CabFurOrdersDataTable.Clear();
@@ -1489,19 +1526,19 @@ namespace Infinium.Modules.CabFurnitureAssignments
             return b;
         }
 
-        private void FillDispPackagesInfo()
+        private void FillPackagesInfo()
         {
             int PackedCount = 0;
             int AllCount = 0;
             string Status = string.Empty;
 
-            for (int i = 0; i < DispatchDT.Rows.Count; i++)
+            for (int i = 0; i < MegaOrdersDT.Rows.Count; i++)
             {
                 CabFurniturePackages.Clear();
                 PackedCount = 0;
                 AllCount = 0;
 
-                Tuple<int, int> tuple = GetDispPackagesInfo(Convert.ToInt32(DispatchDT.Rows[i]["DispatchID"]));
+                Tuple<int, int> tuple = GetPackagesInfo(Convert.ToInt32(MegaOrdersDT.Rows[i]["MegaOrderID"]));
                 PackedCount = tuple.Item1;
                 AllCount = tuple.Item2;
 
@@ -1514,17 +1551,17 @@ namespace Infinium.Modules.CabFurnitureAssignments
                         Status = "Скомплектован";
                 }
 
-                DispatchDT.Rows[i]["DispatchStatus"] = Status;
-                DispatchDT.Rows[i]["DispPackagesCount"] = PackedCount + " / " + AllCount;
-                DispatchDT.Rows[i]["Weight"] = GetWeight(Convert.ToInt32(DispatchDT.Rows[i]["DispatchID"]));
+                MegaOrdersDT.Rows[i]["Status"] = Status;
+                MegaOrdersDT.Rows[i]["PackagesCount"] = PackedCount + " / " + AllCount;
+                MegaOrdersDT.Rows[i]["Weight"] = GetWeight(Convert.ToInt32(MegaOrdersDT.Rows[i]["MegaOrderID"]));
             }
         }
 
-        public void FillPercColumns(int DispatchID)
+        public void FillPercColumns(int MegaOrderID)
         {
-            for (int i = 0; i < DispatchContentDT.Rows.Count; i++)
+            for (int i = 0; i < MainOrdersDT.Rows.Count; i++)
             {
-                int MainOrderID = Convert.ToInt32(DispatchContentDT.Rows[i]["MainOrderID"]);
+                int MainOrderID = Convert.ToInt32(MainOrdersDT.Rows[i]["MainOrderID"]);
                 int PackedCount = 0;
                 int AllCount = 0;
 
@@ -1573,51 +1610,63 @@ namespace Infinium.Modules.CabFurnitureAssignments
                 decimal d1 = PackProgressVal * 100;
                 decimal PackPercentage = Decimal.Round(d1, 1, MidpointRounding.AwayFromZero);
 
-                DispatchContentDT.Rows[i]["Weight"] = GetWeight(DispatchID, MainOrderID);
-                DispatchContentDT.Rows[i]["AllPackCount"] = AllCount;
-                DispatchContentDT.Rows[i]["PackPercentage"] = PackPercentage;
+                MainOrdersDT.Rows[i]["Weight"] = GetWeight(MegaOrderID, MainOrderID);
+                MainOrdersDT.Rows[i]["AllPackCount"] = AllCount;
+                MainOrdersDT.Rows[i]["PackPercentage"] = PackPercentage;
             }
         }
 
         private void Binding()
         {
-            DispatchBS.DataSource = DispatchDT;
-            DispatchDatesBS.DataSource = DispatchDatesDT;
-            DispatchContentBS.DataSource = DispatchContentDT;
+            MegaOrdersBS.DataSource = MegaOrdersDT;
+            AssembleDatesBS.DataSource = AssembleDatesDT;
+            MainOrdersBS.DataSource = MainOrdersDT;
         }
 
-        public object CurrentDispatchDate
+        public object CurrentDate
         {
             get
             {
-                if (DispatchDatesBS.Count == 0 || ((DataRowView)DispatchDatesBS.Current).Row["PrepareDateTime"] == DBNull.Value)
+                if (AssembleDatesBS.Count == 0 || ((DataRowView)AssembleDatesBS.Current).Row["PrepareDateTime"] == DBNull.Value)
                     return DBNull.Value;
                 else
-                    return ((DataRowView)DispatchDatesBS.Current).Row["PrepareDateTime"];
+                    return ((DataRowView)AssembleDatesBS.Current).Row["PrepareDateTime"];
             }
         }
 
-        public BindingSource DispatchList
+        public BindingSource MegaOrdersList
         {
-            get { return DispatchBS; }
+            get { return MegaOrdersBS; }
         }
 
-        public BindingSource DispatchDatesList
+        public BindingSource AssembleDatesList
         {
-            get { return DispatchDatesBS; }
+            get { return AssembleDatesBS; }
         }
 
-        public BindingSource DispatchContentList
+        public BindingSource MainOrdersList
         {
-            get { return DispatchContentBS; }
+            get { return MainOrdersBS; }
         }
 
-        private Tuple<int, int> GetDispPackagesInfo(int DispatchID)
+        public bool HasPackages(int MegaOrderID)
+        {
+            string SelectCommand = @"SELECT PackageID FROM Packages WHERE MainOrderID = (SELECT TOP 1 MainOrderID FROM MainOrders WHERE MegaOrderID=" + MegaOrderID + ")";
+            using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.MarketingOrdersConnectionString))
+            {
+                using (DataTable DT = new DataTable())
+                {
+                    return (DA.Fill(DT) > 0);
+                }
+            }
+        }
+
+        private Tuple<int, int> GetPackagesInfo(int MegaOrderID)
         {
             int PackedCount = 0;
             int AllCount = 0;
 
-            string SelectCommand = @"SELECT DISTINCT MainOrderID FROM Packages WHERE DispatchID = " + DispatchID;
+            string SelectCommand = @"SELECT DISTINCT MainOrderID FROM MainOrders WHERE MegaOrderID = " + MegaOrderID;
             using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.MarketingOrdersConnectionString))
             {
                 using (DataTable DT = new DataTable())
@@ -1681,6 +1730,70 @@ namespace Infinium.Modules.CabFurnitureAssignments
             Tuple<int, int> tuple = new Tuple<int, int>(PackedCount, AllCount);
             return tuple;
         }
+        
+        private bool IsCabFurAssembled(int MegaOrderID)
+        {
+            int PackedCount = 0;
+            int AllCount = 0;
+
+            string SelectCommand = @"SELECT DISTINCT MainOrderID FROM MainOrders WHERE MegaOrderID = " + MegaOrderID;
+            using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.MarketingOrdersConnectionString))
+            {
+                using (DataTable DT = new DataTable())
+                {
+                    if (DA.Fill(DT) > 0)
+                    {
+                        for (int i = 0; i < DT.Rows.Count; i++)
+                        {
+
+                            int MainOrderID = Convert.ToInt32(DT.Rows[i]["MainOrderID"]);
+
+                            DataTable dt = new DataTable();
+                            using (DataView DV = new DataView(CabFurOrdersDataTable, "MainOrderID = " + MainOrderID, string.Empty, DataViewRowState.CurrentRows))
+                            {
+                                dt = DV.ToTable(true, new string[] { "CabFurnitureComplementID" });
+                            }
+                            if (dt.Rows.Count > 0)
+                            {
+                                int CabFurnitureComplementID = Convert.ToInt32(dt.Rows[0]["CabFurnitureComplementID"]);
+                                DataRow[] r = CabFurOrdersDataTable.Select("CabFurnitureComplementID=" + CabFurnitureComplementID);
+                                int TechCatalogOperationsDetailID = Convert.ToInt32(r[0]["TechCatalogOperationsDetailID"]);
+                                if (IsPackageMatch(Convert.ToInt32(r[0]["TechCatalogOperationsDetailID"]),
+                                    Convert.ToInt32(r[0]["CTechStoreID"]),
+                                    Convert.ToInt32(r[0]["CoverID"]),
+                                    Convert.ToInt32(r[0]["PatinaID"]),
+                                    Convert.ToInt32(r[0]["InsetColorID"])))
+                                    PackedCount++;
+
+                                for (int j = 1; j < dt.Rows.Count; j++)
+                                {
+                                    if (Convert.ToInt32(dt.Rows[j]["CabFurnitureComplementID"]) != CabFurnitureComplementID)
+                                    {
+                                        CabFurnitureComplementID = Convert.ToInt32(dt.Rows[j]["CabFurnitureComplementID"]);
+                                        r = CabFurOrdersDataTable.Select("CabFurnitureComplementID=" + CabFurnitureComplementID);
+
+                                        TechCatalogOperationsDetailID = Convert.ToInt32(r[0]["TechCatalogOperationsDetailID"]);
+                                        int TechStoreID = Convert.ToInt32(r[0]["CTechStoreID"]);
+                                        int CoverID = Convert.ToInt32(r[0]["CoverID"]);
+                                        int PatinaID = Convert.ToInt32(r[0]["PatinaID"]);
+                                        int InsetColorID = Convert.ToInt32(r[0]["InsetColorID"]);
+
+                                        bool b = IsPackageMatch(TechCatalogOperationsDetailID, TechStoreID, CoverID, PatinaID, InsetColorID);
+                                        if (b)
+                                            PackedCount++;
+                                    }
+                                }
+                            }
+                            AllCount += dt.Rows.Count;
+                        }
+                    }
+                }
+            }
+            bool bAssembled = false;
+            if (PackedCount > 0 && AllCount > 0 && PackedCount == AllCount)
+                bAssembled = true;
+            return bAssembled;
+        }
 
         private int GetWeekNumber(DateTime dtPassed)
         {
@@ -1691,34 +1804,34 @@ namespace Infinium.Modules.CabFurnitureAssignments
 
         private void FillWeekNumber()
         {
-            for (int i = 0; i < DispatchDatesDT.Rows.Count; i++)
+            for (int i = 0; i < AssembleDatesDT.Rows.Count; i++)
             {
-                if (DispatchDatesDT.Rows[i]["PrepareDateTime"] != DBNull.Value)
-                    DispatchDatesDT.Rows[i]["WeekNumber"] = GetWeekNumber(Convert.ToDateTime(DispatchDatesDT.Rows[i]["PrepareDateTime"])) + " к.н.";
+                if (AssembleDatesDT.Rows[i]["PrepareDateTime"] != DBNull.Value)
+                    AssembleDatesDT.Rows[i]["WeekNumber"] = GetWeekNumber(Convert.ToDateTime(AssembleDatesDT.Rows[i]["PrepareDateTime"])) + " к.н.";
             }
         }
 
-        public void ClearDispatch()
+        public void ClearMegaOrders()
         {
             CabFurniturePackages.Clear();
-            DispatchDT.Clear();
+            MegaOrdersDT.Clear();
         }
 
-        public void ClearDispatchDates()
+        public void ClearAssembleDates()
         {
             CabFurniturePackages.Clear();
-            DispatchDatesDT.Clear();
+            AssembleDatesDT.Clear();
         }
 
-        public void ClearDispatchContent()
+        public void ClearMainOrders()
         {
             CabFurniturePackages.Clear();
-            DispatchContentDT.Clear();
+            MainOrdersDT.Clear();
         }
 
-        public void ChangeDispatchDate(int DispatchID, object PrepareDateTime)
+        public void ChangeAssembleDate(int MegaOrderID, int ClientID, object PrepareDateTime)
         {
-            string SelectCommand = @"SELECT CabFurDispatchID, DispatchID, CreationDateTime, PrepareDateTime, DateName FROM CabFurDispatch WHERE DispatchID=" + DispatchID;
+            string SelectCommand = @"SELECT CabFurDispatchID, MegaOrderID, ClientID, CreationDateTime, PrepareDateTime, DateName FROM CabFurDispatch WHERE MegaOrderID=" + MegaOrderID;
             using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.MarketingOrdersConnectionString))
             {
                 using (SqlCommandBuilder CB = new SqlCommandBuilder(DA))
@@ -1739,7 +1852,8 @@ namespace Infinium.Modules.CabFurnitureAssignments
                             DataRow NewRow = DT.NewRow();
                             NewRow["PrepareDateTime"] = Convert.ToDateTime(PrepareDateTime);
                             NewRow["CreationDateTime"] = Security.GetCurrentDate();
-                            NewRow["DispatchID"] = DispatchID;
+                            NewRow["MegaOrderID"] = MegaOrderID;
+                            NewRow["ClientID"] = ClientID;
                             DT.Rows.Add(NewRow);
                             DA.Update(DT);
                         }
@@ -1748,7 +1862,7 @@ namespace Infinium.Modules.CabFurnitureAssignments
             }
         }
 
-        public void UpdateDispatchDates(DateTime Date)
+        public void UpdateAssembleDates(DateTime Date)
         {
             string SelectCommand = "SELECT DISTINCT PrepareDateTime, DateName FROM CabFurDispatch" +
                 " WHERE DATEPART(month, PrepareDateTime) = DATEPART(month, '" + Date.ToString("yyyy-MM-dd") +
@@ -1756,10 +1870,10 @@ namespace Infinium.Modules.CabFurnitureAssignments
                 " ORDER BY PrepareDateTime DESC";
             using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.MarketingOrdersConnectionString))
             {
-                DA.Fill(DispatchDatesDT);
+                DA.Fill(AssembleDatesDT);
             }
 
-            DataTable dt = DispatchDatesDT.Clone();
+            DataTable dt = AssembleDatesDT.Clone();
             SelectCommand = "SELECT PrepareDateTime, DateName FROM CabFurDispatch" +
                 " WHERE CabFurDispatchID = 0";
             using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.MarketingOrdersConnectionString))
@@ -1768,22 +1882,22 @@ namespace Infinium.Modules.CabFurnitureAssignments
             }
 
             foreach (DataRow dr in dt.Rows)
-                DispatchDatesDT.Rows.Add(dr.ItemArray);
+                AssembleDatesDT.Rows.Add(dr.ItemArray);
             dt.Dispose();
 
             FillWeekNumber();
         }
 
-        public bool IsCabFur(int DispatchID)
+        public bool IsCabFur(int MegaOrderID)
         {
             string filter = string.Empty;
 
-            foreach (int item in CabFurIds)
+            foreach (int item in Security.CabFurIds)
                 filter += item.ToString() + ",";
             if (filter.Length > 0)
                 filter = "WHERE ProductID IN (" + filter.Substring(0, filter.Length - 1) + ")";
 
-            string SelectCommand = @"SELECT DispatchID FROM Packages WHERE MainOrderID IN (SELECT MainOrderID FROM DecorOrders " + filter + " ) AND DispatchID=" + DispatchID;
+            string SelectCommand = @"SELECT MainOrderID FROM MainOrders WHERE MainOrderID IN (SELECT MainOrderID FROM DecorOrders " + filter + " ) AND MegaOrderID=" + MegaOrderID;
             using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.MarketingOrdersConnectionString))
             {
                 using (DataTable DT = new DataTable())
@@ -1795,97 +1909,96 @@ namespace Infinium.Modules.CabFurnitureAssignments
             return false;
         }
 
-        public void FilterDispatchByDate(int CabFurDispatchID)
+        public void FilterAssembleByDate(int CabFurDispatchID)
         {
-            DataTable dt = DispatchDT.Clone();
+            DataTable dt = MegaOrdersDT.Clone();
 
             string filter = string.Empty;
 
-            foreach (int item in CabFurIds)
+            foreach (int item in Security.CabFurIds)
                 filter += item.ToString() + ",";
             if (filter.Length > 0)
                 filter = "WHERE ProductID IN (" + filter.Substring(0, filter.Length - 1) + ")";
 
-            string SelectCommand = @"SELECT Dispatch.*, Clients.ClientName FROM Dispatch
-                LEFT JOIN infiniu2_marketingreference.dbo.Clients AS Clients ON Dispatch.ClientID = Clients.ClientID
-                WHERE DispatchID NOT IN (SELECT DispatchID FROM CabFurDispatch)
-                AND DispatchID IN (SELECT DispatchID FROM Packages WHERE MainOrderID IN (SELECT MainOrderID FROM DecorOrders " + filter + " ))";
+            string SelectCommand = @"SELECT MegaOrders.MegaOrderID, MegaOrders.ClientID, MegaOrders.OrderDate, MegaOrders.OrderNumber, Clients.ClientName FROM MegaOrders
+                LEFT JOIN infiniu2_marketingreference.dbo.Clients AS Clients ON MegaOrders.ClientID = Clients.ClientID
+                WHERE MegaOrderID NOT IN (SELECT MegaOrderID FROM CabFurDispatch)
+                AND MegaOrderID IN (SELECT MegaOrderID FROM MainOrders WHERE MainOrderID IN (SELECT MainOrderID FROM DecorOrders " + filter + " ))";
             using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.MarketingOrdersConnectionString))
             {
                 if (DA.Fill(dt) > 0)
                 {
-                    int[] Dispatches = new int[dt.Rows.Count];
+                    int[] MegaOrders = new int[dt.Rows.Count];
 
                     for (int i = 0; i < dt.Rows.Count; i++)
-                        Dispatches[i] = Convert.ToInt32(Convert.ToInt32(dt.Rows[i]["DispatchID"]));
-                    FilterCabFurOrders(Dispatches);
+                        MegaOrders[i] = Convert.ToInt32(Convert.ToInt32(dt.Rows[i]["MegaOrderID"]));
+                    FilterCabFurOrders(MegaOrders);
 
                     for (int i = 0; i < dt.Rows.Count; i++)
                     {
-                        dt.Rows[i]["Weight"] = GetWeight(Convert.ToInt32(dt.Rows[i]["DispatchID"]));
+                        dt.Rows[i]["Weight"] = GetWeight(Convert.ToInt32(dt.Rows[i]["MegaOrderID"]));
                     }
                 }
             }
 
             foreach (DataRow dr in dt.Rows)
-                DispatchDT.Rows.Add(dr.ItemArray);
+                MegaOrdersDT.Rows.Add(dr.ItemArray);
             dt.Dispose();
 
-            FillDispPackagesInfo();
+            FillPackagesInfo();
         }
 
-        public void FilterDispatchByDate(DateTime Date)
+        public void FilterAssembleByDate(DateTime Date)
         {
-            DataTable dt = DispatchDT.Clone();
+            DataTable dt = MegaOrdersDT.Clone();
 
-            string SelectCommand = @"SELECT Dispatch.*, Clients.ClientName FROM Dispatch
-                INNER JOIN CabFurDispatch ON Dispatch.DispatchID = CabFurDispatch.DispatchID
-                LEFT JOIN infiniu2_marketingreference.dbo.Clients AS Clients ON Dispatch.ClientID = Clients.ClientID
+            string SelectCommand = @"SELECT MegaOrders.MegaOrderID, MegaOrders.ClientID, MegaOrders.OrderNumber, MegaOrders.OrderDate, Clients.ClientName FROM MegaOrders
+                INNER JOIN CabFurDispatch ON MegaOrders.MegaOrderID = CabFurDispatch.MegaOrderID
+                LEFT JOIN infiniu2_marketingreference.dbo.Clients AS Clients ON MegaOrders.ClientID = Clients.ClientID
                 WHERE CAST(CabFurDispatch.PrepareDateTime AS DATE) = '" + Date.ToString("yyyy-MM-dd") + "'";
             using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.MarketingOrdersConnectionString))
             {
                 if (DA.Fill(dt) > 0)
                 {
-                    int[] Dispatches = new int[dt.Rows.Count];
+                    int[] MegaOrders = new int[dt.Rows.Count];
 
                     for (int i = 0; i < dt.Rows.Count; i++)
-                        Dispatches[i] = Convert.ToInt32(Convert.ToInt32(dt.Rows[i]["DispatchID"]));
-                    FilterCabFurOrders(Dispatches);
+                        MegaOrders[i] = Convert.ToInt32(Convert.ToInt32(dt.Rows[i]["MegaOrderID"]));
+                    FilterCabFurOrders(MegaOrders);
 
                     for (int i = 0; i < dt.Rows.Count; i++)
                     {
-                        dt.Rows[i]["Weight"] = GetWeight(Convert.ToInt32(dt.Rows[i]["DispatchID"]));
+                        dt.Rows[i]["Weight"] = GetWeight(Convert.ToInt32(dt.Rows[i]["MegaOrderID"]));
                     }
                 }
             }
 
             foreach (DataRow dr in dt.Rows)
-                DispatchDT.Rows.Add(dr.ItemArray);
+                MegaOrdersDT.Rows.Add(dr.ItemArray);
             dt.Dispose();
 
-            FillDispPackagesInfo();
+            FillPackagesInfo();
         }
 
-        public void FilterDispatchContent(int DispatchID)
+        public void FilterMainOrders(int MegaOrderID)
         {
             CabFurniturePackages.Clear();
-            string SelectCommand = "SELECT MainOrders.MegaOrderID, MegaOrders.ClientID, MegaOrders.OrderNumber, MainOrders.FactoryID, MainOrders.MainOrderID, MainOrders.ProfilPackAllocStatusID, MainOrders.TPSPackAllocStatusID FROM MainOrders" +
-                " INNER JOIN MegaOrders ON MainOrders.MegaOrderID=MegaOrders.MegaOrderID" +
-                " WHERE MainOrderID IN (SELECT MainOrderID FROM Packages WHERE DispatchID = " + DispatchID + ")";
+            string SelectCommand = "SELECT MainOrders.MegaOrderID, MegaOrders.ClientID, MegaOrders.OrderNumber, MainOrders.FactoryID, MainOrders.MainOrderID " +
+                "FROM MainOrders INNER JOIN MegaOrders ON MainOrders.MegaOrderID=MegaOrders.MegaOrderID WHERE MainOrders.MegaOrderID=" + MegaOrderID;
             using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.MarketingOrdersConnectionString))
             {
-                DA.Fill(DispatchContentDT);
+                DA.Fill(MainOrdersDT);
             }
         }
 
-        public void MoveToDispatchDate(DateTime DispatchDate)
+        public void MoveToAssembleDate(DateTime AssembleDate)
         {
-            DispatchDatesBS.Position = DispatchDatesBS.Find("PrepareDateTime", DispatchDate);
+            AssembleDatesBS.Position = AssembleDatesBS.Find("PrepareDateTime", AssembleDate);
         }
 
-        public void MoveToDispatch(int DispatchID)
+        public void MoveToMegaOrder(int MegaOrderID)
         {
-            DispatchBS.Position = DispatchBS.Find("DispatchID", DispatchID);
+            MegaOrdersBS.Position = MegaOrdersBS.Find("MegaOrderID", MegaOrderID);
         }
     }
 

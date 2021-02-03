@@ -352,8 +352,11 @@ namespace Infinium.Modules.CabFurnitureAssignments
         DataTable ClientsDT;
 
         DataTable TechStoreGroupsDT;
+        DataTable CabFurGroupsDT;
         DataTable TechStoreSubGroupsDT;
+        DataTable CabFurSubGroupsDT;
         DataTable TechStoreDT;
+        DataTable CabFurStoreDT;
         DataTable UsersDT;
         DataTable MeasuresDT;
         DataTable ColorsDT;
@@ -726,6 +729,7 @@ WHERE        CAST(CreateDateTime AS date) >= '2019-12-26 00:00' AND CAST(CreateD
             OnExpeditionDetailDT = new DataTable();
 
             TechStoreGroupsDT = new DataTable();
+            CabFurGroupsDT = new DataTable();
             TechStoreSubGroupsDT = new DataTable();
             TechStoreDT = new DataTable();
 
@@ -755,6 +759,11 @@ WHERE        CAST(CreateDateTime AS date) >= '2019-12-26 00:00' AND CAST(CreateD
             using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.CatalogConnectionString))
             {
                 DA.Fill(TechStoreGroupsDT);
+            }
+            SelectCommand = @"SELECT TechStoreGroupID, TechStoreGroupName FROM TechStoreGroups WHERE TechStoreGroupName Like '%Корпусная мебель%' ORDER BY TechStoreGroupName";
+            using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.CatalogConnectionString))
+            {
+                DA.Fill(CabFurGroupsDT);
             }
             SelectCommand = @"SELECT TechStoreSubGroupID, TechStoreGroupID, TechStoreSubGroupName FROM TechStoreSubGroups ORDER BY TechStoreSubGroupName";
             using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.CatalogConnectionString))
@@ -1006,17 +1015,17 @@ WHERE        CAST(CreateDateTime AS date) >= '2019-12-26 00:00' AND CAST(CreateD
         {
             TechStoreGroupsBS = new BindingSource()
             {
-                DataSource = new DataView(TechStoreGroupsDT, "TechStoreGroupID IN (45,52,53,56,57,58,62,66)", string.Empty, DataViewRowState.CurrentRows),
+                DataSource = new DataView(CabFurGroupsDT),
                 Sort = "TechStoreGroupName"
             };
             TechStoreSubGroupsBS = new BindingSource()
             {
-                DataSource = new DataView(TechStoreSubGroupsDT, "TechStoreGroupID IN (45,52,53,56,57,58,62,66)", string.Empty, DataViewRowState.CurrentRows),
+                DataSource = new DataView(TechStoreSubGroupsDT),
                 Sort = "TechStoreSubGroupName"
             };
             TechStoreBS = new BindingSource()
             {
-                DataSource = new DataView(TechStoreDT, "TechStoreGroupID IN (45,52,53,56,57,58,62,66)", string.Empty, DataViewRowState.CurrentRows),
+                DataSource = new DataView(TechStoreDT),
                 Sort = "TechStoreName"
             };
             CoversBS = new BindingSource()
@@ -1863,10 +1872,17 @@ WHERE        CAST(CreateDateTime AS date) >= '2019-12-26 00:00' AND CAST(CreateD
 
         public void NonAgreementOrders(bool bClient, ref decimal TPSCount)
         {
+            string filter = string.Empty;
+
+            foreach (int item in Security.CabFurIds)
+                filter += item.ToString() + ",";
+            if (filter.Length > 0)
+                filter = " AND DecorOrders.ProductID IN (" + filter.Substring(0, filter.Length - 1) + ") ";
+
             //НА СОГЛАСОВАНИИ
             string SelectCommand = @"SELECT DecorOrders.DecorID AS TechStoreID, MeasureID, DecorOrders.ColorID, DecorOrders.PatinaID, SUM(DecorOrders.Count) AS Count FROM DecorOrders
                     INNER JOIN infiniu2_catalog.dbo.DecorConfig ON DecorOrders.DecorConfigID=infiniu2_catalog.dbo.DecorConfig.DecorConfigID
-                    AND DecorOrders.ProductID=46 AND DecorOrders.MainOrderID IN (SELECT MainOrderID FROM MainOrders
+                    " + filter + @" AND DecorOrders.MainOrderID IN (SELECT MainOrderID FROM MainOrders
                     WHERE TPSProductionStatusID=3 AND TPSStorageStatusID=1 AND TPSExpeditionStatusID=1 AND TPSDispatchStatusID=1
                     AND MegaOrderID IN (SELECT MegaOrderID FROM MegaOrders WHERE (AgreementStatusID=0 AND CreatedByClient=0) OR AgreementStatusID=1))
                     GROUP BY DecorOrders.DecorID, MeasureID, DecorOrders.ColorID, DecorOrders.PatinaID";
@@ -1893,10 +1909,16 @@ WHERE        CAST(CreateDateTime AS date) >= '2019-12-26 00:00' AND CAST(CreateD
 
         public void AgreedOrders(bool bClient, ref decimal TPSCount)
         {
+            string filter = string.Empty;
+
+            foreach (int item in Security.CabFurIds)
+                filter += item.ToString() + ",";
+            if (filter.Length > 0)
+                filter = " AND DecorOrders.ProductID IN (" + filter.Substring(0, filter.Length - 1) + ") ";
             //СОГЛАСОВАНЫ
             string SelectCommand = @"SELECT DecorOrders.DecorID AS TechStoreID, MeasureID, DecorOrders.ColorID, DecorOrders.PatinaID, SUM(DecorOrders.Count) AS Count FROM DecorOrders
                     INNER JOIN infiniu2_catalog.dbo.DecorConfig ON DecorOrders.DecorConfigID=infiniu2_catalog.dbo.DecorConfig.DecorConfigID
-                    AND DecorOrders.ProductID=46 AND DecorOrders.MainOrderID IN (SELECT MainOrderID FROM MainOrders
+                    " + filter + @" AND DecorOrders.MainOrderID IN (SELECT MainOrderID FROM MainOrders
                     WHERE TPSProductionStatusID=1 AND TPSStorageStatusID=1 AND TPSExpeditionStatusID=1 AND TPSDispatchStatusID=1
                     AND MegaOrderID IN (SELECT MegaOrderID FROM MegaOrders WHERE AgreementStatusID=2))
                     GROUP BY DecorOrders.DecorID, MeasureID, DecorOrders.ColorID, DecorOrders.PatinaID";
@@ -1907,7 +1929,7 @@ WHERE        CAST(CreateDateTime AS date) >= '2019-12-26 00:00' AND CAST(CreateD
                     INNER JOIN dbo.MegaOrders ON dbo.MainOrders.MegaOrderID = dbo.MegaOrders.MegaOrderID 
                     INNER JOIN infiniu2_marketingreference.dbo.Clients ON dbo.MegaOrders.ClientID = infiniu2_marketingreference.dbo.Clients.ClientID
                     INNER JOIN infiniu2_catalog.dbo.DecorConfig ON DecorOrders.DecorConfigID=infiniu2_catalog.dbo.DecorConfig.DecorConfigID
-                    AND DecorOrders.ProductID=46 AND DecorOrders.MainOrderID IN (SELECT MainOrderID FROM MainOrders
+                    " + filter + @" AND DecorOrders.MainOrderID IN (SELECT MainOrderID FROM MainOrders
                     WHERE TPSProductionStatusID=1 AND TPSStorageStatusID=1 AND TPSExpeditionStatusID=1 AND TPSDispatchStatusID=1
                     AND MegaOrderID IN (SELECT MegaOrderID FROM MegaOrders WHERE AgreementStatusID=2))
                     GROUP BY ClientName, DecorOrders.DecorID, MeasureID, DecorOrders.ColorID, DecorOrders.PatinaID";
@@ -1923,10 +1945,16 @@ WHERE        CAST(CreateDateTime AS date) >= '2019-12-26 00:00' AND CAST(CreateD
 
         public void OnProductionOrders(bool bClient, ref decimal TPSCount)
         {
+            string filter = string.Empty;
+
+            foreach (int item in Security.CabFurIds)
+                filter += item.ToString() + ",";
+            if (filter.Length > 0)
+                filter = " AND DecorOrders.ProductID IN (" + filter.Substring(0, filter.Length - 1) + ") ";
             //НА ПРОИЗВОДСТВЕ
             string SelectCommand = @"SELECT DecorOrders.DecorID AS TechStoreID, MeasureID, DecorOrders.ColorID, DecorOrders.PatinaID, SUM(DecorOrders.Count) AS Count FROM DecorOrders
                     INNER JOIN infiniu2_catalog.dbo.DecorConfig ON DecorOrders.DecorConfigID=infiniu2_catalog.dbo.DecorConfig.DecorConfigID
-                    AND DecorOrders.ProductID=46 AND DecorOrders.MainOrderID IN (SELECT MainOrderID FROM MainOrders
+                    " + filter + @" AND DecorOrders.MainOrderID IN (SELECT MainOrderID FROM MainOrders
                     WHERE TPSProductionStatusID=3 AND TPSStorageStatusID=1 AND TPSExpeditionStatusID=1 AND TPSDispatchStatusID=1)
                     GROUP BY DecorOrders.DecorID, MeasureID, DecorOrders.ColorID, DecorOrders.PatinaID";
 
@@ -1936,7 +1964,7 @@ WHERE        CAST(CreateDateTime AS date) >= '2019-12-26 00:00' AND CAST(CreateD
                     INNER JOIN dbo.MegaOrders ON dbo.MainOrders.MegaOrderID = dbo.MegaOrders.MegaOrderID 
                     INNER JOIN infiniu2_marketingreference.dbo.Clients ON dbo.MegaOrders.ClientID = infiniu2_marketingreference.dbo.Clients.ClientID
                     INNER JOIN infiniu2_catalog.dbo.DecorConfig ON DecorOrders.DecorConfigID=infiniu2_catalog.dbo.DecorConfig.DecorConfigID
-                    AND DecorOrders.ProductID=46 AND DecorOrders.MainOrderID IN (SELECT MainOrderID FROM MainOrders
+                    " + filter + @" AND DecorOrders.MainOrderID IN (SELECT MainOrderID FROM MainOrders
                     WHERE TPSProductionStatusID=3 AND TPSStorageStatusID=1 AND TPSExpeditionStatusID=1 AND TPSDispatchStatusID=1)
                     GROUP BY ClientName, DecorOrders.DecorID, MeasureID, DecorOrders.ColorID, DecorOrders.PatinaID";
             using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.MarketingOrdersConnectionString))
@@ -1951,12 +1979,19 @@ WHERE        CAST(CreateDateTime AS date) >= '2019-12-26 00:00' AND CAST(CreateD
 
         public void InProductionOrders(bool bClient, ref decimal TPSCount)
         {
+            string filter = string.Empty;
+
+            foreach (int item in Security.CabFurIds)
+                filter += item.ToString() + ",";
+            if (filter.Length > 0)
+                filter = " WHERE DecorOrders.ProductID IN (" + filter.Substring(0, filter.Length - 1) + ") ";
+
             //В ПРОИЗВОДСТВЕ
             string SelectCommand = @"SELECT DecorOrders.DecorID AS TechStoreID, MeasureID, DecorOrders.ColorID, DecorOrders.PatinaID, SUM(PackageDetails.Count) AS Count FROM DecorOrders
                     INNER JOIN infiniu2_catalog.dbo.DecorConfig ON DecorOrders.DecorConfigID=infiniu2_catalog.dbo.DecorConfig.DecorConfigID
                     INNER JOIN PackageDetails ON DecorOrders.DecorOrderID=PackageDetails.OrderID
                     INNER JOIN Packages ON PackageDetails.PackageID=Packages.PackageID AND Packages.PackageStatusID IN (0) AND Packages.ProductType=1
-                    WHERE DecorOrders.ProductID=46
+                    " + filter + @"
                     GROUP BY DecorOrders.DecorID, MeasureID, DecorOrders.ColorID, DecorOrders.PatinaID";
 
             if (bClient)
@@ -1967,7 +2002,7 @@ WHERE        CAST(CreateDateTime AS date) >= '2019-12-26 00:00' AND CAST(CreateD
                     INNER JOIN infiniu2_catalog.dbo.DecorConfig ON DecorOrders.DecorConfigID=infiniu2_catalog.dbo.DecorConfig.DecorConfigID
                     INNER JOIN PackageDetails ON DecorOrders.DecorOrderID=PackageDetails.OrderID
                     INNER JOIN Packages ON PackageDetails.PackageID=Packages.PackageID AND Packages.PackageStatusID IN (0) AND Packages.ProductType=1
-                    WHERE DecorOrders.ProductID=46
+                    " + filter + @"
                     GROUP BY ClientName, DecorOrders.DecorID, MeasureID, DecorOrders.ColorID, DecorOrders.PatinaID";
             using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand,
                 ConnectionStrings.MarketingOrdersConnectionString))
@@ -1982,11 +2017,18 @@ WHERE        CAST(CreateDateTime AS date) >= '2019-12-26 00:00' AND CAST(CreateD
 
         public void OnStorageOrders(bool bClient, ref decimal TPSCount)
         {
+            string filter = string.Empty;
+
+            foreach (int item in Security.CabFurIds)
+                filter += item.ToString() + ",";
+            if (filter.Length > 0)
+                filter = " WHERE DecorOrders.ProductID IN (" + filter.Substring(0, filter.Length - 1) + ") ";
+
             string SelectCommand = @"SELECT DecorOrders.DecorID AS TechStoreID, MeasureID, DecorOrders.ColorID, DecorOrders.PatinaID, SUM(PackageDetails.Count) AS Count FROM DecorOrders
                     INNER JOIN infiniu2_catalog.dbo.DecorConfig ON DecorOrders.DecorConfigID=infiniu2_catalog.dbo.DecorConfig.DecorConfigID
                     INNER JOIN PackageDetails ON DecorOrders.DecorOrderID=PackageDetails.OrderID
                     INNER JOIN Packages ON PackageDetails.PackageID=Packages.PackageID AND Packages.PackageStatusID IN (1,2) AND Packages.ProductType=1
-                    WHERE DecorOrders.ProductID=46
+                    " + filter + @"
                     GROUP BY DecorOrders.DecorID, MeasureID, DecorOrders.ColorID, DecorOrders.PatinaID";
 
             if (bClient)
@@ -1997,7 +2039,7 @@ WHERE        CAST(CreateDateTime AS date) >= '2019-12-26 00:00' AND CAST(CreateD
                     INNER JOIN infiniu2_catalog.dbo.DecorConfig ON DecorOrders.DecorConfigID=infiniu2_catalog.dbo.DecorConfig.DecorConfigID
                     INNER JOIN PackageDetails ON DecorOrders.DecorOrderID=PackageDetails.OrderID
                     INNER JOIN Packages ON PackageDetails.PackageID=Packages.PackageID AND Packages.PackageStatusID IN (1,2) AND Packages.ProductType=1
-                    WHERE DecorOrders.ProductID=46
+                    " + filter + @"
                     GROUP BY ClientName, DecorOrders.DecorID, MeasureID, DecorOrders.ColorID, DecorOrders.PatinaID";
             using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand,
                 ConnectionStrings.MarketingOrdersConnectionString))
@@ -2012,11 +2054,18 @@ WHERE        CAST(CreateDateTime AS date) >= '2019-12-26 00:00' AND CAST(CreateD
 
         public void OnExpeditionOrders(bool bClient, ref decimal TPSCount)
         {
+            string filter = string.Empty;
+
+            foreach (int item in Security.CabFurIds)
+                filter += item.ToString() + ",";
+            if (filter.Length > 0)
+                filter = " WHERE DecorOrders.ProductID IN (" + filter.Substring(0, filter.Length - 1) + ") ";
+
             string SelectCommand = @"SELECT DecorOrders.DecorID AS TechStoreID, MeasureID, DecorOrders.ColorID, DecorOrders.PatinaID, SUM(PackageDetails.Count) AS Count FROM DecorOrders
                     INNER JOIN infiniu2_catalog.dbo.DecorConfig ON DecorOrders.DecorConfigID=infiniu2_catalog.dbo.DecorConfig.DecorConfigID
                     INNER JOIN PackageDetails ON DecorOrders.DecorOrderID=PackageDetails.OrderID
                     INNER JOIN Packages ON PackageDetails.PackageID=Packages.PackageID AND Packages.PackageStatusID=4 AND Packages.ProductType=1
-                    WHERE DecorOrders.ProductID=46
+                    " + filter + @"
                     GROUP BY DecorOrders.DecorID, MeasureID, DecorOrders.ColorID, DecorOrders.PatinaID";
 
             if (bClient)
@@ -2027,7 +2076,7 @@ WHERE        CAST(CreateDateTime AS date) >= '2019-12-26 00:00' AND CAST(CreateD
                     INNER JOIN infiniu2_catalog.dbo.DecorConfig ON DecorOrders.DecorConfigID=infiniu2_catalog.dbo.DecorConfig.DecorConfigID
                     INNER JOIN PackageDetails ON DecorOrders.DecorOrderID=PackageDetails.OrderID
                     INNER JOIN Packages ON PackageDetails.PackageID=Packages.PackageID AND Packages.PackageStatusID=4 AND Packages.ProductType=1
-                    WHERE DecorOrders.ProductID=46
+                    " + filter + @"
                     GROUP BY ClientName, DecorOrders.DecorID, MeasureID, DecorOrders.ColorID, DecorOrders.PatinaID";
             using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand,
                 ConnectionStrings.MarketingOrdersConnectionString))

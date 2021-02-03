@@ -234,6 +234,8 @@ namespace Infinium
 
         ManagementObjectCollection mObject;
 
+        public static int[] CabFurIds;
+
         public Security()
         {
             UsersConnectionString = ConnectionStrings.UsersConnectionString;
@@ -266,6 +268,22 @@ namespace Infinium
 
         private bool Fill()
         {
+            string SelectCommand = @"SELECT ProductID FROM DecorProducts WHERE IsCabFur=1";
+            using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.CatalogConnectionString))
+            {
+                using (DataTable DT = new DataTable())
+                {
+                    if (DA.Fill(DT) > 0)
+                    {
+                        CabFurIds = new int[DT.Rows.Count];
+                        for (int i = 0; i < DT.Rows.Count; i++)
+                        {
+                            CabFurIds[i] = Convert.ToInt32(DT.Rows[i]["ProductID"]);
+                        }
+                    }
+                }
+            }
+
             string error = string.Empty;
             try
             {
@@ -2471,13 +2489,14 @@ namespace Infinium
             }
         }
 
-
         static public bool IsCabFurniture(int ProductID)
         {
-            //также необходимо добавить новые ProductID корп. мебели в файлы ClientCatalog.cs и MarketingPackages.cs
-            if (ProductID == 46 || ProductID == 63 || ProductID == 61 ||
-                ProductID == 73 || ProductID == 74 || ProductID == 75 || ProductID == 80 || ProductID == 82)
-                return true;
+            //также необходимо добавить новые id корп. мебели в файлы ClientCatalog, CabFurStorage, CabFurnitureAssignments
+            for (int i = 0; i < Security.CabFurIds.Count(); i++)
+            {
+                if (ProductID == Security.CabFurIds[i])
+                    return true;
+            }
             return false;
         }
 

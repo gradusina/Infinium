@@ -73,6 +73,7 @@ namespace Infinium
 
         DecorCatalogOrder DecorCatalogOrder;
         DispatchReport DispatchReport;
+        CabFurAssembleReport cabFurAssembleReport;
         Modules.CabFurnitureAssignments.CabFurAssemble cabFurAssembleManager;
         MarketingDispatch MarketingDispatchManager;
         DBFReport DBFReport;
@@ -175,7 +176,7 @@ namespace Infinium
                 kryptonContextMenuItem5.Visible = true;
                 //kryptonContextMenuItem6.Visible = true;
                 kryptonContextMenuItem14.Visible = true;
-                this.MenuPanel.Size = new System.Drawing.Size(835, 400);
+                this.MenuPanel.Size = new System.Drawing.Size(835, 460);
             }
             if (RoleType == RoleTypes.ApprovedRole)
             {
@@ -405,6 +406,7 @@ namespace Infinium
             BatchDataGrid.DataSource = MarketingExpeditionManager.BatchDetailsBindingSource;
             DecorCatalogOrder = new DecorCatalogOrder();
             DispatchReport = new DispatchReport();
+            cabFurAssembleReport = new CabFurAssembleReport();
 
             MonthsDT = new DataTable();
             MonthsDT.Columns.Add(new DataColumn("MonthID", Type.GetType("System.Int32")));
@@ -465,10 +467,10 @@ namespace Infinium
 
             dgvDispatchSetting();
             dgvDispatchDatesSetting();
-            dgvCabFurSetting();
+            dgvCabFurMegaOrdersSetting();
             dgvCabFurDatesSetting();
             dgvMegaOrdersSetting();
-            dgvCabFurMegaOrdersSetting();
+            dgvCabFurMainOrdersSetting();
             kryptonCheckSet1_CheckedButtonChanged(null, null);
         }
 
@@ -1211,104 +1213,84 @@ namespace Infinium
             MenuPanel.BringToFront();
         }
 
-        private void dgvCabFurSetting()
+        private void dgvCabFurMegaOrdersSetting()
         {
-            dgvCabFur.DataSource = cabFurAssembleManager.DispatchList;
+            dgvCabFurMegaOrders.DataSource = cabFurAssembleManager.MegaOrdersList;
 
-            foreach (DataGridViewColumn Column in dgvCabFur.Columns)
+            foreach (DataGridViewColumn Column in dgvCabFurMegaOrders.Columns)
             {
                 Column.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
             }
 
-            dgvCabFur.AutoGenerateColumns = false;
+            dgvCabFurMegaOrders.AutoGenerateColumns = false;
 
-            //dgvDispatch.Columns["DispatchID"].Visible = false;
-            dgvCabFur.Columns["ClientID"].Visible = false;
-            dgvCabFur.Columns["NewClientID"].Visible = false;
-            dgvCabFur.Columns["ConfirmExpUserID"].Visible = false;
-            dgvCabFur.Columns["ConfirmDispUserID"].Visible = false;
-            dgvCabFur.Columns["PrepareDispatchDateTime"].Visible = false;
+            if (dgvCabFurMegaOrders.Columns.Contains("ClientID"))
+                dgvCabFurMegaOrders.Columns["ClientID"].Visible = false;
+            if (dgvCabFurMegaOrders.Columns.Contains("PrepareDispatchDateTime"))
+                dgvCabFurMegaOrders.Columns["PrepareDispatchDateTime"].Visible = false;
 
-            if (dgvCabFur.Columns.Contains("InMutualSettlement"))
-                dgvCabFur.Columns["InMutualSettlement"].Visible = false;
-            if (dgvCabFur.Columns.Contains("ProfilMutualSettlementID"))
-                dgvCabFur.Columns["ProfilMutualSettlementID"].Visible = false;
-            if (dgvCabFur.Columns.Contains("TPSMutualSettlementID"))
-                dgvCabFur.Columns["TPSMutualSettlementID"].Visible = false;
 
-            dgvCabFur.Columns["CreationDateTime"].DefaultCellStyle.Format = "dd.MM.yyyy HH:mm";
-            dgvCabFur.Columns["ConfirmDispDateTime"].DefaultCellStyle.Format = "dd.MM.yyyy HH:mm";
-            dgvCabFur.Columns["RealDispDateTime"].DefaultCellStyle.Format = "dd.MM.yyyy HH:mm";
+            dgvCabFurMegaOrders.Columns["OrderDate"].DefaultCellStyle.Format = "dd.MM.yyyy HH:mm";
+
+            dgvCabFurMegaOrders.Columns["OrderDate"].HeaderText = "Дата\r\nсоздания";
+            dgvCabFurMegaOrders.Columns["ClientName"].HeaderText = "Клиент";
+            dgvCabFurMegaOrders.Columns["OrderNumber"].HeaderText = "№\r\nзаказа";
+            dgvCabFurMegaOrders.Columns["Weight"].HeaderText = "Вес, кг";
+            dgvCabFurMegaOrders.Columns["PackagesCount"].HeaderText = "Кол-во\r\nупаковок";
+            dgvCabFurMegaOrders.Columns["Status"].HeaderText = "Статус";
+            dgvCabFurMegaOrders.Columns["MegaOrderID"].HeaderText = "ID заказа";
             
-            dgvCabFur.Columns["ClientName"].HeaderText = "Клиент";
-            dgvCabFur.Columns["Weight"].HeaderText = "Вес, кг";
-            dgvCabFur.Columns["CreationDateTime"].HeaderText = "Дата\r\nсоздания";
-            dgvCabFur.Columns["DispPackagesCount"].HeaderText = "Кол-во\r\nупаковок";
-            dgvCabFur.Columns["DispatchStatus"].HeaderText = "Статус";
-            dgvCabFur.Columns["ConfirmExpDateTime"].HeaderText = "Эксп-ция\r\nутверждена";
-            dgvCabFur.Columns["ConfirmDispDateTime"].HeaderText = "Отгрузка\r\nутверждена";
-            dgvCabFur.Columns["RealDispDateTime"].HeaderText = "Дата отгрузки";
-            dgvCabFur.Columns["DispatchID"].HeaderText = "№ отгр.";
-            
-            dgvCabFur.Columns["InMutualSettlement"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-            dgvCabFur.Columns["InMutualSettlement"].Width = 80;
-            dgvCabFur.Columns["DispatchID"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-            dgvCabFur.Columns["DispatchID"].Width = 80;
-            dgvCabFur.Columns["Weight"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-            dgvCabFur.Columns["Weight"].Width = 80;
-            dgvCabFur.Columns["ClientName"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            dgvCabFur.Columns["ClientName"].MinimumWidth = 200;
-            dgvCabFur.Columns["RealDispDateTime"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-            dgvCabFur.Columns["RealDispDateTime"].Width = 130;
-            dgvCabFur.Columns["CreationDateTime"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-            dgvCabFur.Columns["CreationDateTime"].Width = 130;
-            dgvCabFur.Columns["DispPackagesCount"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-            dgvCabFur.Columns["DispPackagesCount"].Width = 90;
-            dgvCabFur.Columns["DispatchStatus"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-            dgvCabFur.Columns["DispatchStatus"].Width = 200;
-            dgvCabFur.Columns["ConfirmExpDateTime"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-            dgvCabFur.Columns["ConfirmExpDateTime"].Width = 130;
-            dgvCabFur.Columns["ConfirmDispDateTime"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-            dgvCabFur.Columns["ConfirmDispDateTime"].Width = 130;
+            dgvCabFurMegaOrders.Columns["MegaOrderID"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            dgvCabFurMegaOrders.Columns["MegaOrderID"].Width = 80;
+            dgvCabFurMegaOrders.Columns["Weight"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            dgvCabFurMegaOrders.Columns["Weight"].Width = 80;
+            dgvCabFurMegaOrders.Columns["ClientName"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            dgvCabFurMegaOrders.Columns["ClientName"].MinimumWidth = 200;
+            dgvCabFurMegaOrders.Columns["PackagesCount"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            dgvCabFurMegaOrders.Columns["PackagesCount"].Width = 90;
+            dgvCabFurMegaOrders.Columns["Status"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            dgvCabFurMegaOrders.Columns["Status"].Width = 200;
+            dgvCabFurMegaOrders.Columns["OrderDate"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            dgvCabFurMegaOrders.Columns["OrderDate"].Width = 130;
+            dgvCabFurMegaOrders.Columns["OrderNumber"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            dgvCabFurMegaOrders.Columns["OrderNumber"].Width = 70;
 
             int DisplayIndex = 0;
-            dgvCabFur.Columns["ClientName"].DisplayIndex = DisplayIndex++;
-            dgvCabFur.Columns["CreationDateTime"].DisplayIndex = DisplayIndex++;
-            dgvCabFur.Columns["DispPackagesCount"].DisplayIndex = DisplayIndex++;
-            dgvCabFur.Columns["Weight"].DisplayIndex = DisplayIndex++;
-            dgvCabFur.Columns["DispatchStatus"].DisplayIndex = DisplayIndex++;
-            dgvCabFur.Columns["ConfirmExpDateTime"].DisplayIndex = DisplayIndex++;
-            dgvCabFur.Columns["ConfirmDispDateTime"].DisplayIndex = DisplayIndex++;
-            dgvCabFur.Columns["RealDispDateTime"].DisplayIndex = DisplayIndex++;
-            dgvCabFur.Columns["DispatchID"].DisplayIndex = DisplayIndex++;
+            dgvCabFurMegaOrders.Columns["ClientName"].DisplayIndex = DisplayIndex++;
+            dgvCabFurMegaOrders.Columns["OrderNumber"].DisplayIndex = DisplayIndex++;
+            dgvCabFurMegaOrders.Columns["OrderDate"].DisplayIndex = DisplayIndex++;
+            dgvCabFurMegaOrders.Columns["PackagesCount"].DisplayIndex = DisplayIndex++;
+            dgvCabFurMegaOrders.Columns["Weight"].DisplayIndex = DisplayIndex++;
+            dgvCabFurMegaOrders.Columns["Status"].DisplayIndex = DisplayIndex++;
+            dgvCabFurMegaOrders.Columns["MegaOrderID"].DisplayIndex = DisplayIndex++;
             
-            dgvCabFur.Columns["DispPackagesCount"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dgvCabFurMegaOrders.Columns["PackagesCount"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
         }
 
         private void dgvCabFurDatesSetting()
         {
-            dgvCabFurDates.DataSource = cabFurAssembleManager.DispatchDatesList;
+            dgvCabFurAssembleDates.DataSource = cabFurAssembleManager.AssembleDatesList;
 
-            dgvCabFurDates.AutoGenerateColumns = false;
+            dgvCabFurAssembleDates.AutoGenerateColumns = false;
 
-            if (dgvCabFurDates.Columns.Contains("PrepareDateTime"))
+            if (dgvCabFurAssembleDates.Columns.Contains("PrepareDateTime"))
             {
-                dgvCabFurDates.Columns["PrepareDateTime"].DefaultCellStyle.Format = "dd MMMM dddd";
-                dgvCabFurDates.Columns["PrepareDateTime"].MinimumWidth = 150;
-                dgvCabFurDates.Columns["PrepareDateTime"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-                dgvCabFurDates.Columns["PrepareDateTime"].DisplayIndex = 0;
+                dgvCabFurAssembleDates.Columns["PrepareDateTime"].DefaultCellStyle.Format = "dd MMMM dddd";
+                dgvCabFurAssembleDates.Columns["PrepareDateTime"].MinimumWidth = 150;
+                dgvCabFurAssembleDates.Columns["PrepareDateTime"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                dgvCabFurAssembleDates.Columns["PrepareDateTime"].DisplayIndex = 0;
             }
-            if (dgvCabFurDates.Columns.Contains("WeekNumber"))
+            if (dgvCabFurAssembleDates.Columns.Contains("WeekNumber"))
             {
-                dgvCabFurDates.Columns["WeekNumber"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-                dgvCabFurDates.Columns["WeekNumber"].Width = 70;
-                dgvCabFurDates.Columns["WeekNumber"].DisplayIndex = 1;
+                dgvCabFurAssembleDates.Columns["WeekNumber"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+                dgvCabFurAssembleDates.Columns["WeekNumber"].Width = 70;
+                dgvCabFurAssembleDates.Columns["WeekNumber"].DisplayIndex = 1;
             }
-            if (dgvCabFurDates.Columns.Contains("DateName"))
+            if (dgvCabFurAssembleDates.Columns.Contains("DateName"))
             {
-                dgvCabFurDates.Columns["DateName"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-                dgvCabFurDates.Columns["DateName"].Width = 100;
-                dgvCabFurDates.Columns["DateName"].DisplayIndex = 2;
+                dgvCabFurAssembleDates.Columns["DateName"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+                dgvCabFurAssembleDates.Columns["DateName"].Width = 100;
+                dgvCabFurAssembleDates.Columns["DateName"].DisplayIndex = 2;
             }
         }
 
@@ -1414,9 +1396,9 @@ namespace Infinium
             }
         }
 
-        private void dgvCabFurMegaOrdersSetting()
+        private void dgvCabFurMainOrdersSetting()
         {
-            dgvCabFurMainOrders.DataSource = cabFurAssembleManager.DispatchContentList;
+            dgvCabFurMainOrders.DataSource = cabFurAssembleManager.MainOrdersList;
 
             foreach (DataGridViewColumn Column in dgvCabFurMainOrders.Columns)
             {
@@ -1429,14 +1411,9 @@ namespace Infinium
                 dgvCabFurMainOrders.Columns["ClientID"].Visible = false;
             if (dgvCabFurMainOrders.Columns.Contains("FactoryID"))
                 dgvCabFurMainOrders.Columns["FactoryID"].Visible = false;
-            if (dgvCabFurMainOrders.Columns.Contains("ProfilPackAllocStatusID"))
-                dgvCabFurMainOrders.Columns["ProfilPackAllocStatusID"].Visible = false;
-            if (dgvCabFurMainOrders.Columns.Contains("TPSPackAllocStatusID"))
-                dgvCabFurMainOrders.Columns["TPSPackAllocStatusID"].Visible = false;
             if (dgvCabFurMainOrders.Columns.Contains("MegaOrderID"))
-            {
                 dgvCabFurMainOrders.Columns["MegaOrderID"].Visible = false;
-            }
+
             if (dgvCabFurMainOrders.Columns.Contains("OrderNumber"))
             {
                 dgvCabFurMainOrders.Columns["OrderNumber"].HeaderText = "№ заказа";
@@ -1451,6 +1428,7 @@ namespace Infinium
                 dgvCabFurMainOrders.Columns["MainOrderID"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
                 dgvCabFurMainOrders.Columns["MainOrderID"].DisplayIndex = 2;
             }
+
             dgvCabFurMainOrders.Columns["Weight"].HeaderText = "Вес";
             dgvCabFurMainOrders.Columns["AllPackCount"].HeaderText = "  Кол-во\r\nупаковок";
             dgvCabFurMainOrders.Columns["PackPercentage"].HeaderText = "Скомплектовано, %";
@@ -1660,12 +1638,12 @@ namespace Infinium
         {
             if (cabFurAssembleManager == null)
                 return;
-            cabFurAssembleManager.ClearDispatch();
-            if (dgvCabFurDates.SelectedRows.Count == 0)
+            cabFurAssembleManager.ClearMegaOrders();
+            if (dgvCabFurAssembleDates.SelectedRows.Count == 0)
             {
                 return;
             }
-            object Date = cabFurAssembleManager.CurrentDispatchDate;
+            object Date = cabFurAssembleManager.CurrentDate;
 
             if (Date != DBNull.Value)
             {
@@ -1678,7 +1656,7 @@ namespace Infinium
                     NeedSplash = false;
                     //CabFurDispatchManager.GetMegaBatchNumbers(Convert.ToDateTime(Date));
                     cabFurAssembleManager.GetMainOrdersSquareAndWeight(Convert.ToDateTime(Date));
-                    cabFurAssembleManager.FilterDispatchByDate(Convert.ToDateTime(Date));
+                    cabFurAssembleManager.FilterAssembleByDate(Convert.ToDateTime(Date));
 
                     NeedSplash = true;
                     while (SplashWindow.bSmallCreated)
@@ -1688,7 +1666,7 @@ namespace Infinium
                 {
                     //CabFurDispatchManager.GetMegaBatchNumbers(Convert.ToDateTime(Date));
                     cabFurAssembleManager.GetMainOrdersSquareAndWeight(Convert.ToDateTime(Date));
-                    cabFurAssembleManager.FilterDispatchByDate(Convert.ToDateTime(Date));
+                    cabFurAssembleManager.FilterAssembleByDate(Convert.ToDateTime(Date));
                 }
             }
             else
@@ -1702,7 +1680,7 @@ namespace Infinium
                     NeedSplash = false;
                     //CabFurDispatchManager.GetMegaBatchNumbers(Convert.ToDateTime(Date));
                     cabFurAssembleManager.GetMainOrdersSquareAndWeight();
-                    cabFurAssembleManager.FilterDispatchByDate(-1);
+                    cabFurAssembleManager.FilterAssembleByDate(-1);
 
                     NeedSplash = true;
                     while (SplashWindow.bSmallCreated)
@@ -1712,7 +1690,7 @@ namespace Infinium
                 {
                     //CabFurDispatchManager.GetMegaBatchNumbers(Convert.ToDateTime(Date));
                     cabFurAssembleManager.GetMainOrdersSquareAndWeight();
-                    cabFurAssembleManager.FilterDispatchByDate(-1);
+                    cabFurAssembleManager.FilterAssembleByDate(-1);
                 }
             }
         }
@@ -1727,8 +1705,8 @@ namespace Infinium
         private void UpdateCabFurDispatchDate()
         {
             DateTime FilterDate = new DateTime(Convert.ToInt32(cbxCabFurYears.SelectedValue), Convert.ToInt32(cbxCabFurMonths.SelectedValue), 1);
-            cabFurAssembleManager.ClearDispatchDates();
-            cabFurAssembleManager.UpdateDispatchDates(FilterDate);
+            cabFurAssembleManager.ClearAssembleDates();
+            cabFurAssembleManager.UpdateAssembleDates(FilterDate);
         }
 
         private void cbxMonths_SelectionChangeCommitted(object sender, EventArgs e)
@@ -1868,12 +1846,12 @@ namespace Infinium
         {
             if (cabFurAssembleManager == null)
                 return;
-            cabFurAssembleManager.ClearDispatchContent();
-            if (dgvCabFur.SelectedRows.Count == 0)
+            cabFurAssembleManager.ClearMainOrders();
+            if (dgvCabFurMegaOrders.SelectedRows.Count == 0)
             {
                 return;
             }
-            int DispatchID = Convert.ToInt32(dgvCabFur.SelectedRows[0].Cells["DispatchID"].Value);
+            int MegaOrderID = Convert.ToInt32(dgvCabFurMegaOrders.SelectedRows[0].Cells["MegaOrderID"].Value);
 
             if (NeedSplash)
             {
@@ -1882,16 +1860,16 @@ namespace Infinium
 
                 while (!SplashWindow.bSmallCreated) ;
                 NeedSplash = false;
-                cabFurAssembleManager.FilterDispatchContent(DispatchID);
-                cabFurAssembleManager.FillPercColumns(DispatchID);
+                cabFurAssembleManager.FilterMainOrders(MegaOrderID);
+                cabFurAssembleManager.FillPercColumns(MegaOrderID);
                 NeedSplash = true;
                 while (SplashWindow.bSmallCreated)
                     SmallWaitForm.CloseS = true;
             }
             else
             {
-                cabFurAssembleManager.FilterDispatchContent(DispatchID);
-                cabFurAssembleManager.FillPercColumns(DispatchID);
+                cabFurAssembleManager.FilterMainOrders(MegaOrderID);
+                cabFurAssembleManager.FillPercColumns(MegaOrderID);
             }
         }
 
@@ -2679,11 +2657,12 @@ namespace Infinium
 
         private void ChangeCabFurDate_Click(object sender, EventArgs e)
         {
-            if (dgvCabFur.Rows.Count == 0)
+            if (dgvCabFurMegaOrders.Rows.Count == 0)
                 return;
 
-            int DispatchID = Convert.ToInt32(dgvCabFur.SelectedRows[0].Cells["DispatchID"].Value);
-            object DispatchDate = null;
+            int MegaOrderID = Convert.ToInt32(dgvCabFurMegaOrders.SelectedRows[0].Cells["MegaOrderID"].Value);
+            int ClientID = Convert.ToInt32(dgvCabFurMegaOrders.SelectedRows[0].Cells["ClientID"].Value);
+            object date = null;
 
             PhantomForm PhantomForm = new Infinium.PhantomForm();
             PhantomForm.Show();
@@ -2693,14 +2672,14 @@ namespace Infinium
             marketingNewCabFurMenu.ShowDialog();
 
             bool bOk = marketingNewCabFurMenu.DialogResult == DialogResult.OK ? true : false;
-            DispatchDate = marketingNewCabFurMenu.DispatchDate;
+            date = marketingNewCabFurMenu.DispatchDate;
 
             PhantomForm.Close();
             PhantomForm.Dispose();
             marketingNewCabFurMenu.Dispose();
             TopForm = null;
 
-            if (bOk && DispatchDate != null)
+            if (bOk && date != null)
             {
                 Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
                 T.Start();
@@ -2708,10 +2687,10 @@ namespace Infinium
                 while (!SplashWindow.bSmallCreated) ;
 
                 NeedSplash = false;
-                cabFurAssembleManager.ChangeDispatchDate(DispatchID, DispatchDate);
+                cabFurAssembleManager.ChangeAssembleDate(MegaOrderID, ClientID, date);
                 UpdateCabFurDispatchDate();
-                cabFurAssembleManager.MoveToDispatchDate(Convert.ToDateTime(DispatchDate));
-                cabFurAssembleManager.MoveToDispatch(DispatchID);
+                cabFurAssembleManager.MoveToAssembleDate(Convert.ToDateTime(date));
+                cabFurAssembleManager.MoveToMegaOrder(MegaOrderID);
                 NeedSplash = true;
 
                 while (SplashWindow.bSmallCreated)
@@ -4478,16 +4457,18 @@ namespace Infinium
         {
             DateTime DispatchDate = Convert.ToDateTime(dgvDispatchDates.SelectedRows[0].Cells["PrepareDispatchDateTime"].Value);
             int DispatchID = 0;
+            int ClientID = 0;
             int[] MainOrders = new int[dgvMainOrders.SelectedRows.Count];
             for (int i = 0; i < dgvMainOrders.SelectedRows.Count; i++)
                 MainOrders[i] = Convert.ToInt32(dgvMainOrders.SelectedRows[i].Cells["MainOrderID"].Value);
             if (dgvDispatch.SelectedRows.Count > 0)
+            {
                 DispatchID = Convert.ToInt32(dgvDispatch.SelectedRows[0].Cells["DispatchID"].Value);
+                ClientID = Convert.ToInt32(dgvDispatch.SelectedRows[0].Cells["ClientID"].Value);
+            }
             if (DispatchID != 0 && MainOrders.Count() > 0)
             {
                 int NewDispatchID = MarketingExpeditionManager.MoveMainOrdersToAnotherDispatch(MainOrders, DispatchID);
-                if (NewDispatchID != 0 && cabFurAssembleManager.IsCabFur(NewDispatchID))
-                    cabFurAssembleManager.ChangeDispatchDate(NewDispatchID, null);
                 UpdateDispatchDate();
                 MarketingDispatchManager.MoveToDispatchDate(DispatchDate);
                 MarketingDispatchManager.MoveToDispatch(DispatchID);
@@ -4728,12 +4709,12 @@ namespace Infinium
         {
             if (Convert.ToInt32(kryptonButton5.Tag) == 1)
             {
-                MenuPanel.Height = 618;
+                MenuPanel.Height = 668;
                 kryptonButton5.Tag = 0;
             }
             else
             {
-                MenuPanel.Height = 400;
+                MenuPanel.Height = 460;
                 kryptonButton5.Tag = 1;
             }
         }
@@ -4762,18 +4743,18 @@ namespace Infinium
         {
             if ((RoleType != RoleTypes.OrdinaryRole) && e.Button == System.Windows.Forms.MouseButtons.Right)
             {
-                dgvCabFur.Rows[e.RowIndex].Selected = true;
+                dgvCabFurMegaOrders.Rows[e.RowIndex].Selected = true;
                 kryptonContextMenu8.Show(new Point(Cursor.Position.X - 212, Cursor.Position.Y - 10));
             }
         }
 
         private void kryptonContextMenuItem18_Click(object sender, EventArgs e)
         {
-            if (dgvCabFur.SelectedRows.Count == 0)
+            if (dgvCabFurMegaOrders.SelectedRows.Count == 0)
                 return;
-            int DispatchID = Convert.ToInt32(dgvCabFur.SelectedRows[0].Cells["DispatchID"].Value);
+            int MegaOrderID = Convert.ToInt32(dgvCabFurMegaOrders.SelectedRows[0].Cells["MegaOrderID"].Value);
 
-            object PrepareDispatchDateTime = MarketingDispatchManager.GetPrepareDispatchDateTime(DispatchID);
+            object PrepareDispatchDateTime = MarketingDispatchManager.GetPrepareDispatchDateTimeByMegaOrder(MegaOrderID);
             if (PrepareDispatchDateTime != DBNull.Value)
             {
                 Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
@@ -4787,7 +4768,7 @@ namespace Infinium
                 cbxMonths.SelectedValue = Convert.ToDateTime(PrepareDispatchDateTime).Month;
                 UpdateDispatchDate();
                 MarketingDispatchManager.MoveToDispatchDate(Convert.ToDateTime(PrepareDispatchDateTime));
-                MarketingDispatchManager.MoveToDispatch(DispatchID);
+                //MarketingDispatchManager.MoveToDispatch(MegaOrderID);
                 cbtnDispatch.Checked = true;
                 kryptonCheckSet1_CheckedButtonChanged(null, null);
 
@@ -4806,77 +4787,6 @@ namespace Infinium
         }
 
         /// <summary>
-        /// Отгрузочная ведомость для корпусной мебели
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void kryptonContextMenuItem22_Click(object sender, EventArgs e)
-        {
-            bool NeedProfilList = true;
-            bool NeedTPSList = true;
-            int ClientID = Convert.ToInt32(dgvCabFur.SelectedRows[0].Cells["ClientID"].Value);
-            int DispatchID = Convert.ToInt32(dgvCabFur.SelectedRows[0].Cells["DispatchID"].Value);
-
-            int[] Dispatches = new int[dgvCabFur.SelectedRows.Count];
-            for (int i = 0; i < dgvCabFur.SelectedRows.Count; i++)
-                Dispatches[i] = Convert.ToInt32(dgvCabFur.SelectedRows[i].Cells["DispatchID"].Value);
-            if (!MarketingDispatchManager.HasPackages(DispatchID))
-            {
-                InfiniumTips.ShowTip(this, 50, 85, "Отгрузка пуста", 1700);
-                return;
-            }
-
-            bool PressOK = false;
-            bool ColorFullName = false;
-            object MachineName = DBNull.Value;
-            object PermitNumber = DBNull.Value;
-            object SealNumber = DBNull.Value;
-
-            PhantomForm PhantomForm = new Infinium.PhantomForm();
-            PhantomForm.Show();
-
-            MarketingDispatchInfoMenu MarketingDispatchInfoMenu = new MarketingDispatchInfoMenu(this);
-            TopForm = MarketingDispatchInfoMenu;
-            MarketingDispatchInfoMenu.ShowDialog();
-
-            PressOK = MarketingDispatchInfoMenu.PressOK;
-            ColorFullName = MarketingDispatchInfoMenu.ColorFullName;
-            MachineName = MarketingDispatchInfoMenu.MachineName;
-            PermitNumber = MarketingDispatchInfoMenu.PermitNumber;
-            SealNumber = MarketingDispatchInfoMenu.SealNumber;
-
-            PhantomForm.Close();
-            PhantomForm.Dispose();
-            MarketingDispatchInfoMenu.Dispose();
-            TopForm = null;
-
-            Thread T1 = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Создание документа Excel.\r\nПодождите..."); });
-            T1.Start();
-
-            while (!SplashWindow.bSmallCreated) ;
-
-            object CreationDateTime = dgvCabFur.SelectedRows[0].Cells["CreationDateTime"].Value;
-            object ConfirmExpDateTime = dgvCabFur.SelectedRows[0].Cells["ConfirmExpDateTime"].Value;
-            object ConfirmDispDateTime = dgvCabFur.SelectedRows[0].Cells["ConfirmDispDateTime"].Value;
-            object PrepareDispDateTime = dgvCabFurDates.SelectedRows[0].Cells["PrepareDateTime"].Value;
-            object ConfirmExpUserID = dgvCabFur.SelectedRows[0].Cells["ConfirmExpUserID"].Value;
-            object ConfirmDispUserID = dgvCabFur.SelectedRows[0].Cells["ConfirmDispUserID"].Value;
-            object RealDispDateTime = DBNull.Value;
-            object DispUserID = DBNull.Value;
-            string PackagesReportName = string.Empty;
-            MarketingDispatchManager.GetRealDispDateTime(DispatchID, ref RealDispDateTime, ref DispUserID);
-
-            DispatchReport.GetDispatchInfo(ref CreationDateTime, ref ConfirmExpDateTime, ref ConfirmDispDateTime, ref RealDispDateTime, ref PrepareDispDateTime,
-                ref ConfirmExpUserID, ref ConfirmDispUserID, ref DispUserID, ref MachineName, ref PermitNumber, ref SealNumber);
-            DispatchReport.CurrentClient = ClientID;
-            DispatchReport.CurrentDispatches = Dispatches;
-            DispatchReport.Initialize();
-            DispatchReport.CreateReport(NeedProfilList, NeedTPSList, false, ColorFullName, true, ref PackagesReportName);
-
-            while (SplashWindow.bSmallCreated)
-                SmallWaitForm.CloseS = true;
-        }
-        /// <summary>
         /// Приложения к отгрузке для корпусной мебели
         /// </summary>
         /// <param name="sender"></param>
@@ -4885,64 +4795,32 @@ namespace Infinium
         {
             bool NeedProfilList = true;
             bool NeedTPSList = true;
-            int ClientID = Convert.ToInt32(dgvCabFur.SelectedRows[0].Cells["ClientID"].Value);
-            int DispatchID = Convert.ToInt32(dgvCabFur.SelectedRows[0].Cells["DispatchID"].Value);
+            int ClientID = Convert.ToInt32(dgvCabFurMegaOrders.SelectedRows[0].Cells["ClientID"].Value);
+            int MegaOrderID = Convert.ToInt32(dgvCabFurMegaOrders.SelectedRows[0].Cells["MegaOrderID"].Value);
 
-            int[] Dispatches = new int[dgvCabFur.SelectedRows.Count];
-            for (int i = 0; i < dgvCabFur.SelectedRows.Count; i++)
-                Dispatches[i] = Convert.ToInt32(dgvCabFur.SelectedRows[i].Cells["DispatchID"].Value);
-            if (!MarketingDispatchManager.HasPackages(DispatchID))
+            int[] MegaOrders = new int[dgvCabFurMegaOrders.SelectedRows.Count];
+            for (int i = 0; i < dgvCabFurMegaOrders.SelectedRows.Count; i++)
+                MegaOrders[i] = Convert.ToInt32(dgvCabFurMegaOrders.SelectedRows[i].Cells["MegaOrderID"].Value);
+            if (!cabFurAssembleManager.HasPackages(MegaOrderID))
             {
-                InfiniumTips.ShowTip(this, 50, 85, "Отгрузка пуста", 1700);
+                InfiniumTips.ShowTip(this, 50, 85, "Заказ пуст", 1700);
                 return;
             }
-
-            bool PressOK = false;
-            bool ColorFullName = false;
-            object MachineName = DBNull.Value;
-            object PermitNumber = DBNull.Value;
-            object SealNumber = DBNull.Value;
-
-            PhantomForm PhantomForm = new Infinium.PhantomForm();
-            PhantomForm.Show();
-
-            MarketingDispatchInfoMenu MarketingDispatchInfoMenu = new MarketingDispatchInfoMenu(this);
-            TopForm = MarketingDispatchInfoMenu;
-            MarketingDispatchInfoMenu.ShowDialog();
-
-            PressOK = MarketingDispatchInfoMenu.PressOK;
-            ColorFullName = MarketingDispatchInfoMenu.ColorFullName;
-            MachineName = MarketingDispatchInfoMenu.MachineName;
-            PermitNumber = MarketingDispatchInfoMenu.PermitNumber;
-            SealNumber = MarketingDispatchInfoMenu.SealNumber;
-
-            PhantomForm.Close();
-            PhantomForm.Dispose();
-            MarketingDispatchInfoMenu.Dispose();
-            TopForm = null;
 
             Thread T1 = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Создание документа Excel.\r\nПодождите..."); });
             T1.Start();
 
             while (!SplashWindow.bSmallCreated) ;
 
-            object CreationDateTime = dgvCabFur.SelectedRows[0].Cells["CreationDateTime"].Value;
-            object ConfirmExpDateTime = dgvCabFur.SelectedRows[0].Cells["ConfirmExpDateTime"].Value;
-            object ConfirmDispDateTime = dgvCabFur.SelectedRows[0].Cells["ConfirmDispDateTime"].Value;
-            object PrepareDispDateTime = dgvCabFurDates.SelectedRows[0].Cells["PrepareDateTime"].Value;
-            object ConfirmExpUserID = dgvCabFur.SelectedRows[0].Cells["ConfirmExpUserID"].Value;
-            object ConfirmDispUserID = dgvCabFur.SelectedRows[0].Cells["ConfirmDispUserID"].Value;
-            object RealDispDateTime = DBNull.Value;
-            object DispUserID = DBNull.Value;
+            object CreationDateTime = dgvCabFurMegaOrders.SelectedRows[0].Cells["OrderDate"].Value;
+            object PrepareDispDateTime = dgvCabFurAssembleDates.SelectedRows[0].Cells["PrepareDateTime"].Value;
             string PackagesReportName = string.Empty;
-            MarketingDispatchManager.GetRealDispDateTime(DispatchID, ref RealDispDateTime, ref DispUserID);
 
-            DispatchReport.GetDispatchInfo(ref CreationDateTime, ref ConfirmExpDateTime, ref ConfirmDispDateTime, ref RealDispDateTime, ref PrepareDispDateTime,
-                ref ConfirmExpUserID, ref ConfirmDispUserID, ref DispUserID, ref MachineName, ref PermitNumber, ref SealNumber);
-            DispatchReport.CurrentClient = ClientID;
-            DispatchReport.CurrentDispatches = Dispatches;
-            DispatchReport.Initialize();
-            DispatchReport.CreateCabFurReport(NeedProfilList, NeedTPSList, true, ColorFullName, true, ref PackagesReportName);
+            cabFurAssembleReport.GetDispatchInfo(ref CreationDateTime, ref PrepareDispDateTime);
+            cabFurAssembleReport.CurrentClient = ClientID;
+            cabFurAssembleReport.CurrentMegaOrders = MegaOrders;
+            cabFurAssembleReport.Initialize();
+            cabFurAssembleReport.CreateCabFurReport(NeedProfilList, NeedTPSList, true, ref PackagesReportName);
 
             while (SplashWindow.bSmallCreated)
                 SmallWaitForm.CloseS = true;
@@ -4950,19 +4828,19 @@ namespace Infinium
 
         private void kryptonContextMenuItem21_Click(object sender, EventArgs e)
         {
-            if (dgvCabFur.SelectedRows.Count == 0)
+            if (dgvCabFurMegaOrders.SelectedRows.Count == 0)
                 return;
 
-            int DispatchID = 0;
-            if (dgvCabFur.SelectedRows.Count != 0 && dgvCabFur.SelectedRows[0].Cells["DispatchID"].Value != DBNull.Value)
-                DispatchID = Convert.ToInt32(dgvCabFur.SelectedRows[0].Cells["DispatchID"].Value);
+            int MegaOrderID = 0;
+            if (dgvCabFurMegaOrders.SelectedRows.Count != 0 && dgvCabFurMegaOrders.SelectedRows[0].Cells["MegaOrderID"].Value != DBNull.Value)
+                MegaOrderID = Convert.ToInt32(dgvCabFurMegaOrders.SelectedRows[0].Cells["MegaOrderID"].Value);
 
             Thread T = new Thread(delegate () { SplashWindow.CreateSplash(); });
             T.Start();
 
             while (!SplashForm.bCreated) ;
 
-            CabFurAssembleForm cabFurAssembleForm = new CabFurAssembleForm(this, DispatchID);
+            CabFurAssembleForm cabFurAssembleForm = new CabFurAssembleForm(this, MegaOrderID);
 
             TopForm = cabFurAssembleForm;
 
@@ -4972,6 +4850,28 @@ namespace Infinium
             cabFurAssembleForm.Dispose();
 
             TopForm = null;
+        }
+
+        private void kryptonContextMenuItem23_Click(object sender, EventArgs e)
+        {
+            if (dgvCabFurMegaOrders.SelectedRows.Count == 0)
+                return;
+            int MegaOrderID = Convert.ToInt32(dgvCabFurMegaOrders.SelectedRows[0].Cells["MegaOrderID"].Value);
+
+            MarketingExpeditionManager.MoveToMegaOrder(MegaOrderID);
+            cbtnExpedition.Checked = true;
+            kryptonCheckSet1_CheckedButtonChanged(null, null);
+        }
+
+        private void btnShowCabFurAssemble_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnShowAllOrders_Click(object sender, EventArgs e)
+        {
+            if (MarketingExpeditionManager != null)
+                FilterOrders();
         }
     }
 }

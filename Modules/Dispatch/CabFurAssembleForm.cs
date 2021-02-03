@@ -21,7 +21,7 @@ namespace Infinium
         bool CanAction = true;
 
         int ClientID = 1;
-        int DispatchID = 1;
+        int MegaOrderID = 1;
         int OrderNumber = 1;
 
         Form MainForm;
@@ -32,11 +32,11 @@ namespace Infinium
         [DllImport("user32.dll")]
         static extern IntPtr GetActiveWindow();
 
-        public CabFurAssembleForm(Form tMainForm, int iDispatchID)
+        public CabFurAssembleForm(Form tMainForm, int iMegaOrderID)
         {
             InitializeComponent();
 
-            DispatchID = iDispatchID;
+            MegaOrderID = iMegaOrderID;
 
             MainForm = tMainForm;
 
@@ -45,7 +45,7 @@ namespace Infinium
             assignmentsManager.Initialize();
 
             Initialize();
-            assemblePackagesManager.GetPackagesLabels(DispatchID);
+            assemblePackagesManager.GetPackagesLabels(MegaOrderID);
 
             this.MaximumSize = Screen.PrimaryScreen.WorkingArea.Size;
 
