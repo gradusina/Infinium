@@ -73,7 +73,7 @@ namespace Infinium
 
         DecorCatalogOrder DecorCatalogOrder;
         DispatchReport DispatchReport;
-        CabFurDispatch CabFurDispatchManager;
+        Modules.CabFurnitureAssignments.CabFurAssemble cabFurAssembleManager;
         MarketingDispatch MarketingDispatchManager;
         DBFReport DBFReport;
         Infinium.Modules.Marketing.Dispatch.DetailsReport DetailsReport;
@@ -457,11 +457,11 @@ namespace Infinium
             OrdersCalculate = new OrdersCalculate();
             DetailsReport = new Modules.Marketing.Dispatch.DetailsReport(ref DecorCatalogOrder, ref OrdersCalculate.FrontsCalculate);
             MarketingDispatchManager = new MarketingDispatch();
-            CabFurDispatchManager = new CabFurDispatch();
+            cabFurAssembleManager = new Modules.CabFurnitureAssignments.CabFurAssemble();
             iDBFReport = new InvoiceReportToDBF(ref DecorCatalogOrder, ref OrdersCalculate.FrontsCalculate);
 
             MarketingDispatchManager.Initialize();
-            CabFurDispatchManager.Initialize();
+            cabFurAssembleManager.Initialize();
 
             dgvDispatchSetting();
             dgvDispatchDatesSetting();
@@ -1213,7 +1213,7 @@ namespace Infinium
 
         private void dgvCabFurSetting()
         {
-            dgvCabFur.DataSource = CabFurDispatchManager.DispatchList;
+            dgvCabFur.DataSource = cabFurAssembleManager.DispatchList;
 
             foreach (DataGridViewColumn Column in dgvCabFur.Columns)
             {
@@ -1287,7 +1287,7 @@ namespace Infinium
 
         private void dgvCabFurDatesSetting()
         {
-            dgvCabFurDates.DataSource = CabFurDispatchManager.DispatchDatesList;
+            dgvCabFurDates.DataSource = cabFurAssembleManager.DispatchDatesList;
 
             dgvCabFurDates.AutoGenerateColumns = false;
 
@@ -1416,7 +1416,7 @@ namespace Infinium
 
         private void dgvCabFurMegaOrdersSetting()
         {
-            dgvCabFurMainOrders.DataSource = CabFurDispatchManager.DispatchContentList;
+            dgvCabFurMainOrders.DataSource = cabFurAssembleManager.DispatchContentList;
 
             foreach (DataGridViewColumn Column in dgvCabFurMainOrders.Columns)
             {
@@ -1451,32 +1451,19 @@ namespace Infinium
                 dgvCabFurMainOrders.Columns["MainOrderID"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
                 dgvCabFurMainOrders.Columns["MainOrderID"].DisplayIndex = 2;
             }
-            dgvCabFurMainOrders.Columns["MegaBatchID"].HeaderText = "Группа партий";
-            dgvCabFurMainOrders.Columns["Square"].HeaderText = "Квадратура";
             dgvCabFurMainOrders.Columns["Weight"].HeaderText = "Вес";
             dgvCabFurMainOrders.Columns["AllPackCount"].HeaderText = "  Кол-во\r\nупаковок";
-            dgvCabFurMainOrders.Columns["PackPercentage"].HeaderText = "Упаковано, %";
-            dgvCabFurMainOrders.Columns["StorePercentage"].HeaderText = "Склад, %";
-            dgvCabFurMainOrders.Columns["ExpPercentage"].HeaderText = "Экспедиция, %";
-            dgvCabFurMainOrders.Columns["DispPercentage"].HeaderText = "Отгружено, %";
+            dgvCabFurMainOrders.Columns["PackPercentage"].HeaderText = "Скомплектовано, %";
             
-            dgvCabFurMainOrders.Columns["MegaBatchID"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-            dgvCabFurMainOrders.Columns["MegaBatchID"].Width = 125;
             dgvCabFurMainOrders.Columns["AllPackCount"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
             dgvCabFurMainOrders.Columns["AllPackCount"].Width = 85;
             dgvCabFurMainOrders.Columns["Weight"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
             dgvCabFurMainOrders.Columns["Weight"].Width = 105;
-            dgvCabFurMainOrders.Columns["Square"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-            dgvCabFurMainOrders.Columns["Square"].Width = 105;
             
             dgvCabFurMainOrders.Columns["PackPercentage"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dgvCabFurMainOrders.AddPercentageColumn("PackPercentage");
-            dgvCabFurMainOrders.Columns["StorePercentage"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dgvCabFurMainOrders.AddPercentageColumn("StorePercentage");
-            dgvCabFurMainOrders.Columns["ExpPercentage"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dgvCabFurMainOrders.AddPercentageColumn("ExpPercentage");
-            dgvCabFurMainOrders.Columns["DispPercentage"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dgvCabFurMainOrders.AddPercentageColumn("DispPercentage");
+            dgvCabFurMainOrders.Columns["PackPercentage"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            dgvCabFurMainOrders.Columns["PackPercentage"].Width = 205;
 
         }
 
@@ -1671,14 +1658,14 @@ namespace Infinium
 
         private void dgvCabFurDates_SelectionChanged(object sender, EventArgs e)
         {
-            if (CabFurDispatchManager == null)
+            if (cabFurAssembleManager == null)
                 return;
-            CabFurDispatchManager.ClearDispatch();
+            cabFurAssembleManager.ClearDispatch();
             if (dgvCabFurDates.SelectedRows.Count == 0)
             {
                 return;
             }
-            object Date = CabFurDispatchManager.CurrentDispatchDate;
+            object Date = cabFurAssembleManager.CurrentDispatchDate;
 
             if (Date != DBNull.Value)
             {
@@ -1690,8 +1677,8 @@ namespace Infinium
                     while (!SplashWindow.bSmallCreated) ;
                     NeedSplash = false;
                     //CabFurDispatchManager.GetMegaBatchNumbers(Convert.ToDateTime(Date));
-                    CabFurDispatchManager.GetMainOrdersSquareAndWeight(Convert.ToDateTime(Date));
-                    CabFurDispatchManager.FilterDispatchByDate(Convert.ToDateTime(Date));
+                    cabFurAssembleManager.GetMainOrdersSquareAndWeight(Convert.ToDateTime(Date));
+                    cabFurAssembleManager.FilterDispatchByDate(Convert.ToDateTime(Date));
 
                     NeedSplash = true;
                     while (SplashWindow.bSmallCreated)
@@ -1700,8 +1687,8 @@ namespace Infinium
                 else
                 {
                     //CabFurDispatchManager.GetMegaBatchNumbers(Convert.ToDateTime(Date));
-                    CabFurDispatchManager.GetMainOrdersSquareAndWeight(Convert.ToDateTime(Date));
-                    CabFurDispatchManager.FilterDispatchByDate(Convert.ToDateTime(Date));
+                    cabFurAssembleManager.GetMainOrdersSquareAndWeight(Convert.ToDateTime(Date));
+                    cabFurAssembleManager.FilterDispatchByDate(Convert.ToDateTime(Date));
                 }
             }
             else
@@ -1714,8 +1701,8 @@ namespace Infinium
                     while (!SplashWindow.bSmallCreated) ;
                     NeedSplash = false;
                     //CabFurDispatchManager.GetMegaBatchNumbers(Convert.ToDateTime(Date));
-                    CabFurDispatchManager.GetMainOrdersSquareAndWeight();
-                    CabFurDispatchManager.FilterDispatchByDate(-1);
+                    cabFurAssembleManager.GetMainOrdersSquareAndWeight();
+                    cabFurAssembleManager.FilterDispatchByDate(-1);
 
                     NeedSplash = true;
                     while (SplashWindow.bSmallCreated)
@@ -1724,8 +1711,8 @@ namespace Infinium
                 else
                 {
                     //CabFurDispatchManager.GetMegaBatchNumbers(Convert.ToDateTime(Date));
-                    CabFurDispatchManager.GetMainOrdersSquareAndWeight();
-                    CabFurDispatchManager.FilterDispatchByDate(-1);
+                    cabFurAssembleManager.GetMainOrdersSquareAndWeight();
+                    cabFurAssembleManager.FilterDispatchByDate(-1);
                 }
             }
         }
@@ -1740,8 +1727,8 @@ namespace Infinium
         private void UpdateCabFurDispatchDate()
         {
             DateTime FilterDate = new DateTime(Convert.ToInt32(cbxCabFurYears.SelectedValue), Convert.ToInt32(cbxCabFurMonths.SelectedValue), 1);
-            CabFurDispatchManager.ClearDispatchDates();
-            CabFurDispatchManager.UpdateDispatchDates(FilterDate);
+            cabFurAssembleManager.ClearDispatchDates();
+            cabFurAssembleManager.UpdateDispatchDates(FilterDate);
         }
 
         private void cbxMonths_SelectionChangeCommitted(object sender, EventArgs e)
@@ -1879,9 +1866,9 @@ namespace Infinium
 
         private void dgvCabFur_SelectionChanged(object sender, EventArgs e)
         {
-            if (CabFurDispatchManager == null)
+            if (cabFurAssembleManager == null)
                 return;
-            CabFurDispatchManager.ClearDispatchContent();
+            cabFurAssembleManager.ClearDispatchContent();
             if (dgvCabFur.SelectedRows.Count == 0)
             {
                 return;
@@ -1895,36 +1882,17 @@ namespace Infinium
 
                 while (!SplashWindow.bSmallCreated) ;
                 NeedSplash = false;
-                CabFurDispatchManager.FilterDispatchContent(DispatchID);
-                CabFurDispatchManager.FillPercColumns(DispatchID);
+                cabFurAssembleManager.FilterDispatchContent(DispatchID);
+                cabFurAssembleManager.FillPercColumns(DispatchID);
                 NeedSplash = true;
                 while (SplashWindow.bSmallCreated)
                     SmallWaitForm.CloseS = true;
             }
             else
             {
-                CabFurDispatchManager.FilterDispatchContent(DispatchID);
-                CabFurDispatchManager.FillPercColumns(DispatchID);
+                cabFurAssembleManager.FilterDispatchContent(DispatchID);
+                cabFurAssembleManager.FillPercColumns(DispatchID);
             }
-            //if (dgvDispatch.SelectedRows.Count > 0 && dgvDispatch.SelectedRows[0].Cells["DispatchStatus"].Value.ToString() == "Отгружена")
-            //{
-            //    btnConfirmDispatch.Visible = false;
-            //    ConfirmDispatchContextMenuItem.Visible = false;
-            //}
-            //if (RoleType == RoleTypes.AdminRole || RoleType == RoleTypes.LogisticsRole)
-            //{
-            //    btnChangeDispatchDate.Visible = true;
-            //    cmiChangeDispatchDate.Visible = true;
-            //    btnEditDispatch.Visible = true;
-            //}
-            //if (dgvDispatch.SelectedRows.Count > 0 && dgvDispatch.SelectedRows[0].Cells["DispatchStatus"].Value.ToString() == "Отгружена")
-            //{
-            //    btnConfirmDispatch.Visible = false;
-            //    ConfirmDispatchContextMenuItem.Visible = false;
-            //    btnChangeDispatchDate.Visible = false;
-            //    cmiChangeDispatchDate.Visible = false;
-            //    btnEditDispatch.Visible = false;
-            //}
         }
 
         private void dgvMegaOrders_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -2740,10 +2708,10 @@ namespace Infinium
                 while (!SplashWindow.bSmallCreated) ;
 
                 NeedSplash = false;
-                CabFurDispatchManager.ChangeDispatchDate(DispatchID, DispatchDate);
+                cabFurAssembleManager.ChangeDispatchDate(DispatchID, DispatchDate);
                 UpdateCabFurDispatchDate();
-                CabFurDispatchManager.MoveToDispatchDate(Convert.ToDateTime(DispatchDate));
-                CabFurDispatchManager.MoveToDispatch(DispatchID);
+                cabFurAssembleManager.MoveToDispatchDate(Convert.ToDateTime(DispatchDate));
+                cabFurAssembleManager.MoveToDispatch(DispatchID);
                 NeedSplash = true;
 
                 while (SplashWindow.bSmallCreated)
@@ -4518,8 +4486,8 @@ namespace Infinium
             if (DispatchID != 0 && MainOrders.Count() > 0)
             {
                 int NewDispatchID = MarketingExpeditionManager.MoveMainOrdersToAnotherDispatch(MainOrders, DispatchID);
-                if (NewDispatchID != 0 && CabFurDispatchManager.IsCabFur(NewDispatchID))
-                    CabFurDispatchManager.ChangeDispatchDate(NewDispatchID, null);
+                if (NewDispatchID != 0 && cabFurAssembleManager.IsCabFur(NewDispatchID))
+                    cabFurAssembleManager.ChangeDispatchDate(NewDispatchID, null);
                 UpdateDispatchDate();
                 MarketingDispatchManager.MoveToDispatchDate(DispatchDate);
                 MarketingDispatchManager.MoveToDispatch(DispatchID);
@@ -4848,7 +4816,6 @@ namespace Infinium
             bool NeedTPSList = true;
             int ClientID = Convert.ToInt32(dgvCabFur.SelectedRows[0].Cells["ClientID"].Value);
             int DispatchID = Convert.ToInt32(dgvCabFur.SelectedRows[0].Cells["DispatchID"].Value);
-            DateTime DispatchDate = Convert.ToDateTime(dgvCabFurDates.SelectedRows[0].Cells["PrepareDateTime"].Value);
 
             int[] Dispatches = new int[dgvCabFur.SelectedRows.Count];
             for (int i = 0; i < dgvCabFur.SelectedRows.Count; i++)
@@ -4920,7 +4887,6 @@ namespace Infinium
             bool NeedTPSList = true;
             int ClientID = Convert.ToInt32(dgvCabFur.SelectedRows[0].Cells["ClientID"].Value);
             int DispatchID = Convert.ToInt32(dgvCabFur.SelectedRows[0].Cells["DispatchID"].Value);
-            DateTime DispatchDate = Convert.ToDateTime(dgvCabFurDates.SelectedRows[0].Cells["PrepareDateTime"].Value);
 
             int[] Dispatches = new int[dgvCabFur.SelectedRows.Count];
             for (int i = 0; i < dgvCabFur.SelectedRows.Count; i++)
@@ -4996,14 +4962,14 @@ namespace Infinium
 
             while (!SplashForm.bCreated) ;
 
-            CabFurDispatchForm cabFurDispatchForm = new CabFurDispatchForm(this, DispatchID);
+            CabFurAssembleForm cabFurAssembleForm = new CabFurAssembleForm(this, DispatchID);
 
-            TopForm = cabFurDispatchForm;
+            TopForm = cabFurAssembleForm;
 
-            cabFurDispatchForm.ShowDialog();
+            cabFurAssembleForm.ShowDialog();
 
-            cabFurDispatchForm.Close();
-            cabFurDispatchForm.Dispose();
+            cabFurAssembleForm.Close();
+            cabFurAssembleForm.Dispose();
 
             TopForm = null;
         }

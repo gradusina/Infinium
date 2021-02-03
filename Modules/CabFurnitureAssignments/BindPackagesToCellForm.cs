@@ -21,9 +21,9 @@ namespace Infinium
 
         Form MainForm = null;
 
-        StoragePackagesManager storagePackagesManager;
+        StorePackagesManager storagePackagesManager;
 
-        public BindPackagesToCellForm(Form tMainForm, StoragePackagesManager SM, int iCellId)
+        public BindPackagesToCellForm(Form tMainForm, StorePackagesManager SM, int iCellId)
         {
             MainForm = tMainForm;
             storagePackagesManager = SM;

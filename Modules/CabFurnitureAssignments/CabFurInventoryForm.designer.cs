@@ -48,7 +48,9 @@
             this.label1 = new System.Windows.Forms.Label();
             this.kryptonSplitContainer3 = new ComponentFactory.Krypton.Toolkit.KryptonSplitContainer();
             this.panel39 = new System.Windows.Forms.Panel();
+            this.dgvStoragePackagesLabels = new Infinium.PercentageDataGrid();
             this.panel41 = new System.Windows.Forms.Panel();
+            this.dgvStoragePackagesDetails = new Infinium.PercentageDataGrid();
             this.label3 = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
@@ -61,18 +63,16 @@
             this.kryptonButton1 = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.kryptonSplitContainer1 = new ComponentFactory.Krypton.Toolkit.KryptonSplitContainer();
             this.panel4 = new System.Windows.Forms.Panel();
+            this.dgvExcessPackagesLabels = new Infinium.PercentageDataGrid();
             this.panel5 = new System.Windows.Forms.Panel();
+            this.dgvExcessPackagesDetails = new Infinium.PercentageDataGrid();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.kryptonSplitContainer2 = new ComponentFactory.Krypton.Toolkit.KryptonSplitContainer();
             this.panel6 = new System.Windows.Forms.Panel();
-            this.panel7 = new System.Windows.Forms.Panel();
-            this.btnBackToScan = new ComponentFactory.Krypton.Toolkit.KryptonButton();
-            this.dgvStoragePackagesLabels = new Infinium.PercentageDataGrid();
-            this.dgvStoragePackagesDetails = new Infinium.PercentageDataGrid();
-            this.dgvExcessPackagesLabels = new Infinium.PercentageDataGrid();
-            this.dgvExcessPackagesDetails = new Infinium.PercentageDataGrid();
             this.dgvMissPackagesLabels = new Infinium.PercentageDataGrid();
+            this.panel7 = new System.Windows.Forms.Panel();
             this.dgvMissPackagesDetails = new Infinium.PercentageDataGrid();
+            this.btnBackToScan = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.CheckPicture)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonSplitContainer3)).BeginInit();
@@ -82,7 +82,9 @@
             this.kryptonSplitContainer3.Panel2.SuspendLayout();
             this.kryptonSplitContainer3.SuspendLayout();
             this.panel39.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvStoragePackagesLabels)).BeginInit();
             this.panel41.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvStoragePackagesDetails)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -97,7 +99,9 @@
             this.kryptonSplitContainer1.Panel2.SuspendLayout();
             this.kryptonSplitContainer1.SuspendLayout();
             this.panel4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvExcessPackagesLabels)).BeginInit();
             this.panel5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvExcessPackagesDetails)).BeginInit();
             this.tabPage4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonSplitContainer2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonSplitContainer2.Panel1)).BeginInit();
@@ -106,12 +110,8 @@
             this.kryptonSplitContainer2.Panel2.SuspendLayout();
             this.kryptonSplitContainer2.SuspendLayout();
             this.panel6.SuspendLayout();
-            this.panel7.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvStoragePackagesLabels)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvStoragePackagesDetails)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvExcessPackagesLabels)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvExcessPackagesDetails)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvMissPackagesLabels)).BeginInit();
+            this.panel7.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvMissPackagesDetails)).BeginInit();
             this.SuspendLayout();
             // 
@@ -408,6 +408,62 @@
             this.panel39.Size = new System.Drawing.Size(935, 264);
             this.panel39.TabIndex = 39;
             // 
+            // dgvStoragePackagesLabels
+            // 
+            this.dgvStoragePackagesLabels.AllowUserToAddRows = false;
+            this.dgvStoragePackagesLabels.AllowUserToDeleteRows = false;
+            this.dgvStoragePackagesLabels.AllowUserToResizeColumns = false;
+            this.dgvStoragePackagesLabels.AllowUserToResizeRows = false;
+            this.dgvStoragePackagesLabels.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dgvStoragePackagesLabels.BackText = "Нет данных";
+            this.dgvStoragePackagesLabels.ColumnHeadersHeight = 40;
+            this.dgvStoragePackagesLabels.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            this.dgvStoragePackagesLabels.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvStoragePackagesLabels.HideOuterBorders = true;
+            this.dgvStoragePackagesLabels.Location = new System.Drawing.Point(0, 0);
+            this.dgvStoragePackagesLabels.Name = "dgvStoragePackagesLabels";
+            this.dgvStoragePackagesLabels.PercentLineWidth = 4;
+            this.dgvStoragePackagesLabels.ReadOnly = true;
+            this.dgvStoragePackagesLabels.RowHeadersVisible = false;
+            this.dgvStoragePackagesLabels.RowTemplate.Height = 30;
+            this.dgvStoragePackagesLabels.SelectedColorStyle = Infinium.PercentageDataGrid.ColorStyle.Blue;
+            this.dgvStoragePackagesLabels.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvStoragePackagesLabels.Size = new System.Drawing.Size(933, 262);
+            this.dgvStoragePackagesLabels.StandardStyle = false;
+            this.dgvStoragePackagesLabels.StateCommon.Background.Color1 = System.Drawing.Color.White;
+            this.dgvStoragePackagesLabels.StateCommon.Background.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
+            this.dgvStoragePackagesLabels.StateCommon.BackStyle = ComponentFactory.Krypton.Toolkit.PaletteBackStyle.GridBackgroundList;
+            this.dgvStoragePackagesLabels.StateCommon.DataCell.Back.Color1 = System.Drawing.Color.White;
+            this.dgvStoragePackagesLabels.StateCommon.DataCell.Border.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(210)))), ((int)(((byte)(210)))), ((int)(((byte)(210)))));
+            this.dgvStoragePackagesLabels.StateCommon.DataCell.Border.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
+            this.dgvStoragePackagesLabels.StateCommon.DataCell.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.dgvStoragePackagesLabels.StateCommon.DataCell.Content.Color1 = System.Drawing.Color.Black;
+            this.dgvStoragePackagesLabels.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.dgvStoragePackagesLabels.StateCommon.HeaderColumn.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
+            this.dgvStoragePackagesLabels.StateCommon.HeaderColumn.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
+            this.dgvStoragePackagesLabels.StateCommon.HeaderColumn.Border.Color1 = System.Drawing.Color.Black;
+            this.dgvStoragePackagesLabels.StateCommon.HeaderColumn.Border.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
+            this.dgvStoragePackagesLabels.StateCommon.HeaderColumn.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)(((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.dgvStoragePackagesLabels.StateCommon.HeaderColumn.Content.Color1 = System.Drawing.Color.White;
+            this.dgvStoragePackagesLabels.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.dgvStoragePackagesLabels.StateDisabled.DataCell.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(210)))), ((int)(((byte)(210)))), ((int)(((byte)(210)))));
+            this.dgvStoragePackagesLabels.StateDisabled.DataCell.Border.Color1 = System.Drawing.Color.DimGray;
+            this.dgvStoragePackagesLabels.StateDisabled.DataCell.Border.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
+            this.dgvStoragePackagesLabels.StateDisabled.DataCell.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.dgvStoragePackagesLabels.StateDisabled.DataCell.Content.Color1 = System.Drawing.Color.Gray;
+            this.dgvStoragePackagesLabels.StateSelected.DataCell.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(177)))), ((int)(((byte)(229)))));
+            this.dgvStoragePackagesLabels.StateSelected.DataCell.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
+            this.dgvStoragePackagesLabels.StateSelected.DataCell.Content.Color1 = System.Drawing.Color.White;
+            this.dgvStoragePackagesLabels.TabIndex = 74;
+            this.dgvStoragePackagesLabels.UseCustomBackColor = true;
+            this.dgvStoragePackagesLabels.RowPrePaint += new System.Windows.Forms.DataGridViewRowPrePaintEventHandler(this.dgvStoragePackagesLabels_RowPrePaint);
+            this.dgvStoragePackagesLabels.SelectionChanged += new System.EventHandler(this.dgvStoragePackagesLabels_SelectionChanged);
+            // 
             // panel41
             // 
             this.panel41.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -417,6 +473,61 @@
             this.panel41.Name = "panel41";
             this.panel41.Size = new System.Drawing.Size(935, 254);
             this.panel41.TabIndex = 39;
+            // 
+            // dgvStoragePackagesDetails
+            // 
+            this.dgvStoragePackagesDetails.AllowUserToAddRows = false;
+            this.dgvStoragePackagesDetails.AllowUserToDeleteRows = false;
+            this.dgvStoragePackagesDetails.AllowUserToResizeColumns = false;
+            this.dgvStoragePackagesDetails.AllowUserToResizeRows = false;
+            this.dgvStoragePackagesDetails.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvStoragePackagesDetails.BackText = "Нет данных";
+            this.dgvStoragePackagesDetails.ColumnHeadersHeight = 40;
+            this.dgvStoragePackagesDetails.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            this.dgvStoragePackagesDetails.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvStoragePackagesDetails.HideOuterBorders = true;
+            this.dgvStoragePackagesDetails.Location = new System.Drawing.Point(0, 0);
+            this.dgvStoragePackagesDetails.MultiSelect = false;
+            this.dgvStoragePackagesDetails.Name = "dgvStoragePackagesDetails";
+            this.dgvStoragePackagesDetails.PercentLineWidth = 0;
+            this.dgvStoragePackagesDetails.ReadOnly = true;
+            this.dgvStoragePackagesDetails.RowHeadersVisible = false;
+            this.dgvStoragePackagesDetails.RowTemplate.Height = 30;
+            this.dgvStoragePackagesDetails.SelectedColorStyle = Infinium.PercentageDataGrid.ColorStyle.Blue;
+            this.dgvStoragePackagesDetails.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvStoragePackagesDetails.Size = new System.Drawing.Size(933, 252);
+            this.dgvStoragePackagesDetails.StandardStyle = false;
+            this.dgvStoragePackagesDetails.StateCommon.Background.Color1 = System.Drawing.Color.White;
+            this.dgvStoragePackagesDetails.StateCommon.Background.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
+            this.dgvStoragePackagesDetails.StateCommon.BackStyle = ComponentFactory.Krypton.Toolkit.PaletteBackStyle.GridBackgroundList;
+            this.dgvStoragePackagesDetails.StateCommon.DataCell.Back.Color1 = System.Drawing.Color.White;
+            this.dgvStoragePackagesDetails.StateCommon.DataCell.Border.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(210)))), ((int)(((byte)(210)))), ((int)(((byte)(210)))));
+            this.dgvStoragePackagesDetails.StateCommon.DataCell.Border.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
+            this.dgvStoragePackagesDetails.StateCommon.DataCell.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.dgvStoragePackagesDetails.StateCommon.DataCell.Content.Color1 = System.Drawing.Color.Black;
+            this.dgvStoragePackagesDetails.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.dgvStoragePackagesDetails.StateCommon.HeaderColumn.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
+            this.dgvStoragePackagesDetails.StateCommon.HeaderColumn.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
+            this.dgvStoragePackagesDetails.StateCommon.HeaderColumn.Border.Color1 = System.Drawing.Color.Black;
+            this.dgvStoragePackagesDetails.StateCommon.HeaderColumn.Border.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
+            this.dgvStoragePackagesDetails.StateCommon.HeaderColumn.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)(((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.dgvStoragePackagesDetails.StateCommon.HeaderColumn.Content.Color1 = System.Drawing.Color.White;
+            this.dgvStoragePackagesDetails.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.dgvStoragePackagesDetails.StateDisabled.DataCell.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(210)))), ((int)(((byte)(210)))), ((int)(((byte)(210)))));
+            this.dgvStoragePackagesDetails.StateDisabled.DataCell.Border.Color1 = System.Drawing.Color.DimGray;
+            this.dgvStoragePackagesDetails.StateDisabled.DataCell.Border.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
+            this.dgvStoragePackagesDetails.StateDisabled.DataCell.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.dgvStoragePackagesDetails.StateDisabled.DataCell.Content.Color1 = System.Drawing.Color.Gray;
+            this.dgvStoragePackagesDetails.StateSelected.DataCell.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(177)))), ((int)(((byte)(229)))));
+            this.dgvStoragePackagesDetails.StateSelected.DataCell.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
+            this.dgvStoragePackagesDetails.StateSelected.DataCell.Content.Color1 = System.Drawing.Color.White;
+            this.dgvStoragePackagesDetails.TabIndex = 74;
+            this.dgvStoragePackagesDetails.UseCustomBackColor = true;
             // 
             // label3
             // 
@@ -631,6 +742,61 @@
             this.panel4.Size = new System.Drawing.Size(927, 313);
             this.panel4.TabIndex = 39;
             // 
+            // dgvExcessPackagesLabels
+            // 
+            this.dgvExcessPackagesLabels.AllowUserToAddRows = false;
+            this.dgvExcessPackagesLabels.AllowUserToDeleteRows = false;
+            this.dgvExcessPackagesLabels.AllowUserToResizeColumns = false;
+            this.dgvExcessPackagesLabels.AllowUserToResizeRows = false;
+            this.dgvExcessPackagesLabels.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dgvExcessPackagesLabels.BackText = "Нет данных";
+            this.dgvExcessPackagesLabels.ColumnHeadersHeight = 40;
+            this.dgvExcessPackagesLabels.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            this.dgvExcessPackagesLabels.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvExcessPackagesLabels.HideOuterBorders = true;
+            this.dgvExcessPackagesLabels.Location = new System.Drawing.Point(0, 0);
+            this.dgvExcessPackagesLabels.Name = "dgvExcessPackagesLabels";
+            this.dgvExcessPackagesLabels.PercentLineWidth = 4;
+            this.dgvExcessPackagesLabels.ReadOnly = true;
+            this.dgvExcessPackagesLabels.RowHeadersVisible = false;
+            this.dgvExcessPackagesLabels.RowTemplate.Height = 30;
+            this.dgvExcessPackagesLabels.SelectedColorStyle = Infinium.PercentageDataGrid.ColorStyle.Blue;
+            this.dgvExcessPackagesLabels.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvExcessPackagesLabels.Size = new System.Drawing.Size(925, 311);
+            this.dgvExcessPackagesLabels.StandardStyle = false;
+            this.dgvExcessPackagesLabels.StateCommon.Background.Color1 = System.Drawing.Color.White;
+            this.dgvExcessPackagesLabels.StateCommon.Background.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
+            this.dgvExcessPackagesLabels.StateCommon.BackStyle = ComponentFactory.Krypton.Toolkit.PaletteBackStyle.GridBackgroundList;
+            this.dgvExcessPackagesLabels.StateCommon.DataCell.Back.Color1 = System.Drawing.Color.White;
+            this.dgvExcessPackagesLabels.StateCommon.DataCell.Border.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(210)))), ((int)(((byte)(210)))), ((int)(((byte)(210)))));
+            this.dgvExcessPackagesLabels.StateCommon.DataCell.Border.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
+            this.dgvExcessPackagesLabels.StateCommon.DataCell.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.dgvExcessPackagesLabels.StateCommon.DataCell.Content.Color1 = System.Drawing.Color.Black;
+            this.dgvExcessPackagesLabels.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.dgvExcessPackagesLabels.StateCommon.HeaderColumn.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
+            this.dgvExcessPackagesLabels.StateCommon.HeaderColumn.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
+            this.dgvExcessPackagesLabels.StateCommon.HeaderColumn.Border.Color1 = System.Drawing.Color.Black;
+            this.dgvExcessPackagesLabels.StateCommon.HeaderColumn.Border.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
+            this.dgvExcessPackagesLabels.StateCommon.HeaderColumn.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)(((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.dgvExcessPackagesLabels.StateCommon.HeaderColumn.Content.Color1 = System.Drawing.Color.White;
+            this.dgvExcessPackagesLabels.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.dgvExcessPackagesLabels.StateDisabled.DataCell.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(210)))), ((int)(((byte)(210)))), ((int)(((byte)(210)))));
+            this.dgvExcessPackagesLabels.StateDisabled.DataCell.Border.Color1 = System.Drawing.Color.DimGray;
+            this.dgvExcessPackagesLabels.StateDisabled.DataCell.Border.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
+            this.dgvExcessPackagesLabels.StateDisabled.DataCell.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.dgvExcessPackagesLabels.StateDisabled.DataCell.Content.Color1 = System.Drawing.Color.Gray;
+            this.dgvExcessPackagesLabels.StateSelected.DataCell.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(177)))), ((int)(((byte)(229)))));
+            this.dgvExcessPackagesLabels.StateSelected.DataCell.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
+            this.dgvExcessPackagesLabels.StateSelected.DataCell.Content.Color1 = System.Drawing.Color.White;
+            this.dgvExcessPackagesLabels.TabIndex = 74;
+            this.dgvExcessPackagesLabels.UseCustomBackColor = true;
+            this.dgvExcessPackagesLabels.SelectionChanged += new System.EventHandler(this.dgvExcessPackagesLabels_SelectionChanged);
+            // 
             // panel5
             // 
             this.panel5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -640,6 +806,61 @@
             this.panel5.Name = "panel5";
             this.panel5.Size = new System.Drawing.Size(927, 303);
             this.panel5.TabIndex = 39;
+            // 
+            // dgvExcessPackagesDetails
+            // 
+            this.dgvExcessPackagesDetails.AllowUserToAddRows = false;
+            this.dgvExcessPackagesDetails.AllowUserToDeleteRows = false;
+            this.dgvExcessPackagesDetails.AllowUserToResizeColumns = false;
+            this.dgvExcessPackagesDetails.AllowUserToResizeRows = false;
+            this.dgvExcessPackagesDetails.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvExcessPackagesDetails.BackText = "Нет данных";
+            this.dgvExcessPackagesDetails.ColumnHeadersHeight = 40;
+            this.dgvExcessPackagesDetails.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            this.dgvExcessPackagesDetails.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvExcessPackagesDetails.HideOuterBorders = true;
+            this.dgvExcessPackagesDetails.Location = new System.Drawing.Point(0, 0);
+            this.dgvExcessPackagesDetails.MultiSelect = false;
+            this.dgvExcessPackagesDetails.Name = "dgvExcessPackagesDetails";
+            this.dgvExcessPackagesDetails.PercentLineWidth = 0;
+            this.dgvExcessPackagesDetails.ReadOnly = true;
+            this.dgvExcessPackagesDetails.RowHeadersVisible = false;
+            this.dgvExcessPackagesDetails.RowTemplate.Height = 30;
+            this.dgvExcessPackagesDetails.SelectedColorStyle = Infinium.PercentageDataGrid.ColorStyle.Blue;
+            this.dgvExcessPackagesDetails.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvExcessPackagesDetails.Size = new System.Drawing.Size(925, 301);
+            this.dgvExcessPackagesDetails.StandardStyle = false;
+            this.dgvExcessPackagesDetails.StateCommon.Background.Color1 = System.Drawing.Color.White;
+            this.dgvExcessPackagesDetails.StateCommon.Background.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
+            this.dgvExcessPackagesDetails.StateCommon.BackStyle = ComponentFactory.Krypton.Toolkit.PaletteBackStyle.GridBackgroundList;
+            this.dgvExcessPackagesDetails.StateCommon.DataCell.Back.Color1 = System.Drawing.Color.White;
+            this.dgvExcessPackagesDetails.StateCommon.DataCell.Border.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(210)))), ((int)(((byte)(210)))), ((int)(((byte)(210)))));
+            this.dgvExcessPackagesDetails.StateCommon.DataCell.Border.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
+            this.dgvExcessPackagesDetails.StateCommon.DataCell.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.dgvExcessPackagesDetails.StateCommon.DataCell.Content.Color1 = System.Drawing.Color.Black;
+            this.dgvExcessPackagesDetails.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.dgvExcessPackagesDetails.StateCommon.HeaderColumn.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
+            this.dgvExcessPackagesDetails.StateCommon.HeaderColumn.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
+            this.dgvExcessPackagesDetails.StateCommon.HeaderColumn.Border.Color1 = System.Drawing.Color.Black;
+            this.dgvExcessPackagesDetails.StateCommon.HeaderColumn.Border.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
+            this.dgvExcessPackagesDetails.StateCommon.HeaderColumn.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)(((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.dgvExcessPackagesDetails.StateCommon.HeaderColumn.Content.Color1 = System.Drawing.Color.White;
+            this.dgvExcessPackagesDetails.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.dgvExcessPackagesDetails.StateDisabled.DataCell.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(210)))), ((int)(((byte)(210)))), ((int)(((byte)(210)))));
+            this.dgvExcessPackagesDetails.StateDisabled.DataCell.Border.Color1 = System.Drawing.Color.DimGray;
+            this.dgvExcessPackagesDetails.StateDisabled.DataCell.Border.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
+            this.dgvExcessPackagesDetails.StateDisabled.DataCell.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.dgvExcessPackagesDetails.StateDisabled.DataCell.Content.Color1 = System.Drawing.Color.Gray;
+            this.dgvExcessPackagesDetails.StateSelected.DataCell.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(177)))), ((int)(((byte)(229)))));
+            this.dgvExcessPackagesDetails.StateSelected.DataCell.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
+            this.dgvExcessPackagesDetails.StateSelected.DataCell.Content.Color1 = System.Drawing.Color.White;
+            this.dgvExcessPackagesDetails.TabIndex = 74;
+            this.dgvExcessPackagesDetails.UseCustomBackColor = true;
             // 
             // tabPage4
             // 
@@ -697,270 +918,6 @@
             this.panel6.Size = new System.Drawing.Size(927, 313);
             this.panel6.TabIndex = 39;
             // 
-            // panel7
-            // 
-            this.panel7.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel7.Controls.Add(this.dgvMissPackagesDetails);
-            this.panel7.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel7.Location = new System.Drawing.Point(0, 0);
-            this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(927, 303);
-            this.panel7.TabIndex = 39;
-            // 
-            // btnBackToScan
-            // 
-            this.btnBackToScan.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnBackToScan.Location = new System.Drawing.Point(8, 718);
-            this.btnBackToScan.Name = "btnBackToScan";
-            this.btnBackToScan.OverrideDefault.Back.Color1 = System.Drawing.Color.Silver;
-            this.btnBackToScan.OverrideDefault.Border.Draw = ComponentFactory.Krypton.Toolkit.InheritBool.False;
-            this.btnBackToScan.OverrideDefault.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
-            this.btnBackToScan.OverrideDefault.Border.Rounding = 0;
-            this.btnBackToScan.Size = new System.Drawing.Size(102, 34);
-            this.btnBackToScan.StateCommon.Back.Color1 = System.Drawing.Color.Silver;
-            this.btnBackToScan.StateCommon.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
-            this.btnBackToScan.StateCommon.Border.Color1 = System.Drawing.Color.White;
-            this.btnBackToScan.StateCommon.Border.Draw = ComponentFactory.Krypton.Toolkit.InheritBool.False;
-            this.btnBackToScan.StateCommon.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
-            this.btnBackToScan.StateCommon.Border.Rounding = 0;
-            this.btnBackToScan.StateCommon.Content.ShortText.Color1 = System.Drawing.Color.White;
-            this.btnBackToScan.StateCommon.Content.ShortText.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.btnBackToScan.StateTracking.Border.Color1 = System.Drawing.Color.White;
-            this.btnBackToScan.StateTracking.Border.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
-            this.btnBackToScan.StateTracking.Border.Draw = ComponentFactory.Krypton.Toolkit.InheritBool.True;
-            this.btnBackToScan.StateTracking.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
-            this.btnBackToScan.StateTracking.Border.Rounding = 0;
-            this.btnBackToScan.TabIndex = 477;
-            this.btnBackToScan.Values.Text = "Назад";
-            this.btnBackToScan.Click += new System.EventHandler(this.btnBackToScan_Click);
-            // 
-            // dgvStoragePackagesLabels
-            // 
-            this.dgvStoragePackagesLabels.AllowUserToAddRows = false;
-            this.dgvStoragePackagesLabels.AllowUserToDeleteRows = false;
-            this.dgvStoragePackagesLabels.AllowUserToResizeColumns = false;
-            this.dgvStoragePackagesLabels.AllowUserToResizeRows = false;
-            this.dgvStoragePackagesLabels.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
-            this.dgvStoragePackagesLabels.BackText = "Нет данных";
-            this.dgvStoragePackagesLabels.ColumnHeadersHeight = 40;
-            this.dgvStoragePackagesLabels.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            this.dgvStoragePackagesLabels.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvStoragePackagesLabels.HideOuterBorders = true;
-            this.dgvStoragePackagesLabels.Location = new System.Drawing.Point(0, 0);
-            this.dgvStoragePackagesLabels.Name = "dgvStoragePackagesLabels";
-            this.dgvStoragePackagesLabels.PercentLineWidth = 4;
-            this.dgvStoragePackagesLabels.ReadOnly = true;
-            this.dgvStoragePackagesLabels.RowHeadersVisible = false;
-            this.dgvStoragePackagesLabels.RowTemplate.Height = 30;
-            this.dgvStoragePackagesLabels.SelectedColorStyle = Infinium.PercentageDataGrid.ColorStyle.Blue;
-            this.dgvStoragePackagesLabels.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvStoragePackagesLabels.Size = new System.Drawing.Size(933, 262);
-            this.dgvStoragePackagesLabels.StandardStyle = false;
-            this.dgvStoragePackagesLabels.StateCommon.Background.Color1 = System.Drawing.Color.White;
-            this.dgvStoragePackagesLabels.StateCommon.Background.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
-            this.dgvStoragePackagesLabels.StateCommon.BackStyle = ComponentFactory.Krypton.Toolkit.PaletteBackStyle.GridBackgroundList;
-            this.dgvStoragePackagesLabels.StateCommon.DataCell.Back.Color1 = System.Drawing.Color.White;
-            this.dgvStoragePackagesLabels.StateCommon.DataCell.Border.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(210)))), ((int)(((byte)(210)))), ((int)(((byte)(210)))));
-            this.dgvStoragePackagesLabels.StateCommon.DataCell.Border.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
-            this.dgvStoragePackagesLabels.StateCommon.DataCell.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
-            this.dgvStoragePackagesLabels.StateCommon.DataCell.Content.Color1 = System.Drawing.Color.Black;
-            this.dgvStoragePackagesLabels.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.dgvStoragePackagesLabels.StateCommon.HeaderColumn.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
-            this.dgvStoragePackagesLabels.StateCommon.HeaderColumn.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
-            this.dgvStoragePackagesLabels.StateCommon.HeaderColumn.Border.Color1 = System.Drawing.Color.Black;
-            this.dgvStoragePackagesLabels.StateCommon.HeaderColumn.Border.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
-            this.dgvStoragePackagesLabels.StateCommon.HeaderColumn.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)(((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
-            this.dgvStoragePackagesLabels.StateCommon.HeaderColumn.Content.Color1 = System.Drawing.Color.White;
-            this.dgvStoragePackagesLabels.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
-            this.dgvStoragePackagesLabels.StateDisabled.DataCell.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(210)))), ((int)(((byte)(210)))), ((int)(((byte)(210)))));
-            this.dgvStoragePackagesLabels.StateDisabled.DataCell.Border.Color1 = System.Drawing.Color.DimGray;
-            this.dgvStoragePackagesLabels.StateDisabled.DataCell.Border.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
-            this.dgvStoragePackagesLabels.StateDisabled.DataCell.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
-            this.dgvStoragePackagesLabels.StateDisabled.DataCell.Content.Color1 = System.Drawing.Color.Gray;
-            this.dgvStoragePackagesLabels.StateSelected.DataCell.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(177)))), ((int)(((byte)(229)))));
-            this.dgvStoragePackagesLabels.StateSelected.DataCell.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
-            this.dgvStoragePackagesLabels.StateSelected.DataCell.Content.Color1 = System.Drawing.Color.White;
-            this.dgvStoragePackagesLabels.TabIndex = 74;
-            this.dgvStoragePackagesLabels.UseCustomBackColor = true;
-            this.dgvStoragePackagesLabels.RowPrePaint += new System.Windows.Forms.DataGridViewRowPrePaintEventHandler(this.dgvStoragePackagesLabels_RowPrePaint);
-            this.dgvStoragePackagesLabels.SelectionChanged += new System.EventHandler(this.dgvStoragePackagesLabels_SelectionChanged);
-            // 
-            // dgvStoragePackagesDetails
-            // 
-            this.dgvStoragePackagesDetails.AllowUserToAddRows = false;
-            this.dgvStoragePackagesDetails.AllowUserToDeleteRows = false;
-            this.dgvStoragePackagesDetails.AllowUserToResizeColumns = false;
-            this.dgvStoragePackagesDetails.AllowUserToResizeRows = false;
-            this.dgvStoragePackagesDetails.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dgvStoragePackagesDetails.BackText = "Нет данных";
-            this.dgvStoragePackagesDetails.ColumnHeadersHeight = 40;
-            this.dgvStoragePackagesDetails.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            this.dgvStoragePackagesDetails.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvStoragePackagesDetails.HideOuterBorders = true;
-            this.dgvStoragePackagesDetails.Location = new System.Drawing.Point(0, 0);
-            this.dgvStoragePackagesDetails.MultiSelect = false;
-            this.dgvStoragePackagesDetails.Name = "dgvStoragePackagesDetails";
-            this.dgvStoragePackagesDetails.PercentLineWidth = 0;
-            this.dgvStoragePackagesDetails.ReadOnly = true;
-            this.dgvStoragePackagesDetails.RowHeadersVisible = false;
-            this.dgvStoragePackagesDetails.RowTemplate.Height = 30;
-            this.dgvStoragePackagesDetails.SelectedColorStyle = Infinium.PercentageDataGrid.ColorStyle.Blue;
-            this.dgvStoragePackagesDetails.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvStoragePackagesDetails.Size = new System.Drawing.Size(933, 252);
-            this.dgvStoragePackagesDetails.StandardStyle = false;
-            this.dgvStoragePackagesDetails.StateCommon.Background.Color1 = System.Drawing.Color.White;
-            this.dgvStoragePackagesDetails.StateCommon.Background.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
-            this.dgvStoragePackagesDetails.StateCommon.BackStyle = ComponentFactory.Krypton.Toolkit.PaletteBackStyle.GridBackgroundList;
-            this.dgvStoragePackagesDetails.StateCommon.DataCell.Back.Color1 = System.Drawing.Color.White;
-            this.dgvStoragePackagesDetails.StateCommon.DataCell.Border.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(210)))), ((int)(((byte)(210)))), ((int)(((byte)(210)))));
-            this.dgvStoragePackagesDetails.StateCommon.DataCell.Border.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
-            this.dgvStoragePackagesDetails.StateCommon.DataCell.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
-            this.dgvStoragePackagesDetails.StateCommon.DataCell.Content.Color1 = System.Drawing.Color.Black;
-            this.dgvStoragePackagesDetails.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.dgvStoragePackagesDetails.StateCommon.HeaderColumn.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
-            this.dgvStoragePackagesDetails.StateCommon.HeaderColumn.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
-            this.dgvStoragePackagesDetails.StateCommon.HeaderColumn.Border.Color1 = System.Drawing.Color.Black;
-            this.dgvStoragePackagesDetails.StateCommon.HeaderColumn.Border.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
-            this.dgvStoragePackagesDetails.StateCommon.HeaderColumn.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)(((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
-            this.dgvStoragePackagesDetails.StateCommon.HeaderColumn.Content.Color1 = System.Drawing.Color.White;
-            this.dgvStoragePackagesDetails.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
-            this.dgvStoragePackagesDetails.StateDisabled.DataCell.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(210)))), ((int)(((byte)(210)))), ((int)(((byte)(210)))));
-            this.dgvStoragePackagesDetails.StateDisabled.DataCell.Border.Color1 = System.Drawing.Color.DimGray;
-            this.dgvStoragePackagesDetails.StateDisabled.DataCell.Border.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
-            this.dgvStoragePackagesDetails.StateDisabled.DataCell.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
-            this.dgvStoragePackagesDetails.StateDisabled.DataCell.Content.Color1 = System.Drawing.Color.Gray;
-            this.dgvStoragePackagesDetails.StateSelected.DataCell.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(177)))), ((int)(((byte)(229)))));
-            this.dgvStoragePackagesDetails.StateSelected.DataCell.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
-            this.dgvStoragePackagesDetails.StateSelected.DataCell.Content.Color1 = System.Drawing.Color.White;
-            this.dgvStoragePackagesDetails.TabIndex = 74;
-            this.dgvStoragePackagesDetails.UseCustomBackColor = true;
-            // 
-            // dgvExcessPackagesLabels
-            // 
-            this.dgvExcessPackagesLabels.AllowUserToAddRows = false;
-            this.dgvExcessPackagesLabels.AllowUserToDeleteRows = false;
-            this.dgvExcessPackagesLabels.AllowUserToResizeColumns = false;
-            this.dgvExcessPackagesLabels.AllowUserToResizeRows = false;
-            this.dgvExcessPackagesLabels.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
-            this.dgvExcessPackagesLabels.BackText = "Нет данных";
-            this.dgvExcessPackagesLabels.ColumnHeadersHeight = 40;
-            this.dgvExcessPackagesLabels.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            this.dgvExcessPackagesLabels.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvExcessPackagesLabels.HideOuterBorders = true;
-            this.dgvExcessPackagesLabels.Location = new System.Drawing.Point(0, 0);
-            this.dgvExcessPackagesLabels.Name = "dgvExcessPackagesLabels";
-            this.dgvExcessPackagesLabels.PercentLineWidth = 4;
-            this.dgvExcessPackagesLabels.ReadOnly = true;
-            this.dgvExcessPackagesLabels.RowHeadersVisible = false;
-            this.dgvExcessPackagesLabels.RowTemplate.Height = 30;
-            this.dgvExcessPackagesLabels.SelectedColorStyle = Infinium.PercentageDataGrid.ColorStyle.Blue;
-            this.dgvExcessPackagesLabels.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvExcessPackagesLabels.Size = new System.Drawing.Size(925, 311);
-            this.dgvExcessPackagesLabels.StandardStyle = false;
-            this.dgvExcessPackagesLabels.StateCommon.Background.Color1 = System.Drawing.Color.White;
-            this.dgvExcessPackagesLabels.StateCommon.Background.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
-            this.dgvExcessPackagesLabels.StateCommon.BackStyle = ComponentFactory.Krypton.Toolkit.PaletteBackStyle.GridBackgroundList;
-            this.dgvExcessPackagesLabels.StateCommon.DataCell.Back.Color1 = System.Drawing.Color.White;
-            this.dgvExcessPackagesLabels.StateCommon.DataCell.Border.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(210)))), ((int)(((byte)(210)))), ((int)(((byte)(210)))));
-            this.dgvExcessPackagesLabels.StateCommon.DataCell.Border.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
-            this.dgvExcessPackagesLabels.StateCommon.DataCell.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
-            this.dgvExcessPackagesLabels.StateCommon.DataCell.Content.Color1 = System.Drawing.Color.Black;
-            this.dgvExcessPackagesLabels.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.dgvExcessPackagesLabels.StateCommon.HeaderColumn.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
-            this.dgvExcessPackagesLabels.StateCommon.HeaderColumn.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
-            this.dgvExcessPackagesLabels.StateCommon.HeaderColumn.Border.Color1 = System.Drawing.Color.Black;
-            this.dgvExcessPackagesLabels.StateCommon.HeaderColumn.Border.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
-            this.dgvExcessPackagesLabels.StateCommon.HeaderColumn.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)(((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
-            this.dgvExcessPackagesLabels.StateCommon.HeaderColumn.Content.Color1 = System.Drawing.Color.White;
-            this.dgvExcessPackagesLabels.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
-            this.dgvExcessPackagesLabels.StateDisabled.DataCell.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(210)))), ((int)(((byte)(210)))), ((int)(((byte)(210)))));
-            this.dgvExcessPackagesLabels.StateDisabled.DataCell.Border.Color1 = System.Drawing.Color.DimGray;
-            this.dgvExcessPackagesLabels.StateDisabled.DataCell.Border.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
-            this.dgvExcessPackagesLabels.StateDisabled.DataCell.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
-            this.dgvExcessPackagesLabels.StateDisabled.DataCell.Content.Color1 = System.Drawing.Color.Gray;
-            this.dgvExcessPackagesLabels.StateSelected.DataCell.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(177)))), ((int)(((byte)(229)))));
-            this.dgvExcessPackagesLabels.StateSelected.DataCell.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
-            this.dgvExcessPackagesLabels.StateSelected.DataCell.Content.Color1 = System.Drawing.Color.White;
-            this.dgvExcessPackagesLabels.TabIndex = 74;
-            this.dgvExcessPackagesLabels.UseCustomBackColor = true;
-            this.dgvExcessPackagesLabels.SelectionChanged += new System.EventHandler(this.dgvExcessPackagesLabels_SelectionChanged);
-            // 
-            // dgvExcessPackagesDetails
-            // 
-            this.dgvExcessPackagesDetails.AllowUserToAddRows = false;
-            this.dgvExcessPackagesDetails.AllowUserToDeleteRows = false;
-            this.dgvExcessPackagesDetails.AllowUserToResizeColumns = false;
-            this.dgvExcessPackagesDetails.AllowUserToResizeRows = false;
-            this.dgvExcessPackagesDetails.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dgvExcessPackagesDetails.BackText = "Нет данных";
-            this.dgvExcessPackagesDetails.ColumnHeadersHeight = 40;
-            this.dgvExcessPackagesDetails.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            this.dgvExcessPackagesDetails.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvExcessPackagesDetails.HideOuterBorders = true;
-            this.dgvExcessPackagesDetails.Location = new System.Drawing.Point(0, 0);
-            this.dgvExcessPackagesDetails.MultiSelect = false;
-            this.dgvExcessPackagesDetails.Name = "dgvExcessPackagesDetails";
-            this.dgvExcessPackagesDetails.PercentLineWidth = 0;
-            this.dgvExcessPackagesDetails.ReadOnly = true;
-            this.dgvExcessPackagesDetails.RowHeadersVisible = false;
-            this.dgvExcessPackagesDetails.RowTemplate.Height = 30;
-            this.dgvExcessPackagesDetails.SelectedColorStyle = Infinium.PercentageDataGrid.ColorStyle.Blue;
-            this.dgvExcessPackagesDetails.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvExcessPackagesDetails.Size = new System.Drawing.Size(925, 301);
-            this.dgvExcessPackagesDetails.StandardStyle = false;
-            this.dgvExcessPackagesDetails.StateCommon.Background.Color1 = System.Drawing.Color.White;
-            this.dgvExcessPackagesDetails.StateCommon.Background.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
-            this.dgvExcessPackagesDetails.StateCommon.BackStyle = ComponentFactory.Krypton.Toolkit.PaletteBackStyle.GridBackgroundList;
-            this.dgvExcessPackagesDetails.StateCommon.DataCell.Back.Color1 = System.Drawing.Color.White;
-            this.dgvExcessPackagesDetails.StateCommon.DataCell.Border.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(210)))), ((int)(((byte)(210)))), ((int)(((byte)(210)))));
-            this.dgvExcessPackagesDetails.StateCommon.DataCell.Border.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
-            this.dgvExcessPackagesDetails.StateCommon.DataCell.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
-            this.dgvExcessPackagesDetails.StateCommon.DataCell.Content.Color1 = System.Drawing.Color.Black;
-            this.dgvExcessPackagesDetails.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.dgvExcessPackagesDetails.StateCommon.HeaderColumn.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
-            this.dgvExcessPackagesDetails.StateCommon.HeaderColumn.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
-            this.dgvExcessPackagesDetails.StateCommon.HeaderColumn.Border.Color1 = System.Drawing.Color.Black;
-            this.dgvExcessPackagesDetails.StateCommon.HeaderColumn.Border.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
-            this.dgvExcessPackagesDetails.StateCommon.HeaderColumn.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)(((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
-            this.dgvExcessPackagesDetails.StateCommon.HeaderColumn.Content.Color1 = System.Drawing.Color.White;
-            this.dgvExcessPackagesDetails.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
-            this.dgvExcessPackagesDetails.StateDisabled.DataCell.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(210)))), ((int)(((byte)(210)))), ((int)(((byte)(210)))));
-            this.dgvExcessPackagesDetails.StateDisabled.DataCell.Border.Color1 = System.Drawing.Color.DimGray;
-            this.dgvExcessPackagesDetails.StateDisabled.DataCell.Border.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
-            this.dgvExcessPackagesDetails.StateDisabled.DataCell.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
-            this.dgvExcessPackagesDetails.StateDisabled.DataCell.Content.Color1 = System.Drawing.Color.Gray;
-            this.dgvExcessPackagesDetails.StateSelected.DataCell.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(177)))), ((int)(((byte)(229)))));
-            this.dgvExcessPackagesDetails.StateSelected.DataCell.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
-            this.dgvExcessPackagesDetails.StateSelected.DataCell.Content.Color1 = System.Drawing.Color.White;
-            this.dgvExcessPackagesDetails.TabIndex = 74;
-            this.dgvExcessPackagesDetails.UseCustomBackColor = true;
-            // 
             // dgvMissPackagesLabels
             // 
             this.dgvMissPackagesLabels.AllowUserToAddRows = false;
@@ -1015,6 +972,16 @@
             this.dgvMissPackagesLabels.TabIndex = 74;
             this.dgvMissPackagesLabels.UseCustomBackColor = true;
             this.dgvMissPackagesLabels.SelectionChanged += new System.EventHandler(this.dgvMissPackagesLabels_SelectionChanged);
+            // 
+            // panel7
+            // 
+            this.panel7.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel7.Controls.Add(this.dgvMissPackagesDetails);
+            this.panel7.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel7.Location = new System.Drawing.Point(0, 0);
+            this.panel7.Name = "panel7";
+            this.panel7.Size = new System.Drawing.Size(927, 303);
+            this.panel7.TabIndex = 39;
             // 
             // dgvMissPackagesDetails
             // 
@@ -1071,6 +1038,39 @@
             this.dgvMissPackagesDetails.TabIndex = 74;
             this.dgvMissPackagesDetails.UseCustomBackColor = true;
             // 
+            // btnBackToScan
+            // 
+            this.btnBackToScan.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnBackToScan.Location = new System.Drawing.Point(8, 718);
+            this.btnBackToScan.Name = "btnBackToScan";
+            this.btnBackToScan.OverrideDefault.Back.Color1 = System.Drawing.Color.Silver;
+            this.btnBackToScan.OverrideDefault.Border.Draw = ComponentFactory.Krypton.Toolkit.InheritBool.False;
+            this.btnBackToScan.OverrideDefault.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.btnBackToScan.OverrideDefault.Border.Rounding = 0;
+            this.btnBackToScan.Size = new System.Drawing.Size(102, 34);
+            this.btnBackToScan.StateCommon.Back.Color1 = System.Drawing.Color.Silver;
+            this.btnBackToScan.StateCommon.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
+            this.btnBackToScan.StateCommon.Border.Color1 = System.Drawing.Color.White;
+            this.btnBackToScan.StateCommon.Border.Draw = ComponentFactory.Krypton.Toolkit.InheritBool.False;
+            this.btnBackToScan.StateCommon.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.btnBackToScan.StateCommon.Border.Rounding = 0;
+            this.btnBackToScan.StateCommon.Content.ShortText.Color1 = System.Drawing.Color.White;
+            this.btnBackToScan.StateCommon.Content.ShortText.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.btnBackToScan.StateTracking.Border.Color1 = System.Drawing.Color.White;
+            this.btnBackToScan.StateTracking.Border.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
+            this.btnBackToScan.StateTracking.Border.Draw = ComponentFactory.Krypton.Toolkit.InheritBool.True;
+            this.btnBackToScan.StateTracking.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.btnBackToScan.StateTracking.Border.Rounding = 0;
+            this.btnBackToScan.TabIndex = 477;
+            this.btnBackToScan.Values.Text = "Назад";
+            this.btnBackToScan.Click += new System.EventHandler(this.btnBackToScan_Click);
+            // 
             // CabFurInventoryForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -1099,7 +1099,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.kryptonSplitContainer3)).EndInit();
             this.kryptonSplitContainer3.ResumeLayout(false);
             this.panel39.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvStoragePackagesLabels)).EndInit();
             this.panel41.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvStoragePackagesDetails)).EndInit();
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
@@ -1115,7 +1117,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.kryptonSplitContainer1)).EndInit();
             this.kryptonSplitContainer1.ResumeLayout(false);
             this.panel4.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvExcessPackagesLabels)).EndInit();
             this.panel5.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvExcessPackagesDetails)).EndInit();
             this.tabPage4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.kryptonSplitContainer2.Panel1)).EndInit();
             this.kryptonSplitContainer2.Panel1.ResumeLayout(false);
@@ -1124,12 +1128,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.kryptonSplitContainer2)).EndInit();
             this.kryptonSplitContainer2.ResumeLayout(false);
             this.panel6.ResumeLayout(false);
-            this.panel7.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvStoragePackagesLabels)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvStoragePackagesDetails)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvExcessPackagesLabels)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvExcessPackagesDetails)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvMissPackagesLabels)).EndInit();
+            this.panel7.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvMissPackagesDetails)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

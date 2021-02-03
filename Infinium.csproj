@@ -540,12 +540,6 @@
     <Compile Include="Modules\CabFurnitureAssignments\NewCabFurWorkShopForm.Designer.cs">
       <DependentUpon>NewCabFurWorkShopForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Modules\CabFurnitureAssignments\TestCabFurnitureModuleForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Modules\CabFurnitureAssignments\TestCabFurnitureModuleForm.designer.cs">
-      <DependentUpon>TestCabFurnitureModuleForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="Modules\CabFurnitureAssignments\CabFurnitureOperationsForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -582,11 +576,11 @@
     <Compile Include="Modules\ClientCatalog\CabFurLabelInfoMenu.designer.cs">
       <DependentUpon>CabFurLabelInfoMenu.cs</DependentUpon>
     </Compile>
-    <Compile Include="Modules\Dispatch\CabFurDispatchForm.cs">
+    <Compile Include="Modules\Dispatch\CabFurAssembleForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Modules\Dispatch\CabFurDispatchForm.designer.cs">
-      <DependentUpon>CabFurDispatchForm.cs</DependentUpon>
+    <Compile Include="Modules\Dispatch\CabFurAssembleForm.designer.cs">
+      <DependentUpon>CabFurAssembleForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Modules\Editors\AddFunctionsForm.cs">
       <SubType>Form</SubType>
@@ -2136,9 +2130,6 @@
     <EmbeddedResource Include="Modules\CabFurnitureAssignments\NewCabFurWorkShopForm.resx">
       <DependentUpon>NewCabFurWorkShopForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Modules\CabFurnitureAssignments\TestCabFurnitureModuleForm.resx">
-      <DependentUpon>TestCabFurnitureModuleForm.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Modules\CabFurnitureAssignments\CabFurnitureOperationsForm.resx">
       <DependentUpon>CabFurnitureOperationsForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -2157,8 +2148,8 @@
     <EmbeddedResource Include="Modules\ClientCatalog\CabFurLabelInfoMenu.resx">
       <DependentUpon>CabFurLabelInfoMenu.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Modules\Dispatch\CabFurDispatchForm.resx">
-      <DependentUpon>CabFurDispatchForm.cs</DependentUpon>
+    <EmbeddedResource Include="Modules\Dispatch\CabFurAssembleForm.resx">
+      <DependentUpon>CabFurAssembleForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Modules\Editors\AddFunctionsForm.resx">
       <DependentUpon>AddFunctionsForm.cs</DependentUpon>

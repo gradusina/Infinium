@@ -207,9 +207,9 @@
             this.kryptonContextMenuItems10 = new ComponentFactory.Krypton.Toolkit.KryptonContextMenuItems();
             this.kryptonContextMenuItem17 = new ComponentFactory.Krypton.Toolkit.KryptonContextMenuItem();
             this.kryptonContextMenuItem18 = new ComponentFactory.Krypton.Toolkit.KryptonContextMenuItem();
+            this.kryptonContextMenuItem22 = new ComponentFactory.Krypton.Toolkit.KryptonContextMenuItem();
             this.kryptonContextMenuItem20 = new ComponentFactory.Krypton.Toolkit.KryptonContextMenuItem();
             this.kryptonContextMenuItem21 = new ComponentFactory.Krypton.Toolkit.KryptonContextMenuItem();
-            this.kryptonContextMenuItem22 = new ComponentFactory.Krypton.Toolkit.KryptonContextMenuItem();
             this.NavigatePanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MainOrdersSplitContainer)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.MainOrdersSplitContainer.Panel1)).BeginInit();
@@ -2726,7 +2726,7 @@
             this.kryptonSplitContainer3.Panel2.StateCommon.Color1 = System.Drawing.Color.Transparent;
             this.kryptonSplitContainer3.SeparatorStyle = ComponentFactory.Krypton.Toolkit.SeparatorStyle.HighProfile;
             this.kryptonSplitContainer3.Size = new System.Drawing.Size(1264, 630);
-            this.kryptonSplitContainer3.SplitterDistance = 249;
+            this.kryptonSplitContainer3.SplitterDistance = 302;
             this.kryptonSplitContainer3.StateCommon.Back.Color1 = System.Drawing.Color.Transparent;
             this.kryptonSplitContainer3.StateCommon.Back.Color2 = System.Drawing.Color.Transparent;
             this.kryptonSplitContainer3.StateCommon.Separator.Back.Color1 = System.Drawing.Color.Gray;
@@ -2745,7 +2745,7 @@
             this.panel15.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel15.Location = new System.Drawing.Point(0, 44);
             this.panel15.Name = "panel15";
-            this.panel15.Size = new System.Drawing.Size(249, 586);
+            this.panel15.Size = new System.Drawing.Size(302, 586);
             this.panel15.TabIndex = 59;
             // 
             // dgvCabFurDates
@@ -2772,7 +2772,7 @@
             this.dgvCabFurDates.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.dgvCabFurDates.SelectedColorStyle = Infinium.PercentageDataGrid.ColorStyle.Green;
             this.dgvCabFurDates.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvCabFurDates.Size = new System.Drawing.Size(247, 584);
+            this.dgvCabFurDates.Size = new System.Drawing.Size(300, 584);
             this.dgvCabFurDates.StandardStyle = false;
             this.dgvCabFurDates.StateCommon.Background.Color1 = System.Drawing.Color.White;
             this.dgvCabFurDates.StateCommon.Background.Color2 = System.Drawing.Color.Transparent;
@@ -2819,7 +2819,7 @@
             this.panel16.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel16.Location = new System.Drawing.Point(0, 0);
             this.panel16.Name = "panel16";
-            this.panel16.Size = new System.Drawing.Size(249, 44);
+            this.panel16.Size = new System.Drawing.Size(302, 44);
             this.panel16.TabIndex = 73;
             // 
             // cbxCabFurYears
@@ -2827,7 +2827,7 @@
             this.cbxCabFurYears.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.cbxCabFurYears.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbxCabFurYears.DropDownWidth = 102;
-            this.cbxCabFurYears.Location = new System.Drawing.Point(162, 10);
+            this.cbxCabFurYears.Location = new System.Drawing.Point(189, 10);
             this.cbxCabFurYears.Name = "cbxCabFurYears";
             this.cbxCabFurYears.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2010Black;
             this.cbxCabFurYears.Size = new System.Drawing.Size(74, 23);
@@ -2843,7 +2843,7 @@
             this.cbxCabFurMonths.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.cbxCabFurMonths.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbxCabFurMonths.DropDownWidth = 102;
-            this.cbxCabFurMonths.Location = new System.Drawing.Point(13, 10);
+            this.cbxCabFurMonths.Location = new System.Drawing.Point(40, 10);
             this.cbxCabFurMonths.Name = "cbxCabFurMonths";
             this.cbxCabFurMonths.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2010Black;
             this.cbxCabFurMonths.Size = new System.Drawing.Size(136, 23);
@@ -2873,7 +2873,7 @@
             this.kryptonSplitContainer5.Panel2.Controls.Add(this.panel18);
             this.kryptonSplitContainer5.Panel2.StateCommon.Color1 = System.Drawing.Color.Transparent;
             this.kryptonSplitContainer5.SeparatorStyle = ComponentFactory.Krypton.Toolkit.SeparatorStyle.HighProfile;
-            this.kryptonSplitContainer5.Size = new System.Drawing.Size(1010, 630);
+            this.kryptonSplitContainer5.Size = new System.Drawing.Size(957, 630);
             this.kryptonSplitContainer5.SplitterDistance = 246;
             this.kryptonSplitContainer5.SplitterWidth = 6;
             this.kryptonSplitContainer5.StateCommon.Back.Color1 = System.Drawing.Color.Transparent;
@@ -2894,7 +2894,7 @@
             this.panel17.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel17.Location = new System.Drawing.Point(0, 0);
             this.panel17.Name = "panel17";
-            this.panel17.Size = new System.Drawing.Size(1010, 246);
+            this.panel17.Size = new System.Drawing.Size(957, 246);
             this.panel17.TabIndex = 59;
             // 
             // dgvCabFur
@@ -2919,7 +2919,7 @@
             this.dgvCabFur.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.dgvCabFur.SelectedColorStyle = Infinium.PercentageDataGrid.ColorStyle.Green;
             this.dgvCabFur.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvCabFur.Size = new System.Drawing.Size(1008, 244);
+            this.dgvCabFur.Size = new System.Drawing.Size(955, 244);
             this.dgvCabFur.StandardStyle = false;
             this.dgvCabFur.StateCommon.Background.Color1 = System.Drawing.Color.White;
             this.dgvCabFur.StateCommon.Background.Color2 = System.Drawing.Color.Transparent;
@@ -2970,7 +2970,7 @@
             this.panel18.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel18.Location = new System.Drawing.Point(0, 0);
             this.panel18.Name = "panel18";
-            this.panel18.Size = new System.Drawing.Size(1010, 378);
+            this.panel18.Size = new System.Drawing.Size(957, 378);
             this.panel18.TabIndex = 58;
             // 
             // dgvCabFurMainOrders
@@ -2995,7 +2995,7 @@
             this.dgvCabFurMainOrders.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.dgvCabFurMainOrders.SelectedColorStyle = Infinium.PercentageDataGrid.ColorStyle.Green;
             this.dgvCabFurMainOrders.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvCabFurMainOrders.Size = new System.Drawing.Size(1008, 376);
+            this.dgvCabFurMainOrders.Size = new System.Drawing.Size(955, 376);
             this.dgvCabFurMainOrders.StandardStyle = false;
             this.dgvCabFurMainOrders.StateCommon.Background.Color1 = System.Drawing.Color.White;
             this.dgvCabFurMainOrders.StateCommon.Background.Color2 = System.Drawing.Color.Transparent;
@@ -3060,6 +3060,11 @@
             this.kryptonContextMenuItem18.Text = "Найти в отгрузке";
             this.kryptonContextMenuItem18.Click += new System.EventHandler(this.kryptonContextMenuItem18_Click);
             // 
+            // kryptonContextMenuItem22
+            // 
+            this.kryptonContextMenuItem22.Text = "Отгрузочная ведомость";
+            this.kryptonContextMenuItem22.Click += new System.EventHandler(this.kryptonContextMenuItem22_Click);
+            // 
             // kryptonContextMenuItem20
             // 
             this.kryptonContextMenuItem20.Text = "Приложение к отгрузке";
@@ -3067,13 +3072,8 @@
             // 
             // kryptonContextMenuItem21
             // 
-            this.kryptonContextMenuItem21.Text = "Сканировать";
+            this.kryptonContextMenuItem21.Text = "Скомплектовать";
             this.kryptonContextMenuItem21.Click += new System.EventHandler(this.kryptonContextMenuItem21_Click);
-            // 
-            // kryptonContextMenuItem22
-            // 
-            this.kryptonContextMenuItem22.Text = "Отгрузочная ведомость";
-            this.kryptonContextMenuItem22.Click += new System.EventHandler(this.kryptonContextMenuItem22_Click);
             // 
             // MarketingExpeditionForm
             // 

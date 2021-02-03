@@ -53,7 +53,7 @@ namespace Infinium
         AssignmentsManager assignmentsManager;
         ComplementsManager complementsManager;
         PackagesManager packagesManager;
-        StoragePackagesManager storagePackagesManager;
+        StorePackagesManager storagePackagesManager;
 
         CabFurStorage cabFurStorage;
         CabFurStorageToExcel cabFurStorageToExcel;
@@ -254,7 +254,7 @@ namespace Infinium
         {
             cabFurStorage = new CabFurStorage();
 
-            storagePackagesManager = new StoragePackagesManager();
+            storagePackagesManager = new StorePackagesManager();
             cabFurStorageToExcel = new CabFurStorageToExcel();
 
             DateTime FirstDay = DateTime.Now.AddDays(-100);
@@ -292,10 +292,29 @@ namespace Infinium
             cmbxPatina.DataSource = assignmentsManager.PatinaBS;
             cmbxPatina.DisplayMember = "PatinaName";
             cmbxPatina.ValueMember = "PatinaID";
-
             cmbxInsetColors.DataSource = assignmentsManager.BasicInsetColorsBS;
             cmbxInsetColors.DisplayMember = "InsetColorName";
             cmbxInsetColors.ValueMember = "InsetColorID";
+
+
+            cbTStoreSearch.DataSource = assignmentsManager.TechStoreBS;
+            cbTStoreSearch.DisplayMember = "TechStoreName";
+            cbTStoreSearch.ValueMember = "TechStoreID";
+            cbTSSubGroupsSearch.DataSource = assignmentsManager.TechStoreSubGroupsBS;
+            cbTSSubGroupsSearch.DisplayMember = "TechStoreSubGroupName";
+            cbTSSubGroupsSearch.ValueMember = "TechStoreSubGroupID";
+            cbTSGroupsSearch.DataSource = assignmentsManager.TechStoreGroupsBS;
+            cbTSGroupsSearch.DisplayMember = "TechStoreGroupName";
+            cbTSGroupsSearch.ValueMember = "TechStoreGroupID";
+            cbCoversSearch.DataSource = assignmentsManager.CoversBS;
+            cbCoversSearch.DisplayMember = "CoverName";
+            cbCoversSearch.ValueMember = "CoverID";
+            cbPatinaSearch.DataSource = assignmentsManager.PatinaBS;
+            cbPatinaSearch.DisplayMember = "PatinaName";
+            cbPatinaSearch.ValueMember = "PatinaID";
+            cbInsetColorsSearch.DataSource = assignmentsManager.BasicInsetColorsBS;
+            cbInsetColorsSearch.DisplayMember = "InsetColorName";
+            cbInsetColorsSearch.ValueMember = "InsetColorID";
 
             dgvComplements.DataSource = complementsManager.ComplementsBS;
             dgvMainOrders.DataSource = complementsManager.MainOrdersBS;
@@ -3548,7 +3567,7 @@ namespace Infinium
 
             while (!SplashForm.bCreated) ;
 
-            CabFurDispatchForm cabFurDispatchForm = new CabFurDispatchForm(this, assignmentsManager, ClientID, OrderNumber);
+            CabFurAssembleForm cabFurDispatchForm = new CabFurAssembleForm(this, assignmentsManager, ClientID, OrderNumber);
 
             TopForm = cabFurDispatchForm;
 
@@ -3558,6 +3577,73 @@ namespace Infinium
             cabFurDispatchForm.Dispose();
 
             TopForm = null;
+        }
+
+        private void cbTSGroupsSearch_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (assignmentsManager == null)
+                return;
+            int TechStoreGroupID = 0;
+            if (cbTSGroupsSearch.SelectedItem != null && ((DataRowView)cbTSGroupsSearch.SelectedItem).Row["TechStoreGroupID"] != DBNull.Value)
+                TechStoreGroupID = Convert.ToInt32(((DataRowView)cbTSGroupsSearch.SelectedItem).Row["TechStoreGroupID"]);
+            assignmentsManager.FilterTechStoreSubGroups(TechStoreGroupID);
+            cbTSSubGroupsSearch_SelectedIndexChanged(null, null);
+        }
+
+        private void cbTSSubGroupsSearch_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (assignmentsManager == null)
+                return;
+            int TechStoreSubGroupID = 0;
+            if (cbTSSubGroupsSearch.SelectedItem != null && ((DataRowView)cbTSSubGroupsSearch.SelectedItem).Row["TechStoreSubGroupID"] != DBNull.Value)
+                TechStoreSubGroupID = Convert.ToInt32(((DataRowView)cbTSSubGroupsSearch.SelectedItem).Row["TechStoreSubGroupID"]);
+            assignmentsManager.FilterTechStore(TechStoreSubGroupID);
+        }
+
+        private void btnSearchPackages_Click(object sender, EventArgs e)
+        {
+            int TechStoreID = 0;
+            int CoverID = 0;
+            int PatinaID = 0;
+            int InsetColorID = 0;
+
+            if (cbTStoreSearch.SelectedItem != null && ((DataRowView)cbTStoreSearch.SelectedItem).Row["TechStoreID"] != DBNull.Value)
+                TechStoreID = Convert.ToInt32(((DataRowView)cbTStoreSearch.SelectedItem).Row["TechStoreID"]);
+            if (cbCoversSearch.SelectedItem != null && ((DataRowView)cbCoversSearch.SelectedItem).Row["CoverID"] != DBNull.Value)
+                CoverID = Convert.ToInt32(((DataRowView)cbCoversSearch.SelectedItem).Row["CoverID"]);
+            if (cbPatinaSearch.SelectedItem != null && ((DataRowView)cbPatinaSearch.SelectedItem).Row["PatinaID"] != DBNull.Value)
+                PatinaID = Convert.ToInt32(((DataRowView)cbPatinaSearch.SelectedItem).Row["PatinaID"]);
+            if (cbInsetColorsSearch.SelectedItem != null && ((DataRowView)cbInsetColorsSearch.SelectedItem).Row["InsetColorID"] != DBNull.Value)
+                InsetColorID = Convert.ToInt32(((DataRowView)cbInsetColorsSearch.SelectedItem).Row["InsetColorID"]);
+
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
+            T.Start();
+            while (!SplashWindow.bSmallCreated) ;
+            NeedSplash = false;
+
+            cabFurStorage.SearchCells(TechStoreID, CoverID, PatinaID, InsetColorID);
+            cabFurStorage.SearchRacks(TechStoreID, CoverID, PatinaID, InsetColorID);
+            cabFurStorage.SearchWorkShops(TechStoreID, CoverID, PatinaID, InsetColorID);
+
+            NeedSplash = true;
+            while (SplashWindow.bSmallCreated)
+                SmallWaitForm.CloseS = true;
+        }
+
+        private void btnUpdateStorePackages_Click(object sender, EventArgs e)
+        {
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Обновление.\r\nПодождите..."); });
+            T.Start();
+            while (!SplashWindow.bSmallCreated) ;
+            NeedSplash = false;
+
+            cabFurStorage.UpdateCells();
+            cabFurStorage.UpdateRacks();
+            cabFurStorage.UpdateWorkShops();
+
+            NeedSplash = true;
+            while (SplashWindow.bSmallCreated)
+                SmallWaitForm.CloseS = true;
         }
     }
 }

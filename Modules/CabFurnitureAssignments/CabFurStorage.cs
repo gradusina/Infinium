@@ -145,6 +145,9 @@ namespace Infinium.Modules.CabFurnitureAssignments
         public void UpdateWorkShops()
         {
             workShopsDt.Clear();
+            string selectCommand = @"SELECT * FROM WorkShops ORDER BY Name";
+            workShopsDa = new SqlDataAdapter(selectCommand, ConnectionStrings.StorageConnectionString);
+            workShopsCb = new SqlCommandBuilder(workShopsDa);
             workShopsDa.Fill(workShopsDt);
         }
 
@@ -153,6 +156,18 @@ namespace Infinium.Modules.CabFurnitureAssignments
             workShopsDa.Update(workShopsDt);
         }
 
+        public void SearchWorkShops(int TechStoreID, int CoverID, int PatinaID, int InsetColorID)
+        {
+            workShopsDt.Clear();
+            string selectCommand = "SELECT * FROM WorkShops WHERE WorkShopID IN (SELECT WorkShopID FROM Racks WHERE RackID IN (SELECT RackID FROM Cells WHERE CellID IN (" +
+                " SELECT CellID FROM CabFurniturePackages" +
+                " WHERE TechStoreID=" + TechStoreID +
+                " AND CoverID=" + CoverID +
+                " AND PatinaID=" + PatinaID +
+                " AND InsetColorID=" + InsetColorID + "))) ORDER BY Name";
+            workShopsDa = new SqlDataAdapter(selectCommand, ConnectionStrings.StorageConnectionString);
+            workShopsDa.Fill(workShopsDt);
+        }
         #endregion
 
         #region Racks
@@ -224,7 +239,12 @@ namespace Infinium.Modules.CabFurnitureAssignments
         public void UpdateRacks()
         {
             racksDt.Clear();
+
+            string selectCommand = @"SELECT * FROM Racks ORDER BY Name";
+            racksDa = new SqlDataAdapter(selectCommand, ConnectionStrings.StorageConnectionString);
+            racksCb = new SqlCommandBuilder(racksDa);
             racksDa.Fill(racksDt);
+
             racksBs.MoveFirst();
         }
 
@@ -233,6 +253,18 @@ namespace Infinium.Modules.CabFurnitureAssignments
             racksDa.Update(racksDt);
         }
 
+        public void SearchRacks(int TechStoreID, int CoverID, int PatinaID, int InsetColorID)
+        {
+            racksDt.Clear();
+            string selectCommand = "SELECT * FROM Racks WHERE RackID IN (SELECT RackID FROM Cells WHERE CellID IN (" +
+                " SELECT CellID FROM CabFurniturePackages" +
+                " WHERE TechStoreID=" + TechStoreID +
+                " AND CoverID=" + CoverID +
+                " AND PatinaID=" + PatinaID +
+                " AND InsetColorID=" + InsetColorID + ")) ORDER BY Name";
+            racksDa = new SqlDataAdapter(selectCommand, ConnectionStrings.StorageConnectionString);
+            racksDa.Fill(racksDt);
+        }
         #endregion
 
         #region Cells
@@ -299,12 +331,30 @@ namespace Infinium.Modules.CabFurnitureAssignments
         public void UpdateCells()
         {
             cellsDt.Clear();
+
+            string selectCommand = @"SELECT * FROM Cells ORDER BY Name";
+            cellsDa = new SqlDataAdapter(selectCommand, ConnectionStrings.StorageConnectionString);
+            cellsCb = new SqlCommandBuilder(cellsDa);
             cellsDa.Fill(cellsDt);
         }
 
         public void SaveCells()
         {
             cellsDa.Update(cellsDt);
+        }
+
+        public bool SearchCells(int TechStoreID, int CoverID, int PatinaID, int InsetColorID)
+        {
+            cellsDt.Clear();
+            string selectCommand = "SELECT * FROM Cells WHERE CellID IN (" +
+                " SELECT CellID FROM CabFurniturePackages" +
+                " WHERE TechStoreID=" + TechStoreID +
+                " AND CoverID=" + CoverID +
+                " AND PatinaID=" + PatinaID +
+                " AND InsetColorID=" + InsetColorID + ") ORDER BY Name";
+            cellsDa = new SqlDataAdapter(selectCommand, ConnectionStrings.StorageConnectionString);
+            cellsDa.Fill(cellsDt);
+            return cellsDt.Rows.Count > 0;
         }
 
         public List<CellLabelInfo> CreateCellLabels(int[] cells)
@@ -568,7 +618,7 @@ namespace Infinium.Modules.CabFurnitureAssignments
         }
     }
 
-    public class StoragePackagesManager
+    public class StorePackagesManager
     {
         DataTable PackageLabelsDT = null;
         DataTable BindPackageLabelsDT = null;
@@ -598,7 +648,7 @@ namespace Infinium.Modules.CabFurnitureAssignments
         public BindingSource InvPackageDetailsBS = null;
         SqlDataAdapter InvPackageDetailsDA;
 
-        public StoragePackagesManager()
+        public StorePackagesManager()
         {
             PackageLabelsDT = new DataTable();
             BindPackageLabelsDT = new DataTable();
@@ -837,7 +887,7 @@ namespace Infinium.Modules.CabFurnitureAssignments
         }
 
         /// <summary>
-        /// привязать упаковки к ячейке
+        /// привязать упаковки к ячейке. Проставляется дата принятия на склад
         /// </summary>
         /// <param name="cellID"></param>
         /// <param name="packageIds"></param>
@@ -847,7 +897,7 @@ namespace Infinium.Modules.CabFurnitureAssignments
             foreach (int item in packageIds)
                 filter += item.ToString() + ",";
             if (filter.Length > 0)
-                filter = "SELECT CabFurniturePackageID, CellID, BindToCellUserID, BindToCellDateTime FROM CabFurniturePackages " +
+                filter = "SELECT CabFurniturePackageID, CellID, BindToCellUserID, BindToCellDateTime, AddToStorage, AddToStorageDateTime, AddToStorageUserID FROM CabFurniturePackages " +
                     "WHERE CabFurniturePackageID IN (" + filter.Substring(0, filter.Length - 1) + ")";
 
             using (SqlDataAdapter DA = new SqlDataAdapter(filter, ConnectionStrings.StorageConnectionString))
@@ -865,6 +915,9 @@ namespace Infinium.Modules.CabFurnitureAssignments
                                 DT.Rows[i]["CellID"] = cellID;
                                 DT.Rows[i]["BindToCellUserID"] = Security.CurrentUserID;
                                 DT.Rows[i]["BindToCellDateTime"] = dateTime;
+                                DT.Rows[i]["AddToStorage"] = 1;
+                                DT.Rows[i]["AddToStorageDateTime"] = dateTime;
+                                DT.Rows[i]["AddToStorageUserID"] = Security.CurrentUserID;
                             }
                             DA.Update(DT);
                         }
@@ -884,7 +937,7 @@ namespace Infinium.Modules.CabFurnitureAssignments
             foreach (int item in packageIds)
                 filter += item.ToString() + ",";
             if (filter.Length > 0)
-                filter = "SELECT CabFurniturePackageID, CellID, BindToCellUserID, BindToCellDateTime FROM CabFurniturePackages " +
+                filter = "SELECT CabFurniturePackageID, CellID, BindToCellUserID, BindToCellDateTime, RemoveFromStorage, RemoveFromStorageDateTime, RemoveFromStorageUserID FROM CabFurniturePackages " +
                     "WHERE CabFurniturePackageID IN (" + filter.Substring(0, filter.Length - 1) + ")";
 
             using (SqlDataAdapter DA = new SqlDataAdapter(filter, ConnectionStrings.StorageConnectionString))
@@ -900,6 +953,9 @@ namespace Infinium.Modules.CabFurnitureAssignments
                             for (int i = 0; i < DT.Rows.Count; i++)
                             {
                                 DT.Rows[i]["CellID"] = -1;
+                                DT.Rows[i]["RemoveFromStorage"] = 1;
+                                DT.Rows[i]["RemoveFromStorageDateTime"] = dateTime;
+                                DT.Rows[i]["RemoveFromStorageUserID"] = Security.CurrentUserID;
                             }
                             DA.Update(DT);
                         }
@@ -909,7 +965,7 @@ namespace Infinium.Modules.CabFurnitureAssignments
         }
     }
 
-    public class DispatchPackagesManager
+    public class AssemblePackagesManager
     {
         private int iScanedPackages = 0;
         private int iAllPackages = 0;
@@ -935,7 +991,7 @@ namespace Infinium.Modules.CabFurnitureAssignments
         public string CellName { get => sCellName; set => sCellName = value; }
         public string RackName { get => sRackName; set => sRackName = value; }
 
-        public DispatchPackagesManager()
+        public AssemblePackagesManager()
         {
             ScanedPackagesDT = new DataTable();
             ScanedPackagesDT.Columns.Add(new DataColumn("CabFurniturePackageID", Type.GetType("System.Int32")));
@@ -1160,15 +1216,15 @@ namespace Infinium.Modules.CabFurnitureAssignments
         }
 
         /// <summary>
-        /// отвязать упаковки от ячеек
+        /// упаковка собрана и готова к отгрузке
         /// </summary>
-        public void WriteoffPackages()
+        public void AssemblePackages()
         {
             string filter = string.Empty;
             foreach (DataRow item in ScanedPackagesDT.Rows)
                 filter += item["CabFurniturePackageID"].ToString() + ",";
             if (filter.Length > 0)
-                filter = "SELECT CabFurniturePackageID, CellID, RemoveFromStorageUserID, RemoveFromStorageDateTime FROM CabFurniturePackages " +
+                filter = "SELECT CabFurniturePackageID, CompleteStorage, CompleteUserID, CompleteDateTime FROM CabFurniturePackages " +
                     "WHERE CabFurniturePackageID IN (" + filter.Substring(0, filter.Length - 1) + ")";
 
             using (SqlDataAdapter DA = new SqlDataAdapter(filter, ConnectionStrings.StorageConnectionString))
@@ -1183,9 +1239,9 @@ namespace Infinium.Modules.CabFurnitureAssignments
 
                             for (int i = 0; i < DT.Rows.Count; i++)
                             {
-                                DT.Rows[i]["CellID"] = -1;
-                                DT.Rows[i]["RemoveFromStorageDateTime"] = dateTime;
-                                DT.Rows[i]["RemoveFromStorageUserID"] = Security.CurrentUserID;
+                                DT.Rows[i]["CompleteStorage"] = 1;
+                                DT.Rows[i]["CompleteDateTime"] = dateTime;
+                                DT.Rows[i]["CompleteUserID"] = Security.CurrentUserID;
                             }
                             DA.Update(DT);
                         }
@@ -1194,4 +1250,643 @@ namespace Infinium.Modules.CabFurnitureAssignments
             }
         }
     }
+
+
+
+    public class CabFurAssemble
+    {
+        DataTable AllDispatchDecorWeightDT;
+        DataTable AllMainOrdersDecorWeightDT;
+        DataTable DispatchDT;
+        DataTable DispatchDatesDT;
+        DataTable DispatchContentDT;
+
+        DataTable CabFurOrdersDataTable;
+        DataTable AllCabFurniturePackages;
+        DataTable CabFurniturePackages;
+
+        BindingSource DispatchBS;
+        BindingSource DispatchDatesBS;
+        BindingSource DispatchContentBS;
+
+        int[] CabFurIds;
+
+        public CabFurAssemble()
+        {
+
+        }
+
+        public void Initialize()
+        {
+            Create();
+            Fill();
+            Binding();
+        }
+
+        private void Create()
+        {
+            CabFurOrdersDataTable = new DataTable();
+            AllCabFurniturePackages = new DataTable();
+
+            CabFurniturePackages = new DataTable();
+            CabFurniturePackages.Columns.Add(new DataColumn(("CabFurniturePackageID"), System.Type.GetType("System.Int32")));
+            CabFurniturePackages.Columns.Add(new DataColumn(("CellID"), System.Type.GetType("System.Int32")));
+            CabFurniturePackages.Columns.Add(new DataColumn(("CellName"), System.Type.GetType("System.String")));
+
+            CabFurIds = new int[8];
+            CabFurIds[0] = 46;
+            CabFurIds[1] = 63;
+            CabFurIds[2] = 61;
+            CabFurIds[3] = 73;
+            CabFurIds[4] = 74;
+            CabFurIds[5] = 75;
+            CabFurIds[6] = 80;
+            CabFurIds[7] = 82;
+
+            AllDispatchDecorWeightDT = new DataTable();
+            AllMainOrdersDecorWeightDT = new DataTable();
+            DispatchContentDT = new DataTable();
+            DispatchDT = new DataTable();
+            DispatchDT.Columns.Add(new DataColumn(("DispPackagesCount"), System.Type.GetType("System.String")));
+            DispatchDT.Columns.Add(new DataColumn(("Weight"), System.Type.GetType("System.Decimal")));
+            DispatchDT.Columns.Add(new DataColumn(("DispatchStatus"), System.Type.GetType("System.String")));
+            DispatchDT.Columns.Add(new DataColumn(("RealDispDateTime"), System.Type.GetType("System.DateTime")));
+            DispatchDatesDT = new DataTable();
+            DispatchDatesDT.Columns.Add(new DataColumn(("WeekNumber"), System.Type.GetType("System.String")));
+
+            DispatchBS = new BindingSource();
+            DispatchDatesBS = new BindingSource();
+            DispatchContentBS = new BindingSource();
+        }
+
+        private void Fill()
+        {
+            string SelectCommand = @"SELECT TOP 0 Dispatch.*, Clients.ClientName FROM Dispatch
+                LEFT JOIN infiniu2_marketingreference.dbo.Clients AS Clients ON Dispatch.ClientID = Clients.ClientID";
+            using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.MarketingOrdersConnectionString))
+            {
+                DA.Fill(DispatchDT);
+            }
+            SelectCommand = "SELECT TOP 0 PrepareDateTime, DateName FROM CabFurDispatch ORDER BY PrepareDateTime";
+            using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.MarketingOrdersConnectionString))
+            {
+                DA.Fill(DispatchDatesDT);
+            }
+            SelectCommand = "SELECT CabFurniturePackages.*, Cells.Name FROM CabFurniturePackages" +
+                " INNER JOIN Cells ON CabFurniturePackages.CellID=Cells.CellID" +
+                " WHERE CabFurniturePackages.CellID<>-1 ORDER BY AddToStorageDateTime";
+            using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.StorageConnectionString))
+            {
+                DA.Fill(AllCabFurniturePackages);
+            }
+
+            SelectCommand = "SELECT TOP 0 MainOrders.MegaOrderID, MegaOrders.ClientID, MegaOrders.OrderNumber, MainOrders.FactoryID, MainOrders.MainOrderID, MainOrders.ProfilPackAllocStatusID, MainOrders.TPSPackAllocStatusID FROM MainOrders" +
+                " INNER JOIN MegaOrders ON MainOrders.MegaOrderID=MegaOrders.MegaOrderID";
+            using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.MarketingOrdersConnectionString))
+            {
+                DA.Fill(DispatchContentDT);
+            }
+            DispatchContentDT.Columns.Add(new DataColumn("Weight", Type.GetType("System.Decimal")));
+            DispatchContentDT.Columns.Add(new DataColumn("AllPackCount", Type.GetType("System.Int32")));
+            DispatchContentDT.Columns.Add(new DataColumn("PackPercentage", Type.GetType("System.Decimal")));
+        }
+
+        public void GetMainOrdersSquareAndWeight()
+        {
+            string filter = string.Empty;
+
+            foreach (int item in CabFurIds)
+                filter += item.ToString() + ",";
+            if (filter.Length > 0)
+                filter = "WHERE ProductID IN (" + filter.Substring(0, filter.Length - 1) + ")";
+
+            string SelectCommand = @"SELECT Packages.DispatchID, DecorOrders.MainOrderID, (DecorOrders.Weight*PackageDetails.Count/DecorOrders.Count) AS Weight
+                    FROM PackageDetails INNER JOIN DecorOrders ON PackageDetails.OrderID = DecorOrders.DecorOrderID AND DecorOrders.MainOrderID IN (SELECT MainOrderID FROM DecorOrders " + filter + @" )
+                    INNER JOIN  Packages ON PackageDetails.PackageID = Packages.PackageID AND Packages.ProductType = 1 
+                    AND Packages.DispatchID NOT IN (SELECT DispatchID FROM CabFurDispatch)";
+            using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.MarketingOrdersConnectionString))
+            {
+                AllMainOrdersDecorWeightDT.Clear();
+                DA.Fill(AllMainOrdersDecorWeightDT);
+            }
+
+            SelectCommand = @"SELECT Packages.DispatchID, (DecorOrders.Weight*PackageDetails.Count/DecorOrders.Count) AS Weight
+                    FROM PackageDetails INNER JOIN DecorOrders ON PackageDetails.OrderID = DecorOrders.DecorOrderID AND DecorOrders.MainOrderID IN (SELECT MainOrderID FROM DecorOrders " + filter + @" )
+                    INNER JOIN  Packages ON PackageDetails.PackageID = Packages.PackageID AND Packages.ProductType = 1 
+                    AND Packages.DispatchID NOT IN (SELECT DispatchID FROM CabFurDispatch)";
+            using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.MarketingOrdersConnectionString))
+            {
+                AllDispatchDecorWeightDT.Clear();
+                DA.Fill(AllDispatchDecorWeightDT);
+            }
+        }
+
+        public void GetMainOrdersSquareAndWeight(DateTime PrepareDispatchDateTime)
+        {
+            string SelectCommand = @"SELECT Packages.DispatchID, DecorOrders.MainOrderID, (DecorOrders.Weight*PackageDetails.Count/DecorOrders.Count) AS Weight
+                    FROM PackageDetails INNER JOIN DecorOrders ON PackageDetails.OrderID = DecorOrders.DecorOrderID
+                    INNER JOIN  Packages ON PackageDetails.PackageID = Packages.PackageID AND Packages.ProductType = 1 
+                    AND Packages.DispatchID IN (SELECT DispatchID FROM CabFurDispatch WHERE CAST(PrepareDateTime AS Date) = 
+                    '" + PrepareDispatchDateTime.ToString("yyyy-MM-dd") + "')";
+            using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.MarketingOrdersConnectionString))
+            {
+                AllMainOrdersDecorWeightDT.Clear();
+                DA.Fill(AllMainOrdersDecorWeightDT);
+            }
+
+            SelectCommand = @"SELECT Packages.DispatchID, (DecorOrders.Weight*PackageDetails.Count/DecorOrders.Count) AS Weight
+                    FROM PackageDetails INNER JOIN DecorOrders ON PackageDetails.OrderID = DecorOrders.DecorOrderID
+                    INNER JOIN  Packages ON PackageDetails.PackageID = Packages.PackageID AND Packages.ProductType = 1 
+                    AND Packages.DispatchID IN (SELECT DispatchID FROM CabFurDispatch WHERE CAST(PrepareDateTime AS Date) = 
+                    '" + PrepareDispatchDateTime.ToString("yyyy-MM-dd") + "')";
+            using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.MarketingOrdersConnectionString))
+            {
+                AllDispatchDecorWeightDT.Clear();
+                DA.Fill(AllDispatchDecorWeightDT);
+            }
+        }
+
+        private decimal GetWeight(int DispatchID, int MainOrderID)
+        {
+            decimal Weight = 0;
+            DataRow[] rows = AllMainOrdersDecorWeightDT.Select("DispatchID=" + DispatchID + " AND MainOrderID=" + MainOrderID);
+            //if (rows.Count() > 0 && rows[0]["Weight"] != DBNull.Value)
+            //{
+            //    Weight += Convert.ToDecimal(rows[0]["Weight"]);
+            //}
+            foreach (DataRow item in rows)
+            {
+                Weight += Convert.ToDecimal(item["Weight"]);
+            }
+            Weight = Decimal.Round(Weight, 2, MidpointRounding.AwayFromZero);
+
+            return Weight;
+        }
+
+        private decimal GetWeight(int DispatchID)
+        {
+            decimal Weight = 0;
+            DataRow[] rows = rows = AllDispatchDecorWeightDT.Select("DispatchID=" + DispatchID);
+            foreach (DataRow item in rows)
+            {
+                Weight += Convert.ToDecimal(item["Weight"]);
+            }
+            //if (rows.Count() > 0 && rows[0]["Weight"] != DBNull.Value)
+            //{
+            //    Weight += Convert.ToDecimal(rows[0]["Weight"]);
+            //}
+            Weight = Decimal.Round(Weight, 2, MidpointRounding.AwayFromZero);
+
+            return Weight;
+        }
+
+        public bool FilterCabFurOrders(int[] Dispatches)
+        {
+            CabFurniturePackages.Clear();
+            string SelectCommand = @"SELECT C.PackNumber, C.TechStoreSubGroupID, C.TechCatalogOperationsDetailID, C.TechStoreID AS CTechStoreID, C.CoverID, C.PatinaID, C.InsetColorID, C.MainOrderID, CabFurnitureComplementDetails.* FROM CabFurnitureComplementDetails 
+                INNER JOIN CabFurnitureComplements AS C ON CabFurnitureComplementDetails.CabFurnitureComplementID=C.CabFurnitureComplementID
+                WHERE MainOrderID IN (SELECT MainOrderID FROM infiniu2_marketingorders.dbo.Packages WHERE DispatchID IN (" + string.Join(",", Dispatches) + ")) ORDER BY C.MainOrderID, CTechStoreID, C.CoverID, C.PatinaID, C.InsetColorID, C.CabFurnitureComplementID, C.PackNumber";
+            using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.StorageConnectionString))
+            {
+                CabFurOrdersDataTable.Clear();
+                DA.Fill(CabFurOrdersDataTable);
+            }
+            return CabFurOrdersDataTable.Rows.Count > 0;
+        }
+
+        private bool IsPackageMatch(int TechCatalogOperationsDetailID, int TechStoreID, int CoverID, int PatinaID, int InsetColorID)
+        {
+            bool b = false;
+
+            DataRow[] dataRows = AllCabFurniturePackages.Select("TechCatalogOperationsDetailID=" + TechCatalogOperationsDetailID +
+                " AND TechStoreID=" + TechStoreID +
+                " AND CoverID=" + CoverID +
+                " AND PatinaID=" + PatinaID +
+                " AND InsetColorID=" + InsetColorID);
+            if (dataRows.Count() > 0)
+            {
+                for (int i = 0; i < dataRows.Count(); i++)
+                {
+                    int CabFurniturePackageID = Convert.ToInt32(dataRows[i]["CabFurniturePackageID"]);
+
+                    DataRow[] rows = CabFurniturePackages.Select("CabFurniturePackageID = " + CabFurniturePackageID);
+                    if (rows.Count() > 0)
+                    {
+                        continue;
+                    }
+
+                    DataRow NewRow = CabFurniturePackages.NewRow();
+                    NewRow["CabFurniturePackageID"] = dataRows[i]["CabFurniturePackageID"];
+                    NewRow["CellID"] = dataRows[i]["CellID"];
+                    NewRow["CellName"] = dataRows[i]["Name"];
+                    CabFurniturePackages.Rows.Add(NewRow);
+
+                    b = true;
+                    break;
+                }
+            }
+
+            return b;
+        }
+
+        private void FillDispPackagesInfo()
+        {
+            int PackedCount = 0;
+            int AllCount = 0;
+            string Status = string.Empty;
+
+            for (int i = 0; i < DispatchDT.Rows.Count; i++)
+            {
+                CabFurniturePackages.Clear();
+                PackedCount = 0;
+                AllCount = 0;
+
+                Tuple<int, int> tuple = GetDispPackagesInfo(Convert.ToInt32(DispatchDT.Rows[i]["DispatchID"]));
+                PackedCount = tuple.Item1;
+                AllCount = tuple.Item2;
+
+                if (AllCount > 0)
+                {
+                    Status = "Частично скомплектован";
+                    if (PackedCount == 0)
+                        Status = "Не скомплектован";
+                    if (AllCount == PackedCount)
+                        Status = "Скомплектован";
+                }
+
+                DispatchDT.Rows[i]["DispatchStatus"] = Status;
+                DispatchDT.Rows[i]["DispPackagesCount"] = PackedCount + " / " + AllCount;
+                DispatchDT.Rows[i]["Weight"] = GetWeight(Convert.ToInt32(DispatchDT.Rows[i]["DispatchID"]));
+            }
+        }
+
+        public void FillPercColumns(int DispatchID)
+        {
+            for (int i = 0; i < DispatchContentDT.Rows.Count; i++)
+            {
+                int MainOrderID = Convert.ToInt32(DispatchContentDT.Rows[i]["MainOrderID"]);
+                int PackedCount = 0;
+                int AllCount = 0;
+
+                DataTable dt = new DataTable();
+                using (DataView DV = new DataView(CabFurOrdersDataTable, "MainOrderID = " + MainOrderID, string.Empty, DataViewRowState.CurrentRows))
+                {
+                    dt = DV.ToTable(true, new string[] { "CabFurnitureComplementID" });
+                }
+                if (dt.Rows.Count > 0)
+                {
+                    int CabFurnitureComplementID = Convert.ToInt32(dt.Rows[0]["CabFurnitureComplementID"]);
+                    DataRow[] r = CabFurOrdersDataTable.Select("CabFurnitureComplementID=" + CabFurnitureComplementID);
+                    if (IsPackageMatch(Convert.ToInt32(r[0]["TechCatalogOperationsDetailID"]),
+                        Convert.ToInt32(r[0]["CTechStoreID"]),
+                        Convert.ToInt32(r[0]["CoverID"]),
+                        Convert.ToInt32(r[0]["PatinaID"]),
+                        Convert.ToInt32(r[0]["InsetColorID"])))
+                        PackedCount++;
+
+                    for (int j = 1; j < dt.Rows.Count; j++)
+                    {
+                        if (Convert.ToInt32(dt.Rows[j]["CabFurnitureComplementID"]) != CabFurnitureComplementID)
+                        {
+                            CabFurnitureComplementID = Convert.ToInt32(dt.Rows[j]["CabFurnitureComplementID"]);
+                            r = CabFurOrdersDataTable.Select("CabFurnitureComplementID=" + CabFurnitureComplementID);
+
+                            int TechCatalogOperationsDetailID = Convert.ToInt32(r[0]["TechCatalogOperationsDetailID"]);
+                            int TechStoreID = Convert.ToInt32(r[0]["CTechStoreID"]);
+                            int CoverID = Convert.ToInt32(r[0]["CoverID"]);
+                            int PatinaID = Convert.ToInt32(r[0]["PatinaID"]);
+                            int InsetColorID = Convert.ToInt32(r[0]["InsetColorID"]);
+
+                            bool b = IsPackageMatch(TechCatalogOperationsDetailID, TechStoreID, CoverID, PatinaID, InsetColorID);
+                            if (b)
+                                PackedCount++;
+                        }
+                    }
+                }
+                AllCount = dt.Rows.Count;
+
+                decimal PackProgressVal = 0;
+
+                if (AllCount > 0)
+                    PackProgressVal = Convert.ToDecimal(Convert.ToDecimal(PackedCount) / Convert.ToDecimal(AllCount));
+
+                decimal d1 = PackProgressVal * 100;
+                decimal PackPercentage = Decimal.Round(d1, 1, MidpointRounding.AwayFromZero);
+
+                DispatchContentDT.Rows[i]["Weight"] = GetWeight(DispatchID, MainOrderID);
+                DispatchContentDT.Rows[i]["AllPackCount"] = AllCount;
+                DispatchContentDT.Rows[i]["PackPercentage"] = PackPercentage;
+            }
+        }
+
+        private void Binding()
+        {
+            DispatchBS.DataSource = DispatchDT;
+            DispatchDatesBS.DataSource = DispatchDatesDT;
+            DispatchContentBS.DataSource = DispatchContentDT;
+        }
+
+        public object CurrentDispatchDate
+        {
+            get
+            {
+                if (DispatchDatesBS.Count == 0 || ((DataRowView)DispatchDatesBS.Current).Row["PrepareDateTime"] == DBNull.Value)
+                    return DBNull.Value;
+                else
+                    return ((DataRowView)DispatchDatesBS.Current).Row["PrepareDateTime"];
+            }
+        }
+
+        public BindingSource DispatchList
+        {
+            get { return DispatchBS; }
+        }
+
+        public BindingSource DispatchDatesList
+        {
+            get { return DispatchDatesBS; }
+        }
+
+        public BindingSource DispatchContentList
+        {
+            get { return DispatchContentBS; }
+        }
+
+        private Tuple<int, int> GetDispPackagesInfo(int DispatchID)
+        {
+            int PackedCount = 0;
+            int AllCount = 0;
+
+            string SelectCommand = @"SELECT DISTINCT MainOrderID FROM Packages WHERE DispatchID = " + DispatchID;
+            using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.MarketingOrdersConnectionString))
+            {
+                using (DataTable DT = new DataTable())
+                {
+                    if (DA.Fill(DT) > 0)
+                    {
+                        for (int i = 0; i < DT.Rows.Count; i++)
+                        {
+
+                            int MainOrderID = Convert.ToInt32(DT.Rows[i]["MainOrderID"]);
+
+                            DataTable dt = new DataTable();
+                            using (DataView DV = new DataView(CabFurOrdersDataTable, "MainOrderID = " + MainOrderID, string.Empty, DataViewRowState.CurrentRows))
+                            {
+                                dt = DV.ToTable(true, new string[] { "CabFurnitureComplementID" });
+                            }
+                            if (dt.Rows.Count > 0)
+                            {
+                                int CabFurnitureComplementID = Convert.ToInt32(dt.Rows[0]["CabFurnitureComplementID"]);
+                                DataRow[] r = CabFurOrdersDataTable.Select("CabFurnitureComplementID=" + CabFurnitureComplementID);
+                                int TechCatalogOperationsDetailID = Convert.ToInt32(r[0]["TechCatalogOperationsDetailID"]);
+                                if (IsPackageMatch(Convert.ToInt32(r[0]["TechCatalogOperationsDetailID"]),
+                                    Convert.ToInt32(r[0]["CTechStoreID"]),
+                                    Convert.ToInt32(r[0]["CoverID"]),
+                                    Convert.ToInt32(r[0]["PatinaID"]),
+                                    Convert.ToInt32(r[0]["InsetColorID"])))
+                                    PackedCount++;
+
+                                for (int j = 1; j < dt.Rows.Count; j++)
+                                {
+                                    if (Convert.ToInt32(dt.Rows[j]["CabFurnitureComplementID"]) != CabFurnitureComplementID)
+                                    {
+                                        CabFurnitureComplementID = Convert.ToInt32(dt.Rows[j]["CabFurnitureComplementID"]);
+                                        r = CabFurOrdersDataTable.Select("CabFurnitureComplementID=" + CabFurnitureComplementID);
+
+                                        TechCatalogOperationsDetailID = Convert.ToInt32(r[0]["TechCatalogOperationsDetailID"]);
+                                        int TechStoreID = Convert.ToInt32(r[0]["CTechStoreID"]);
+                                        int CoverID = Convert.ToInt32(r[0]["CoverID"]);
+                                        int PatinaID = Convert.ToInt32(r[0]["PatinaID"]);
+                                        int InsetColorID = Convert.ToInt32(r[0]["InsetColorID"]);
+
+                                        bool b = IsPackageMatch(TechCatalogOperationsDetailID, TechStoreID, CoverID, PatinaID, InsetColorID);
+                                        if (b)
+                                            PackedCount++;
+                                    }
+                                }
+                            }
+                            AllCount += dt.Rows.Count;
+
+                            decimal PackProgressVal = 0;
+
+                            if (AllCount > 0)
+                                PackProgressVal = Convert.ToDecimal(Convert.ToDecimal(PackedCount) / Convert.ToDecimal(AllCount));
+
+                            decimal d1 = PackProgressVal * 100;
+                            decimal PackPercentage = Decimal.Round(d1, 1, MidpointRounding.AwayFromZero);
+                        }
+                    }
+                }
+            }
+            Tuple<int, int> tuple = new Tuple<int, int>(PackedCount, AllCount);
+            return tuple;
+        }
+
+        private int GetWeekNumber(DateTime dtPassed)
+        {
+            System.Globalization.CultureInfo ciCurr = System.Globalization.CultureInfo.CurrentCulture;
+            int weekNum = ciCurr.Calendar.GetWeekOfYear(dtPassed, System.Globalization.CalendarWeekRule.FirstDay, DayOfWeek.Monday);
+            return weekNum;
+        }
+
+        private void FillWeekNumber()
+        {
+            for (int i = 0; i < DispatchDatesDT.Rows.Count; i++)
+            {
+                if (DispatchDatesDT.Rows[i]["PrepareDateTime"] != DBNull.Value)
+                    DispatchDatesDT.Rows[i]["WeekNumber"] = GetWeekNumber(Convert.ToDateTime(DispatchDatesDT.Rows[i]["PrepareDateTime"])) + " к.н.";
+            }
+        }
+
+        public void ClearDispatch()
+        {
+            CabFurniturePackages.Clear();
+            DispatchDT.Clear();
+        }
+
+        public void ClearDispatchDates()
+        {
+            CabFurniturePackages.Clear();
+            DispatchDatesDT.Clear();
+        }
+
+        public void ClearDispatchContent()
+        {
+            CabFurniturePackages.Clear();
+            DispatchContentDT.Clear();
+        }
+
+        public void ChangeDispatchDate(int DispatchID, object PrepareDateTime)
+        {
+            string SelectCommand = @"SELECT CabFurDispatchID, DispatchID, CreationDateTime, PrepareDateTime, DateName FROM CabFurDispatch WHERE DispatchID=" + DispatchID;
+            using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.MarketingOrdersConnectionString))
+            {
+                using (SqlCommandBuilder CB = new SqlCommandBuilder(DA))
+                {
+                    using (DataTable DT = new DataTable())
+                    {
+                        if (DA.Fill(DT) > 0)
+                        {
+                            if (PrepareDateTime != null)
+                            {
+                                DT.Rows[0]["PrepareDateTime"] = Convert.ToDateTime(PrepareDateTime);
+                            }
+                            DA.Update(DT);
+                        }
+                        else
+                        {
+
+                            DataRow NewRow = DT.NewRow();
+                            NewRow["PrepareDateTime"] = Convert.ToDateTime(PrepareDateTime);
+                            NewRow["CreationDateTime"] = Security.GetCurrentDate();
+                            NewRow["DispatchID"] = DispatchID;
+                            DT.Rows.Add(NewRow);
+                            DA.Update(DT);
+                        }
+                    }
+                }
+            }
+        }
+
+        public void UpdateDispatchDates(DateTime Date)
+        {
+            string SelectCommand = "SELECT DISTINCT PrepareDateTime, DateName FROM CabFurDispatch" +
+                " WHERE DATEPART(month, PrepareDateTime) = DATEPART(month, '" + Date.ToString("yyyy-MM-dd") +
+                "') AND DATEPART(year, PrepareDateTime) = DATEPART(year, '" + Date.ToString("yyyy-MM-dd") + "')" +
+                " ORDER BY PrepareDateTime DESC";
+            using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.MarketingOrdersConnectionString))
+            {
+                DA.Fill(DispatchDatesDT);
+            }
+
+            DataTable dt = DispatchDatesDT.Clone();
+            SelectCommand = "SELECT PrepareDateTime, DateName FROM CabFurDispatch" +
+                " WHERE CabFurDispatchID = 0";
+            using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.MarketingOrdersConnectionString))
+            {
+                DA.Fill(dt);
+            }
+
+            foreach (DataRow dr in dt.Rows)
+                DispatchDatesDT.Rows.Add(dr.ItemArray);
+            dt.Dispose();
+
+            FillWeekNumber();
+        }
+
+        public bool IsCabFur(int DispatchID)
+        {
+            string filter = string.Empty;
+
+            foreach (int item in CabFurIds)
+                filter += item.ToString() + ",";
+            if (filter.Length > 0)
+                filter = "WHERE ProductID IN (" + filter.Substring(0, filter.Length - 1) + ")";
+
+            string SelectCommand = @"SELECT DispatchID FROM Packages WHERE MainOrderID IN (SELECT MainOrderID FROM DecorOrders " + filter + " ) AND DispatchID=" + DispatchID;
+            using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.MarketingOrdersConnectionString))
+            {
+                using (DataTable DT = new DataTable())
+                {
+                    if (DA.Fill(DT) > 0)
+                        return true;
+                }
+            }
+            return false;
+        }
+
+        public void FilterDispatchByDate(int CabFurDispatchID)
+        {
+            DataTable dt = DispatchDT.Clone();
+
+            string filter = string.Empty;
+
+            foreach (int item in CabFurIds)
+                filter += item.ToString() + ",";
+            if (filter.Length > 0)
+                filter = "WHERE ProductID IN (" + filter.Substring(0, filter.Length - 1) + ")";
+
+            string SelectCommand = @"SELECT Dispatch.*, Clients.ClientName FROM Dispatch
+                LEFT JOIN infiniu2_marketingreference.dbo.Clients AS Clients ON Dispatch.ClientID = Clients.ClientID
+                WHERE DispatchID NOT IN (SELECT DispatchID FROM CabFurDispatch)
+                AND DispatchID IN (SELECT DispatchID FROM Packages WHERE MainOrderID IN (SELECT MainOrderID FROM DecorOrders " + filter + " ))";
+            using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.MarketingOrdersConnectionString))
+            {
+                if (DA.Fill(dt) > 0)
+                {
+                    int[] Dispatches = new int[dt.Rows.Count];
+
+                    for (int i = 0; i < dt.Rows.Count; i++)
+                        Dispatches[i] = Convert.ToInt32(Convert.ToInt32(dt.Rows[i]["DispatchID"]));
+                    FilterCabFurOrders(Dispatches);
+
+                    for (int i = 0; i < dt.Rows.Count; i++)
+                    {
+                        dt.Rows[i]["Weight"] = GetWeight(Convert.ToInt32(dt.Rows[i]["DispatchID"]));
+                    }
+                }
+            }
+
+            foreach (DataRow dr in dt.Rows)
+                DispatchDT.Rows.Add(dr.ItemArray);
+            dt.Dispose();
+
+            FillDispPackagesInfo();
+        }
+
+        public void FilterDispatchByDate(DateTime Date)
+        {
+            DataTable dt = DispatchDT.Clone();
+
+            string SelectCommand = @"SELECT Dispatch.*, Clients.ClientName FROM Dispatch
+                INNER JOIN CabFurDispatch ON Dispatch.DispatchID = CabFurDispatch.DispatchID
+                LEFT JOIN infiniu2_marketingreference.dbo.Clients AS Clients ON Dispatch.ClientID = Clients.ClientID
+                WHERE CAST(CabFurDispatch.PrepareDateTime AS DATE) = '" + Date.ToString("yyyy-MM-dd") + "'";
+            using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.MarketingOrdersConnectionString))
+            {
+                if (DA.Fill(dt) > 0)
+                {
+                    int[] Dispatches = new int[dt.Rows.Count];
+
+                    for (int i = 0; i < dt.Rows.Count; i++)
+                        Dispatches[i] = Convert.ToInt32(Convert.ToInt32(dt.Rows[i]["DispatchID"]));
+                    FilterCabFurOrders(Dispatches);
+
+                    for (int i = 0; i < dt.Rows.Count; i++)
+                    {
+                        dt.Rows[i]["Weight"] = GetWeight(Convert.ToInt32(dt.Rows[i]["DispatchID"]));
+                    }
+                }
+            }
+
+            foreach (DataRow dr in dt.Rows)
+                DispatchDT.Rows.Add(dr.ItemArray);
+            dt.Dispose();
+
+            FillDispPackagesInfo();
+        }
+
+        public void FilterDispatchContent(int DispatchID)
+        {
+            CabFurniturePackages.Clear();
+            string SelectCommand = "SELECT MainOrders.MegaOrderID, MegaOrders.ClientID, MegaOrders.OrderNumber, MainOrders.FactoryID, MainOrders.MainOrderID, MainOrders.ProfilPackAllocStatusID, MainOrders.TPSPackAllocStatusID FROM MainOrders" +
+                " INNER JOIN MegaOrders ON MainOrders.MegaOrderID=MegaOrders.MegaOrderID" +
+                " WHERE MainOrderID IN (SELECT MainOrderID FROM Packages WHERE DispatchID = " + DispatchID + ")";
+            using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.MarketingOrdersConnectionString))
+            {
+                DA.Fill(DispatchContentDT);
+            }
+        }
+
+        public void MoveToDispatchDate(DateTime DispatchDate)
+        {
+            DispatchDatesBS.Position = DispatchDatesBS.Find("PrepareDateTime", DispatchDate);
+        }
+
+        public void MoveToDispatch(int DispatchID)
+        {
+            DispatchBS.Position = DispatchBS.Find("DispatchID", DispatchID);
+        }
+    }
+
 }

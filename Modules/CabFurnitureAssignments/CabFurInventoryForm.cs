@@ -22,9 +22,9 @@ namespace Infinium
         Form MainForm = null;
 
         AssignmentsManager assignmentsStoreManager;
-        StoragePackagesManager storagePackagesManager;
+        StorePackagesManager storagePackagesManager;
 
-        public CabFurInventoryForm(Form tMainForm, AssignmentsManager AM, StoragePackagesManager SM, int iworkshopId)
+        public CabFurInventoryForm(Form tMainForm, AssignmentsManager AM, StorePackagesManager SM, int iworkshopId)
         {
             MainForm = tMainForm;
             assignmentsStoreManager = AM;

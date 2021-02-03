@@ -9,7 +9,7 @@ using System.Windows.Forms;
 
 namespace Infinium
 {
-    public partial class CabFurDispatchForm : Form
+    public partial class CabFurAssembleForm : Form
     {
         const int eHide = 2;
         const int eShow = 1;
@@ -26,13 +26,13 @@ namespace Infinium
 
         Form MainForm;
 
-        DispatchPackagesManager dispatchPackagesManager;
+        AssemblePackagesManager assemblePackagesManager;
         AssignmentsManager assignmentsManager;
 
         [DllImport("user32.dll")]
         static extern IntPtr GetActiveWindow();
 
-        public CabFurDispatchForm(Form tMainForm, int iDispatchID)
+        public CabFurAssembleForm(Form tMainForm, int iDispatchID)
         {
             InitializeComponent();
 
@@ -45,13 +45,13 @@ namespace Infinium
             assignmentsManager.Initialize();
 
             Initialize();
-            dispatchPackagesManager.GetPackagesLabels(DispatchID);
+            assemblePackagesManager.GetPackagesLabels(DispatchID);
 
             this.MaximumSize = Screen.PrimaryScreen.WorkingArea.Size;
 
             while (!SplashForm.bCreated) ;
         }
-        public CabFurDispatchForm(Form tMainForm, AssignmentsManager tAssignmentsManager, int iClientID, int iOrderNumber)
+        public CabFurAssembleForm(Form tMainForm, AssignmentsManager tAssignmentsManager, int iClientID, int iOrderNumber)
         {
             InitializeComponent();
 
@@ -61,7 +61,7 @@ namespace Infinium
             MainForm = tMainForm;
             assignmentsManager = tAssignmentsManager;
             Initialize();
-            dispatchPackagesManager.GetPackagesLabels(ClientID, OrderNumber);
+            assemblePackagesManager.GetPackagesLabels(ClientID, OrderNumber);
 
             this.MaximumSize = Screen.PrimaryScreen.WorkingArea.Size;
 
@@ -178,16 +178,16 @@ namespace Infinium
 
         private void Initialize()
         {
-            dispatchPackagesManager = new DispatchPackagesManager();
+            assemblePackagesManager = new AssemblePackagesManager();
 
-            dgvStoragePackagesLabels.DataSource = dispatchPackagesManager.PackageLabelsBS;
-            dgvStoragePackagesDetails.DataSource = dispatchPackagesManager.PackageDetailsBS;
-            dgvScanedStoragePackagesDetails.DataSource = dispatchPackagesManager.ScanedPackageDetailsBS;
+            dgvStoragePackagesLabels.DataSource = assemblePackagesManager.PackageLabelsBS;
+            dgvStoragePackagesDetails.DataSource = assemblePackagesManager.PackageDetailsBS;
+            dgvScanedStoragePackagesDetails.DataSource = assemblePackagesManager.ScanedPackageDetailsBS;
 
             dgvPackagesLabelsSetting(ref dgvStoragePackagesLabels);
             dgvPackagesDetailsSetting(ref dgvStoragePackagesDetails);
             dgvPackagesDetailsSetting(ref dgvScanedStoragePackagesDetails);
-            dispatchPackagesManager.Clear();
+            assemblePackagesManager.Clear();
         }
 
         private void dgvPackagesLabelsSetting(ref PercentageDataGrid grid)
@@ -363,7 +363,7 @@ namespace Infinium
 
                 int CabFurniturePackageID = Convert.ToInt32(BarcodeTextBox.Text.Substring(3, 9));
                 
-                if (dispatchPackagesManager.IsPackageScan(CabFurniturePackageID))
+                if (assemblePackagesManager.IsPackageScan(CabFurniturePackageID))
                 {
                     CabFurniturePackageID = -1;
                     BarcodeTextBox.Clear();
@@ -373,7 +373,7 @@ namespace Infinium
                     BarcodeLabel.ForeColor = Color.FromArgb(240, 0, 0);
                     return;
                 }
-                if (!dispatchPackagesManager.IsPackageExist(CabFurniturePackageID))
+                if (!assemblePackagesManager.IsPackageExist(CabFurniturePackageID))
                 {
                     CabFurniturePackageID = -1;
                     BarcodeTextBox.Clear();
@@ -387,7 +387,7 @@ namespace Infinium
                 BarcodeLabel.Text = BarcodeTextBox.Text;
                 BarcodeTextBox.Clear();
 
-                if (dispatchPackagesManager.ScanPackage(CabFurniturePackageID))
+                if (assemblePackagesManager.ScanPackage(CabFurniturePackageID))
                 {
                     CheckPicture.Visible = true;
                     CheckPicture.Image = Properties.Resources.OK;
@@ -401,9 +401,9 @@ namespace Infinium
 
                     BarcodeLabel.Text = "Упаковки не соответствует заказу";
                 }
-                lbScaned.Text = dispatchPackagesManager.ScanedPackages;
-                lbRackName.Text = dispatchPackagesManager.RackName;
-                lbCellName.Text = dispatchPackagesManager.CellName;
+                lbScaned.Text = assemblePackagesManager.ScanedPackages;
+                lbRackName.Text = assemblePackagesManager.RackName;
+                lbCellName.Text = assemblePackagesManager.CellName;
             }
 
         }
@@ -429,18 +429,27 @@ namespace Infinium
                 return;
         }
 
-        private void OKInvButton_Click(object sender, EventArgs e)
-        {
-        }
-
         private void dgvPackagesLabels_SelectionChanged(object sender, EventArgs e)
         {
-            if (dispatchPackagesManager == null)
+            if (assemblePackagesManager == null)
                 return;
             int cabFurniturePackageID = 0;
             if (dgvStoragePackagesLabels.SelectedRows.Count != 0 && dgvStoragePackagesLabels.SelectedRows[0].Cells["CabFurnitureComplementID"].Value != DBNull.Value)
                 cabFurniturePackageID = Convert.ToInt32(dgvStoragePackagesLabels.SelectedRows[0].Cells["CabFurnitureComplementID"].Value);
-            dispatchPackagesManager.FilterPackagesDetails(cabFurniturePackageID);
+            assemblePackagesManager.FilterPackagesDetails(cabFurniturePackageID);
+        }
+
+        private void btnComplete_Click(object sender, EventArgs e)
+        {
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref MainForm, "Обновление.\r\nПодождите..."); });
+            T.Start();
+            while (!SplashWindow.bSmallCreated) ;
+
+            assemblePackagesManager.AssemblePackages();
+            InfiniumTips.ShowTip(this, 50, 85, "Упаковки подготовлены к отгрузке", 2000);
+
+            while (SplashWindow.bSmallCreated)
+                SmallWaitForm.CloseS = true;
         }
     }
 }

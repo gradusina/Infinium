@@ -1,6 +1,6 @@
 ﻿namespace Infinium
 {
-    partial class CabFurDispatchForm
+    partial class CabFurAssembleForm
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CabFurDispatchForm));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CabFurAssembleForm));
             this.AnimateTimer = new System.Windows.Forms.Timer(this.components);
             this.NavigateMenuCloseButton = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.NavigateMenuButtonsPalette = new ComponentFactory.Krypton.Toolkit.KryptonPalette(this.components);
@@ -38,7 +38,7 @@
             this.kryptonBorderEdge3 = new ComponentFactory.Krypton.Toolkit.KryptonBorderEdge();
             this.CheckTimer = new System.Windows.Forms.Timer(this.components);
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.btnDisp = new ComponentFactory.Krypton.Toolkit.KryptonButton();
+            this.btnComplete = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.StandardButtonsPalette = new ComponentFactory.Krypton.Toolkit.KryptonPalette(this.components);
             this.panel3 = new System.Windows.Forms.Panel();
             this.label3 = new System.Windows.Forms.Label();
@@ -157,9 +157,9 @@
             this.label1.Location = new System.Drawing.Point(2, 5);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(553, 45);
+            this.label1.Size = new System.Drawing.Size(626, 45);
             this.label1.TabIndex = 31;
-            this.label1.Text = "Infinium. Отгрузка корпусной мебели";
+            this.label1.Text = "Infinium. Комплектовка корпусной мебели";
             // 
             // NavigatePanel
             // 
@@ -198,26 +198,27 @@
             this.timer1.Enabled = true;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
-            // btnDisp
+            // btnComplete
             // 
-            this.btnDisp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnDisp.Location = new System.Drawing.Point(1124, 16);
-            this.btnDisp.Name = "btnDisp";
-            this.btnDisp.Palette = this.StandardButtonsPalette;
-            this.btnDisp.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Custom;
-            this.btnDisp.Size = new System.Drawing.Size(130, 40);
-            this.btnDisp.StateCommon.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            this.btnComplete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnComplete.Location = new System.Drawing.Point(1124, 16);
+            this.btnComplete.Name = "btnComplete";
+            this.btnComplete.Palette = this.StandardButtonsPalette;
+            this.btnComplete.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Custom;
+            this.btnComplete.Size = new System.Drawing.Size(130, 40);
+            this.btnComplete.StateCommon.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
-            this.btnDisp.StateCommon.Content.Image.ImageH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
-            this.btnDisp.StateCommon.Content.Image.ImageV = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Near;
-            this.btnDisp.StateCommon.Content.ShortText.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.btnDisp.StateCommon.Content.ShortText.TextV = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
-            this.btnDisp.StateTracking.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(253)))), ((int)(((byte)(164)))), ((int)(((byte)(61)))));
-            this.btnDisp.StateTracking.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
-            this.btnDisp.TabIndex = 44;
-            this.btnDisp.TabStop = false;
-            this.btnDisp.Values.Text = "Отгрузить";
+            this.btnComplete.StateCommon.Content.Image.ImageH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
+            this.btnComplete.StateCommon.Content.Image.ImageV = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Near;
+            this.btnComplete.StateCommon.Content.ShortText.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.btnComplete.StateCommon.Content.ShortText.TextV = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
+            this.btnComplete.StateTracking.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(253)))), ((int)(((byte)(164)))), ((int)(((byte)(61)))));
+            this.btnComplete.StateTracking.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
+            this.btnComplete.TabIndex = 44;
+            this.btnComplete.TabStop = false;
+            this.btnComplete.Values.Text = "Скомплектовать";
+            this.btnComplete.Click += new System.EventHandler(this.btnComplete_Click);
             // 
             // StandardButtonsPalette
             // 
@@ -263,7 +264,7 @@
             // 
             this.panel3.Controls.Add(this.label3);
             this.panel3.Controls.Add(this.panel2);
-            this.panel3.Controls.Add(this.btnDisp);
+            this.panel3.Controls.Add(this.btnComplete);
             this.panel3.Controls.Add(this.BarcodeLabel);
             this.panel3.Controls.Add(this.CheckPicture);
             this.panel3.Controls.Add(this.BarcodeTextBox);
@@ -823,7 +824,7 @@
         private ComponentFactory.Krypton.Toolkit.KryptonPalette NavigateMenuButtonsPalette;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Panel panel3;
-        private ComponentFactory.Krypton.Toolkit.KryptonButton btnDisp;
+        private ComponentFactory.Krypton.Toolkit.KryptonButton btnComplete;
         private ComponentFactory.Krypton.Toolkit.KryptonPalette StandardButtonsPalette;
         private ComponentFactory.Krypton.Toolkit.KryptonPalette PanelSelectPalette;
         private System.Windows.Forms.Panel panel1;

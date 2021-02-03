@@ -18,9 +18,9 @@ namespace Infinium
         int FormEvent = 0;
 
         Form MainForm = null;
-        StoragePackagesManager storagePackagesManager;
+        StorePackagesManager storagePackagesManager;
 
-        public InputCellBarCodeForm(Form tMainForm, StoragePackagesManager SM)
+        public InputCellBarCodeForm(Form tMainForm, StorePackagesManager SM)
         {
             MainForm = tMainForm;
             storagePackagesManager = SM;

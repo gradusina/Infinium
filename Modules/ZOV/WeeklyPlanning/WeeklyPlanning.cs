@@ -11182,7 +11182,7 @@ namespace Infinium.Modules.ZOV.WeeklyPlanning
 
                     if (Convert.ToInt32(Row["PatinaID"]) != -1)
                         Color += " " + GetPatinaName(Convert.ToInt32(Row["PatinaID"]));
-                    if (DecorCatalog.HasParameter(Convert.ToInt32(DecorCatalog.DecorProductsDataTable.Rows[i]["ProductID"]), "ColorID"))
+                    //if (DecorCatalog.HasParameter(Convert.ToInt32(DecorCatalog.DecorProductsDataTable.Rows[i]["ProductID"]), "ColorID"))
                         NewRow2["Color"] = Color;
 
                     NewRow2["Count"] = Row["Count"];
