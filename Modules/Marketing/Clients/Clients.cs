@@ -644,7 +644,7 @@ namespace Infinium.Modules.Marketing.Clients
 
             if (to.Length == 0)
             {
-                result = "У клиента не указан Email. Отправка отчета не возможна";
+                result = "У клиента не указан Email. Отправка отчета невозможна";
                 MessageBox.Show(result);
                 return result;
             }
@@ -911,7 +911,7 @@ namespace Infinium.Modules.Marketing.Clients
 
             if (to.Length == 0)
             {
-                MessageBox.Show("У клиента не указан Email. Отправка отчета не возможна");
+                MessageBox.Show("У клиента не указан Email. Отправка отчета невозможна");
                 return;
             }
 

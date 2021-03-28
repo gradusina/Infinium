@@ -206,6 +206,12 @@
     <Compile Include="Light\DayPlannerForm.designer.cs">
       <DependentUpon>DayPlannerForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Light\EditTimesheetForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Light\EditTimesheetForm.designer.cs">
+      <DependentUpon>EditTimesheetForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Light\EditTimeForm1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1965,6 +1971,9 @@
       <DependentUpon>DayPlannerForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Light\EditTimesheetForm.resx">
+      <DependentUpon>EditTimesheetForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Light\EditTimeForm1.resx">
       <DependentUpon>EditTimeForm1.cs</DependentUpon>
     </EmbeddedResource>
@@ -2954,10 +2963,10 @@
     <None Include="Images\Backgrounds\BackStandardBlur50.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\n2.jpg" />
     <None Include="Resources\list-numbered-close.png" />
     <None Include="Resources\print_icon.png" />
     <None Include="Resources\iconfinder_printer_39263.png" />
-    <None Include="Resources\n2.jpg" />
     <None Include="Resources\n2.png" />
     <None Include="Resources\eac.png" />
     <None Include="Resources\n2.jpeg" />

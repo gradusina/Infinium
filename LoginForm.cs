@@ -28,14 +28,22 @@ namespace Infinium
             this.MaximumSize = Screen.PrimaryScreen.WorkingArea.Size;
 
             Connection = new Connection();
-            //ConnectionStrings.CatalogConnectionString = Connection.GetConnectionString(CommonVariables.CatalogConnectionString);
-            //ConnectionStrings.LightConnectionString = Connection.GetConnectionString(CommonVariables.LightConnectionString);
-            //ConnectionStrings.MarketingOrdersConnectionString = Connection.GetConnectionString(CommonVariables.MarketingOrdersConnectionString);
-            //ConnectionStrings.MarketingReferenceConnectionString = Connection.GetConnectionString(CommonVariables.MarketingReferenceConnectionString);
-            //ConnectionStrings.StorageConnectionString = Connection.GetConnectionString(CommonVariables.StorageConnectionString);
-            //ConnectionStrings.UsersConnectionString = Connection.GetConnectionString(CommonVariables.UsersConnectionString);
-            //ConnectionStrings.ZOVOrdersConnectionString = Connection.GetConnectionString(CommonVariables.ZOVOrdersConnectionString);
-            //ConnectionStrings.ZOVReferenceConnectionString = Connection.GetConnectionString(CommonVariables.ZOVReferenceConnectionString);
+
+            //ConnectionStrings.CatalogConnectionString = Connection.DecryptStringConnectionString(CommonVariables.CatalogConnectionString);
+            //ConnectionStrings.LightConnectionString = Connection.DecryptStringConnectionString(CommonVariables.LightConnectionString);
+            //ConnectionStrings.MarketingOrdersConnectionString = Connection.DecryptStringConnectionString(CommonVariables.MarketingOrdersConnectionString);
+            //ConnectionStrings.MarketingReferenceConnectionString = Connection.DecryptStringConnectionString(CommonVariables.MarketingReferenceConnectionString);
+            //ConnectionStrings.StorageConnectionString = Connection.DecryptStringConnectionString(CommonVariables.StorageConnectionString);
+            //ConnectionStrings.UsersConnectionString = Connection.DecryptStringConnectionString(CommonVariables.UsersConnectionString);
+            //ConnectionStrings.ZOVOrdersConnectionString = Connection.DecryptStringConnectionString(CommonVariables.ZOVOrdersConnectionString);
+            //ConnectionStrings.ZOVReferenceConnectionString = Connection.DecryptStringConnectionString(CommonVariables.ZOVReferenceConnectionString);
+
+            //DatabaseConfigsManager DatabaseConfigsManager = new DatabaseConfigsManager();
+            //DatabaseConfigsManager.Animation = CommonVariables.Animation;
+            //Configs.DocumentsPath = CommonVariables.DocumentsPath;
+            //Configs.DocumentsZOVTPSPath = CommonVariables.DocumentsZOVTPSPath;
+            //Configs.DocumentsPathHost = CommonVariables.DocumentsPath;
+            //Configs.FTPType = CommonVariables.FTPType;
 
             ConnectionStrings.UsersConnectionString = Connection.GetConnectionString("ConnectionUsers.config");
             ConnectionStrings.CatalogConnectionString = Connection.GetConnectionString("ConnectionCatalog.config");

@@ -132,7 +132,7 @@ namespace Infinium.Modules.Admin
             {
                 da.Fill(_staffListDataTable);
             }
-            using (SqlDataAdapter da = new SqlDataAdapter("SELECT UserID, Name, ShortName FROM Users", ConnectionStrings.UsersConnectionString))
+            using (SqlDataAdapter da = new SqlDataAdapter("SELECT UserID, Name, ShortName FROM Users WHERE Fired<>1 ORDER BY Name", ConnectionStrings.UsersConnectionString))
             {
                 da.Fill(_usersDataTable);
             }
@@ -163,9 +163,25 @@ namespace Infinium.Modules.Admin
             return name;
         }
 
-        public void RemoveAbsenceRecord()
+        public void CopyAbsenceRecord(int userID, object dateStart, object dateFinish, int absenceTypeID)
         {
+            DataRow NewRow = _absencesJournalDataTable.NewRow();
 
+            NewRow["UserID"] = userID;
+            NewRow["DateStart"] = dateStart;
+            NewRow["DateFinish"] = dateFinish;
+            NewRow["AbsenceTypeID"] = absenceTypeID;
+
+            _absencesJournalDataTable.Rows.Add(NewRow);
+        }
+
+        public void RemoveAbsenceRecord(int absenceID)
+        {
+            DataRow[] EditRows = _absencesJournalDataTable.Select("AbsenceID = " + absenceID);
+            if (EditRows.Count() > 0)
+            {
+                EditRows[0].Delete();
+            }
         }
 
         private void FillAbsenceJournal()
@@ -232,6 +248,9 @@ namespace Infinium.Modules.Admin
             {
                 for (int i = 0; i < _absencesJournalDataTable.Rows.Count; i++)
                 {
+                    if (_absencesJournalDataTable.Rows[i].RowState == DataRowState.Deleted)
+                        continue;
+
                     if (_absencesJournalDataTable.Rows[i]["DateStart"] == DBNull.Value
                         || _absencesJournalDataTable.Rows[i]["DateFinish"] == DBNull.Value)
                         return false;

@@ -1623,6 +1623,7 @@ namespace Infinium.Modules.Marketing.Expedition
             MegaOrdersDataTable.Columns.Add(new DataColumn("ProfilDispatchedCount", Type.GetType("System.String")));
             MegaOrdersDataTable.Columns.Add(new DataColumn("ProfilDispPercentage", Type.GetType("System.Int32")));
 
+
             MegaOrdersDataTable.Columns.Add(new DataColumn("TPSPackedCount", Type.GetType("System.String")));
             MegaOrdersDataTable.Columns.Add(new DataColumn("TPSPackPercentage", Type.GetType("System.Int32")));
             MegaOrdersDataTable.Columns.Add(new DataColumn("TPSStoreCount", Type.GetType("System.String")));
@@ -1632,6 +1633,14 @@ namespace Infinium.Modules.Marketing.Expedition
             MegaOrdersDataTable.Columns.Add(new DataColumn("TPSDispatchedCount", Type.GetType("System.String")));
             MegaOrdersDataTable.Columns.Add(new DataColumn("TPSDispPercentage", Type.GetType("System.Int32")));
             MegaOrdersDataTable.Columns.Add(new DataColumn("MegaBatchNumber", Type.GetType("System.String")));
+
+            DataColumn cellColumn = new DataColumn()
+            {
+                DataType = Type.GetType("System.Boolean"),
+                ColumnName = "CabFurAssembled",
+                DefaultValue = 0
+            };
+            MegaOrdersDataTable.Columns.Add(cellColumn);
 
             using (SqlDataAdapter DA = new SqlDataAdapter("SELECT * FROM PackageStatuses", ConnectionStrings.CatalogConnectionString))
             {
@@ -2125,13 +2134,29 @@ namespace Infinium.Modules.Marketing.Expedition
 
         }
 
-        private void SearchCabFurAssembled(Modules.CabFurnitureAssignments.CabFurAssemble obj)
+        public void SearchCabFurAssembled(Modules.CabFurnitureAssignments.CabFurAssemble obj)
         {
+            int[] MegaOrders = new int[MegaOrdersDataTable.Rows.Count];
+
             for (int i = 0; i < MegaOrdersDataTable.Rows.Count; i++)
             {
-                bool b = obj.IsCabFur(Convert.ToInt32(MegaOrdersDataTable.Rows[i]["MegaOrderID"]));
+                MegaOrders[i] = Convert.ToInt32(Convert.ToInt32(MegaOrdersDataTable.Rows[i]["MegaOrderID"]));
+                MegaOrdersDataTable.Rows[i]["CabFurAssembled"] = 0;
+            }
+            obj.FilterCabFurOrders(MegaOrders);
+
+            for (int i = 0; i < MegaOrdersDataTable.Rows.Count; i++)
+            {
+                int MegaOrderID = Convert.ToInt32(MegaOrdersDataTable.Rows[i]["MegaOrderID"]);
+                bool b = obj.IsCabFurAssembled(MegaOrderID);
+                if (b)
+                {
+                    MegaOrdersDataTable.Rows[i]["CabFurAssembled"] = 1;
+                }
             }
 
+            MegaOrdersBindingSource.Filter = "CabFurAssembled = 1";
+            MegaOrdersBindingSource.MoveFirst();
         }
 
         private void Binding()
@@ -3521,6 +3546,8 @@ namespace Infinium.Modules.Marketing.Expedition
             bool Dispatched,
             int ClientID, int MegaBatchID, int FactoryID)
         {
+            MegaOrdersBindingSource.Filter = string.Empty;
+
             string OrdersProductionStatus = string.Empty;
             string BatchOrdersProductionStatus = string.Empty;
             string MegaBatchFilter = string.Empty;
@@ -3662,7 +3689,8 @@ namespace Infinium.Modules.Marketing.Expedition
 
             if (FactoryFilter.Length > 0)
                 FactoryFilter = " WHERE (" + FactoryFilter + ")";
-            BatchOrdersProductionStatus = " AND (" + OrdersProductionStatus + ")";
+            if (OrdersProductionStatus.Length > 0)
+                BatchOrdersProductionStatus = " AND (" + OrdersProductionStatus + ")";
             if (OrdersProductionStatus.Length > 0)
             {
                 if (FactoryFilter.Length > 0)
@@ -3900,7 +3928,6 @@ namespace Infinium.Modules.Marketing.Expedition
             FillMainPercentageColumn();
             FillBatchNumber();
 
-            MainOrdersBindingSource.MoveFirst();
         }
 
         public bool FilterPackagesByMainOrder(int MainOrderID, int FactoryID)
@@ -13404,7 +13431,7 @@ namespace Infinium.Modules.Marketing.Expedition
 
             if (MailAddressTo.Length == 0)
             {
-                MessageBox.Show("У клиента не указан Email. Отправка отчета не возможна");
+                MessageBox.Show("У клиента не указан Email. Отправка отчета невозможна");
                 return;
             }
 

@@ -1,4 +1,7 @@
-﻿using System;
+﻿using NPOI.HSSF.UserModel;
+using NPOI.HSSF.Util;
+
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -24,7 +27,7 @@ namespace Infinium
         {
             if (Array.IndexOf(img.PropertyIdList, 274) > -1)
             {
-                var orientation = (int)img.GetPropertyItem(274).Value[0];
+                int orientation = img.GetPropertyItem(274).Value[0];
                 switch (orientation)
                 {
                     case 1:
@@ -1193,9 +1196,9 @@ namespace Infinium
             return Name;
         }
 
-        string GetNewFileName(string path, string FileName)
+        private string GetNewFileName(string path, string FileName)
         {
-            var fileInfo = new System.IO.FileInfo(path + "\\" + FileName);
+            FileInfo fileInfo = new System.IO.FileInfo(path + "\\" + FileName);
 
             if (!fileInfo.Exists)
                 return FileName;
@@ -2367,9 +2370,9 @@ namespace Infinium
             return Name;
         }
 
-        string GetNewFileName(string path, string FileName)
+        private string GetNewFileName(string path, string FileName)
         {
-            var fileInfo = new System.IO.FileInfo(path + "\\" + FileName);
+            FileInfo fileInfo = new System.IO.FileInfo(path + "\\" + FileName);
 
             if (!fileInfo.Exists)
                 return FileName;
@@ -4816,7 +4819,7 @@ namespace Infinium
             if (Phone.Length == 0)
                 return "не указан";
 
-            return "+" + String.Format("{0:### ## ### ## ##}", Convert.ToUInt64(Phone));
+            return "+" + string.Format("{0:### ## ### ## ##}", Convert.ToUInt64(Phone));
         }
 
 
@@ -4878,7 +4881,7 @@ namespace Infinium
         public DataTable SubscribesItemsDataTable;
         public DataTable ModulesDataTable;
         public DataTable ModulesUpdatesDataTable;
-        int iCurrentUpdateID = -1;
+        private int iCurrentUpdateID = -1;
         public int iCurrentModuleID = -1;
 
         public ActiveNotifySystem()
@@ -6190,12 +6193,12 @@ namespace Infinium
     public class LightWorkDay
     {
         public DataTable MyFunctionDataTable;
-        DataTable WorkDayDetailsDT;
-        DataTable newWorkDayDetailsDT;
-        DataTable FunctionsDT;
-        DataTable UserFunctionsDT;
-        DataTable FunctionsExecTypesDT;
-        DataTable DepartmentsDT;
+        private DataTable WorkDayDetailsDT;
+        private DataTable newWorkDayDetailsDT;
+        private DataTable FunctionsDT;
+        private DataTable UserFunctionsDT;
+        private DataTable FunctionsExecTypesDT;
+        private DataTable DepartmentsDT;
 
 
         public DataTable WorkDaysDataTable;
@@ -6386,12 +6389,26 @@ namespace Infinium
             //}
         }
 
-        public DataTable MyFunctionDataTableDT
+        public DataTable MyFunctionDataTableDT => MyFunctionDataTable.Copy();
+
+        public bool IsTimesheetHoursSaved(int UserID)
         {
-            get
+            bool b = false;
+            string SelectCommand = @"SELECT TOP 1 WorkDayID, TimesheetHours FROM WorkDays WHERE UserID=" + UserID + " ORDER BY DayStartDateTime DESC";
+            using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.LightConnectionString))
             {
-                return MyFunctionDataTable.Copy();
+                using (DataTable DT = new DataTable())
+                {
+                    if (DA.Fill(DT) > 0)
+                    {
+                        if (Convert.ToDecimal(DT.Rows[0]["TimesheetHours"]) > 0)
+                            b = true;
+                    }
+                    else
+                        b = true;
+                }
             }
+            return b;
         }
 
         public static bool StartWorkDay(int UserID)
@@ -6648,6 +6665,7 @@ namespace Infinium
 
                         DT.Rows[0]["DayEndDateTime"] = DBNull.Value;
                         DT.Rows[0]["DayEndFactDateTime"] = DBNull.Value;
+                        DT.Rows[0]["Saved"] = false;
 
                         DA.Update(DT);
 
@@ -6828,6 +6846,9 @@ namespace Infinium
                         if (!Convert.ToBoolean(DT.Rows[0]["Saved"]))
                             DS.iDayStatus = sDayNotSaved;
 
+                        if (Convert.ToBoolean(DT.Rows[0]["Saved"]))
+                            DS.iDayStatus = sDaySaved;
+
                         CurrentWorkDayID = Convert.ToInt32(DT.Rows[0]["WorkDayID"]);
 
                         return DS;
@@ -6868,6 +6889,8 @@ namespace Infinium
                             DS.DayEnded = Convert.ToDateTime(DT.Rows[0]["DayEndDateTime"]);
                         }
 
+                        if (Convert.ToBoolean(DT.Rows[0]["Saved"]))
+                            DS.iDayStatus = sDaySaved;
                         CurrentWorkDayID = Convert.ToInt32(DT.Rows[0]["WorkDayID"]);
                     }
                     else
@@ -6945,30 +6968,40 @@ namespace Infinium
                         if (DA.Fill(DT) > 0)
                         {
                             DT.Rows[0]["DayStartDateTime"] = dayStatus.DayStarted;
-                            DT.Rows[0]["DayStartFactDateTime"] = dayStatus.DayStarted;
+                            if (DT.Rows[0]["DayStartFactDateTime"] == DBNull.Value)
+                                DT.Rows[0]["DayStartFactDateTime"] = dayStatus.DayStarted;
 
                             DT.Rows[0]["DayBreakStartDateTime"] = dayStatus.BreakStarted;
-                            DT.Rows[0]["DayBreakStartFactDateTime"] = dayStatus.BreakStarted;
+                            if (DT.Rows[0]["DayBreakStartFactDateTime"] == DBNull.Value)
+                                DT.Rows[0]["DayBreakStartFactDateTime"] = dayStatus.BreakStarted;
 
                             DT.Rows[0]["DayBreakEndDateTime"] = dayStatus.BreakEnded;
-                            DT.Rows[0]["DayBreakEndFactDateTime"] = dayStatus.BreakEnded;
+                            if (DT.Rows[0]["DayBreakEndFactDateTime"] == DBNull.Value)
+                                DT.Rows[0]["DayBreakEndFactDateTime"] = dayStatus.BreakEnded;
 
                             DT.Rows[0]["DayEndDateTime"] = dayStatus.DayEnded;
-                            DT.Rows[0]["DayEndFactDateTime"] = dayStatus.DayEnded;
+                            if (DT.Rows[0]["DayEndFactDateTime"] == DBNull.Value)
+                                DT.Rows[0]["DayEndFactDateTime"] = dayStatus.DayEnded;
+                            DT.Rows[0]["TimesheetHours"] = dayStatus.dTimesheetHours;
                         }
                         else
                         {
                             DataRow NewRow = DT.NewRow();
                             NewRow["Saved"] = true;
                             NewRow["UserID"] = UserID;
+                            NewRow["TimesheetHours"] = dayStatus.dTimesheetHours;
                             NewRow["DayStartDateTime"] = dayStatus.DayStarted;
-                            NewRow["DayStartFactDateTime"] = dayStatus.DayStarted;
+                            if (NewRow["DayStartFactDateTime"] == DBNull.Value)
+                                NewRow["DayStartFactDateTime"] = dayStatus.DayStarted;
                             NewRow["DayBreakStartDateTime"] = dayStatus.BreakStarted;
-                            NewRow["DayBreakStartFactDateTime"] = dayStatus.BreakStarted;
+                            if (NewRow["DayBreakStartFactDateTime"] == DBNull.Value)
+                                NewRow["DayBreakStartFactDateTime"] = dayStatus.BreakStarted;
                             NewRow["DayBreakEndDateTime"] = dayStatus.BreakEnded;
-                            NewRow["DayBreakEndFactDateTime"] = dayStatus.BreakEnded;
+                            if (NewRow["DayBreakEndFactDateTime"] == DBNull.Value)
+                                NewRow["DayBreakEndFactDateTime"] = dayStatus.BreakEnded;
                             NewRow["DayEndDateTime"] = dayStatus.DayEnded;
-                            NewRow["DayEndFactDateTime"] = dayStatus.DayEnded;
+                            if (NewRow["DayEndFactDateTime"] == DBNull.Value)
+                                NewRow["DayEndFactDateTime"] = dayStatus.DayEnded;
                             DT.Rows.Add(NewRow);
                         }
 
@@ -7273,11 +7306,9 @@ namespace Infinium
         public SqlCommandBuilder SelectedFunctionsCB;
 
         public int CurrentPercents = 0;
-
-        DataTable SelectedFunctionsDataTable;
-
-        int UserID;
-        int DepartmentID = -1;
+        private DataTable SelectedFunctionsDataTable;
+        private int UserID;
+        private int DepartmentID = -1;
 
         public LightFunctions(int iUserID)
         {
@@ -7493,7 +7524,7 @@ namespace Infinium
     {
         private DataTable FunctionsDataTable;
         public BindingSource FunctionsBindingSource;
-        PercentageDataGrid FunctionsGrid;
+        private PercentageDataGrid FunctionsGrid;
 
         public LightAddFunctions(ref PercentageDataGrid tFunctionsGrid)
         {
@@ -7588,9 +7619,8 @@ namespace Infinium
 
         public int CurrentUserID = Security.CurrentUserID;
         public string CurrentUserName;
-
-        UsersMessagesDataGrid SelectedUsersGrid = null;
-        UsersDataGrid UsersListDataGrid = null;
+        private UsersMessagesDataGrid SelectedUsersGrid = null;
+        private UsersDataGrid UsersListDataGrid = null;
 
         public LightMessage(ref UsersMessagesDataGrid tSelectedUsersGrid, ref UsersDataGrid tUsersListDataGrid)
         {
@@ -8179,8 +8209,7 @@ namespace Infinium
     public class LightNotes
     {
         public DataTable NotesDataTable;
-
-        int CurrentUserID;
+        private int CurrentUserID;
 
         public LightNotes(int UserID)
         {
@@ -8281,31 +8310,26 @@ namespace Infinium
 
     public class ToolsSellersManager
     {
-        int CurrentToolsSellerID = -1;
-        int CurrentToolsSellerGroupID = -1;
-        int CurrentToolsSellerSubGroupID = -1;
-
-        DataTable ToolsSellersDataTable;
-        DataTable ToolsSellersGroupsDataTable;
-        DataTable ToolsSellersSubGroupsDataTable;
-        DataTable ToolsSellerInfoDataTable;
-
-        BindingSource ToolsSellersBindingSource;
-        BindingSource ToolsSellersGroupsBindingSource;
-        BindingSource ToolsSellersSubGroupsBindingSource;
-
-        PercentageDataGrid ToolsSellersDataGrid;
-        PercentageDataGrid ToolsSellerInfoDataGrid;
-        PercentageDataGrid ToolsSellersGroupsDataGrid;
-        PercentageDataGrid ToolsSellersSubGroupsDataGrid;
-
-        SqlDataAdapter ToolsSellersDA;
-        SqlDataAdapter ToolsSellersGroupsDA;
-        SqlDataAdapter ToolsSellersSubGroupsDA;
-
-        SqlCommandBuilder ToolsSellersCB;
-        SqlCommandBuilder ToolsSellersGroupsCB;
-        SqlCommandBuilder ToolsSellersSubGroupsCB;
+        private int CurrentToolsSellerID = -1;
+        private int CurrentToolsSellerGroupID = -1;
+        private int CurrentToolsSellerSubGroupID = -1;
+        private DataTable ToolsSellersDataTable;
+        private DataTable ToolsSellersGroupsDataTable;
+        private DataTable ToolsSellersSubGroupsDataTable;
+        private DataTable ToolsSellerInfoDataTable;
+        private BindingSource ToolsSellersBindingSource;
+        private BindingSource ToolsSellersGroupsBindingSource;
+        private BindingSource ToolsSellersSubGroupsBindingSource;
+        private PercentageDataGrid ToolsSellersDataGrid;
+        private PercentageDataGrid ToolsSellerInfoDataGrid;
+        private PercentageDataGrid ToolsSellersGroupsDataGrid;
+        private PercentageDataGrid ToolsSellersSubGroupsDataGrid;
+        private SqlDataAdapter ToolsSellersDA;
+        private SqlDataAdapter ToolsSellersGroupsDA;
+        private SqlDataAdapter ToolsSellersSubGroupsDA;
+        private SqlCommandBuilder ToolsSellersCB;
+        private SqlCommandBuilder ToolsSellersGroupsCB;
+        private SqlCommandBuilder ToolsSellersSubGroupsCB;
 
         public ToolsSellersManager(
             ref PercentageDataGrid tToolsSellersDataGrid,
@@ -8868,7 +8892,7 @@ namespace Infinium
 
         //private SqlCommandBuilder CB;
         //private SqlDataAdapter DA;
-        PercentageDataGrid DevelopmentPlanDataGrid, DepartmentDataGrid;
+        private PercentageDataGrid DevelopmentPlanDataGrid, DepartmentDataGrid;
 
         public LightDevelopmentPlan(ref PercentageDataGrid tDevelopmentPlanDataGrid, ref PercentageDataGrid tDepartmentDataGrid)
         {
@@ -9086,7 +9110,7 @@ namespace Infinium
         public BindingSource TasksBindingSource;
         private SqlCommandBuilder TasksCB;
         private SqlDataAdapter TasksDA;
-        PercentageDataGrid TasksDataGrid;
+        private PercentageDataGrid TasksDataGrid;
 
         public Tasks(ref PercentageDataGrid tTasksDataGrid)
         {
@@ -9097,7 +9121,7 @@ namespace Infinium
             GridSettings();
 
             SelectedUsersTable = new DataTable();
-            SelectedUsersTable.Columns.Add("UserID", typeof(Int64));
+            SelectedUsersTable.Columns.Add("UserID", typeof(long));
         }
 
         public void CreateAndFill()
@@ -9378,14 +9402,15 @@ namespace Infinium
 
     public class DayPlannerTimesheet
     {
-        decimal Rate = 0;
-        string StrRate = "";
+        private decimal Rate = 0;
+        private string StrRate = "0";
 
         public DataTable _timesheetDataTable;
         private DataTable _absJournalDataTable;
         private DataTable _absTypesTable;
         private DataTable _prodSheduleDataTable;
-        Excel Ex = null;
+        private DataTable _absDayDataTable;
+        private Excel Ex = null;
 
         public DayPlannerTimesheet()
         {
@@ -9399,11 +9424,14 @@ namespace Infinium
             _absJournalDataTable = new DataTable();
             _absTypesTable = new DataTable();
             _prodSheduleDataTable = new DataTable();
+            _absDayDataTable = new DataTable();
+            _absDayDataTable.Columns.Add(new DataColumn("AbsenceTypeID", Type.GetType("System.Int32")));
+            _absDayDataTable.Columns.Add(new DataColumn("Hours", Type.GetType("System.Decimal")));
         }
 
         private void Fill()
         {
-            using (SqlDataAdapter DA = new SqlDataAdapter("SELECT TOP 0 DayStartDateTime, DayEndDateTime, DayBreakStartDateTime, DayBreakEndDateTime FROM WorkDays ORDER BY DayStartDateTime",
+            using (SqlDataAdapter DA = new SqlDataAdapter("SELECT TOP 0 * FROM WorkDays ORDER BY DayStartDateTime",
                 ConnectionStrings.LightConnectionString))
             {
                 DA.Fill(_timesheetDataTable);
@@ -9437,7 +9465,8 @@ namespace Infinium
 
         public void GetTimesheet(int userId, int Yearint, int Monthint)
         {
-            using (SqlDataAdapter DA = new SqlDataAdapter("SELECT DayStartDateTime, DayEndDateTime, DayBreakStartDateTime, DayBreakEndDateTime FROM WorkDays WHERE DATEPART(year,DayStartDateTime)=" + Yearint + " and DATEPART(month,DayStartDateTime)=" + Monthint + " and UserID = " + userId + " ORDER BY DayStartDateTime",
+            //using (SqlDataAdapter DA = new SqlDataAdapter("SELECT * FROM WorkDays WHERE DATEPART(year,DayStartD/*ateTime)=" + Yearint + " and DATEPART(month,DayStartDateTime)=" + Monthint + " and UserID = " + userId + " ORDER BY DayStartDateTime",
+            using (SqlDataAdapter DA = new SqlDataAdapter("SELECT * FROM WorkDays WHERE DATEPART(year,DayStartDateTime)=" + Yearint + " and UserID = " + userId + " ORDER BY DayStartDateTime",
                 ConnectionStrings.LightConnectionString))
             {
                 _timesheetDataTable.Clear();
@@ -9497,20 +9526,24 @@ namespace Infinium
         {
             //int Monthint = Convert.ToDateTime(month + " " + year).Month;
             //int Yearint = Convert.ToInt32(year);
+            //using (SqlDataAdapter da = new SqlDataAdapter(@"SELECT * FROM AbsencesJournal WHERE" +
+            //    " UserID=" + userId + " AND ((DATEPART(month, DateStart) = " + Monthint + " AND DATEPART(year, DateStart) = " + Yearint +
+            //    ") OR (DATEPART(month, DateFinish) = " + Monthint + " AND DATEPART(year, DateFinish) = " + Yearint + "))",
             using (SqlDataAdapter da = new SqlDataAdapter(@"SELECT * FROM AbsencesJournal WHERE" +
-                " UserID=" + userId + " AND ((DATEPART(month, DateStart) = " + Monthint + " AND DATEPART(year, DateStart) = " + Yearint +
-                ") OR (DATEPART(month, DateFinish) = " + Monthint + " AND DATEPART(year, DateFinish) = " + Yearint + "))", ConnectionStrings.LightConnectionString))
+                " UserID=" + userId + " AND ((DATEPART(year, DateStart) = " + Yearint +
+                ") OR (DATEPART(year, DateFinish) = " + Yearint + "))", ConnectionStrings.LightConnectionString))
             {
                 _absJournalDataTable.Clear();
                 da.Fill(_absJournalDataTable);
             }
         }
 
-        private Tuple<bool, int, decimal> AbsenceInThatDay(DateTime date)
+        private bool AbsenceInThatDay(DateTime date)
         {
             int absenceTypeId = 0;
             decimal absenceHour = 0;
             bool b = false;
+            _absDayDataTable.Clear();
 
             for (int i = 0; i < _absJournalDataTable.Rows.Count; i++)
             {
@@ -9522,25 +9555,30 @@ namespace Infinium
                     absenceTypeId = Convert.ToInt32(_absJournalDataTable.Rows[i]["AbsenceTypeID"]);
                     absenceHour = Convert.ToDecimal(_absJournalDataTable.Rows[i]["Hours"]);
                     b = true;
-                    break;
+                    DataRow dataRow = _absDayDataTable.NewRow();
+                    dataRow["AbsenceTypeID"] = absenceTypeId;
+                    dataRow["Hours"] = absenceHour;
+                    _absDayDataTable.Rows.Add(dataRow);
                 }
             }
 
-            var tuple = new Tuple<bool, int, decimal>(b, absenceTypeId, absenceHour);
-            return tuple;
+            //var tuple = new Tuple<bool, int, decimal>(b, absenceTypeId, absenceHour);
+            return b;
         }
 
-        private Tuple<bool, decimal, decimal> WorkdayInThatDay(DateTime date)
+        private Tuple<bool, decimal, decimal, decimal, bool> WorkdayInThatDay(DateTime date)
         {
             decimal TimeWorkHours = 0;
             decimal TimeBreakHours = 0;
+            decimal TimesheetHours = 0;
+            bool saved = false;
             bool b = false;
 
             for (int i = 0; i < _timesheetDataTable.Rows.Count; i++)
             {
                 if (_timesheetDataTable.Rows[i]["DayEndDateTime"] == DBNull.Value) //если рабочий день не закончен
                     continue;
-                
+
                 DateTime DayStartDateTime;
                 DayStartDateTime = (DateTime)_timesheetDataTable.Rows[i]["DayStartDateTime"];
                 if (DayStartDateTime.Date != date.Date) //если не тот рабочий день
@@ -9550,6 +9588,8 @@ namespace Infinium
                 TimeSpan TimeWork;
 
                 DayEndDateTime = (DateTime)_timesheetDataTable.Rows[i]["DayEndDateTime"];
+                TimesheetHours = (decimal)_timesheetDataTable.Rows[i]["TimesheetHours"];
+                saved = (bool)_timesheetDataTable.Rows[i]["Saved"];
                 TimeWork = DayEndDateTime.TimeOfDay - DayStartDateTime.TimeOfDay;
                 TimeWorkHours = (decimal)Math.Round(TimeWork.TotalHours, 1);
 
@@ -9569,7 +9609,7 @@ namespace Infinium
                 break;
             }
 
-            var tuple = new Tuple<bool, decimal, decimal>(b, TimeWorkHours, TimeBreakHours);
+            Tuple<bool, decimal, decimal, decimal, bool> tuple = new Tuple<bool, decimal, decimal, decimal, bool>(b, TimeWorkHours, TimeBreakHours, TimesheetHours, saved);
             return tuple;
         }
 
@@ -9577,63 +9617,120 @@ namespace Infinium
         {
             Labels = new List<TimesheetInfo>();
 
+            decimal AllTimesheetHours = 0; // планово до сегодняшнего дня
             decimal AllPlanHours = 0; // планово до сегодняшнего дня
-            decimal AllWorkHours = 0; // рабочего времени до сегодняшнего дня
-            decimal ThatDayPlanHours = 0; // планово сегодня
+            decimal AllFactHours = 0; // рабочего времени до сегодняшнего дня
+            decimal AllAbsenceHours = 0;
             decimal AbsenteeismHours = 0; // прогул и отгул
-            decimal OvertimeHours = 0; // сверхурочные
+            decimal AllAbsenteeismHours = 0; // прогул и отгул
+            decimal OvertimeHours = 0; // сверхурочные сегодня
+            decimal OverworkHours = 0; // переработка
+            decimal AllOvertimeHours = 0; // все сверурочные часы
+
             for (int i = 0; i < _prodSheduleDataTable.Rows.Count; i++)
             {
-                if (Convert.ToInt32(_prodSheduleDataTable.Rows[i]["Day"]) > DateTime.DaysInMonth(Yearint, Monthint))
-                    break;
+                if (Convert.ToInt32(_prodSheduleDataTable.Rows[i]["Day"]) > DateTime.DaysInMonth(Yearint, Convert.ToInt32(_prodSheduleDataTable.Rows[i]["Month"])))
+                    continue;
 
-                DateTime date = new DateTime(Yearint, Monthint, Convert.ToInt32(_prodSheduleDataTable.Rows[i]["Day"]));
+                if (new DateTime(Yearint, Convert.ToInt32(_prodSheduleDataTable.Rows[i]["Month"]), Convert.ToInt32(_prodSheduleDataTable.Rows[i]["Day"])) < new DateTime(2021, 2, 14))
+                    continue;
 
-                var absenceTuple = AbsenceInThatDay(date);
-                bool isAbsence = absenceTuple.Item1;
-                int absenceTypeId = absenceTuple.Item2;
-                decimal absenceHour = absenceTuple.Item3;
+                AbsenteeismHours = 0;
+                OvertimeHours = 0;
+                DateTime date = new DateTime(Yearint, Convert.ToInt32(_prodSheduleDataTable.Rows[i]["Month"]), Convert.ToInt32(_prodSheduleDataTable.Rows[i]["Day"]));
 
-                var workdayTuple = WorkdayInThatDay(date);
+                bool isAbsence = AbsenceInThatDay(date);
+                decimal absenceHour = 0;
+                string AbsenceShortName = string.Empty;
+                string AbsenceFullName = string.Empty;
+                decimal AbsenceHours = 0;
+
+                Tuple<bool, decimal, decimal, decimal, bool> workdayTuple = WorkdayInThatDay(date);
                 bool isWorkday = workdayTuple.Item1;
                 decimal workHours = workdayTuple.Item2;
                 decimal breakHours = workdayTuple.Item3;
-                AllWorkHours += workHours - breakHours;
+                decimal timesheetHours = workdayTuple.Item4;
+                bool saved = workdayTuple.Item5;
+                decimal factHours = workHours - breakHours;
 
                 decimal prodSheduleHours = GetHourInProdShedule(date) * Rate;
 
-                if (absenceTypeId == 12 || absenceTypeId == 13)
+                for (int j = 0; j < _absDayDataTable.Rows.Count; j++)
                 {
-                    AbsenteeismHours = absenceHour;
-                }
-                if (absenceTypeId == 14)
-                {
-                    OvertimeHours = absenceHour;
+                    int absenceTypeId = Convert.ToInt32(_absDayDataTable.Rows[j]["AbsenceTypeID"]);
+                    absenceHour = Convert.ToDecimal(_absDayDataTable.Rows[j]["Hours"]);
+                    AbsenceShortName += GetAbsenceShortName(absenceTypeId) + " ";
+                    AbsenceFullName += string.Format("{0}/({1})", GetAbsenceShortName(absenceTypeId), Convert.ToDecimal(absenceHour.ToString("0.####"))) + " ";
+
+                    if (absenceTypeId == 14)
+                    {
+                        OvertimeHours += absenceHour;
+                    }
+
+                    if (absenceTypeId != 14 && absenceTypeId != 12)
+                    {
+                        AbsenceHours += absenceHour;
+                        //AllAbsenceHours += absenceHour;
+                    }
+
+                    if (absenceTypeId == 12 || absenceTypeId == 13)
+                    {
+                        AbsenteeismHours += absenceHour;
+                        //AllAbsenteeismHours += absenceHour;
+                    }
+                    if (absenceTypeId != 13 && absenceTypeId != 12)
+                    {
+                        AllAbsenceHours += absenceHour;
+                    }
                 }
 
-                ThatDayPlanHours = prodSheduleHours;
-                if (date == DateTime.Today) //если это выбранный день
+                AllOvertimeHours = OvertimeHours;
+                if (date == dateToday.Date) //если это выбранный день
                 {
-                    //break;
+
                 }
                 else
+                {
+                    AllTimesheetHours += timesheetHours;
                     AllPlanHours += prodSheduleHours;
-                ;
+                    AllFactHours += factHours;
+                    OverworkHours = AllTimesheetHours - AllPlanHours + AllAbsenceHours;
+                }
+
+                if (timesheetHours - factHours > 0)
+                {
+                    AllOvertimeHours += -(timesheetHours - factHours);
+                    if (AllOvertimeHours >= timesheetHours - factHours)
+                    {
+                    }
+                }
+                if (Labels.Count == 0)
+                {
+                    OverworkHours = 0;
+                }
+
                 TimesheetInfo dayInfo = new TimesheetInfo
                 {
+                    AllAbsenteeismHours = AllAbsenteeismHours,
+                    AllAbsenceHours = AllAbsenceHours,
+                    AAbsenceHours = AbsenceHours,
                     Date = date,
                     OvertimeHours = Convert.ToDecimal(OvertimeHours.ToString("0.####")),
                     AbsenteeismHours = Convert.ToDecimal(AbsenteeismHours.ToString("0.####")),
-                    AbsenceTypeID = absenceTypeId,
                     IsAbsence = isAbsence,
-                    AbsenceFullName = GetAbsenceFullName(absenceTypeId),
-                    AbsenceShortName = GetAbsenceShortName(absenceTypeId),
+                    AbsenceFullName = AbsenceFullName,
+                    AbsenceShortName = AbsenceShortName,
                     StrRate = StrRate,
                     AbsenceHours = Convert.ToDecimal(absenceHour.ToString("0.####")),
-                    PlanHours = Convert.ToDecimal((ThatDayPlanHours).ToString("0.####")),
-                    FactHours = workHours - breakHours,
+                    PlanHours = Convert.ToDecimal((prodSheduleHours).ToString("0.####")),
+                    FactHours = factHours,
                     BreakHours = breakHours,
-                    OverworkHours = Convert.ToDecimal(((AllWorkHours - AllPlanHours - AbsenteeismHours) * Rate).ToString("0.####"))
+                    TimesheetHours = timesheetHours,
+                    AllOvertimeHours = AllOvertimeHours,
+                    AllFactHours = AllFactHours,
+                    AllPlanHours = AllPlanHours,
+                    Saved = saved,
+                    OverworkHours = Convert.ToDecimal((OverworkHours * Rate).ToString("0.####"))
                 };
 
                 Labels.Add(dayInfo);
@@ -9643,14 +9740,16 @@ namespace Infinium
         public TimesheetInfo GetDayInfo(DateTime date)
         {
             TimesheetInfo dayInfo = new TimesheetInfo();
-            dayInfo = Labels.Find(item => item.Date == date); 
+            dayInfo = Labels.Find(item => item.Date == date);
             return dayInfo;
         }
 
         public void GetProdShedule(int Yearint, int Monthint)
         {
+            //using (SqlDataAdapter da = new SqlDataAdapter(@"SELECT * FROM ProductionShedule WHERE" +
+            //    " Year = " + Yearint + " and Month = " + Monthint, ConnectionStrings.LightConnectionString))
             using (SqlDataAdapter da = new SqlDataAdapter(@"SELECT * FROM ProductionShedule WHERE" +
-                " Year = " + Yearint + " and Month = " + Monthint, ConnectionStrings.LightConnectionString))
+                " Year = " + Yearint, ConnectionStrings.LightConnectionString))
             {
                 _prodSheduleDataTable.Clear();
                 da.Fill(_prodSheduleDataTable);
@@ -9686,7 +9785,7 @@ namespace Infinium
 
         public void GetRate(int userId)
         {
-            string MyQueryText = @"SELECT StaffListID, PositionID, UserID, Rate FROM StaffList
+            string MyQueryText = @"SELECT StaffListID, FactoryID, PositionID, UserID, Rate FROM StaffList
                 WHERE UserID=" + userId;
 
             using (SqlDataAdapter da = new SqlDataAdapter(MyQueryText, ConnectionStrings.LightConnectionString))
@@ -9718,26 +9817,941 @@ namespace Infinium
             }
         }
 
-        List<TimesheetInfo> Labels;
+        private List<TimesheetInfo> Labels;
     }
 
+
+    public class ResultTimesheet
+    {
+        private string StrRate = "0";
+
+        private DataTable _timesheetDataTable;
+        private DataTable _absJournalDataTable;
+        private DataTable _absTypesTable;
+        private DataTable _prodSheduleDataTable;
+        private DataTable _absDayDataTable;
+        private DataTable _workDaysDataTable;
+        private DataTable _usersDataTable;
+
+        public ResultTimesheet()
+        {
+            Create();
+            Fill();
+        }
+
+        private void Create()
+        {
+            _timesheetDataTable = new DataTable();
+            _absJournalDataTable = new DataTable();
+            _absTypesTable = new DataTable();
+            _prodSheduleDataTable = new DataTable();
+            _absDayDataTable = new DataTable();
+            _absDayDataTable.Columns.Add(new DataColumn("AbsenceTypeID", Type.GetType("System.Int32")));
+            _absDayDataTable.Columns.Add(new DataColumn("Hours", Type.GetType("System.Decimal")));
+
+            _workDaysDataTable = new DataTable();
+            _workDaysDataTable.Columns.Add(new DataColumn("Date", Type.GetType("System.DateTime")));
+            _workDaysDataTable.Columns.Add(new DataColumn("ProdHours", Type.GetType("System.Int32")));
+            _workDaysDataTable.Columns.Add(new DataColumn("ProdHoursString", Type.GetType("System.String")));
+            _workDaysDataTable.Columns.Add(new DataColumn("TimesheetHoursExp", Type.GetType("System.String")));
+            _workDaysDataTable.Columns.Add(new DataColumn("TimesheetHours", Type.GetType("System.Decimal")));
+            DataColumn column = new DataColumn("IsWorkDay")
+            {
+                DataType = Type.GetType("System.Boolean"),
+                DefaultValue = 0
+            };
+            _workDaysDataTable.Columns.Add(column);
+
+            _usersDataTable = new DataTable();
+            _usersDataTable.Columns.Add(new DataColumn("UserID", Type.GetType("System.Int32")));
+            _usersDataTable.Columns.Add(new DataColumn("ShortName", Type.GetType("System.String")));
+        }
+
+        private void Fill()
+        {
+            using (SqlDataAdapter DA = new SqlDataAdapter("SELECT TOP 0 WorkDays.*, U.Name, U.ShortName FROM WorkDays INNER JOIN infiniu2_users.dbo.Users as U ON WorkDays.UserID=U.UserID",
+                ConnectionStrings.LightConnectionString))
+            {
+                DA.Fill(_timesheetDataTable);
+            }
+            using (SqlDataAdapter da = new SqlDataAdapter(@"SELECT TOP 0 * FROM AbsencesJournal", ConnectionStrings.LightConnectionString))
+            {
+                da.Fill(_absJournalDataTable);
+            }
+            using (SqlDataAdapter da = new SqlDataAdapter(@"SELECT * FROM AbsenceTypes", ConnectionStrings.LightConnectionString))
+            {
+                da.Fill(_absTypesTable);
+            }
+            using (SqlDataAdapter da = new SqlDataAdapter(@"SELECT TOP 0 * FROM ProductionShedule", ConnectionStrings.LightConnectionString))
+            {
+                da.Fill(_prodSheduleDataTable);
+            }
+        }
+
+        private void GetTimesheet(int Yearint, int Monthint)
+        {
+            using (SqlDataAdapter DA = new SqlDataAdapter("SELECT WorkDays.*, U.Name, U.ShortName FROM WorkDays INNER JOIN infiniu2_users.dbo.Users as U ON WorkDays.UserID=U.UserID WHERE DATEPART(year,DayStartDateTime)=" + Yearint + " and DATEPART(month,DayStartDateTime)=" + Monthint + " ORDER BY DayStartDateTime",
+            //using (SqlDataAdapter DA = new SqlDataAdapter("SELECT * FROM WorkDays WHERE DATEPART(year,DayStartDateTime)=" + Yearint + " and UserID = " + userId + " ORDER BY DayStartDateTime",
+                ConnectionStrings.LightConnectionString))
+            {
+                _timesheetDataTable.Clear();
+                DA.Fill(_timesheetDataTable);
+            }
+        }
+
+        private void GetUsers()
+        {
+            _usersDataTable.Clear();
+            using (DataView DV = new DataView(_timesheetDataTable, string.Empty, "ShortName", DataViewRowState.CurrentRows))
+            {
+                _usersDataTable = DV.ToTable(true, new string[] { "UserID", "ShortName" });
+            }
+        }
+
+        public void CreateUsersList(int Yearint, int Monthint, DateTime dateToday)
+        {
+            int currentMonth = 1;
+            yearTimesheets = new List<OneMonthTimesheet>();
+            while (currentMonth <= Monthint)
+            {
+                GetTimesheet(Yearint, currentMonth);
+                GetUsers();
+                GetProdShedule(Yearint, currentMonth);
+
+
+                monthTimesheet = new List<UserTimesheetInfo>();
+                for (int i = 0; i < _usersDataTable.Rows.Count; i++)
+                {
+                    int UserID = Convert.ToInt32(_usersDataTable.Rows[i]["UserID"]);
+                    string ShortName = _usersDataTable.Rows[i]["ShortName"].ToString();
+
+                    Tuple<string, int, int, decimal> staffInfoTuple = StaffInfo(UserID);
+
+                    string PositionName = staffInfoTuple.Item1;
+                    int PositionID = staffInfoTuple.Item2;
+                    int Rank = staffInfoTuple.Item3;
+                    decimal Rate = staffInfoTuple.Item4;
+
+                    GetAbsJournal(UserID, Yearint, currentMonth);
+                    DataTable table = GetWorkDaysTable(UserID, Yearint, currentMonth, dateToday);
+                    int AllTimesheetDays = 0;
+                    decimal AllTimesheetHours = 0;
+                    for (int x = 0; x < table.Rows.Count; x++)
+                    {
+                        if (Convert.ToBoolean(table.Rows[x]["IsWorkday"]))
+                            AllTimesheetDays++;
+                        AllTimesheetHours += Convert.ToDecimal(table.Rows[x]["TimesheetHours"]);
+                    }
+                    AllTimesheetHours = Convert.ToDecimal(AllTimesheetHours.ToString("0.####"));
+
+                    UserTimesheetInfo timesheetInfo = new UserTimesheetInfo
+                    {
+                        UserID = UserID,
+                        Name = ShortName,
+                        PositionName = PositionName,
+                        PositionID = PositionID,
+                        Rank = Rank,
+                        Rate = Rate,
+                        WorkDaysDT = table,
+                        AllTimesheetHours = AllTimesheetHours,
+                        AllTimesheetDays = AllTimesheetDays
+
+                    };
+                    monthTimesheet.Add(timesheetInfo);
+                }
+
+                OneMonthTimesheet oneMonthTimesheet = new OneMonthTimesheet
+                {
+                    Month = currentMonth,
+                    Year = Yearint,
+                    userTimesheets = monthTimesheet
+                };
+
+                yearTimesheets.Add(oneMonthTimesheet);
+
+                currentMonth++;
+            }
+        }
+
+        public void GetAbsJournal(int userId, int Yearint, int Monthint)
+        {
+            //int Monthint = Convert.ToDateTime(month + " " + year).Month;
+            //int Yearint = Convert.ToInt32(year);
+            using (SqlDataAdapter da = new SqlDataAdapter(@"SELECT * FROM AbsencesJournal WHERE" +
+                " UserID=" + userId + " AND ((DATEPART(month, DateStart) = " + Monthint + " AND DATEPART(year, DateStart) = " + Yearint +
+                ") OR (DATEPART(month, DateFinish) = " + Monthint + " AND DATEPART(year, DateFinish) = " + Yearint + "))", ConnectionStrings.LightConnectionString))
+            {
+                _absJournalDataTable.Clear();
+                da.Fill(_absJournalDataTable);
+            }
+        }
+
+        private bool AbsenceInThatDay(DateTime date)
+        {
+            int absenceTypeId = 0;
+            decimal absenceHour = 0;
+            bool b = false;
+            _absDayDataTable.Clear();
+
+            for (int i = 0; i < _absJournalDataTable.Rows.Count; i++)
+            {
+                DateTime dateStart = Convert.ToDateTime(_absJournalDataTable.Rows[i]["DateStart"]);
+                DateTime dateFinish = Convert.ToDateTime(_absJournalDataTable.Rows[i]["DateFinish"]);
+
+                if (date.Date >= dateStart.Date && date.Date <= dateFinish.Date)
+                {
+                    absenceTypeId = Convert.ToInt32(_absJournalDataTable.Rows[i]["AbsenceTypeID"]);
+                    absenceHour = Convert.ToDecimal(_absJournalDataTable.Rows[i]["Hours"]);
+                    b = true;
+                    DataRow dataRow = _absDayDataTable.NewRow();
+                    dataRow["AbsenceTypeID"] = absenceTypeId;
+                    dataRow["Hours"] = absenceHour;
+                    _absDayDataTable.Rows.Add(dataRow);
+                }
+            }
+
+            //var tuple = new Tuple<bool, int, decimal>(b, absenceTypeId, absenceHour);
+            return b;
+        }
+
+        private Tuple<bool, decimal> WorkdayInThatDay(int UserID, DateTime date)
+        {
+            decimal TimesheetHours = 0;
+            bool b = false;
+
+            for (int i = 0; i < _timesheetDataTable.Rows.Count; i++)
+            {
+                if (Convert.ToInt32(_timesheetDataTable.Rows[i]["UserID"]) != UserID)
+                    continue;
+
+                if (_timesheetDataTable.Rows[i]["DayEndDateTime"] == DBNull.Value) //если рабочий день не закончен
+                    continue;
+
+                DateTime DayStartDateTime;
+                DayStartDateTime = (DateTime)_timesheetDataTable.Rows[i]["DayStartDateTime"];
+                if (DayStartDateTime.Date != date.Date) //если не тот рабочий день
+                    continue;
+
+                TimesheetHours = (decimal)_timesheetDataTable.Rows[i]["TimesheetHours"];
+
+                b = true;
+                break;
+            }
+
+            Tuple<bool, decimal> tuple = new Tuple<bool, decimal>(b, TimesheetHours);
+            return tuple;
+        }
+
+        public DataTable GetWorkDaysTable(int UserID, int Yearint, int Monthint, DateTime dateToday)
+        {
+            DataTable table = _workDaysDataTable.Clone();
+            for (int i = 0; i < _prodSheduleDataTable.Rows.Count; i++)
+            {
+                if (Convert.ToInt32(_prodSheduleDataTable.Rows[i]["Day"]) > DateTime.DaysInMonth(Yearint, Monthint))
+                    continue;
+
+                DateTime date = new DateTime(Yearint, Monthint, Convert.ToInt32(_prodSheduleDataTable.Rows[i]["Day"]));
+
+                if (date == dateToday.Date) //если это выбранный день
+                    break;
+
+                bool isAbsence = AbsenceInThatDay(date);
+                decimal absenceHour = 0;
+                string AbsenceShortName = string.Empty;
+                string AbsenceFullName = string.Empty;
+                //decimal AbsenceHours = 0;
+
+                for (int j = 0; j < _absDayDataTable.Rows.Count; j++)
+                {
+                    int absenceTypeId = Convert.ToInt32(_absDayDataTable.Rows[j]["AbsenceTypeID"]);
+                    absenceHour = Convert.ToDecimal(_absDayDataTable.Rows[j]["Hours"]);
+                    AbsenceShortName += GetAbsenceShortName(absenceTypeId) + " ";
+                    AbsenceFullName += string.Format("{0}/({1})", GetAbsenceShortName(absenceTypeId), Convert.ToDecimal(absenceHour.ToString("0.####"))) + " ";
+
+                }
+
+                Tuple<bool, decimal> workdayTuple = WorkdayInThatDay(UserID, date);
+                bool isWorkday = workdayTuple.Item1;
+                decimal timesheetHours = workdayTuple.Item2;
+
+                DataRow newRow = table.NewRow();
+                newRow["Date"] = date.Date;
+                if (Convert.ToInt32(_prodSheduleDataTable.Rows[i]["Hour"]) == 0) // если это выходной
+                {
+                    newRow["ProdHoursString"] = "Вых";
+                    if (timesheetHours > 0)
+                        newRow["ProdHoursString"] = "1";
+                }
+                else
+                    newRow["ProdHoursString"] = "1";
+                newRow["ProdHours"] = Convert.ToInt32(_prodSheduleDataTable.Rows[i]["Hour"]);
+
+                if (timesheetHours > 0)
+                    newRow["IsWorkday"] = true;
+                newRow["TimesheetHoursExp"] = AbsenceFullName + " " + timesheetHours.ToString();
+                newRow["TimesheetHours"] = timesheetHours;
+
+
+                table.Rows.Add(newRow);
+            }
+
+            return table;
+        }
+
+        public UserTimesheetInfo GetDayInfo(int UserID)
+        {
+            UserTimesheetInfo userInfo = new UserTimesheetInfo();
+            userInfo = monthTimesheet.Find(item => item.UserID == UserID);
+            return userInfo;
+        }
+
+        public void GetProdShedule(int Yearint, int Monthint)
+        {
+            using (SqlDataAdapter da = new SqlDataAdapter(@"SELECT * FROM ProductionShedule WHERE" +
+                " Year = " + Yearint + " and Month = " + Monthint, ConnectionStrings.LightConnectionString))
+            //using (SqlDataAdapter da = new SqlDataAdapter(@"SELECT * FROM ProductionShedule WHERE" +
+            //    " Year = " + Yearint, ConnectionStrings.LightConnectionString))
+            {
+                _prodSheduleDataTable.Clear();
+                da.Fill(_prodSheduleDataTable);
+            }
+        }
+
+        private string GetAbsenceFullName(int id)
+        {
+            string name = string.Empty;
+            DataRow[] rows = _absTypesTable.Select("AbsenceTypeID = " + id);
+            if (rows.Count() > 0)
+                name = rows[0]["Description"].ToString();
+            return name;
+        }
+
+        private string GetAbsenceShortName(int id)
+        {
+            string name = string.Empty;
+            DataRow[] rows = _absTypesTable.Select("AbsenceTypeID = " + id);
+            if (rows.Count() > 0)
+                name = rows[0]["ShortName"].ToString();
+            return name;
+        }
+
+        private int GetHourInProdShedule(DateTime date)
+        {
+            int hour = -1;
+            DataRow[] rows = _prodSheduleDataTable.Select("Year = " + date.Year + " AND Month=" + date.Month + " AND Day=" + date.Day);
+            if (rows.Count() > 0)
+                hour = Convert.ToInt32(rows[0]["Hour"]);
+            return hour;
+        }
+
+        public Tuple<string, int, int, decimal> StaffInfo(int userId)
+        {
+            string MyQueryText = @"SELECT StaffListID, FactoryID, StaffList.PositionID, Positions.Position, UserID, Rate, Rank FROM StaffList INNER JOIN Positions ON StaffList.PositionID=Positions.PositionID
+                WHERE UserID=" + userId;
+
+            string PositionName = string.Empty;
+            int PositionID = 0;
+            int Rank = 0;
+            decimal Rate = 0;
+
+            using (SqlDataAdapter da = new SqlDataAdapter(MyQueryText, ConnectionStrings.LightConnectionString))
+            {
+                using (DataTable dt = new DataTable())
+                {
+                    if (da.Fill(dt) > 0)
+                    {
+                        PositionName = dt.Rows[0]["Position"].ToString();
+                        PositionID = Convert.ToInt32(dt.Rows[0]["PositionID"]);
+                        Rank = Convert.ToInt32(dt.Rows[0]["Rank"]);
+                        Rate = Convert.ToDecimal(dt.Rows[0]["Rate"]);
+                        StrRate = Rate.ToString();
+
+                    }
+                    //if (da.Fill(dt) == 2)
+                    //{
+                    //    Rate = Convert.ToDecimal(dt.Rows[0]["Rate"]) + Convert.ToDecimal(dt.Rows[1]["Rate"]);
+                    //    StrRate = dt.Rows[0]["Rate"].ToString() + "+" + dt.Rows[1]["Rate"].ToString();
+                    //}
+                }
+            }
+            Tuple<string, int, int, decimal> tuple = new Tuple<string, int, int, decimal>(PositionName, PositionID, Rank, Rate);
+            return tuple;
+        }
+
+
+        private List<UserTimesheetInfo> monthTimesheet;
+
+
+        private List<OneMonthTimesheet> yearTimesheets;
+
+        public List<OneMonthTimesheet> YearTimesheets => yearTimesheets;
+    }
+
+
+    public struct OneMonthTimesheet
+    {
+        public List<UserTimesheetInfo> userTimesheets;
+
+        public int Year;
+
+        public int Month;
+    }
+
+    public class TimesheetReport
+    {
+        string date = "";
+        string totalWorkDays = "";
+        string firm = "";
+        string bossPosition = "";
+        string bossName = "";
+
+        string specialistPosition = "";
+        string specialistName = "";
+
+        string assert = "";
+        string approve = "";
+
+        string user1 = "";
+        string user2 = "";
+        string user3 = "";
+        string user4 = "";
+        string user5 = "";
+
+        private OneMonthTimesheet monthTimesheet;
+
+        public TimesheetReport()
+        {
+
+        }
+
+        public void CreateReport(ResultTimesheet resultTimesheet)
+        {
+            HSSFWorkbook hssfworkbook = new HSSFWorkbook();
+
+            #region Create fonts and styles
+
+            HSSFFont HeaderF = hssfworkbook.CreateFont();
+            HeaderF.FontHeightInPoints = 11;
+            HeaderF.FontName = "Times New Roman";
+
+            HSSFFont SimpleF = hssfworkbook.CreateFont();
+            SimpleF.FontHeightInPoints = 11;
+            SimpleF.FontName = "Times New Roman";
+
+            HSSFFont SimpleBoldF = hssfworkbook.CreateFont();
+            SimpleBoldF.FontHeightInPoints = 11;
+            SimpleBoldF.Boldweight = 11 * 256;
+            SimpleBoldF.FontName = "Times New Roman";
+
+            HSSFCellStyle SimpleTopBorderCS = hssfworkbook.CreateCellStyle();
+            SimpleTopBorderCS.VerticalAlignment = HSSFCellStyle.VERTICAL_CENTER;
+            SimpleTopBorderCS.Alignment = HSSFCellStyle.ALIGN_CENTER;
+            SimpleTopBorderCS.BorderBottom = HSSFCellStyle.BORDER_THIN;
+            SimpleTopBorderCS.BottomBorderColor = HSSFColor.BLACK.index;
+            SimpleTopBorderCS.BorderLeft = HSSFCellStyle.BORDER_THIN;
+            SimpleTopBorderCS.LeftBorderColor = HSSFColor.BLACK.index;
+            SimpleTopBorderCS.BorderRight = HSSFCellStyle.BORDER_THIN;
+            SimpleTopBorderCS.RightBorderColor = HSSFColor.BLACK.index;
+            SimpleTopBorderCS.BorderTop = HSSFCellStyle.BORDER_MEDIUM;
+            SimpleTopBorderCS.TopBorderColor = HSSFColor.BLACK.index;
+            SimpleTopBorderCS.WrapText = true;
+            SimpleTopBorderCS.SetFont(SimpleF);
+
+            HSSFCellStyle SimpleBottomBorderCS = hssfworkbook.CreateCellStyle();
+            SimpleBottomBorderCS.DataFormat = HSSFDataFormat.GetBuiltinFormat("0.0");
+            SimpleBottomBorderCS.VerticalAlignment = HSSFCellStyle.VERTICAL_CENTER;
+            SimpleBottomBorderCS.Alignment = HSSFCellStyle.ALIGN_CENTER;
+            SimpleBottomBorderCS.BorderBottom = HSSFCellStyle.BORDER_MEDIUM;
+            SimpleBottomBorderCS.BottomBorderColor = HSSFColor.BLACK.index;
+            SimpleBottomBorderCS.BorderLeft = HSSFCellStyle.BORDER_THIN;
+            SimpleBottomBorderCS.LeftBorderColor = HSSFColor.BLACK.index;
+            SimpleBottomBorderCS.BorderRight = HSSFCellStyle.BORDER_THIN;
+            SimpleBottomBorderCS.RightBorderColor = HSSFColor.BLACK.index;
+            SimpleBottomBorderCS.BorderTop = HSSFCellStyle.BORDER_THIN;
+            SimpleBottomBorderCS.TopBorderColor = HSSFColor.BLACK.index;
+            SimpleBottomBorderCS.WrapText = true;
+            SimpleBottomBorderCS.SetFont(SimpleBoldF);
+
+            HSSFCellStyle NameCS = hssfworkbook.CreateCellStyle();
+            NameCS.VerticalAlignment = HSSFCellStyle.VERTICAL_CENTER;
+            NameCS.Alignment = HSSFCellStyle.ALIGN_LEFT;
+            NameCS.BorderBottom = HSSFCellStyle.BORDER_THIN;
+            NameCS.BottomBorderColor = HSSFColor.BLACK.index;
+            NameCS.BorderLeft = HSSFCellStyle.BORDER_THIN;
+            NameCS.LeftBorderColor = HSSFColor.BLACK.index;
+            NameCS.BorderRight = HSSFCellStyle.BORDER_THIN;
+            NameCS.RightBorderColor = HSSFColor.BLACK.index;
+            NameCS.BorderTop = HSSFCellStyle.BORDER_MEDIUM;
+            NameCS.TopBorderColor = HSSFColor.BLACK.index;
+            NameCS.SetFont(SimpleF);
+
+            HSSFCellStyle SerialNumberCS = hssfworkbook.CreateCellStyle();
+            SerialNumberCS.VerticalAlignment = HSSFCellStyle.VERTICAL_CENTER;
+            SerialNumberCS.Alignment = HSSFCellStyle.ALIGN_CENTER;
+            SerialNumberCS.BorderBottom = HSSFCellStyle.BORDER_MEDIUM;
+            SerialNumberCS.BottomBorderColor = HSSFColor.BLACK.index;
+            SerialNumberCS.BorderLeft = HSSFCellStyle.BORDER_MEDIUM;
+            SerialNumberCS.LeftBorderColor = HSSFColor.BLACK.index;
+            SerialNumberCS.BorderRight = HSSFCellStyle.BORDER_THIN;
+            SerialNumberCS.RightBorderColor = HSSFColor.BLACK.index;
+            SerialNumberCS.BorderTop = HSSFCellStyle.BORDER_MEDIUM;
+            SerialNumberCS.TopBorderColor = HSSFColor.BLACK.index;
+            SerialNumberCS.SetFont(SimpleF);
+
+            HSSFCellStyle PositionCS = hssfworkbook.CreateCellStyle();
+            PositionCS.VerticalAlignment = HSSFCellStyle.VERTICAL_CENTER;
+            PositionCS.Alignment = HSSFCellStyle.ALIGN_LEFT;
+            PositionCS.BorderBottom = HSSFCellStyle.BORDER_MEDIUM;
+            PositionCS.BottomBorderColor = HSSFColor.BLACK.index;
+            PositionCS.BorderLeft = HSSFCellStyle.BORDER_THIN;
+            PositionCS.LeftBorderColor = HSSFColor.BLACK.index;
+            PositionCS.BorderRight = HSSFCellStyle.BORDER_THIN;
+            PositionCS.RightBorderColor = HSSFColor.BLACK.index;
+            PositionCS.BorderTop = HSSFCellStyle.BORDER_THIN;
+            PositionCS.TopBorderColor = HSSFColor.BLACK.index;
+            PositionCS.SetFont(SimpleF);
+
+            HSSFCellStyle SimpleCS = hssfworkbook.CreateCellStyle();
+            SimpleCS.VerticalAlignment = HSSFCellStyle.VERTICAL_CENTER;
+            SimpleCS.Alignment = HSSFCellStyle.ALIGN_CENTER;
+            SimpleCS.DataFormat = HSSFDataFormat.GetBuiltinFormat("0.0");
+            SimpleCS.BorderBottom = HSSFCellStyle.BORDER_THIN;
+            SimpleCS.BottomBorderColor = HSSFColor.BLACK.index;
+            SimpleCS.BorderLeft = HSSFCellStyle.BORDER_THIN;
+            SimpleCS.LeftBorderColor = HSSFColor.BLACK.index;
+            SimpleCS.BorderRight = HSSFCellStyle.BORDER_THIN;
+            SimpleCS.RightBorderColor = HSSFColor.BLACK.index;
+            SimpleCS.BorderTop = HSSFCellStyle.BORDER_MEDIUM;
+            SimpleCS.TopBorderColor = HSSFColor.BLACK.index;
+            SimpleCS.SetFont(SimpleF);
+
+            HSSFCellStyle SimpleDecCS = hssfworkbook.CreateCellStyle();
+            SimpleDecCS.VerticalAlignment = HSSFCellStyle.VERTICAL_CENTER;
+            SimpleDecCS.Alignment = HSSFCellStyle.ALIGN_CENTER;
+            SimpleDecCS.DataFormat = HSSFDataFormat.GetBuiltinFormat("0.0");
+            SimpleDecCS.BorderBottom = HSSFCellStyle.BORDER_MEDIUM;
+            SimpleDecCS.BottomBorderColor = HSSFColor.BLACK.index;
+            SimpleDecCS.BorderLeft = HSSFCellStyle.BORDER_THIN;
+            SimpleDecCS.LeftBorderColor = HSSFColor.BLACK.index;
+            SimpleDecCS.BorderRight = HSSFCellStyle.BORDER_THIN;
+            SimpleDecCS.RightBorderColor = HSSFColor.BLACK.index;
+            SimpleDecCS.BorderTop = HSSFCellStyle.BORDER_THIN;
+            SimpleDecCS.TopBorderColor = HSSFColor.BLACK.index;
+            SimpleDecCS.SetFont(SimpleF);
+
+            HSSFCellStyle RateCS = hssfworkbook.CreateCellStyle();
+            RateCS.VerticalAlignment = HSSFCellStyle.VERTICAL_CENTER;
+            RateCS.Alignment = HSSFCellStyle.ALIGN_CENTER;
+            RateCS.DataFormat = HSSFDataFormat.GetBuiltinFormat("0.000");
+            RateCS.BorderBottom = HSSFCellStyle.BORDER_MEDIUM;
+            RateCS.BottomBorderColor = HSSFColor.BLACK.index;
+            RateCS.BorderLeft = HSSFCellStyle.BORDER_THIN;
+            RateCS.LeftBorderColor = HSSFColor.BLACK.index;
+            RateCS.BorderRight = HSSFCellStyle.BORDER_THIN;
+            RateCS.RightBorderColor = HSSFColor.BLACK.index;
+            RateCS.BorderTop = HSSFCellStyle.BORDER_THIN;
+            RateCS.TopBorderColor = HSSFColor.BLACK.index;
+            RateCS.SetFont(SimpleF);
+
+            HSSFCellStyle TimesheetHoursCS = hssfworkbook.CreateCellStyle();
+            TimesheetHoursCS.VerticalAlignment = HSSFCellStyle.VERTICAL_CENTER;
+            TimesheetHoursCS.Alignment = HSSFCellStyle.ALIGN_CENTER;
+            TimesheetHoursCS.DataFormat = HSSFDataFormat.GetBuiltinFormat("0.000");
+            TimesheetHoursCS.BorderBottom = HSSFCellStyle.BORDER_THIN;
+            TimesheetHoursCS.BottomBorderColor = HSSFColor.BLACK.index;
+            TimesheetHoursCS.BorderLeft = HSSFCellStyle.BORDER_THIN;
+            TimesheetHoursCS.LeftBorderColor = HSSFColor.BLACK.index;
+            TimesheetHoursCS.BorderRight = HSSFCellStyle.BORDER_THIN;
+            TimesheetHoursCS.RightBorderColor = HSSFColor.BLACK.index;
+            TimesheetHoursCS.BorderTop = HSSFCellStyle.BORDER_MEDIUM;
+            TimesheetHoursCS.TopBorderColor = HSSFColor.BLACK.index;
+            TimesheetHoursCS.SetFont(SimpleF);
+
+            HSSFCellStyle OutputTopBorderCS = hssfworkbook.CreateCellStyle();
+            OutputTopBorderCS.VerticalAlignment = HSSFCellStyle.VERTICAL_CENTER;
+            OutputTopBorderCS.Alignment = HSSFCellStyle.ALIGN_CENTER;
+            OutputTopBorderCS.BorderBottom = HSSFCellStyle.BORDER_THIN;
+            OutputTopBorderCS.BottomBorderColor = HSSFColor.BLACK.index;
+            OutputTopBorderCS.BorderLeft = HSSFCellStyle.BORDER_THIN;
+            OutputTopBorderCS.LeftBorderColor = HSSFColor.BLACK.index;
+            OutputTopBorderCS.BorderRight = HSSFCellStyle.BORDER_THIN;
+            OutputTopBorderCS.RightBorderColor = HSSFColor.BLACK.index;
+            OutputTopBorderCS.BorderTop = HSSFCellStyle.BORDER_MEDIUM;
+            OutputTopBorderCS.TopBorderColor = HSSFColor.BLACK.index;
+            OutputTopBorderCS.FillForegroundColor = NPOI.HSSF.Util.HSSFColor.BLACK.index;
+            OutputTopBorderCS.FillPattern = HSSFCellStyle.THIN_FORWARD_DIAG;
+            OutputTopBorderCS.FillBackgroundColor = NPOI.HSSF.Util.HSSFColor.YELLOW.index;
+            OutputTopBorderCS.SetFont(SimpleF);
+
+            HSSFCellStyle ReportCS = hssfworkbook.CreateCellStyle();
+            ReportCS.BorderBottom = HSSFCellStyle.BORDER_MEDIUM;
+            ReportCS.BottomBorderColor = HSSFColor.BLACK.index;
+            ReportCS.SetFont(HeaderF);
+
+            HSSFCellStyle HeaderWithoutBorderCS = hssfworkbook.CreateCellStyle();
+            HeaderWithoutBorderCS.SetFont(HeaderF);
+
+            HSSFCellStyle SimpleHeaderCS = hssfworkbook.CreateCellStyle();
+            SimpleHeaderCS.VerticalAlignment = HSSFCellStyle.VERTICAL_CENTER;
+            SimpleHeaderCS.Alignment = HSSFCellStyle.ALIGN_CENTER;
+            SimpleHeaderCS.BorderBottom = HSSFCellStyle.BORDER_MEDIUM;
+            SimpleHeaderCS.BottomBorderColor = HSSFColor.BLACK.index;
+            SimpleHeaderCS.BorderLeft = HSSFCellStyle.BORDER_MEDIUM;
+            SimpleHeaderCS.LeftBorderColor = HSSFColor.BLACK.index;
+            SimpleHeaderCS.BorderRight = HSSFCellStyle.BORDER_MEDIUM;
+            SimpleHeaderCS.RightBorderColor = HSSFColor.BLACK.index;
+            SimpleHeaderCS.BorderTop = HSSFCellStyle.BORDER_MEDIUM;
+            SimpleHeaderCS.TopBorderColor = HSSFColor.BLACK.index;
+            SimpleHeaderCS.WrapText = true;
+            SimpleHeaderCS.SetFont(HeaderF);
+
+            #endregion
+
+            for (int j = 0; j < resultTimesheet.YearTimesheets.Count; j++)
+            {
+
+                monthTimesheet = resultTimesheet.YearTimesheets[j];
+
+                string sYear = monthTimesheet.Year.ToString();
+
+                string sMonth = monthTimesheet.Month.ToString().PadLeft(2, '0');
+
+                string sheetName = sMonth + "-" + sYear;
+                HSSFSheet sheet1 = hssfworkbook.CreateSheet(sheetName);
+                sheet1.PrintSetup.PaperSize = (short)PaperSizeType.A4;
+
+                sheet1.SetMargin(HSSFSheet.LeftMargin, (double).12);
+                sheet1.SetMargin(HSSFSheet.RightMargin, (double).07);
+                sheet1.SetMargin(HSSFSheet.TopMargin, (double).20);
+                sheet1.SetMargin(HSSFSheet.BottomMargin, (double).20);
+
+                int DisplayIndex = 0;
+                int RowIndex = 0;
+
+                HSSFCell HeaderCell;
+                HSSFCell Cell1;
+
+                HeaderCell = sheet1.CreateRow(RowIndex + 1).CreateCell(DisplayIndex);
+                HeaderCell.SetCellValue("");
+                HeaderCell.CellStyle = SimpleHeaderCS;
+                HeaderCell = sheet1.CreateRow(RowIndex).CreateCell(DisplayIndex);
+                HeaderCell.SetCellValue("№ п/п");
+                HeaderCell.CellStyle = SimpleHeaderCS;
+                sheet1.AddMergedRegion(new NPOI.HSSF.Util.Region(RowIndex, DisplayIndex, RowIndex + 1, DisplayIndex));
+                DisplayIndex++;
+
+                HeaderCell = sheet1.CreateRow(RowIndex + 1).CreateCell(DisplayIndex);
+                HeaderCell.SetCellValue("");
+                HeaderCell.CellStyle = SimpleHeaderCS;
+                HeaderCell = sheet1.CreateRow(RowIndex).CreateCell(DisplayIndex);
+                HeaderCell.SetCellValue("Ф.И.О.");
+                HeaderCell.CellStyle = SimpleHeaderCS;
+                sheet1.AddMergedRegion(new NPOI.HSSF.Util.Region(RowIndex, DisplayIndex, RowIndex + 1, DisplayIndex));
+                DisplayIndex++;
+
+                HeaderCell = sheet1.CreateRow(RowIndex + 1).CreateCell(DisplayIndex);
+                HeaderCell.SetCellValue("");
+                HeaderCell.CellStyle = SimpleHeaderCS;
+                HeaderCell = sheet1.CreateRow(RowIndex).CreateCell(DisplayIndex);
+                HeaderCell.SetCellValue("Разряд Ставка");
+                HeaderCell.CellStyle = SimpleHeaderCS;
+                sheet1.AddMergedRegion(new NPOI.HSSF.Util.Region(RowIndex, DisplayIndex, RowIndex + 1, DisplayIndex));
+                DisplayIndex++;
+
+                for (int i = 0; i < monthTimesheet.userTimesheets[0].WorkDaysDT.Rows.Count; i++)
+                {
+                    HeaderCell = sheet1.CreateRow(RowIndex).CreateCell(DisplayIndex);
+                    HeaderCell.SetCellValue((i + 1));
+                    HeaderCell.CellStyle = SimpleHeaderCS;
+
+                    HeaderCell = sheet1.CreateRow(RowIndex + 1).CreateCell(DisplayIndex);
+                    HeaderCell.SetCellValue(Convert.ToInt32(monthTimesheet.userTimesheets[0].WorkDaysDT.Rows[i]["ProdHours"]));
+                    HeaderCell.CellStyle = SimpleHeaderCS;
+
+                    DisplayIndex++;
+                }
+
+                HeaderCell = sheet1.CreateRow(RowIndex + 1).CreateCell(DisplayIndex);
+                HeaderCell.SetCellValue("");
+                HeaderCell.CellStyle = SimpleHeaderCS;
+                HeaderCell = sheet1.CreateRow(RowIndex).CreateCell(DisplayIndex);
+                HeaderCell.SetCellValue("Факт отраб дни");
+                HeaderCell.CellStyle = SimpleHeaderCS;
+                sheet1.AddMergedRegion(new NPOI.HSSF.Util.Region(RowIndex, DisplayIndex, RowIndex + 1, DisplayIndex));
+                DisplayIndex++;
+
+                HeaderCell = sheet1.CreateRow(RowIndex + 1).CreateCell(DisplayIndex);
+                HeaderCell.SetCellValue("");
+                HeaderCell.CellStyle = SimpleHeaderCS;
+                HeaderCell = sheet1.CreateRow(RowIndex).CreateCell(DisplayIndex);
+                HeaderCell.SetCellValue("Часы");
+                HeaderCell.CellStyle = SimpleHeaderCS;
+                sheet1.AddMergedRegion(new NPOI.HSSF.Util.Region(RowIndex, DisplayIndex, RowIndex + 1, DisplayIndex));
+                DisplayIndex++;
+
+                RowIndex++;
+                RowIndex++;
+                for (int i = 0; i < monthTimesheet.userTimesheets.Count; i++)
+                {
+                    DisplayIndex = 0;
+
+                    Cell1 = sheet1.CreateRow(RowIndex).CreateCell(DisplayIndex);
+                    Cell1.SetCellValue((i + 1));
+                    Cell1.CellStyle = SerialNumberCS;
+
+                    Cell1 = sheet1.CreateRow(RowIndex + 1).CreateCell(DisplayIndex);
+                    Cell1.SetCellValue("");
+                    Cell1.CellStyle = SerialNumberCS;
+
+                    sheet1.AddMergedRegion(new NPOI.HSSF.Util.Region(RowIndex, DisplayIndex, RowIndex + 1, DisplayIndex));
+
+                    DisplayIndex++;
+
+                    Cell1 = sheet1.CreateRow(RowIndex).CreateCell(DisplayIndex);
+                    Cell1.SetCellValue(monthTimesheet.userTimesheets[i].Name);
+                    Cell1.CellStyle = NameCS;
+                    Cell1 = sheet1.CreateRow(RowIndex + 1).CreateCell(DisplayIndex);
+                    Cell1.SetCellValue(monthTimesheet.userTimesheets[i].PositionName);
+                    Cell1.CellStyle = PositionCS;
+
+                    DisplayIndex++;
+
+                    Cell1 = sheet1.CreateRow(RowIndex).CreateCell(DisplayIndex);
+                    Cell1.SetCellValue(monthTimesheet.userTimesheets[i].Rank);
+                    Cell1.CellStyle = SimpleTopBorderCS;
+                    Cell1 = sheet1.CreateRow(RowIndex + 1).CreateCell(DisplayIndex);
+                    Cell1.SetCellValue(Convert.ToDouble(monthTimesheet.userTimesheets[i].Rate));
+                    Cell1.CellStyle = RateCS;
+
+                    DisplayIndex++;
+                    bool b = false;
+
+                    for (int x = 0; x < monthTimesheet.userTimesheets[i].WorkDaysDT.Rows.Count; x++)
+                    {
+                        Cell1 = sheet1.CreateRow(RowIndex).CreateCell(DisplayIndex);
+                        b = int.TryParse(monthTimesheet.userTimesheets[i].WorkDaysDT.Rows[x]["ProdHoursString"].ToString(), out int ProdHours);
+                        if (b)
+                            Cell1.SetCellValue(Convert.ToInt32(ProdHours));
+                        else
+                            Cell1.SetCellValue(monthTimesheet.userTimesheets[i].WorkDaysDT.Rows[x]["ProdHoursString"].ToString());
+                        Cell1.CellStyle = SimpleTopBorderCS;
+
+                        Cell1 = sheet1.CreateRow(RowIndex + 1).CreateCell(DisplayIndex);
+                        b = decimal.TryParse(monthTimesheet.userTimesheets[i].WorkDaysDT.Rows[x]["TimesheetHoursExp"].ToString(), out decimal TimesheetHoursExp);
+                        if (b)
+                            Cell1.SetCellValue(Convert.ToDouble(TimesheetHoursExp));
+                        else
+                            Cell1.SetCellValue(monthTimesheet.userTimesheets[i].WorkDaysDT.Rows[x]["TimesheetHoursExp"].ToString());
+
+                        Cell1.CellStyle = SimpleBottomBorderCS;
+
+                        DisplayIndex++;
+
+                    }
+
+                    Cell1 = sheet1.CreateRow(RowIndex).CreateCell(DisplayIndex);
+
+                    b = int.TryParse(monthTimesheet.userTimesheets[i].AllTimesheetDays.ToString(), out int AllTimesheetDays);
+                    if (b)
+                        Cell1.SetCellValue(Convert.ToInt32(AllTimesheetDays));
+                    else
+                        Cell1.SetCellValue(monthTimesheet.userTimesheets[i].AllTimesheetDays.ToString());
+
+                    Cell1.CellStyle = SimpleCS;
+                    sheet1.AddMergedRegion(new NPOI.HSSF.Util.Region(RowIndex, DisplayIndex, RowIndex + 1, DisplayIndex));
+
+                    Cell1 = sheet1.CreateRow(RowIndex + 1).CreateCell(DisplayIndex);
+                    Cell1.CellStyle = SimpleDecCS;
+
+                    DisplayIndex++;
+                    Cell1 = sheet1.CreateRow(RowIndex).CreateCell(DisplayIndex);
+
+                    b = decimal.TryParse(monthTimesheet.userTimesheets[i].AllTimesheetHours.ToString(), out decimal AllTimesheetHours);
+                    if (b)
+                        Cell1.SetCellValue(Convert.ToDouble(AllTimesheetHours));
+                    else
+                        Cell1.SetCellValue(monthTimesheet.userTimesheets[i].AllTimesheetHours.ToString());
+
+                    Cell1.CellStyle = TimesheetHoursCS;
+
+                    Cell1 = sheet1.CreateRow(RowIndex + 1).CreateCell(DisplayIndex);
+                    Cell1.CellStyle = SimpleDecCS;
+                    sheet1.AddMergedRegion(new NPOI.HSSF.Util.Region(RowIndex, DisplayIndex, RowIndex + 1, DisplayIndex));
+
+                    DisplayIndex++;
+
+                    RowIndex++;
+                    RowIndex++;
+
+
+                }
+                DisplayIndex = 0;
+
+                sheet1.SetColumnWidth(DisplayIndex++, 7 * 256);
+                sheet1.SetColumnWidth(DisplayIndex++, 22 * 256);
+                sheet1.SetColumnWidth(DisplayIndex++, 10 * 256);
+                for (int i = 0; i < monthTimesheet.userTimesheets[0].WorkDaysDT.Rows.Count; i++)
+                {
+                    sheet1.SetColumnWidth(DisplayIndex++, 8 * 256);
+
+                }
+                sheet1.SetColumnWidth(DisplayIndex++, 8 * 256);// Факт. отраб.
+                sheet1.SetColumnWidth(DisplayIndex++, 8 * 256);// Часы
+                sheet1.SetColumnWidth(DisplayIndex++, 15 * 256);
+
+
+                sheet1.CreateFreezePane(3, 2, 3, 2);
+            }
+
+            string FileName = "Профиль-" + monthTimesheet.Year.ToString();
+            string tempFolder = System.Environment.GetEnvironmentVariable("TEMP");
+            FileInfo file = new FileInfo(tempFolder + @"\" + FileName + ".xls");
+
+            int y = 1;
+            while (file.Exists == true)
+            {
+                file = new FileInfo(tempFolder + @"\" + FileName + "(" + y++ + ").xls");
+            }
+
+            FileStream NewFile = new FileStream(file.FullName, FileMode.Create);
+            hssfworkbook.Write(NewFile);
+            NewFile.Close();
+            System.Diagnostics.Process.Start(file.FullName);
+        }
+    }
+
+
+    public struct UserTimesheetInfo
+    {
+        /// <summary>
+        /// id работника
+        /// </summary>
+        public int UserID;
+
+        /// <summary>
+        /// ФИО
+        /// </summary>
+        public string Name;
+
+        /// <summary>
+        /// таблица рабочих дней
+        /// </summary>
+        public DataTable WorkDaysDT;
+
+        /// <summary>
+        /// Разряд
+        /// </summary>
+        public int Rank;
+
+        /// <summary>
+        /// Ставка
+        /// </summary>
+        public decimal Rate;
+
+        /// <summary>
+        /// id должности
+        /// </summary>
+        public int PositionID;
+
+        /// <summary>
+        /// должность
+        /// </summary>
+        public string PositionName;
+
+        /// <summary>
+        /// отработано дней по табелю
+        /// </summary>
+        public decimal AllTimesheetDays;
+
+        /// <summary>
+        /// отработано часов по табелю
+        /// </summary>
+        public decimal AllTimesheetHours;
+    }
 
     public struct TimesheetInfo
     {
         public DateTime Date;
-        public decimal AbsenteeismHours; //прогулы и отгулы
-        public decimal OvertimeHours; //сверхурочные
-        public decimal OverworkHours; //переработка
-        public decimal PlanHours; //планово в этот день
-        public decimal FactHours; //фактически в этот день
-        public decimal BreakHours; //обед в этот день
-        public decimal InTimesheetHours; //в табель
-        public bool IsAbsence; //была неявка
-        public int AbsenceTypeID; //тип неявки
+        /// <summary>
+        /// прогулы и отгулы
+        /// </summary>
+        public decimal AbsenteeismHours;
+        /// <summary>
+        /// все прогулы и отгулы
+        /// </summary>
+        public decimal AllAbsenteeismHours;
+        /// <summary>
+        /// сверхурочные
+        /// </summary>
+        public decimal OvertimeHours;
+        /// <summary>
+        /// все сверхурочные включая отчетную дату
+        /// </summary>
+        public decimal AllOvertimeHours;
+        /// <summary>
+        /// часы по неявке (без СУ и прогулов)
+        /// </summary>
+        public decimal AAbsenceHours;
+        /// <summary>
+        /// все часы по неявке (без СУ и прогулов) включая отчетную дату
+        /// </summary>
+        public decimal AllAbsenceHours;
+        /// <summary>
+        /// переработка до отчетной даты
+        /// </summary>
+        public decimal OverworkHours;
+        /// <summary>
+        /// планово в этот день
+        /// </summary>
+        public decimal PlanHours;
+        /// <summary>
+        /// планово до отчетной даты
+        /// </summary>
+        public decimal AllPlanHours;
+        /// <summary>
+        /// фактически в этот день
+        /// </summary>
+        public decimal FactHours;
+        /// <summary>
+        /// фактически в этот день
+        /// </summary>
+        public decimal AllFactHours;
+        /// <summary>
+        /// обед в этот день
+        /// </summary>
+        public decimal BreakHours;
+        /// <summary>
+        /// была неявка
+        /// </summary>
+        public bool IsAbsence;
+        /// <summary>
+        /// тип неявки
+        /// </summary>
+        public int AbsenceTypeID;
+        /// <summary>
+        /// 
+        /// </summary>
         public string AbsenceFullName;
+        /// <summary>
+        /// 
+        /// </summary>
         public string AbsenceShortName;
+        /// <summary>
+        /// ставка
+        /// </summary>
         public string StrRate;
-        public decimal AbsenceHours; //часы по неявке
+        /// <summary>
+        /// часы по неявке
+        /// </summary>
+        public decimal AbsenceHours;
+        /// <summary>
+        /// в табель 
+        /// </summary>
+        public decimal TimesheetHours;
+        /// <summary>
+        /// день завершен
+        /// </summary>
+        public bool Saved;
     }
 
 
@@ -9748,8 +10762,7 @@ namespace Infinium
 
         public DataTable AlbumsItemsDataTable;
         public DataTable PicturesItemsDataTable;
-
-        FileManager FM;
+        private FileManager FM;
 
         public InfiniumPictures()
         {
@@ -11494,7 +12507,7 @@ namespace Infinium
                 return false;
             }
 
-            Int64 iFileSize = fi.Length;
+            long iFileSize = fi.Length;
             int FolderID = -1;
 
             using (SqlDataAdapter DA = new SqlDataAdapter("SELECT * FROM Files WHERE FileID = " + FileID, ConnectionStrings.LightConnectionString))
@@ -11697,7 +12710,7 @@ namespace Infinium
                     return false;
                 }
 
-                Int64 iFileSize = fi.Length;
+                long iFileSize = fi.Length;
 
                 string sPath = "";
                 int FTPType = -1;
@@ -13149,9 +14162,9 @@ namespace Infinium
             return Name;
         }
 
-        string GetNewFileName(string path, string FileName)
+        private string GetNewFileName(string path, string FileName)
         {
-            var fileInfo = new System.IO.FileInfo(path + "\\" + FileName);
+            FileInfo fileInfo = new System.IO.FileInfo(path + "\\" + FileName);
 
             if (!fileInfo.Exists)
                 return FileName;
@@ -13260,8 +14273,8 @@ namespace Infinium
 
         public DataTable ManagersDataTable;
         public BindingSource ManagersBindingSource;
-        SqlDataAdapter ManagersDA;
-        SqlCommandBuilder ManagersCB;
+        private SqlDataAdapter ManagersDA;
+        private SqlCommandBuilder ManagersCB;
 
         public string CurrentUserName;
 
@@ -13270,9 +14283,8 @@ namespace Infinium
         public BindingSource UsersBindingSource;
 
         public DataTable MessagesDataTable, UsersDataTable;
-
-        ClientsMessagesDataGrid SelectedUsersGrid = null;
-        ClientsDataGrid UsersListDataGrid = null;
+        private ClientsMessagesDataGrid SelectedUsersGrid = null;
+        private ClientsDataGrid UsersListDataGrid = null;
 
         public ZOVMessages(ref ClientsMessagesDataGrid tSelectedUsersGrid, ref ClientsDataGrid tUsersListDataGrid)
         {
@@ -14723,9 +15735,9 @@ namespace Infinium
             return Name;
         }
 
-        string GetNewFileName(string path, string FileName)
+        private string GetNewFileName(string path, string FileName)
         {
-            var fileInfo = new System.IO.FileInfo(path + "\\" + FileName);
+            FileInfo fileInfo = new System.IO.FileInfo(path + "\\" + FileName);
 
             if (!fileInfo.Exists)
                 return FileName;
@@ -16524,7 +17536,7 @@ namespace Infinium
                                 return;
                             }
 
-                            Int64 iFileSize = fi.Length;
+                            long iFileSize = fi.Length;
 
                             DataRow NewRow = sDT.NewRow();
                             NewRow["FileName"] = FileName;
@@ -16641,7 +17653,7 @@ namespace Infinium
                                 return;
                             }
 
-                            Int64 iFileSize = fi.Length;
+                            long iFileSize = fi.Length;
 
                             DataRow NewRow = sDT.NewRow();
                             NewRow["FileName"] = FileName;
@@ -16800,7 +17812,7 @@ namespace Infinium
                                         return false;
                                     }
 
-                                    Int64 iFileSize = fi.Length;
+                                    long iFileSize = fi.Length;
 
                                     //load file to ftp
                                     if (FM.UploadFile(Row["Path"].ToString(), Configs.DocumentsPath + "/Документооборот/Документы" +
@@ -16964,7 +17976,7 @@ namespace Infinium
                                 return false;
                             }
 
-                            Int64 iFileSize = fi.Length;
+                            long iFileSize = fi.Length;
 
                             //load file to ftp
                             if (FM.UploadFile(Row["Path"].ToString(), Configs.DocumentsPath + "/Документооборот/Документы" +
@@ -17164,7 +18176,7 @@ namespace Infinium
                                         return false;
                                     }
 
-                                    Int64 iFileSize = fi.Length;
+                                    long iFileSize = fi.Length;
 
                                     //load file to ftp
                                     if (FM.UploadFile(Row["Path"].ToString(), Configs.DocumentsPath + "/Документооборот/Документы" +
@@ -17330,7 +18342,7 @@ namespace Infinium
                                 return false;
                             }
 
-                            Int64 iFileSize = fi.Length;
+                            long iFileSize = fi.Length;
 
                             //load file to ftp
                             if (FM.UploadFile(Row["Path"].ToString(), Configs.DocumentsPath + "/Документооборот/Документы" +
@@ -17532,7 +18544,7 @@ namespace Infinium
                                         return false;
                                     }
 
-                                    Int64 iFileSize = fi.Length;
+                                    long iFileSize = fi.Length;
 
                                     //load file to ftp
                                     if (FM.UploadFile(Row["Path"].ToString(), Configs.DocumentsPath + "/Документооборот/Документы" +
@@ -17699,7 +18711,7 @@ namespace Infinium
                                 return false;
                             }
 
-                            Int64 iFileSize = fi.Length;
+                            long iFileSize = fi.Length;
 
                             //load file to ftp
                             if (FM.UploadFile(Row["Path"].ToString(), Configs.DocumentsPath + "/Документооборот/Документы" +
@@ -18576,9 +19588,8 @@ namespace Infinium
         public DataTable SubCategoriesDataTable;
         public DataTable CitiesDataTable;
         public DataTable CountriesDataTable;
-
-        SqlDataAdapter ContactsDA;
-        SqlCommandBuilder ContactsCB;
+        private SqlDataAdapter ContactsDA;
+        private SqlCommandBuilder ContactsCB;
         public DataTable CurrentContactsDataTable;
 
         public Contractors()

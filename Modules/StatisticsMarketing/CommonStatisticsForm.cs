@@ -50,7 +50,7 @@ namespace Infinium
             InitializeComponent();
             LightStartForm = tLightStartForm;
 
-            this.MaximumSize = Screen.PrimaryScreen.WorkingArea.Size;
+            MaximumSize = Screen.PrimaryScreen.WorkingArea.Size;
 
             Initialize();
 
@@ -121,7 +121,7 @@ namespace Infinium
         {
             if (!DatabaseConfigsManager.Animation)
             {
-                this.Opacity = 1;
+                Opacity = 1;
 
                 if (FormEvent == eClose || FormEvent == eHide)
                 {
@@ -154,8 +154,8 @@ namespace Infinium
 
             if (FormEvent == eClose || FormEvent == eHide)
             {
-                if (Convert.ToDecimal(this.Opacity) != Convert.ToDecimal(0.00))
-                    this.Opacity = Convert.ToDouble(Convert.ToDecimal(this.Opacity) - Convert.ToDecimal(0.05));
+                if (Convert.ToDecimal(Opacity) != Convert.ToDecimal(0.00))
+                    Opacity = Convert.ToDouble(Convert.ToDecimal(Opacity) - Convert.ToDecimal(0.05));
                 else
                 {
                     AnimateTimer.Enabled = false;
@@ -179,8 +179,8 @@ namespace Infinium
 
             if (FormEvent == eShow || FormEvent == eShow)
             {
-                if (this.Opacity != 1)
-                    this.Opacity += 0.05;
+                if (Opacity != 1)
+                    Opacity += 0.05;
                 else
                 {
                     AnimateTimer.Enabled = false;
@@ -1606,25 +1606,25 @@ namespace Infinium
                 if (rbMarketing.Checked)
                 {
                     if (PlanDispDate)
-                        AllProductsStatistics.FilterByPlanDispatch(From, To, FactoryID, cbSamples.Checked, cbNotSamples.Checked);
+                        AllProductsStatistics.FilterByPlanDispatch(From, To, FactoryID, cbSamples.Checked, cbNotSamples.Checked, cbTransport.Checked);
 
                     if (OrderDate)
-                        AllProductsStatistics.FilterByOrderDate(From, To, FactoryID, cbSamples.Checked, cbNotSamples.Checked);
+                        AllProductsStatistics.FilterByOrderDate(From, To, FactoryID, cbSamples.Checked, cbNotSamples.Checked, cbTransport.Checked);
 
                     if (ConfirmDate)
-                        AllProductsStatistics.FilterByConfirmDate(From, To, FactoryID, cbSamples.Checked, cbNotSamples.Checked);
+                        AllProductsStatistics.FilterByConfirmDate(From, To, FactoryID, cbSamples.Checked, cbNotSamples.Checked, cbTransport.Checked);
 
                     if (OnAgreement)
-                        AllProductsStatistics.FilterByOnAgreement(From, To, FactoryID, cbSamples.Checked, cbNotSamples.Checked);
+                        AllProductsStatistics.FilterByOnAgreement(From, To, FactoryID, cbSamples.Checked, cbNotSamples.Checked, cbTransport.Checked);
 
                     //if (PrepareZOV)
                     //    AllProductsStatistics.FilterByPrepare(From, To);
 
                     if (OnProduction)
-                        AllProductsStatistics.FilterByOnProduction(From, To, FactoryID, cbSamples.Checked, cbNotSamples.Checked);
+                        AllProductsStatistics.FilterByOnProduction(From, To, FactoryID, cbSamples.Checked, cbNotSamples.Checked, cbTransport.Checked);
 
                     if (PackDate || StoreDate || ExpDate || FactDispDate)
-                        AllProductsStatistics.FilterByPackages(From, To, PackageStatusID, FactoryID, cbSamples.Checked, cbNotSamples.Checked);
+                        AllProductsStatistics.FilterByPackages(From, To, PackageStatusID, FactoryID, cbSamples.Checked, cbNotSamples.Checked, cbTransport.Checked);
                 }
                 if (rbZOV.Checked)
                 {
@@ -1659,22 +1659,22 @@ namespace Infinium
                 if (rbMarketing.Checked)
                 {
                     if (PlanDispDate)
-                        AllProductsStatistics.FilterByPlanDispatch(From, To, FactoryID, cbSamples.Checked, cbNotSamples.Checked);
+                        AllProductsStatistics.FilterByPlanDispatch(From, To, FactoryID, cbSamples.Checked, cbNotSamples.Checked, cbTransport.Checked);
 
                     if (OrderDate)
-                        AllProductsStatistics.FilterByOrderDate(From, To, FactoryID, cbSamples.Checked, cbNotSamples.Checked);
+                        AllProductsStatistics.FilterByOrderDate(From, To, FactoryID, cbSamples.Checked, cbNotSamples.Checked, cbTransport.Checked);
 
                     if (ConfirmDate)
-                        AllProductsStatistics.FilterByConfirmDate(From, To, FactoryID, cbSamples.Checked, cbNotSamples.Checked);
+                        AllProductsStatistics.FilterByConfirmDate(From, To, FactoryID, cbSamples.Checked, cbNotSamples.Checked, cbTransport.Checked);
 
                     //if (PrepareZOV)
                     //    AllProductsStatistics.FilterByPrepare(From, To);
 
                     if (OnProduction)
-                        AllProductsStatistics.FilterByOnProduction(From, To, FactoryID, cbSamples.Checked, cbNotSamples.Checked);
+                        AllProductsStatistics.FilterByOnProduction(From, To, FactoryID, cbSamples.Checked, cbNotSamples.Checked, cbTransport.Checked);
 
                     if (PackDate || StoreDate || ExpDate || FactDispDate)
-                        AllProductsStatistics.FilterByPackages(From, To, PackageStatusID, FactoryID, cbSamples.Checked, cbNotSamples.Checked);
+                        AllProductsStatistics.FilterByPackages(From, To, PackageStatusID, FactoryID, cbSamples.Checked, cbNotSamples.Checked, cbTransport.Checked);
                 }
                 if (rbZOV.Checked)
                 {
@@ -4610,13 +4610,61 @@ namespace Infinium
             while (!SplashWindow.bSmallCreated) ;
             NeedSplash = false;
 
+            bool PlanDispDate = PlanDispDateRadioButton.Checked;
+            bool OrderDate = OrderDateRadioButton.Checked;
+            bool ConfirmDate = ConfirmDateRadioButton.Checked;
+            bool OnAgreement = OnAgreementRadioButton.Checked;
+            bool PackDate = PackDateRadioButton.Checked;
+            bool StoreDate = StoreDateRadioButton.Checked;
+            bool ExpDate = ExpDateRadioButton.Checked;
+            bool FactDispDate = FactDispDateRadioButton.Checked;
+            bool OnProduction = OnProductionRadioButton.Checked;
+
             DateTime DateFrom = CalendarFrom.SelectionEnd;
             DateTime DateTo = CalendarTo.SelectionEnd;
-            string FileName = "Рекламации за период с " + DateFrom.ToString("dd.MM.yyyy") + " по " + DateTo.ToString("dd.MM.yyyy") + "";
 
-            ComplaintsReport report = new ComplaintsReport();
+            int PackageStatusID = -1;
 
-            report.GetData(DateFrom, DateTo);
+            if (PackDate)
+                PackageStatusID = 1;
+            if (StoreDate)
+                PackageStatusID = 2;
+            if (FactDispDate)
+                PackageStatusID = 3;
+            if (ExpDate)
+                PackageStatusID = 4;
+
+            //int FactoryID = 0;
+
+            //if (ProfilCheckBox.Checked && !TPSCheckBox.Checked)
+            //    FactoryID = 1;
+            //if (!ProfilCheckBox.Checked && TPSCheckBox.Checked)
+            //    FactoryID = 2;
+            //if (!ProfilCheckBox.Checked && !TPSCheckBox.Checked)
+            //    FactoryID = -1;
+
+            string FileName = "Транспорт за период с " + DateFrom.ToString("dd.MM.yyyy") + " по " + DateTo.ToString("dd.MM.yyyy") + "";
+
+            AdditionalCostReport report = new AdditionalCostReport();
+
+            if (PlanDispDate)
+                report.FilterByPlanDispatch(DateFrom, DateTo);
+
+            if (OrderDate)
+                report.FilterByOrderDate(DateFrom, DateTo);
+
+            if (ConfirmDate)
+                report.FilterByConfirmDate(DateFrom, DateTo);
+
+            if (OnAgreement)
+                report.FilterByOnAgreement(DateFrom, DateTo);
+
+            if (OnProduction)
+                report.FilterByOnProduction(DateFrom, DateTo);
+
+            if (PackDate || StoreDate || ExpDate || FactDispDate)
+                report.FilterByPackages(DateFrom, DateTo, PackageStatusID);
+
             if (report.HasData)
             {
                 report.Report(FileName);
@@ -4643,13 +4691,52 @@ namespace Infinium
             while (!SplashWindow.bSmallCreated) ;
             NeedSplash = false;
 
+            bool PlanDispDate = PlanDispDateRadioButton.Checked;
+            bool OrderDate = OrderDateRadioButton.Checked;
+            bool ConfirmDate = ConfirmDateRadioButton.Checked;
+            bool OnAgreement = OnAgreementRadioButton.Checked;
+            bool PackDate = PackDateRadioButton.Checked;
+            bool StoreDate = StoreDateRadioButton.Checked;
+            bool ExpDate = ExpDateRadioButton.Checked;
+            bool FactDispDate = FactDispDateRadioButton.Checked;
+            bool OnProduction = OnProductionRadioButton.Checked;
+
             DateTime DateFrom = CalendarFrom.SelectionEnd;
             DateTime DateTo = CalendarTo.SelectionEnd;
-            string FileName = "Транспорт за период с " + DateFrom.ToString("dd.MM.yyyy") + " по " + DateTo.ToString("dd.MM.yyyy") + "";
 
-            TransportReport report = new TransportReport();
+            int PackageStatusID = -1;
 
-            report.GetData(DateFrom, DateTo);
+            if (PackDate)
+                PackageStatusID = 1;
+            if (StoreDate)
+                PackageStatusID = 2;
+            if (FactDispDate)
+                PackageStatusID = 3;
+            if (ExpDate)
+                PackageStatusID = 4;
+
+            string FileName = "Рекламации за период с " + DateFrom.ToString("dd.MM.yyyy") + " по " + DateTo.ToString("dd.MM.yyyy") + "";
+
+            ComplaintCostReport report = new ComplaintCostReport();
+
+            if (PlanDispDate)
+                report.FilterByPlanDispatch(DateFrom, DateTo);
+
+            if (OrderDate)
+                report.FilterByOrderDate(DateFrom, DateTo);
+
+            if (ConfirmDate)
+                report.FilterByConfirmDate(DateFrom, DateTo);
+
+            if (OnAgreement)
+                report.FilterByOnAgreement(DateFrom, DateTo);
+
+            if (OnProduction)
+                report.FilterByOnProduction(DateFrom, DateTo);
+
+            if (PackDate || StoreDate || ExpDate || FactDispDate)
+                report.FilterByPackages(DateFrom, DateTo, PackageStatusID);
+
             if (report.HasData)
             {
                 report.Report(FileName);
@@ -4697,6 +4784,78 @@ namespace Infinium
                     AllProductsStatistics.SetCheckClientsByManager(Checked);
                     ClientsDataGrid.Invalidate();
                 }
+            }
+        }
+
+        private void kryptonContextMenuItem20_Click(object sender, EventArgs e)
+        {
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Создание отчета.\r\nПодождите..."); });
+            T.Start();
+
+            while (!SplashWindow.bSmallCreated) ;
+            NeedSplash = false;
+
+            bool PlanDispDate = PlanDispDateRadioButton.Checked;
+            bool OrderDate = OrderDateRadioButton.Checked;
+            bool ConfirmDate = ConfirmDateRadioButton.Checked;
+            bool OnAgreement = OnAgreementRadioButton.Checked;
+            bool PackDate = PackDateRadioButton.Checked;
+            bool StoreDate = StoreDateRadioButton.Checked;
+            bool ExpDate = ExpDateRadioButton.Checked;
+            bool FactDispDate = FactDispDateRadioButton.Checked;
+            bool OnProduction = OnProductionRadioButton.Checked;
+
+            DateTime DateFrom = CalendarFrom.SelectionEnd;
+            DateTime DateTo = CalendarTo.SelectionEnd;
+
+            int PackageStatusID = -1;
+
+            if (PackDate)
+                PackageStatusID = 1;
+            if (StoreDate)
+                PackageStatusID = 2;
+            if (FactDispDate)
+                PackageStatusID = 3;
+            if (ExpDate)
+                PackageStatusID = 4;
+
+            string FileName = "Транспорт за период с " + DateFrom.ToString("dd.MM.yyyy") + " по " + DateTo.ToString("dd.MM.yyyy") + "";
+
+            AdditionalCostReport report = new AdditionalCostReport();
+
+            if (PlanDispDate)
+                report.FilterByPlanDispatch(DateFrom, DateTo);
+
+            if (OrderDate)
+                report.FilterByOrderDate(DateFrom, DateTo);
+
+            if (ConfirmDate)
+                report.FilterByConfirmDate(DateFrom, DateTo);
+
+            if (OnAgreement)
+                report.FilterByOnAgreement(DateFrom, DateTo);
+
+            if (OnProduction)
+                report.FilterByOnProduction(DateFrom, DateTo);
+
+            if (PackDate || StoreDate || ExpDate || FactDispDate)
+                report.FilterByPackages(DateFrom, DateTo, PackageStatusID);
+
+            if (report.HasData)
+            {
+                report.Report(FileName);
+                NeedSplash = true;
+                while (SplashWindow.bSmallCreated)
+                    SmallWaitForm.CloseS = true;
+            }
+            else
+            {
+                NeedSplash = true;
+                while (SplashWindow.bSmallCreated)
+                    SmallWaitForm.CloseS = true;
+                Infinium.LightMessageBox.Show(ref TopForm, false,
+                       "Заказов с дополнительной стоимостью за выбранный период нет",
+                       "Дополнительно");
             }
         }
     }

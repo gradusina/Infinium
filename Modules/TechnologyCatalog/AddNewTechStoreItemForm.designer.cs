@@ -282,7 +282,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.NewItemsDataGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.NewItemsDataGrid.BackText = "Нет данных";
-            this.NewItemsDataGrid.ColumnHeadersHeight = 40;
+            this.NewItemsDataGrid.ColumnHeadersHeight = 50;
             this.NewItemsDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.NewItemsDataGrid.Location = new System.Drawing.Point(0, -1);
             this.NewItemsDataGrid.Name = "NewItemsDataGrid";

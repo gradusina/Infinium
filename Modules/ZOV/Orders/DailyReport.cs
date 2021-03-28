@@ -807,6 +807,7 @@ namespace Infinium.Modules.ZOV.DailyReport
                     ReportTable.ImportRow(Row);
                     try
                     {
+                        Cost = Convert.ToDecimal(Row["Cost"]);
                         if (Row["Price"].ToString().Length == 0)
                             Cost += Convert.ToDecimal(Row["Cost"]);
                     }

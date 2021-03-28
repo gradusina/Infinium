@@ -226,6 +226,7 @@ namespace Infinium
 
         private void StopButton_Click(object sender, EventArgs e)
         {
+
             LightWorkDay.EndWorkDay(Security.CurrentUserID);
 
             FormEvent = eClose;
@@ -236,6 +237,12 @@ namespace Infinium
         {
             if (richTextBox1.Text.Length == 0)
                 return;
+
+            //if (Convert.ToDateTime(timeEdit1.EditValue) > DateTime.Now)
+            //{
+            //    MessageBox.Show("«Не торопитесь жить!» — © А.В.Литвиненко");
+            //    return;
+            //}
 
             DateTime D;
 

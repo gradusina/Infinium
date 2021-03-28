@@ -9667,30 +9667,131 @@ ORDER BY infiniu2_zovreference.dbo.Clients.ClientName, MainOrders.DocNumber";
         }
     }
 
-    public class ComplaintsReport
+    public class ComplaintCostReport
     {
-        DataTable ComplaintsDT = null;
+        DataTable ComplaintCostDT = null;
 
-        public ComplaintsReport()
+        public ComplaintCostReport()
         {
-            ComplaintsDT = new DataTable();
+            ComplaintCostDT = new DataTable();
         }
 
-        public void GetData(DateTime date1, DateTime date2)
+        public void FilterByOrderDate(DateTime DateFrom, DateTime DateTo)
         {
-            string Filter = " CAST(NewMegaOrders.OrderDate AS date) >= '" + date1.ToString("yyyy-MM-dd") +
-                " 00:00' AND CAST(NewMegaOrders.OrderDate AS date) <= '" + date2.ToString("yyyy-MM-dd") + " 23:59'";
+            string Filter = " WHERE CAST(NewMegaOrders.OrderDate AS date) >= '" + DateFrom.ToString("yyyy-MM-dd") +
+                " 00:00' AND CAST(NewMegaOrders.OrderDate AS date) <= '" + DateTo.ToString("yyyy-MM-dd") + " 23:59'";
 
-            string SelectCommand = @"SELECT clients.ClientName, NewMegaOrders.OrderNumber, ClientsManagers.Name, NewMegaOrders.ConfirmDateTime, NewMegaOrders.IsComplaint, NewMegaOrders.ComplaintProfilCost, NewMegaOrders.TotalCost
-            FROM            NewMegaOrders INNER JOIN
+            string SelectCommand = @"SELECT clients.ClientName, NewMegaOrders.OrderNumber, ClientsManagers.Name, NewMegaOrders.ConfirmDateTime, NewMegaOrders.ComplaintProfilCost + NewMegaOrders.ComplaintTPSCost, NewMegaOrders.TotalCost, CurrencyTypes.CurrencyType, NewMegaOrders.Rate, NewMegaOrders.PaymentRate, NewMegaOrders.CurrencyComplaintProfilCost + NewMegaOrders.CurrencyComplaintTPSCost, NewMegaOrders.CurrencyTotalCost
                                      infiniu2_marketingreference.dbo.Clients AS clients ON NewMegaOrders.ClientID = clients.ClientID INNER JOIN
-                                     infiniu2_marketingreference.dbo.ClientsManagers AS ClientsManagers ON clients.ManagerID = ClientsManagers.ManagerID
-            WHERE " + Filter + @" AND (NewMegaOrders.ComplaintProfilCost > 0 OR NewMegaOrders.IsComplaint = 1)
+                                     infiniu2_marketingreference.dbo.ClientsManagers AS ClientsManagers ON clients.ManagerID = ClientsManagers.ManagerID INNER JOIN
+                                     infiniu2_catalog.dbo.CurrencyTypes AS CurrencyTypes ON NewMegaOrders.CurrencyTypeID = CurrencyTypes.CurrencyTypeID
+            " + Filter + @" AND (NewMegaOrders.ComplaintProfilCost > 0 OR NewMegaOrders.ComplaintTPSCost > 0 OR NewMegaOrders.IsComplaint = 1)
             ORDER BY clients.ClientName, NewMegaOrders.OrderNumber";
             using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.MarketingOrdersConnectionString))
             {
-                ComplaintsDT.Clear();
-                DA.Fill(ComplaintsDT);
+                ComplaintCostDT.Clear();
+                DA.Fill(ComplaintCostDT);
+            }
+        }
+
+        public void FilterByConfirmDate(DateTime DateFrom, DateTime DateTo)
+        {
+            string Filter = " WHERE CAST(MegaOrders.ConfirmDateTime AS date) >= '" + DateFrom.ToString("yyyy-MM-dd") +
+                " 00:00' AND CAST(MegaOrders.ConfirmDateTime AS date) <= '" + DateTo.ToString("yyyy-MM-dd") + " 23:59'";
+
+            string SelectCommand = @"SELECT clients.ClientName, MegaOrders.OrderNumber, ClientsManagers.Name, MegaOrders.ConfirmDateTime, MegaOrders.ComplaintProfilCost + MegaOrders.ComplaintTPSCost, MegaOrders.TotalCost, CurrencyTypes.CurrencyType, MegaOrders.Rate, MegaOrders.PaymentRate, MegaOrders.CurrencyComplaintProfilCost + MegaOrders.CurrencyComplaintTPSCost, MegaOrders.CurrencyTotalCost
+                                     infiniu2_marketingreference.dbo.Clients AS clients ON MegaOrders.ClientID = clients.ClientID INNER JOIN
+                                     infiniu2_marketingreference.dbo.ClientsManagers AS ClientsManagers ON clients.ManagerID = ClientsManagers.ManagerID INNER JOIN
+                                     infiniu2_catalog.dbo.CurrencyTypes AS CurrencyTypes ON MegaOrders.CurrencyTypeID = CurrencyTypes.CurrencyTypeID
+            " + Filter + @" AND (MegaOrders.ComplaintProfilCost > 0 OR MegaOrders.ComplaintTPSCost > 0 OR MegaOrders.IsComplaint = 1)
+            ORDER BY clients.ClientName, MegaOrders.OrderNumber";
+            using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.MarketingOrdersConnectionString))
+            {
+                ComplaintCostDT.Clear();
+                DA.Fill(ComplaintCostDT);
+            }
+        }
+
+        public void FilterByPlanDispatch(DateTime DateFrom, DateTime DateTo)
+        {
+            string Filter = " WHERE ((CAST(ProfilDispatchDate AS DATE) >= '" + DateFrom.ToString("yyyy-MM-dd") +
+                    "' AND CAST(ProfilDispatchDate AS DATE) <= '" + DateTo.ToString("yyyy-MM-dd") + "')" +
+                    " OR (CAST(TPSDispatchDate AS DATE) >= '" + DateFrom.ToString("yyyy-MM-dd") +
+                    "' AND CAST(TPSDispatchDate AS DATE) <= '" + DateTo.ToString("yyyy-MM-dd") + "')) ";
+
+            string SelectCommand = @"SELECT clients.ClientName, MegaOrders.OrderNumber, ClientsManagers.Name, MegaOrders.ConfirmDateTime, MegaOrders.ComplaintProfilCost + MegaOrders.ComplaintTPSCost, MegaOrders.TotalCost, CurrencyTypes.CurrencyType, MegaOrders.Rate, MegaOrders.PaymentRate, MegaOrders.CurrencyComplaintProfilCost + MegaOrders.CurrencyComplaintTPSCost, MegaOrders.CurrencyTotalCost
+                                     infiniu2_marketingreference.dbo.Clients AS clients ON MegaOrders.ClientID = clients.ClientID INNER JOIN
+                                     infiniu2_marketingreference.dbo.ClientsManagers AS ClientsManagers ON clients.ManagerID = ClientsManagers.ManagerID INNER JOIN
+                                     infiniu2_catalog.dbo.CurrencyTypes AS CurrencyTypes ON MegaOrders.CurrencyTypeID = CurrencyTypes.CurrencyTypeID
+            " + Filter + @" AND (MegaOrders.ComplaintProfilCost > 0 OR MegaOrders.ComplaintTPSCost > 0 OR MegaOrders.IsComplaint = 1)
+            ORDER BY clients.ClientName, MegaOrders.OrderNumber";
+            using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.MarketingOrdersConnectionString))
+            {
+                ComplaintCostDT.Clear();
+                DA.Fill(ComplaintCostDT);
+            }
+        }
+
+        public void FilterByOnProduction(DateTime DateFrom, DateTime DateTo)
+        {
+            string Filter = " WHERE ((CAST(ProfilOnProductionDate AS Date) >= '" + DateFrom.ToString("yyyy-MM-dd") + "' AND CAST(ProfilOnProductionDate AS Date) <= '" + DateTo.ToString("yyyy-MM-dd") +
+                    "') OR (CAST(TPSOnProductionDate AS Date) >= '" + DateFrom.ToString("yyyy-MM-dd") + "' AND CAST(TPSOnProductionDate AS Date) <= '" + DateTo.ToString("yyyy-MM-dd") + "'))";
+            string SelectCommand = @"SELECT clients.ClientName, MegaOrders.OrderNumber, ClientsManagers.Name, MegaOrders.ConfirmDateTime, MegaOrders.ComplaintProfilCost + MegaOrders.ComplaintTPSCost, MegaOrders.TotalCost, CurrencyTypes.CurrencyType, MegaOrders.Rate, MegaOrders.PaymentRate, MegaOrders.CurrencyComplaintProfilCost + MegaOrders.CurrencyComplaintTPSCost, MegaOrders.CurrencyTotalCost
+                                     infiniu2_marketingreference.dbo.Clients AS clients ON MegaOrders.ClientID = clients.ClientID INNER JOIN
+                                     infiniu2_marketingreference.dbo.ClientsManagers AS ClientsManagers ON clients.ManagerID = ClientsManagers.ManagerID INNER JOIN
+                                     infiniu2_catalog.dbo.CurrencyTypes AS CurrencyTypes ON MegaOrders.CurrencyTypeID = CurrencyTypes.CurrencyTypeID
+            " + Filter + @" AND (MegaOrders.ComplaintProfilCost > 0 OR MegaOrders.ComplaintTPSCost > 0 OR MegaOrders.IsComplaint = 1)
+            ORDER BY clients.ClientName, MegaOrders.OrderNumber";
+            using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.MarketingOrdersConnectionString))
+            {
+                ComplaintCostDT.Clear();
+                DA.Fill(ComplaintCostDT);
+            }
+        }
+
+        public void FilterByOnAgreement(DateTime DateFrom, DateTime DateTo)
+        {
+            string Filter = " WHERE CAST(MegaOrders.OnAgreementDateTime AS date) >= '" + DateFrom.ToString("yyyy-MM-dd") +
+                " 00:00' AND CAST(MegaOrders.OnAgreementDateTime AS date) <= '" + DateTo.ToString("yyyy-MM-dd") + " 23:59'";
+
+            string SelectCommand = @"SELECT clients.ClientName, MegaOrders.OrderNumber, ClientsManagers.Name, MegaOrders.ConfirmDateTime, MegaOrders.ComplaintProfilCost + MegaOrders.ComplaintTPSCost, MegaOrders.TotalCost, CurrencyTypes.CurrencyType, MegaOrders.Rate, MegaOrders.PaymentRate, MegaOrders.CurrencyComplaintProfilCost + MegaOrders.CurrencyComplaintTPSCost, MegaOrders.CurrencyTotalCost
+            FROM            MegaOrders INNER JOIN
+                                     infiniu2_marketingreference.dbo.Clients AS clients ON MegaOrders.ClientID = clients.ClientID INNER JOIN
+                                     infiniu2_marketingreference.dbo.ClientsManagers AS ClientsManagers ON clients.ManagerID = ClientsManagers.ManagerID INNER JOIN
+                                     infiniu2_catalog.dbo.CurrencyTypes AS CurrencyTypes ON MegaOrders.CurrencyTypeID = CurrencyTypes.CurrencyTypeID
+            " + Filter + @" AND (MegaOrders.ComplaintProfilCost > 0 OR MegaOrders.ComplaintTPSCost > 0 OR MegaOrders.IsComplaint = 1)
+            ORDER BY clients.ClientName, MegaOrders.OrderNumber";
+            using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.MarketingOrdersConnectionString))
+            {
+                ComplaintCostDT.Clear();
+                DA.Fill(ComplaintCostDT);
+            }
+        }
+
+        public void FilterByPackages(DateTime DateFrom, DateTime DateTo, int PackageStatusID)
+        {
+            string Date = "PackingDateTime";
+
+            if (PackageStatusID == 2)
+                Date = "StorageDateTime";
+            if (PackageStatusID == 3)
+                Date = "DispatchDateTime";
+            if (PackageStatusID == 4)
+                Date = "ExpeditionDateTime";
+            string Filter = " WHERE MegaOrderID IN (SELECT MegaOrderID FROM MainOrders WHERE MainOrderID IN (SELECT MainOrderID FROM Packages WHERE CAST(" + Date + " AS DATE) >= '" + DateFrom.ToString("yyyy-MM-dd") +
+                "' AND CAST(" + Date + " AS DATE) <= '" + DateTo.ToString("yyyy-MM-dd") + "'))"; ;
+
+            string SelectCommand = @"SELECT clients.ClientName, MegaOrders.OrderNumber, ClientsManagers.Name, MegaOrders.ConfirmDateTime, MegaOrders.ComplaintProfilCost + MegaOrders.ComplaintTPSCost, MegaOrders.TotalCost, CurrencyTypes.CurrencyType, MegaOrders.Rate, MegaOrders.PaymentRate, MegaOrders.CurrencyComplaintProfilCost + MegaOrders.CurrencyComplaintTPSCost, MegaOrders.CurrencyTotalCost
+            FROM            MegaOrders INNER JOIN
+                                     infiniu2_marketingreference.dbo.Clients AS clients ON MegaOrders.ClientID = clients.ClientID INNER JOIN
+                                     infiniu2_marketingreference.dbo.ClientsManagers AS ClientsManagers ON clients.ManagerID = ClientsManagers.ManagerID INNER JOIN
+                                     infiniu2_catalog.dbo.CurrencyTypes AS CurrencyTypes ON MegaOrders.CurrencyTypeID = CurrencyTypes.CurrencyTypeID
+            " + Filter + @" AND (MegaOrders.ComplaintProfilCost > 0 OR MegaOrders.ComplaintTPSCost > 0 OR MegaOrders.IsComplaint = 1)
+            ORDER BY clients.ClientName, MegaOrders.OrderNumber";
+            using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.MarketingOrdersConnectionString))
+            {
+                ComplaintCostDT.Clear();
+                DA.Fill(ComplaintCostDT);
             }
         }
 
@@ -9698,7 +9799,7 @@ ORDER BY infiniu2_zovreference.dbo.Clients.ClientName, MainOrders.DocNumber";
         {
             get
             {
-                return ComplaintsDT.Rows.Count > 0;
+                return ComplaintCostDT.Rows.Count > 0;
             }
         }
 
@@ -9867,62 +9968,84 @@ ORDER BY infiniu2_zovreference.dbo.Clients.ClientName, MainOrders.DocNumber";
             sheet1.SetMargin(HSSFSheet.TopMargin, (double).20);
             sheet1.SetMargin(HSSFSheet.BottomMargin, (double).20);
 
-            sheet1.SetColumnWidth(0, 71 * 256);
-            sheet1.SetColumnWidth(1, 13 * 256);
-            sheet1.SetColumnWidth(2, 13 * 256);
-            sheet1.SetColumnWidth(3, 14 * 256);
-            sheet1.SetColumnWidth(4, 14 * 256);
-            sheet1.SetColumnWidth(5, 14 * 256);
-            sheet1.SetColumnWidth(6, 14 * 256);
+            int DisplayIndex = 0;
+            sheet1.SetColumnWidth(DisplayIndex++, 40 * 256);
+            sheet1.SetColumnWidth(DisplayIndex++, 9 * 256);
+            sheet1.SetColumnWidth(DisplayIndex++, 15 * 256);
+            sheet1.SetColumnWidth(DisplayIndex++, 14 * 256);
+            sheet1.SetColumnWidth(DisplayIndex++, 14 * 256);
+            sheet1.SetColumnWidth(DisplayIndex++, 14 * 256);
+            sheet1.SetColumnWidth(DisplayIndex++, 9 * 256);
+            sheet1.SetColumnWidth(DisplayIndex++, 9 * 256);
+            sheet1.SetColumnWidth(DisplayIndex++, 9 * 256);
+            sheet1.SetColumnWidth(DisplayIndex++, 13 * 256);
+            sheet1.SetColumnWidth(DisplayIndex++, 13 * 256);
 
             HSSFCell Cell1;
 
-            if (ComplaintsDT.Rows.Count > 0)
+            DisplayIndex = 0;
+            if (ComplaintCostDT.Rows.Count > 0)
             {
                 pos += 2;
 
-                Cell1 = sheet1.CreateRow(pos).CreateCell(0);
+                Cell1 = sheet1.CreateRow(pos).CreateCell(DisplayIndex++);
                 Cell1.SetCellValue("Клиент");
                 Cell1.CellStyle = SimpleHeaderCS;
 
-                Cell1 = sheet1.CreateRow(pos).CreateCell(1);
+                Cell1 = sheet1.CreateRow(pos).CreateCell(DisplayIndex++);
                 Cell1.SetCellValue("№ заказа");
                 Cell1.CellStyle = SimpleHeaderCS;
 
-                Cell1 = sheet1.CreateRow(pos).CreateCell(2);
+                Cell1 = sheet1.CreateRow(pos).CreateCell(DisplayIndex++);
                 Cell1.SetCellValue("Менеджер");
                 Cell1.CellStyle = SimpleHeaderCS;
 
-                Cell1 = sheet1.CreateRow(pos).CreateCell(3);
+                Cell1 = sheet1.CreateRow(pos).CreateCell(DisplayIndex++);
                 Cell1.SetCellValue("Дата согласования");
                 Cell1.CellStyle = SimpleHeaderCS;
 
-                Cell1 = sheet1.CreateRow(pos).CreateCell(4);
-                Cell1.SetCellValue("Рекламация");
-                Cell1.CellStyle = SimpleHeaderCS;
-
-                Cell1 = sheet1.CreateRow(pos).CreateCell(5);
+                Cell1 = sheet1.CreateRow(pos).CreateCell(DisplayIndex++);
                 Cell1.SetCellValue("Сумма рекламации");
                 Cell1.CellStyle = SimpleHeaderCS;
 
-                Cell1 = sheet1.CreateRow(pos).CreateCell(6);
+                Cell1 = sheet1.CreateRow(pos).CreateCell(DisplayIndex++);
+                Cell1.SetCellValue("Сумма заказа");
+                Cell1.CellStyle = SimpleHeaderCS;
+
+                Cell1 = sheet1.CreateRow(pos).CreateCell(DisplayIndex++);
+                Cell1.SetCellValue("Валюта");
+                Cell1.CellStyle = SimpleHeaderCS;
+
+                Cell1 = sheet1.CreateRow(pos).CreateCell(DisplayIndex++);
+                Cell1.SetCellValue("Курс");
+                Cell1.CellStyle = SimpleHeaderCS;
+
+                Cell1 = sheet1.CreateRow(pos).CreateCell(DisplayIndex++);
+                Cell1.SetCellValue("Расчетный курс");
+                Cell1.CellStyle = SimpleHeaderCS;
+
+                Cell1 = sheet1.CreateRow(pos).CreateCell(DisplayIndex++);
+                Cell1.SetCellValue("Итого сумма рекламации");
+                Cell1.CellStyle = SimpleHeaderCS;
+
+                Cell1 = sheet1.CreateRow(pos).CreateCell(DisplayIndex++);
                 Cell1.SetCellValue("Итого сумма заказа");
                 Cell1.CellStyle = SimpleHeaderCS;
 
                 pos++;
 
-                int ColumnCount = ComplaintsDT.Columns.Count;
-                for (int x = 0; x < ComplaintsDT.Rows.Count; x++)
+                int ColumnCount = ComplaintCostDT.Columns.Count;
+                for (int x = 0; x < ComplaintCostDT.Rows.Count; x++)
                 {
 
                     for (int y = 0; y < ColumnCount; y++)
                     {
-                        Type t = ComplaintsDT.Rows[x][y].GetType();
+                        Type t = ComplaintCostDT.Rows[x][y].GetType();
 
                         if (t.Name == "Decimal")
                         {
                             HSSFCell cell = sheet1.CreateRow(pos).CreateCell(y);
-                            cell.SetCellValue(Convert.ToDouble(ComplaintsDT.Rows[x][y]));
+                            cell.SetCellValue(Convert.ToDouble(ComplaintCostDT.Rows[x][y]));
 
                             cell.CellStyle = CountCS;
                             continue;
@@ -9930,13 +10053,13 @@ ORDER BY infiniu2_zovreference.dbo.Clients.ClientName, MainOrders.DocNumber";
                         if (t.Name == "Int32")
                         {
                             HSSFCell cell = sheet1.CreateRow(pos).CreateCell(y);
-                            cell.SetCellValue(Convert.ToInt32(ComplaintsDT.Rows[x][y]));
+                            cell.SetCellValue(Convert.ToInt32(ComplaintCostDT.Rows[x][y]));
                             cell.CellStyle = SimpleCS;
                             continue;
                         }
                         if (t.Name == "Boolean")
                         {
-                            bool b = Convert.ToBoolean(ComplaintsDT.Rows[x][y]);
+                            bool b = Convert.ToBoolean(ComplaintCostDT.Rows[x][y]);
                             string str = "Да";
                             if (!b)
                                 str = "Нет";
@@ -9947,7 +10070,7 @@ ORDER BY infiniu2_zovreference.dbo.Clients.ClientName, MainOrders.DocNumber";
                         }
                         if (t.Name == "DateTime")
                         {
-                            string dateTime = Convert.ToDateTime(ComplaintsDT.Rows[x][y]).ToShortDateString();
+                            string dateTime = Convert.ToDateTime(ComplaintCostDT.Rows[x][y]).ToShortDateString();
                             HSSFCell cell = sheet1.CreateRow(pos).CreateCell(y);
                             cell.SetCellValue(dateTime);
                             cell.CellStyle = SimpleCS;
@@ -9957,7 +10080,7 @@ ORDER BY infiniu2_zovreference.dbo.Clients.ClientName, MainOrders.DocNumber";
                         if (t.Name == "String" || t.Name == "DBNull")
                         {
                             HSSFCell cell = sheet1.CreateRow(pos).CreateCell(y);
-                            cell.SetCellValue(ComplaintsDT.Rows[x][y].ToString());
+                            cell.SetCellValue(ComplaintCostDT.Rows[x][y].ToString());
                             cell.CellStyle = SimpleCS;
                             continue;
                         }
@@ -9982,30 +10105,135 @@ ORDER BY infiniu2_zovreference.dbo.Clients.ClientName, MainOrders.DocNumber";
         }
     }
 
-    public class TransportReport
+    public class TransportCostReport
     {
-        DataTable TransportDT = null;
+        DataTable TransportCostDT = null;
 
-        public TransportReport()
+        public TransportCostReport()
         {
-            TransportDT = new DataTable();
+            TransportCostDT = new DataTable();
         }
 
-        public void GetData(DateTime date1, DateTime date2)
+        public void FilterByOrderDate(DateTime DateFrom, DateTime DateTo)
         {
-            string Filter = " CAST(NewMegaOrders.OrderDate AS date) >= '" + date1.ToString("yyyy-MM-dd") +
-                " 00:00' AND CAST(NewMegaOrders.OrderDate AS date) <= '" + date2.ToString("yyyy-MM-dd") + " 23:59'";
+            string Filter = " WHERE CAST(NewMegaOrders.OrderDate AS date) >= '" + DateFrom.ToString("yyyy-MM-dd") +
+                " 00:00' AND CAST(NewMegaOrders.OrderDate AS date) <= '" + DateTo.ToString("yyyy-MM-dd") + " 23:59'";
 
-            string SelectCommand = @"SELECT clients.ClientName, NewMegaOrders.OrderNumber, ClientsManagers.Name, NewMegaOrders.ConfirmDateTime, NewMegaOrders.TransportCost, NewMegaOrders.TotalCost
+            string SelectCommand = @"SELECT clients.ClientName, NewMegaOrders.OrderNumber, ClientsManagers.Name, NewMegaOrders.ConfirmDateTime, NewMegaOrders.TransportCost, NewMegaOrders.TotalCost, CurrencyTypes.CurrencyType,  NewMegaOrders.Rate, NewMegaOrders.PaymentRate,NewMegaOrders.CurrencyTransportCost, NewMegaOrders.CurrencyTotalCost
             FROM            NewMegaOrders INNER JOIN
                                      infiniu2_marketingreference.dbo.Clients AS clients ON NewMegaOrders.ClientID = clients.ClientID INNER JOIN
-                                     infiniu2_marketingreference.dbo.ClientsManagers AS ClientsManagers ON clients.ManagerID = ClientsManagers.ManagerID
-            WHERE " + Filter + @" AND (NewMegaOrders.TransportCost > 0)
+                                     infiniu2_marketingreference.dbo.ClientsManagers AS ClientsManagers ON clients.ManagerID = ClientsManagers.ManagerID INNER JOIN
+                                     infiniu2_catalog.dbo.CurrencyTypes AS CurrencyTypes ON NewMegaOrders.CurrencyTypeID = CurrencyTypes.CurrencyTypeID
+            " + Filter + @" AND (NewMegaOrders.TransportCost > 0)
             ORDER BY clients.ClientName, NewMegaOrders.OrderNumber";
             using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.MarketingOrdersConnectionString))
             {
-                TransportDT.Clear();
-                DA.Fill(TransportDT);
+                TransportCostDT.Clear();
+                DA.Fill(TransportCostDT);
+            }
+        }
+
+        public void FilterByConfirmDate(DateTime DateFrom, DateTime DateTo)
+        {
+            string Filter = " WHERE CAST(MegaOrders.ConfirmDateTime AS date) >= '" + DateFrom.ToString("yyyy-MM-dd") +
+                " 00:00' AND CAST(MegaOrders.ConfirmDateTime AS date) <= '" + DateTo.ToString("yyyy-MM-dd") + " 23:59'";
+
+            string SelectCommand = @"SELECT clients.ClientName, MegaOrders.OrderNumber, ClientsManagers.Name, MegaOrders.ConfirmDateTime, MegaOrders.TransportCost, MegaOrders.TotalCost, CurrencyTypes.CurrencyType, MegaOrders.Rate, MegaOrders.PaymentRate, MegaOrders.CurrencyTransportCost, MegaOrders.CurrencyTotalCost
+            FROM            MegaOrders INNER JOIN
+                                     infiniu2_marketingreference.dbo.Clients AS clients ON MegaOrders.ClientID = clients.ClientID INNER JOIN
+                                     infiniu2_marketingreference.dbo.ClientsManagers AS ClientsManagers ON clients.ManagerID = ClientsManagers.ManagerID INNER JOIN
+                                     infiniu2_catalog.dbo.CurrencyTypes AS CurrencyTypes ON MegaOrders.CurrencyTypeID = CurrencyTypes.CurrencyTypeID
+            " + Filter + @" AND (MegaOrders.TransportCost > 0)
+            ORDER BY clients.ClientName, MegaOrders.OrderNumber";
+            using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.MarketingOrdersConnectionString))
+            {
+                TransportCostDT.Clear();
+                DA.Fill(TransportCostDT);
+            }
+        }
+
+        public void FilterByPlanDispatch(DateTime DateFrom, DateTime DateTo)
+        {
+            string Filter = " WHERE ((CAST(ProfilDispatchDate AS DATE) >= '" + DateFrom.ToString("yyyy-MM-dd") +
+                    "' AND CAST(ProfilDispatchDate AS DATE) <= '" + DateTo.ToString("yyyy-MM-dd") + "')" +
+                    " OR (CAST(TPSDispatchDate AS DATE) >= '" + DateFrom.ToString("yyyy-MM-dd") +
+                    "' AND CAST(TPSDispatchDate AS DATE) <= '" + DateTo.ToString("yyyy-MM-dd") + "')) ";
+
+            string SelectCommand = @"SELECT clients.ClientName, MegaOrders.OrderNumber, ClientsManagers.Name, MegaOrders.ConfirmDateTime, MegaOrders.TransportCost, MegaOrders.TotalCost,CurrencyTypes.CurrencyType,  MegaOrders.Rate, MegaOrders.PaymentRate, MegaOrders.CurrencyTransportCost, MegaOrders.CurrencyTotalCost
+            FROM            MegaOrders INNER JOIN
+                                     infiniu2_marketingreference.dbo.Clients AS clients ON MegaOrders.ClientID = clients.ClientID INNER JOIN
+                                     infiniu2_marketingreference.dbo.ClientsManagers AS ClientsManagers ON clients.ManagerID = ClientsManagers.ManagerID INNER JOIN
+                                     infiniu2_catalog.dbo.CurrencyTypes AS CurrencyTypes ON MegaOrders.CurrencyTypeID = CurrencyTypes.CurrencyTypeID
+            " + Filter + @" AND (MegaOrders.TransportCost > 0)
+            ORDER BY clients.ClientName, MegaOrders.OrderNumber";
+            using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.MarketingOrdersConnectionString))
+            {
+                TransportCostDT.Clear();
+                DA.Fill(TransportCostDT);
+            }
+        }
+
+        public void FilterByOnProduction(DateTime DateFrom, DateTime DateTo)
+        {
+            string Filter = " WHERE ((CAST(ProfilOnProductionDate AS Date) >= '" + DateFrom.ToString("yyyy-MM-dd") + "' AND CAST(ProfilOnProductionDate AS Date) <= '" + DateTo.ToString("yyyy-MM-dd") +
+                    "') OR (CAST(TPSOnProductionDate AS Date) >= '" + DateFrom.ToString("yyyy-MM-dd") + "' AND CAST(TPSOnProductionDate AS Date) <= '" + DateTo.ToString("yyyy-MM-dd") + "'))";
+            string SelectCommand = @"SELECT clients.ClientName, MegaOrders.OrderNumber, ClientsManagers.Name, MegaOrders.ConfirmDateTime, MegaOrders.TransportCost, MegaOrders.TotalCost,  CurrencyTypes.CurrencyType, MegaOrders.Rate, MegaOrders.PaymentRate,MegaOrders.CurrencyTransportCost, MegaOrders.CurrencyTotalCost
+            FROM            MegaOrders INNER JOIN
+                                     infiniu2_marketingreference.dbo.Clients AS clients ON MegaOrders.ClientID = clients.ClientID INNER JOIN
+                                     infiniu2_marketingreference.dbo.ClientsManagers AS ClientsManagers ON clients.ManagerID = ClientsManagers.ManagerID INNER JOIN
+                                     infiniu2_catalog.dbo.CurrencyTypes AS CurrencyTypes ON MegaOrders.CurrencyTypeID = CurrencyTypes.CurrencyTypeID
+            " + Filter + @" AND (MegaOrders.TransportCost > 0)
+            ORDER BY clients.ClientName, MegaOrders.OrderNumber";
+            using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.MarketingOrdersConnectionString))
+            {
+                TransportCostDT.Clear();
+                DA.Fill(TransportCostDT);
+            }
+        }
+
+        public void FilterByOnAgreement(DateTime DateFrom, DateTime DateTo)
+        {
+            string Filter = " WHERE CAST(MegaOrders.OnAgreementDateTime AS date) >= '" + DateFrom.ToString("yyyy-MM-dd") +
+                " 00:00' AND CAST(MegaOrders.OnAgreementDateTime AS date) <= '" + DateTo.ToString("yyyy-MM-dd") + " 23:59'";
+
+            string SelectCommand = @"SELECT clients.ClientName, MegaOrders.OrderNumber, ClientsManagers.Name, MegaOrders.ConfirmDateTime, MegaOrders.TransportCost, MegaOrders.TotalCost, CurrencyTypes.CurrencyType, MegaOrders.Rate, MegaOrders.PaymentRate, MegaOrders.CurrencyTransportCost, MegaOrders.CurrencyTotalCost
+            FROM            MegaOrders INNER JOIN
+                                     infiniu2_marketingreference.dbo.Clients AS clients ON MegaOrders.ClientID = clients.ClientID INNER JOIN
+                                     infiniu2_marketingreference.dbo.ClientsManagers AS ClientsManagers ON clients.ManagerID = ClientsManagers.ManagerID INNER JOIN
+                                     infiniu2_catalog.dbo.CurrencyTypes AS CurrencyTypes ON MegaOrders.CurrencyTypeID = CurrencyTypes.CurrencyTypeID
+            " + Filter + @" AND (MegaOrders.TransportCost > 0)
+            ORDER BY clients.ClientName, MegaOrders.OrderNumber";
+            using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.MarketingOrdersConnectionString))
+            {
+                TransportCostDT.Clear();
+                DA.Fill(TransportCostDT);
+            }
+        }
+
+        public void FilterByPackages(DateTime DateFrom, DateTime DateTo, int PackageStatusID)
+        {
+            string Date = "PackingDateTime";
+
+            if (PackageStatusID == 2)
+                Date = "StorageDateTime";
+            if (PackageStatusID == 3)
+                Date = "DispatchDateTime";
+            if (PackageStatusID == 4)
+                Date = "ExpeditionDateTime";
+            string Filter = " WHERE MegaOrderID IN (SELECT MegaOrderID FROM MainOrders WHERE MainOrderID IN (SELECT MainOrderID FROM Packages WHERE CAST(" + Date + " AS DATE) >= '" + DateFrom.ToString("yyyy-MM-dd") +
+                "' AND CAST(" + Date + " AS DATE) <= '" + DateTo.ToString("yyyy-MM-dd") + "'))"; ;
+
+            string SelectCommand = @"SELECT clients.ClientName, MegaOrders.OrderNumber, ClientsManagers.Name, MegaOrders.ConfirmDateTime, MegaOrders.TransportCost, MegaOrders.TotalCost, CurrencyTypes.CurrencyType, MegaOrders.Rate, MegaOrders.PaymentRate, MegaOrders.CurrencyTransportCost, MegaOrders.CurrencyTotalCost
+            FROM            MegaOrders INNER JOIN
+                                     infiniu2_marketingreference.dbo.Clients AS clients ON MegaOrders.ClientID = clients.ClientID INNER JOIN
+                                     infiniu2_marketingreference.dbo.ClientsManagers AS ClientsManagers ON clients.ManagerID = ClientsManagers.ManagerID INNER JOIN
+                                     infiniu2_catalog.dbo.CurrencyTypes AS CurrencyTypes ON MegaOrders.CurrencyTypeID = CurrencyTypes.CurrencyTypeID
+            " + Filter + @" AND (MegaOrders.TransportCost > 0)
+            ORDER BY clients.ClientName, MegaOrders.OrderNumber";
+            using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.MarketingOrdersConnectionString))
+            {
+                TransportCostDT.Clear();
+                DA.Fill(TransportCostDT);
             }
         }
 
@@ -10013,7 +10241,7 @@ ORDER BY infiniu2_zovreference.dbo.Clients.ClientName, MainOrders.DocNumber";
         {
             get
             {
-                return TransportDT.Rows.Count > 0;
+                return TransportCostDT.Rows.Count > 0;
             }
         }
 
@@ -10182,58 +10410,84 @@ ORDER BY infiniu2_zovreference.dbo.Clients.ClientName, MainOrders.DocNumber";
             sheet1.SetMargin(HSSFSheet.TopMargin, (double).20);
             sheet1.SetMargin(HSSFSheet.BottomMargin, (double).20);
 
-            sheet1.SetColumnWidth(0, 71 * 256);
-            sheet1.SetColumnWidth(1, 13 * 256);
-            sheet1.SetColumnWidth(2, 13 * 256);
-            sheet1.SetColumnWidth(3, 14 * 256);
-            sheet1.SetColumnWidth(4, 14 * 256);
-            sheet1.SetColumnWidth(5, 14 * 256);
-            sheet1.SetColumnWidth(6, 14 * 256);
+            int DisplayIndex = 0;
+            sheet1.SetColumnWidth(DisplayIndex++, 40 * 256);
+            sheet1.SetColumnWidth(DisplayIndex++, 9 * 256);
+            sheet1.SetColumnWidth(DisplayIndex++, 15 * 256);
+            sheet1.SetColumnWidth(DisplayIndex++, 14 * 256);
+            sheet1.SetColumnWidth(DisplayIndex++, 14 * 256);
+            sheet1.SetColumnWidth(DisplayIndex++, 14 * 256);
+            sheet1.SetColumnWidth(DisplayIndex++, 9 * 256);
+            sheet1.SetColumnWidth(DisplayIndex++, 9 * 256);
+            sheet1.SetColumnWidth(DisplayIndex++, 9 * 256);
+            sheet1.SetColumnWidth(DisplayIndex++, 13 * 256);
+            sheet1.SetColumnWidth(DisplayIndex++, 13 * 256);
 
             HSSFCell Cell1;
 
-            if (TransportDT.Rows.Count > 0)
+            DisplayIndex = 0;
+            if (TransportCostDT.Rows.Count > 0)
             {
                 pos += 2;
 
-                Cell1 = sheet1.CreateRow(pos).CreateCell(0);
+                Cell1 = sheet1.CreateRow(pos).CreateCell(DisplayIndex++);
                 Cell1.SetCellValue("Клиент");
                 Cell1.CellStyle = SimpleHeaderCS;
 
-                Cell1 = sheet1.CreateRow(pos).CreateCell(1);
+                Cell1 = sheet1.CreateRow(pos).CreateCell(DisplayIndex++);
                 Cell1.SetCellValue("№ заказа");
                 Cell1.CellStyle = SimpleHeaderCS;
 
-                Cell1 = sheet1.CreateRow(pos).CreateCell(2);
+                Cell1 = sheet1.CreateRow(pos).CreateCell(DisplayIndex++);
                 Cell1.SetCellValue("Менеджер");
                 Cell1.CellStyle = SimpleHeaderCS;
 
-                Cell1 = sheet1.CreateRow(pos).CreateCell(3);
+                Cell1 = sheet1.CreateRow(pos).CreateCell(DisplayIndex++);
                 Cell1.SetCellValue("Дата согласования");
                 Cell1.CellStyle = SimpleHeaderCS;
 
-                Cell1 = sheet1.CreateRow(pos).CreateCell(4);
+                Cell1 = sheet1.CreateRow(pos).CreateCell(DisplayIndex++);
                 Cell1.SetCellValue("Сумма транспорта");
                 Cell1.CellStyle = SimpleHeaderCS;
 
-                Cell1 = sheet1.CreateRow(pos).CreateCell(5);
+                Cell1 = sheet1.CreateRow(pos).CreateCell(DisplayIndex++);
+                Cell1.SetCellValue("Сумма заказа");
+                Cell1.CellStyle = SimpleHeaderCS;
+
+                Cell1 = sheet1.CreateRow(pos).CreateCell(DisplayIndex++);
+                Cell1.SetCellValue("Валюта");
+                Cell1.CellStyle = SimpleHeaderCS;
+
+                Cell1 = sheet1.CreateRow(pos).CreateCell(DisplayIndex++);
+                Cell1.SetCellValue("Курс");
+                Cell1.CellStyle = SimpleHeaderCS;
+
+                Cell1 = sheet1.CreateRow(pos).CreateCell(DisplayIndex++);
+                Cell1.SetCellValue("Расчетный курс");
+                Cell1.CellStyle = SimpleHeaderCS;
+
+                Cell1 = sheet1.CreateRow(pos).CreateCell(DisplayIndex++);
+                Cell1.SetCellValue("Итого сумма транспорта");
+                Cell1.CellStyle = SimpleHeaderCS;
+
+                Cell1 = sheet1.CreateRow(pos).CreateCell(DisplayIndex++);
                 Cell1.SetCellValue("Итого сумма заказа");
                 Cell1.CellStyle = SimpleHeaderCS;
 
                 pos++;
 
-                int ColumnCount = TransportDT.Columns.Count;
-                for (int x = 0; x < TransportDT.Rows.Count; x++)
+                int ColumnCount = TransportCostDT.Columns.Count;
+                for (int x = 0; x < TransportCostDT.Rows.Count; x++)
                 {
 
                     for (int y = 0; y < ColumnCount; y++)
                     {
-                        Type t = TransportDT.Rows[x][y].GetType();
+                        Type t = TransportCostDT.Rows[x][y].GetType();
 
                         if (t.Name == "Decimal")
                         {
                             HSSFCell cell = sheet1.CreateRow(pos).CreateCell(y);
-                            cell.SetCellValue(Convert.ToDouble(TransportDT.Rows[x][y]));
+                            cell.SetCellValue(Convert.ToDouble(TransportCostDT.Rows[x][y]));
 
                             cell.CellStyle = CountCS;
                             continue;
@@ -10241,13 +10495,13 @@ ORDER BY infiniu2_zovreference.dbo.Clients.ClientName, MainOrders.DocNumber";
                         if (t.Name == "Int32")
                         {
                             HSSFCell cell = sheet1.CreateRow(pos).CreateCell(y);
-                            cell.SetCellValue(Convert.ToInt32(TransportDT.Rows[x][y]));
+                            cell.SetCellValue(Convert.ToInt32(TransportCostDT.Rows[x][y]));
                             cell.CellStyle = SimpleCS;
                             continue;
                         }
                         if (t.Name == "Boolean")
                         {
-                            bool b = Convert.ToBoolean(TransportDT.Rows[x][y]);
+                            bool b = Convert.ToBoolean(TransportCostDT.Rows[x][y]);
                             string str = "Да";
                             if (!b)
                                 str = "Нет";
@@ -10258,7 +10512,7 @@ ORDER BY infiniu2_zovreference.dbo.Clients.ClientName, MainOrders.DocNumber";
                         }
                         if (t.Name == "DateTime")
                         {
-                            string dateTime = Convert.ToDateTime(TransportDT.Rows[x][y]).ToShortDateString();
+                            string dateTime = Convert.ToDateTime(TransportCostDT.Rows[x][y]).ToShortDateString();
                             HSSFCell cell = sheet1.CreateRow(pos).CreateCell(y);
                             cell.SetCellValue(dateTime);
                             cell.CellStyle = SimpleCS;
@@ -10268,7 +10522,449 @@ ORDER BY infiniu2_zovreference.dbo.Clients.ClientName, MainOrders.DocNumber";
                         if (t.Name == "String" || t.Name == "DBNull")
                         {
                             HSSFCell cell = sheet1.CreateRow(pos).CreateCell(y);
-                            cell.SetCellValue(TransportDT.Rows[x][y].ToString());
+                            cell.SetCellValue(TransportCostDT.Rows[x][y].ToString());
+                            cell.CellStyle = SimpleCS;
+                            continue;
+                        }
+                    }
+                    pos++;
+                }
+
+                string tempFolder = System.Environment.GetEnvironmentVariable("TEMP");
+                FileInfo file = new FileInfo(tempFolder + @"\" + FileName + ".xls");
+                int j = 1;
+                while (file.Exists == true)
+                {
+                    file = new FileInfo(tempFolder + @"\" + FileName + "(" + j++ + ").xls");
+                }
+
+                FileStream NewFile = new FileStream(file.FullName, FileMode.Create);
+                hssfworkbook.Write(NewFile);
+                NewFile.Close();
+
+                System.Diagnostics.Process.Start(file.FullName);
+            }
+        }
+    }
+
+    public class AdditionalCostReport
+    {
+        DataTable AdditionalCostDT = null;
+
+        public AdditionalCostReport()
+        {
+            AdditionalCostDT = new DataTable();
+        }
+
+        public void FilterByOrderDate(DateTime DateFrom, DateTime DateTo)
+        {
+            string Filter = " WHERE CAST(NewMegaOrders.OrderDate AS date) >= '" + DateFrom.ToString("yyyy-MM-dd") +
+                " 00:00' AND CAST(NewMegaOrders.OrderDate AS date) <= '" + DateTo.ToString("yyyy-MM-dd") + " 23:59'";
+
+            string SelectCommand = @"SELECT clients.ClientName, NewMegaOrders.OrderNumber, ClientsManagers.Name, NewMegaOrders.ConfirmDateTime, NewMegaOrders.AdditionalCost, NewMegaOrders.TotalCost, CurrencyTypes.CurrencyType,  NewMegaOrders.Rate, NewMegaOrders.PaymentRate,NewMegaOrders.CurrencyAdditionalCost, NewMegaOrders.CurrencyTotalCost
+            FROM            NewMegaOrders INNER JOIN
+                                     infiniu2_marketingreference.dbo.Clients AS clients ON NewMegaOrders.ClientID = clients.ClientID INNER JOIN
+                                     infiniu2_marketingreference.dbo.ClientsManagers AS ClientsManagers ON clients.ManagerID = ClientsManagers.ManagerID INNER JOIN
+                                     infiniu2_catalog.dbo.CurrencyTypes AS CurrencyTypes ON NewMegaOrders.CurrencyTypeID = CurrencyTypes.CurrencyTypeID
+            " + Filter + @" AND (NewMegaOrders.AdditionalCost > 0)
+            ORDER BY clients.ClientName, NewMegaOrders.OrderNumber";
+            using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.MarketingOrdersConnectionString))
+            {
+                AdditionalCostDT.Clear();
+                DA.Fill(AdditionalCostDT);
+            }
+        }
+        
+        public void FilterByConfirmDate(DateTime DateFrom, DateTime DateTo)
+        {
+            string Filter = " WHERE CAST(MegaOrders.ConfirmDateTime AS date) >= '" + DateFrom.ToString("yyyy-MM-dd") +
+                " 00:00' AND CAST(MegaOrders.ConfirmDateTime AS date) <= '" + DateTo.ToString("yyyy-MM-dd") + " 23:59'";
+
+            string SelectCommand = @"SELECT clients.ClientName, MegaOrders.OrderNumber, ClientsManagers.Name, MegaOrders.ConfirmDateTime, MegaOrders.AdditionalCost, MegaOrders.TotalCost, CurrencyTypes.CurrencyType, MegaOrders.Rate, MegaOrders.PaymentRate, MegaOrders.CurrencyAdditionalCost, MegaOrders.CurrencyTotalCost
+            FROM            MegaOrders INNER JOIN
+                                     infiniu2_marketingreference.dbo.Clients AS clients ON MegaOrders.ClientID = clients.ClientID INNER JOIN
+                                     infiniu2_marketingreference.dbo.ClientsManagers AS ClientsManagers ON clients.ManagerID = ClientsManagers.ManagerID INNER JOIN
+                                     infiniu2_catalog.dbo.CurrencyTypes AS CurrencyTypes ON MegaOrders.CurrencyTypeID = CurrencyTypes.CurrencyTypeID
+            " + Filter + @" AND (MegaOrders.AdditionalCost > 0)
+            ORDER BY clients.ClientName, MegaOrders.OrderNumber";
+            using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.MarketingOrdersConnectionString))
+            {
+                AdditionalCostDT.Clear();
+                DA.Fill(AdditionalCostDT);
+            }
+        }
+        
+        public void FilterByPlanDispatch(DateTime DateFrom, DateTime DateTo)
+        {
+            string Filter = " WHERE ((CAST(ProfilDispatchDate AS DATE) >= '" + DateFrom.ToString("yyyy-MM-dd") +
+                    "' AND CAST(ProfilDispatchDate AS DATE) <= '" + DateTo.ToString("yyyy-MM-dd") + "')" +
+                    " OR (CAST(TPSDispatchDate AS DATE) >= '" + DateFrom.ToString("yyyy-MM-dd") +
+                    "' AND CAST(TPSDispatchDate AS DATE) <= '" + DateTo.ToString("yyyy-MM-dd") + "')) ";
+
+            string SelectCommand = @"SELECT clients.ClientName, MegaOrders.OrderNumber, ClientsManagers.Name, MegaOrders.ConfirmDateTime, MegaOrders.AdditionalCost, MegaOrders.TotalCost,CurrencyTypes.CurrencyType,  MegaOrders.Rate, MegaOrders.PaymentRate, MegaOrders.CurrencyAdditionalCost, MegaOrders.CurrencyTotalCost
+            FROM            MegaOrders INNER JOIN
+                                     infiniu2_marketingreference.dbo.Clients AS clients ON MegaOrders.ClientID = clients.ClientID INNER JOIN
+                                     infiniu2_marketingreference.dbo.ClientsManagers AS ClientsManagers ON clients.ManagerID = ClientsManagers.ManagerID INNER JOIN
+                                     infiniu2_catalog.dbo.CurrencyTypes AS CurrencyTypes ON MegaOrders.CurrencyTypeID = CurrencyTypes.CurrencyTypeID
+            " + Filter + @" AND (MegaOrders.AdditionalCost > 0)
+            ORDER BY clients.ClientName, MegaOrders.OrderNumber";
+            using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.MarketingOrdersConnectionString))
+            {
+                AdditionalCostDT.Clear();
+                DA.Fill(AdditionalCostDT);
+            }
+        }
+        
+        public void FilterByOnProduction(DateTime DateFrom, DateTime DateTo)
+        {
+            string Filter = " WHERE ((CAST(ProfilOnProductionDate AS Date) >= '" + DateFrom.ToString("yyyy-MM-dd") + "' AND CAST(ProfilOnProductionDate AS Date) <= '" + DateTo.ToString("yyyy-MM-dd") +
+                    "') OR (CAST(TPSOnProductionDate AS Date) >= '" + DateFrom.ToString("yyyy-MM-dd") + "' AND CAST(TPSOnProductionDate AS Date) <= '" + DateTo.ToString("yyyy-MM-dd") + "'))";
+            string SelectCommand = @"SELECT clients.ClientName, MegaOrders.OrderNumber, ClientsManagers.Name, MegaOrders.ConfirmDateTime, MegaOrders.AdditionalCost, MegaOrders.TotalCost,  CurrencyTypes.CurrencyType, MegaOrders.Rate, MegaOrders.PaymentRate,MegaOrders.CurrencyAdditionalCost, MegaOrders.CurrencyTotalCost
+            FROM            MegaOrders INNER JOIN
+                                     infiniu2_marketingreference.dbo.Clients AS clients ON MegaOrders.ClientID = clients.ClientID INNER JOIN
+                                     infiniu2_marketingreference.dbo.ClientsManagers AS ClientsManagers ON clients.ManagerID = ClientsManagers.ManagerID INNER JOIN
+                                     infiniu2_catalog.dbo.CurrencyTypes AS CurrencyTypes ON MegaOrders.CurrencyTypeID = CurrencyTypes.CurrencyTypeID
+            " + Filter + @" AND (MegaOrders.AdditionalCost > 0)
+            ORDER BY clients.ClientName, MegaOrders.OrderNumber";
+            using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.MarketingOrdersConnectionString))
+            {
+                AdditionalCostDT.Clear();
+                DA.Fill(AdditionalCostDT);
+            }
+        }
+        
+        public void FilterByOnAgreement(DateTime DateFrom, DateTime DateTo)
+        {
+            string Filter = " WHERE CAST(MegaOrders.OnAgreementDateTime AS date) >= '" + DateFrom.ToString("yyyy-MM-dd") +
+                " 00:00' AND CAST(MegaOrders.OnAgreementDateTime AS date) <= '" + DateTo.ToString("yyyy-MM-dd") + " 23:59'";
+
+            string SelectCommand = @"SELECT clients.ClientName, MegaOrders.OrderNumber, ClientsManagers.Name, MegaOrders.ConfirmDateTime, MegaOrders.AdditionalCost, MegaOrders.TotalCost, CurrencyTypes.CurrencyType, MegaOrders.Rate, MegaOrders.PaymentRate, MegaOrders.CurrencyAdditionalCost, MegaOrders.CurrencyTotalCost
+            FROM            MegaOrders INNER JOIN
+                                     infiniu2_marketingreference.dbo.Clients AS clients ON MegaOrders.ClientID = clients.ClientID INNER JOIN
+                                     infiniu2_marketingreference.dbo.ClientsManagers AS ClientsManagers ON clients.ManagerID = ClientsManagers.ManagerID INNER JOIN
+                                     infiniu2_catalog.dbo.CurrencyTypes AS CurrencyTypes ON MegaOrders.CurrencyTypeID = CurrencyTypes.CurrencyTypeID
+            " + Filter + @" AND (MegaOrders.AdditionalCost > 0)
+            ORDER BY clients.ClientName, MegaOrders.OrderNumber";
+            using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.MarketingOrdersConnectionString))
+            {
+                AdditionalCostDT.Clear();
+                DA.Fill(AdditionalCostDT);
+            }
+        }
+        
+        public void FilterByPackages(DateTime DateFrom, DateTime DateTo, int PackageStatusID)
+        {
+            string Date = "PackingDateTime";
+
+            if (PackageStatusID == 2)
+                Date = "StorageDateTime";
+            if (PackageStatusID == 3)
+                Date = "DispatchDateTime";
+            if (PackageStatusID == 4)
+                Date = "ExpeditionDateTime";
+            string Filter = " WHERE MegaOrderID IN (SELECT MegaOrderID FROM MainOrders WHERE MainOrderID IN (SELECT MainOrderID FROM Packages WHERE CAST(" + Date + " AS DATE) >= '" + DateFrom.ToString("yyyy-MM-dd") +
+                "' AND CAST(" + Date + " AS DATE) <= '" + DateTo.ToString("yyyy-MM-dd") + "'))"; ;
+
+            string SelectCommand = @"SELECT clients.ClientName, MegaOrders.OrderNumber, ClientsManagers.Name, MegaOrders.ConfirmDateTime, MegaOrders.AdditionalCost, MegaOrders.TotalCost, CurrencyTypes.CurrencyType, MegaOrders.Rate, MegaOrders.PaymentRate, MegaOrders.CurrencyAdditionalCost, MegaOrders.CurrencyTotalCost
+            FROM            MegaOrders INNER JOIN
+                                     infiniu2_marketingreference.dbo.Clients AS clients ON MegaOrders.ClientID = clients.ClientID INNER JOIN
+                                     infiniu2_marketingreference.dbo.ClientsManagers AS ClientsManagers ON clients.ManagerID = ClientsManagers.ManagerID INNER JOIN
+                                     infiniu2_catalog.dbo.CurrencyTypes AS CurrencyTypes ON MegaOrders.CurrencyTypeID = CurrencyTypes.CurrencyTypeID
+            " + Filter + @" AND (MegaOrders.AdditionalCost > 0)
+            ORDER BY clients.ClientName, MegaOrders.OrderNumber";
+            using (SqlDataAdapter DA = new SqlDataAdapter(SelectCommand, ConnectionStrings.MarketingOrdersConnectionString))
+            {
+                AdditionalCostDT.Clear();
+                DA.Fill(AdditionalCostDT);
+            }
+        }
+
+        public bool HasData
+        {
+            get
+            {
+                return AdditionalCostDT.Rows.Count > 0;
+            }
+        }
+
+        public void Report(string FileName)
+        {
+            int pos = 0;
+
+            //Export to excel
+            HSSFWorkbook hssfworkbook = new HSSFWorkbook();
+
+            ////create a entry of DocumentSummaryInformation
+            DocumentSummaryInformation dsi = PropertySetFactory.CreateDocumentSummaryInformation();
+            dsi.Company = "NPOI Team";
+            hssfworkbook.DocumentSummaryInformation = dsi;
+
+            ////create a entry of SummaryInformation
+            SummaryInformation si = PropertySetFactory.CreateSummaryInformation();
+            si.Subject = "NPOI SDK Example";
+            hssfworkbook.SummaryInformation = si;
+
+            #region Create fonts and styles
+
+            HSSFFont HeaderF1 = hssfworkbook.CreateFont();
+            HeaderF1.FontHeightInPoints = 11;
+            HeaderF1.Boldweight = 11 * 256;
+            HeaderF1.FontName = "Calibri";
+
+            HSSFFont HeaderF2 = hssfworkbook.CreateFont();
+            HeaderF2.FontHeightInPoints = 10;
+            HeaderF2.Boldweight = 10 * 256;
+            HeaderF2.FontName = "Calibri";
+
+            HSSFFont HeaderF3 = hssfworkbook.CreateFont();
+            HeaderF3.FontHeightInPoints = 9;
+            HeaderF3.Boldweight = 9 * 256;
+            HeaderF3.FontName = "Calibri";
+
+            HSSFFont SimpleF = hssfworkbook.CreateFont();
+            SimpleF.FontHeightInPoints = 10;
+            SimpleF.FontName = "Calibri";
+
+            HSSFCellStyle SimpleCS = hssfworkbook.CreateCellStyle();
+            SimpleCS.BorderBottom = HSSFCellStyle.BORDER_THIN;
+            SimpleCS.BottomBorderColor = HSSFColor.BLACK.index;
+            SimpleCS.BorderLeft = HSSFCellStyle.BORDER_THIN;
+            SimpleCS.LeftBorderColor = HSSFColor.BLACK.index;
+            SimpleCS.BorderRight = HSSFCellStyle.BORDER_THIN;
+            SimpleCS.RightBorderColor = HSSFColor.BLACK.index;
+            SimpleCS.BorderTop = HSSFCellStyle.BORDER_THIN;
+            SimpleCS.TopBorderColor = HSSFColor.BLACK.index;
+            SimpleCS.SetFont(SimpleF);
+
+            HSSFCellStyle CountCS = hssfworkbook.CreateCellStyle();
+            CountCS.DataFormat = hssfworkbook.CreateDataFormat().GetFormat("### ### ##0.00");
+            CountCS.BorderBottom = HSSFCellStyle.BORDER_THIN;
+            CountCS.BottomBorderColor = HSSFColor.BLACK.index;
+            CountCS.BorderLeft = HSSFCellStyle.BORDER_THIN;
+            CountCS.LeftBorderColor = HSSFColor.BLACK.index;
+            CountCS.BorderRight = HSSFCellStyle.BORDER_THIN;
+            CountCS.RightBorderColor = HSSFColor.BLACK.index;
+            CountCS.BorderTop = HSSFCellStyle.BORDER_THIN;
+            CountCS.TopBorderColor = HSSFColor.BLACK.index;
+            CountCS.SetFont(SimpleF);
+
+            HSSFCellStyle WeightCS = hssfworkbook.CreateCellStyle();
+            WeightCS.DataFormat = hssfworkbook.CreateDataFormat().GetFormat("### ### ##0.00");
+            WeightCS.BorderBottom = HSSFCellStyle.BORDER_THIN;
+            WeightCS.BottomBorderColor = HSSFColor.BLACK.index;
+            WeightCS.BorderLeft = HSSFCellStyle.BORDER_THIN;
+            WeightCS.LeftBorderColor = HSSFColor.BLACK.index;
+            WeightCS.BorderRight = HSSFCellStyle.BORDER_THIN;
+            WeightCS.RightBorderColor = HSSFColor.BLACK.index;
+            WeightCS.BorderTop = HSSFCellStyle.BORDER_THIN;
+            WeightCS.TopBorderColor = HSSFColor.BLACK.index;
+            WeightCS.SetFont(SimpleF);
+
+            HSSFCellStyle PriceBelCS = hssfworkbook.CreateCellStyle();
+            PriceBelCS.DataFormat = hssfworkbook.CreateDataFormat().GetFormat("### ### ##0");
+            PriceBelCS.BorderBottom = HSSFCellStyle.BORDER_THIN;
+            PriceBelCS.BottomBorderColor = HSSFColor.BLACK.index;
+            PriceBelCS.BorderLeft = HSSFCellStyle.BORDER_THIN;
+            PriceBelCS.LeftBorderColor = HSSFColor.BLACK.index;
+            PriceBelCS.BorderRight = HSSFCellStyle.BORDER_THIN;
+            PriceBelCS.RightBorderColor = HSSFColor.BLACK.index;
+            PriceBelCS.BorderTop = HSSFCellStyle.BORDER_THIN;
+            PriceBelCS.TopBorderColor = HSSFColor.BLACK.index;
+            PriceBelCS.SetFont(SimpleF);
+
+            HSSFCellStyle PriceForeignCS = hssfworkbook.CreateCellStyle();
+            PriceForeignCS.DataFormat = hssfworkbook.CreateDataFormat().GetFormat("### ### ##0.00");
+            PriceForeignCS.BorderBottom = HSSFCellStyle.BORDER_THIN;
+            PriceForeignCS.BottomBorderColor = HSSFColor.BLACK.index;
+            PriceForeignCS.BorderLeft = HSSFCellStyle.BORDER_THIN;
+            PriceForeignCS.LeftBorderColor = HSSFColor.BLACK.index;
+            PriceForeignCS.BorderRight = HSSFCellStyle.BORDER_THIN;
+            PriceForeignCS.RightBorderColor = HSSFColor.BLACK.index;
+            PriceForeignCS.BorderTop = HSSFCellStyle.BORDER_THIN;
+            PriceForeignCS.TopBorderColor = HSSFColor.BLACK.index;
+            PriceForeignCS.SetFont(SimpleF);
+
+            HSSFCellStyle ReportCS1 = hssfworkbook.CreateCellStyle();
+            ReportCS1.BorderBottom = HSSFCellStyle.BORDER_MEDIUM;
+            ReportCS1.BottomBorderColor = HSSFColor.BLACK.index;
+            ReportCS1.SetFont(HeaderF1);
+
+            HSSFCellStyle ReportCS2 = hssfworkbook.CreateCellStyle();
+            ReportCS2.SetFont(HeaderF1);
+
+            HSSFCellStyle SummaryWithoutBorderBelCS = hssfworkbook.CreateCellStyle();
+            SummaryWithoutBorderBelCS.DataFormat = hssfworkbook.CreateDataFormat().GetFormat("### ### ##0");
+            SummaryWithoutBorderBelCS.SetFont(HeaderF2);
+
+            HSSFCellStyle SummaryWithoutBorderForeignCS = hssfworkbook.CreateCellStyle();
+            SummaryWithoutBorderForeignCS.DataFormat = hssfworkbook.CreateDataFormat().GetFormat("### ### ##0.00");
+            SummaryWithoutBorderForeignCS.SetFont(HeaderF2);
+
+            HSSFCellStyle SummaryWeightCS = hssfworkbook.CreateCellStyle();
+            SummaryWeightCS.DataFormat = hssfworkbook.CreateDataFormat().GetFormat("### ### ##0.00");
+            SummaryWeightCS.SetFont(HeaderF2);
+
+            HSSFCellStyle SummaryWithBorderBelCS = hssfworkbook.CreateCellStyle();
+            SummaryWithBorderBelCS.DataFormat = hssfworkbook.CreateDataFormat().GetFormat("### ### ##0");
+            SummaryWithBorderBelCS.BorderBottom = HSSFCellStyle.BORDER_THIN;
+            SummaryWithBorderBelCS.BottomBorderColor = HSSFColor.BLACK.index;
+            SummaryWithBorderBelCS.BorderLeft = HSSFCellStyle.BORDER_THIN;
+            SummaryWithBorderBelCS.LeftBorderColor = HSSFColor.BLACK.index;
+            SummaryWithBorderBelCS.BorderRight = HSSFCellStyle.BORDER_THIN;
+            SummaryWithBorderBelCS.RightBorderColor = HSSFColor.BLACK.index;
+            SummaryWithBorderBelCS.BorderTop = HSSFCellStyle.BORDER_THIN;
+            SummaryWithBorderBelCS.TopBorderColor = HSSFColor.BLACK.index;
+            SummaryWithBorderBelCS.WrapText = true;
+            SummaryWithBorderBelCS.SetFont(HeaderF2);
+
+            HSSFCellStyle SummaryWithBorderForeignCS = hssfworkbook.CreateCellStyle();
+            SummaryWithBorderForeignCS.DataFormat = hssfworkbook.CreateDataFormat().GetFormat("### ### ##0.00");
+            SummaryWithBorderForeignCS.BorderBottom = HSSFCellStyle.BORDER_THIN;
+            SummaryWithBorderForeignCS.BottomBorderColor = HSSFColor.BLACK.index;
+            SummaryWithBorderForeignCS.BorderLeft = HSSFCellStyle.BORDER_THIN;
+            SummaryWithBorderForeignCS.LeftBorderColor = HSSFColor.BLACK.index;
+            SummaryWithBorderForeignCS.BorderRight = HSSFCellStyle.BORDER_THIN;
+            SummaryWithBorderForeignCS.RightBorderColor = HSSFColor.BLACK.index;
+            SummaryWithBorderForeignCS.BorderTop = HSSFCellStyle.BORDER_THIN;
+            SummaryWithBorderForeignCS.TopBorderColor = HSSFColor.BLACK.index;
+            SummaryWithBorderForeignCS.WrapText = true;
+            SummaryWithBorderForeignCS.SetFont(HeaderF2);
+
+            HSSFCellStyle SimpleHeaderCS = hssfworkbook.CreateCellStyle();
+            SimpleHeaderCS.BorderBottom = HSSFCellStyle.BORDER_MEDIUM;
+            SimpleHeaderCS.BottomBorderColor = HSSFColor.BLACK.index;
+            SimpleHeaderCS.BorderLeft = HSSFCellStyle.BORDER_MEDIUM;
+            SimpleHeaderCS.LeftBorderColor = HSSFColor.BLACK.index;
+            SimpleHeaderCS.BorderRight = HSSFCellStyle.BORDER_MEDIUM;
+            SimpleHeaderCS.RightBorderColor = HSSFColor.BLACK.index;
+            SimpleHeaderCS.BorderTop = HSSFCellStyle.BORDER_MEDIUM;
+            SimpleHeaderCS.TopBorderColor = HSSFColor.BLACK.index;
+            //SimpleHeaderCS.WrapText = true;
+            SimpleHeaderCS.SetFont(HeaderF3);
+
+            #endregion
+
+            HSSFSheet sheet1 = hssfworkbook.CreateSheet("Маркетинг");
+            sheet1.PrintSetup.PaperSize = (short)PaperSizeType.A4;
+
+            sheet1.SetMargin(HSSFSheet.LeftMargin, (double).12);
+            sheet1.SetMargin(HSSFSheet.RightMargin, (double).07);
+            sheet1.SetMargin(HSSFSheet.TopMargin, (double).20);
+            sheet1.SetMargin(HSSFSheet.BottomMargin, (double).20);
+
+            int DisplayIndex = 0;
+            sheet1.SetColumnWidth(DisplayIndex++, 40 * 256);
+            sheet1.SetColumnWidth(DisplayIndex++, 9 * 256);
+            sheet1.SetColumnWidth(DisplayIndex++, 15 * 256);
+            sheet1.SetColumnWidth(DisplayIndex++, 14 * 256);
+            sheet1.SetColumnWidth(DisplayIndex++, 14 * 256);
+            sheet1.SetColumnWidth(DisplayIndex++, 14 * 256);
+            sheet1.SetColumnWidth(DisplayIndex++, 9 * 256);
+            sheet1.SetColumnWidth(DisplayIndex++, 9 * 256);
+            sheet1.SetColumnWidth(DisplayIndex++, 9 * 256);
+            sheet1.SetColumnWidth(DisplayIndex++, 13 * 256);
+            sheet1.SetColumnWidth(DisplayIndex++, 13 * 256);
+
+            HSSFCell Cell1;
+
+            DisplayIndex = 0;
+            if (AdditionalCostDT.Rows.Count > 0)
+            {
+                pos += 2;
+
+                Cell1 = sheet1.CreateRow(pos).CreateCell(DisplayIndex++);
+                Cell1.SetCellValue("Клиент");
+                Cell1.CellStyle = SimpleHeaderCS;
+
+                Cell1 = sheet1.CreateRow(pos).CreateCell(DisplayIndex++);
+                Cell1.SetCellValue("№ заказа");
+                Cell1.CellStyle = SimpleHeaderCS;
+
+                Cell1 = sheet1.CreateRow(pos).CreateCell(DisplayIndex++);
+                Cell1.SetCellValue("Менеджер");
+                Cell1.CellStyle = SimpleHeaderCS;
+
+                Cell1 = sheet1.CreateRow(pos).CreateCell(DisplayIndex++);
+                Cell1.SetCellValue("Дата согласования");
+                Cell1.CellStyle = SimpleHeaderCS;
+
+                Cell1 = sheet1.CreateRow(pos).CreateCell(DisplayIndex++);
+                Cell1.SetCellValue("Сумма дополнительно");
+                Cell1.CellStyle = SimpleHeaderCS;
+
+                Cell1 = sheet1.CreateRow(pos).CreateCell(DisplayIndex++);
+                Cell1.SetCellValue("Сумма заказа");
+                Cell1.CellStyle = SimpleHeaderCS;
+
+                Cell1 = sheet1.CreateRow(pos).CreateCell(DisplayIndex++);
+                Cell1.SetCellValue("Валюта");
+                Cell1.CellStyle = SimpleHeaderCS;
+
+                Cell1 = sheet1.CreateRow(pos).CreateCell(DisplayIndex++);
+                Cell1.SetCellValue("Курс");
+                Cell1.CellStyle = SimpleHeaderCS;
+
+                Cell1 = sheet1.CreateRow(pos).CreateCell(DisplayIndex++);
+                Cell1.SetCellValue("Расчетный курс");
+                Cell1.CellStyle = SimpleHeaderCS;
+
+                Cell1 = sheet1.CreateRow(pos).CreateCell(DisplayIndex++);
+                Cell1.SetCellValue("Итого сумма дополнительно");
+                Cell1.CellStyle = SimpleHeaderCS;
+
+                Cell1 = sheet1.CreateRow(pos).CreateCell(DisplayIndex++);
+                Cell1.SetCellValue("Итого сумма заказа");
+                Cell1.CellStyle = SimpleHeaderCS;
+
+                pos++;
+
+                int ColumnCount = AdditionalCostDT.Columns.Count;
+                for (int x = 0; x < AdditionalCostDT.Rows.Count; x++)
+                {
+
+                    for (int y = 0; y < ColumnCount; y++)
+                    {
+                        Type t = AdditionalCostDT.Rows[x][y].GetType();
+
+                        if (t.Name == "Decimal")
+                        {
+                            HSSFCell cell = sheet1.CreateRow(pos).CreateCell(y);
+                            cell.SetCellValue(Convert.ToDouble(AdditionalCostDT.Rows[x][y]));
+
+                            cell.CellStyle = CountCS;
+                            continue;
+                        }
+                        if (t.Name == "Int32")
+                        {
+                            HSSFCell cell = sheet1.CreateRow(pos).CreateCell(y);
+                            cell.SetCellValue(Convert.ToInt32(AdditionalCostDT.Rows[x][y]));
+                            cell.CellStyle = SimpleCS;
+                            continue;
+                        }
+                        if (t.Name == "Boolean")
+                        {
+                            bool b = Convert.ToBoolean(AdditionalCostDT.Rows[x][y]);
+                            string str = "Да";
+                            if (!b)
+                                str = "Нет";
+                            HSSFCell cell = sheet1.CreateRow(pos).CreateCell(y);
+                            cell.SetCellValue(str);
+                            cell.CellStyle = SimpleCS;
+                            continue;
+                        }
+                        if (t.Name == "DateTime")
+                        {
+                            string dateTime = Convert.ToDateTime(AdditionalCostDT.Rows[x][y]).ToShortDateString();
+                            HSSFCell cell = sheet1.CreateRow(pos).CreateCell(y);
+                            cell.SetCellValue(dateTime);
+                            cell.CellStyle = SimpleCS;
+                            continue;
+                        }
+
+                        if (t.Name == "String" || t.Name == "DBNull")
+                        {
+                            HSSFCell cell = sheet1.CreateRow(pos).CreateCell(y);
+                            cell.SetCellValue(AdditionalCostDT.Rows[x][y].ToString());
                             cell.CellStyle = SimpleCS;
                             continue;
                         }
@@ -29559,7 +30255,7 @@ ORDER BY infiniu2_marketingreference.dbo.Clients.ClientName, dbo.MegaOrders.Orde
 
         public void FilterByPlanDispatch(
             DateTime DateFrom, DateTime DateTo,
-            int FactoryID, bool IsSample, bool IsNotSample)
+            int FactoryID, bool IsSample, bool IsNotSample, bool IsTransport)
         {
             string MClientFilter = string.Empty;
 
@@ -29628,11 +30324,14 @@ ORDER BY infiniu2_marketingreference.dbo.Clients.ClientName, dbo.MegaOrders.Orde
                 if (IsNotSample)
                     MDSampleFilter = " DecorOrders.IsSample = 0 AND";
             }
+            string TransportFilter = " ";
+            if (IsTransport)
+                TransportFilter = " AND MegaOrders.TransportCost<>0 ";
             MarketingSelectCommand = "SELECT MegaOrders.MegaOrderID, MegaOrders.OrderNumber, FrontsOrders.MainOrderID, FrontsOrders.FrontID, FrontsOrders.PatinaID, FrontsOrders.ColorID, FrontsOrders.InsetTypeID," +
                 " FrontsOrders.InsetColorID, FrontsOrders.TechnoColorID, FrontsOrders.TechnoInsetTypeID, FrontsOrders.TechnoInsetColorID, FrontsOrders.Height, FrontsOrders.Width," +
                 " FrontsOrders.Count, FrontsOrders.IsSample, FrontsOrders.Square, FrontsOrders.Cost, MeasureID, ClientID, JoinMainOrders.ZOVClientID FROM FrontsOrders" +
                 " INNER JOIN MainOrders ON FrontsOrders.MainOrderID = MainOrders.MainOrderID" +
-                " INNER JOIN MegaOrders ON MainOrders.MegaOrderID = MegaOrders.MegaOrderID" +
+                " INNER JOIN MegaOrders ON MainOrders.MegaOrderID = MegaOrders.MegaOrderID" + TransportFilter +
                 " LEFT OUTER JOIN JoinMainOrders ON FrontsOrders.MainOrderID = JoinMainOrders.MarketMainOrderID" +
                 " INNER JOIN infiniu2_catalog.dbo.FrontsConfig" +
                 " ON FrontsOrders.FrontConfigID=infiniu2_catalog.dbo.FrontsConfig.FrontConfigID" +
@@ -29660,7 +30359,7 @@ ORDER BY infiniu2_marketingreference.dbo.Clients.ClientName, dbo.MegaOrders.Orde
                 " DecorOrders.Height, DecorOrders.Length, DecorOrders.Width, DecorOrders.Count, DecorOrders.IsSample, DecorOrders.Cost, DecorOrders.DecorConfigID, " +
                 " MeasureID, ClientID, JoinMainOrders.ZOVClientID FROM DecorOrders" +
                 " INNER JOIN MainOrders ON DecorOrders.MainOrderID = MainOrders.MainOrderID" +
-                " INNER JOIN MegaOrders ON MainOrders.MegaOrderID = MegaOrders.MegaOrderID" +
+                " INNER JOIN MegaOrders ON MainOrders.MegaOrderID = MegaOrders.MegaOrderID" + TransportFilter +
                 " LEFT OUTER JOIN JoinMainOrders ON DecorOrders.MainOrderID = JoinMainOrders.MarketMainOrderID" +
                 " INNER JOIN infiniu2_catalog.dbo.DecorConfig" +
                 " ON DecorOrders.DecorConfigID=infiniu2_catalog.dbo.DecorConfig.DecorConfigID" +
@@ -29682,7 +30381,7 @@ ORDER BY infiniu2_marketingreference.dbo.Clients.ClientName, dbo.MegaOrders.Orde
 
         public void FilterByOrderDate(
             DateTime DateFrom, DateTime DateTo,
-            int FactoryID, bool IsSample, bool IsNotSample)
+            int FactoryID, bool IsSample, bool IsNotSample, bool IsTransport)
         {
             string MClientFilter = string.Empty;
 
@@ -29741,11 +30440,14 @@ ORDER BY infiniu2_marketingreference.dbo.Clients.ClientName, dbo.MegaOrders.Orde
                 if (IsNotSample)
                     MDSampleFilter = " NewDecorOrders.IsSample = 0 AND";
             }
+            string TransportFilter = " ";
+            if (IsTransport)
+                TransportFilter = " AND NewMegaOrders.TransportCost<>0 ";
             MarketingSelectCommand = "SELECT NewMegaOrders.MegaOrderID, NewMegaOrders.OrderNumber, NewFrontsOrders.MainOrderID, NewFrontsOrders.FrontID, NewFrontsOrders.PatinaID, NewFrontsOrders.ColorID, NewFrontsOrders.InsetTypeID," +
                 " NewFrontsOrders.InsetColorID, NewFrontsOrders.TechnoColorID, NewFrontsOrders.TechnoInsetTypeID, NewFrontsOrders.TechnoInsetColorID, NewFrontsOrders.Height, NewFrontsOrders.Width," +
                 " NewFrontsOrders.Count, NewFrontsOrders.IsSample, NewFrontsOrders.Square, NewFrontsOrders.Cost, MeasureID, ClientID, JoinMainOrders.ZOVClientID FROM NewFrontsOrders" +
                 " INNER JOIN NewMainOrders ON NewFrontsOrders.MainOrderID = NewMainOrders.MainOrderID" +
-                " INNER JOIN NewMegaOrders ON NewMainOrders.MegaOrderID = NewMegaOrders.MegaOrderID" +
+                " INNER JOIN NewMegaOrders ON NewMainOrders.MegaOrderID = NewMegaOrders.MegaOrderID" + TransportFilter +
                 " LEFT OUTER JOIN JoinMainOrders ON NewFrontsOrders.MainOrderID = JoinMainOrders.MarketMainOrderID" +
                 " INNER JOIN infiniu2_catalog.dbo.FrontsConfig" +
                 " ON NewFrontsOrders.FrontConfigID=infiniu2_catalog.dbo.FrontsConfig.FrontConfigID" +
@@ -29773,7 +30475,7 @@ ORDER BY infiniu2_marketingreference.dbo.Clients.ClientName, dbo.MegaOrders.Orde
                 " NewDecorOrders.Height, NewDecorOrders.Length, NewDecorOrders.Width, NewDecorOrders.Count, NewDecorOrders.IsSample, NewDecorOrders.Cost, NewDecorOrders.DecorConfigID, " +
                 " MeasureID, ClientID, JoinMainOrders.ZOVClientID FROM NewDecorOrders" +
                 " INNER JOIN NewMainOrders ON NewDecorOrders.MainOrderID = NewMainOrders.MainOrderID" +
-                " INNER JOIN NewMegaOrders ON NewMainOrders.MegaOrderID = NewMegaOrders.MegaOrderID" +
+                " INNER JOIN NewMegaOrders ON NewMainOrders.MegaOrderID = NewMegaOrders.MegaOrderID" + TransportFilter +
                 " LEFT OUTER JOIN JoinMainOrders ON NewDecorOrders.MainOrderID = JoinMainOrders.MarketMainOrderID" +
                 " INNER JOIN infiniu2_catalog.dbo.DecorConfig" +
                 " ON NewDecorOrders.DecorConfigID=infiniu2_catalog.dbo.DecorConfig.DecorConfigID" +
@@ -29795,7 +30497,7 @@ ORDER BY infiniu2_marketingreference.dbo.Clients.ClientName, dbo.MegaOrders.Orde
 
         public void FilterByOnProduction(
             DateTime DateFrom, DateTime DateTo,
-            int FactoryID, bool IsSample, bool IsNotSample)
+            int FactoryID, bool IsSample, bool IsNotSample, bool IsTransport)
         {
             string MClientFilter = string.Empty;
 
@@ -29870,11 +30572,14 @@ ORDER BY infiniu2_marketingreference.dbo.Clients.ClientName, dbo.MegaOrders.Orde
                 if (IsNotSample)
                     MDSampleFilter = " DecorOrders.IsSample = 0 AND";
             }
+            string TransportFilter = " ";
+            if (IsTransport)
+                TransportFilter = " AND MegaOrders.TransportCost<>0 ";
             MarketingSelectCommand = "SELECT MegaOrders.MegaOrderID, MegaOrders.OrderNumber, FrontsOrders.MainOrderID, FrontsOrders.FrontID, FrontsOrders.PatinaID, FrontsOrders.ColorID, FrontsOrders.InsetTypeID," +
                 " FrontsOrders.InsetColorID, FrontsOrders.TechnoColorID, FrontsOrders.TechnoInsetTypeID, FrontsOrders.TechnoInsetColorID, FrontsOrders.Height, FrontsOrders.Width, " +
                 " FrontsOrders.Count, FrontsOrders.IsSample, FrontsOrders.Square, FrontsOrders.Cost, MeasureID, ClientID, JoinMainOrders.ZOVClientID FROM FrontsOrders" +
                 " INNER JOIN MainOrders ON FrontsOrders.MainOrderID = MainOrders.MainOrderID" +
-                " INNER JOIN MegaOrders ON MainOrders.MegaOrderID = MegaOrders.MegaOrderID" +
+                " INNER JOIN MegaOrders ON MainOrders.MegaOrderID = MegaOrders.MegaOrderID" + TransportFilter +
                 " LEFT OUTER JOIN JoinMainOrders ON FrontsOrders.MainOrderID = JoinMainOrders.MarketMainOrderID" +
                 " INNER JOIN infiniu2_catalog.dbo.FrontsConfig" +
                 " ON FrontsOrders.FrontConfigID=infiniu2_catalog.dbo.FrontsConfig.FrontConfigID" +
@@ -29903,7 +30608,7 @@ ORDER BY infiniu2_marketingreference.dbo.Clients.ClientName, dbo.MegaOrders.Orde
                 " DecorOrders.Height, DecorOrders.Length, DecorOrders.Width, DecorOrders.Count, DecorOrders.IsSample, DecorOrders.Cost, DecorOrders.DecorConfigID, " +
                 " MeasureID, ClientID, JoinMainOrders.ZOVClientID FROM DecorOrders" +
                 " INNER JOIN MainOrders ON DecorOrders.MainOrderID = MainOrders.MainOrderID" +
-                " INNER JOIN MegaOrders ON MainOrders.MegaOrderID = MegaOrders.MegaOrderID" +
+                " INNER JOIN MegaOrders ON MainOrders.MegaOrderID = MegaOrders.MegaOrderID" + TransportFilter +
                 " LEFT OUTER JOIN JoinMainOrders ON DecorOrders.MainOrderID = JoinMainOrders.MarketMainOrderID" +
                 " INNER JOIN infiniu2_catalog.dbo.DecorConfig" +
                 " ON DecorOrders.DecorConfigID=infiniu2_catalog.dbo.DecorConfig.DecorConfigID" +
@@ -29926,7 +30631,7 @@ ORDER BY infiniu2_marketingreference.dbo.Clients.ClientName, dbo.MegaOrders.Orde
 
         public void FilterByConfirmDate(
             DateTime DateFrom, DateTime DateTo,
-            int FactoryID, bool IsSample, bool IsNotSample)
+            int FactoryID, bool IsSample, bool IsNotSample, bool IsTransport)
         {
             string MClientFilter = string.Empty;
             string MFilter = string.Empty;
@@ -29985,11 +30690,14 @@ ORDER BY infiniu2_marketingreference.dbo.Clients.ClientName, dbo.MegaOrders.Orde
                 if (IsNotSample)
                     MDSampleFilter = " DecorOrders.IsSample = 0 AND";
             }
+            string TransportFilter = " ";
+            if (IsTransport)
+                TransportFilter = " AND MegaOrders.TransportCost<>0 ";
             MarketingSelectCommand = "SELECT MegaOrders.ConfirmDateTime, MegaOrders.MegaOrderID, MegaOrders.OrderNumber, FrontsOrders.MainOrderID, FrontsOrders.FrontID, FrontsOrders.PatinaID, FrontsOrders.ColorID, FrontsOrders.InsetTypeID," +
                 " FrontsOrders.InsetColorID, FrontsOrders.TechnoColorID, FrontsOrders.TechnoInsetTypeID, FrontsOrders.TechnoInsetColorID, FrontsOrders.Height, FrontsOrders.Width," +
                 " FrontsOrders.Count, FrontsOrders.IsSample, FrontsOrders.Square, FrontsOrders.Cost, MeasureID, ClientID, JoinMainOrders.ZOVClientID FROM FrontsOrders" +
                 " INNER JOIN MainOrders ON FrontsOrders.MainOrderID = MainOrders.MainOrderID" +
-                " INNER JOIN MegaOrders ON MainOrders.MegaOrderID = MegaOrders.MegaOrderID" +
+                " INNER JOIN MegaOrders ON MainOrders.MegaOrderID = MegaOrders.MegaOrderID" + TransportFilter +
                 " LEFT OUTER JOIN JoinMainOrders ON FrontsOrders.MainOrderID = JoinMainOrders.MarketMainOrderID" +
                 " INNER JOIN infiniu2_catalog.dbo.FrontsConfig" +
                 " ON FrontsOrders.FrontConfigID=infiniu2_catalog.dbo.FrontsConfig.FrontConfigID" +
@@ -30018,7 +30726,7 @@ ORDER BY infiniu2_marketingreference.dbo.Clients.ClientName, dbo.MegaOrders.Orde
                 " DecorOrders.Height, DecorOrders.Length, DecorOrders.Width, DecorOrders.Count, DecorOrders.IsSample, DecorOrders.Cost, DecorOrders.DecorConfigID, " +
                 " MeasureID, ClientID, JoinMainOrders.ZOVClientID FROM DecorOrders" +
                 " INNER JOIN MainOrders ON DecorOrders.MainOrderID = MainOrders.MainOrderID" +
-                " INNER JOIN MegaOrders ON MainOrders.MegaOrderID = MegaOrders.MegaOrderID" +
+                " INNER JOIN MegaOrders ON MainOrders.MegaOrderID = MegaOrders.MegaOrderID" + TransportFilter +
                 " LEFT OUTER JOIN JoinMainOrders ON DecorOrders.MainOrderID = JoinMainOrders.MarketMainOrderID" +
                 " INNER JOIN infiniu2_catalog.dbo.DecorConfig" +
                 " ON DecorOrders.DecorConfigID=infiniu2_catalog.dbo.DecorConfig.DecorConfigID" +
@@ -30041,7 +30749,7 @@ ORDER BY infiniu2_marketingreference.dbo.Clients.ClientName, dbo.MegaOrders.Orde
 
         public void FilterByOnAgreement(
             DateTime DateFrom, DateTime DateTo,
-            int FactoryID, bool IsSample, bool IsNotSample)
+            int FactoryID, bool IsSample, bool IsNotSample, bool IsTransport)
         {
             string MClientFilter = string.Empty;
             string MFilter = string.Empty;
@@ -30100,11 +30808,14 @@ ORDER BY infiniu2_marketingreference.dbo.Clients.ClientName, dbo.MegaOrders.Orde
                 if (IsNotSample)
                     MDSampleFilter = " DecorOrders.IsSample = 0 AND";
             }
+            string TransportFilter = " ";
+            if (IsTransport)
+                TransportFilter = " AND MegaOrders.TransportCost<>0 ";
             MarketingSelectCommand = "SELECT MegaOrders.OnAgreementDateTime, MegaOrders.MegaOrderID, MegaOrders.OrderNumber, FrontsOrders.MainOrderID, FrontsOrders.FrontID, FrontsOrders.PatinaID, FrontsOrders.ColorID, FrontsOrders.InsetTypeID," +
                 " FrontsOrders.InsetColorID, FrontsOrders.TechnoColorID, FrontsOrders.TechnoInsetTypeID, FrontsOrders.TechnoInsetColorID, FrontsOrders.Height, FrontsOrders.Width," +
                 " FrontsOrders.Count, FrontsOrders.IsSample, FrontsOrders.Square, FrontsOrders.Cost, MeasureID, ClientID, JoinMainOrders.ZOVClientID FROM FrontsOrders" +
                 " INNER JOIN MainOrders ON FrontsOrders.MainOrderID = MainOrders.MainOrderID" +
-                " INNER JOIN MegaOrders ON MainOrders.MegaOrderID = MegaOrders.MegaOrderID" +
+                " INNER JOIN MegaOrders ON MainOrders.MegaOrderID = MegaOrders.MegaOrderID" + TransportFilter +
                 " LEFT OUTER JOIN JoinMainOrders ON FrontsOrders.MainOrderID = JoinMainOrders.MarketMainOrderID" +
                 " INNER JOIN infiniu2_catalog.dbo.FrontsConfig" +
                 " ON FrontsOrders.FrontConfigID=infiniu2_catalog.dbo.FrontsConfig.FrontConfigID" +
@@ -30133,7 +30844,7 @@ ORDER BY infiniu2_marketingreference.dbo.Clients.ClientName, dbo.MegaOrders.Orde
                 " DecorOrders.Height, DecorOrders.Length, DecorOrders.Width, DecorOrders.Count, DecorOrders.IsSample, DecorOrders.Cost, DecorOrders.DecorConfigID, " +
                 " MeasureID, ClientID, JoinMainOrders.ZOVClientID FROM DecorOrders" +
                 " INNER JOIN MainOrders ON DecorOrders.MainOrderID = MainOrders.MainOrderID" +
-                " INNER JOIN MegaOrders ON MainOrders.MegaOrderID = MegaOrders.MegaOrderID" +
+                " INNER JOIN MegaOrders ON MainOrders.MegaOrderID = MegaOrders.MegaOrderID" + TransportFilter +
                 " LEFT OUTER JOIN JoinMainOrders ON DecorOrders.MainOrderID = JoinMainOrders.MarketMainOrderID" +
                 " INNER JOIN infiniu2_catalog.dbo.DecorConfig" +
                 " ON DecorOrders.DecorConfigID=infiniu2_catalog.dbo.DecorConfig.DecorConfigID" +
@@ -30157,7 +30868,7 @@ ORDER BY infiniu2_marketingreference.dbo.Clients.ClientName, dbo.MegaOrders.Orde
         public void FilterByPackages(
             DateTime DateFrom, DateTime DateTo,
             int PackageStatusID,
-            int FactoryID, bool IsSample, bool IsNotSample)
+            int FactoryID, bool IsSample, bool IsNotSample, bool IsTransport)
         {
             string MarketingSelectCommand = string.Empty;
             string MClientFilter = string.Empty;
@@ -30233,12 +30944,16 @@ ORDER BY infiniu2_marketingreference.dbo.Clients.ClientName, dbo.MegaOrders.Orde
                     MDSampleFilter = " AND DecorOrders.IsSample = 0";
             }
 
+            string TransportFilter = " ";
+            if (IsTransport)
+                TransportFilter = " AND MegaOrders.TransportCost<>0 ";
+
             MarketingSelectCommand = "SELECT MegaOrders.MegaOrderID, MegaOrders.OrderNumber, FrontsOrdersID, FrontsOrders.MainOrderID, FrontsOrders.FrontID, FrontsOrders.PatinaID, FrontsOrders.ColorID, FrontsOrders.InsetTypeID," +
                 " FrontsOrders.InsetColorID, FrontsOrders.TechnoColorID, FrontsOrders.TechnoInsetTypeID, FrontsOrders.TechnoInsetColorID, FrontsOrders.Height, FrontsOrders.Width," +
                 " PackageDetails.Count, FrontsOrders.IsSample, (FrontsOrders.Square * PackageDetails.Count / FrontsOrders.Count) AS Square, MeasureID, (FrontsOrders.Cost * PackageDetails.Count / FrontsOrders.Count) AS Cost, ClientID, JoinMainOrders.ZOVClientID FROM PackageDetails" +
                 " INNER JOIN FrontsOrders ON PackageDetails.OrderID = FrontsOrders.FrontsOrdersID" +
                 " INNER JOIN MainOrders ON FrontsOrders.MainOrderID = MainOrders.MainOrderID" +
-                " INNER JOIN MegaOrders ON MainOrders.MegaOrderID = MegaOrders.MegaOrderID" +
+                " INNER JOIN MegaOrders ON MainOrders.MegaOrderID = MegaOrders.MegaOrderID" + TransportFilter + 
                 " LEFT OUTER JOIN JoinMainOrders ON FrontsOrders.MainOrderID = JoinMainOrders.MarketMainOrderID" +
                 " INNER JOIN infiniu2_catalog.dbo.FrontsConfig" +
                 " ON FrontsOrders.FrontConfigID=infiniu2_catalog.dbo.FrontsConfig.FrontConfigID" +
@@ -30267,7 +30982,7 @@ ORDER BY infiniu2_marketingreference.dbo.Clients.ClientName, dbo.MegaOrders.Orde
                 " MeasureID, ClientID, JoinMainOrders.ZOVClientID FROM PackageDetails" +
                 " INNER JOIN DecorOrders ON PackageDetails.OrderID = DecorOrders.DecorOrderID" +
                 " INNER JOIN MainOrders ON DecorOrders.MainOrderID = MainOrders.MainOrderID" +
-                " INNER JOIN MegaOrders ON MainOrders.MegaOrderID = MegaOrders.MegaOrderID" +
+                " INNER JOIN MegaOrders ON MainOrders.MegaOrderID = MegaOrders.MegaOrderID" + TransportFilter +
                 " LEFT OUTER JOIN JoinMainOrders ON DecorOrders.MainOrderID = JoinMainOrders.MarketMainOrderID" +
                 " INNER JOIN infiniu2_catalog.dbo.DecorConfig" +
                 " ON DecorOrders.DecorConfigID=infiniu2_catalog.dbo.DecorConfig.DecorConfigID" +
@@ -38728,32 +39443,6 @@ ORDER BY infiniu2_marketingreference.dbo.Clients.ClientName, dbo.MegaOrders.Orde
 
             if (DecorOrdersDataTable.Rows.Count > 0)
                 DecorReport(hssfworkbook, HeaderStyle, SimpleFont, SimpleCellStyle, cellStyle, DecorOrdersDataTable, ZOV);
-
-            string ReportFilePath = string.Empty;
-
-            //ReportFilePath = ReadReportFilePath("StatisticsReportPath.config");
-
-            //ReportFilePath = Application.StartupPath + @"\" + "Отчеты";
-
-            //if (!(Directory.Exists(ReportFilePath)))
-            //{
-            //    Directory.CreateDirectory(ReportFilePath);
-            //}
-
-            //ReportFilePath = Application.StartupPath + @"\Отчеты\" + @"Статистика\";
-
-            //if (!(Directory.Exists(ReportFilePath)))
-            //{
-            //    Directory.CreateDirectory(ReportFilePath);
-            //}
-
-            //FileInfo file = new FileInfo(ReportFilePath + FileName + ".xls");
-
-            //int j = 1;
-            //while (file.Exists == true)
-            //{
-            //    file = new FileInfo(ReportFilePath + FileName + "(" + j++ + ").xls");
-            //}
 
             string tempFolder = System.Environment.GetEnvironmentVariable("TEMP");
             FileInfo file = new FileInfo(tempFolder + @"\" + FileName + ".xls");

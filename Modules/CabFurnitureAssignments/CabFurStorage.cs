@@ -1730,8 +1730,8 @@ namespace Infinium.Modules.CabFurnitureAssignments
             Tuple<int, int> tuple = new Tuple<int, int>(PackedCount, AllCount);
             return tuple;
         }
-        
-        private bool IsCabFurAssembled(int MegaOrderID)
+
+        public bool IsCabFurAssembled(int MegaOrderID)
         {
             int PackedCount = 0;
             int AllCount = 0;
@@ -1946,6 +1946,7 @@ namespace Infinium.Modules.CabFurnitureAssignments
             dt.Dispose();
 
             FillPackagesInfo();
+            MegaOrdersBS.MoveFirst();
         }
 
         public void FilterAssembleByDate(DateTime Date)

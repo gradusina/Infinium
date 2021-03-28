@@ -54,10 +54,10 @@
             this.BreakStartLabel = new System.Windows.Forms.Label();
             this.DayStartLabel = new System.Windows.Forms.Label();
             this.DayLengthLabel = new System.Windows.Forms.Label();
-            this.WorkDaysGrid = new Infinium.PercentageDataGrid();
             this.MainOrdersTabControl = new DevExpress.XtraTab.XtraTabControl();
             this.xtraTabPage1 = new DevExpress.XtraTab.XtraTabPage();
             this.panel4 = new System.Windows.Forms.Panel();
+            this.WorkDaysGrid = new Infinium.PercentageDataGrid();
             this.kryptonBorderEdge4 = new ComponentFactory.Krypton.Toolkit.KryptonBorderEdge();
             this.xtraTabPage2 = new DevExpress.XtraTab.XtraTabPage();
             this.panel3 = new System.Windows.Forms.Panel();
@@ -107,15 +107,21 @@
             this.kryptonContextMenuItem2 = new ComponentFactory.Krypton.Toolkit.KryptonContextMenuItem();
             this.kryptonContextMenuItem4 = new ComponentFactory.Krypton.Toolkit.KryptonContextMenuItem();
             this.kryptonContextMenuItem5 = new ComponentFactory.Krypton.Toolkit.KryptonContextMenuItem();
+            this.kryptonContextMenuItem6 = new ComponentFactory.Krypton.Toolkit.KryptonContextMenuItem();
             this.kryptonContextMenuItems2 = new ComponentFactory.Krypton.Toolkit.KryptonContextMenuItems();
             this.kryptonContextMenuItem3 = new ComponentFactory.Krypton.Toolkit.KryptonContextMenuItem();
+            this.cmiSaveSpares = new ComponentFactory.Krypton.Toolkit.KryptonContextMenuItem();
+            this.kryptonContextMenuItem12 = new ComponentFactory.Krypton.Toolkit.KryptonContextMenuItem();
+            this.kryptonContextMenuItems8 = new ComponentFactory.Krypton.Toolkit.KryptonContextMenuItems();
+            this.kryptonContextMenuItem7 = new ComponentFactory.Krypton.Toolkit.KryptonContextMenuItem();
+            this.kryptonContextMenu8 = new ComponentFactory.Krypton.Toolkit.KryptonContextMenu();
             this.NavigatePanel.SuspendLayout();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.WorkDaysGrid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.MainOrdersTabControl)).BeginInit();
             this.MainOrdersTabControl.SuspendLayout();
             this.xtraTabPage1.SuspendLayout();
             this.panel4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.WorkDaysGrid)).BeginInit();
             this.xtraTabPage2.SuspendLayout();
             this.panel3.SuspendLayout();
             this.xtraTabPage3.SuspendLayout();
@@ -472,55 +478,6 @@
             this.DayLengthLabel.Text = "4 часа : 15 мин";
             this.DayLengthLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // WorkDaysGrid
-            // 
-            this.WorkDaysGrid.AllowUserToAddRows = false;
-            this.WorkDaysGrid.AllowUserToDeleteRows = false;
-            this.WorkDaysGrid.AllowUserToResizeColumns = false;
-            this.WorkDaysGrid.AllowUserToResizeRows = false;
-            this.WorkDaysGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.WorkDaysGrid.BackText = "Нет данных";
-            this.WorkDaysGrid.ColumnHeadersHeight = 40;
-            this.WorkDaysGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            this.WorkDaysGrid.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.WorkDaysGrid.Location = new System.Drawing.Point(0, 0);
-            this.WorkDaysGrid.MultiSelect = false;
-            this.WorkDaysGrid.Name = "WorkDaysGrid";
-            this.WorkDaysGrid.PercentLineWidth = 0;
-            this.WorkDaysGrid.ReadOnly = true;
-            this.WorkDaysGrid.RowHeadersVisible = false;
-            this.WorkDaysGrid.RowTemplate.Height = 30;
-            this.WorkDaysGrid.SelectedColorStyle = Infinium.PercentageDataGrid.ColorStyle.Orange;
-            this.WorkDaysGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.WorkDaysGrid.Size = new System.Drawing.Size(1229, 605);
-            this.WorkDaysGrid.StandardStyle = true;
-            this.WorkDaysGrid.StateCommon.Background.Color1 = System.Drawing.Color.White;
-            this.WorkDaysGrid.StateCommon.Background.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
-            this.WorkDaysGrid.StateCommon.BackStyle = ComponentFactory.Krypton.Toolkit.PaletteBackStyle.GridBackgroundList;
-            this.WorkDaysGrid.StateCommon.DataCell.Back.Color1 = System.Drawing.Color.White;
-            this.WorkDaysGrid.StateCommon.DataCell.Border.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(210)))), ((int)(((byte)(210)))), ((int)(((byte)(210)))));
-            this.WorkDaysGrid.StateCommon.DataCell.Border.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
-            this.WorkDaysGrid.StateCommon.DataCell.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
-            this.WorkDaysGrid.StateCommon.DataCell.Content.Color1 = System.Drawing.Color.Black;
-            this.WorkDaysGrid.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.WorkDaysGrid.StateCommon.HeaderColumn.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
-            this.WorkDaysGrid.StateCommon.HeaderColumn.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
-            this.WorkDaysGrid.StateCommon.HeaderColumn.Border.Color1 = System.Drawing.Color.Black;
-            this.WorkDaysGrid.StateCommon.HeaderColumn.Border.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
-            this.WorkDaysGrid.StateCommon.HeaderColumn.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)(((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
-            this.WorkDaysGrid.StateCommon.HeaderColumn.Content.Color1 = System.Drawing.Color.White;
-            this.WorkDaysGrid.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
-            this.WorkDaysGrid.StateSelected.DataCell.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(253)))), ((int)(((byte)(164)))), ((int)(((byte)(61)))));
-            this.WorkDaysGrid.StateSelected.DataCell.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
-            this.WorkDaysGrid.StateSelected.DataCell.Content.Color1 = System.Drawing.Color.White;
-            this.WorkDaysGrid.TabIndex = 46;
-            this.WorkDaysGrid.UseCustomBackColor = false;
-            this.WorkDaysGrid.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.WorkDaysGrid_CellMouseDown);
-            this.WorkDaysGrid.SelectionChanged += new System.EventHandler(this.WorkDaysGrid_SelectionChanged);
-            // 
             // MainOrdersTabControl
             // 
             this.MainOrdersTabControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -570,6 +527,71 @@
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(1231, 607);
             this.panel4.TabIndex = 46;
+            // 
+            // WorkDaysGrid
+            // 
+            this.WorkDaysGrid.AllowUserToAddRows = false;
+            this.WorkDaysGrid.AllowUserToDeleteRows = false;
+            this.WorkDaysGrid.AllowUserToResizeColumns = false;
+            this.WorkDaysGrid.AllowUserToResizeRows = false;
+            this.WorkDaysGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.WorkDaysGrid.BackText = "Нет данных";
+            this.WorkDaysGrid.ColumnHeadersHeight = 40;
+            this.WorkDaysGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            this.WorkDaysGrid.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.WorkDaysGrid.HideOuterBorders = true;
+            this.WorkDaysGrid.Location = new System.Drawing.Point(0, 0);
+            this.WorkDaysGrid.Name = "WorkDaysGrid";
+            this.WorkDaysGrid.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2010Black;
+            this.WorkDaysGrid.PercentLineWidth = 0;
+            this.WorkDaysGrid.ReadOnly = true;
+            this.WorkDaysGrid.RowHeadersVisible = false;
+            this.WorkDaysGrid.RowTemplate.Height = 30;
+            this.WorkDaysGrid.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.WorkDaysGrid.SelectedColorStyle = Infinium.PercentageDataGrid.ColorStyle.Orange;
+            this.WorkDaysGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.WorkDaysGrid.Size = new System.Drawing.Size(1229, 605);
+            this.WorkDaysGrid.StandardStyle = false;
+            this.WorkDaysGrid.StateCommon.Background.Color1 = System.Drawing.Color.White;
+            this.WorkDaysGrid.StateCommon.Background.Color2 = System.Drawing.Color.Transparent;
+            this.WorkDaysGrid.StateCommon.Background.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
+            this.WorkDaysGrid.StateCommon.BackStyle = ComponentFactory.Krypton.Toolkit.PaletteBackStyle.GridBackgroundList;
+            this.WorkDaysGrid.StateCommon.DataCell.Back.Color1 = System.Drawing.Color.White;
+            this.WorkDaysGrid.StateCommon.DataCell.Back.Color2 = System.Drawing.Color.Transparent;
+            this.WorkDaysGrid.StateCommon.DataCell.Border.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(210)))), ((int)(((byte)(210)))), ((int)(((byte)(210)))));
+            this.WorkDaysGrid.StateCommon.DataCell.Border.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
+            this.WorkDaysGrid.StateCommon.DataCell.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.WorkDaysGrid.StateCommon.DataCell.Content.Color1 = System.Drawing.Color.Black;
+            this.WorkDaysGrid.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.WorkDaysGrid.StateCommon.HeaderColumn.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
+            this.WorkDaysGrid.StateCommon.HeaderColumn.Back.Color2 = System.Drawing.Color.Transparent;
+            this.WorkDaysGrid.StateCommon.HeaderColumn.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
+            this.WorkDaysGrid.StateCommon.HeaderColumn.Border.Color1 = System.Drawing.Color.Black;
+            this.WorkDaysGrid.StateCommon.HeaderColumn.Border.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
+            this.WorkDaysGrid.StateCommon.HeaderColumn.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.WorkDaysGrid.StateCommon.HeaderColumn.Border.Width = 1;
+            this.WorkDaysGrid.StateCommon.HeaderColumn.Content.Color1 = System.Drawing.Color.White;
+            this.WorkDaysGrid.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.WorkDaysGrid.StateCommon.HeaderColumn.Content.MultiLine = ComponentFactory.Krypton.Toolkit.InheritBool.True;
+            this.WorkDaysGrid.StateCommon.HeaderColumn.Content.MultiLineH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
+            this.WorkDaysGrid.StateCommon.HeaderColumn.Content.TextH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
+            this.WorkDaysGrid.StateSelected.DataCell.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(158)))), ((int)(((byte)(0)))));
+            this.WorkDaysGrid.StateSelected.DataCell.Back.Color2 = System.Drawing.Color.Transparent;
+            this.WorkDaysGrid.StateSelected.DataCell.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
+            this.WorkDaysGrid.StateSelected.DataCell.Content.Color1 = System.Drawing.Color.White;
+            this.WorkDaysGrid.StateSelected.HeaderRow.Border.Color1 = System.Drawing.Color.White;
+            this.WorkDaysGrid.StateSelected.HeaderRow.Border.Color2 = System.Drawing.Color.White;
+            this.WorkDaysGrid.StateSelected.HeaderRow.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.WorkDaysGrid.TabIndex = 58;
+            this.WorkDaysGrid.UseCustomBackColor = true;
+            this.WorkDaysGrid.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.WorkDaysGrid_CellMouseDown);
+            this.WorkDaysGrid.SelectionChanged += new System.EventHandler(this.WorkDaysGrid_SelectionChanged);
             // 
             // kryptonBorderEdge4
             // 
@@ -1162,7 +1184,7 @@
             // 
             // kryptonButton2
             // 
-            this.kryptonButton2.Location = new System.Drawing.Point(331, 13);
+            this.kryptonButton2.Location = new System.Drawing.Point(293, 13);
             this.kryptonButton2.Name = "kryptonButton2";
             this.kryptonButton2.Palette = this.StandardButtonsPalette;
             this.kryptonButton2.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Custom;
@@ -1237,11 +1259,12 @@
             this.absencesDataGrid.TabIndex = 47;
             this.absencesDataGrid.UseCustomBackColor = false;
             this.absencesDataGrid.VirtualMode = true;
+            this.absencesDataGrid.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.absencesDataGrid_CellMouseDown);
             this.absencesDataGrid.DefaultValuesNeeded += new System.Windows.Forms.DataGridViewRowEventHandler(this.absencesDataGrid_DefaultValuesNeeded);
             // 
             // kryptonButton3
             // 
-            this.kryptonButton3.Location = new System.Drawing.Point(293, 13);
+            this.kryptonButton3.Location = new System.Drawing.Point(609, 13);
             this.kryptonButton3.Name = "kryptonButton3";
             this.kryptonButton3.Palette = this.StandardButtonsPalette;
             this.kryptonButton3.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Custom;
@@ -1258,6 +1281,7 @@
             this.kryptonButton3.TabStop = false;
             this.kryptonButton3.Values.Image = ((System.Drawing.Image)(resources.GetObject("kryptonButton3.Values.Image")));
             this.kryptonButton3.Values.Text = "";
+            this.kryptonButton3.Visible = false;
             this.kryptonButton3.Click += new System.EventHandler(this.kryptonButton3_Click);
             // 
             // YearComboBox2
@@ -1302,6 +1326,7 @@
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.MonthComboBox2.StateTracking.Item.Border.Rounding = 0;
             this.MonthComboBox2.TabIndex = 258;
+            this.MonthComboBox2.SelectedIndexChanged += new System.EventHandler(this.MonthComboBox2_SelectedIndexChanged);
             // 
             // kryptonBorderEdge6
             // 
@@ -1323,9 +1348,10 @@
             // 
             this.kryptonContextMenuItems1.Items.AddRange(new ComponentFactory.Krypton.Toolkit.KryptonContextMenuItemBase[] {
             this.kryptonContextMenuItem1,
-            this.kryptonContextMenuItem2,
             this.kryptonContextMenuItem4,
-            this.kryptonContextMenuItem5});
+            this.kryptonContextMenuItem5,
+            this.kryptonContextMenuItem2,
+            this.kryptonContextMenuItem6});
             // 
             // kryptonContextMenuItem1
             // 
@@ -1348,9 +1374,41 @@
             this.kryptonContextMenuItem5.Text = "Изменить окончание перерыва";
             this.kryptonContextMenuItem5.Click += new System.EventHandler(this.kryptonContextMenuItem5_Click);
             // 
+            // kryptonContextMenuItem6
+            // 
+            this.kryptonContextMenuItem6.Text = "Изменить В табель";
+            this.kryptonContextMenuItem6.Click += new System.EventHandler(this.kryptonContextMenuItem6_Click);
+            // 
             // kryptonContextMenuItem3
             // 
             this.kryptonContextMenuItem3.Text = "Menu Item";
+            // 
+            // cmiSaveSpares
+            // 
+            this.cmiSaveSpares.Text = "Сохранить";
+            this.cmiSaveSpares.Click += new System.EventHandler(this.kryptonButton2_Click);
+            // 
+            // kryptonContextMenuItem12
+            // 
+            this.kryptonContextMenuItem12.Text = "Удалить";
+            this.kryptonContextMenuItem12.Click += new System.EventHandler(this.kryptonContextMenuItem12_Click);
+            // 
+            // kryptonContextMenuItems8
+            // 
+            this.kryptonContextMenuItems8.Items.AddRange(new ComponentFactory.Krypton.Toolkit.KryptonContextMenuItemBase[] {
+            this.cmiSaveSpares,
+            this.kryptonContextMenuItem12,
+            this.kryptonContextMenuItem7});
+            // 
+            // kryptonContextMenuItem7
+            // 
+            this.kryptonContextMenuItem7.Text = "Копировать";
+            this.kryptonContextMenuItem7.Click += new System.EventHandler(this.kryptonContextMenuItem7_Click);
+            // 
+            // kryptonContextMenu8
+            // 
+            this.kryptonContextMenu8.Items.AddRange(new ComponentFactory.Krypton.Toolkit.KryptonContextMenuItemBase[] {
+            this.kryptonContextMenuItems8});
             // 
             // WorkTimeRegisterForm
             // 
@@ -1377,11 +1435,11 @@
             this.NavigatePanel.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.WorkDaysGrid)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.MainOrdersTabControl)).EndInit();
             this.MainOrdersTabControl.ResumeLayout(false);
             this.xtraTabPage1.ResumeLayout(false);
             this.panel4.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.WorkDaysGrid)).EndInit();
             this.xtraTabPage2.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             this.xtraTabPage3.ResumeLayout(false);
@@ -1416,7 +1474,6 @@
         private ComponentFactory.Krypton.Toolkit.KryptonCheckButton PasswordButton;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Timer DayTimer;
-        private PercentageDataGrid WorkDaysGrid;
         private ComponentFactory.Krypton.Toolkit.KryptonPalette StandardButtonsPalette;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label7;
@@ -1486,5 +1543,12 @@
         private ComponentFactory.Krypton.Toolkit.KryptonRadioButton kryptonRadioButton2;
         private ComponentFactory.Krypton.Toolkit.KryptonRadioButton kryptonRadioButton12;
         private ComponentFactory.Krypton.Toolkit.KryptonRadioButton kryptonRadioButton13;
+        private ComponentFactory.Krypton.Toolkit.KryptonContextMenuItem cmiSaveSpares;
+        private ComponentFactory.Krypton.Toolkit.KryptonContextMenuItem kryptonContextMenuItem12;
+        private ComponentFactory.Krypton.Toolkit.KryptonContextMenuItems kryptonContextMenuItems8;
+        private ComponentFactory.Krypton.Toolkit.KryptonContextMenu kryptonContextMenu8;
+        private PercentageDataGrid WorkDaysGrid;
+        private ComponentFactory.Krypton.Toolkit.KryptonContextMenuItem kryptonContextMenuItem6;
+        private ComponentFactory.Krypton.Toolkit.KryptonContextMenuItem kryptonContextMenuItem7;
     }
 }

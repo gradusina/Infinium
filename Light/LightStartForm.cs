@@ -13,42 +13,29 @@ namespace Infinium
         //NotifyForm NotifyForm = null;
 
         public Form TopForm = null;
-
-        LoginForm LoginForm;
-
-        const int eHide = 2;
-        const int eShow = 1;
-        const int eClose = 3;
-        const int eMainMenu = 4;
+        private LoginForm LoginForm;
+        private const int eHide = 2;
+        private const int eShow = 1;
+        private const int eClose = 3;
+        private const int eMainMenu = 4;
 
         public static bool NotifyShowed = false;
-
-        int FormEvent = 0;
-
-        bool bC = false;
-
-        bool bNeedSplash = false;
-
-        ActiveNotifySystem ActiveNotifySystem;
-
-        InfiniumStart InfiniumStart;
-
-        bool Logout = false;
-
-        bool FirstLoad = true;
-
-        System.Globalization.CultureInfo CI = new System.Globalization.CultureInfo("ru-RU");
+        private int FormEvent = 0;
+        private bool bC = false;
+        private bool bNeedSplash = false;
+        private ActiveNotifySystem ActiveNotifySystem;
+        private InfiniumStart InfiniumStart;
+        private bool Logout = false;
+        private bool FirstLoad = true;
+        private System.Globalization.CultureInfo CI = new System.Globalization.CultureInfo("ru-RU");
 
         [DllImport("user32.dll")]
-        static extern IntPtr GetActiveWindow();
+        private static extern IntPtr GetActiveWindow();
 
-        Thread NotifyThread;
-
-        TablesManager TM;
-
-        int iRefreshTime = 150000;
-
-        NotifyForm NotifyForm;
+        private Thread NotifyThread;
+        private TablesManager TM;
+        private int iRefreshTime = 150000;
+        private NotifyForm NotifyForm;
 
         public LightStartForm(LoginForm tLoginForm)
         {
@@ -58,7 +45,7 @@ namespace Infinium
 
             TM = new TablesManager();
 
-            this.MaximumSize = Screen.PrimaryScreen.WorkingArea.Size;
+            MaximumSize = Screen.PrimaryScreen.WorkingArea.Size;
 
             //CurrentTimeLabel.Text = DateTime.Now.ToString("HH:mm");
             //CurrentDayOfWeekLabel.Text = DateTime.Now.ToString("dddd");
@@ -91,14 +78,14 @@ namespace Infinium
 
             TopForm = null;
             if (TopForm != null)
-                OnLineControl.IamOnline(ActiveNotifySystem.GetModuleIDByForm(this.TopForm.Name), true);
+                OnLineControl.IamOnline(ActiveNotifySystem.GetModuleIDByForm(TopForm.Name), true);
             else
                 OnLineControl.IamOnline(0, true);
 
             OnLineControl.SetOffline();
 
             NotifyRefreshT = new NotifyRefresh(FuckingNotify);
-            OnlineFuck = new OnlineFuckingDelegate(this.GetTopMostAndModuleName);
+            OnlineFuck = new OnlineFuckingDelegate(GetTopMostAndModuleName);
 
             NotifyThread = new Thread(delegate () { NotifyCheck(); });
             NotifyThread.Start();
@@ -106,11 +93,12 @@ namespace Infinium
             while (!SplashForm.bCreated) ;
         }
 
-        OnlineStruct OS;
+        private OnlineStruct OS;
 
-        delegate void NotifyRefresh();
+        private delegate void NotifyRefresh();
+
         //delegate void ANSNotifyContainerRefresh();
-        delegate OnlineStruct OnlineFuckingDelegate();
+        private delegate OnlineStruct OnlineFuckingDelegate();
 
         private OnlineFuckingDelegate OnlineFuck;
         private NotifyRefresh NotifyRefreshT;
@@ -168,7 +156,7 @@ namespace Infinium
                     if (GetActiveWindow() == TopForm.Handle)
                         return;
 
-            if (GetActiveWindow() == this.Handle)//только звук
+            if (GetActiveWindow() == Handle)//только звук
             {
                 return;
             }
@@ -261,7 +249,7 @@ namespace Infinium
         {
             if (TopForm == null)
             {
-                if (GetActiveWindow() == this.Handle)
+                if (GetActiveWindow() == Handle)
                 {
                     OS.TopMost = true;
                     OS.ModuleID = 0;
@@ -274,14 +262,14 @@ namespace Infinium
             }
             else
             {
-                if (TopForm == this && GetActiveWindow() != this.Handle)
+                if (TopForm == this && GetActiveWindow() != Handle)
                 {
                     OS.TopMost = false;
                     OS.ModuleID = 0;
                 }
                 else
                 {
-                    if (GetActiveWindow() == this.Handle)
+                    if (GetActiveWindow() == Handle)
                     {
                         OS.TopMost = true;
                         OS.ModuleID = 0;
@@ -290,12 +278,12 @@ namespace Infinium
                         if ((int)GetActiveWindow() == 0)
                     {
                         OS.TopMost = false;
-                        OS.ModuleID = ActiveNotifySystem.GetModuleIDByForm(this.TopForm.Name);
+                        OS.ModuleID = ActiveNotifySystem.GetModuleIDByForm(TopForm.Name);
                     }
                     else
                     {
                         OS.TopMost = true;
-                        OS.ModuleID = ActiveNotifySystem.GetModuleIDByForm(this.TopForm.Name);
+                        OS.ModuleID = ActiveNotifySystem.GetModuleIDByForm(TopForm.Name);
                     }
                 }
             }
@@ -307,13 +295,13 @@ namespace Infinium
         {
             while (true)
             {
-                if (this.IsHandleCreated)
+                if (IsHandleCreated)
                 {
                     //OnLineControl.SetOffline();
                     //OnLineControl.SetOfflineClient();
                     //OnLineControl.SetOfflineManager();
 
-                    this.Invoke(OnlineFuck);
+                    Invoke(OnlineFuck);
                     OnLineControl.IamOnline(OS.ModuleID, OS.TopMost);
 
                     if (ActiveNotifySystem.IsNewUpdates(Security.CurrentUserID) > 0)
@@ -322,7 +310,7 @@ namespace Infinium
                         {
                             ActiveNotifySystem.FillUpdates();
 
-                            this.Invoke(NotifyRefreshT);
+                            Invoke(NotifyRefreshT);
                         }
                     }
                 }
@@ -334,13 +322,13 @@ namespace Infinium
 
         public void HideForm(Form Form)
         {
-            this.Activate();
-            this.TopMost = true;
+            Activate();
+            TopMost = true;
             Form.Hide();
 
             LoginForm.Activate();
-            this.TopMost = false;
-            this.Activate();
+            TopMost = false;
+            Activate();
 
             TopForm = null;
 
@@ -350,13 +338,13 @@ namespace Infinium
 
         public void CloseForm(Form Form)
         {
-            this.Activate();
-            this.TopMost = true;
+            Activate();
+            TopMost = true;
             Form.Hide();
 
             LoginForm.Activate();
-            this.TopMost = false;
-            this.Activate();
+            TopMost = false;
+            Activate();
 
             TopForm = null;
 
@@ -381,7 +369,7 @@ namespace Infinium
             //without animation
             if (!DatabaseConfigsManager.Animation)
             {
-                this.Opacity = 1;
+                Opacity = 1;
                 AnimateTimer.Enabled = false;
 
                 if (FormEvent == eClose)
@@ -389,7 +377,7 @@ namespace Infinium
                     LoginForm.Show();
                     LoginForm.ShowInTaskbar = true;
                     //LoginForm.CloseJournalRec();
-                    this.Close();
+                    Close();
                     return;
                 }
 
@@ -404,10 +392,10 @@ namespace Infinium
                 }
                 else
                 {
-                    this.Activate();
-                    this.TopMost = true;
+                    Activate();
+                    TopMost = true;
                     AnimateTimer.Enabled = false;
-                    this.TopMost = false;
+                    TopMost = false;
                 }
 
                 bNeedSplash = true;
@@ -421,9 +409,9 @@ namespace Infinium
             //with animation
             if (FormEvent == eClose)
             {
-                if (Convert.ToDecimal(this.Opacity) != Convert.ToDecimal(0.00))
+                if (Convert.ToDecimal(Opacity) != Convert.ToDecimal(0.00))
                 {
-                    this.Opacity = Convert.ToDouble(Convert.ToDecimal(this.Opacity) - Convert.ToDecimal(0.05));
+                    Opacity = Convert.ToDouble(Convert.ToDecimal(Opacity) - Convert.ToDecimal(0.05));
                 }
                 else
                 {
@@ -431,14 +419,14 @@ namespace Infinium
                     LoginForm.Show();
                     LoginForm.ShowInTaskbar = true;
 
-                    this.Close();
+                    Close();
                 }
 
                 return;
             }
 
-            if (this.Opacity != 1)
-                this.Opacity += 0.05;
+            if (Opacity != 1)
+                Opacity += 0.05;
             else
             {
                 AnimateTimer.Enabled = false;
@@ -454,10 +442,10 @@ namespace Infinium
                 }
                 else
                 {
-                    this.Activate();
-                    this.TopMost = true;
+                    Activate();
+                    TopMost = true;
                     AnimateTimer.Enabled = false;
-                    this.TopMost = false;
+                    TopMost = false;
                 }
 
                 bNeedSplash = true;
@@ -493,7 +481,7 @@ namespace Infinium
 
         private void MinimizeButton_Click(object sender, EventArgs e)
         {
-            this.WindowState = FormWindowState.Minimized;
+            WindowState = FormWindowState.Minimized;
         }
 
 
@@ -513,10 +501,10 @@ namespace Infinium
 
         private void notifyIcon1_Click(object sender, EventArgs e)
         {
-            if (this.WindowState == FormWindowState.Minimized)
-                this.WindowState = FormWindowState.Maximized;
+            if (WindowState == FormWindowState.Minimized)
+                WindowState = FormWindowState.Maximized;
 
-            this.Activate();
+            Activate();
         }
 
         private void LightStartForm_Activated(object sender, EventArgs e)
@@ -607,7 +595,7 @@ namespace Infinium
             TileContextMenu.Show(InfiniumTilesContainer);
         }
 
-        string CurFormName = "";
+        private string CurFormName = "";
 
         private void MenuAddToFavorite_Click(object sender, EventArgs e)
         {

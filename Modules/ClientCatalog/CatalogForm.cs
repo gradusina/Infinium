@@ -2506,7 +2506,9 @@ namespace Infinium
             int InsetTypeID = Convert.ToInt32(((DataRowView)DecorCatalog.ItemInsetTypesBindingSource.Current)["InsetTypeID"]);
             int InsetColorID = Convert.ToInt32(((DataRowView)DecorCatalog.ItemInsetColorsBindingSource.Current)["InsetColorID"]);
             int ProductType = 1;
-            if (ProductID == 46 || ProductID == 61 || ProductID == 62 || ProductID == 63)
+
+            //if (ProductID == 46 || ProductID == 61 || ProductID == 62 || ProductID == 63)
+            if (CheckOrdersStatus.IsCabFurniture(ProductID))
                 ProductType = 2;
             int ConfigID = DecorCatalog.SaveDecorAttachments(ProductID, DecorName, ColorID, PatinaID, InsetTypeID, InsetColorID);
             if (ConfigID != -1)

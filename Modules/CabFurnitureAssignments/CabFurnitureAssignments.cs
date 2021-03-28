@@ -354,9 +354,7 @@ namespace Infinium.Modules.CabFurnitureAssignments
         DataTable TechStoreGroupsDT;
         DataTable CabFurGroupsDT;
         DataTable TechStoreSubGroupsDT;
-        DataTable CabFurSubGroupsDT;
         DataTable TechStoreDT;
-        DataTable CabFurStoreDT;
         DataTable UsersDT;
         DataTable MeasuresDT;
         DataTable ColorsDT;

@@ -151,7 +151,7 @@
             this.kryptonBorderEdge19.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.kryptonBorderEdge19.AutoSize = false;
-            this.kryptonBorderEdge19.Location = new System.Drawing.Point(106, 147);
+            this.kryptonBorderEdge19.Location = new System.Drawing.Point(106, 154);
             this.kryptonBorderEdge19.Name = "kryptonBorderEdge19";
             this.kryptonBorderEdge19.Size = new System.Drawing.Size(501, 1);
             this.kryptonBorderEdge19.StateCommon.Color1 = System.Drawing.Color.Transparent;
@@ -282,7 +282,7 @@
             this.xtraTabPage1.Controls.Add(this.label1);
             this.xtraTabPage1.Controls.Add(this.kryptonBorderEdge19);
             this.xtraTabPage1.Name = "xtraTabPage1";
-            this.xtraTabPage1.Size = new System.Drawing.Size(713, 322);
+            this.xtraTabPage1.Size = new System.Drawing.Size(713, 329);
             this.xtraTabPage1.Text = "  С текущего момента  ";
             // 
             // ContinueButton
@@ -415,7 +415,7 @@
             this.xtraTabPage2.Controls.Add(this.kryptonBorderEdge1);
             this.xtraTabPage2.Controls.Add(this.timeEdit1);
             this.xtraTabPage2.Name = "xtraTabPage2";
-            this.xtraTabPage2.Size = new System.Drawing.Size(713, 322);
+            this.xtraTabPage2.Size = new System.Drawing.Size(713, 329);
             this.xtraTabPage2.Text = "  С изменением времени  ";
             // 
             // OverduedDateLabel
@@ -567,7 +567,7 @@
             this.label3.ForeColor = System.Drawing.Color.Black;
             this.label3.Location = new System.Drawing.Point(25, 79);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(248, 32);
+            this.label3.Size = new System.Drawing.Size(195, 25);
             this.label3.TabIndex = 42;
             this.label3.Text = "Причина изменения:";
             // 
@@ -576,7 +576,7 @@
             this.kryptonBorderEdge1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.kryptonBorderEdge1.AutoSize = false;
-            this.kryptonBorderEdge1.Location = new System.Drawing.Point(106, 76);
+            this.kryptonBorderEdge1.Location = new System.Drawing.Point(106, 83);
             this.kryptonBorderEdge1.Name = "kryptonBorderEdge1";
             this.kryptonBorderEdge1.Size = new System.Drawing.Size(501, 1);
             this.kryptonBorderEdge1.StateCommon.Color1 = System.Drawing.Color.Transparent;

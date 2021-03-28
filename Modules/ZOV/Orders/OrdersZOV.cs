@@ -5,6 +5,7 @@ using NPOI.HSSF.Util;
 
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
@@ -2738,18 +2739,9 @@ namespace Infinium.Modules.ZOV
             FrontsCatalogOrder = tFrontsCatalogOrder;
         }
 
-        public bool HasFronts
-        {
-            get
-            {
-                return FrontsOrdersBS.Count > 0;
-            }
-        }
+        public bool HasFronts => FrontsOrdersBS.Count > 0;
 
-        public BindingSource OldFrontsOrdersList
-        {
-            get { return FrontsOrdersBS; }
-        }
+        public BindingSource OldFrontsOrdersList => FrontsOrdersBS;
 
         public DataTable CurrentFrontsOrdersDT
         {
@@ -3265,18 +3257,9 @@ namespace Infinium.Modules.ZOV
             }
         }
 
-        public bool HasDecor
-        {
-            get
-            {
-                return DecorOrdersBS.Count > 0;
-            }
-        }
+        public bool HasDecor => DecorOrdersBS.Count > 0;
 
-        public BindingSource OldDecorOrdersList
-        {
-            get { return DecorOrdersBS; }
-        }
+        public BindingSource OldDecorOrdersList => DecorOrdersBS;
 
         public DataTable CurrentDecorOrdersDT
         {
@@ -3713,31 +3696,13 @@ namespace Infinium.Modules.ZOV
 
         }
 
-        public bool HasFrontsOrders
-        {
-            get
-            {
-                return FrontsOrdersBindingSource.Count > 0;
-            }
-        }
+        public bool HasFrontsOrders => FrontsOrdersBindingSource.Count > 0;
 
-        public BindingSource FrontsOrdersList
-        {
-            get { return FrontsOrdersBindingSource; }
-        }
+        public BindingSource FrontsOrdersList => FrontsOrdersBindingSource;
 
-        public bool HasDFrontsOrders
-        {
-            get
-            {
-                return DoubleFrontsOrdersBindingSource.Count > 0;
-            }
-        }
+        public bool HasDFrontsOrders => DoubleFrontsOrdersBindingSource.Count > 0;
 
-        public BindingSource DFrontsOrdersList
-        {
-            get { return DoubleFrontsOrdersBindingSource; }
-        }
+        public BindingSource DFrontsOrdersList => DoubleFrontsOrdersBindingSource;
 
         public void DoubleOrderInitialize(bool ShowPrice, ref PercentageDataGrid tMainOrdersFrontsOrdersDataGrid)
         {
@@ -5339,13 +5304,190 @@ namespace Infinium.Modules.ZOV
             FrontsCatalogOrder = tFrontsCatalogOrder;
         }
 
-        public bool HasFronts
+        public bool HasFronts => FrontsOrdersDataTable.Rows.Count > 0;
+
+        public class ExcluziveCatalog
         {
-            get
+            public int ClientID { get; set; }
+            public int SubClientID { get; set; }
+            public int FrontConfigID { get; set; }
+            public int FrontID { get; set; }
+            public int ColorID { get; set; }
+            public int InsetTypeID { get; set; }
+            public int InsetColorID { get; set; }
+            public int PatinaID { get; set; }
+        }
+
+        List<ExcluziveCatalog> excluziveCatalogList;
+
+        public void ExcluziveCatalogList()
+        {
+            excluziveCatalogList = new List<ExcluziveCatalog>();
+            for (int i = 0; i < ExcluziveDataTable.Rows.Count; i++)
             {
-                return FrontsOrdersDataTable.Rows.Count > 0;
+                ExcluziveCatalog excluziveCatalog = new ExcluziveCatalog
+                {
+                    ClientID = Convert.ToInt32(ExcluziveDataTable.Rows[i]["ClientID"]),
+                    SubClientID = Convert.ToInt32(ExcluziveDataTable.Rows[i]["SubClientID"]),
+                    FrontConfigID = Convert.ToInt32(ExcluziveDataTable.Rows[i]["FrontConfigID"]),
+                    FrontID = Convert.ToInt32(ExcluziveDataTable.Rows[i]["FrontID"]),
+                    ColorID = Convert.ToInt32(ExcluziveDataTable.Rows[i]["ColorID"]),
+                    InsetTypeID = Convert.ToInt32(ExcluziveDataTable.Rows[i]["InsetTypeID"]),
+                    InsetColorID = Convert.ToInt32(ExcluziveDataTable.Rows[i]["InsetColorID"]),
+                    PatinaID = Convert.ToInt32(ExcluziveDataTable.Rows[i]["PatinaID"])
+                };
+                excluziveCatalogList.Add(excluziveCatalog);
             }
         }
+
+        //public void HasClientExcluzive(int iSubClientID)
+        //{
+        //    string SelectCommand = string.Empty;
+        //    SubClientID = iSubClientID;
+        //    ExcluziveDataTable = new DataTable();
+        //    using (SqlDataAdapter DA = new SqlDataAdapter(@"SELECT FrontsConfig.*, infiniu2_marketingreference.dbo.ExcluziveCatalog.ClientID,infiniu2_marketingreference.dbo.ExcluziveCatalog.SubClientID FROM FrontsConfig 
+        //        INNER JOIN infiniu2_marketingreference.dbo.ExcluziveCatalog ON FrontsConfig.FrontConfigID=infiniu2_marketingreference.dbo.ExcluziveCatalog.ConfigID AND ProductType=0",
+        //        ConnectionStrings.CatalogConnectionString))
+        //    {
+        //        DA.Fill(ExcluziveDataTable);
+        //    }
+
+        //    System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
+        //    sw.Start();
+        //    DataRow[] rows = ExcluziveDataTable.Select("SubClientID=0 OR SubClientID=" + SubClientID);
+        //    HasExcluzive = rows.Count() > 0;
+        //    for (int i = 0; i < ExcluziveDataTable.Rows.Count; i++)
+        //    {
+        //        int ExcluziveClientID = Convert.ToInt32(ExcluziveDataTable.Rows[i]["ClientID"]);
+        //        int ExcluziveSubClientID = Convert.ToInt32(ExcluziveDataTable.Rows[i]["SubClientID"]);
+        //        int FrontConfigID = Convert.ToInt32(ExcluziveDataTable.Rows[i]["FrontConfigID"]);
+        //        int Excluzive1 = 0;
+        //        if (ExcluziveSubClientID == -1)
+        //            Excluzive1 = 0;
+        //        if (ExcluziveSubClientID == 0)
+        //            Excluzive1 = 1;
+        //        if (ExcluziveSubClientID == SubClientID)
+        //        {
+        //            Excluzive1 = 1;
+        //        }
+        //        rows = ExcluziveDataTable.Select("SubClientID<>-1 AND (SubClientID=0 OR SubClientID=" + ExcluziveSubClientID + ") AND FrontConfigID=" + FrontConfigID);
+        //        if (rows.Count() > 1)
+        //            Excluzive1 = 1;
+        //        DataRow[] rows1 = FrontsCatalogOrder.ConstFrontsConfigDataTable.Select("FrontConfigID=" + FrontConfigID);
+        //        if (rows1.Count() > 0)
+        //        {
+        //            if (rows1[0]["Excluzive"] == DBNull.Value)
+        //                rows1[0]["Excluzive"] = Excluzive1;
+        //            else
+        //            {
+        //                if (Excluzive1 == 1)
+        //                    rows1[0]["Excluzive"] = Excluzive1;
+        //            }
+        //        }
+        //    }
+        //    sw.Stop();
+        //    double G = sw.Elapsed.TotalSeconds;
+        //    for (int i = 0; i < FrontsCatalogOrder.ConstFrontsDataTable.Rows.Count; i++)
+        //    {
+        //        int FrontID = Convert.ToInt32(FrontsCatalogOrder.ConstFrontsDataTable.Rows[i]["FrontID"]);
+        //        rows = ExcluziveDataTable.Select("FrontID=" + FrontID);
+        //        if (rows.Count() == 0)
+        //            continue;
+        //        rows = FrontsCatalogOrder.ConstFrontsConfigDataTable.Select("FrontID=" + FrontID);
+        //        int AllConfiguration = rows.Count();
+        //        rows = FrontsCatalogOrder.ConstFrontsConfigDataTable.Select("(Excluzive<>0 OR Excluzive IS NULL) AND FrontID=" + FrontID);
+        //        int NotExcluziveConfiguration = rows.Count();
+        //        rows = ExcluziveDataTable.Select("SubClientID<>-1 AND (SubClientID=0 OR SubClientID=" + SubClientID + ") AND FrontID=" + FrontID);
+        //        int ClientExcluziveConfiguration = rows.Count();
+        //        if (ClientExcluziveConfiguration > 0)
+        //            FrontsCatalogOrder.ConstFrontsDataTable.Rows[i]["Excluzive"] = 1;
+        //        else
+        //        {
+        //            if (NotExcluziveConfiguration == 0)
+        //                FrontsCatalogOrder.ConstFrontsDataTable.Rows[i]["Excluzive"] = 0;
+        //        }
+        //    }
+        //    for (int i = 0; i < FrontsCatalogOrder.ConstColorsDataTable.Rows.Count; i++)
+        //    {
+        //        int ColorID = Convert.ToInt32(FrontsCatalogOrder.ConstColorsDataTable.Rows[i]["ColorID"]);
+        //        rows = ExcluziveDataTable.Select("ColorID=" + ColorID);
+        //        if (rows.Count() == 0)
+        //            continue;
+        //        rows = FrontsCatalogOrder.ConstFrontsConfigDataTable.Select("ColorID=" + ColorID);
+        //        int AllConfiguration = rows.Count();
+        //        rows = FrontsCatalogOrder.ConstFrontsConfigDataTable.Select("(Excluzive<>0 OR Excluzive IS NULL) AND ColorID=" + ColorID);
+        //        int NotExcluziveConfiguration = rows.Count();
+        //        rows = ExcluziveDataTable.Select("SubClientID<>-1 AND (SubClientID=0 OR SubClientID=" + SubClientID + ") AND ColorID=" + ColorID);
+        //        int ClientExcluziveConfiguration = rows.Count();
+        //        if (ClientExcluziveConfiguration > 0)
+        //            FrontsCatalogOrder.ConstColorsDataTable.Rows[i]["Excluzive"] = 1;
+        //        else
+        //        {
+        //            if (NotExcluziveConfiguration == 0)
+        //                FrontsCatalogOrder.ConstColorsDataTable.Rows[i]["Excluzive"] = 0;
+        //        }
+        //    }
+        //    for (int i = 0; i < FrontsCatalogOrder.ConstInsetTypesDataTable.Rows.Count; i++)
+        //    {
+        //        int InsetTypeID = Convert.ToInt32(FrontsCatalogOrder.ConstInsetTypesDataTable.Rows[i]["InsetTypeID"]);
+        //        rows = ExcluziveDataTable.Select("InsetTypeID=" + InsetTypeID);
+        //        if (rows.Count() == 0)
+        //            continue;
+        //        rows = FrontsCatalogOrder.ConstFrontsConfigDataTable.Select("InsetTypeID=" + InsetTypeID);
+        //        int AllConfiguration = rows.Count();
+        //        rows = FrontsCatalogOrder.ConstFrontsConfigDataTable.Select("(Excluzive<>0 OR Excluzive IS NULL) AND InsetTypeID=" + InsetTypeID);
+        //        int NotExcluziveConfiguration = rows.Count();
+        //        rows = ExcluziveDataTable.Select("SubClientID<>-1 AND (SubClientID=0 OR SubClientID=" + SubClientID + ") AND InsetTypeID=" + InsetTypeID);
+        //        int ClientExcluziveConfiguration = rows.Count();
+        //        if (ClientExcluziveConfiguration > 0)
+        //            FrontsCatalogOrder.ConstInsetTypesDataTable.Rows[i]["Excluzive"] = 1;
+        //        else
+        //        {
+        //            if (NotExcluziveConfiguration == 0)
+        //                FrontsCatalogOrder.ConstInsetTypesDataTable.Rows[i]["Excluzive"] = 0;
+        //        }
+        //    }
+        //    for (int i = 0; i < FrontsCatalogOrder.ConstInsetColorsDataTable.Rows.Count; i++)
+        //    {
+        //        int InsetColorID = Convert.ToInt32(FrontsCatalogOrder.ConstInsetColorsDataTable.Rows[i]["InsetColorID"]);
+        //        rows = ExcluziveDataTable.Select("InsetColorID=" + InsetColorID);
+        //        if (rows.Count() == 0)
+        //            continue;
+        //        rows = FrontsCatalogOrder.ConstFrontsConfigDataTable.Select("InsetColorID=" + InsetColorID);
+        //        int AllConfiguration = rows.Count();
+        //        rows = FrontsCatalogOrder.ConstFrontsConfigDataTable.Select("(Excluzive<>0 OR Excluzive IS NULL) AND InsetColorID=" + InsetColorID);
+        //        int NotExcluziveConfiguration = rows.Count();
+        //        rows = ExcluziveDataTable.Select("SubClientID<>-1 AND (SubClientID=0 OR SubClientID=" + SubClientID + ") AND InsetColorID=" + InsetColorID);
+        //        int ClientExcluziveConfiguration = rows.Count();
+        //        if (ClientExcluziveConfiguration > 0)
+        //            FrontsCatalogOrder.ConstInsetColorsDataTable.Rows[i]["Excluzive"] = 1;
+        //        else
+        //        {
+        //            if (NotExcluziveConfiguration == 0)
+        //                FrontsCatalogOrder.ConstInsetColorsDataTable.Rows[i]["Excluzive"] = 0;
+        //        }
+        //    }
+        //    for (int i = 0; i < FrontsCatalogOrder.ConstPatinaDataTable.Rows.Count; i++)
+        //    {
+        //        int PatinaID = Convert.ToInt32(FrontsCatalogOrder.ConstPatinaDataTable.Rows[i]["PatinaID"]);
+        //        rows = ExcluziveDataTable.Select("PatinaID=" + PatinaID);
+        //        if (rows.Count() == 0)
+        //            continue;
+        //        rows = FrontsCatalogOrder.ConstFrontsConfigDataTable.Select("PatinaID=" + PatinaID);
+        //        int AllConfiguration = rows.Count();
+        //        rows = FrontsCatalogOrder.ConstFrontsConfigDataTable.Select("(Excluzive<>0 OR Excluzive IS NULL) AND PatinaID=" + PatinaID);
+        //        int NotExcluziveConfiguration = rows.Count();
+        //        rows = ExcluziveDataTable.Select("SubClientID<>-1 AND (SubClientID=0 OR SubClientID=" + SubClientID + ") AND PatinaID=" + PatinaID);
+        //        int ClientExcluziveConfiguration = rows.Count();
+        //        if (ClientExcluziveConfiguration > 0)
+        //            FrontsCatalogOrder.ConstPatinaDataTable.Rows[i]["Excluzive"] = 1;
+        //        else
+        //        {
+        //            if (NotExcluziveConfiguration == 0)
+        //                FrontsCatalogOrder.ConstPatinaDataTable.Rows[i]["Excluzive"] = 0;
+        //        }
+        //    }
+        //}
 
         public void HasClientExcluzive(int iSubClientID)
         {
@@ -5358,13 +5500,21 @@ namespace Infinium.Modules.ZOV
             {
                 DA.Fill(ExcluziveDataTable);
             }
-            DataRow[] rows = ExcluziveDataTable.Select("SubClientID=0 OR SubClientID=" + SubClientID);
-            HasExcluzive = rows.Count() > 0;
-            for (int i = 0; i < ExcluziveDataTable.Rows.Count; i++)
+
+            System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
+            sw.Start();
+            ExcluziveCatalogList();
+
+            List<ExcluziveCatalog> catalogs = excluziveCatalogList.FindAll(item => (item.SubClientID == 0 || item.SubClientID == SubClientID));
+            HasExcluzive = catalogs.Count > 0;
+
+            for (int i = 0; i < excluziveCatalogList.Count; i++)
             {
-                int ExcluziveClientID = Convert.ToInt32(ExcluziveDataTable.Rows[i]["ClientID"]);
-                int ExcluziveSubClientID = Convert.ToInt32(ExcluziveDataTable.Rows[i]["SubClientID"]);
-                int FrontConfigID = Convert.ToInt32(ExcluziveDataTable.Rows[i]["FrontConfigID"]);
+                ExcluziveCatalog catalog = excluziveCatalogList[i];
+                int ExcluziveClientID = catalog.ClientID;
+                int ExcluziveSubClientID = catalog.SubClientID;
+                int FrontConfigID = catalog.FrontConfigID;
+
                 int Excluzive1 = 0;
                 if (ExcluziveSubClientID == -1)
                     Excluzive1 = 0;
@@ -5374,34 +5524,50 @@ namespace Infinium.Modules.ZOV
                 {
                     Excluzive1 = 1;
                 }
-                rows = ExcluziveDataTable.Select("SubClientID<>-1 AND (SubClientID=0 OR SubClientID=" + ExcluziveSubClientID + ") AND FrontConfigID=" + FrontConfigID);
-                if (rows.Count() > 1)
+
+                if (excluziveCatalogList.FindAll(item => item.SubClientID != -1 && item.FrontConfigID == FrontConfigID && (item.SubClientID == 0 || item.SubClientID == ExcluziveSubClientID)).Count > 1)
                     Excluzive1 = 1;
-                rows = FrontsCatalogOrder.ConstFrontsConfigDataTable.Select("FrontConfigID=" + FrontConfigID);
-                if (rows.Count() > 0)
+
+                //DataRow[] rows = FrontsCatalogOrder.ConstFrontsConfigDataTable.Select("FrontConfigID=" + FrontConfigID);
+                //if (rows.Count() > 0)
+                //{
+                //    if (rows[0]["Excluzive"] == DBNull.Value)
+                //        rows[0]["Excluzive"] = Excluzive1;
+                //    else
+                //    {
+                //        if (Excluzive1 == 1)
+                //            rows[0]["Excluzive"] = Excluzive1;
+                //    }
+                //}
+
+                foreach (DataRow row in FrontsCatalogOrder.ConstFrontsConfigDataTable.Rows)
                 {
-                    if (rows[0]["Excluzive"] == DBNull.Value)
-                        rows[0]["Excluzive"] = Excluzive1;
-                    else
+                    if (Convert.ToInt32(row["FrontConfigID"]) == FrontConfigID)
                     {
-                        if (Excluzive1 == 1)
-                            rows[0]["Excluzive"] = Excluzive1;
+                        if (row["Excluzive"] == DBNull.Value)
+                            row["Excluzive"] = Excluzive1;
+                        else
+                        {
+                            if (Excluzive1 == 1)
+                                row["Excluzive"] = Excluzive1;
+                        }
+                        break;
                     }
                 }
             }
+            sw.Stop();
+            double G = sw.Elapsed.TotalSeconds;
             for (int i = 0; i < FrontsCatalogOrder.ConstFrontsDataTable.Rows.Count; i++)
             {
                 int FrontID = Convert.ToInt32(FrontsCatalogOrder.ConstFrontsDataTable.Rows[i]["FrontID"]);
-                rows = ExcluziveDataTable.Select("FrontID=" + FrontID);
-                if (rows.Count() == 0)
+
+                if (excluziveCatalogList.FindAll(item => item.FrontID == FrontID).Count == 0)
                     continue;
-                //rows = FrontsCatalogOrder.ConstFrontsConfigDataTable.Select("FrontID=" + FrontID);
-                //int AllConfiguration = rows.Count();
-                rows = FrontsCatalogOrder.ConstFrontsConfigDataTable.Select("(Excluzive<>0 OR Excluzive IS NULL) AND FrontID=" + FrontID);
+
+                DataRow[] rows = FrontsCatalogOrder.ConstFrontsConfigDataTable.Select("(Excluzive<>0 OR Excluzive IS NULL) AND FrontID=" + FrontID);
                 int NotExcluziveConfiguration = rows.Count();
-                rows = ExcluziveDataTable.Select("SubClientID<>-1 AND (SubClientID=0 OR SubClientID=" + SubClientID + ") AND FrontID=" + FrontID);
-                int ClientExcluziveConfiguration = rows.Count();
-                if (ClientExcluziveConfiguration > 0)
+
+                if (excluziveCatalogList.FindAll(item => item.SubClientID != -1 && item.FrontID == FrontID && (item.SubClientID == 0 || item.SubClientID == SubClientID)).Count > 0)
                     FrontsCatalogOrder.ConstFrontsDataTable.Rows[i]["Excluzive"] = 1;
                 else
                 {
@@ -5412,16 +5578,14 @@ namespace Infinium.Modules.ZOV
             for (int i = 0; i < FrontsCatalogOrder.ConstColorsDataTable.Rows.Count; i++)
             {
                 int ColorID = Convert.ToInt32(FrontsCatalogOrder.ConstColorsDataTable.Rows[i]["ColorID"]);
-                rows = ExcluziveDataTable.Select("ColorID=" + ColorID);
-                if (rows.Count() == 0)
+
+                if (excluziveCatalogList.FindAll(item => item.ColorID == ColorID).Count == 0)
                     continue;
-                //rows = FrontsCatalogOrder.ConstFrontsConfigDataTable.Select("ColorID=" + ColorID);
-                //int AllConfiguration = rows.Count();
-                rows = FrontsCatalogOrder.ConstFrontsConfigDataTable.Select("(Excluzive<>0 OR Excluzive IS NULL) AND ColorID=" + ColorID);
+
+                DataRow[] rows = FrontsCatalogOrder.ConstFrontsConfigDataTable.Select("(Excluzive<>0 OR Excluzive IS NULL) AND ColorID=" + ColorID);
                 int NotExcluziveConfiguration = rows.Count();
-                rows = ExcluziveDataTable.Select("SubClientID<>-1 AND (SubClientID=0 OR SubClientID=" + SubClientID + ") AND ColorID=" + ColorID);
-                int ClientExcluziveConfiguration = rows.Count();
-                if (ClientExcluziveConfiguration > 0)
+
+                if (excluziveCatalogList.FindAll(item => item.SubClientID != -1 && item.ColorID == ColorID && (item.SubClientID == 0 || item.SubClientID == SubClientID)).Count > 0)
                     FrontsCatalogOrder.ConstColorsDataTable.Rows[i]["Excluzive"] = 1;
                 else
                 {
@@ -5432,16 +5596,14 @@ namespace Infinium.Modules.ZOV
             for (int i = 0; i < FrontsCatalogOrder.ConstInsetTypesDataTable.Rows.Count; i++)
             {
                 int InsetTypeID = Convert.ToInt32(FrontsCatalogOrder.ConstInsetTypesDataTable.Rows[i]["InsetTypeID"]);
-                rows = ExcluziveDataTable.Select("InsetTypeID=" + InsetTypeID);
-                if (rows.Count() == 0)
+
+                if (excluziveCatalogList.FindAll(item => item.InsetTypeID == InsetTypeID).Count == 0)
                     continue;
-                //rows = FrontsCatalogOrder.ConstFrontsConfigDataTable.Select("InsetTypeID=" + InsetTypeID);
-                //int AllConfiguration = rows.Count();
-                rows = FrontsCatalogOrder.ConstFrontsConfigDataTable.Select("(Excluzive<>0 OR Excluzive IS NULL) AND InsetTypeID=" + InsetTypeID);
+
+                DataRow[] rows = FrontsCatalogOrder.ConstFrontsConfigDataTable.Select("(Excluzive<>0 OR Excluzive IS NULL) AND InsetTypeID=" + InsetTypeID);
                 int NotExcluziveConfiguration = rows.Count();
-                rows = ExcluziveDataTable.Select("SubClientID<>-1 AND (SubClientID=0 OR SubClientID=" + SubClientID + ") AND InsetTypeID=" + InsetTypeID);
-                int ClientExcluziveConfiguration = rows.Count();
-                if (ClientExcluziveConfiguration > 0)
+
+                if (excluziveCatalogList.FindAll(item => item.SubClientID != -1 && item.InsetTypeID == InsetTypeID && (item.SubClientID == 0 || item.SubClientID == SubClientID)).Count > 0)
                     FrontsCatalogOrder.ConstInsetTypesDataTable.Rows[i]["Excluzive"] = 1;
                 else
                 {
@@ -5452,16 +5614,14 @@ namespace Infinium.Modules.ZOV
             for (int i = 0; i < FrontsCatalogOrder.ConstInsetColorsDataTable.Rows.Count; i++)
             {
                 int InsetColorID = Convert.ToInt32(FrontsCatalogOrder.ConstInsetColorsDataTable.Rows[i]["InsetColorID"]);
-                rows = ExcluziveDataTable.Select("InsetColorID=" + InsetColorID);
-                if (rows.Count() == 0)
+
+                if (excluziveCatalogList.FindAll(item => item.InsetColorID == InsetColorID).Count == 0)
                     continue;
-                //rows = FrontsCatalogOrder.ConstFrontsConfigDataTable.Select("InsetColorID=" + InsetColorID);
-                //int AllConfiguration = rows.Count();
-                rows = FrontsCatalogOrder.ConstFrontsConfigDataTable.Select("(Excluzive<>0 OR Excluzive IS NULL) AND InsetColorID=" + InsetColorID);
+
+                DataRow[] rows = FrontsCatalogOrder.ConstFrontsConfigDataTable.Select("(Excluzive<>0 OR Excluzive IS NULL) AND InsetColorID=" + InsetColorID);
                 int NotExcluziveConfiguration = rows.Count();
-                rows = ExcluziveDataTable.Select("SubClientID<>-1 AND (SubClientID=0 OR SubClientID=" + SubClientID + ") AND InsetColorID=" + InsetColorID);
-                int ClientExcluziveConfiguration = rows.Count();
-                if (ClientExcluziveConfiguration > 0)
+
+                if (excluziveCatalogList.FindAll(item => item.SubClientID != -1 && item.InsetColorID == InsetColorID && (item.SubClientID == 0 || item.SubClientID == SubClientID)).Count > 0)
                     FrontsCatalogOrder.ConstInsetColorsDataTable.Rows[i]["Excluzive"] = 1;
                 else
                 {
@@ -5472,16 +5632,14 @@ namespace Infinium.Modules.ZOV
             for (int i = 0; i < FrontsCatalogOrder.ConstPatinaDataTable.Rows.Count; i++)
             {
                 int PatinaID = Convert.ToInt32(FrontsCatalogOrder.ConstPatinaDataTable.Rows[i]["PatinaID"]);
-                rows = ExcluziveDataTable.Select("PatinaID=" + PatinaID);
-                if (rows.Count() == 0)
+
+                if (excluziveCatalogList.FindAll(item => item.PatinaID == PatinaID).Count == 0)
                     continue;
-                //rows = FrontsCatalogOrder.ConstFrontsConfigDataTable.Select("PatinaID=" + PatinaID);
-                //int AllConfiguration = rows.Count();
-                rows = FrontsCatalogOrder.ConstFrontsConfigDataTable.Select("(Excluzive<>0 OR Excluzive IS NULL) AND PatinaID=" + PatinaID);
+
+                DataRow[] rows = FrontsCatalogOrder.ConstFrontsConfigDataTable.Select("(Excluzive<>0 OR Excluzive IS NULL) AND PatinaID=" + PatinaID);
                 int NotExcluziveConfiguration = rows.Count();
-                rows = ExcluziveDataTable.Select("SubClientID<>-1 AND (SubClientID=0 OR SubClientID=" + SubClientID + ") AND PatinaID=" + PatinaID);
-                int ClientExcluziveConfiguration = rows.Count();
-                if (ClientExcluziveConfiguration > 0)
+
+                if (excluziveCatalogList.FindAll(item => item.SubClientID != -1 && item.PatinaID == PatinaID && (item.SubClientID == 0 || item.SubClientID == SubClientID)).Count > 0)
                     FrontsCatalogOrder.ConstPatinaDataTable.Rows[i]["Excluzive"] = 1;
                 else
                 {
@@ -7308,11 +7466,33 @@ namespace Infinium.Modules.ZOV
             MainOrdersFrontsOrdersDataGrid = tMainOrdersFrontsOrdersDataGrid;
         }
 
-        public bool HasDecor
+        public bool HasDecor => DecorOrdersDataTable.Rows.Count > 0;
+
+        public class ExcluziveCatalog
         {
-            get
+            public int ClientID { get; set; }
+            public int SubClientID { get; set; }
+            public int DecorConfigID { get; set; }
+            public int ProductID { get; set; }
+            public int DecorID { get; set; }
+        }
+
+        List<ExcluziveCatalog> excluziveCatalogList;
+
+        public void ExcluziveCatalogList()
+        {
+            excluziveCatalogList = new List<ExcluziveCatalog>();
+            for (int i = 0; i < ExcluziveDataTable.Rows.Count; i++)
             {
-                return DecorOrdersDataTable.Rows.Count > 0;
+                ExcluziveCatalog excluziveCatalog = new ExcluziveCatalog
+                {
+                    ClientID = Convert.ToInt32(ExcluziveDataTable.Rows[i]["ClientID"]),
+                    SubClientID = Convert.ToInt32(ExcluziveDataTable.Rows[i]["SubClientID"]),
+                    DecorConfigID = Convert.ToInt32(ExcluziveDataTable.Rows[i]["DecorConfigID"]),
+                    ProductID = Convert.ToInt32(ExcluziveDataTable.Rows[i]["ProductID"]),
+                    DecorID = Convert.ToInt32(ExcluziveDataTable.Rows[i]["DecorID"])
+                };
+                excluziveCatalogList.Add(excluziveCatalog);
             }
         }
 
@@ -7327,16 +7507,20 @@ namespace Infinium.Modules.ZOV
             {
                 DA.Fill(ExcluziveDataTable);
             }
-            DataRow[] rows = ExcluziveDataTable.Select("SubClientID=" + SubClientID);
-            HasExcluzive = rows.Count() > 0;
-            for (int i = 0; i < ExcluziveDataTable.Rows.Count; i++)
+            System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
+            sw.Start();
+            ExcluziveCatalogList();
+
+            List<ExcluziveCatalog> catalogs = excluziveCatalogList.FindAll(item => (item.SubClientID == 0 || item.SubClientID == SubClientID));
+            HasExcluzive = catalogs.Count > 0;
+
+            for (int i = 0; i < excluziveCatalogList.Count; i++)
             {
-                int ExcluziveClientID = Convert.ToInt32(ExcluziveDataTable.Rows[i]["ClientID"]);
-                int ExcluziveSubClientID = Convert.ToInt32(ExcluziveDataTable.Rows[i]["SubClientID"]);
-                int DecorID = Convert.ToInt32(ExcluziveDataTable.Rows[i]["DecorID"]);
-                int ColorID = Convert.ToInt32(ExcluziveDataTable.Rows[i]["ColorID"]);
-                int PatinaID = Convert.ToInt32(ExcluziveDataTable.Rows[i]["PatinaID"]);
-                int DecorConfigID = Convert.ToInt32(ExcluziveDataTable.Rows[i]["DecorConfigID"]);
+                ExcluziveCatalog catalog = excluziveCatalogList[i];
+                int ExcluziveClientID = catalog.ClientID;
+                int ExcluziveSubClientID = catalog.SubClientID;
+                int DecorConfigID = catalog.DecorConfigID;
+
                 int Excluzive1 = 0;
                 if (ExcluziveSubClientID == -1)
                     Excluzive1 = 0;
@@ -7346,32 +7530,46 @@ namespace Infinium.Modules.ZOV
                 {
                     Excluzive1 = 1;
                 }
-                rows = ExcluziveDataTable.Select("SubClientID<>-1 AND (SubClientID=0 OR SubClientID=" + ExcluziveSubClientID + ") AND DecorConfigID=" + DecorConfigID);
-                if (rows.Count() > 1)
+                if (excluziveCatalogList.FindAll(item => item.SubClientID != -1 && item.DecorConfigID == DecorConfigID && (item.SubClientID == 0 || item.SubClientID == ExcluziveSubClientID)).Count > 1)
                     Excluzive1 = 1;
-                rows = DecorCatalogOrder.DecorConfigDataTable.Select("DecorConfigID=" + DecorConfigID);
-                if (rows.Count() > 0)
+                //DataRow[] rows = DecorCatalogOrder.DecorConfigDataTable.Select("DecorConfigID=" + DecorConfigID);
+                //if (rows.Count() > 0)
+                //{
+                //    if (rows[0]["Excluzive"] == DBNull.Value)
+                //        rows[0]["Excluzive"] = Excluzive1;
+                //    else
+                //    {
+                //        if (Excluzive1 == 1)
+                //            rows[0]["Excluzive"] = Excluzive1;
+                //    }
+                //}
+
+                foreach (DataRow row in DecorCatalogOrder.DecorConfigDataTable.Rows)
                 {
-                    if (rows[0]["Excluzive"] == DBNull.Value)
-                        rows[0]["Excluzive"] = Excluzive1;
-                    else
+                    if (Convert.ToInt32(row["DecorConfigID"]) == DecorConfigID)
                     {
-                        if (Excluzive1 == 1)
-                            rows[0]["Excluzive"] = Excluzive1;
+                        if (row["Excluzive"] == DBNull.Value)
+                            row["Excluzive"] = Excluzive1;
+                        else
+                        {
+                            if (Excluzive1 == 1)
+                                row["Excluzive"] = Excluzive1;
+                        }
+                        break;
                     }
                 }
             }
             for (int i = 0; i < DecorCatalogOrder.DecorProductsDataTable.Rows.Count; i++)
             {
                 int ProductID = Convert.ToInt32(DecorCatalogOrder.DecorProductsDataTable.Rows[i]["ProductID"]);
-                rows = ExcluziveDataTable.Select("ProductID=" + ProductID);
-                if (rows.Count() == 0)
+
+                if (excluziveCatalogList.FindAll(item => item.ProductID == ProductID).Count == 0)
                     continue;
-                rows = DecorCatalogOrder.DecorConfigDataTable.Select("(Excluzive<>0 OR Excluzive IS NULL) AND ProductID=" + ProductID);
+
+                DataRow[] rows = DecorCatalogOrder.DecorConfigDataTable.Select("(Excluzive<>0 OR Excluzive IS NULL) AND ProductID=" + ProductID);
                 int NotExcluziveConfiguration = rows.Count();
-                rows = ExcluziveDataTable.Select("SubClientID<>-1 AND (SubClientID=0 OR SubClientID=" + SubClientID + ") AND ProductID=" + ProductID);
-                int ClientExcluziveConfiguration = rows.Count();
-                if (ClientExcluziveConfiguration > 0)
+
+                if (excluziveCatalogList.FindAll(item => item.SubClientID != -1 && item.ProductID == ProductID && (item.SubClientID == 0 || item.SubClientID == SubClientID)).Count > 0)
                     DecorCatalogOrder.DecorProductsDataTable.Rows[i]["Excluzive"] = 1;
                 else
                 {
@@ -7382,14 +7580,14 @@ namespace Infinium.Modules.ZOV
             for (int i = 0; i < DecorCatalogOrder.DecorDataTable.Rows.Count; i++)
             {
                 int DecorID = Convert.ToInt32(DecorCatalogOrder.DecorDataTable.Rows[i]["DecorID"]);
-                rows = ExcluziveDataTable.Select("DecorID=" + DecorID);
-                if (rows.Count() == 0)
+
+                if (excluziveCatalogList.FindAll(item => item.DecorID == DecorID).Count == 0)
                     continue;
-                rows = DecorCatalogOrder.DecorConfigDataTable.Select("(Excluzive<>0 OR Excluzive IS NULL) AND DecorID=" + DecorID);
+
+                DataRow[] rows = DecorCatalogOrder.DecorConfigDataTable.Select("(Excluzive<>0 OR Excluzive IS NULL) AND DecorID=" + DecorID);
                 int NotExcluziveConfiguration = rows.Count();
-                rows = ExcluziveDataTable.Select("SubClientID<>-1 AND (SubClientID=0 OR SubClientID=" + SubClientID + ") AND DecorID=" + DecorID);
-                int ClientExcluziveConfiguration = rows.Count();
-                if (ClientExcluziveConfiguration > 0)
+
+                if (excluziveCatalogList.FindAll(item => item.SubClientID != -1 && item.DecorID == DecorID && (item.SubClientID == 0 || item.SubClientID == SubClientID)).Count > 0)
                     DecorCatalogOrder.DecorDataTable.Rows[i]["Excluzive"] = 1;
                 else
                 {
@@ -7397,7 +7595,98 @@ namespace Infinium.Modules.ZOV
                         DecorCatalogOrder.DecorDataTable.Rows[i]["Excluzive"] = 0;
                 }
             }
+
+            sw.Stop();
+            double G = sw.Elapsed.TotalSeconds;
         }
+
+        //public void HasClientExcluzive(int iSubClientID)
+        //{
+        //    string SelectCommand = string.Empty;
+        //    SubClientID = iSubClientID;
+        //    ExcluziveDataTable = new DataTable();
+        //    using (SqlDataAdapter DA = new SqlDataAdapter(@"SELECT DecorConfig.*, infiniu2_marketingreference.dbo.ExcluziveCatalog.ClientID,infiniu2_marketingreference.dbo.ExcluziveCatalog.SubClientID FROM DecorConfig 
+        //        INNER JOIN infiniu2_marketingreference.dbo.ExcluziveCatalog ON DecorConfig.DecorConfigID=infiniu2_marketingreference.dbo.ExcluziveCatalog.ConfigID AND ProductType=1",
+        //        ConnectionStrings.CatalogConnectionString))
+        //    {
+        //        DA.Fill(ExcluziveDataTable);
+        //    }
+
+        //System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
+        //sw.Start();
+        //    DataRow[] rows = ExcluziveDataTable.Select("SubClientID=" + SubClientID);
+        //    HasExcluzive = rows.Count() > 0;
+        //    for (int i = 0; i < ExcluziveDataTable.Rows.Count; i++)
+        //    {
+        //        int ExcluziveClientID = Convert.ToInt32(ExcluziveDataTable.Rows[i]["ClientID"]);
+        //        int ExcluziveSubClientID = Convert.ToInt32(ExcluziveDataTable.Rows[i]["SubClientID"]);
+        //        int DecorID = Convert.ToInt32(ExcluziveDataTable.Rows[i]["DecorID"]);
+        //        int ColorID = Convert.ToInt32(ExcluziveDataTable.Rows[i]["ColorID"]);
+        //        int PatinaID = Convert.ToInt32(ExcluziveDataTable.Rows[i]["PatinaID"]);
+        //        int DecorConfigID = Convert.ToInt32(ExcluziveDataTable.Rows[i]["DecorConfigID"]);
+        //        int Excluzive1 = 0;
+        //        if (ExcluziveSubClientID == -1)
+        //            Excluzive1 = 0;
+        //        if (ExcluziveSubClientID == 0)
+        //            Excluzive1 = 1;
+        //        if (ExcluziveSubClientID == SubClientID)
+        //        {
+        //            Excluzive1 = 1;
+        //        }
+        //        rows = ExcluziveDataTable.Select("SubClientID<>-1 AND (SubClientID=0 OR SubClientID=" + ExcluziveSubClientID + ") AND DecorConfigID=" + DecorConfigID);
+        //        if (rows.Count() > 1)
+        //            Excluzive1 = 1;
+        //        rows = DecorCatalogOrder.DecorConfigDataTable.Select("DecorConfigID=" + DecorConfigID);
+        //        if (rows.Count() > 0)
+        //        {
+        //            if (rows[0]["Excluzive"] == DBNull.Value)
+        //                rows[0]["Excluzive"] = Excluzive1;
+        //            else
+        //            {
+        //                if (Excluzive1 == 1)
+        //                    rows[0]["Excluzive"] = Excluzive1;
+        //            }
+        //        }
+        //    }
+        //    for (int i = 0; i < DecorCatalogOrder.DecorProductsDataTable.Rows.Count; i++)
+        //    {
+        //        int ProductID = Convert.ToInt32(DecorCatalogOrder.DecorProductsDataTable.Rows[i]["ProductID"]);
+        //        rows = ExcluziveDataTable.Select("ProductID=" + ProductID);
+        //        if (rows.Count() == 0)
+        //            continue;
+        //        rows = DecorCatalogOrder.DecorConfigDataTable.Select("(Excluzive<>0 OR Excluzive IS NULL) AND ProductID=" + ProductID);
+        //        int NotExcluziveConfiguration = rows.Count();
+        //        rows = ExcluziveDataTable.Select("SubClientID<>-1 AND (SubClientID=0 OR SubClientID=" + SubClientID + ") AND ProductID=" + ProductID);
+        //        int ClientExcluziveConfiguration = rows.Count();
+        //        if (ClientExcluziveConfiguration > 0)
+        //            DecorCatalogOrder.DecorProductsDataTable.Rows[i]["Excluzive"] = 1;
+        //        else
+        //        {
+        //            if (NotExcluziveConfiguration == 0)
+        //                DecorCatalogOrder.DecorProductsDataTable.Rows[i]["Excluzive"] = 0;
+        //        }
+        //    }
+        //    for (int i = 0; i < DecorCatalogOrder.DecorDataTable.Rows.Count; i++)
+        //    {
+        //        int DecorID = Convert.ToInt32(DecorCatalogOrder.DecorDataTable.Rows[i]["DecorID"]);
+        //        rows = ExcluziveDataTable.Select("DecorID=" + DecorID);
+        //        if (rows.Count() == 0)
+        //            continue;
+        //        rows = DecorCatalogOrder.DecorConfigDataTable.Select("(Excluzive<>0 OR Excluzive IS NULL) AND DecorID=" + DecorID);
+        //        int NotExcluziveConfiguration = rows.Count();
+        //        rows = ExcluziveDataTable.Select("SubClientID<>-1 AND (SubClientID=0 OR SubClientID=" + SubClientID + ") AND DecorID=" + DecorID);
+        //        int ClientExcluziveConfiguration = rows.Count();
+        //        if (ClientExcluziveConfiguration > 0)
+        //            DecorCatalogOrder.DecorDataTable.Rows[i]["Excluzive"] = 1;
+        //        else
+        //        {
+        //            if (NotExcluziveConfiguration == 0)
+        //                DecorCatalogOrder.DecorDataTable.Rows[i]["Excluzive"] = 0;
+        //        }
+        //    }
+        //    sw.Stop();
+        //double G = sw.Elapsed.TotalSeconds;
+        //}
 
         public DataTable CurrentDecorOrdersDT
         {
@@ -9377,7 +9666,7 @@ namespace Infinium.Modules.ZOV
             if (DecorOrderRow["DecorID"].ToString() == "2123")//бл-02
                 Cost = Decimal.Round(Length / 1000 * Price * Convert.ToInt32(DecorOrderRow["Count"]), 3, MidpointRounding.AwayFromZero);
 
-            if (DecorOrderRow["DecorID"].ToString() == "14901")//бл-03
+            if (DecorOrderRow["DecorID"].ToString() == "14901" || DecorOrderRow["DecorID"].ToString() == "14902")//бл-03
                 Cost = Decimal.Round(Length / 1000 * Price * Convert.ToInt32(DecorOrderRow["Count"]), 3, MidpointRounding.AwayFromZero);
 
             if (DecorOrderRow["DecorID"].ToString() == "15446")//бл-04
@@ -13907,12 +14196,12 @@ namespace Infinium.Modules.ZOV
                 string Front = GetFrontName(Convert.ToInt32(Row["FrontID"]));
                 string FrameColor = GetColorName(Convert.ToInt32(Row["ColorID"]));
                 string Patina = GetPatinaName(Convert.ToInt32(Row["PatinaID"]));
-                var InsetType = GetInsetTypeName(Convert.ToInt32(Row["InsetTypeID"]));
-                var bMarsel3 = IsMarsel3(Convert.ToInt32(Row["FrontID"]));
-                var bMarsel4 = IsMarsel4(Convert.ToInt32(Row["FrontID"]));
+                string InsetType = GetInsetTypeName(Convert.ToInt32(Row["InsetTypeID"]));
+                bool bMarsel3 = IsMarsel3(Convert.ToInt32(Row["FrontID"]));
+                bool bMarsel4 = IsMarsel4(Convert.ToInt32(Row["FrontID"]));
                 if (bMarsel3 || bMarsel4)
                 {
-                    var bImpost = IsImpost(Convert.ToInt32(Row["TechnoProfileID"]));
+                    bool bImpost = IsImpost(Convert.ToInt32(Row["TechnoProfileID"]));
                     if (bImpost)
                     {
                         string Front2 = GetFront2Name(Convert.ToInt32(Row["TechnoProfileID"]));
@@ -14087,12 +14376,12 @@ namespace Infinium.Modules.ZOV
                 string Front = GetFrontName(Convert.ToInt32(Row["FrontID"]));
                 string FrameColor = GetColorName(Convert.ToInt32(Row["ColorID"]));
                 string Patina = GetPatinaName(Convert.ToInt32(Row["PatinaID"]));
-                var InsetType = GetInsetTypeName(Convert.ToInt32(Row["InsetTypeID"]));
-                var bMarsel3 = IsMarsel3(Convert.ToInt32(Row["FrontID"]));
-                var bMarsel4 = IsMarsel4(Convert.ToInt32(Row["FrontID"]));
+                string InsetType = GetInsetTypeName(Convert.ToInt32(Row["InsetTypeID"]));
+                bool bMarsel3 = IsMarsel3(Convert.ToInt32(Row["FrontID"]));
+                bool bMarsel4 = IsMarsel4(Convert.ToInt32(Row["FrontID"]));
                 if (bMarsel3 || bMarsel4)
                 {
-                    var bImpost = IsImpost(Convert.ToInt32(Row["TechnoProfileID"]));
+                    bool bImpost = IsImpost(Convert.ToInt32(Row["TechnoProfileID"]));
                     if (bImpost)
                     {
                         string Front2 = GetFront2Name(Convert.ToInt32(Row["TechnoProfileID"]));

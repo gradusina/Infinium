@@ -117,14 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <metadata name="AnimateTimer.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+  <metadata name="StandardButtonsPalette.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
   <metadata name="NavigateMenuButtonsPalette.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>325, 17</value>
   </metadata>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="NavigateMenuCloseButton.Values.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="MenuCloseButton.Values.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAABGdBTUEAALGPC/xhBQAAAbdJREFUSEvt
         lkFnA1EUhYdSQgmhhFBCtiWErELINqsQui1Z5cdk1d8Quu0PKKXbrrrtqlRLKaWU0krPac7Ql7nvzXud
@@ -137,77 +137,10 @@
         Soa76ujraMtfkGWfMlTytbIAecIAAAAASUVORK5CYII=
 </value>
   </data>
-  <data name="MinimizeButton.Values.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAAIGNIUk0AAHonAACAgwAA+mQAAIDSAAB2
-        hgAA7OkAADmeAAAV/sZ+0zoAAAAJcEhZcwAACwwAAAsMAT9AIsgAAACNSURBVEhLxc2xCYNQAEVRh0mV
-        VsgMmSEDuJPgJBnAyioLfV/j5xcXA8K/PjjNbd5QSrkFRgNGA0YDRgNGA0YDRgNGA0YDRgNGA0YDRgNG
-        A0YDRgNGA0YDRgNGA8VnjBe8YzrxiPrTHh5+0WOfqD/t4eG24zV67O/xEtsF35hPvKL+tIcqjAaMBoz9
-        lWEHTDvaUlzx71MAAAAASUVORK5CYII=
-</value>
-  </data>
-  <metadata name="kryptonContextMenu10.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>539, 56</value>
+  <metadata name="AnimateTimer.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>197, 17</value>
   </metadata>
-  <metadata name="StandardButtonsPalette.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>145, 17</value>
-  </metadata>
-  <metadata name="barManager1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>536, 17</value>
-  </metadata>
-  <data name="label71.Text" xml:space="preserve">
-    <value> В колонке "Произведено" отображается процент продукции, вышедшей с 
-производства (статусы упаковок Упаковано и Склад).
- Фильтр "Маркетинг": общая информация о заказах отдела маркетинга (в том 
-числе клиент Москва-1).
- Фильтр "Предварительные ЗОВ-ТПС": общая информация о заказах ЗОВ-ТПС,
-ещё не включенных в отгрузку.</value>
-  </data>
-  <data name="label94.Text" xml:space="preserve">
-    <value> - “На согласовании” - заказы имеют статус “Не согласован” или “Не подтвержден”. 
-Они ожидают расчета отделом маркетинга или подтверждения самим клиентом.
- - После подтверждения заказ принимает статус “Согласован” и "Не в производстве". 
-Он ожидает включения в партию.
- - “На производстве” - заказы, включенные в партию и готовые для отдачи 
-в производство.
- - После включения в партию заказ можно распределять по упаковкам.
- - “В производстве” - заказы, распределенные на упаковки и отданные 
-в производство.
- - “На экспедиции” - заказы, вышедшие с производства, имеющие статус упаковок
- “Упаковано” или “Экспедиция”.
- - “Отгружено” - заказы, у которых упаковки имеют статус “Отгружено”.</value>
-  </data>
-  <metadata name="kryptonContextMenu4.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>661, 17</value>
-  </metadata>
-  <metadata name="kryptonContextMenu5.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>835, 17</value>
-  </metadata>
-  <metadata name="kryptonContextMenu6.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>1009, 17</value>
-  </metadata>
-  <metadata name="PanelSelectPalette.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>720, 56</value>
-  </metadata>
-  <metadata name="PanelSelectPalette.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>720, 56</value>
-  </metadata>
-  <metadata name="kryptonContextMenu7.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 56</value>
-  </metadata>
-  <metadata name="kryptonContextMenu8.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>191, 56</value>
-  </metadata>
-  <metadata name="kryptonContextMenu9.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>365, 56</value>
-  </metadata>
-  <metadata name="kryptonCheckSet2.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>871, 56</value>
-  </metadata>
-  <metadata name="kryptonCheckSet1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>1021, 56</value>
-  </metadata>
-  <metadata name="ExportContextMenu.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>1171, 56</value>
+  <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>50</value>
   </metadata>
 </root>

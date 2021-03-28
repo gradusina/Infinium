@@ -1058,7 +1058,7 @@ namespace Infinium
                             if (SendEmail.Success == false)
                             {
                                 Infinium.LightMessageBox.Show(ref TopForm, false,
-                                       "Отправка отчета не возможна: отсутствует подключение к интернету либо адрес электронной почты указан неверно",
+                                       "Отправка отчета невозможна: отсутствует подключение к интернету либо адрес электронной почты указан неверно",
                                        "Отправка отчета");
                             }
                             OrdersManager.FixOrderEvent(Convert.ToInt32(((DataRowView)OrdersManager.MegaOrdersBindingSource.Current).Row["MegaOrderID"]), "Отчет отправлен клиенту");
@@ -1093,7 +1093,7 @@ namespace Infinium
                             if (SendEmail.Success == false)
                             {
                                 Infinium.LightMessageBox.Show(ref TopForm, false,
-                                       "Отправка отчета не возможна: отсутствует подключение к интернету либо адрес электронной почты указан неверно",
+                                       "Отправка отчета невозможна: отсутствует подключение к интернету либо адрес электронной почты указан неверно",
                                        "Отправка отчета");
                             }
                             OrdersManager.FixOrderEvent(Convert.ToInt32(((DataRowView)OrdersManager.MegaOrdersBindingSource.Current).Row["MegaOrderID"]),
@@ -1133,7 +1133,7 @@ namespace Infinium
                         if (SendEmail.Success == false)
                         {
                             Infinium.LightMessageBox.Show(ref TopForm, false,
-                                   "Отправка отчета не возможна: отсутствует подключение к интернету либо адрес электронной почты указан неверно",
+                                   "Отправка отчета невозможна: отсутствует подключение к интернету либо адрес электронной почты указан неверно",
                                    "Отправка отчета");
                         }
                         OrdersManager.FixOrderEvent(Convert.ToInt32(((DataRowView)OrdersManager.MegaOrdersBindingSource.Current).Row["MegaOrderID"]), "Отчет отправлен клиенту");
@@ -1479,7 +1479,7 @@ namespace Infinium
                                 if (SendEmail.Success == false)
                                 {
                                     Infinium.LightMessageBox.Show(ref TopForm, false,
-                                           "Отправка отчета не возможна: отсутствует подключение к интернету либо адрес электронной почты указан неверно",
+                                           "Отправка отчета невозможна: отсутствует подключение к интернету либо адрес электронной почты указан неверно",
                                            "Отправка письма");
                                 }
                                 OrdersManager.FixOrderEvent(Convert.ToInt32(((DataRowView)OrdersManager.MegaOrdersBindingSource.Current).Row["MegaOrderID"]), "Отчет отправлен клиенту");
@@ -1657,7 +1657,7 @@ namespace Infinium
                                 if (SendEmail.Success == false)
                                 {
                                     Infinium.LightMessageBox.Show(ref TopForm, false,
-                                           "Отправка отчета не возможна: отсутствует подключение к интернету либо адрес электронной почты указан неверно",
+                                           "Отправка отчета невозможна: отсутствует подключение к интернету либо адрес электронной почты указан неверно",
                                            "Отправка письма");
                                 }
                                 OrdersManager.FixOrderEvent(Convert.ToInt32(((DataRowView)OrdersManager.MegaOrdersBindingSource.Current).Row["MegaOrderID"]), "Отчет отправлен клиенту");
@@ -1838,7 +1838,7 @@ namespace Infinium
                             if (SendEmail.Success == false)
                             {
                                 Infinium.LightMessageBox.Show(ref TopForm, false,
-                                       "Отправка отчета не возможна: отсутствует подключение к интернету либо адрес электронной почты указан неверно",
+                                       "Отправка отчета невозможна: отсутствует подключение к интернету либо адрес электронной почты указан неверно",
                                        "Отправка письма");
                             }
                             OrdersManager.FixOrderEvent(Convert.ToInt32(((DataRowView)OrdersManager.MegaOrdersBindingSource.Current).Row["MegaOrderID"]), "Отчет отправлен клиенту");

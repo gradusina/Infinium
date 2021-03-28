@@ -3840,6 +3840,19 @@ namespace Infinium.Modules.Marketing.NewOrders
             }
         }
 
+        public bool HasZeroCount
+        {
+            get
+            {
+                for (int i = 0; i < FrontsOrdersDataTable.Rows.Count; i++)
+                    if (FrontsOrdersDataTable.Rows[i].RowState != DataRowState.Deleted)
+                        if (Convert.ToInt32(FrontsOrdersDataTable.Rows[i]["Count"]) == 0)
+                        return true;
+
+                return false;
+            }
+        }
+
         public bool HasRows()
         {
             int ItemsCount = 0;
@@ -4479,6 +4492,22 @@ namespace Infinium.Modules.Marketing.NewOrders
                 cell.ToolTipText = DisplayName;
             }
 
+        }
+
+        public bool HasZeroCount
+        {
+            get
+            {
+                for (int i = 0; i < DecorCatalogOrder.DecorProductsCount; i++)
+                {
+                    for (int r = 0; r < DecorItemOrdersDataTables[i].Rows.Count; r++)
+                        if (DecorItemOrdersDataTables[i].Rows[r].RowState != DataRowState.Deleted)
+                            if (Convert.ToInt32(DecorItemOrdersDataTables[i].Rows[r]["Count"]) == 0)
+                            return true;
+                }
+
+                return false;
+            }
         }
 
         public bool HasRows()
@@ -18748,7 +18777,7 @@ namespace Infinium.Modules.Marketing.NewOrders
 
             if (to.Length == 0)
             {
-                MessageBox.Show("У клиента не указан Email. Отправка отчета не возможна");
+                MessageBox.Show("У клиента не указан Email. Отправка отчета невозможна");
                 return;
             }
 

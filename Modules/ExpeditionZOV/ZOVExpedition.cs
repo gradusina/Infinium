@@ -8226,7 +8226,7 @@ namespace Infinium.Modules.ZOV.Expedition
 
             if (MailAddressTo.Length == 0)
             {
-                MessageBox.Show("У клиента не указан Email. Отправка отчета не возможна");
+                MessageBox.Show("У клиента не указан Email. Отправка отчета невозможна");
                 return;
             }
 

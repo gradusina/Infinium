@@ -1,6 +1,6 @@
 ﻿namespace Infinium
 {
-    partial class EditTimeForm1
+    partial class EditTimesheetForm
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EditTimeForm1));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EditTimesheetForm));
             this.kryptonBorderEdge20 = new ComponentFactory.Krypton.Toolkit.KryptonBorderEdge();
             this.kryptonBorderEdge21 = new ComponentFactory.Krypton.Toolkit.KryptonBorderEdge();
             this.kryptonBorderEdge22 = new ComponentFactory.Krypton.Toolkit.KryptonBorderEdge();
@@ -40,12 +40,10 @@
             this.NavigateMenuButtonsPalette = new ComponentFactory.Krypton.Toolkit.KryptonPalette(this.components);
             this.label2 = new System.Windows.Forms.Label();
             this.AnimateTimer = new System.Windows.Forms.Timer(this.components);
-            this.timeEdit1 = new DevExpress.XtraEditors.TimeEdit();
             this.OKButton = new ComponentFactory.Krypton.Toolkit.KryptonButton();
-            this.FactTimeLabel = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.timeEdit1.Properties)).BeginInit();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -204,32 +202,14 @@
             this.label2.ForeColor = System.Drawing.Color.White;
             this.label2.Location = new System.Drawing.Point(3, 7);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(299, 41);
+            this.label2.Size = new System.Drawing.Size(350, 41);
             this.label2.TabIndex = 240;
-            this.label2.Text = "Начать рабочий день";
+            this.label2.Text = "Изменить время В табель";
             // 
             // AnimateTimer
             // 
             this.AnimateTimer.Interval = 1;
             this.AnimateTimer.Tick += new System.EventHandler(this.AnimateTimer_Tick);
-            // 
-            // timeEdit1
-            // 
-            this.timeEdit1.EditValue = new System.DateTime(2013, 2, 25, 10, 35, 43, 0);
-            this.timeEdit1.Location = new System.Drawing.Point(346, 26);
-            this.timeEdit1.Name = "timeEdit1";
-            this.timeEdit1.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 32.81F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.timeEdit1.Properties.Appearance.Options.UseFont = true;
-            this.timeEdit1.Properties.Appearance.Options.UseTextOptions = true;
-            this.timeEdit1.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.timeEdit1.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            this.timeEdit1.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton()});
-            this.timeEdit1.Properties.LookAndFeel.SkinName = "Metropolis";
-            this.timeEdit1.Properties.LookAndFeel.UseDefaultLookAndFeel = false;
-            this.timeEdit1.Properties.Mask.EditMask = "t";
-            this.timeEdit1.Size = new System.Drawing.Size(123, 50);
-            this.timeEdit1.TabIndex = 246;
             // 
             // OKButton
             // 
@@ -264,28 +244,24 @@
             this.OKButton.Values.Text = "Применить";
             this.OKButton.Click += new System.EventHandler(this.AcceptButton_Click);
             // 
-            // FactTimeLabel
-            // 
-            this.FactTimeLabel.AutoSize = true;
-            this.FactTimeLabel.Font = new System.Drawing.Font("Segoe UI", 32.81F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.FactTimeLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(55)))), ((int)(((byte)(58)))), ((int)(((byte)(61)))));
-            this.FactTimeLabel.Location = new System.Drawing.Point(197, 28);
-            this.FactTimeLabel.Name = "FactTimeLabel";
-            this.FactTimeLabel.Size = new System.Drawing.Size(168, 45);
-            this.FactTimeLabel.TabIndex = 302;
-            this.FactTimeLabel.Text = "с 08:00 на";
-            // 
             // panel2
             // 
-            this.panel2.Controls.Add(this.FactTimeLabel);
-            this.panel2.Controls.Add(this.timeEdit1);
+            this.panel2.Controls.Add(this.textBox1);
             this.panel2.Controls.Add(this.OKButton);
             this.panel2.Location = new System.Drawing.Point(40, 74);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(667, 162);
             this.panel2.TabIndex = 307;
             // 
-            // EditTimeForm1
+            // textBox1
+            // 
+            this.textBox1.Font = new System.Drawing.Font("Segoe UI", 32.81F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.textBox1.Location = new System.Drawing.Point(151, 21);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(365, 51);
+            this.textBox1.TabIndex = 302;
+            // 
+            // EditTimesheetForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.White;
@@ -297,7 +273,7 @@
             this.Controls.Add(this.kryptonBorderEdge20);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Name = "EditTimeForm1";
+            this.Name = "EditTimesheetForm";
             this.Opacity = 0D;
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
@@ -306,7 +282,6 @@
             this.Shown += new System.EventHandler(this.EditTimeForm_Shown);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.timeEdit1.Properties)).EndInit();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             this.ResumeLayout(false);
@@ -326,9 +301,8 @@
         private System.Windows.Forms.Timer AnimateTimer;
         private ComponentFactory.Krypton.Toolkit.KryptonButton MenuCloseButton;
         private ComponentFactory.Krypton.Toolkit.KryptonPalette NavigateMenuButtonsPalette;
-        private DevExpress.XtraEditors.TimeEdit timeEdit1;
         private ComponentFactory.Krypton.Toolkit.KryptonButton OKButton;
-        private System.Windows.Forms.Label FactTimeLabel;
         private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }

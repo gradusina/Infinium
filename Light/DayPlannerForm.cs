@@ -54,7 +54,7 @@ namespace Infinium
             int yMargin1 = 0;
             if (ProfilUserFunctionsContainerCount1 != 0)
             {
-                this.pnlProfilFunctions1.Size = new Size(this.pnlProfilFunctions1.Size.Width, panel26.Height);
+                pnlProfilFunctions1.Size = new Size(panel26.Size.Width, panel26.Height);
                 yMargin = 45;
                 yMargin1 = 20;
             }
@@ -73,20 +73,20 @@ namespace Infinium
             };
             FunctionsContainer = new InfiniumFunctionsContainer()
             {
-                Anchor = ((AnchorStyles)((((AnchorStyles.Top)
-            | AnchorStyles.Left)
-            | AnchorStyles.Right))),
+                Anchor = ((AnchorStyles.Top | AnchorStyles.Bottom)
+                | AnchorStyles.Left
+                | AnchorStyles.Right),
                 FunctionsDataTable = null,
                 Location = new Point(0, ProfilUserFunctionsContainerCount1++ * panel26.Height + yMargin),
                 Name = "InfiniumFunctionsContainer" + ProfilUserFunctionsContainerCount1,
                 ReadOnly = false,
-                Size = new Size(771, panel26.Height),
+                Size = new Size(panel26.Width, panel26.Height),
                 TabIndex = 0,
                 TimePickersFont = new Font("Segoe UI", 24F, FontStyle.Regular, GraphicsUnit.Pixel)
             };
             FunctionsContainer.TimeChanged += new InfiniumFunctionsContainer.TimeChangedEventHandler(FunctionsContainer_TimeChanged);
-            this.pnlProfilFunctions1.Controls.Add(label1);
-            this.pnlProfilFunctions1.Controls.Add(FunctionsContainer);
+            pnlProfilFunctions1.Controls.Add(label1);
+            pnlProfilFunctions1.Controls.Add(FunctionsContainer);
         }
 
         private void AddTPSInfiniumFunctionsContainer(ref InfiniumFunctionsContainer FunctionsContainer, string Position)
@@ -95,7 +95,7 @@ namespace Infinium
             int yMargin1 = 0;
             if (TPSUserFunctionsContainerCount1 != 0)
             {
-                this.pnlTPSFunctions1.Size = new Size(this.pnlTPSFunctions1.Size.Width, panel26.Height);
+                pnlTPSFunctions1.Size = new Size(panel26.Size.Width, panel26.Height);
                 yMargin = 45;
                 yMargin1 = 20;
             }
@@ -113,26 +113,26 @@ namespace Infinium
             };
             FunctionsContainer = new InfiniumFunctionsContainer()
             {
-                Anchor = ((AnchorStyles)((((AnchorStyles.Top)
-            | AnchorStyles.Left)
-            | AnchorStyles.Right))),
+                Anchor = ((AnchorStyles.Top | AnchorStyles.Bottom)
+                | AnchorStyles.Left
+                | AnchorStyles.Right),
                 FunctionsDataTable = null,
                 Location = new Point(0, TPSUserFunctionsContainerCount1++ * panel26.Height + yMargin),
                 Name = "InfiniumFunctionsContainer" + TPSUserFunctionsContainerCount1,
                 ReadOnly = false,
-                Size = new Size(771, panel26.Height),
+                Size = new Size(panel26.Width, panel26.Height),
                 TabIndex = 0,
                 TimePickersFont = new Font("Segoe UI", 24F, FontStyle.Regular, GraphicsUnit.Pixel)
             };
             FunctionsContainer.TimeChanged += new InfiniumFunctionsContainer.TimeChangedEventHandler(FunctionsContainer_TimeChanged);
-            this.pnlTPSFunctions1.Controls.Add(label1);
-            this.pnlTPSFunctions1.Controls.Add(FunctionsContainer);
+            pnlTPSFunctions1.Controls.Add(label1);
+            pnlTPSFunctions1.Controls.Add(FunctionsContainer);
         }
 
         private void AddProfilUserFunctionsContainer(int DepartmentID, int PositionID, string Position)
         {
             if (ProfilUserFunctionsContainerCount != 0)
-                this.panel12.Size = new Size(this.panel12.Size.Width, this.panel12.Size.Height + 347);
+                panel12.Size = new Size(panel12.Size.Width, panel12.Size.Height + 347);
             UserFunctionsContainer userFunctionsContainer = new UserFunctionsContainer()
             {
                 Location = new Point(0, ProfilUserFunctionsContainerCount++ * 347),
@@ -146,7 +146,7 @@ namespace Infinium
             };
             userFunctionsContainer.UsersFunctionsSetting();
             //userFunctionsContainer.btnDeleteUserFunction_Click += EventArgs(btnDeleteUserFunction_Click);
-            this.panel12.Controls.Add(userFunctionsContainer);
+            panel12.Controls.Add(userFunctionsContainer);
         }
 
         public void btnDeleteUserFunction_Click(object sender, EventArgs e)
@@ -156,7 +156,7 @@ namespace Infinium
         private void AddTPSUserFunctionsContainer(int DepartmentID, int PositionID, string Position)
         {
             if (TPSUserFunctionsContainerCount != 0)
-                this.panel27.Size = new Size(this.panel27.Size.Width, this.panel27.Size.Height + 347);
+                panel27.Size = new Size(panel27.Size.Width, panel27.Size.Height + 347);
             UserFunctionsContainer userFunctionsContainer = new UserFunctionsContainer()
             {
                 Location = new Point(0, TPSUserFunctionsContainerCount++ * 347),
@@ -169,7 +169,7 @@ namespace Infinium
                 AdminResponsibilities = AdminResponsibilities
             };
             userFunctionsContainer.UsersFunctionsSetting();
-            this.panel27.Controls.Add(userFunctionsContainer);
+            panel27.Controls.Add(userFunctionsContainer);
         }
 
         public DayPlannerForm(LightStartForm tLightStartForm)
@@ -179,7 +179,7 @@ namespace Infinium
 
             LightStartForm = tLightStartForm;
 
-            this.MaximumSize = Screen.PrimaryScreen.WorkingArea.Size;
+            MaximumSize = Screen.PrimaryScreen.WorkingArea.Size;
 
             InfiniumProjects = new InfiniumProjects();
             InfiniumProjects.Fill();
@@ -273,8 +273,12 @@ namespace Infinium
             DeltaTime = Security.GetCurrentDate() - DateTime.Now;
 
             GetProjects();
-
+            CalendarFrom.SelectionStart = new DateTime(2021, 2, 14);
             CalendarFrom.SelectionStart = DateTime.Today;
+            CalendarFrom.TodayDate = DateTime.Today;
+
+            //CalendarFrom.SelectionStart = new DateTime(2021, 2, 15);
+            //CalendarFrom.TodayDate = new DateTime(2021, 2, 15);
 
             while (!SplashForm.bCreated) ;
         }
@@ -318,7 +322,7 @@ namespace Infinium
         {
             if (!DatabaseConfigsManager.Animation)
             {
-                this.Opacity = 1;
+                Opacity = 1;
 
                 if (FormEvent == eClose || FormEvent == eHide)
                 {
@@ -353,8 +357,8 @@ namespace Infinium
 
             if (FormEvent == eClose || FormEvent == eHide)
             {
-                if (Convert.ToDecimal(this.Opacity) != Convert.ToDecimal(0.00))
-                    this.Opacity = Convert.ToDouble(Convert.ToDecimal(this.Opacity) - Convert.ToDecimal(0.05));
+                if (Convert.ToDecimal(Opacity) != Convert.ToDecimal(0.00))
+                    Opacity = Convert.ToDouble(Convert.ToDecimal(Opacity) - Convert.ToDecimal(0.05));
                 else
                 {
                     AnimateTimer.Enabled = false;
@@ -379,8 +383,8 @@ namespace Infinium
 
             if (FormEvent == eShow)
             {
-                if (this.Opacity != 1)
-                    this.Opacity += 0.05;
+                if (Opacity != 1)
+                    Opacity += 0.05;
                 else
                 {
                     AnimateTimer.Enabled = false;
@@ -421,11 +425,11 @@ namespace Infinium
             if (kryptonCheckSet1.CheckedButton.Checked)
                 kryptonCheckSet1.CheckedButton.BringToFront();
 
-            if (kryptonCheckSet1.CheckedButton.Name == "TodayMenuButton")
-            {
-                TodayPanel.BringToFront();
-                return;
-            }
+            //if (kryptonCheckSet1.CheckedButton.Name == "TodayMenuButton")
+            //{
+            //    TodayPanel.BringToFront();
+            //    return;
+            //}
 
             if (kryptonCheckSet1.CheckedButton.Name == "WorkDayMenuButton")
             {
@@ -492,7 +496,7 @@ namespace Infinium
         {
             int W = 0;
 
-            Graphics G = this.CreateGraphics();
+            Graphics G = CreateGraphics();
             Font F = new Font("Segoe UI Semilight", 90, FontStyle.Regular, GraphicsUnit.Pixel);
 
             W = Convert.ToInt32(G.MeasureString(Text, F).Width);
@@ -535,9 +539,9 @@ namespace Infinium
 
             StatusToControls();
 
-            if (DayStatus.iDayStatus == LightWorkDay.sDayNotSaved)
-                TodayMenuButton.Checked = true;
-            //  TodayPanel.BringToFront();
+            //if (DayStatus.iDayStatus == LightWorkDay.sDayNotSaved)
+            //    TodayMenuButton.Checked = true;
+            CalendarFrom_DateChanged(null, new DateRangeEventArgs(CalendarFrom.SelectionStart, CalendarFrom.SelectionStart));
         }
 
         private void StatusToControls()
@@ -551,6 +555,7 @@ namespace Infinium
             btnCancelEnd.Visible = true;
             SaveWorkDayButton.Visible = true;
 
+            
             if (DayStatus.iDayStatus != LightWorkDay.sDayNotStarted)
             {
                 for (int i = 0; i < AdminResponsibilities.ProfilPositionsCount; i++)
@@ -644,17 +649,19 @@ namespace Infinium
             {
                 StatusLabel.Text = "Рабочий день не начат";
                 WorkDayStatusLabel.Text = StatusLabel.Text;
-                DayStatusHelpLabel.Text = "Начните рабочий день на вкладке «Рабочий день»";
-            }
+                DayStatusHelpLabel.Text = "Начните рабочий день";
 
-            if (DayStatus.iDayStatus != LightWorkDay.sDayEnded)
-            {
                 DayLengthLabel.Text = "-- : --";
                 DayStartLabel.Text = "-- : --";
                 BreakStartLabel.Text = "-- : --";
                 BreakEndLabel.Text = "-- : --";
                 DayEndLabel.Text = "-- : --";
             }
+
+            if (DayStatus.iDayStatus != LightWorkDay.sDayEnded)
+            {
+            }
+
             if (DayStatus.iDayStatus == LightWorkDay.sDayEnded)
                 SaveWorkDayButton.Visible = false;
 
@@ -686,7 +693,8 @@ namespace Infinium
                 BreakEndLabel.Text = DayStatus.BreakEnded.ToString("HH:mm");
             }
 
-            if (DayStatus.iDayStatus == LightWorkDay.sDayEnded || DayStatus.iDayStatus == LightWorkDay.sDayNotSaved)
+            if (DayStatus.iDayStatus == LightWorkDay.sDayEnded || DayStatus.iDayStatus == LightWorkDay.sDayNotSaved
+                 || DayStatus.iDayStatus == LightWorkDay.sDaySaved)
             {
                 StartButton.Visible = false;
                 BreakButton.Visible = false;
@@ -709,6 +717,11 @@ namespace Infinium
                 DayEndLabel.Text = DayStatus.DayEnded.ToString("HH:mm");
             }
 
+            //if (DayStatus.iDayStatus == LightWorkDay.sDaySaved)
+            //{
+            //    btnCancelEnd.Visible = false;
+            //}
+            
             DayLengthLabel.Text = GetDayLength();
 
             ChangeBreakEndLabel.Click -= ChangeBreakEndLabel_Click;
@@ -775,7 +788,7 @@ namespace Infinium
             else
                 BreakEndLabel.ForeColor = Color.FromArgb(0, 102, 204);
 
-            LightWorkDay.GetWeekTimeSheet(ref MonTimeSheetlabel, ref TueTimeSheetlabel, ref WedTimeSheetlabel, ref ThuTimeSheetlabel, ref FriTimeSheetlabel, ref SatTimeSheetlabel, ref SunTimeSheetlabel);
+            //LightWorkDay.GetWeekTimeSheet(ref MonTimeSheetlabel, ref TueTimeSheetlabel, ref WedTimeSheetlabel, ref ThuTimeSheetlabel, ref FriTimeSheetlabel, ref SatTimeSheetlabel, ref SunTimeSheetlabel);
 
         }
 
@@ -906,6 +919,12 @@ namespace Infinium
 
         private void StartButton_Click(object sender, EventArgs e)
         {
+            if (!LightWorkDay.IsTimesheetHoursSaved(Security.CurrentUserID))
+            {
+                MessageBox.Show("Необходимо сохранить Табель в предыдущий рабочий день");
+                return;
+            }
+
             PhantomForm PhantomForm = new PhantomForm();
             PhantomForm.Show();
 
@@ -921,6 +940,7 @@ namespace Infinium
             TopForm = null;
 
             StatusToControls();
+            CalendarFrom_DateChanged(null, new DateRangeEventArgs(CalendarFrom.SelectionStart, CalendarFrom.SelectionStart));
         }
 
         private void BreakButton_Click(object sender, EventArgs e)
@@ -959,6 +979,7 @@ namespace Infinium
             TopForm = null;
 
             StatusToControls();
+            CalendarFrom_DateChanged(null, new DateRangeEventArgs(CalendarFrom.SelectionStart, CalendarFrom.SelectionStart));
         }
 
         private void DayTimer_Tick(object sender, EventArgs e)
@@ -1057,7 +1078,7 @@ namespace Infinium
 
         private void WorkDayStatusLabel_Click(object sender, EventArgs e)
         {
-            WorkDayMenuButton.Checked = true;
+            //WorkDayMenuButton.Checked = true;
         }
 
         private void FunctionsContainer_TimeChanged(object sender, int Minutes)
@@ -1256,7 +1277,9 @@ namespace Infinium
                     }
                 }
             }
+            CalendarFrom_DateChanged(null, new DateRangeEventArgs(CalendarFrom.SelectionStart, CalendarFrom.SelectionStart));
 
+            //SaveTimesheetTime();
         }
 
         private void MinimizeButton_Click(object sender, EventArgs e)
@@ -1706,43 +1729,53 @@ namespace Infinium
 
         private void CalendarFrom_DateChanged(object sender, DateRangeEventArgs e)
         {
-            int userId = 313;
-            //int userId = Security.CurrentUserID;
+            //StatusToControls();
+            //int userId = 337;
+            int userId = Security.CurrentUserID;
 
-                TimesheetMonth = e.Start.Month;
-                TimesheetYear = e.Start.Year;
+            TimesheetMonth = e.Start.Month;
+            TimesheetYear = e.Start.Year;
 
-                DayPlannerWorkTimeSheet.GetAbsJournal(userId, TimesheetYear, TimesheetMonth);
-                DayPlannerWorkTimeSheet.GetProdShedule(TimesheetYear, TimesheetMonth);
-                DayPlannerWorkTimeSheet.GetTimesheet(userId, TimesheetYear, TimesheetMonth);
-                DayPlannerWorkTimeSheet.GetRate(userId);
+            DayPlannerWorkTimeSheet.GetRate(userId);
+            DayPlannerWorkTimeSheet.GetAbsJournal(userId, TimesheetYear, TimesheetMonth);
+            DayPlannerWorkTimeSheet.GetProdShedule(TimesheetYear, TimesheetMonth);
+            DayPlannerWorkTimeSheet.GetTimesheet(userId, TimesheetYear, TimesheetMonth);
 
             DayStatus dayStatus = LightWorkDay.GetDayStatus(userId, e.Start.Date);
 
             if (dayStatus.iDayStatus != LightWorkDay.sDayNotStarted)
             {
-                label32.Text = "День завершен";
+                label32.Text = "Рабочий день начат";
 
                 if (dayStatus.bDayStarted)
                     timeEdit1.EditValue = dayStatus.DayStarted.ToString("HH:mm");
 
                 if (dayStatus.bBreakStarted)
+                {
+                    label32.Text = "Перерыв";
                     timeEdit2.EditValue = dayStatus.BreakStarted.ToString("HH:mm");
+                }
 
                 if (dayStatus.bBreakEnded)
+                {
+                    label32.Text = "Рабочий день продолжается";
                     timeEdit3.EditValue = dayStatus.BreakEnded.ToString("HH:mm");
+                }
 
                 if (dayStatus.bDayEnded)
+                {
+                    label32.Text = "Рабочий день завершен";
                     timeEdit4.EditValue = dayStatus.DayEnded.ToString("HH:mm");
+                }
             }
-            else
+            if (dayStatus.iDayStatus < LightWorkDay.sDayEnded)
             {
-                label32.Text = "День не начат";
+                label32.Text = "Рабочий день не завершен";
 
-                timeEdit1.EditValue = new System.DateTime(e.Start.Date.Year, e.Start.Date.Month, e.Start.Date.Day, 8, 0, 0, 0);
-                timeEdit2.EditValue = new System.DateTime(e.Start.Date.Year, e.Start.Date.Month, e.Start.Date.Day, 12, 0, 0, 0);
-                timeEdit3.EditValue = new System.DateTime(e.Start.Date.Year, e.Start.Date.Month, e.Start.Date.Day, 13, 0, 0, 0);
-                timeEdit4.EditValue = new System.DateTime(e.Start.Date.Year, e.Start.Date.Month, e.Start.Date.Day, 17, 0, 0, 0);
+                //timeEdit1.EditValue = new System.DateTime(e.Start.Date.Year, e.Start.Date.Month, e.Start.Date.Day, 8, 0, 0, 0);
+                //timeEdit2.EditValue = new System.DateTime(e.Start.Date.Year, e.Start.Date.Month, e.Start.Date.Day, 12, 0, 0, 0);
+                //timeEdit3.EditValue = new System.DateTime(e.Start.Date.Year, e.Start.Date.Month, e.Start.Date.Day, 13, 0, 0, 0);
+                //timeEdit4.EditValue = new System.DateTime(e.Start.Date.Year, e.Start.Date.Month, e.Start.Date.Day, 17, 0, 0, 0);
             }
 
             DayPlannerWorkTimeSheet.CalcOverwork(TimesheetYear, TimesheetMonth, e.Start.Date);
@@ -1750,7 +1783,7 @@ namespace Infinium
             TimesheetInfo dayInfo = DayPlannerWorkTimeSheet.GetDayInfo(e.Start.Date);
             if (dayInfo.IsAbsence)
             {
-                lbAbsenceHours.Text = string.Format("{0}/({1})", dayInfo.AbsenceShortName, dayInfo.AbsenceHours.ToString());
+                lbAbsenceHours.Text = dayInfo.AbsenceFullName;
             }
             else
             {
@@ -1759,16 +1792,52 @@ namespace Infinium
             lbPlanHours.Text = dayInfo.PlanHours.ToString();
             lbRate.Text = dayInfo.StrRate.ToString();
             lbOverworkHours.Text = dayInfo.OverworkHours.ToString();
-            if (dayInfo.AbsenceTypeID != 14)
+            lbOvertimeHours.Text = dayInfo.AllOvertimeHours.ToString();
+            tbTimesheetHours.Text = dayInfo.TimesheetHours.ToString();
+            lbFactHours.Text = dayInfo.FactHours.ToString();
+            lbBreakHours.Text = dayInfo.BreakHours.ToString();
+            //if (dayInfo.AbsenceTypeID != 14)
+            //{
+            //    lbFactHours.Text = dayInfo.FactHours.ToString();
+            //    lbBreakHours.Text = dayInfo.BreakHours.ToString();
+            //}
+            //else
+            //{
+            //    lbFactHours.Text = dayInfo.AbsenceHours.ToString();
+            //    lbBreakHours.Text = "-";
+            //}
+
+            tbTimesheetHours.ForeColor = Color.Red;
+
+            TimeSpan TimeWork = Convert.ToDateTime(timeEdit4.EditValue).TimeOfDay - Convert.ToDateTime(timeEdit1.EditValue).TimeOfDay;
+            decimal TimeWorkHours = (decimal)Math.Round(TimeWork.TotalHours, 1);
+
+            TimeSpan TimeBreak = Convert.ToDateTime(timeEdit3.EditValue).TimeOfDay - Convert.ToDateTime(timeEdit2.EditValue).TimeOfDay;
+            decimal TimeBreakHours = (decimal)Math.Round(TimeBreak.TotalHours, 1);
+            decimal FactHours = TimeWorkHours - TimeBreakHours;
+
+            decimal OverworkHours = dayInfo.OverworkHours < 0 ? dayInfo.OverworkHours : 0;
+            if ((dayInfo.PlanHours) - dayInfo.AAbsenceHours + dayInfo.AllOvertimeHours - OverworkHours >= dayInfo.TimesheetHours)
             {
-                lbFactHours.Text = dayInfo.FactHours.ToString();
-                lbBreakHours.Text = dayInfo.BreakHours.ToString();
+                if (dayInfo.TimesheetHours <= FactHours)
+                {
+                    tbTimesheetHours.ForeColor = Color.ForestGreen;
+                }
             }
-            else
-            {
-                lbFactHours.Text = dayInfo.AbsenceHours.ToString();
-                lbBreakHours.Text = "-";
-            }
+
+            //if (dayInfo.OvertimeHours > 0)
+            //{
+            //    if (dayInfo.TimesheetHours <= dayInfo.FactHours)
+            //    {
+            //        b = true;
+            //        tbTimesheetHours.ForeColor = Color.ForestGreen;
+            //    }
+            //    else
+            //    {
+            //        b = false;
+            //        tbTimesheetHours.ForeColor = Color.Red;
+            //    }
+            //}
         }
 
         private void kryptonCheckSet3_CheckedButtonChanged(object sender, EventArgs e)
@@ -1787,10 +1856,16 @@ namespace Infinium
             }
         }
 
-        private void kryptonButton1_Click(object sender, EventArgs e)
+        private void SaveTimesheetTime()
         {
-            int userId = 313;
-            //int userId = Security.CurrentUserID;
+            if (CalendarFrom.SelectionStart > DateTime.Now.Date)
+            {
+                InfiniumTips.ShowTip(this, 50, 85, "Нельзя сохранить рабочий день заранее\r\nСОХРАНЕНИЕ НЕ ВЫПОЛНЕНО", 2700);
+                return;
+            }
+
+            //int userId = 337;
+            int userId = Security.CurrentUserID;
 
 
             DayStatus dayStatus = LightWorkDay.GetDayStatus(userId, CalendarFrom.SelectionStart);
@@ -1800,7 +1875,51 @@ namespace Infinium
             dayStatus.BreakEnded = Convert.ToDateTime(CalendarFrom.SelectionStart.ToShortDateString() + " " + timeEdit3.Time.ToString("HH:mm:ss.fff"));
             dayStatus.DayEnded = Convert.ToDateTime(CalendarFrom.SelectionStart.ToShortDateString() + " " + timeEdit4.Time.ToString("HH:mm:ss.fff"));
 
-            dayStatus.iDayStatus = LightWorkDay.sDayEnded;
+            //dayStatus.iDayStatus = LightWorkDay.sDayEnded;
+            decimal TimesheetHours = 0;
+            if (tbTimesheetHours.Text != "")
+                decimal.TryParse(tbTimesheetHours.Text, out TimesheetHours);
+            dayStatus.dTimesheetHours = TimesheetHours;
+
+            TimeSpan TimeWork = Convert.ToDateTime(timeEdit4.EditValue).TimeOfDay - Convert.ToDateTime(timeEdit1.EditValue).TimeOfDay;
+            decimal TimeWorkHours = (decimal)Math.Round(TimeWork.TotalHours, 1);
+
+            TimeSpan TimeBreak = Convert.ToDateTime(timeEdit3.EditValue).TimeOfDay - Convert.ToDateTime(timeEdit2.EditValue).TimeOfDay;
+            decimal TimeBreakHours = (decimal)Math.Round(TimeBreak.TotalHours, 1);
+            decimal FactHours = TimeWorkHours - TimeBreakHours;
+
+            TimesheetInfo dayInfo = DayPlannerWorkTimeSheet.GetDayInfo(CalendarFrom.SelectionStart);
+
+            bool b = false;
+            tbTimesheetHours.ForeColor = Color.Red;
+
+
+            if (dayStatus.iDayStatus < LightWorkDay.sDayEnded)
+            {
+                label32.Text = "Рабочий день не завершен";
+                InfiniumTips.ShowTip(this, 50, 85, "Рабочий день не завершен\r\nСОХРАНЕНИЕ НЕ ВЫПОЛНЕНО", 2700);
+                return;
+            }
+
+            decimal OverworkHours = dayInfo.OverworkHours < 0 ? dayInfo.OverworkHours : 0;
+            if ((dayInfo.PlanHours) - dayInfo.AAbsenceHours + dayInfo.AllOvertimeHours - OverworkHours >= TimesheetHours)
+            {
+                if (TimesheetHours <= FactHours)
+                {
+                    b = true;
+                    tbTimesheetHours.ForeColor = Color.ForestGreen;
+                }
+            }
+
+            if (b)
+            {
+
+            }
+            else
+            {
+                InfiniumTips.ShowTip(this, 50, 85, "НЕВЕРНОЕ ЗНАЧЕНИЕ \"В ТАБЕЛЬ\"\r\nСОХРАНЕНИЕ НЕ ВЫПОЛНЕНО", 2700);
+                return;
+            }
 
             LightWorkDay.SaveDay(userId, dayStatus);
 
@@ -1809,44 +1928,53 @@ namespace Infinium
             TimesheetMonth = CalendarFrom.SelectionStart.Month;
             TimesheetYear = CalendarFrom.SelectionStart.Year;
 
+            DayPlannerWorkTimeSheet.GetRate(userId);
             DayPlannerWorkTimeSheet.GetAbsJournal(userId, TimesheetYear, TimesheetMonth);
             DayPlannerWorkTimeSheet.GetProdShedule(TimesheetYear, TimesheetMonth);
             DayPlannerWorkTimeSheet.GetTimesheet(userId, TimesheetYear, TimesheetMonth);
-            DayPlannerWorkTimeSheet.GetRate(userId);
 
             dayStatus = LightWorkDay.GetDayStatus(userId, CalendarFrom.SelectionStart);
             if (dayStatus.iDayStatus != LightWorkDay.sDayNotStarted)
             {
-                label32.Text = "День завершен";
+                label32.Text = "Рабочий день начат";
 
                 if (dayStatus.bDayStarted)
                     timeEdit1.EditValue = dayStatus.DayStarted.ToString("HH:mm");
 
                 if (dayStatus.bBreakStarted)
+                {
+                    label32.Text = "Перерыв";
                     timeEdit2.EditValue = dayStatus.BreakStarted.ToString("HH:mm");
+                }
 
                 if (dayStatus.bBreakEnded)
+                {
+                    label32.Text = "Рабочий день продолжается";
                     timeEdit3.EditValue = dayStatus.BreakEnded.ToString("HH:mm");
+                }
 
                 if (dayStatus.bDayEnded)
+                {
+                    label32.Text = "Рабочий день завершен";
                     timeEdit4.EditValue = dayStatus.DayEnded.ToString("HH:mm");
+                }
             }
-            else
+            if (dayStatus.iDayStatus < LightWorkDay.sDayEnded)
             {
-                label32.Text = "День не начат";
+                label32.Text = "Рабочий день не завершен";
 
-                timeEdit1.EditValue = new System.DateTime(CalendarFrom.SelectionStart.Year, CalendarFrom.SelectionStart.Month, CalendarFrom.SelectionStart.Day, 8, 0, 0, 0);
-                timeEdit2.EditValue = new System.DateTime(CalendarFrom.SelectionStart.Year, CalendarFrom.SelectionStart.Month, CalendarFrom.SelectionStart.Day, 12, 0, 0, 0);
-                timeEdit3.EditValue = new System.DateTime(CalendarFrom.SelectionStart.Year, CalendarFrom.SelectionStart.Month, CalendarFrom.SelectionStart.Day, 13, 0, 0, 0);
-                timeEdit4.EditValue = new System.DateTime(CalendarFrom.SelectionStart.Year, CalendarFrom.SelectionStart.Month, CalendarFrom.SelectionStart.Day, 17, 0, 0, 0);
+                //timeEdit1.EditValue = new System.DateTime(CalendarFrom.SelectionStart.Year, CalendarFrom.SelectionStart.Month, CalendarFrom.SelectionStart.Day, 8, 0, 0, 0);
+                //timeEdit2.EditValue = new System.DateTime(CalendarFrom.SelectionStart.Year, CalendarFrom.SelectionStart.Month, CalendarFrom.SelectionStart.Day, 12, 0, 0, 0);
+                //timeEdit3.EditValue = new System.DateTime(CalendarFrom.SelectionStart.Year, CalendarFrom.SelectionStart.Month, CalendarFrom.SelectionStart.Day, 13, 0, 0, 0);
+                //timeEdit4.EditValue = new System.DateTime(CalendarFrom.SelectionStart.Year, CalendarFrom.SelectionStart.Month, CalendarFrom.SelectionStart.Day, 17, 0, 0, 0);
             }
 
             DayPlannerWorkTimeSheet.CalcOverwork(TimesheetYear, TimesheetMonth, CalendarFrom.SelectionStart);
 
-            TimesheetInfo dayInfo = DayPlannerWorkTimeSheet.GetDayInfo(CalendarFrom.SelectionStart);
+            dayInfo = DayPlannerWorkTimeSheet.GetDayInfo(CalendarFrom.SelectionStart);
             if (dayInfo.IsAbsence)
             {
-                lbAbsenceHours.Text = string.Format("{0}/({1})", dayInfo.AbsenceShortName, dayInfo.AbsenceHours.ToString());
+                lbAbsenceHours.Text = dayInfo.AbsenceFullName;
             }
             else
             {
@@ -1855,16 +1983,203 @@ namespace Infinium
             lbPlanHours.Text = dayInfo.PlanHours.ToString();
             lbRate.Text = dayInfo.StrRate.ToString();
             lbOverworkHours.Text = dayInfo.OverworkHours.ToString();
-            if (dayInfo.AbsenceTypeID != 14)
+            lbOvertimeHours.Text = dayInfo.AllOvertimeHours.ToString();
+            lbFactHours.Text = dayInfo.FactHours.ToString();
+            lbBreakHours.Text = dayInfo.BreakHours.ToString();
+            //if (dayInfo.AbsenceTypeID != 14)
+            //{
+            //    lbFactHours.Text = dayInfo.FactHours.ToString();
+            //    lbBreakHours.Text = dayInfo.BreakHours.ToString();
+            //}
+            //else
+            //{
+            //    lbFactHours.Text = dayInfo.AbsenceHours.ToString();
+            //    lbBreakHours.Text = "-";
+            //}
+        }
+        
+        private void kryptonButton1_Click(object sender, EventArgs e)
+        {
+            if (CalendarFrom.SelectionStart > DateTime.Now.Date)
             {
-                lbFactHours.Text = dayInfo.FactHours.ToString();
-                lbBreakHours.Text = dayInfo.BreakHours.ToString();
+                InfiniumTips.ShowTip(this, 50, 85, "Нельзя сохранить рабочий день заранее\r\nСОХРАНЕНИЕ НЕ ВЫПОЛНЕНО", 2700);
+                return;
+            }
+
+            //int userId = 337;
+            int userId = Security.CurrentUserID;
+
+
+            DayStatus dayStatus = LightWorkDay.GetDayStatus(userId, CalendarFrom.SelectionStart);
+
+            dayStatus.DayStarted = Convert.ToDateTime(CalendarFrom.SelectionStart.ToShortDateString() + " " + timeEdit1.Time.ToString("HH:mm:ss.fff"));
+            dayStatus.BreakStarted = Convert.ToDateTime(CalendarFrom.SelectionStart.ToShortDateString() + " " + timeEdit2.Time.ToString("HH:mm:ss.fff"));
+            dayStatus.BreakEnded = Convert.ToDateTime(CalendarFrom.SelectionStart.ToShortDateString() + " " + timeEdit3.Time.ToString("HH:mm:ss.fff"));
+            dayStatus.DayEnded = Convert.ToDateTime(CalendarFrom.SelectionStart.ToShortDateString() + " " + timeEdit4.Time.ToString("HH:mm:ss.fff"));
+
+            //dayStatus.iDayStatus = LightWorkDay.sDayEnded;
+            decimal TimesheetHours = 0;
+            if (tbTimesheetHours.Text != "")
+                decimal.TryParse(tbTimesheetHours.Text, out TimesheetHours);
+            dayStatus.dTimesheetHours = TimesheetHours;
+
+            TimeSpan TimeWork = Convert.ToDateTime(timeEdit4.EditValue).TimeOfDay - Convert.ToDateTime(timeEdit1.EditValue).TimeOfDay;
+            decimal TimeWorkHours = (decimal)Math.Round(TimeWork.TotalHours, 1);
+
+            TimeSpan TimeBreak = Convert.ToDateTime(timeEdit3.EditValue).TimeOfDay - Convert.ToDateTime(timeEdit2.EditValue).TimeOfDay;
+            decimal TimeBreakHours = (decimal)Math.Round(TimeBreak.TotalHours, 1);
+            decimal FactHours = TimeWorkHours - TimeBreakHours;
+
+            TimesheetInfo dayInfo = DayPlannerWorkTimeSheet.GetDayInfo(CalendarFrom.SelectionStart);
+
+            bool b = false;
+            tbTimesheetHours.ForeColor = Color.Red;
+
+
+            if (dayStatus.iDayStatus < LightWorkDay.sDayEnded)
+            {
+                label32.Text = "Рабочий день не завершен";
+                InfiniumTips.ShowTip(this, 50, 85, "Рабочий день не завершен\r\nСОХРАНЕНИЕ НЕ ВЫПОЛНЕНО", 2700);
+                return;
+            }
+
+            decimal OverworkHours = dayInfo.OverworkHours < 0 ? dayInfo.OverworkHours : 0;
+            if ((dayInfo.PlanHours) - dayInfo.AAbsenceHours + dayInfo.AllOvertimeHours - OverworkHours >= TimesheetHours)
+            {
+                if (TimesheetHours <= FactHours)
+                {
+                    b = true;
+                    tbTimesheetHours.ForeColor = Color.ForestGreen;
+                }
+            }
+
+            if (b)
+            {
+
             }
             else
             {
-                lbFactHours.Text = dayInfo.AbsenceHours.ToString();
-                lbBreakHours.Text = "-";
+                InfiniumTips.ShowTip(this, 50, 85, "НЕВЕРНОЕ ЗНАЧЕНИЕ \"В ТАБЕЛЬ\"\r\nСОХРАНЕНИЕ НЕ ВЫПОЛНЕНО", 2700);
+                return;
             }
+
+            LightWorkDay.SaveDay(userId, dayStatus);
+
+            InfiniumTips.ShowTip(this, 50, 85, "Рабочий день сохранен", 1700);
+
+            TimesheetMonth = CalendarFrom.SelectionStart.Month;
+            TimesheetYear = CalendarFrom.SelectionStart.Year;
+
+            DayPlannerWorkTimeSheet.GetRate(userId);
+            DayPlannerWorkTimeSheet.GetAbsJournal(userId, TimesheetYear, TimesheetMonth);
+            DayPlannerWorkTimeSheet.GetProdShedule(TimesheetYear, TimesheetMonth);
+            DayPlannerWorkTimeSheet.GetTimesheet(userId, TimesheetYear, TimesheetMonth);
+
+            dayStatus = LightWorkDay.GetDayStatus(userId, CalendarFrom.SelectionStart);
+            if (dayStatus.iDayStatus != LightWorkDay.sDayNotStarted)
+            {
+                label32.Text = "Рабочий день начат";
+
+                if (dayStatus.bDayStarted)
+                    timeEdit1.EditValue = dayStatus.DayStarted.ToString("HH:mm");
+
+                if (dayStatus.bBreakStarted)
+                {
+                    label32.Text = "Перерыв";
+                    timeEdit2.EditValue = dayStatus.BreakStarted.ToString("HH:mm");
+                }
+
+                if (dayStatus.bBreakEnded)
+                {
+                    label32.Text = "Рабочий день продолжается";
+                    timeEdit3.EditValue = dayStatus.BreakEnded.ToString("HH:mm");
+                }
+
+                if (dayStatus.bDayEnded)
+                {
+                    label32.Text = "Рабочий день завершен";
+                    timeEdit4.EditValue = dayStatus.DayEnded.ToString("HH:mm");
+                }
+            }
+            if (dayStatus.iDayStatus < LightWorkDay.sDayEnded)
+            {
+                label32.Text = "Рабочий день не завершен";
+
+                //timeEdit1.EditValue = new System.DateTime(CalendarFrom.SelectionStart.Year, CalendarFrom.SelectionStart.Month, CalendarFrom.SelectionStart.Day, 8, 0, 0, 0);
+                //timeEdit2.EditValue = new System.DateTime(CalendarFrom.SelectionStart.Year, CalendarFrom.SelectionStart.Month, CalendarFrom.SelectionStart.Day, 12, 0, 0, 0);
+                //timeEdit3.EditValue = new System.DateTime(CalendarFrom.SelectionStart.Year, CalendarFrom.SelectionStart.Month, CalendarFrom.SelectionStart.Day, 13, 0, 0, 0);
+                //timeEdit4.EditValue = new System.DateTime(CalendarFrom.SelectionStart.Year, CalendarFrom.SelectionStart.Month, CalendarFrom.SelectionStart.Day, 17, 0, 0, 0);
+            }
+
+            DayPlannerWorkTimeSheet.CalcOverwork(TimesheetYear, TimesheetMonth, CalendarFrom.SelectionStart);
+
+            dayInfo = DayPlannerWorkTimeSheet.GetDayInfo(CalendarFrom.SelectionStart);
+            if (dayInfo.IsAbsence)
+            {
+                lbAbsenceHours.Text = dayInfo.AbsenceFullName;
+            }
+            else
+            {
+                lbAbsenceHours.Text = "-";
+            }
+            lbPlanHours.Text = dayInfo.PlanHours.ToString();
+            lbRate.Text = dayInfo.StrRate.ToString();
+            lbOverworkHours.Text = dayInfo.OverworkHours.ToString();
+            lbOvertimeHours.Text = dayInfo.AllOvertimeHours.ToString();
+            lbFactHours.Text = dayInfo.FactHours.ToString();
+            lbBreakHours.Text = dayInfo.BreakHours.ToString();
+            //if (dayInfo.AbsenceTypeID != 14)
+            //{
+            //    lbFactHours.Text = dayInfo.FactHours.ToString();
+            //    lbBreakHours.Text = dayInfo.BreakHours.ToString();
+            //}
+            //else
+            //{
+            //    lbFactHours.Text = dayInfo.AbsenceHours.ToString();
+            //    lbBreakHours.Text = "-";
+            //}
+        }
+
+        private void tbTimesheetHours_TextChanged(object sender, EventArgs e)
+        {
+            TimesheetInfo dayInfo = DayPlannerWorkTimeSheet.GetDayInfo(CalendarFrom.SelectionStart);
+
+            decimal TimesheetHours = 0;
+            if (tbTimesheetHours.Text != "")
+                decimal.TryParse(tbTimesheetHours.Text, out TimesheetHours);
+
+            tbTimesheetHours.ForeColor = Color.Red;
+
+            TimeSpan TimeWork = Convert.ToDateTime(timeEdit4.EditValue).TimeOfDay - Convert.ToDateTime(timeEdit1.EditValue).TimeOfDay;
+            decimal TimeWorkHours = (decimal)Math.Round(TimeWork.TotalHours, 1);
+
+            TimeSpan TimeBreak = Convert.ToDateTime(timeEdit3.EditValue).TimeOfDay - Convert.ToDateTime(timeEdit2.EditValue).TimeOfDay;
+            decimal TimeBreakHours = (decimal)Math.Round(TimeBreak.TotalHours, 1);
+            decimal FactHours = TimeWorkHours - TimeBreakHours;
+
+            decimal OverworkHours = dayInfo.OverworkHours < 0 ? dayInfo.OverworkHours : 0;
+
+            if ((dayInfo.PlanHours) - dayInfo.AAbsenceHours + dayInfo.AllOvertimeHours - OverworkHours >= TimesheetHours)
+            {
+                if (TimesheetHours <= FactHours)
+                {
+                    tbTimesheetHours.ForeColor = Color.ForestGreen;
+                }
+            }
+
+            //if (dayInfo.OvertimeHours > 0)                
+            //{
+            //    if (TimesheetHours <= dayInfo.FactHours)
+            //    {
+            //        b = true;
+            //        tbTimesheetHours.ForeColor = Color.ForestGreen;
+            //    }
+            //    else
+            //    {
+            //        b = false;
+            //        tbTimesheetHours.ForeColor = Color.Red;
+            //    }
+            //}
         }
     }
 }

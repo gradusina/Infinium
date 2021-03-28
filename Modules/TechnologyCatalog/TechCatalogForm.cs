@@ -3203,10 +3203,10 @@ namespace Infinium
 
         private void TechStoreGrid_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
         {
-            if (e.Button == System.Windows.Forms.MouseButtons.Right)
-            {
-                kryptonContextMenu2.Show(new System.Drawing.Point(Cursor.Position.X - 212, Cursor.Position.Y - 10));
-            }
+            //if (e.Button == System.Windows.Forms.MouseButtons.Right)
+            //{
+            //    kryptonContextMenu2.Show(new System.Drawing.Point(Cursor.Position.X - 212, Cursor.Position.Y - 10));
+            //}
         }
 
         private void btnSaveStoreOperationDetails_Click(object sender, EventArgs e)
@@ -3366,6 +3366,16 @@ namespace Infinium
             {
                 CabFurLabelManager.Print();
             }
+        }
+
+        private void toolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            kryptonContextMenuItem3_Click(null, null);
+        }
+
+        private void toolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            kryptonContextMenuItem2_Click(null, null);
         }
     }
 }

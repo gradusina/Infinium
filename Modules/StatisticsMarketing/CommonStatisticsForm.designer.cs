@@ -178,6 +178,7 @@
             this.kryptonContextMenuItem7 = new ComponentFactory.Krypton.Toolkit.KryptonContextMenuItem();
             this.StandardButtonsPalette = new ComponentFactory.Krypton.Toolkit.KryptonPalette(this.components);
             this.CommonMenuPanel = new System.Windows.Forms.Panel();
+            this.cbTransport = new ComponentFactory.Krypton.Toolkit.KryptonCheckBox();
             this.rbZOV = new ComponentFactory.Krypton.Toolkit.KryptonRadioButton();
             this.rbMarketing = new ComponentFactory.Krypton.Toolkit.KryptonRadioButton();
             this.cbNotSamples = new ComponentFactory.Krypton.Toolkit.KryptonCheckBox();
@@ -912,6 +913,8 @@
             this.kryptonContextMenuItem17 = new ComponentFactory.Krypton.Toolkit.KryptonContextMenuItem();
             this.kryptonContextMenuItem18 = new ComponentFactory.Krypton.Toolkit.KryptonContextMenuItem();
             this.kryptonContextMenuItem19 = new ComponentFactory.Krypton.Toolkit.KryptonContextMenuItem();
+            this.kryptonContextMenuItem20 = new ComponentFactory.Krypton.Toolkit.KryptonContextMenuItem();
+            this.kryptonContextMenuItem21 = new ComponentFactory.Krypton.Toolkit.KryptonContextMenuItem();
             this.NavigatePanel.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel115.SuspendLayout();
@@ -3524,6 +3527,7 @@
             // 
             this.CommonMenuPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.CommonMenuPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
+            this.CommonMenuPanel.Controls.Add(this.cbTransport);
             this.CommonMenuPanel.Controls.Add(this.rbZOV);
             this.CommonMenuPanel.Controls.Add(this.rbMarketing);
             this.CommonMenuPanel.Controls.Add(this.cbNotSamples);
@@ -3548,6 +3552,19 @@
             this.CommonMenuPanel.Size = new System.Drawing.Size(768, 692);
             this.CommonMenuPanel.TabIndex = 259;
             this.CommonMenuPanel.Visible = false;
+            // 
+            // cbTransport
+            // 
+            this.cbTransport.LabelStyle = ComponentFactory.Krypton.Toolkit.LabelStyle.NormalControl;
+            this.cbTransport.Location = new System.Drawing.Point(275, 40);
+            this.cbTransport.Name = "cbTransport";
+            this.cbTransport.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2010Black;
+            this.cbTransport.Size = new System.Drawing.Size(161, 21);
+            this.cbTransport.StateCommon.ShortText.Color1 = System.Drawing.Color.White;
+            this.cbTransport.StateCommon.ShortText.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.cbTransport.TabIndex = 426;
+            this.cbTransport.Text = "Только с транспортом";
+            this.cbTransport.Values.Text = "Только с транспортом";
             // 
             // rbZOV
             // 
@@ -3700,11 +3717,11 @@
             this.PackDateRadioButton.Location = new System.Drawing.Point(6, 132);
             this.PackDateRadioButton.Name = "PackDateRadioButton";
             this.PackDateRadioButton.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2010Black;
-            this.PackDateRadioButton.Size = new System.Drawing.Size(114, 21);
+            this.PackDateRadioButton.Size = new System.Drawing.Size(122, 21);
             this.PackDateRadioButton.StateCommon.ShortText.Color1 = System.Drawing.Color.White;
             this.PackDateRadioButton.StateCommon.ShortText.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.PackDateRadioButton.TabIndex = 362;
-            this.PackDateRadioButton.Values.Text = "Вышло с пр-ва";
+            this.PackDateRadioButton.Values.Text = "Вышло из пр-ва";
             // 
             // FactDispDateRadioButton
             // 
@@ -14345,7 +14362,8 @@
             this.kryptonContextMenuItem16,
             this.kryptonContextMenuItem17,
             this.kryptonContextMenuItem18,
-            this.kryptonContextMenuItem19});
+            this.kryptonContextMenuItem19,
+            this.kryptonContextMenuItem20});
             // 
             // kryptonContextMenuItem10
             // 
@@ -14396,6 +14414,15 @@
             // 
             this.kryptonContextMenuItem19.Text = "Транспорт за период";
             this.kryptonContextMenuItem19.Click += new System.EventHandler(this.kryptonContextMenuItem19_Click);
+            // 
+            // kryptonContextMenuItem20
+            // 
+            this.kryptonContextMenuItem20.Text = "Дополнительно за период";
+            this.kryptonContextMenuItem20.Click += new System.EventHandler(this.kryptonContextMenuItem20_Click);
+            // 
+            // kryptonContextMenuItem21
+            // 
+            this.kryptonContextMenuItem21.Text = "Рекламации за период";
             // 
             // CommonStatisticsForm
             // 
@@ -15688,5 +15715,8 @@
         private ComponentFactory.Krypton.Toolkit.KryptonBorderEdge kryptonBorderEdge97;
         private ComponentFactory.Krypton.Toolkit.KryptonBorderEdge kryptonBorderEdge98;
         private ComponentFactory.Krypton.Toolkit.KryptonBorderEdge kryptonBorderEdge99;
+        private ComponentFactory.Krypton.Toolkit.KryptonCheckBox cbTransport;
+        private ComponentFactory.Krypton.Toolkit.KryptonContextMenuItem kryptonContextMenuItem20;
+        private ComponentFactory.Krypton.Toolkit.KryptonContextMenuItem kryptonContextMenuItem21;
     }
 }

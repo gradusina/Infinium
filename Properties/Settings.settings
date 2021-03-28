@@ -5,5 +5,89 @@
     <Setting Name="Infinium_WebService_WebService1" Type="(Web Service URL)" Scope="Application">
       <Value Profile="(Default)">http://infinium.2h.by/WebService1.asmx</Value>
     </Setting>
+    <Setting Name="LightConnectionString" Type="(Connection string)" Scope="Application">
+      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;ConnectionString&gt;Data Source=infinium.zovprofil.by, 32433;Initial Catalog=infiniu2_light;Persist Security Info=True;Connection Timeout=10;User ID=infiniu2_infinium;Password=efcJzNcjJSEOpWfNsGmLRVkrCnnENR3VHSSN1J99CrwCPY5ipT5iPJ6xNViEiMaaZMvzKhQBby1FDzHp33CC/dpKdYXz4hQYG+oDE4mg+h6RBAZRY2kyThWXlF673UAh94GwyhcTuwFM2qAMEI5BpdsTFDnwwaHkzTV6MZG81pxcb0GtcwVIwfy22fX4d3+BUcMdqYeWodyWtxVRjOeuqQEN1iOxBAtsVUEWAcb2Ki4ZIKxzfudYtbBDiwsXrChAEGREFIf3kvn1jJjBTdx0ipdyftCC0PBctd6t1nNV2rI+p86/+GVUbBj5Z+VNkXSFEwFCusqqXIZsPWr9tZtFZWKrNdd5h9SoQv9jzmIWrnnhNH6awxMcSnRXu/DMNTJXw0A/1tj5Tz1ZFWo8pcHSLLmNWsh6EvYY3ctwH5HgZiySz++0X77Lrjn1Kjko0O0q&lt;/ConnectionString&gt;
+&lt;/SerializableConnectionString&gt;</DesignTimeValue>
+      <Value Profile="(Default)">Data Source=infinium.zovprofil.by, 32433;Initial Catalog=infiniu2_light;Persist Security Info=True;Connection Timeout=10;User ID=infiniu2_infinium;Password=efcJzNcjJSEOpWfNsGmLRVkrCnnENR3VHSSN1J99CrwCPY5ipT5iPJ6xNViEiMaaZMvzKhQBby1FDzHp33CC/dpKdYXz4hQYG+oDE4mg+h6RBAZRY2kyThWXlF673UAh94GwyhcTuwFM2qAMEI5BpdsTFDnwwaHkzTV6MZG81pxcb0GtcwVIwfy22fX4d3+BUcMdqYeWodyWtxVRjOeuqQEN1iOxBAtsVUEWAcb2Ki4ZIKxzfudYtbBDiwsXrChAEGREFIf3kvn1jJjBTdx0ipdyftCC0PBctd6t1nNV2rI+p86/+GVUbBj5Z+VNkXSFEwFCusqqXIZsPWr9tZtFZWKrNdd5h9SoQv9jzmIWrnnhNH6awxMcSnRXu/DMNTJXw0A/1tj5Tz1ZFWo8pcHSLLmNWsh6EvYY3ctwH5HgZiySz++0X77Lrjn1Kjko0O0q</Value>
+    </Setting>
+    <Setting Name="MarketingOrdersConnectionString" Type="(Connection string)" Scope="Application">
+      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;ConnectionString&gt;Data Source=infinium.zovprofil.by, 32433;Initial Catalog=infiniu2_marketingorders;Persist Security Info=True;Connection Timeout=10;User ID=infiniu2_infinium;Password=efcJzNcjJSEOpWfNsGmLRVkrCnnENR3VHSSN1J99CrwCPY5ipT5iPJ6xNViEiMaaZMvzKhQBby1FDzHp33CC/dpKdYXz4hQYG+oDE4mg+h6RBAZRY2kyThWXlF673UAh94GwyhcTuwFM2qAMEI5BpdsTFDnwwaHkzTV6MZG81pxcb0GtcwVIwfy22fX4d3+BUcMdqYeWodyWtxVRjOeuqQEN1iOxBAtsVUEWAcb2Ki4ZIKxzfudYtbBDiwsXrChAEGREFIf3kvn1jJjBTdx0ipdyftCC0PBctd6t1nNV2rI+p86/+GVUbBj5Z+VNkXSFEwFCusqqXIZsPWr9tZtFZWKrNdd5h9SoQv9jzmIWrnnhNH6awxMcSnRXu/DMNTJXw0A/1tj5Tz1ZFWo8pcHSLLmNWsh6EvYY3ctwH5HgZiySz++0X77Lrjn1Kjko0O0q&lt;/ConnectionString&gt;
+&lt;/SerializableConnectionString&gt;</DesignTimeValue>
+      <Value Profile="(Default)">Data Source=infinium.zovprofil.by, 32433;Initial Catalog=infiniu2_marketingorders;Persist Security Info=True;Connection Timeout=10;User ID=infiniu2_infinium;Password=efcJzNcjJSEOpWfNsGmLRVkrCnnENR3VHSSN1J99CrwCPY5ipT5iPJ6xNViEiMaaZMvzKhQBby1FDzHp33CC/dpKdYXz4hQYG+oDE4mg+h6RBAZRY2kyThWXlF673UAh94GwyhcTuwFM2qAMEI5BpdsTFDnwwaHkzTV6MZG81pxcb0GtcwVIwfy22fX4d3+BUcMdqYeWodyWtxVRjOeuqQEN1iOxBAtsVUEWAcb2Ki4ZIKxzfudYtbBDiwsXrChAEGREFIf3kvn1jJjBTdx0ipdyftCC0PBctd6t1nNV2rI+p86/+GVUbBj5Z+VNkXSFEwFCusqqXIZsPWr9tZtFZWKrNdd5h9SoQv9jzmIWrnnhNH6awxMcSnRXu/DMNTJXw0A/1tj5Tz1ZFWo8pcHSLLmNWsh6EvYY3ctwH5HgZiySz++0X77Lrjn1Kjko0O0q</Value>
+    </Setting>
+    <Setting Name="MarketingReferenceConnectionString" Type="(Connection string)" Scope="Application">
+      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;ConnectionString&gt;Data Source=infinium.zovprofil.by, 32433;Initial Catalog=infiniu2_marketingreference;Persist Security Info=True;Connection Timeout=10;User ID=infiniu2_infinium;Password=efcJzNcjJSEOpWfNsGmLRVkrCnnENR3VHSSN1J99CrwCPY5ipT5iPJ6xNViEiMaaZMvzKhQBby1FDzHp33CC/dpKdYXz4hQYG+oDE4mg+h6RBAZRY2kyThWXlF673UAh94GwyhcTuwFM2qAMEI5BpdsTFDnwwaHkzTV6MZG81pxcb0GtcwVIwfy22fX4d3+BUcMdqYeWodyWtxVRjOeuqQEN1iOxBAtsVUEWAcb2Ki4ZIKxzfudYtbBDiwsXrChAEGREFIf3kvn1jJjBTdx0ipdyftCC0PBctd6t1nNV2rI+p86/+GVUbBj5Z+VNkXSFEwFCusqqXIZsPWr9tZtFZWKrNdd5h9SoQv9jzmIWrnnhNH6awxMcSnRXu/DMNTJXw0A/1tj5Tz1ZFWo8pcHSLLmNWsh6EvYY3ctwH5HgZiySz++0X77Lrjn1Kjko0O0q&lt;/ConnectionString&gt;
+&lt;/SerializableConnectionString&gt;</DesignTimeValue>
+      <Value Profile="(Default)">Data Source=infinium.zovprofil.by, 32433;Initial Catalog=infiniu2_marketingreference;Persist Security Info=True;Connection Timeout=10;User ID=infiniu2_infinium;Password=efcJzNcjJSEOpWfNsGmLRVkrCnnENR3VHSSN1J99CrwCPY5ipT5iPJ6xNViEiMaaZMvzKhQBby1FDzHp33CC/dpKdYXz4hQYG+oDE4mg+h6RBAZRY2kyThWXlF673UAh94GwyhcTuwFM2qAMEI5BpdsTFDnwwaHkzTV6MZG81pxcb0GtcwVIwfy22fX4d3+BUcMdqYeWodyWtxVRjOeuqQEN1iOxBAtsVUEWAcb2Ki4ZIKxzfudYtbBDiwsXrChAEGREFIf3kvn1jJjBTdx0ipdyftCC0PBctd6t1nNV2rI+p86/+GVUbBj5Z+VNkXSFEwFCusqqXIZsPWr9tZtFZWKrNdd5h9SoQv9jzmIWrnnhNH6awxMcSnRXu/DMNTJXw0A/1tj5Tz1ZFWo8pcHSLLmNWsh6EvYY3ctwH5HgZiySz++0X77Lrjn1Kjko0O0q</Value>
+    </Setting>
+    <Setting Name="StorageConnectionString" Type="(Connection string)" Scope="Application">
+      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;ConnectionString&gt;Data Source=infinium.zovprofil.by, 32433;Initial Catalog=infiniu2_storage;Persist Security Info=True;Connection Timeout=10;User ID=infiniu2_infinium;Password=efcJzNcjJSEOpWfNsGmLRVkrCnnENR3VHSSN1J99CrwCPY5ipT5iPJ6xNViEiMaaZMvzKhQBby1FDzHp33CC/dpKdYXz4hQYG+oDE4mg+h6RBAZRY2kyThWXlF673UAh94GwyhcTuwFM2qAMEI5BpdsTFDnwwaHkzTV6MZG81pxcb0GtcwVIwfy22fX4d3+BUcMdqYeWodyWtxVRjOeuqQEN1iOxBAtsVUEWAcb2Ki4ZIKxzfudYtbBDiwsXrChAEGREFIf3kvn1jJjBTdx0ipdyftCC0PBctd6t1nNV2rI+p86/+GVUbBj5Z+VNkXSFEwFCusqqXIZsPWr9tZtFZWKrNdd5h9SoQv9jzmIWrnnhNH6awxMcSnRXu/DMNTJXw0A/1tj5Tz1ZFWo8pcHSLLmNWsh6EvYY3ctwH5HgZiySz++0X77Lrjn1Kjko0O0q&lt;/ConnectionString&gt;
+&lt;/SerializableConnectionString&gt;</DesignTimeValue>
+      <Value Profile="(Default)">Data Source=infinium.zovprofil.by, 32433;Initial Catalog=infiniu2_storage;Persist Security Info=True;Connection Timeout=10;User ID=infiniu2_infinium;Password=efcJzNcjJSEOpWfNsGmLRVkrCnnENR3VHSSN1J99CrwCPY5ipT5iPJ6xNViEiMaaZMvzKhQBby1FDzHp33CC/dpKdYXz4hQYG+oDE4mg+h6RBAZRY2kyThWXlF673UAh94GwyhcTuwFM2qAMEI5BpdsTFDnwwaHkzTV6MZG81pxcb0GtcwVIwfy22fX4d3+BUcMdqYeWodyWtxVRjOeuqQEN1iOxBAtsVUEWAcb2Ki4ZIKxzfudYtbBDiwsXrChAEGREFIf3kvn1jJjBTdx0ipdyftCC0PBctd6t1nNV2rI+p86/+GVUbBj5Z+VNkXSFEwFCusqqXIZsPWr9tZtFZWKrNdd5h9SoQv9jzmIWrnnhNH6awxMcSnRXu/DMNTJXw0A/1tj5Tz1ZFWo8pcHSLLmNWsh6EvYY3ctwH5HgZiySz++0X77Lrjn1Kjko0O0q</Value>
+    </Setting>
+    <Setting Name="UsersConnectionString" Type="(Connection string)" Scope="Application">
+      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;ConnectionString&gt;Data Source=infinium.zovprofil.by, 32433;Initial Catalog=infiniu2_users;Persist Security Info=True;Connection Timeout=10;User ID=infiniu2_infinium;Password=efcJzNcjJSEOpWfNsGmLRVkrCnnENR3VHSSN1J99CrwCPY5ipT5iPJ6xNViEiMaaZMvzKhQBby1FDzHp33CC/dpKdYXz4hQYG+oDE4mg+h6RBAZRY2kyThWXlF673UAh94GwyhcTuwFM2qAMEI5BpdsTFDnwwaHkzTV6MZG81pxcb0GtcwVIwfy22fX4d3+BUcMdqYeWodyWtxVRjOeuqQEN1iOxBAtsVUEWAcb2Ki4ZIKxzfudYtbBDiwsXrChAEGREFIf3kvn1jJjBTdx0ipdyftCC0PBctd6t1nNV2rI+p86/+GVUbBj5Z+VNkXSFEwFCusqqXIZsPWr9tZtFZWKrNdd5h9SoQv9jzmIWrnnhNH6awxMcSnRXu/DMNTJXw0A/1tj5Tz1ZFWo8pcHSLLmNWsh6EvYY3ctwH5HgZiySz++0X77Lrjn1Kjko0O0q&lt;/ConnectionString&gt;
+&lt;/SerializableConnectionString&gt;</DesignTimeValue>
+      <Value Profile="(Default)">Data Source=infinium.zovprofil.by, 32433;Initial Catalog=infiniu2_users;Persist Security Info=True;Connection Timeout=10;User ID=infiniu2_infinium;Password=efcJzNcjJSEOpWfNsGmLRVkrCnnENR3VHSSN1J99CrwCPY5ipT5iPJ6xNViEiMaaZMvzKhQBby1FDzHp33CC/dpKdYXz4hQYG+oDE4mg+h6RBAZRY2kyThWXlF673UAh94GwyhcTuwFM2qAMEI5BpdsTFDnwwaHkzTV6MZG81pxcb0GtcwVIwfy22fX4d3+BUcMdqYeWodyWtxVRjOeuqQEN1iOxBAtsVUEWAcb2Ki4ZIKxzfudYtbBDiwsXrChAEGREFIf3kvn1jJjBTdx0ipdyftCC0PBctd6t1nNV2rI+p86/+GVUbBj5Z+VNkXSFEwFCusqqXIZsPWr9tZtFZWKrNdd5h9SoQv9jzmIWrnnhNH6awxMcSnRXu/DMNTJXw0A/1tj5Tz1ZFWo8pcHSLLmNWsh6EvYY3ctwH5HgZiySz++0X77Lrjn1Kjko0O0q</Value>
+    </Setting>
+    <Setting Name="ZOVOrdersConnectionString" Type="(Connection string)" Scope="Application">
+      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;ConnectionString&gt;Data Source=infinium.zovprofil.by, 32433;Initial Catalog=infiniu2_zovorders;Persist Security Info=True;Connection Timeout=10;User ID=infiniu2_infinium;Password=efcJzNcjJSEOpWfNsGmLRVkrCnnENR3VHSSN1J99CrwCPY5ipT5iPJ6xNViEiMaaZMvzKhQBby1FDzHp33CC/dpKdYXz4hQYG+oDE4mg+h6RBAZRY2kyThWXlF673UAh94GwyhcTuwFM2qAMEI5BpdsTFDnwwaHkzTV6MZG81pxcb0GtcwVIwfy22fX4d3+BUcMdqYeWodyWtxVRjOeuqQEN1iOxBAtsVUEWAcb2Ki4ZIKxzfudYtbBDiwsXrChAEGREFIf3kvn1jJjBTdx0ipdyftCC0PBctd6t1nNV2rI+p86/+GVUbBj5Z+VNkXSFEwFCusqqXIZsPWr9tZtFZWKrNdd5h9SoQv9jzmIWrnnhNH6awxMcSnRXu/DMNTJXw0A/1tj5Tz1ZFWo8pcHSLLmNWsh6EvYY3ctwH5HgZiySz++0X77Lrjn1Kjko0O0q&lt;/ConnectionString&gt;
+&lt;/SerializableConnectionString&gt;</DesignTimeValue>
+      <Value Profile="(Default)">Data Source=infinium.zovprofil.by, 32433;Initial Catalog=infiniu2_zovorders;Persist Security Info=True;Connection Timeout=10;User ID=infiniu2_infinium;Password=efcJzNcjJSEOpWfNsGmLRVkrCnnENR3VHSSN1J99CrwCPY5ipT5iPJ6xNViEiMaaZMvzKhQBby1FDzHp33CC/dpKdYXz4hQYG+oDE4mg+h6RBAZRY2kyThWXlF673UAh94GwyhcTuwFM2qAMEI5BpdsTFDnwwaHkzTV6MZG81pxcb0GtcwVIwfy22fX4d3+BUcMdqYeWodyWtxVRjOeuqQEN1iOxBAtsVUEWAcb2Ki4ZIKxzfudYtbBDiwsXrChAEGREFIf3kvn1jJjBTdx0ipdyftCC0PBctd6t1nNV2rI+p86/+GVUbBj5Z+VNkXSFEwFCusqqXIZsPWr9tZtFZWKrNdd5h9SoQv9jzmIWrnnhNH6awxMcSnRXu/DMNTJXw0A/1tj5Tz1ZFWo8pcHSLLmNWsh6EvYY3ctwH5HgZiySz++0X77Lrjn1Kjko0O0q</Value>
+    </Setting>
+    <Setting Name="ZOVReferenceConnectionString" Type="(Connection string)" Scope="Application">
+      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;ConnectionString&gt;Data Source=infinium.zovprofil.by, 32433;Initial Catalog=infiniu2_zovreference;Persist Security Info=True;Connection Timeout=10;User ID=infiniu2_infinium;Password=efcJzNcjJSEOpWfNsGmLRVkrCnnENR3VHSSN1J99CrwCPY5ipT5iPJ6xNViEiMaaZMvzKhQBby1FDzHp33CC/dpKdYXz4hQYG+oDE4mg+h6RBAZRY2kyThWXlF673UAh94GwyhcTuwFM2qAMEI5BpdsTFDnwwaHkzTV6MZG81pxcb0GtcwVIwfy22fX4d3+BUcMdqYeWodyWtxVRjOeuqQEN1iOxBAtsVUEWAcb2Ki4ZIKxzfudYtbBDiwsXrChAEGREFIf3kvn1jJjBTdx0ipdyftCC0PBctd6t1nNV2rI+p86/+GVUbBj5Z+VNkXSFEwFCusqqXIZsPWr9tZtFZWKrNdd5h9SoQv9jzmIWrnnhNH6awxMcSnRXu/DMNTJXw0A/1tj5Tz1ZFWo8pcHSLLmNWsh6EvYY3ctwH5HgZiySz++0X77Lrjn1Kjko0O0q&lt;/ConnectionString&gt;
+&lt;/SerializableConnectionString&gt;</DesignTimeValue>
+      <Value Profile="(Default)">Data Source=infinium.zovprofil.by, 32433;Initial Catalog=infiniu2_zovreference;Persist Security Info=True;Connection Timeout=10;User ID=infiniu2_infinium;Password=efcJzNcjJSEOpWfNsGmLRVkrCnnENR3VHSSN1J99CrwCPY5ipT5iPJ6xNViEiMaaZMvzKhQBby1FDzHp33CC/dpKdYXz4hQYG+oDE4mg+h6RBAZRY2kyThWXlF673UAh94GwyhcTuwFM2qAMEI5BpdsTFDnwwaHkzTV6MZG81pxcb0GtcwVIwfy22fX4d3+BUcMdqYeWodyWtxVRjOeuqQEN1iOxBAtsVUEWAcb2Ki4ZIKxzfudYtbBDiwsXrChAEGREFIf3kvn1jJjBTdx0ipdyftCC0PBctd6t1nNV2rI+p86/+GVUbBj5Z+VNkXSFEwFCusqqXIZsPWr9tZtFZWKrNdd5h9SoQv9jzmIWrnnhNH6awxMcSnRXu/DMNTJXw0A/1tj5Tz1ZFWo8pcHSLLmNWsh6EvYY3ctwH5HgZiySz++0X77Lrjn1Kjko0O0q</Value>
+    </Setting>
+    <Setting Name="CatalogConnectionString" Type="(Connection string)" Scope="Application">
+      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;ConnectionString&gt;Data Source=infinium.zovprofil.by, 32433;Initial Catalog=infiniu2_catalog;Persist Security Info=True;Connection Timeout=10;User ID=infiniu2_infinium;Password=efcJzNcjJSEOpWfNsGmLRVkrCnnENR3VHSSN1J99CrwCPY5ipT5iPJ6xNViEiMaaZMvzKhQBby1FDzHp33CC/dpKdYXz4hQYG+oDE4mg+h6RBAZRY2kyThWXlF673UAh94GwyhcTuwFM2qAMEI5BpdsTFDnwwaHkzTV6MZG81pxcb0GtcwVIwfy22fX4d3+BUcMdqYeWodyWtxVRjOeuqQEN1iOxBAtsVUEWAcb2Ki4ZIKxzfudYtbBDiwsXrChAEGREFIf3kvn1jJjBTdx0ipdyftCC0PBctd6t1nNV2rI+p86/+GVUbBj5Z+VNkXSFEwFCusqqXIZsPWr9tZtFZWKrNdd5h9SoQv9jzmIWrnnhNH6awxMcSnRXu/DMNTJXw0A/1tj5Tz1ZFWo8pcHSLLmNWsh6EvYY3ctwH5HgZiySz++0X77Lrjn1Kjko0O0q&lt;/ConnectionString&gt;
+&lt;/SerializableConnectionString&gt;</DesignTimeValue>
+      <Value Profile="(Default)">Data Source=infinium.zovprofil.by, 32433;Initial Catalog=infiniu2_catalog;Persist Security Info=True;Connection Timeout=10;User ID=infiniu2_infinium;Password=efcJzNcjJSEOpWfNsGmLRVkrCnnENR3VHSSN1J99CrwCPY5ipT5iPJ6xNViEiMaaZMvzKhQBby1FDzHp33CC/dpKdYXz4hQYG+oDE4mg+h6RBAZRY2kyThWXlF673UAh94GwyhcTuwFM2qAMEI5BpdsTFDnwwaHkzTV6MZG81pxcb0GtcwVIwfy22fX4d3+BUcMdqYeWodyWtxVRjOeuqQEN1iOxBAtsVUEWAcb2Ki4ZIKxzfudYtbBDiwsXrChAEGREFIf3kvn1jJjBTdx0ipdyftCC0PBctd6t1nNV2rI+p86/+GVUbBj5Z+VNkXSFEwFCusqqXIZsPWr9tZtFZWKrNdd5h9SoQv9jzmIWrnnhNH6awxMcSnRXu/DMNTJXw0A/1tj5Tz1ZFWo8pcHSLLmNWsh6EvYY3ctwH5HgZiySz++0X77Lrjn1Kjko0O0q</Value>
+    </Setting>
+    <Setting Name="FTPType" Type="(Connection string)" Scope="Application">
+      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;ConnectionString&gt;ftp://infinium.zovprofil.by/Update/UpdateInfinium/&lt;/ConnectionString&gt;
+&lt;/SerializableConnectionString&gt;</DesignTimeValue>
+      <Value Profile="(Default)">ftp://infinium.zovprofil.by/Update/UpdateInfinium/</Value>
+    </Setting>
+    <Setting Name="DocumentsPath" Type="(Connection string)" Scope="Application">
+      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;ConnectionString&gt;ftp://infinium.zovprofil.by/Documents/&lt;/ConnectionString&gt;
+&lt;/SerializableConnectionString&gt;</DesignTimeValue>
+      <Value Profile="(Default)">ftp://infinium.zovprofil.by/Documents/</Value>
+    </Setting>
+    <Setting Name="DocumentsZOVTPSPath" Type="(Connection string)" Scope="Application">
+      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;ConnectionString&gt;ftp://infinium.zovprofil.by/zovprofil.by/wwwroot/Images/&lt;/ConnectionString&gt;
+&lt;/SerializableConnectionString&gt;</DesignTimeValue>
+      <Value Profile="(Default)">ftp://infinium.zovprofil.by/zovprofil.by/wwwroot/Images/</Value>
+    </Setting>
+    <Setting Name="Animation" Type="(Connection string)" Scope="Application">
+      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;ConnectionString&gt;False&lt;/ConnectionString&gt;
+&lt;/SerializableConnectionString&gt;</DesignTimeValue>
+      <Value Profile="(Default)">False</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

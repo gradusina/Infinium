@@ -1148,6 +1148,12 @@ namespace Infinium
 
             int F = 0;
 
+            if (FrontsOrders.HasZeroCount|| DecorOrders.HasZeroCount)
+            {
+                MessageBox.Show("Кол-во не может быть равно 0");
+                return;
+            }
+
             if (FrontsOrders.HasRows() == false && DecorOrders.HasRows() == false)
             {
                 return;

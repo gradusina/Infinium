@@ -2163,7 +2163,7 @@ namespace Infinium
             NewRow["MiddleName"] = middleName;
             NewRow["ShortName"] = ShortName;
             NewRow["OnlineRefreshDateTime"] = DateTime.Now;
-            NewRow["Password"] = "4ba29b9f9e5732ed33761840f4ba6c53";
+            NewRow["Password"] = "05a5cf06982ba7892ed2a6d38fe832d6";
             UsersDataTable.Rows.Add(NewRow);
 
             UsersDataAdapter.Update(UsersDataTable);
@@ -3193,8 +3193,6 @@ namespace Infinium
         public BindingSource WorkDayDetailsBindingSource;
         public BindingSource WorkDaysBindingSource;
 
-        PercentageDataGrid WorkDaysGrid;
-
         int CurrentUserID = -1;
         int CurrentWorkDayID = -1;
         public int sDayNotStarted = 0;
@@ -3204,14 +3202,11 @@ namespace Infinium
         public int sDayEnded = 4;
         public int sDaySaved = 5;
 
-        public WorkTimeRegister(ref PercentageDataGrid tWorkDaysGrid)
+        public WorkTimeRegister()
         {
-            WorkDaysGrid = tWorkDaysGrid;
-
             Create();
             Fill();
             Binding();
-            GridSettings();
         }
 
         public struct DayStatus
@@ -3247,78 +3242,41 @@ namespace Infinium
                     DA.Fill(WorkDaysDataTable);
                 }
             }
+
+            WorkDaysDataTable.Columns.Add(new DataColumn("FactHours", Type.GetType("System.Decimal")));
+
+            for (int i = 0; i < WorkDaysDataTable.Rows.Count; i++)
+            {
+                if (WorkDaysDataTable.Rows[i]["DayEndDateTime"] != DBNull.Value)
+                {
+                    DateTime DayStartDateTime = Convert.ToDateTime(WorkDaysDataTable.Rows[i]["DayStartDateTime"]);
+                    DateTime DayEndDateTime = Convert.ToDateTime(WorkDaysDataTable.Rows[i]["DayEndDateTime"]);
+
+                    decimal TimeBreakHours = 1;
+
+                    if (WorkDaysDataTable.Rows[i]["DayBreakEndDateTime"] != DBNull.Value)
+                    {
+                        DateTime DayBreakEndDateTime = Convert.ToDateTime(WorkDaysDataTable.Rows[i]["DayBreakEndDateTime"]);
+                        DateTime DayBreakStartDateTime = Convert.ToDateTime(WorkDaysDataTable.Rows[i]["DayBreakStartDateTime"]);
+
+                        TimeSpan TimeBreak = DayBreakEndDateTime.TimeOfDay - DayBreakStartDateTime.TimeOfDay;
+                        TimeBreakHours = (decimal)Math.Round(TimeBreak.TotalHours, 1);
+                    }
+
+                    TimeSpan TimeWork = DayEndDateTime.TimeOfDay - DayStartDateTime.TimeOfDay;
+                    decimal TimeWorkHours = (decimal)Math.Round(TimeWork.TotalHours, 1);
+
+                    decimal FactHours = TimeWorkHours - TimeBreakHours;
+                    WorkDaysDataTable.Rows[i]["FactHours"] = FactHours;
+                }
+
+            }
         }
 
         private void Binding()
         {
             WorkDaysBindingSource.DataSource = WorkDaysDataTable;
 
-            WorkDaysGrid.DataSource = WorkDaysBindingSource;
-        }
-
-        private void GridSettings()
-        {
-            if (WorkDaysGrid != null)
-            {
-                foreach (DataGridViewColumn Column in WorkDaysGrid.Columns)
-                {
-                    Column.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
-                }
-
-                WorkDaysGrid.Columns["WorkDayID"].Visible = false;
-                WorkDaysGrid.Columns["UserID"].Visible = false;
-                //WorkDaysGrid.Columns["DayStartDateTime"].Visible = false;
-                //WorkDaysGrid.Columns["DayEndDateTime"].Visible = false;
-                //WorkDaysGrid.Columns["DayBreakStartDateTime"].Visible = false;
-                //WorkDaysGrid.Columns["DayBreakEndDateTime"].Visible = false;
-                //WorkDaysGrid.Columns["DayBreakStartFactDateTime"].Visible = false;
-                //WorkDaysGrid.Columns["DayBreakEndFactDateTime"].Visible = false;
-
-                WorkDaysGrid.Columns["DayStartNotes"].Visible = false;
-                WorkDaysGrid.Columns["DayBreakStartNotes"].Visible = false;
-                WorkDaysGrid.Columns["DayContinueNotes"].Visible = false;
-                WorkDaysGrid.Columns["DayEndNotes"].Visible = false;
-                WorkDaysGrid.Columns["Saved"].Visible = false;
-
-                WorkDaysGrid.Columns["Name"].HeaderText = "Сотрудник";
-                WorkDaysGrid.Columns["DayStartDateTime"].HeaderText = "Начало";
-                WorkDaysGrid.Columns["DayEndDateTime"].HeaderText = "Завершение";
-                WorkDaysGrid.Columns["DayBreakStartDateTime"].HeaderText = " Начало\r\nперерыва";
-                WorkDaysGrid.Columns["DayBreakEndDateTime"].HeaderText = "Завершение\r\n  перерыва";
-                WorkDaysGrid.Columns["DayStartFactDateTime"].HeaderText = "      Начало\r\n(фактическое)";
-                WorkDaysGrid.Columns["DayEndFactDateTime"].HeaderText = "  Завершение\r\n(фактическое)";
-                WorkDaysGrid.Columns["DayBreakStartFactDateTime"].HeaderText = "Начало перерыва\r\n    (фактическое)";
-                WorkDaysGrid.Columns["DayBreakEndFactDateTime"].HeaderText = "Завершение перерыва\r\n        (фактическое)";
-
-                WorkDaysGrid.Columns["Name"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-                WorkDaysGrid.Columns["Name"].MinimumWidth = 290;
-                WorkDaysGrid.Columns["DayStartDateTime"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-                WorkDaysGrid.Columns["DayStartDateTime"].Width = 140;
-                WorkDaysGrid.Columns["DayEndDateTime"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-                WorkDaysGrid.Columns["DayEndDateTime"].Width = 140;
-                WorkDaysGrid.Columns["DayBreakStartDateTime"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-                WorkDaysGrid.Columns["DayBreakStartDateTime"].Width = 140;
-                WorkDaysGrid.Columns["DayBreakEndDateTime"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-                WorkDaysGrid.Columns["DayBreakEndDateTime"].Width = 140;
-                WorkDaysGrid.Columns["DayStartFactDateTime"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-                WorkDaysGrid.Columns["DayStartFactDateTime"].Width = 140;
-                WorkDaysGrid.Columns["DayEndFactDateTime"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-                WorkDaysGrid.Columns["DayEndFactDateTime"].Width = 140;
-                WorkDaysGrid.Columns["DayBreakStartFactDateTime"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-                WorkDaysGrid.Columns["DayBreakStartFactDateTime"].Width = 170;
-                WorkDaysGrid.Columns["DayBreakEndFactDateTime"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-                WorkDaysGrid.Columns["DayBreakEndFactDateTime"].Width = 200;
-
-                WorkDaysGrid.Columns["Name"].DisplayIndex = 0;
-                WorkDaysGrid.Columns["DayStartDateTime"].DisplayIndex = 1;
-                WorkDaysGrid.Columns["DayEndDateTime"].DisplayIndex = 2;
-                WorkDaysGrid.Columns["DayBreakStartDateTime"].DisplayIndex = 3;
-                WorkDaysGrid.Columns["DayBreakEndDateTime"].DisplayIndex = 4;
-                WorkDaysGrid.Columns["DayStartFactDateTime"].DisplayIndex = 4;
-                WorkDaysGrid.Columns["DayEndFactDateTime"].DisplayIndex = 5;
-                WorkDaysGrid.Columns["DayBreakStartFactDateTime"].DisplayIndex = 6;
-                WorkDaysGrid.Columns["DayBreakEndFactDateTime"].DisplayIndex = 7;
-            }
         }
 
         public void FilterWorkDays(DateTime Date)
@@ -3335,6 +3293,33 @@ namespace Infinium
                     WorkDaysDataTable.Clear();
                     DA.Fill(WorkDaysDataTable);
                 }
+            }
+
+            for (int i = 0; i < WorkDaysDataTable.Rows.Count; i++)
+            {
+                if (WorkDaysDataTable.Rows[i]["DayEndDateTime"] != DBNull.Value)
+                {
+                    DateTime DayStartDateTime = Convert.ToDateTime(WorkDaysDataTable.Rows[i]["DayStartDateTime"]);
+                    DateTime DayEndDateTime = Convert.ToDateTime(WorkDaysDataTable.Rows[i]["DayEndDateTime"]);
+
+                    decimal TimeBreakHours = 1;
+
+                    if (WorkDaysDataTable.Rows[i]["DayBreakEndDateTime"] != DBNull.Value)
+                    {
+                        DateTime DayBreakEndDateTime = Convert.ToDateTime(WorkDaysDataTable.Rows[i]["DayBreakEndDateTime"]);
+                        DateTime DayBreakStartDateTime = Convert.ToDateTime(WorkDaysDataTable.Rows[i]["DayBreakStartDateTime"]);
+
+                        TimeSpan TimeBreak = DayBreakEndDateTime.TimeOfDay - DayBreakStartDateTime.TimeOfDay;
+                        TimeBreakHours = (decimal)Math.Round(TimeBreak.TotalHours, 1);
+                    }
+
+                    TimeSpan TimeWork = DayEndDateTime.TimeOfDay - DayStartDateTime.TimeOfDay;
+                    decimal TimeWorkHours = (decimal)Math.Round(TimeWork.TotalHours, 1);
+
+                    decimal FactHours = TimeWorkHours - TimeBreakHours;
+                    WorkDaysDataTable.Rows[i]["FactHours"] = FactHours;
+                }
+
             }
         }
 
@@ -3658,93 +3643,6 @@ namespace Infinium
             }
         }
 
-        public void SetOverduedColor()
-        {
-            for (int i = 0; i < WorkDaysGrid.Rows.Count; i++)
-            {
-                if (WorkDaysGrid.Rows[i].Cells["DayEndFactDateTime"].Value != DBNull.Value)
-                {
-                    if (Convert.ToDateTime(WorkDaysGrid.Rows[i].Cells["DayEndDateTime"].Value) !=
-                        Convert.ToDateTime(WorkDaysGrid.Rows[i].Cells["DayEndFactDateTime"].Value))
-                    {
-                        WorkDaysGrid.Rows[i].Cells["DayEndDateTime"].Style.BackColor = Color.FromArgb(85, 200, 85);
-                        WorkDaysGrid.Rows[i].Cells["DayEndFactDateTime"].Style.BackColor = Color.FromArgb(85, 200, 85);
-                    }
-                    else
-                    {
-                        WorkDaysGrid.Rows[i].Cells["DayEndDateTime"].Style.BackColor = Color.White;
-                        WorkDaysGrid.Rows[i].Cells["DayEndFactDateTime"].Style.BackColor = Color.White;
-                    }
-                }
-                else
-                {
-                    WorkDaysGrid.Rows[i].Cells["DayEndDateTime"].Style.BackColor = Color.White;
-                    WorkDaysGrid.Rows[i].Cells["DayEndFactDateTime"].Style.BackColor = Color.White;
-                }
-
-                if (WorkDaysGrid.Rows[i].Cells["DayStartFactDateTime"].Value != DBNull.Value)
-                {
-                    if (Convert.ToDateTime(WorkDaysGrid.Rows[i].Cells["DayStartDateTime"].Value) !=
-                        Convert.ToDateTime(WorkDaysGrid.Rows[i].Cells["DayStartFactDateTime"].Value))
-                    {
-                        WorkDaysGrid.Rows[i].Cells["DayStartDateTime"].Style.BackColor = Color.FromArgb(222, 222, 65);
-                        WorkDaysGrid.Rows[i].Cells["DayStartFactDateTime"].Style.BackColor = Color.FromArgb(222, 222, 65);
-                    }
-                    else
-                    {
-                        WorkDaysGrid.Rows[i].Cells["DayStartDateTime"].Style.BackColor = Color.White;
-                        WorkDaysGrid.Rows[i].Cells["DayStartFactDateTime"].Style.BackColor = Color.White;
-                    }
-                }
-                else
-                {
-                    WorkDaysGrid.Rows[i].Cells["DayStartDateTime"].Style.BackColor = Color.White;
-                    WorkDaysGrid.Rows[i].Cells["DayStartFactDateTime"].Style.BackColor = Color.White;
-                }
-
-                if (WorkDaysGrid.Rows[i].Cells["DayBreakEndDateTime"].Value != DBNull.Value &&
-                    WorkDaysGrid.Rows[i].Cells["DayBreakEndFactDateTime"].Value != DBNull.Value)
-                {
-                    if (Convert.ToDateTime(WorkDaysGrid.Rows[i].Cells["DayBreakEndDateTime"].Value) !=
-                        Convert.ToDateTime(WorkDaysGrid.Rows[i].Cells["DayBreakEndFactDateTime"].Value))
-                    {
-                        WorkDaysGrid.Rows[i].Cells["DayBreakEndDateTime"].Style.BackColor = Color.FromArgb(75, 120, 210);
-                        WorkDaysGrid.Rows[i].Cells["DayBreakEndFactDateTime"].Style.BackColor = Color.FromArgb(75, 120, 210);
-                    }
-                    else
-                    {
-                        WorkDaysGrid.Rows[i].Cells["DayBreakEndDateTime"].Style.BackColor = Color.White;
-                        WorkDaysGrid.Rows[i].Cells["DayBreakEndFactDateTime"].Style.BackColor = Color.White;
-                    }
-                }
-                else
-                {
-                    WorkDaysGrid.Rows[i].Cells["DayBreakEndDateTime"].Style.BackColor = Color.White;
-                    WorkDaysGrid.Rows[i].Cells["DayBreakEndFactDateTime"].Style.BackColor = Color.White;
-                }
-
-                if (WorkDaysGrid.Rows[i].Cells["DayBreakStartDateTime"].Value != DBNull.Value &&
-                    WorkDaysGrid.Rows[i].Cells["DayBreakStartFactDateTime"].Value != DBNull.Value)
-                {
-                    if (Convert.ToDateTime(WorkDaysGrid.Rows[i].Cells["DayBreakStartDateTime"].Value) !=
-                        Convert.ToDateTime(WorkDaysGrid.Rows[i].Cells["DayBreakStartFactDateTime"].Value))
-                    {
-                        WorkDaysGrid.Rows[i].Cells["DayBreakStartDateTime"].Style.BackColor = Color.FromArgb(85, 190, 190);
-                        WorkDaysGrid.Rows[i].Cells["DayBreakStartFactDateTime"].Style.BackColor = Color.FromArgb(85, 190, 190);
-                    }
-                    else
-                    {
-                        WorkDaysGrid.Rows[i].Cells["DayBreakStartDateTime"].Style.BackColor = Color.White;
-                        WorkDaysGrid.Rows[i].Cells["DayBreakStartFactDateTime"].Style.BackColor = Color.White;
-                    }
-                }
-                else
-                {
-                    WorkDaysGrid.Rows[i].Cells["DayBreakStartDateTime"].Style.BackColor = Color.White;
-                    WorkDaysGrid.Rows[i].Cells["DayBreakStartFactDateTime"].Style.BackColor = Color.White;
-                }
-            }
-        }
         #endregion
 
         public static void EditBreakStartWorkDay(int WorkDayID, DateTime DateTime)
@@ -3826,6 +3724,26 @@ namespace Infinium
 
                         DT.Rows[0]["DayEndDateTime"] = DateTime;
                         DT.Rows[0]["DayEndFactDateTime"] = DateTime;
+                        DA.Update(DT);
+
+                        return;
+                    }
+                }
+            }
+
+        }
+        public static void EditTimesheetHours(int WorkDayID, decimal TimesheetHours)
+        {
+            using (SqlDataAdapter DA = new SqlDataAdapter("SELECT WorkDayID, TimesheetHours FROM WorkDays WHERE WorkDayID = " + WorkDayID, ConnectionStrings.LightConnectionString))
+            {
+                using (SqlCommandBuilder CB = new SqlCommandBuilder(DA))
+                {
+                    using (DataTable DT = new DataTable())
+                    {
+                        if (DA.Fill(DT) == 0)
+                            return;
+
+                        DT.Rows[0]["TimesheetHours"] = TimesheetHours;
                         DA.Update(DT);
 
                         return;
@@ -4013,7 +3931,7 @@ namespace Infinium
 
             if (dtTimeSheet == null)
                 dtTimeSheet = new DataTable();
-            
+
             GetAbsences(yearInt, monthInt);
             GetShedule(yearInt, monthInt);
 
@@ -4148,7 +4066,7 @@ namespace Infinium
                         absenceTypeString = Decimal.Round(absenceHour, 1, MidpointRounding.AwayFromZero) + " " + Math.Round(timeWork.TotalHours, 1) + "/" + Math.Round(planHour - absenceHour, 1) + "(" + Math.Round(timeSpan.TotalHours, 1) + ")";
                     else
                     {
-                        
+
                         if (planHour != 0) //если рабочий день
                             absenceTypeString = Decimal.Round(absenceHour, 1, MidpointRounding.AwayFromZero).ToString();
                         else //если выходной
@@ -6968,7 +6886,7 @@ namespace Infinium
         {
             int iCount = 0;
 
-            using (SqlDataAdapter DA = new SqlDataAdapter("DELETE FROM Subscribers WHERE ModuleID NOT IN (SELECT ModuleID FROM SubscribesItems) OR UserID NOT IN (SELECT UserID FROM infiniu2_users.dbo.Users WHERE Fired <> 1 )", ConnectionStrings.LightConnectionString))
+            using (SqlDataAdapter DA = new SqlDataAdapter("DELETE FROM SubscribesToUpdates WHERE ModuleID NOT IN (SELECT ModuleID FROM SubscribesItems) OR UserID NOT IN (SELECT UserID FROM infiniu2_users.dbo.Users WHERE Fired <> 1 )", ConnectionStrings.LightConnectionString))
             {
                 using (DataTable DT = new DataTable())
                 {
@@ -6983,7 +6901,7 @@ namespace Infinium
                     DA.Fill(DT);
 
 
-                    using (SqlDataAdapter sDA = new SqlDataAdapter("SELECT * FROM Subscribers", ConnectionStrings.LightConnectionString))
+                    using (SqlDataAdapter sDA = new SqlDataAdapter("SELECT * FROM SubscribesToUpdates", ConnectionStrings.LightConnectionString))
                     {
                         using (SqlCommandBuilder CB = new SqlCommandBuilder(sDA))
                         {

@@ -168,7 +168,6 @@
             this.LogInButton.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Custom;
             this.LogInButton.Size = new System.Drawing.Size(150, 33);
             this.LogInButton.TabIndex = 3;
-            this.LogInButton.TabStop = false;
             this.LogInButton.Values.Text = "ВХОД";
             this.LogInButton.Click += new System.EventHandler(this.LogInButton_Click);
             // 
@@ -194,7 +193,6 @@
             this.LogOutButton.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Custom;
             this.LogOutButton.Size = new System.Drawing.Size(150, 33);
             this.LogOutButton.TabIndex = 4;
-            this.LogOutButton.TabStop = false;
             this.LogOutButton.Values.Text = "ОТМЕНА";
             this.LogOutButton.Click += new System.EventHandler(this.LogOutButton_Click);
             // 

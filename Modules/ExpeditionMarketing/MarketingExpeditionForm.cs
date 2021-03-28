@@ -4006,7 +4006,7 @@ namespace Infinium
             //if (SendEmail.Success == false)
             //{
             //    Infinium.LightMessageBox.Show(ref TopForm, false,
-            //           "Отправка отчета не возможна: отсутствует подключение к интернету либо адрес электронной почты указан неверно",
+            //           "Отправка отчета невозможна: отсутствует подключение к интернету либо адрес электронной почты указан неверно",
             //           "Отправка письма");
             //}
 
@@ -4331,7 +4331,7 @@ namespace Infinium
             if (SendEmail.Success == false)
             {
                 Infinium.LightMessageBox.Show(ref TopForm, false,
-                       "Отправка отчета не возможна: отсутствует подключение к интернету либо адрес электронной почты указан неверно",
+                       "Отправка отчета невозможна: отсутствует подключение к интернету либо адрес электронной почты указан неверно",
                        "Отправка письма");
             }
 
@@ -4865,7 +4865,18 @@ namespace Infinium
 
         private void btnShowCabFurAssemble_Click(object sender, EventArgs e)
         {
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Загрузка данных с сервера.\r\nПодождите..."); });
+            T.Start();
 
+            while (!SplashWindow.bSmallCreated) ;
+
+            NeedSplash = false;
+            MarketingExpeditionManager.SearchCabFurAssembled(cabFurAssembleManager);
+
+            NeedSplash = true;
+
+            while (SplashWindow.bSmallCreated)
+                SmallWaitForm.CloseS = true;
         }
 
         private void btnShowAllOrders_Click(object sender, EventArgs e)

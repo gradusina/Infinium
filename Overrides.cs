@@ -6573,14 +6573,14 @@ namespace Infinium
             pSplitterPen = new Pen(new SolidBrush(Color.WhiteSmoke));
             pPercentEllipsePen = new Pen(new SolidBrush(Color.Gray), 1.7f);
 
-            fPositionFont = new Font("Segoe UI", 18, FontStyle.Bold, GraphicsUnit.Pixel);
-            fCaptionFont = new Font("Segoe UI", 18, FontStyle.Regular, GraphicsUnit.Pixel);
-            fDepartmentFont = new Font("Segoe UI", 16, FontStyle.Regular, GraphicsUnit.Pixel);
-            fExecTypeFont = new Font("Segoe UI", 16, FontStyle.Regular, GraphicsUnit.Pixel);
-            fTimePickerFont = new System.Drawing.Font("Segoe UI", 24, FontStyle.Regular, GraphicsUnit.Pixel);
+            fPositionFont = new Font("Segoe UI", 16, FontStyle.Bold, GraphicsUnit.Pixel);
+            fCaptionFont = new Font("Segoe UI", 16, FontStyle.Regular, GraphicsUnit.Pixel);
+            fDepartmentFont = new Font("Segoe UI", 14, FontStyle.Regular, GraphicsUnit.Pixel);
+            fExecTypeFont = new Font("Segoe UI", 14, FontStyle.Regular, GraphicsUnit.Pixel);
+            fTimePickerFont = new System.Drawing.Font("Segoe UI", 22, FontStyle.Regular, GraphicsUnit.Pixel);
             fCompleteFont = new System.Drawing.Font("Segoe UI", 14, FontStyle.Regular, GraphicsUnit.Pixel);
             fPercentsFont = new System.Drawing.Font("Segoe UI", 11, FontStyle.Regular, GraphicsUnit.Pixel);
-            fNoDataFont = new System.Drawing.Font("Segoe UI", 19, FontStyle.Regular, GraphicsUnit.Pixel);
+            fNoDataFont = new System.Drawing.Font("Segoe UI", 17, FontStyle.Regular, GraphicsUnit.Pixel);
 
             rVerticalScrollShaftRect = new Rectangle(this.Width - iScrollWidth, 0, iScrollWidth, this.Height);
             rVerticalScrollThumbRect = new Rectangle(this.Width - iScrollWidth, 0, iScrollWidth, this.Height);
@@ -6948,9 +6948,9 @@ namespace Infinium
 
 
             if (index > 0)
-                G.DrawImage(Image, 9, CurTextPosY - Offset + iMarginToNextItem + 4, 68, 68);
+                G.DrawImage(Image, 9, CurTextPosY - Offset + iMarginToNextItem + 4, 58, 58);
             else
-                G.DrawImage(Image, 9, CurTextPosY - Offset + 4, 68, 68);
+                G.DrawImage(Image, 9, CurTextPosY - Offset + 4, 58, 58);
         }
 
         private void DrawBack(int index, Graphics G, ref int CurTextPosY)

@@ -773,13 +773,13 @@ namespace Infinium
                         Row["UserID"] = CurrentUserID;
                         Row["DateEnter"] = CurrentEnterDateEnter;
 
-                        SetCompParams();
+                        //SetCompParams();
 
-                        using (StringWriter SW = new StringWriter())
-                        {
-                            CompParamsDataTable.WriteXml(SW);
-                            Row["ComputerParams"] = SW.ToString();
-                        }
+                        //using (StringWriter SW = new StringWriter())
+                        //{
+                        //    CompParamsDataTable.WriteXml(SW);
+                        //    Row["ComputerParams"] = SW.ToString();
+                        //}
 
                         DT.Rows.Add(Row);
 
@@ -1106,7 +1106,7 @@ namespace Infinium
             NewRow["LoginName"] = GetParam("UserName");
             NewRow["Manufacturer"] = GetParam("Manufacturer");
             NewRow["Model"] = GetParam("Model");
-            NewRow["TotalRAM"] = Convert.ToInt64(GetParam("TotalPhysicalMemory")) / 1024 / 1024;
+            //NewRow["TotalRAM"] = Convert.ToInt64(GetParam("TotalPhysicalMemory")) / 1024 / 1024;
 
             searcher.Dispose();
             searcher = new ManagementObjectSearcher("root\\CIMV2",
@@ -2234,7 +2234,7 @@ namespace Infinium
                             NewRow["ShortName"] = ShortName;
                             NewRow["UserID"] = UserID;
                             NewRow["OnlineRefreshDateTime"] = DateTime.Now;
-                            NewRow["Password"] = "4ba29b9f9e5732ed33761840f4ba6c53";
+                            NewRow["Password"] = "05a5cf06982ba7892ed2a6d38fe832d6";
                             DT.Rows.Add(NewRow);
 
                             DA.Update(DT);
@@ -7068,22 +7068,21 @@ namespace Infinium
             return sConnectionString;
         }
 
-        //public string GetConnectionString(string FileName)
-        //{
-        //	try
-        //	{
-        //		string EncryptedConnectionString = ReadConnectionString(FileName);
-        //		int Index = EncryptedConnectionString.IndexOf("Password");
-        //		string Password = EncryptedConnectionString.Substring(Index + 9, EncryptedConnectionString.Length - Index - 9);
-        //		string privateKey = "<RSAKeyValue><Modulus>pqJ+ilhHSM5N3XGPCAYdrpFjHlvcQQoaNPiTvUHut5dIwx40olIKRjvequY8WeGb</Modulus><Exponent>AQAB</Exponent><P>2UlRsj0mJoeGxD4AtwOEn02oCEjlYifD</P><Q>xFLlKWJuoE3mb88iI8v24/7Qt1Wvc5lJ</Q><DP>s8j4sfPqpyKoHaP3z3Y3u9/zUreOJIMl</DP><DQ>YhIOy8eR/54qeLv+D+e5o1cNKCgzhwmR</DQ><InverseQ>kU9Phb5ynWsB6ZFQoAnUPAzmirRIlqDR</InverseQ><D>J1Q64ZQsXvayUg23YIFxB/6wkj3EImWroC3gjjCvYa+fjojM1XXvE/tE5t8mnnzB</D></RSAKeyValue>";
-        //		sConnectionString = EncryptedConnectionString.Replace(Password, DecryptString(Password, 384, privateKey));
-        //	}
-        //	catch (ArgumentNullException)
-        //	{
+        public string DecryptStringConnectionString(string EncryptedConnectionString)
+        {
+            try
+            {
+                int Index = EncryptedConnectionString.IndexOf("Password");
+                string Password = EncryptedConnectionString.Substring(Index + 9, EncryptedConnectionString.Length - Index - 9);
+                string privateKey = "<RSAKeyValue><Modulus>pqJ+ilhHSM5N3XGPCAYdrpFjHlvcQQoaNPiTvUHut5dIwx40olIKRjvequY8WeGb</Modulus><Exponent>AQAB</Exponent><P>2UlRsj0mJoeGxD4AtwOEn02oCEjlYifD</P><Q>xFLlKWJuoE3mb88iI8v24/7Qt1Wvc5lJ</Q><DP>s8j4sfPqpyKoHaP3z3Y3u9/zUreOJIMl</DP><DQ>YhIOy8eR/54qeLv+D+e5o1cNKCgzhwmR</DQ><InverseQ>kU9Phb5ynWsB6ZFQoAnUPAzmirRIlqDR</InverseQ><D>J1Q64ZQsXvayUg23YIFxB/6wkj3EImWroC3gjjCvYa+fjojM1XXvE/tE5t8mnnzB</D></RSAKeyValue>";
+                sConnectionString = EncryptedConnectionString.Replace(Password, DecryptString(Password, 384, privateKey));
+            }
+            catch (ArgumentNullException)
+            {
 
-        //	}
-        //	return sConnectionString;
-        //}
+            }
+            return sConnectionString;
+        }
     }
 
 
@@ -7155,6 +7154,27 @@ namespace Infinium
             get
             {
                 return ConfigurationManager.ConnectionStrings["Infinium.Properties.Settings.ZOVReferenceConnectionString"].ConnectionString;
+            }
+        }
+        public static String FTPType
+        {
+            get
+            {
+                return ConfigurationManager.ConnectionStrings["Infinium.Properties.Settings.ZOVReferenceConnectionString"].ConnectionString;
+            }
+        }
+        public static String DocumentsPath
+        {
+            get
+            {
+                return ConfigurationManager.ConnectionStrings["Infinium.Properties.Settings.DocumentsPath"].ConnectionString;
+            }
+        }
+        public static String DocumentsZOVTPSPath
+        {
+            get
+            {
+                return ConfigurationManager.ConnectionStrings["Infinium.Properties.Settings.DocumentsZOVTPSPath"].ConnectionString;
             }
         }
     }
