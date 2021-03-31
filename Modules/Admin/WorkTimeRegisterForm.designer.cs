@@ -104,9 +104,9 @@
             this.kryptonContextMenu1 = new ComponentFactory.Krypton.Toolkit.KryptonContextMenu();
             this.kryptonContextMenuItems1 = new ComponentFactory.Krypton.Toolkit.KryptonContextMenuItems();
             this.kryptonContextMenuItem1 = new ComponentFactory.Krypton.Toolkit.KryptonContextMenuItem();
-            this.kryptonContextMenuItem2 = new ComponentFactory.Krypton.Toolkit.KryptonContextMenuItem();
             this.kryptonContextMenuItem4 = new ComponentFactory.Krypton.Toolkit.KryptonContextMenuItem();
             this.kryptonContextMenuItem5 = new ComponentFactory.Krypton.Toolkit.KryptonContextMenuItem();
+            this.kryptonContextMenuItem2 = new ComponentFactory.Krypton.Toolkit.KryptonContextMenuItem();
             this.kryptonContextMenuItem6 = new ComponentFactory.Krypton.Toolkit.KryptonContextMenuItem();
             this.kryptonContextMenuItems2 = new ComponentFactory.Krypton.Toolkit.KryptonContextMenuItems();
             this.kryptonContextMenuItem3 = new ComponentFactory.Krypton.Toolkit.KryptonContextMenuItem();
@@ -696,6 +696,7 @@
             this.ExportButton.TabStop = false;
             this.ExportButton.Values.Image = ((System.Drawing.Image)(resources.GetObject("ExportButton.Values.Image")));
             this.ExportButton.Values.Text = "";
+            this.ExportButton.Visible = false;
             this.ExportButton.Click += new System.EventHandler(this.ExportButton_Click);
             // 
             // panel5
@@ -1359,11 +1360,6 @@
             this.kryptonContextMenuItem1.Text = "Изменить начало рабочего дня";
             this.kryptonContextMenuItem1.Click += new System.EventHandler(this.kryptonContextMenuItem1_Click);
             // 
-            // kryptonContextMenuItem2
-            // 
-            this.kryptonContextMenuItem2.Text = "Изменить окончание рабочего дня";
-            this.kryptonContextMenuItem2.Click += new System.EventHandler(this.kryptonContextMenuItem2_Click);
-            // 
             // kryptonContextMenuItem4
             // 
             this.kryptonContextMenuItem4.Text = "Изменить начало перерыва";
@@ -1373,6 +1369,11 @@
             // 
             this.kryptonContextMenuItem5.Text = "Изменить окончание перерыва";
             this.kryptonContextMenuItem5.Click += new System.EventHandler(this.kryptonContextMenuItem5_Click);
+            // 
+            // kryptonContextMenuItem2
+            // 
+            this.kryptonContextMenuItem2.Text = "Изменить окончание рабочего дня";
+            this.kryptonContextMenuItem2.Click += new System.EventHandler(this.kryptonContextMenuItem2_Click);
             // 
             // kryptonContextMenuItem6
             // 

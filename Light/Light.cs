@@ -1,4 +1,6 @@
-﻿using NPOI.HSSF.UserModel;
+﻿using Infinium.Modules.Marketing.NewOrders;
+
+using NPOI.HSSF.UserModel;
 using NPOI.HSSF.Util;
 
 using System;
@@ -9855,12 +9857,21 @@ namespace Infinium
             _workDaysDataTable.Columns.Add(new DataColumn("ProdHoursString", Type.GetType("System.String")));
             _workDaysDataTable.Columns.Add(new DataColumn("TimesheetHoursExp", Type.GetType("System.String")));
             _workDaysDataTable.Columns.Add(new DataColumn("TimesheetHours", Type.GetType("System.Decimal")));
-            DataColumn column = new DataColumn("IsWorkDay")
+            _workDaysDataTable.Columns.Add(new DataColumn("FactHours", Type.GetType("System.Decimal")));
+            _workDaysDataTable.Columns.Add(new DataColumn("OverworkHours", Type.GetType("System.Decimal")));
+            _workDaysDataTable.Columns.Add(new DataColumn("FactOverworkHours", Type.GetType("System.Decimal")));
+            DataColumn column1 = new DataColumn("IsWorkDay")
             {
                 DataType = Type.GetType("System.Boolean"),
                 DefaultValue = 0
             };
-            _workDaysDataTable.Columns.Add(column);
+            DataColumn column2 = new DataColumn("IsAbsence")
+            {
+                DataType = Type.GetType("System.Boolean"),
+                DefaultValue = 0
+            };
+            _workDaysDataTable.Columns.Add(column1);
+            _workDaysDataTable.Columns.Add(column2);
 
             _usersDataTable = new DataTable();
             _usersDataTable.Columns.Add(new DataColumn("UserID", Type.GetType("System.Int32")));
@@ -9918,7 +9929,7 @@ namespace Infinium
                 GetUsers();
                 GetProdShedule(Yearint, currentMonth);
 
-
+                int AllProdHours = 0;
                 monthTimesheet = new List<UserTimesheetInfo>();
                 for (int i = 0; i < _usersDataTable.Rows.Count; i++)
                 {
@@ -9933,16 +9944,25 @@ namespace Infinium
                     decimal Rate = staffInfoTuple.Item4;
 
                     GetAbsJournal(UserID, Yearint, currentMonth);
-                    DataTable table = GetWorkDaysTable(UserID, Yearint, currentMonth, dateToday);
+                    DataTable table = GetWorkDaysTable(UserID, Rate, Yearint, currentMonth, dateToday);
                     int AllTimesheetDays = 0;
                     decimal AllTimesheetHours = 0;
+                    decimal AllFactHours = 0;
+                    AllProdHours = 0;
                     for (int x = 0; x < table.Rows.Count; x++)
                     {
                         if (Convert.ToBoolean(table.Rows[x]["IsWorkday"]))
                             AllTimesheetDays++;
+                        AllProdHours += Convert.ToInt32(table.Rows[x]["ProdHours"]);
                         AllTimesheetHours += Convert.ToDecimal(table.Rows[x]["TimesheetHours"]);
+                        AllFactHours += Convert.ToDecimal(table.Rows[x]["FactHours"]);
                     }
+                    decimal AllOverworkHours = Convert.ToDecimal(table.Rows[table.Rows.Count - 1]["OverworkHours"]);
+                    decimal AllFactOverworkHours = Convert.ToDecimal(table.Rows[table.Rows.Count - 1]["FactOverworkHours"]);
                     AllTimesheetHours = Convert.ToDecimal(AllTimesheetHours.ToString("0.####"));
+                    AllFactHours = Convert.ToDecimal(AllFactHours.ToString("0.####"));
+                    AllOverworkHours = Convert.ToDecimal(AllOverworkHours.ToString("0.####"));
+                    AllFactOverworkHours = Convert.ToDecimal(AllFactOverworkHours.ToString("0.####"));
 
                     UserTimesheetInfo timesheetInfo = new UserTimesheetInfo
                     {
@@ -9954,6 +9974,9 @@ namespace Infinium
                         Rate = Rate,
                         WorkDaysDT = table,
                         AllTimesheetHours = AllTimesheetHours,
+                        AllFactHours = AllFactHours,
+                        AllOverworkHours = AllOverworkHours,
+                        AllFactOverworkHours = AllFactOverworkHours,
                         AllTimesheetDays = AllTimesheetDays
 
                     };
@@ -9964,6 +9987,7 @@ namespace Infinium
                 {
                     Month = currentMonth,
                     Year = Yearint,
+                    AllProdHours = AllProdHours,
                     userTimesheets = monthTimesheet
                 };
 
@@ -10002,7 +10026,8 @@ namespace Infinium
                 {
                     absenceTypeId = Convert.ToInt32(_absJournalDataTable.Rows[i]["AbsenceTypeID"]);
                     absenceHour = Convert.ToDecimal(_absJournalDataTable.Rows[i]["Hours"]);
-                    b = true;
+                    if (absenceTypeId != 14)
+                        b = true;
                     DataRow dataRow = _absDayDataTable.NewRow();
                     dataRow["AbsenceTypeID"] = absenceTypeId;
                     dataRow["Hours"] = absenceHour;
@@ -10014,9 +10039,10 @@ namespace Infinium
             return b;
         }
 
-        private Tuple<bool, decimal> WorkdayInThatDay(int UserID, DateTime date)
+        private Tuple<bool, decimal, decimal> WorkdayInThatDay(int UserID, DateTime date)
         {
             decimal TimesheetHours = 0;
+            decimal factHours = 0;
             bool b = false;
 
             for (int i = 0; i < _timesheetDataTable.Rows.Count; i++)
@@ -10028,23 +10054,49 @@ namespace Infinium
                     continue;
 
                 DateTime DayStartDateTime;
+                DateTime DayEndDateTime;
                 DayStartDateTime = (DateTime)_timesheetDataTable.Rows[i]["DayStartDateTime"];
+                DayEndDateTime = (DateTime)_timesheetDataTable.Rows[i]["DayEndDateTime"];
                 if (DayStartDateTime.Date != date.Date) //если не тот рабочий день
                     continue;
 
+                TimeSpan TimeWork = DayEndDateTime.TimeOfDay - DayStartDateTime.TimeOfDay;
+                decimal TimeWorkHours = (decimal)Math.Round(TimeWork.TotalHours, 1);
+                decimal TimeBreakHours = 0;
+                if (_timesheetDataTable.Rows[i]["DayBreakStartDateTime"] != DBNull.Value && _timesheetDataTable.Rows[i]["DayBreakEndDateTime"] != DBNull.Value) //если  был обед
+                {
+                    DateTime DayBreakStartDateTime;
+                    DateTime DayBreakEndDateTime;
+                    TimeSpan TimeBreak;
+
+                    DayBreakStartDateTime = (DateTime)_timesheetDataTable.Rows[i]["DayBreakStartDateTime"];
+                    DayBreakEndDateTime = (DateTime)_timesheetDataTable.Rows[i]["DayBreakEndDateTime"];
+                    TimeBreak = DayBreakEndDateTime.TimeOfDay - DayBreakStartDateTime.TimeOfDay;
+                    TimeBreakHours = (decimal)Math.Round(TimeBreak.TotalHours, 1);
+                }
+
+                factHours = TimeWorkHours - TimeBreakHours;
                 TimesheetHours = (decimal)_timesheetDataTable.Rows[i]["TimesheetHours"];
 
                 b = true;
                 break;
             }
 
-            Tuple<bool, decimal> tuple = new Tuple<bool, decimal>(b, TimesheetHours);
+            Tuple<bool, decimal, decimal> tuple = new Tuple<bool, decimal, decimal>(b, factHours, TimesheetHours);
             return tuple;
         }
 
-        public DataTable GetWorkDaysTable(int UserID, int Yearint, int Monthint, DateTime dateToday)
+        public DataTable GetWorkDaysTable(int UserID, decimal Rate, int Yearint, int Monthint, DateTime dateToday)
         {
             DataTable table = _workDaysDataTable.Clone();
+
+            decimal AllTimesheetHours = 0; // по табелю до сегодняшнего дня
+            decimal AllFactHours = 0; // отработано до сегодняшнего дня
+            decimal AllPlanHours = 0; // планово до сегодняшнего дня
+            decimal AllAbsenceHours = 0;
+            decimal OverworkHours = 0; // переработка
+            decimal FactOverworkHours = 0; // переработка факт
+
             for (int i = 0; i < _prodSheduleDataTable.Rows.Count; i++)
             {
                 if (Convert.ToInt32(_prodSheduleDataTable.Rows[i]["Day"]) > DateTime.DaysInMonth(Yearint, Monthint))
@@ -10068,11 +10120,31 @@ namespace Infinium
                     AbsenceShortName += GetAbsenceShortName(absenceTypeId) + " ";
                     AbsenceFullName += string.Format("{0}/({1})", GetAbsenceShortName(absenceTypeId), Convert.ToDecimal(absenceHour.ToString("0.####"))) + " ";
 
+                    if (absenceTypeId != 13 && absenceTypeId != 12)
+                    {
+                        AllAbsenceHours += absenceHour;
+                    }
                 }
 
-                Tuple<bool, decimal> workdayTuple = WorkdayInThatDay(UserID, date);
+                Tuple<bool, decimal, decimal> workdayTuple = WorkdayInThatDay(UserID, date);
                 bool isWorkday = workdayTuple.Item1;
-                decimal timesheetHours = workdayTuple.Item2;
+                decimal factHours = workdayTuple.Item2;
+                decimal timesheetHours = workdayTuple.Item3;
+
+                decimal prodSheduleHours = Convert.ToInt32(_prodSheduleDataTable.Rows[i]["Hour"]) * Rate;
+
+                if (date == dateToday.Date) //если это выбранный день
+                {
+
+                }
+                else
+                {
+                    AllTimesheetHours += timesheetHours;
+                    AllFactHours += factHours;
+                    AllPlanHours += prodSheduleHours;
+                    OverworkHours = AllTimesheetHours - AllPlanHours + AllAbsenceHours;
+                    FactOverworkHours = AllFactHours - AllPlanHours + AllAbsenceHours;
+                }
 
                 DataRow newRow = table.NewRow();
                 newRow["Date"] = date.Date;
@@ -10088,8 +10160,12 @@ namespace Infinium
 
                 if (timesheetHours > 0)
                     newRow["IsWorkday"] = true;
+                newRow["IsAbsence"] = isAbsence;
                 newRow["TimesheetHoursExp"] = AbsenceFullName + " " + timesheetHours.ToString();
                 newRow["TimesheetHours"] = timesheetHours;
+                newRow["FactHours"] = factHours;
+                newRow["OverworkHours"] = OverworkHours;
+                newRow["FactOverworkHours"] = FactOverworkHours;
 
 
                 table.Rows.Add(newRow);
@@ -10147,7 +10223,7 @@ namespace Infinium
         public Tuple<string, int, int, decimal> StaffInfo(int userId)
         {
             string MyQueryText = @"SELECT StaffListID, FactoryID, StaffList.PositionID, Positions.Position, UserID, Rate, Rank FROM StaffList INNER JOIN Positions ON StaffList.PositionID=Positions.PositionID
-                WHERE UserID=" + userId;
+                WHERE FactoryId=1 AND UserID=" + userId;
 
             string PositionName = string.Empty;
             int PositionID = 0;
@@ -10195,27 +10271,33 @@ namespace Infinium
         public int Year;
 
         public int Month;
+        /// <summary>
+        /// плановое время
+        /// </summary>
+        public int AllProdHours;
     }
 
     public class TimesheetReport
     {
         string date = "";
-        string totalWorkDays = "";
-        string firm = "";
-        string bossPosition = "";
-        string bossName = "";
+        string totalProdHours = "";
+        string firm = "СООО \"ЗОВ-ПРОФИЛЬ\"";
+        string bossPosition = "Директор СООО \"ЗОВ-ПРОФИЛЬ\"";
+        string bossName = "Ф.А. Авдей";
 
-        string specialistPosition = "";
-        string specialistName = "";
+        string specialistPosition = "Составил: спец-т по кадрам";
+        string specialistName = "Т.И. Козловская";
 
-        string assert = "";
-        string approve = "";
+        string assert = "УТВЕРЖДАЮ";
+        string approve = "Согласовано:";
 
-        string user1 = "";
-        string user2 = "";
-        string user3 = "";
-        string user4 = "";
-        string user5 = "";
+        string monthHeader = "ГРАФИК/ТАБЕЛЬ РАБОТЫ ЗА ЯНВАРЬ 2021г.:";
+
+        string user1 = "А.В. Литвиненко";
+        string user2 = "Р.П. Егорченко";
+        string user3 = "Д.М. Яблоков";
+        string user4 = "Ю.К. Янкойть";
+        string user5 = "А.А. Иоскевич";
 
         private OneMonthTimesheet monthTimesheet;
 
@@ -10224,7 +10306,7 @@ namespace Infinium
 
         }
 
-        public void CreateReport(ResultTimesheet resultTimesheet)
+        public void CreateReport(int Yearint, int Monthint, ResultTimesheet resultTimesheet)
         {
             HSSFWorkbook hssfworkbook = new HSSFWorkbook();
 
@@ -10271,6 +10353,24 @@ namespace Infinium
             SimpleBottomBorderCS.TopBorderColor = HSSFColor.BLACK.index;
             SimpleBottomBorderCS.WrapText = true;
             SimpleBottomBorderCS.SetFont(SimpleBoldF);
+
+            HSSFCellStyle MainWithBorderCS = hssfworkbook.CreateCellStyle();
+            MainWithBorderCS.VerticalAlignment = HSSFCellStyle.VERTICAL_CENTER;
+            MainWithBorderCS.Alignment = HSSFCellStyle.ALIGN_CENTER;
+            MainWithBorderCS.BorderBottom = HSSFCellStyle.BORDER_MEDIUM;
+            MainWithBorderCS.BottomBorderColor = HSSFColor.BLACK.index;
+            MainWithBorderCS.BorderLeft = HSSFCellStyle.BORDER_MEDIUM;
+            MainWithBorderCS.LeftBorderColor = HSSFColor.BLACK.index;
+            MainWithBorderCS.BorderRight = HSSFCellStyle.BORDER_MEDIUM;
+            MainWithBorderCS.RightBorderColor = HSSFColor.BLACK.index;
+            MainWithBorderCS.BorderTop = HSSFCellStyle.BORDER_MEDIUM;
+            MainWithBorderCS.TopBorderColor = HSSFColor.BLACK.index;
+            MainWithBorderCS.SetFont(SimpleF);
+
+            HSSFCellStyle MainWithoutBorderCS = hssfworkbook.CreateCellStyle();
+            MainWithoutBorderCS.VerticalAlignment = HSSFCellStyle.VERTICAL_CENTER;
+            MainWithoutBorderCS.Alignment = HSSFCellStyle.ALIGN_CENTER;
+            MainWithoutBorderCS.SetFont(SimpleF);
 
             HSSFCellStyle NameCS = hssfworkbook.CreateCellStyle();
             NameCS.VerticalAlignment = HSSFCellStyle.VERTICAL_CENTER;
@@ -10378,10 +10478,122 @@ namespace Infinium
             OutputTopBorderCS.RightBorderColor = HSSFColor.BLACK.index;
             OutputTopBorderCS.BorderTop = HSSFCellStyle.BORDER_MEDIUM;
             OutputTopBorderCS.TopBorderColor = HSSFColor.BLACK.index;
-            OutputTopBorderCS.FillForegroundColor = NPOI.HSSF.Util.HSSFColor.BLACK.index;
-            OutputTopBorderCS.FillPattern = HSSFCellStyle.THIN_FORWARD_DIAG;
+            OutputTopBorderCS.FillForegroundColor = NPOI.HSSF.Util.HSSFColor.YELLOW.index;
+            OutputTopBorderCS.FillPattern = HSSFCellStyle.SOLID_FOREGROUND;
             OutputTopBorderCS.FillBackgroundColor = NPOI.HSSF.Util.HSSFColor.YELLOW.index;
             OutputTopBorderCS.SetFont(SimpleF);
+
+            HSSFCellStyle OutputBottomBorderCS = hssfworkbook.CreateCellStyle();
+            OutputBottomBorderCS.DataFormat = HSSFDataFormat.GetBuiltinFormat("0.0");
+            OutputBottomBorderCS.VerticalAlignment = HSSFCellStyle.VERTICAL_CENTER;
+            OutputBottomBorderCS.Alignment = HSSFCellStyle.ALIGN_CENTER;
+            OutputBottomBorderCS.BorderBottom = HSSFCellStyle.BORDER_MEDIUM;
+            OutputBottomBorderCS.BottomBorderColor = HSSFColor.BLACK.index;
+            OutputBottomBorderCS.BorderLeft = HSSFCellStyle.BORDER_THIN;
+            OutputBottomBorderCS.LeftBorderColor = HSSFColor.BLACK.index;
+            OutputBottomBorderCS.BorderRight = HSSFCellStyle.BORDER_THIN;
+            OutputBottomBorderCS.RightBorderColor = HSSFColor.BLACK.index;
+            OutputBottomBorderCS.BorderTop = HSSFCellStyle.BORDER_THIN;
+            OutputBottomBorderCS.TopBorderColor = HSSFColor.BLACK.index;
+            OutputBottomBorderCS.FillForegroundColor = NPOI.HSSF.Util.HSSFColor.YELLOW.index;
+            OutputBottomBorderCS.FillPattern = HSSFCellStyle.SOLID_FOREGROUND;
+            OutputBottomBorderCS.FillBackgroundColor = NPOI.HSSF.Util.HSSFColor.YELLOW.index;
+            OutputBottomBorderCS.WrapText = true;
+            OutputBottomBorderCS.SetFont(SimpleBoldF);
+
+            HSSFCellStyle AbsenceTopBorderCS = hssfworkbook.CreateCellStyle();
+            AbsenceTopBorderCS.VerticalAlignment = HSSFCellStyle.VERTICAL_CENTER;
+            AbsenceTopBorderCS.Alignment = HSSFCellStyle.ALIGN_CENTER;
+            AbsenceTopBorderCS.BorderBottom = HSSFCellStyle.BORDER_THIN;
+            AbsenceTopBorderCS.BottomBorderColor = HSSFColor.BLACK.index;
+            AbsenceTopBorderCS.BorderLeft = HSSFCellStyle.BORDER_THIN;
+            AbsenceTopBorderCS.LeftBorderColor = HSSFColor.BLACK.index;
+            AbsenceTopBorderCS.BorderRight = HSSFCellStyle.BORDER_THIN;
+            AbsenceTopBorderCS.RightBorderColor = HSSFColor.BLACK.index;
+            AbsenceTopBorderCS.BorderTop = HSSFCellStyle.BORDER_MEDIUM;
+            AbsenceTopBorderCS.TopBorderColor = HSSFColor.BLACK.index;
+            AbsenceTopBorderCS.FillForegroundColor = NPOI.HSSF.Util.HSSFColor.RED.index;
+            AbsenceTopBorderCS.FillPattern = HSSFCellStyle.SOLID_FOREGROUND;
+            AbsenceTopBorderCS.FillBackgroundColor = NPOI.HSSF.Util.HSSFColor.YELLOW.index;
+            AbsenceTopBorderCS.SetFont(SimpleF);
+
+            HSSFCellStyle AbsenceBottomBorderCS = hssfworkbook.CreateCellStyle();
+            AbsenceBottomBorderCS.DataFormat = HSSFDataFormat.GetBuiltinFormat("0.0");
+            AbsenceBottomBorderCS.VerticalAlignment = HSSFCellStyle.VERTICAL_CENTER;
+            AbsenceBottomBorderCS.Alignment = HSSFCellStyle.ALIGN_CENTER;
+            AbsenceBottomBorderCS.BorderBottom = HSSFCellStyle.BORDER_MEDIUM;
+            AbsenceBottomBorderCS.BottomBorderColor = HSSFColor.BLACK.index;
+            AbsenceBottomBorderCS.BorderLeft = HSSFCellStyle.BORDER_THIN;
+            AbsenceBottomBorderCS.LeftBorderColor = HSSFColor.BLACK.index;
+            AbsenceBottomBorderCS.BorderRight = HSSFCellStyle.BORDER_THIN;
+            AbsenceBottomBorderCS.RightBorderColor = HSSFColor.BLACK.index;
+            AbsenceBottomBorderCS.BorderTop = HSSFCellStyle.BORDER_THIN;
+            AbsenceBottomBorderCS.TopBorderColor = HSSFColor.BLACK.index;
+            AbsenceBottomBorderCS.FillForegroundColor = NPOI.HSSF.Util.HSSFColor.RED.index;
+            AbsenceBottomBorderCS.FillPattern = HSSFCellStyle.SOLID_FOREGROUND;
+            AbsenceBottomBorderCS.FillBackgroundColor = NPOI.HSSF.Util.HSSFColor.YELLOW.index;
+            AbsenceBottomBorderCS.WrapText = true;
+            AbsenceBottomBorderCS.SetFont(SimpleBoldF);
+
+            HSSFCellStyle OutputHeaderTopBorderCS = hssfworkbook.CreateCellStyle();
+            OutputHeaderTopBorderCS.VerticalAlignment = HSSFCellStyle.VERTICAL_CENTER;
+            OutputHeaderTopBorderCS.Alignment = HSSFCellStyle.ALIGN_CENTER;
+            OutputHeaderTopBorderCS.BorderBottom = HSSFCellStyle.BORDER_THIN;
+            OutputHeaderTopBorderCS.BottomBorderColor = HSSFColor.BLACK.index;
+            OutputHeaderTopBorderCS.BorderLeft = HSSFCellStyle.BORDER_THIN;
+            OutputHeaderTopBorderCS.LeftBorderColor = HSSFColor.BLACK.index;
+            OutputHeaderTopBorderCS.BorderRight = HSSFCellStyle.BORDER_THIN;
+            OutputHeaderTopBorderCS.RightBorderColor = HSSFColor.BLACK.index;
+            OutputHeaderTopBorderCS.BorderTop = HSSFCellStyle.BORDER_MEDIUM;
+            OutputHeaderTopBorderCS.TopBorderColor = HSSFColor.BLACK.index;
+            OutputHeaderTopBorderCS.FillForegroundColor = NPOI.HSSF.Util.HSSFColor.YELLOW.index;
+            OutputHeaderTopBorderCS.FillPattern = HSSFCellStyle.SOLID_FOREGROUND;
+            OutputHeaderTopBorderCS.FillBackgroundColor = NPOI.HSSF.Util.HSSFColor.YELLOW.index;
+            OutputHeaderTopBorderCS.SetFont(SimpleF);
+
+            HSSFCellStyle OutputHeaderBottomBorderCS = hssfworkbook.CreateCellStyle();
+            OutputHeaderBottomBorderCS.VerticalAlignment = HSSFCellStyle.VERTICAL_CENTER;
+            OutputHeaderBottomBorderCS.Alignment = HSSFCellStyle.ALIGN_CENTER;
+            OutputHeaderBottomBorderCS.BorderBottom = HSSFCellStyle.BORDER_MEDIUM;
+            OutputHeaderBottomBorderCS.BottomBorderColor = HSSFColor.BLACK.index;
+            OutputHeaderBottomBorderCS.BorderLeft = HSSFCellStyle.BORDER_THIN;
+            OutputHeaderBottomBorderCS.LeftBorderColor = HSSFColor.BLACK.index;
+            OutputHeaderBottomBorderCS.BorderRight = HSSFCellStyle.BORDER_THIN;
+            OutputHeaderBottomBorderCS.RightBorderColor = HSSFColor.BLACK.index;
+            OutputHeaderBottomBorderCS.BorderTop = HSSFCellStyle.BORDER_THIN;
+            OutputHeaderBottomBorderCS.TopBorderColor = HSSFColor.BLACK.index;
+            OutputHeaderBottomBorderCS.FillForegroundColor = NPOI.HSSF.Util.HSSFColor.YELLOW.index;
+            OutputHeaderBottomBorderCS.FillPattern = HSSFCellStyle.SOLID_FOREGROUND;
+            OutputHeaderBottomBorderCS.FillBackgroundColor = NPOI.HSSF.Util.HSSFColor.YELLOW.index;
+            OutputHeaderBottomBorderCS.WrapText = true;
+            OutputHeaderBottomBorderCS.SetFont(SimpleBoldF);
+
+            HSSFCellStyle HeaderTopBorderCS = hssfworkbook.CreateCellStyle();
+            HeaderTopBorderCS.VerticalAlignment = HSSFCellStyle.VERTICAL_CENTER;
+            HeaderTopBorderCS.Alignment = HSSFCellStyle.ALIGN_CENTER;
+            HeaderTopBorderCS.BorderBottom = HSSFCellStyle.BORDER_THIN;
+            HeaderTopBorderCS.BottomBorderColor = HSSFColor.BLACK.index;
+            HeaderTopBorderCS.BorderLeft = HSSFCellStyle.BORDER_THIN;
+            HeaderTopBorderCS.LeftBorderColor = HSSFColor.BLACK.index;
+            HeaderTopBorderCS.BorderRight = HSSFCellStyle.BORDER_THIN;
+            HeaderTopBorderCS.RightBorderColor = HSSFColor.BLACK.index;
+            HeaderTopBorderCS.BorderTop = HSSFCellStyle.BORDER_MEDIUM;
+            HeaderTopBorderCS.TopBorderColor = HSSFColor.BLACK.index;
+            HeaderTopBorderCS.SetFont(SimpleF);
+
+            HSSFCellStyle HeaderBottomBorderCS = hssfworkbook.CreateCellStyle();
+            HeaderBottomBorderCS.VerticalAlignment = HSSFCellStyle.VERTICAL_CENTER;
+            HeaderBottomBorderCS.Alignment = HSSFCellStyle.ALIGN_CENTER;
+            HeaderBottomBorderCS.BorderBottom = HSSFCellStyle.BORDER_MEDIUM;
+            HeaderBottomBorderCS.BottomBorderColor = HSSFColor.BLACK.index;
+            HeaderBottomBorderCS.BorderLeft = HSSFCellStyle.BORDER_THIN;
+            HeaderBottomBorderCS.LeftBorderColor = HSSFColor.BLACK.index;
+            HeaderBottomBorderCS.BorderRight = HSSFCellStyle.BORDER_THIN;
+            HeaderBottomBorderCS.RightBorderColor = HSSFColor.BLACK.index;
+            HeaderBottomBorderCS.BorderTop = HSSFCellStyle.BORDER_THIN;
+            HeaderBottomBorderCS.TopBorderColor = HSSFColor.BLACK.index;
+            HeaderBottomBorderCS.WrapText = true;
+            HeaderBottomBorderCS.SetFont(SimpleBoldF);
 
             HSSFCellStyle ReportCS = hssfworkbook.CreateCellStyle();
             ReportCS.BorderBottom = HSSFCellStyle.BORDER_MEDIUM;
@@ -10411,25 +10623,79 @@ namespace Infinium
             {
 
                 monthTimesheet = resultTimesheet.YearTimesheets[j];
+                if (monthTimesheet.userTimesheets.Count == 0)
+                    continue;
+
+                date = DateTime.Now.ToShortDateString();
+                totalProdHours = monthTimesheet.AllProdHours.ToString();
+                monthHeader = "ГРАФИК/ТАБЕЛЬ РАБОТЫ ЗА " + new DateTime(monthTimesheet.Year, monthTimesheet.Month, 1).ToString("MMMM") + " " + monthTimesheet.Year + "г:";
 
                 string sYear = monthTimesheet.Year.ToString();
 
                 string sMonth = monthTimesheet.Month.ToString().PadLeft(2, '0');
 
+
                 string sheetName = sMonth + "-" + sYear;
                 HSSFSheet sheet1 = hssfworkbook.CreateSheet(sheetName);
                 sheet1.PrintSetup.PaperSize = (short)PaperSizeType.A4;
-
+                sheet1.SetZoom(85, 100);
                 sheet1.SetMargin(HSSFSheet.LeftMargin, (double).12);
                 sheet1.SetMargin(HSSFSheet.RightMargin, (double).07);
                 sheet1.SetMargin(HSSFSheet.TopMargin, (double).20);
                 sheet1.SetMargin(HSSFSheet.BottomMargin, (double).20);
 
-                int DisplayIndex = 0;
+                int DisplayIndex = 1;
                 int RowIndex = 0;
 
                 HSSFCell HeaderCell;
                 HSSFCell Cell1;
+
+                HeaderCell = sheet1.CreateRow(RowIndex).CreateCell(DisplayIndex);
+                HeaderCell.SetCellValue(date);
+                HeaderCell.CellStyle = MainWithBorderCS;
+
+                HeaderCell = sheet1.CreateRow(RowIndex + 1).CreateCell(DisplayIndex);
+                HeaderCell.SetCellValue(totalProdHours);
+                HeaderCell.CellStyle = MainWithBorderCS;
+
+                HeaderCell = sheet1.CreateRow(RowIndex).CreateCell(DisplayIndex + 20);
+                HeaderCell.SetCellValue("                   " + assert);
+                HeaderCell.CellStyle = MainWithoutBorderCS;
+
+                HeaderCell = sheet1.CreateRow(RowIndex + 1).CreateCell(DisplayIndex + 20);
+                HeaderCell.SetCellValue("_________________  " + bossName);
+                HeaderCell.CellStyle = MainWithoutBorderCS;
+
+                HeaderCell = sheet1.CreateRow(RowIndex + 2).CreateCell(DisplayIndex + 20);
+                HeaderCell.SetCellValue(bossPosition);
+                HeaderCell.CellStyle = MainWithoutBorderCS;
+
+                HeaderCell = sheet1.CreateRow(RowIndex + 2).CreateCell(DisplayIndex + 2);
+                HeaderCell.SetCellValue(firm);
+                HeaderCell.CellStyle = MainWithoutBorderCS;
+
+                HeaderCell = sheet1.CreateRow(RowIndex + 4).CreateCell(DisplayIndex + 20);
+                HeaderCell.SetCellValue("_________________  " + specialistName);
+                HeaderCell.CellStyle = MainWithoutBorderCS;
+
+                HeaderCell = sheet1.CreateRow(RowIndex + 5).CreateCell(DisplayIndex + 20);
+                HeaderCell.SetCellValue(specialistPosition);
+                HeaderCell.CellStyle = MainWithoutBorderCS;
+
+                HeaderCell = sheet1.CreateRow(RowIndex + 6).CreateCell(DisplayIndex + 10);
+                HeaderCell.SetCellValue(monthHeader);
+                HeaderCell.CellStyle = MainWithBorderCS;
+
+                for (int i = DisplayIndex + 11; i <= DisplayIndex + 20; i++)
+                {
+                    HeaderCell = sheet1.CreateRow(RowIndex + 6).CreateCell(i);
+                    HeaderCell.SetCellValue("");
+                    HeaderCell.CellStyle = MainWithBorderCS;
+                }
+                sheet1.AddMergedRegion(new NPOI.HSSF.Util.Region(RowIndex + 6, DisplayIndex + 10, RowIndex + 6, DisplayIndex + 20));
+
+                DisplayIndex = 0;
+                RowIndex = 7;
 
                 HeaderCell = sheet1.CreateRow(RowIndex + 1).CreateCell(DisplayIndex);
                 HeaderCell.SetCellValue("");
@@ -10460,13 +10726,28 @@ namespace Infinium
 
                 for (int i = 0; i < monthTimesheet.userTimesheets[0].WorkDaysDT.Rows.Count; i++)
                 {
-                    HeaderCell = sheet1.CreateRow(RowIndex).CreateCell(DisplayIndex);
-                    HeaderCell.SetCellValue((i + 1));
-                    HeaderCell.CellStyle = SimpleHeaderCS;
+                    int prodHours = Convert.ToInt32(monthTimesheet.userTimesheets[0].WorkDaysDT.Rows[i]["ProdHours"]);
+                    if (prodHours == 0)
+                    {
+                        HeaderCell = sheet1.CreateRow(RowIndex).CreateCell(DisplayIndex);
+                        HeaderCell.SetCellValue((i + 1));
+                        HeaderCell.CellStyle = OutputHeaderTopBorderCS;
 
-                    HeaderCell = sheet1.CreateRow(RowIndex + 1).CreateCell(DisplayIndex);
-                    HeaderCell.SetCellValue(Convert.ToInt32(monthTimesheet.userTimesheets[0].WorkDaysDT.Rows[i]["ProdHours"]));
-                    HeaderCell.CellStyle = SimpleHeaderCS;
+                        HeaderCell = sheet1.CreateRow(RowIndex + 1).CreateCell(DisplayIndex);
+                        HeaderCell.SetCellValue(Convert.ToInt32(monthTimesheet.userTimesheets[0].WorkDaysDT.Rows[i]["ProdHours"]));
+                        HeaderCell.CellStyle = OutputHeaderBottomBorderCS;
+                    }
+                    else
+                    {
+                        HeaderCell = sheet1.CreateRow(RowIndex).CreateCell(DisplayIndex);
+                        HeaderCell.SetCellValue((i + 1));
+                        HeaderCell.CellStyle = HeaderTopBorderCS;
+
+                        HeaderCell = sheet1.CreateRow(RowIndex + 1).CreateCell(DisplayIndex);
+                        HeaderCell.SetCellValue(Convert.ToInt32(monthTimesheet.userTimesheets[0].WorkDaysDT.Rows[i]["ProdHours"]));
+                        HeaderCell.CellStyle = HeaderBottomBorderCS;
+                    }
+
 
                     DisplayIndex++;
                 }
@@ -10475,7 +10756,7 @@ namespace Infinium
                 HeaderCell.SetCellValue("");
                 HeaderCell.CellStyle = SimpleHeaderCS;
                 HeaderCell = sheet1.CreateRow(RowIndex).CreateCell(DisplayIndex);
-                HeaderCell.SetCellValue("Факт отраб дни");
+                HeaderCell.SetCellValue("Отраб Дни");
                 HeaderCell.CellStyle = SimpleHeaderCS;
                 sheet1.AddMergedRegion(new NPOI.HSSF.Util.Region(RowIndex, DisplayIndex, RowIndex + 1, DisplayIndex));
                 DisplayIndex++;
@@ -10484,7 +10765,34 @@ namespace Infinium
                 HeaderCell.SetCellValue("");
                 HeaderCell.CellStyle = SimpleHeaderCS;
                 HeaderCell = sheet1.CreateRow(RowIndex).CreateCell(DisplayIndex);
-                HeaderCell.SetCellValue("Часы");
+                HeaderCell.SetCellValue("Отраб Табель Часы");
+                HeaderCell.CellStyle = SimpleHeaderCS;
+                sheet1.AddMergedRegion(new NPOI.HSSF.Util.Region(RowIndex, DisplayIndex, RowIndex + 1, DisplayIndex));
+                DisplayIndex++;
+
+                HeaderCell = sheet1.CreateRow(RowIndex + 1).CreateCell(DisplayIndex);
+                HeaderCell.SetCellValue("");
+                HeaderCell.CellStyle = SimpleHeaderCS;
+                HeaderCell = sheet1.CreateRow(RowIndex).CreateCell(DisplayIndex);
+                HeaderCell.SetCellValue("Перераб Табель");
+                HeaderCell.CellStyle = SimpleHeaderCS;
+                sheet1.AddMergedRegion(new NPOI.HSSF.Util.Region(RowIndex, DisplayIndex, RowIndex + 1, DisplayIndex));
+                DisplayIndex++;
+
+                HeaderCell = sheet1.CreateRow(RowIndex + 1).CreateCell(DisplayIndex);
+                HeaderCell.SetCellValue("");
+                HeaderCell.CellStyle = SimpleHeaderCS;
+                HeaderCell = sheet1.CreateRow(RowIndex).CreateCell(DisplayIndex);
+                HeaderCell.SetCellValue("Отраб Факт Часы");
+                HeaderCell.CellStyle = SimpleHeaderCS;
+                sheet1.AddMergedRegion(new NPOI.HSSF.Util.Region(RowIndex, DisplayIndex, RowIndex + 1, DisplayIndex));
+                DisplayIndex++;
+
+                HeaderCell = sheet1.CreateRow(RowIndex + 1).CreateCell(DisplayIndex);
+                HeaderCell.SetCellValue("");
+                HeaderCell.CellStyle = SimpleHeaderCS;
+                HeaderCell = sheet1.CreateRow(RowIndex).CreateCell(DisplayIndex);
+                HeaderCell.SetCellValue("Перераб Факт");
                 HeaderCell.CellStyle = SimpleHeaderCS;
                 sheet1.AddMergedRegion(new NPOI.HSSF.Util.Region(RowIndex, DisplayIndex, RowIndex + 1, DisplayIndex));
                 DisplayIndex++;
@@ -10528,25 +10836,96 @@ namespace Infinium
 
                     for (int x = 0; x < monthTimesheet.userTimesheets[i].WorkDaysDT.Rows.Count; x++)
                     {
-                        Cell1 = sheet1.CreateRow(RowIndex).CreateCell(DisplayIndex);
-                        b = int.TryParse(monthTimesheet.userTimesheets[i].WorkDaysDT.Rows[x]["ProdHoursString"].ToString(), out int ProdHours);
-                        if (b)
-                            Cell1.SetCellValue(Convert.ToInt32(ProdHours));
-                        else
-                            Cell1.SetCellValue(monthTimesheet.userTimesheets[i].WorkDaysDT.Rows[x]["ProdHoursString"].ToString());
-                        Cell1.CellStyle = SimpleTopBorderCS;
+                        bool isAbsence = Convert.ToBoolean(monthTimesheet.userTimesheets[i].WorkDaysDT.Rows[x]["IsAbsence"]);
+                        int prodHours = Convert.ToInt32(monthTimesheet.userTimesheets[i].WorkDaysDT.Rows[x]["ProdHours"]);
+                        if (prodHours == 0)
+                        {
+                            if (isAbsence)
+                            {
+                                Cell1 = sheet1.CreateRow(RowIndex).CreateCell(DisplayIndex);
+                                b = int.TryParse(monthTimesheet.userTimesheets[i].WorkDaysDT.Rows[x]["ProdHoursString"].ToString(), out int ProdHours);
+                                if (b)
+                                    Cell1.SetCellValue(Convert.ToInt32(ProdHours));
+                                else
+                                    Cell1.SetCellValue(monthTimesheet.userTimesheets[i].WorkDaysDT.Rows[x]["ProdHoursString"].ToString());
+                                Cell1.CellStyle = AbsenceTopBorderCS;
 
-                        Cell1 = sheet1.CreateRow(RowIndex + 1).CreateCell(DisplayIndex);
-                        b = decimal.TryParse(monthTimesheet.userTimesheets[i].WorkDaysDT.Rows[x]["TimesheetHoursExp"].ToString(), out decimal TimesheetHoursExp);
-                        if (b)
-                            Cell1.SetCellValue(Convert.ToDouble(TimesheetHoursExp));
-                        else
-                            Cell1.SetCellValue(monthTimesheet.userTimesheets[i].WorkDaysDT.Rows[x]["TimesheetHoursExp"].ToString());
 
-                        Cell1.CellStyle = SimpleBottomBorderCS;
+                                Cell1 = sheet1.CreateRow(RowIndex + 1).CreateCell(DisplayIndex);
+                                b = decimal.TryParse(monthTimesheet.userTimesheets[i].WorkDaysDT.Rows[x]["TimesheetHoursExp"].ToString(), out decimal TimesheetHoursExp);
+                                if (b)
+                                    Cell1.SetCellValue(Convert.ToDouble(TimesheetHoursExp));
+                                else
+                                    Cell1.SetCellValue(monthTimesheet.userTimesheets[i].WorkDaysDT.Rows[x]["TimesheetHoursExp"].ToString());
+
+                                Cell1.CellStyle = AbsenceBottomBorderCS;
+                            }
+                            else
+                            {
+                                Cell1 = sheet1.CreateRow(RowIndex).CreateCell(DisplayIndex);
+                                b = int.TryParse(monthTimesheet.userTimesheets[i].WorkDaysDT.Rows[x]["ProdHoursString"].ToString(), out int ProdHours);
+                                if (b)
+                                    Cell1.SetCellValue(Convert.ToInt32(ProdHours));
+                                else
+                                    Cell1.SetCellValue(monthTimesheet.userTimesheets[i].WorkDaysDT.Rows[x]["ProdHoursString"].ToString());
+                                Cell1.CellStyle = OutputTopBorderCS;
+
+
+                                Cell1 = sheet1.CreateRow(RowIndex + 1).CreateCell(DisplayIndex);
+                                b = decimal.TryParse(monthTimesheet.userTimesheets[i].WorkDaysDT.Rows[x]["TimesheetHoursExp"].ToString(), out decimal TimesheetHoursExp);
+                                if (b)
+                                    Cell1.SetCellValue(Convert.ToDouble(TimesheetHoursExp));
+                                else
+                                    Cell1.SetCellValue(monthTimesheet.userTimesheets[i].WorkDaysDT.Rows[x]["TimesheetHoursExp"].ToString());
+
+                                Cell1.CellStyle = OutputBottomBorderCS;
+                            }
+                        }
+                        else
+                        {
+                            if (isAbsence)
+                            {
+                                Cell1 = sheet1.CreateRow(RowIndex).CreateCell(DisplayIndex);
+                                b = int.TryParse(monthTimesheet.userTimesheets[i].WorkDaysDT.Rows[x]["ProdHoursString"].ToString(), out int ProdHours);
+                                if (b)
+                                    Cell1.SetCellValue(Convert.ToInt32(ProdHours));
+                                else
+                                    Cell1.SetCellValue(monthTimesheet.userTimesheets[i].WorkDaysDT.Rows[x]["ProdHoursString"].ToString());
+                                Cell1.CellStyle = AbsenceTopBorderCS;
+
+
+                                Cell1 = sheet1.CreateRow(RowIndex + 1).CreateCell(DisplayIndex);
+                                b = decimal.TryParse(monthTimesheet.userTimesheets[i].WorkDaysDT.Rows[x]["TimesheetHoursExp"].ToString(), out decimal TimesheetHoursExp);
+                                if (b)
+                                    Cell1.SetCellValue(Convert.ToDouble(TimesheetHoursExp));
+                                else
+                                    Cell1.SetCellValue(monthTimesheet.userTimesheets[i].WorkDaysDT.Rows[x]["TimesheetHoursExp"].ToString());
+
+                                Cell1.CellStyle = AbsenceBottomBorderCS;
+                            }
+                            else
+                            {
+                                Cell1 = sheet1.CreateRow(RowIndex).CreateCell(DisplayIndex);
+                                b = int.TryParse(monthTimesheet.userTimesheets[i].WorkDaysDT.Rows[x]["ProdHoursString"].ToString(), out int ProdHours);
+                                if (b)
+                                    Cell1.SetCellValue(Convert.ToInt32(ProdHours));
+                                else
+                                    Cell1.SetCellValue(monthTimesheet.userTimesheets[i].WorkDaysDT.Rows[x]["ProdHoursString"].ToString());
+                                Cell1.CellStyle = SimpleTopBorderCS;
+
+
+                                Cell1 = sheet1.CreateRow(RowIndex + 1).CreateCell(DisplayIndex);
+                                b = decimal.TryParse(monthTimesheet.userTimesheets[i].WorkDaysDT.Rows[x]["TimesheetHoursExp"].ToString(), out decimal TimesheetHoursExp);
+                                if (b)
+                                    Cell1.SetCellValue(Convert.ToDouble(TimesheetHoursExp));
+                                else
+                                    Cell1.SetCellValue(monthTimesheet.userTimesheets[i].WorkDaysDT.Rows[x]["TimesheetHoursExp"].ToString());
+
+                                Cell1.CellStyle = SimpleBottomBorderCS;
+                            }
+                        }
 
                         DisplayIndex++;
-
                     }
 
                     Cell1 = sheet1.CreateRow(RowIndex).CreateCell(DisplayIndex);
@@ -10564,6 +10943,7 @@ namespace Infinium
                     Cell1.CellStyle = SimpleDecCS;
 
                     DisplayIndex++;
+
                     Cell1 = sheet1.CreateRow(RowIndex).CreateCell(DisplayIndex);
 
                     b = decimal.TryParse(monthTimesheet.userTimesheets[i].AllTimesheetHours.ToString(), out decimal AllTimesheetHours);
@@ -10580,12 +10960,85 @@ namespace Infinium
 
                     DisplayIndex++;
 
+                    Cell1 = sheet1.CreateRow(RowIndex).CreateCell(DisplayIndex);
+
+                    b = decimal.TryParse(monthTimesheet.userTimesheets[i].AllOverworkHours.ToString(), out decimal AllOverworkHours);
+                    if (b)
+                        Cell1.SetCellValue(Convert.ToDouble(AllOverworkHours));
+                    else
+                        Cell1.SetCellValue(monthTimesheet.userTimesheets[i].AllOverworkHours.ToString());
+
+                    Cell1.CellStyle = TimesheetHoursCS;
+
+                    Cell1 = sheet1.CreateRow(RowIndex + 1).CreateCell(DisplayIndex);
+                    Cell1.CellStyle = SimpleDecCS;
+                    sheet1.AddMergedRegion(new NPOI.HSSF.Util.Region(RowIndex, DisplayIndex, RowIndex + 1, DisplayIndex));
+
+                    DisplayIndex++;
+
+                    Cell1 = sheet1.CreateRow(RowIndex).CreateCell(DisplayIndex);
+
+                    b = decimal.TryParse(monthTimesheet.userTimesheets[i].AllFactHours.ToString(), out decimal AllFactHours);
+                    if (b)
+                        Cell1.SetCellValue(Convert.ToDouble(AllFactHours));
+                    else
+                        Cell1.SetCellValue(monthTimesheet.userTimesheets[i].AllFactHours.ToString());
+
+                    Cell1.CellStyle = TimesheetHoursCS;
+
+                    Cell1 = sheet1.CreateRow(RowIndex + 1).CreateCell(DisplayIndex);
+                    Cell1.CellStyle = SimpleDecCS;
+                    sheet1.AddMergedRegion(new NPOI.HSSF.Util.Region(RowIndex, DisplayIndex, RowIndex + 1, DisplayIndex));
+
+                    DisplayIndex++;
+
+                    Cell1 = sheet1.CreateRow(RowIndex).CreateCell(DisplayIndex);
+
+                    b = decimal.TryParse(monthTimesheet.userTimesheets[i].AllFactOverworkHours.ToString(), out decimal AllFactOverworkHours);
+                    if (b)
+                        Cell1.SetCellValue(Convert.ToDouble(AllFactOverworkHours));
+                    else
+                        Cell1.SetCellValue(monthTimesheet.userTimesheets[i].AllFactOverworkHours.ToString());
+
+                    Cell1.CellStyle = TimesheetHoursCS;
+
+                    Cell1 = sheet1.CreateRow(RowIndex + 1).CreateCell(DisplayIndex);
+                    Cell1.CellStyle = SimpleDecCS;
+                    sheet1.AddMergedRegion(new NPOI.HSSF.Util.Region(RowIndex, DisplayIndex, RowIndex + 1, DisplayIndex));
+
+                    DisplayIndex++;
+
                     RowIndex++;
                     RowIndex++;
 
 
                 }
+
                 DisplayIndex = 0;
+
+                HeaderCell = sheet1.CreateRow(RowIndex + 2).CreateCell(DisplayIndex + 1);
+                HeaderCell.SetCellValue(approve);
+                HeaderCell.CellStyle = MainWithoutBorderCS;
+
+                HeaderCell = sheet1.CreateRow(RowIndex + 2).CreateCell(DisplayIndex + 3);
+                HeaderCell.SetCellValue(user1);
+                HeaderCell.CellStyle = MainWithoutBorderCS;
+
+                HeaderCell = sheet1.CreateRow(RowIndex + 4).CreateCell(DisplayIndex + 3);
+                HeaderCell.SetCellValue(user2);
+                HeaderCell.CellStyle = MainWithoutBorderCS;
+
+                HeaderCell = sheet1.CreateRow(RowIndex + 2).CreateCell(DisplayIndex + 7);
+                HeaderCell.SetCellValue(user3);
+                HeaderCell.CellStyle = MainWithoutBorderCS;
+
+                HeaderCell = sheet1.CreateRow(RowIndex + 4).CreateCell(DisplayIndex + 7);
+                HeaderCell.SetCellValue(user4);
+                HeaderCell.CellStyle = MainWithoutBorderCS;
+
+                HeaderCell = sheet1.CreateRow(RowIndex + 2).CreateCell(DisplayIndex + 11);
+                HeaderCell.SetCellValue(user5);
+                HeaderCell.CellStyle = MainWithoutBorderCS;
 
                 sheet1.SetColumnWidth(DisplayIndex++, 7 * 256);
                 sheet1.SetColumnWidth(DisplayIndex++, 22 * 256);
@@ -10597,10 +11050,11 @@ namespace Infinium
                 }
                 sheet1.SetColumnWidth(DisplayIndex++, 8 * 256);// Факт. отраб.
                 sheet1.SetColumnWidth(DisplayIndex++, 8 * 256);// Часы
-                sheet1.SetColumnWidth(DisplayIndex++, 15 * 256);
+                sheet1.SetColumnWidth(DisplayIndex++, 9 * 256);
 
 
-                sheet1.CreateFreezePane(3, 2, 3, 2);
+                sheet1.GetRow(8).Height = (short)3 * 256;
+                sheet1.CreateFreezePane(3, 9, 3, 9);
             }
 
             string FileName = "Профиль-" + monthTimesheet.Year.ToString();
@@ -10667,6 +11121,18 @@ namespace Infinium
         /// отработано часов по табелю
         /// </summary>
         public decimal AllTimesheetHours;
+        /// <summary>
+        /// отработано часов фактически
+        /// </summary>
+        public decimal AllFactHours;
+        /// <summary>
+        /// переработка
+        /// </summary>
+        public decimal AllOverworkHours;
+        /// <summary>
+        /// переработка
+        /// </summary>
+        public decimal AllFactOverworkHours;
     }
 
     public struct TimesheetInfo

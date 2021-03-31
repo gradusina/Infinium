@@ -763,15 +763,23 @@ namespace Infinium
         //----------------------------------------------
         private void ApplyButton_Click(object sender, EventArgs e)
         {
+            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Создание документа Excel.\r\nПодождите..."); });
+            T.Start();
+
+            while (!SplashWindow.bSmallCreated) ;
+
             WorkTimeSheet.GetTimeSheet(TimeSheetDataGrid, YearComboBox.SelectedItem.ToString(), MonthComboBox.SelectedItem.ToString());
             int monthInt = Convert.ToDateTime(MonthComboBox.SelectedItem.ToString() + " " + YearComboBox.SelectedItem.ToString()).Month;
             int yearInt = int.Parse(YearComboBox.SelectedItem.ToString());
 
-            //if (TimeSheetDataGrid.ColumnCount != 0)
-            //    WorkTimeSheet.ExportToExcel(TimeSheetDataGrid);
+
             resultTimesheet.CreateUsersList(yearInt, monthInt, DateTime.Now);
             TimesheetReport timesheetReport = new TimesheetReport();
-            timesheetReport.CreateReport(resultTimesheet);
+            timesheetReport.CreateReport(yearInt, monthInt, resultTimesheet);
+
+            while (SplashWindow.bSmallCreated)
+                SmallWaitForm.CloseS = true;
+
         }
 
         private void YearComboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -828,20 +836,20 @@ namespace Infinium
 
         private void ExportButton_Click(object sender, EventArgs e)
         {
-            Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Создание документа Excel.\r\nПодождите..."); });
-            T.Start();
+            //Thread T = new Thread(delegate () { SplashWindow.CreateSmallSplash(ref TopForm, "Создание документа Excel.\r\nПодождите..."); });
+            //T.Start();
 
-            while (!SplashWindow.bSmallCreated) ;
+            //while (!SplashWindow.bSmallCreated) ;
 
-            //int monthInt = Convert.ToDateTime(MonthComboBox.SelectedItem.ToString() + " " + YearComboBox.SelectedItem.ToString()).Month;
-            //int yearInt = int.Parse(YearComboBox.SelectedItem.ToString());
+            ////int monthInt = Convert.ToDateTime(MonthComboBox.SelectedItem.ToString() + " " + YearComboBox.SelectedItem.ToString()).Month;
+            ////int yearInt = int.Parse(YearComboBox.SelectedItem.ToString());
 
-            if (TimeSheetDataGrid.ColumnCount != 0)
-                WorkTimeSheet.ExportToExcel(TimeSheetDataGrid);
-            //resultTimesheet.CreateUsersList(yearInt, monthInt, DateTime.Now);
+            //if (TimeSheetDataGrid.ColumnCount != 0)
+            //    WorkTimeSheet.ExportToExcel(TimeSheetDataGrid);
+            ////resultTimesheet.CreateUsersList(yearInt, monthInt, DateTime.Now);
 
-            while (SplashWindow.bSmallCreated)
-                SmallWaitForm.CloseS = true;
+            //while (SplashWindow.bSmallCreated)
+            //    SmallWaitForm.CloseS = true;
         }
 
         private void WorkDaysGrid_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
